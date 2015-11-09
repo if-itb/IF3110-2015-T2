@@ -101,39 +101,26 @@ body {
 p {
   margin-bottom: 1em; }
 
-a {
+a, .form-delete {
   color: #0077CC;
   text-decoration: none; }
-  a:visited {
+  a:visited, .form-delete:visited {
     color: #0077CC;
     text-decoration: none; }
-  a:hover {
+  a:hover, .form-delete:hover {
     color: #195398;
     text-decoration: underline; }
 
 input,
 textarea {
-  padding: 10px;
+  padding: 5px 10px;
   border-radius: 2px; }
 
 input:not([type="submit"]),
 textarea {
-  height: 36px;
+  height: 38px;
   background: #FDFDFD;
   border: 2px solid #62B0DF; }
-
-input[type="submit"] {
-  transform: translateY(1px);
-  height: 37px;
-  font-weight: 600;
-  color: #FFF;
-  border: none;
-  background-color: #62B0DF;
-  cursor: pointer;
-  transition: background 300ms ease; }
-
-input[type="submit"]:hover {
-  background-color: #389bd6; }
 
 #searchForm input[type="text"] {
   width: 400px; }
@@ -142,6 +129,30 @@ input[type="submit"]:hover {
   text-align: center;
   margin-top: 20px;
   margin-bottom: 10px; }
+
+.ask-here-link {
+  color: #D49515 !important; }
+
+.meta-name {
+  color: #0077CC; }
+
+.question-edit {
+  color: #D49515 !important; }
+
+.form-delete {
+  color: #F25858 !important; }
+
+.btn-submit {
+  height: 37px;
+  font-weight: 600;
+  color: #FFF;
+  border: none;
+  background-color: #62B0DF;
+  cursor: pointer;
+  transition: background 300ms ease; }
+
+.btn-submit:hover {
+  background-color: #389bd6; }
 
 .ask-here {
   text-align: center;
@@ -163,11 +174,17 @@ input[type="submit"]:hover {
 
 .main-title h1 {
   font-size: 30px;
-  font-weight: 600;
   text-align: center; }
 
 .main-title h1 span {
   color: #195398; }
+
+.main-title a, .main-title .form-delete,
+.main-title a:hover,
+.main-title .form-delete:hover {
+  color: #2F2F2F;
+  font-weight: 600;
+  text-decoration: none; }
 
 .secondary-title h2 {
   margin-bottom: 10px;
@@ -192,8 +209,9 @@ input[type="submit"]:hover {
   font-weight: 600;
   margin-bottom: 1em; }
 
-.question-title a,
-.question-title a:visited {
+.question-title a, .question-title .form-delete,
+.question-title a:visited,
+.question-title .form-delete:visited {
   color: #0077CC;
   text-decoration: none; }
 
@@ -240,13 +258,16 @@ input[type="submit"]:hover {
   color: #0077CC;
   margin-bottom: 10px; }
 
+.question-item {
+  margin-bottom: 30px; }
+
 .question-item,
 .answer {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   border-top: 2px solid #B8B8B8; }
 
-.answer {
+.answer:last-child {
   border-bottom: 2px solid #B8B8B8;
   margin-bottom: 30px; }
 
@@ -255,14 +276,16 @@ input[type="submit"]:hover {
   font-weight: 600;
   color: #5C5C5C; }
 
-.vote-down a,
-.vote-up a {
+.vote-down a, .vote-down .form-delete,
+.vote-up a,
+.vote-up .form-delete {
   font-size: 20px;
   text-decoration: none;
   color: #5C5C5C;
   transition: color 300ms ease; }
-  .vote-down a:hover,
-  .vote-up a:hover {
+  .vote-down a:hover, .vote-down .form-delete:hover,
+  .vote-up a:hover,
+  .vote-up .form-delete:hover {
     color: #292929; }
 
 .answer-header h2 {
@@ -270,6 +293,25 @@ input[type="submit"]:hover {
   font-size: 18px;
   font-weight: 400;
   color: #5C5C5C; }
+
+.delete-form {
+  display: inline; }
+
+.form-delete {
+  display: inline;
+  padding: 0;
+  font-family: 'Open sans', sans-serif;
+  font-weight: 400;
+  color: #0077CC;
+  font-size: 14px;
+  background: transparent;
+  cursor: pointer;
+  border: none; }
+
+.form-field input#email,
+.form-field input#name {
+  font-size: 14px;
+  width: 250px; }
 
 .form-field input,
 .form-field textarea {
@@ -293,7 +335,22 @@ input[type="submit"]:hover {
   border-top: 2px solid #B8B8B8;
   padding-top: 20px; }
 
-#askForm #title {
+input#topic {
   width: 300px; }
+
+.login-form-wrapper,
+.register-form-wrapper {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px; }
+
+.login-form-wrapper input.login,
+.register-form-wrapper input.login {
+  width: 100%; }
+
+.login-form-wrapper .btn-submit,
+.register-form-wrapper .btn-submit {
+  float: right; }
 
 /*# sourceMappingURL=style.css.map */
