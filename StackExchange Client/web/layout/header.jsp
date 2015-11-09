@@ -24,5 +24,5 @@
 <div class="outer-container">
     
     <header class="main-title">
-        <h1>Stack<span>Exchange<span></h1>
+        <h1>Stack<span>Exchange</span></h1>
     </header>
