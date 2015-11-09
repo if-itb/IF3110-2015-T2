@@ -30,7 +30,6 @@
         </div> <!-- .row -->
         
     </div> <!-- .inner-container -->
-
-</div> <!-- .outer-container -->
+    
 <jsp:include page = "layout/footer.jsp" flush = "true"/>
 
