@@ -6,27 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page = "layout/header.jsp" flush = "true"/>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Simple StackExchange</title>
-
-    <!-- Main style -->
-    <link rel="stylesheet" href="css/style.css">
-
-    <!-- Google fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:800italic,300,400,400italic,600,700' rel='stylesheet' type='text/css'>
-</head>
-<body>
-
-<div class="outer-container">
-    
-    <header class="main-title">
-        <h1>Stack<span>Exchange<span></h1>
-    </header>
 
     <form action="" method="GET" id="searchForm">
         <input type="text" placeholder="Search...">
@@ -120,8 +99,4 @@
         </div> <!-- .inner-container -->
     </div> <!-- .question-list -->
 
-</div> <!-- .outer-container -->
-<script src="js/app.js"></script>
-
-</body>
-</html>
+<jsp:include page = "layout/footer.jsp" flush = "true"/>
