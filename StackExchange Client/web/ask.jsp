@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="layout/header.jsp" flush="true"/>
     <form action="" method="GET" id="searchForm">
         <input type="text" placeholder="Search...">
         <input type="submit" value="Search">
@@ -49,3 +50,4 @@
         </div> <!-- .row -->
         
     </div> <!-- .inner-container -->
+<jsp:include page="layout/footer.jsp" flush="true"/>
