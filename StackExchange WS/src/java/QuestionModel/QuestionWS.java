@@ -24,6 +24,8 @@ import Database.DB;
 @WebService(serviceName = "QuestionWS")
 public class QuestionWS {
 
+  /* Connecting to Database */
+  /* MANDATORY */
   Connection conn = DB.connect();  
   
   /**
