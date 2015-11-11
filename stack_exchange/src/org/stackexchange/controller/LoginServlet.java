@@ -12,6 +12,7 @@ public class LoginServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
 
+        request.setAttribute("testVariable", "tess");
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 

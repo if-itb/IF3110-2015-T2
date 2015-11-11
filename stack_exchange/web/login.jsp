@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="container text-center">
-      <h1>Simple StackExchange</h1>
+      <h1>Simple StackExchange ${testVariable}</h1>
 
       <div style="height: 100px"></div>
       <div class="login-box span-4 span-offset-3">
