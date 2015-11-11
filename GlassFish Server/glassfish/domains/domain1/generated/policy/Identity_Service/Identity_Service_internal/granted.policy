@@ -1,0 +1,79 @@
+/* AUTOMATICALLY GENERATED ON Sat Nov 07 17:05:11 ICT 2015*/
+/* DO NOT EDIT */
+
+grant {
+  permission javax.security.jacc.EJBMethodPermission "VoteQuestionFacadeREST", "remove,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "VoteAnswerFacadeREST", "create,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "AnswersFacadeREST", "find,Local,java.lang.Integer";
+  permission javax.security.jacc.EJBMethodPermission "VoteAnswerFacadeREST", "findRange,Local,int[]";
+  permission javax.security.jacc.EJBMethodPermission "AnswersFacadeREST", "countREST,Local,";
+  permission javax.security.jacc.EJBMethodPermission "UsersFacadeREST", "findRange,Local,int[]";
+  permission javax.security.jacc.EJBMethodPermission "QuestionsFacadeREST", "count,Local,";
+  permission javax.security.jacc.EJBMethodPermission "QuestionsFacadeREST", "create,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "QuestionsFacadeREST", "edit,Local,java.lang.Integer,org.me.entities.Questions";
+  permission javax.security.jacc.EJBMethodPermission "AnswersFacadeREST", "find,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "VoteQuestionFacadeREST", "findAll,Local,";
+  permission javax.security.jacc.EJBMethodPermission "UsersFacadeREST", "create,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "VoteAnswerFacadeREST", "remove,Local,javax.ws.rs.core.PathSegment";
+  permission javax.security.jacc.EJBMethodPermission "UsersFacadeREST", "remove,Local,java.lang.Integer";
+  permission javax.security.jacc.EJBMethodPermission "VoteAnswerFacadeREST", "find,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "QuestionsFacadeREST", "countREST,Local,";
+  permission javax.security.jacc.EJBMethodPermission "VoteQuestionFacadeREST", "create,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "VoteQuestionFacadeREST", "find,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "UsersFacadeREST", "edit,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "VoteAnswerFacadeREST", "create,Local,org.me.entities.VoteAnswer";
+  permission javax.security.jacc.EJBMethodPermission "AnswersFacadeREST", "count,Local,";
+  permission javax.security.jacc.EJBMethodPermission "VoteAnswerFacadeREST", "countREST,Local,";
+  permission javax.security.jacc.EJBMethodPermission "VoteQuestionFacadeREST", "edit,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "AnswersFacadeREST", "remove,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "UsersFacadeREST", "edit,Local,java.lang.Integer,org.me.entities.Users";
+  permission javax.security.jacc.EJBMethodPermission "VoteQuestionFacadeREST", "edit,Local,javax.ws.rs.core.PathSegment,org.me.entities.VoteQuestion";
+  permission javax.security.jacc.EJBMethodPermission "VoteQuestionFacadeREST", "find,Local,javax.ws.rs.core.PathSegment";
+  permission javax.security.jacc.EJBMethodPermission "VoteAnswerFacadeREST", "edit,Local,javax.ws.rs.core.PathSegment,org.me.entities.VoteAnswer";
+  permission javax.security.jacc.EJBMethodPermission "QuestionsFacadeREST", "find,Local,java.lang.Integer";
+  permission javax.security.jacc.EJBMethodPermission "AnswersFacadeREST", "remove,Local,java.lang.Integer";
+  permission javax.security.jacc.EJBMethodPermission "QuestionsFacadeREST", "remove,Local,java.lang.Integer";
+  permission javax.security.jacc.EJBMethodPermission "QuestionsFacadeREST", "findAll,Local,";
+  permission javax.security.jacc.EJBMethodPermission "VoteAnswerFacadeREST", "find,Local,javax.ws.rs.core.PathSegment";
+  permission javax.security.jacc.EJBMethodPermission "UsersFacadeREST", "create,Local,org.me.entities.Users";
+  permission javax.security.jacc.EJBMethodPermission "QuestionsFacadeREST", "find,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "UsersFacadeREST", "find,Local,java.lang.Integer";
+  permission javax.security.jacc.EJBMethodPermission "VoteAnswerFacadeREST", "findRange,Local,java.lang.Integer,java.lang.Integer";
+  permission javax.security.jacc.EJBMethodPermission "VoteQuestionFacadeREST", "create,Local,org.me.entities.VoteQuestion";
+  permission javax.security.jacc.EJBMethodPermission "VoteQuestionFacadeREST", "findRange,Local,java.lang.Integer,java.lang.Integer";
+  permission javax.security.jacc.EJBMethodPermission "QuestionsFacadeREST", "edit,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "QuestionsFacadeREST", "create,Local,org.me.entities.Questions";
+  permission javax.security.jacc.EJBMethodPermission "AnswersFacadeREST", "findRange,Local,java.lang.Integer,java.lang.Integer";
+  permission javax.security.jacc.EJBMethodPermission "VoteQuestionFacadeREST", "remove,Local,javax.ws.rs.core.PathSegment";
+  permission javax.security.jacc.EJBMethodPermission "VoteQuestionFacadeREST", "findRange,Local,int[]";
+  permission javax.security.jacc.EJBMethodPermission "VoteQuestionFacadeREST", "count,Local,";
+  permission javax.security.jacc.EJBMethodPermission "QuestionsFacadeREST", "findRange,Local,int[]";
+  permission javax.security.jacc.EJBMethodPermission "VoteAnswerFacadeREST", "count,Local,";
+  permission javax.security.jacc.EJBMethodPermission "AnswersFacadeREST", "edit,Local,java.lang.Integer,org.me.entities.Answers";
+  permission javax.security.jacc.EJBMethodPermission "VoteAnswerFacadeREST", "remove,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "VoteQuestionFacadeREST", "countREST,Local,";
+  permission javax.security.jacc.EJBMethodPermission "UsersFacadeREST", "countREST,Local,";
+  permission javax.security.jacc.EJBMethodPermission "AnswersFacadeREST", "findAll,Local,";
+  permission javax.security.jacc.EJBMethodPermission "UsersFacadeREST", "find,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "UsersFacadeREST", "findAll,Local,";
+  permission javax.security.jacc.EJBMethodPermission "UsersFacadeREST", "count,Local,";
+  permission javax.security.jacc.EJBMethodPermission "AnswersFacadeREST", "edit,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "AnswersFacadeREST", "create,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "VoteAnswerFacadeREST", "edit,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "QuestionsFacadeREST", "findRange,Local,java.lang.Integer,java.lang.Integer";
+  permission javax.security.jacc.EJBMethodPermission "VoteAnswerFacadeREST", "findAll,Local,";
+  permission javax.security.jacc.EJBMethodPermission "UsersFacadeREST", "findRange,Local,java.lang.Integer,java.lang.Integer";
+  permission javax.security.jacc.EJBMethodPermission "UsersFacadeREST", "remove,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "AnswersFacadeREST", "create,Local,org.me.entities.Answers";
+  permission javax.security.jacc.EJBMethodPermission "QuestionsFacadeREST", "remove,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "AnswersFacadeREST", "findRange,Local,int[]";
+};
+
+grant      principal * * {
+  permission javax.security.jacc.EJBRoleRefPermission "AnswersFacadeREST", "**";
+  permission javax.security.jacc.EJBRoleRefPermission "UsersFacadeREST", "**";
+  permission javax.security.jacc.EJBRoleRefPermission "VoteAnswerFacadeREST", "**";
+  permission javax.security.jacc.EJBRoleRefPermission "QuestionsFacadeREST", "**";
+  permission javax.security.jacc.EJBRoleRefPermission "VoteQuestionFacadeREST", "**";
+};
+
