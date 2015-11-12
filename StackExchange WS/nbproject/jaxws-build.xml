@@ -19,14 +19,6 @@
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsgen-StackExchangeWS" depends="wsgen-init">
-        <copy todir="${build.classes.dir}/META-INF">
-            <fileset dir="${webinf.dir}" includes="wsit-org.me.stackexchange.StackExchangeWS.xml"/>
-        </copy>
-        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="org.me.stackexchange.StackExchangeWS" xendorsed="true">
-            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
-        </wsgen>
-    </target>
     <target name="wsgen-QuestionWS" depends="wsgen-init">
         <copy todir="${build.classes.dir}/META-INF">
             <fileset dir="${webinf.dir}" includes="wsit-QuestionModel.QuestionWS.xml"/>
@@ -48,6 +40,14 @@
             <fileset dir="${webinf.dir}" includes="wsit-UserModel.UserWS.xml"/>
         </copy>
         <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="UserModel.UserWS" xendorsed="true">
+            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
+        </wsgen>
+    </target>
+    <target name="wsgen-StackExchangeWS" depends="wsgen-init">
+        <copy todir="${build.classes.dir}/META-INF">
+            <fileset dir="${webinf.dir}" includes="wsit-org.me.stackexchange.StackExchangeWS.xml"/>
+        </copy>
+        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="org.me.stackexchange.StackExchangeWS" xendorsed="true">
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </wsgen>
     </target>

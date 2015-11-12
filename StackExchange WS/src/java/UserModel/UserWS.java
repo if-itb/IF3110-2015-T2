@@ -5,6 +5,8 @@
  */
 package UserModel;
 
+import Database.DB;
+import java.sql.Connection;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -15,6 +17,10 @@ import javax.jws.WebParam;
  */
 @WebService(serviceName = "UserWS")
 public class UserWS {
+  
+  /* Connecting to Database */
+  /* MANDATORY */
+  Connection conn = DB.connect();  
 
   /**
    * This is a sample web service operation
