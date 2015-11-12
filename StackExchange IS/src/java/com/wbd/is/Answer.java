@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.web.is;
+package com.wbd.is;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -25,21 +25,25 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author User
  */
 @Entity
-@Table(name = "question")
+@Table(name = "answer")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
-    @NamedQuery(name = "Question.findByIdq", query = "SELECT q FROM Question q WHERE q.idq = :idq"),
-    @NamedQuery(name = "Question.findByNama", query = "SELECT q FROM Question q WHERE q.nama = :nama"),
-    @NamedQuery(name = "Question.findByQuestionTopic", query = "SELECT q FROM Question q WHERE q.questionTopic = :questionTopic"),
-    @NamedQuery(name = "Question.findByVote", query = "SELECT q FROM Question q WHERE q.vote = :vote")})
-public class Question implements Serializable {
+    @NamedQuery(name = "Answer.findAll", query = "SELECT a FROM Answer a"),
+    @NamedQuery(name = "Answer.findByIDAns", query = "SELECT a FROM Answer a WHERE a.iDAns = :iDAns"),
+    @NamedQuery(name = "Answer.findByIdq", query = "SELECT a FROM Answer a WHERE a.idq = :idq"),
+    @NamedQuery(name = "Answer.findByNama", query = "SELECT a FROM Answer a WHERE a.nama = :nama"),
+    @NamedQuery(name = "Answer.findByVote", query = "SELECT a FROM Answer a WHERE a.vote = :vote")})
+public class Answer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @Column(name = "IDAns")
+    private Integer iDAns;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "IDQ")
-    private Integer idq;
+    private int idq;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
@@ -54,41 +58,44 @@ public class Question implements Serializable {
     private String email;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "QuestionTopic")
-    private String questionTopic;
-    @Basic(optional = false)
-    @NotNull
     @Lob
     @Size(min = 1, max = 65535)
-    @Column(name = "Content")
-    private String content;
+    @Column(name = "Answer")
+    private String answer;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Vote")
     private int vote;
 
-    public Question() {
+    public Answer() {
     }
 
-    public Question(Integer idq) {
-        this.idq = idq;
+    public Answer(Integer iDAns) {
+        this.iDAns = iDAns;
     }
 
-    public Question(Integer idq, String nama, String email, String questionTopic, String content, int vote) {
+    public Answer(Integer iDAns, int idq, String nama, String email, String answer, int vote) {
+        this.iDAns = iDAns;
         this.idq = idq;
         this.nama = nama;
         this.email = email;
-        this.questionTopic = questionTopic;
-        this.content = content;
+        this.answer = answer;
         this.vote = vote;
     }
 
-    public Integer getIdq() {
+    public Integer getIDAns() {
+        return iDAns;
+    }
+
+    public void setIDAns(Integer iDAns) {
+        this.iDAns = iDAns;
+    }
+
+    public int getIdq() {
         return idq;
     }
 
-    public void setIdq(Integer idq) {
+    public void setIdq(int idq) {
         this.idq = idq;
     }
 
@@ -108,20 +115,12 @@ public class Question implements Serializable {
         this.email = email;
     }
 
-    public String getQuestionTopic() {
-        return questionTopic;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setQuestionTopic(String questionTopic) {
-        this.questionTopic = questionTopic;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public int getVote() {
@@ -135,18 +134,18 @@ public class Question implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idq != null ? idq.hashCode() : 0);
+        hash += (iDAns != null ? iDAns.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Question)) {
+        if (!(object instanceof Answer)) {
             return false;
         }
-        Question other = (Question) object;
-        if ((this.idq == null && other.idq != null) || (this.idq != null && !this.idq.equals(other.idq))) {
+        Answer other = (Answer) object;
+        if ((this.iDAns == null && other.iDAns != null) || (this.iDAns != null && !this.iDAns.equals(other.iDAns))) {
             return false;
         }
         return true;
@@ -154,7 +153,7 @@ public class Question implements Serializable {
 
     @Override
     public String toString() {
-        return "com.web.is.Question[ idq=" + idq + " ]";
+        return "com.wbd.is.Answer[ iDAns=" + iDAns + " ]";
     }
     
 }

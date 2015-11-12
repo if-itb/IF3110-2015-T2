@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.web.is.service;
+package com.wbd.is.service;
 
-import com.web.is.Question;
+import com.wbd.is.Question;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -24,7 +24,7 @@ import javax.ws.rs.Produces;
  * @author User
  */
 @Stateless
-@Path("com.web.is.question")
+@Path("com.wbd.is.question")
 public class QuestionFacadeREST extends AbstractFacade<Question> {
     @PersistenceContext(unitName = "StackExchange_ISPU")
     private EntityManager em;
