@@ -51,7 +51,7 @@
 <!DOCTYPE client-container PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Application Client Container//EN" "http://glassfish.org/dtds/glassfish-application-client-container_1_3.dtd">
 
 <client-container>
-  <target-server name="Asus-PC" address="localhost" port="26283"/>
+  <target-server name="W8" address="localhost" port="10054"/>
   <log-service file="" level="WARNING"/>
   <message-security-config auth-layer="SOAP">
     <!-- turned off by default -->
