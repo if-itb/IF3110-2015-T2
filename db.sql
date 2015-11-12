@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `answer` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL primary key auto_increment,
   `user_id` int(11) NOT NULL,
   `question_id` int(11) NOT NULL,
   `content` text NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
 --
 
 CREATE TABLE IF NOT EXISTS `question` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL primary key auto_increment,
   `user_id` int(11) NOT NULL,
   `topic` varchar(255) DEFAULT NULL,
   `content` text,
@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS `question` (
 --
 
 CREATE TABLE IF NOT EXISTS `token` (
+  `id` int not null primary key auto_increment,
   `token` varchar(64) NOT NULL,
   `user_id` int(11) NOT NULL,
   `expire` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -69,8 +70,7 @@ CREATE TABLE IF NOT EXISTS `token` (
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL,
-  `username` varchar(64) NOT NULL,
+  `id` int(11) NOT NULL primary key auto_increment,
   `password` varchar(64) NOT NULL,
   `email` varchar(64) NOT NULL,
   `fullname` varchar(128) NOT NULL
@@ -80,29 +80,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Indexes for dumped tables
 --
 
---
--- Indexes for table `answer`
---
-ALTER TABLE `answer`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `thread`
---
-ALTER TABLE `question`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `token`
---
-ALTER TABLE `token`
-  ADD PRIMARY KEY (`user_id`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

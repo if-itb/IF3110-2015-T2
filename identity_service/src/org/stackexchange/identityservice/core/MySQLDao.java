@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class MySQLModel {
+public class MySQLDao {
 
     final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     final String DB_URL = "jdbc:mysql://localhost:3306/stack_exchange_2";
@@ -12,27 +12,26 @@ public class MySQLModel {
     final String USER = "root";
     final String PASS = "rahasia";
 
-    Connection conn = null;
+    protected Connection conn = null;
 
-    public Connection GetConnection()
-    {
-        try{
-            Class.forName(JDBC_DRIVER);
+    protected void getConnection() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
 
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
-        }catch(SQLException se){
+        } catch(SQLException se) {
             se.printStackTrace();
-        }catch(Exception e){
+        } catch(ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-        return conn;
     }
 
-    public void CloseConnection(){
-        try{
-            if(conn!=null) conn.close();
-        }catch(SQLException se) {
+    protected void closeConnection() {
+        try {
+            if(conn != null) {
+                conn.close();
+            }
+        } catch(SQLException se) {
             se.printStackTrace();
         }
     }
