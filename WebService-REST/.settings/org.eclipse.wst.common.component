@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="IF3110-2015-T2">
+    <wb-module deploy-name="WebService-REST">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="IF3110-2015-T2"/>
-        <property name="java-output-path" value="/IF3110-2015-T2/build/classes"/>
+        <property name="context-root" value="WebService-REST"/>
+        <property name="java-output-path" value="/WebService-REST/build/classes"/>
     </wb-module>
 </project-modules>
