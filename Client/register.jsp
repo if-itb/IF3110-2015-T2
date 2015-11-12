@@ -39,7 +39,13 @@
 		QName qname = new QName("http://ws.yangnormal.com/","RegistrationImplService");
 		Service service = Service.create(url,qname);
 		Registration regis = service.getPort(Registration.class);
-		regis.register(name,email,password);
+		int status = regis.register(name,email,password); //method register di webservicenya return status ngecek kalau emailnya udah ada di DB atau belum
+		if (status==0){
+			response.redirect("registerSuccess.jsp");
+		} else {
+			response.redirect("registerFail.jsp");
+		}
+
 	}
 	*/
 	%>
