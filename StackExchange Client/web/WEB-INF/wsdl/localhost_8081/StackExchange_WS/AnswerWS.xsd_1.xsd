@@ -6,15 +6,13 @@
 
 <xs:element name="getAnswerByQIDResponse" type="tns:getAnswerByQIDResponse"/>
 
-<xs:complexType name="getAnswerByQID">
-<xs:sequence>
-<xs:element name="qid" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
+<xs:element name="insertAnswer" type="tns:insertAnswer"/>
 
-<xs:complexType name="getAnswerByQIDResponse">
+<xs:element name="insertAnswerResponse" type="tns:insertAnswerResponse"/>
+
+<xs:complexType name="insertAnswer">
 <xs:sequence>
-<xs:element name="Answer" type="tns:answer" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="answer" type="tns:answer" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -25,6 +23,24 @@
 <xs:element name="id_user" type="xs:int"/>
 <xs:element name="content" type="xs:string"/>
 <xs:element name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="insertAnswerResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAnswerByQID">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAnswerByQIDResponse">
+<xs:sequence>
+<xs:element name="Answer" type="tns:answer" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

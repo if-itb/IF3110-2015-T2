@@ -49,7 +49,6 @@ public class AnswerWS {
       ResultSet rs = dbStatement.executeQuery();
       
       // Extract data from result set
-      int i = 0;
       while(rs.next()){        
         answers.add(new Answer( rs.getInt("id"),
                                  rs.getInt("id_question"),
@@ -57,7 +56,6 @@ public class AnswerWS {
                                  rs.getString("content"),
                                  rs.getString("timestamp")
                                 ));   
-        ++i;
       }
       
       rs.close();
@@ -67,6 +65,33 @@ public class AnswerWS {
       Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
     }
     return answers;
+  }
+  
+  /**
+   * Web service operation
+   */
+  @WebMethod(operationName = "insertAnswer")
+  public int insertAnswer(@WebParam(name = "answer") Answer answer) {
+    
+    try {      
+      Statement stmt = conn.createStatement();
+      String sql;
+      
+      sql = "INSERT INTO answers (id_question, id_user, content) VALUES (?, ?, ?)";
+      PreparedStatement dbStatement = conn.prepareStatement(sql);
+      dbStatement.setInt(1, answer.getIdQuestion());
+      dbStatement.setInt(2, answer.getIdUser());
+      dbStatement.setString(3, answer.getContent());
+      
+      dbStatement.executeUpdate();
+      
+      stmt.close();
+      //conn.close();
+    } catch (SQLException ex) {
+      Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    return 1;
   }
 
 }
