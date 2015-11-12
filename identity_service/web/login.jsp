@@ -14,6 +14,9 @@
       <div style="height: 100px"></div>
       <div class="login-box span-4 span-offset-3">
         <h2>Login</h2>
+        <c:if test="${flash != null}">
+          <h4 style="color:red">${flash}</h4>
+        </c:if>
         <input class="form" type="text" placeholder="username" name="username">
         <input class="form" type="password" placeholder="password" name="password">
 

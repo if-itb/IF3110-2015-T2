@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class TokenDao extends MySQLDao {
 
-    public boolean isTokenExist(String token) {
+    public boolean existByToken(String token) {
         String query = "SELECT * FROM `token` WHERE token='" + token + "'";
         Statement statement;
         boolean exist = false;
@@ -24,6 +24,7 @@ public class TokenDao extends MySQLDao {
             }
             rs.close();
             statement.close();
+            closeConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -31,7 +32,30 @@ public class TokenDao extends MySQLDao {
         return exist;
     }
 
-    public Token getTokenFromToken(String token) {
+    public boolean existByUserid(long userId) {
+        String query = "SELECT * FROM `token` WHERE user_id='" + userId + "'";
+        Statement statement;
+        boolean exist = false;
+
+        try {
+            getConnection();
+            statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+
+            if (rs.next()) {
+                exist = true;
+            }
+            rs.close();
+            statement.close();
+            closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exist;
+    }
+
+    public Token getFromToken(String token) {
         String query = "SELECT * FROM `token` WHERE token='" + token + "'";
         Statement statement;
 
@@ -51,6 +75,7 @@ public class TokenDao extends MySQLDao {
 
             rs.close();
             statement.close();
+            closeConnection();
             if (exist) {
                 return new Token(id, token, userId);
             } else {
@@ -62,7 +87,7 @@ public class TokenDao extends MySQLDao {
         }
     }
 
-    public Token insertToken(long userId, String token) {
+    public Token insert(long userId, String token) {
         String query = "INSERT INTO `token` (`user_id`, `token`) VALUES (" + userId + ", '" + token + "')";
         Statement statement;
 
@@ -81,11 +106,28 @@ public class TokenDao extends MySQLDao {
 
             rs.close();
             statement.close();
+            closeConnection();
 
             return insertedToken;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void deleteByUserid(long userId) {
+        String query = "DELETE FROM `token` WHERE user_id=" + userId;
+        Statement statement;
+
+        try {
+            getConnection();
+            statement = conn.createStatement();
+            statement.execute(query);
+
+            statement.close();
+            closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

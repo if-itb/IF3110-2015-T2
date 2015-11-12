@@ -1,5 +1,7 @@
 package org.stackexchange.identityservice.controller;
 
+import org.stackexchange.identityservice.services.UserService;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,4 +18,20 @@ public class LoginServlet extends HttpServlet{
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        UserService userService = new UserService();
+        if (!userService.emailExist(email)) {
+            request.setAttribute("flash", "Email is not registered");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else if (!userService.emailPasswordValid(email, password)) {
+            request.setAttribute("flash", "Invalid password");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else {
+
+        }
+    }
 }
