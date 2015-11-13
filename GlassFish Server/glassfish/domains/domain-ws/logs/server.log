@@ -1,0 +1,1869 @@
+[2015-11-12T16:41:49.745+0700] [glassfish 4.1] [INFO] [NCLS-LOGGING-00009] [javax.enterprise.logging] [tid: _ThreadID=17 _ThreadName=RunLevelControllerThread-1447321309286] [timeMillis: 1447321309745] [levelValue: 800] [[
+  Running GlassFish Version: GlassFish Server Open Source Edition  4.1  (build 13)]]
+
+[2015-11-12T16:41:49.749+0700] [glassfish 4.1] [INFO] [NCLS-LOGGING-00010] [javax.enterprise.logging] [tid: _ThreadID=17 _ThreadName=RunLevelControllerThread-1447321309286] [timeMillis: 1447321309749] [levelValue: 800] [[
+  Server log file is using Formatter class: com.sun.enterprise.server.logging.ODLLogFormatter]]
+
+[2015-11-12T16:41:50.158+0700] [glassfish 4.1] [INFO] [] [org.hibernate.validator.internal.util.Version] [tid: _ThreadID=17 _ThreadName=RunLevelControllerThread-1447321309286] [timeMillis: 1447321310158] [levelValue: 800] [[
+  HV000001: Hibernate Validator 5.0.0.Final]]
+
+[2015-11-12T16:41:50.195+0700] [glassfish 4.1] [INFO] [NCLS-SECURITY-01115] [javax.enterprise.system.core.security] [tid: _ThreadID=18 _ThreadName=RunLevelControllerThread-1447321309296] [timeMillis: 1447321310195] [levelValue: 800] [[
+  Realm [admin-realm] of classtype [com.sun.enterprise.security.auth.realm.file.FileRealm] successfully created.]]
+
+[2015-11-12T16:41:50.453+0700] [glassfish 4.1] [INFO] [NCLS-CORE-00087] [javax.enterprise.system.core] [tid: _ThreadID=16 _ThreadName=RunLevelControllerThread-1447321309285] [timeMillis: 1447321310453] [levelValue: 800] [[
+  Grizzly Framework 2.3.15 started in: 45ms - bound to [/0.0.0.0:8081]]]
+
+[2015-11-12T16:41:50.543+0700] [glassfish 4.1] [INFO] [NCLS-CORE-00087] [javax.enterprise.system.core] [tid: _ThreadID=16 _ThreadName=RunLevelControllerThread-1447321309285] [timeMillis: 1447321310543] [levelValue: 800] [[
+  Grizzly Framework 2.3.15 started in: 4ms - bound to [/0.0.0.0:8182]]]
+
+[2015-11-12T16:41:50.577+0700] [glassfish 4.1] [INFO] [NCLS-SECURITY-01115] [javax.enterprise.system.core.security] [tid: _ThreadID=18 _ThreadName=RunLevelControllerThread-1447321309296] [timeMillis: 1447321310577] [levelValue: 800] [[
+  Realm [file] of classtype [com.sun.enterprise.security.auth.realm.file.FileRealm] successfully created.]]
+
+[2015-11-12T16:41:50.612+0700] [glassfish 4.1] [INFO] [NCLS-SECURITY-01115] [javax.enterprise.system.core.security] [tid: _ThreadID=18 _ThreadName=RunLevelControllerThread-1447321309296] [timeMillis: 1447321310612] [levelValue: 800] [[
+  Realm [certificate] of classtype [com.sun.enterprise.security.auth.realm.certificate.CertificateRealm] successfully created.]]
+
+[2015-11-12T16:41:50.638+0700] [glassfish 4.1] [INFO] [NCLS-CORE-00087] [javax.enterprise.system.core] [tid: _ThreadID=16 _ThreadName=RunLevelControllerThread-1447321309285] [timeMillis: 1447321310638] [levelValue: 800] [[
+  Grizzly Framework 2.3.15 started in: 66ms - bound to [/0.0.0.0:4849]]]
+
+[2015-11-12T16:41:50.784+0700] [glassfish 4.1] [INFO] [] [org.glassfish.ha.store.spi.BackingStoreFactoryRegistry] [tid: _ThreadID=19 _ThreadName=RunLevelControllerThread-1447321309296] [timeMillis: 1447321310784] [levelValue: 800] [[
+  Registered org.glassfish.ha.store.adapter.cache.ShoalBackingStoreProxy for persistence-type = replicated in BackingStoreFactoryRegistry]]
+
+[2015-11-12T16:41:50.795+0700] [glassfish 4.1] [INFO] [SEC-SVCS-00100] [javax.enterprise.security.services] [tid: _ThreadID=18 _ThreadName=RunLevelControllerThread-1447321309296] [timeMillis: 1447321310795] [levelValue: 800] [[
+  Authorization Service has successfully initialized.]]
+
+[2015-11-12T16:41:50.889+0700] [glassfish 4.1] [INFO] [NCLS-CORE-00087] [javax.enterprise.system.core] [tid: _ThreadID=16 _ThreadName=RunLevelControllerThread-1447321309285] [timeMillis: 1447321310889] [levelValue: 800] [[
+  Grizzly Framework 2.3.15 started in: 3ms - bound to [/0.0.0.0:10054]]]
+
+[2015-11-12T16:41:51.310+0700] [glassfish 4.1] [INFO] [NCLS-CORE-00017] [javax.enterprise.system.core] [tid: _ThreadID=1 _ThreadName=main] [timeMillis: 1447321311310] [levelValue: 800] [[
+  GlassFish Server Open Source Edition  4.1  (13) startup time : Felix (20,092ms), startup services(2,033ms), total(22,125ms)]]
+
+[2015-11-12T16:41:52.479+0700] [glassfish 4.1] [INFO] [NCLS-CORE-00087] [javax.enterprise.system.core] [tid: _ThreadID=19 _ThreadName=RunLevelControllerThread-1447321309296] [timeMillis: 1447321312479] [levelValue: 800] [[
+  Grizzly Framework 2.3.15 started in: 78ms - bound to [/0.0.0.0:17693]]]
+
+[2015-11-12T16:41:52.494+0700] [glassfish 4.1] [INFO] [NCLS-BOOTSTRAP-00027] [javax.enterprise.bootstrap] [tid: _ThreadID=1 _ThreadName=main] [timeMillis: 1447321312494] [levelValue: 800] [[
+  Registered com.sun.enterprise.glassfish.bootstrap.osgi.EmbeddedOSGiGlassFishImpl@56b43a4d as OSGi service registration: org.apache.felix.framework.ServiceRegistrationImpl@629034f9.]]
+
+[2015-11-12T16:41:52.676+0700] [glassfish 4.1] [INFO] [NCLS-CORE-00087] [javax.enterprise.system.core] [tid: _ThreadID=63 _ThreadName=pool-12-thread-1] [timeMillis: 1447321312676] [levelValue: 800] [[
+  Grizzly Framework 2.3.15 started in: 7ms - bound to [/0.0.0.0:8081]]]
+
+[2015-11-12T16:41:53.272+0700] [glassfish 4.1] [INFO] [NCLS-CORE-00087] [javax.enterprise.system.core] [tid: _ThreadID=63 _ThreadName=pool-12-thread-1] [timeMillis: 1447321313272] [levelValue: 800] [[
+  Grizzly Framework 2.3.15 started in: 9ms - bound to [/0.0.0.0:8182]]]
+
+[2015-11-12T16:41:53.809+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321313809] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:41:54.107+0700] [glassfish 4.1] [INFO] [AS-WSMETROGLUE-10010] [javax.enterprise.webservices.metroglue] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321314107] [levelValue: 800] [[
+  Web service endpoint deployment events listener registered successfully.]]
+
+[2015-11-12T16:41:54.381+0700] [glassfish 4.1] [INFO] [NCLS-SECURITY-01002] [javax.enterprise.system.core.security] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321314381] [levelValue: 800] [[
+  Java security manager is disabled.]]
+
+[2015-11-12T16:41:54.381+0700] [glassfish 4.1] [INFO] [NCLS-SECURITY-01010] [javax.enterprise.system.core.security] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321314381] [levelValue: 800] [[
+  Entering Security Startup Service.]]
+
+[2015-11-12T16:41:54.391+0700] [glassfish 4.1] [INFO] [NCLS-SECURITY-01143] [javax.enterprise.system.core.security] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321314391] [levelValue: 800] [[
+  Loading policy provider com.sun.enterprise.security.provider.PolicyWrapper.]]
+
+[2015-11-12T16:41:54.484+0700] [glassfish 4.1] [INFO] [NCLS-SECURITY-01011] [javax.enterprise.system.core.security] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321314484] [levelValue: 800] [[
+  Security Service(s) started successfully.]]
+
+[2015-11-12T16:41:55.251+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00198] [javax.enterprise.web] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321315251] [levelValue: 800] [[
+  Created HTTP listener http-listener-1 on host/port 0.0.0.0:8081]]
+
+[2015-11-12T16:41:55.261+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00198] [javax.enterprise.web] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321315261] [levelValue: 800] [[
+  Created HTTP listener http-listener-2 on host/port 0.0.0.0:8182]]
+
+[2015-11-12T16:41:55.265+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00198] [javax.enterprise.web] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321315265] [levelValue: 800] [[
+  Created HTTP listener admin-listener on host/port 0.0.0.0:4849]]
+
+[2015-11-12T16:41:55.291+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00200] [javax.enterprise.web] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321315291] [levelValue: 800] [[
+  Created virtual server server]]
+
+[2015-11-12T16:41:55.294+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00200] [javax.enterprise.web] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321315294] [levelValue: 800] [[
+  Created virtual server __asadmin]]
+
+[2015-11-12T16:41:55.577+0700] [glassfish 4.1] [INFO] [AS-WEB-CORE-00306] [javax.enterprise.web.core] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321315577] [levelValue: 800] [[
+  Setting JAAS app name glassfish-web]]
+
+[2015-11-12T16:41:55.578+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00201] [javax.enterprise.web] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321315578] [levelValue: 800] [[
+  Virtual server server loaded default web module ]]
+
+[2015-11-12T16:41:56.388+0700] [glassfish 4.1] [INFO] [NCLS-JMX-00005] [javax.enterprise.system.jmx] [tid: _ThreadID=61 _ThreadName=Thread-14] [timeMillis: 1447321316388] [levelValue: 800] [[
+  JMXStartupService has started JMXConnector on JMXService URL service:jmx:rmi://W8:10103/jndi/rmi://W8:10103/jmxrmi]]
+
+[2015-11-12T16:41:56.491+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321316491] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:41:56.644+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321316644] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:41:56.915+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321316915] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T16:41:56.919+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321316919] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:41:56.921+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321316921] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:41:56.924+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321316924] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:41:56.929+0700] [glassfish 4.1] [INFO] [AS-WSMETROGLUE-10001] [javax.enterprise.webservices.metroglue] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321316929] [levelValue: 800] [[
+  Loading WS-TX Services. Please wait.]]
+
+[2015-11-12T16:41:57.020+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321317020] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:41:57.614+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321317614] [levelValue: 800] [[
+  Webservice Endpoint deployed CoordinatorPortTypeImpl
+ listening at address at http://W8:8081/__wstx-services/CoordinatorPortType.]]
+
+[2015-11-12T16:41:57.617+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321317617] [levelValue: 800] [[
+  Webservice Endpoint deployed ParticipantPortTypePortImpl
+ listening at address at http://W8:8081/__wstx-services/ParticipantPortType11.]]
+
+[2015-11-12T16:41:57.620+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321317620] [levelValue: 800] [[
+  Webservice Endpoint deployed RegistrationPortTypeImpl
+ listening at address at http://W8:8081/__wstx-services/RegistrationPortTypeRPC.]]
+
+[2015-11-12T16:41:57.622+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321317622] [levelValue: 800] [[
+  Webservice Endpoint deployed CoordinatorPortTypePortImpl
+ listening at address at http://W8:8081/__wstx-services/CoordinatorPortType11.]]
+
+[2015-11-12T16:41:57.625+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321317625] [levelValue: 800] [[
+  Webservice Endpoint deployed ParticipantPortTypeImpl
+ listening at address at http://W8:8081/__wstx-services/ParticipantPortType.]]
+
+[2015-11-12T16:41:57.627+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321317627] [levelValue: 800] [[
+  Webservice Endpoint deployed RegistrationRequesterPortTypePortImpl
+ listening at address at http://W8:8081/__wstx-services/RegistrationRequesterPortType11.]]
+
+[2015-11-12T16:41:57.631+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321317631] [levelValue: 800] [[
+  Webservice Endpoint deployed RegistrationPortTypeRPCPortImpl
+ listening at address at http://W8:8081/__wstx-services/RegistrationPortTypeRPC11.]]
+
+[2015-11-12T16:41:57.633+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321317633] [levelValue: 800] [[
+  Webservice Endpoint deployed RegistrationRequesterPortTypeImpl
+ listening at address at http://W8:8081/__wstx-services/RegistrationRequesterPortType.]]
+
+[2015-11-12T16:42:00.537+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321320537] [levelValue: 800] [[
+  Loading application [wstx-services] at [/__wstx-services]]]
+
+[2015-11-12T16:42:00.538+0700] [glassfish 4.1] [INFO] [AS-WSMETROGLUE-10002] [javax.enterprise.webservices.metroglue] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321320538] [levelValue: 800] [[
+  WS-TX Services successfully started.]]
+
+[2015-11-12T16:42:01.111+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321321111] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:42:01.196+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321321196] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 7,638 milliseconds.]]
+
+[2015-11-12T16:43:52.668+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321432668] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:43:52.848+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321432848] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:43:52.883+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321432883] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:43:53.002+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321433002] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:43:53.004+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321433004] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:43:53.006+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321433006] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T16:43:53.009+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321433009] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:43:53.318+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321433318] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:43:53.352+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321433352] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 873 milliseconds.]]
+
+[2015-11-12T16:44:12.217+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321452217] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:44:12.484+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321452484] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:44:12.503+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321452503] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:44:12.654+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321452654] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:44:12.656+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321452656] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:44:12.657+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321452657] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:44:12.659+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321452659] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T16:44:12.928+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321452928] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:44:12.950+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321452950] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 875 milliseconds.]]
+
+[2015-11-12T16:44:37.914+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321477914] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:44:37.997+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321477997] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:44:38.055+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321478055] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:44:38.179+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321478179] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:44:38.181+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321478181] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:44:38.182+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321478182] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:44:38.183+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321478183] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T16:44:38.432+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321478432] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:44:38.453+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321478453] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 560 milliseconds.]]
+
+[2015-11-12T16:44:45.311+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00111] [javax.enterprise.webservices] [tid: _ThreadID=79 _ThreadName=http-listener-1(5)] [timeMillis: 1447321485311] [levelValue: 800] [[
+  Invoking wsimport with http://localhost:8081/StackExchange_WS/AnswerWS?WSDL]]
+
+[2015-11-12T16:44:45.362+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=79 _ThreadName=Thread-8] [timeMillis: 1447321485362] [levelValue: 800] [[
+  parsing WSDL...]]
+
+[2015-11-12T16:44:45.948+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=79 _ThreadName=Thread-8] [timeMillis: 1447321485948] [levelValue: 800] [[
+  Generating code...]]
+
+[2015-11-12T16:44:46.003+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=79 _ThreadName=Thread-8] [timeMillis: 1447321486003] [levelValue: 800] [[
+  Compiling code...]]
+
+[2015-11-12T16:44:46.689+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00112] [javax.enterprise.webservices] [tid: _ThreadID=79 _ThreadName=http-listener-1(5)] [timeMillis: 1447321486689] [levelValue: 800] [[
+  wsimport successful]]
+
+[2015-11-12T16:44:48.117+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00111] [javax.enterprise.webservices] [tid: _ThreadID=75 _ThreadName=http-listener-1(1)] [timeMillis: 1447321488117] [levelValue: 800] [[
+  Invoking wsimport with http://localhost:8081/StackExchange_WS/AnswerWS?WSDL]]
+
+[2015-11-12T16:44:48.125+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=75 _ThreadName=Thread-8] [timeMillis: 1447321488125] [levelValue: 800] [[
+  parsing WSDL...]]
+
+[2015-11-12T16:44:48.262+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=75 _ThreadName=Thread-8] [timeMillis: 1447321488262] [levelValue: 800] [[
+  Generating code...]]
+
+[2015-11-12T16:44:48.284+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=75 _ThreadName=Thread-8] [timeMillis: 1447321488284] [levelValue: 800] [[
+  Compiling code...]]
+
+[2015-11-12T16:44:48.400+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00112] [javax.enterprise.webservices] [tid: _ThreadID=75 _ThreadName=http-listener-1(1)] [timeMillis: 1447321488400] [levelValue: 800] [[
+  wsimport successful]]
+
+[2015-11-12T16:44:58.005+0700] [glassfish 4.1] [SEVERE] [] [QuestionModel.QuestionWS] [tid: _ThreadID=78 _ThreadName=http-listener-1(4)] [timeMillis: 1447321498005] [levelValue: 1000] [[
+  
+java.lang.ClassNotFoundException: com.mysql.jdbc.Driver
+	at org.glassfish.web.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1783)
+	at org.glassfish.web.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1633)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:195)
+	at Database.DB.connect(DB.java:33)
+	at AnswerModel.AnswerWS.<init>(AnswerWS.java:33)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at com.sun.enterprise.container.common.impl.util.InjectionManagerImpl.createManagedObject(InjectionManagerImpl.java:410)
+	at org.glassfish.webservices.InstanceResolverImpl.resolve(InstanceResolverImpl.java:89)
+	at org.glassfish.webservices.InstanceResolverImpl$1.invoke(InstanceResolverImpl.java:144)
+	at com.sun.xml.ws.server.InvokerTube$2.invoke(InvokerTube.java:149)
+	at com.sun.xml.ws.server.sei.SEIInvokerTube.processRequest(SEIInvokerTube.java:88)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at org.glassfish.webservices.MonitoringPipe.process(MonitoringPipe.java:142)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.processRequest(CommonServerSecurityPipe.java:209)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.process(CommonServerSecurityPipe.java:141)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.server.WSEndpointImpl$2.process(WSEndpointImpl.java:419)
+	at com.sun.xml.ws.transport.http.HttpAdapter$HttpToolkit.handle(HttpAdapter.java:868)
+	at com.sun.xml.ws.transport.http.HttpAdapter.handle(HttpAdapter.java:422)
+	at com.sun.xml.ws.transport.http.servlet.ServletAdapter.handle(ServletAdapter.java:169)
+	at org.glassfish.webservices.JAXWSServlet.doPost(JAXWSServlet.java:169)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1682)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:318)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:160)
+	at org.apache.catalina.core.StandardPipeline.doInvoke(StandardPipeline.java:734)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:673)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:99)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:174)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:415)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:282)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper$HttpHandlerCallable.call(ContainerMapper.java:459)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:167)
+	at org.glassfish.grizzly.http.server.HttpHandler.runService(HttpHandler.java:201)
+	at org.glassfish.grizzly.http.server.HttpHandler.doHandle(HttpHandler.java:175)
+	at org.glassfish.grizzly.http.server.HttpServerFilter.handleRead(HttpServerFilter.java:235)
+	at org.glassfish.grizzly.filterchain.ExecutorResolver$9.execute(ExecutorResolver.java:119)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeFilter(DefaultFilterChain.java:284)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeChainPart(DefaultFilterChain.java:201)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.execute(DefaultFilterChain.java:133)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.process(DefaultFilterChain.java:112)
+	at org.glassfish.grizzly.ProcessorExecutor.execute(ProcessorExecutor.java:77)
+	at org.glassfish.grizzly.nio.transport.TCPNIOTransport.fireIOEvent(TCPNIOTransport.java:561)
+	at org.glassfish.grizzly.strategies.AbstractIOStrategy.fireIOEvent(AbstractIOStrategy.java:112)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.run0(WorkerThreadIOStrategy.java:117)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.access$100(WorkerThreadIOStrategy.java:56)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy$WorkerThreadRunnable.run(WorkerThreadIOStrategy.java:137)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:565)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.run(AbstractThreadPool.java:545)
+	at java.lang.Thread.run(Thread.java:745)
+]]
+
+[2015-11-12T16:44:58.027+0700] [glassfish 4.1] [SEVERE] [] [com.sun.xml.ws.server.sei.TieHandler] [tid: _ThreadID=78 _ThreadName=http-listener-1(4)] [timeMillis: 1447321498027] [levelValue: 1000] [[
+  
+java.lang.NullPointerException
+	at AnswerModel.AnswerWS.getAnswerByQID(AnswerWS.java:43)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.glassfish.webservices.InstanceResolverImpl$1.invoke(InstanceResolverImpl.java:144)
+	at com.sun.xml.ws.server.InvokerTube$2.invoke(InvokerTube.java:149)
+	at com.sun.xml.ws.server.sei.SEIInvokerTube.processRequest(SEIInvokerTube.java:88)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at org.glassfish.webservices.MonitoringPipe.process(MonitoringPipe.java:142)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.processRequest(CommonServerSecurityPipe.java:209)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.process(CommonServerSecurityPipe.java:141)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.server.WSEndpointImpl$2.process(WSEndpointImpl.java:419)
+	at com.sun.xml.ws.transport.http.HttpAdapter$HttpToolkit.handle(HttpAdapter.java:868)
+	at com.sun.xml.ws.transport.http.HttpAdapter.handle(HttpAdapter.java:422)
+	at com.sun.xml.ws.transport.http.servlet.ServletAdapter.handle(ServletAdapter.java:169)
+	at org.glassfish.webservices.JAXWSServlet.doPost(JAXWSServlet.java:169)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1682)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:318)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:160)
+	at org.apache.catalina.core.StandardPipeline.doInvoke(StandardPipeline.java:734)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:673)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:99)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:174)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:415)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:282)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper$HttpHandlerCallable.call(ContainerMapper.java:459)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:167)
+	at org.glassfish.grizzly.http.server.HttpHandler.runService(HttpHandler.java:201)
+	at org.glassfish.grizzly.http.server.HttpHandler.doHandle(HttpHandler.java:175)
+	at org.glassfish.grizzly.http.server.HttpServerFilter.handleRead(HttpServerFilter.java:235)
+	at org.glassfish.grizzly.filterchain.ExecutorResolver$9.execute(ExecutorResolver.java:119)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeFilter(DefaultFilterChain.java:284)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeChainPart(DefaultFilterChain.java:201)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.execute(DefaultFilterChain.java:133)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.process(DefaultFilterChain.java:112)
+	at org.glassfish.grizzly.ProcessorExecutor.execute(ProcessorExecutor.java:77)
+	at org.glassfish.grizzly.nio.transport.TCPNIOTransport.fireIOEvent(TCPNIOTransport.java:561)
+	at org.glassfish.grizzly.strategies.AbstractIOStrategy.fireIOEvent(AbstractIOStrategy.java:112)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.run0(WorkerThreadIOStrategy.java:117)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.access$100(WorkerThreadIOStrategy.java:56)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy$WorkerThreadRunnable.run(WorkerThreadIOStrategy.java:137)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:565)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.run(AbstractThreadPool.java:545)
+	at java.lang.Thread.run(Thread.java:745)
+]]
+
+[2015-11-12T16:45:59.706+0700] [glassfish 4.1] [SEVERE] [NCLS-CORE-00048] [javax.enterprise.system.core] [tid: _ThreadID=105 _ThreadName=deployment-jar-scanner] [timeMillis: 1447321559706] [levelValue: 1000] [[
+  Invalid InputStream returned for WEB-INF/classes/UserModel/UserWS.class]]
+
+[2015-11-12T16:45:59.707+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321559707] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:45:59.834+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321559834] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:45:59.876+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321559876] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:46:00.047+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321560047] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:46:00.050+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321560050] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:46:00.052+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321560052] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:46:00.927+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321560927] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:46:00.954+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321560954] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 1,434 milliseconds.]]
+
+[2015-11-12T16:46:01.165+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321561165] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:46:01.261+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321561261] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:46:01.290+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321561290] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:46:01.418+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321561418] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:46:01.421+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321561421] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T16:46:01.423+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321561423] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:46:01.426+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321561426] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:46:01.911+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321561911] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:46:01.942+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321561942] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 871 milliseconds.]]
+
+[2015-11-12T16:46:42.197+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321602197] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:46:42.254+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321602254] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:46:42.273+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321602273] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:46:42.373+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321602373] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:46:42.375+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321602375] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:46:42.376+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321602376] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:46:42.378+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321602378] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T16:46:43.000+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321603000] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:46:43.018+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321603018] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 839 milliseconds.]]
+
+[2015-11-12T16:46:50.161+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321610161] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:46:50.224+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321610224] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:46:50.243+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321610243] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:46:50.324+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321610324] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:46:50.326+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321610326] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T16:46:50.328+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321610328] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:46:50.330+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321610330] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:46:50.671+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321610671] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:46:50.710+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321610710] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 574 milliseconds.]]
+
+[2015-11-12T16:46:54.782+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00111] [javax.enterprise.webservices] [tid: _ThreadID=77 _ThreadName=http-listener-1(3)] [timeMillis: 1447321614782] [levelValue: 800] [[
+  Invoking wsimport with http://localhost:8081/StackExchange_WS/AnswerWS?WSDL]]
+
+[2015-11-12T16:46:54.795+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=77 _ThreadName=Thread-8] [timeMillis: 1447321614795] [levelValue: 800] [[
+  parsing WSDL...]]
+
+[2015-11-12T16:46:54.879+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=77 _ThreadName=Thread-8] [timeMillis: 1447321614879] [levelValue: 800] [[
+  Generating code...]]
+
+[2015-11-12T16:46:54.906+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=77 _ThreadName=Thread-8] [timeMillis: 1447321614906] [levelValue: 800] [[
+  Compiling code...]]
+
+[2015-11-12T16:46:55.026+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00112] [javax.enterprise.webservices] [tid: _ThreadID=77 _ThreadName=http-listener-1(3)] [timeMillis: 1447321615026] [levelValue: 800] [[
+  wsimport successful]]
+
+[2015-11-12T16:46:56.972+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00111] [javax.enterprise.webservices] [tid: _ThreadID=76 _ThreadName=http-listener-1(2)] [timeMillis: 1447321616972] [levelValue: 800] [[
+  Invoking wsimport with http://localhost:8081/StackExchange_WS/AnswerWS?WSDL]]
+
+[2015-11-12T16:46:56.976+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=76 _ThreadName=Thread-8] [timeMillis: 1447321616976] [levelValue: 800] [[
+  parsing WSDL...]]
+
+[2015-11-12T16:46:57.076+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=76 _ThreadName=Thread-8] [timeMillis: 1447321617076] [levelValue: 800] [[
+  Generating code...]]
+
+[2015-11-12T16:46:57.091+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=76 _ThreadName=Thread-8] [timeMillis: 1447321617091] [levelValue: 800] [[
+  Compiling code...]]
+
+[2015-11-12T16:46:57.191+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00112] [javax.enterprise.webservices] [tid: _ThreadID=76 _ThreadName=http-listener-1(2)] [timeMillis: 1447321617191] [levelValue: 800] [[
+  wsimport successful]]
+
+[2015-11-12T16:47:00.466+0700] [glassfish 4.1] [SEVERE] [] [QuestionModel.QuestionWS] [tid: _ThreadID=78 _ThreadName=http-listener-1(4)] [timeMillis: 1447321620466] [levelValue: 1000] [[
+  
+java.lang.ClassNotFoundException: com.mysql.jdbc.Driver
+	at org.glassfish.web.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1783)
+	at org.glassfish.web.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1633)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:195)
+	at Database.DB.connect(DB.java:33)
+	at AnswerModel.AnswerWS.<init>(AnswerWS.java:33)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at com.sun.enterprise.container.common.impl.util.InjectionManagerImpl.createManagedObject(InjectionManagerImpl.java:410)
+	at org.glassfish.webservices.InstanceResolverImpl.resolve(InstanceResolverImpl.java:89)
+	at org.glassfish.webservices.InstanceResolverImpl$1.invoke(InstanceResolverImpl.java:144)
+	at com.sun.xml.ws.server.InvokerTube$2.invoke(InvokerTube.java:149)
+	at com.sun.xml.ws.server.sei.SEIInvokerTube.processRequest(SEIInvokerTube.java:88)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at org.glassfish.webservices.MonitoringPipe.process(MonitoringPipe.java:142)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.processRequest(CommonServerSecurityPipe.java:209)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.process(CommonServerSecurityPipe.java:141)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.server.WSEndpointImpl$2.process(WSEndpointImpl.java:419)
+	at com.sun.xml.ws.transport.http.HttpAdapter$HttpToolkit.handle(HttpAdapter.java:868)
+	at com.sun.xml.ws.transport.http.HttpAdapter.handle(HttpAdapter.java:422)
+	at com.sun.xml.ws.transport.http.servlet.ServletAdapter.handle(ServletAdapter.java:169)
+	at org.glassfish.webservices.JAXWSServlet.doPost(JAXWSServlet.java:169)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1682)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:318)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:160)
+	at org.apache.catalina.core.StandardPipeline.doInvoke(StandardPipeline.java:734)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:673)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:99)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:174)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:415)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:282)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper$HttpHandlerCallable.call(ContainerMapper.java:459)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:167)
+	at org.glassfish.grizzly.http.server.HttpHandler.runService(HttpHandler.java:201)
+	at org.glassfish.grizzly.http.server.HttpHandler.doHandle(HttpHandler.java:175)
+	at org.glassfish.grizzly.http.server.HttpServerFilter.handleRead(HttpServerFilter.java:235)
+	at org.glassfish.grizzly.filterchain.ExecutorResolver$9.execute(ExecutorResolver.java:119)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeFilter(DefaultFilterChain.java:284)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeChainPart(DefaultFilterChain.java:201)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.execute(DefaultFilterChain.java:133)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.process(DefaultFilterChain.java:112)
+	at org.glassfish.grizzly.ProcessorExecutor.execute(ProcessorExecutor.java:77)
+	at org.glassfish.grizzly.nio.transport.TCPNIOTransport.fireIOEvent(TCPNIOTransport.java:561)
+	at org.glassfish.grizzly.strategies.AbstractIOStrategy.fireIOEvent(AbstractIOStrategy.java:112)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.run0(WorkerThreadIOStrategy.java:117)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.access$100(WorkerThreadIOStrategy.java:56)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy$WorkerThreadRunnable.run(WorkerThreadIOStrategy.java:137)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:565)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.run(AbstractThreadPool.java:545)
+	at java.lang.Thread.run(Thread.java:745)
+]]
+
+[2015-11-12T16:47:00.466+0700] [glassfish 4.1] [SEVERE] [] [com.sun.xml.ws.server.sei.TieHandler] [tid: _ThreadID=78 _ThreadName=http-listener-1(4)] [timeMillis: 1447321620466] [levelValue: 1000] [[
+  
+java.lang.NullPointerException
+	at AnswerModel.AnswerWS.getAnswerByQID(AnswerWS.java:43)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.glassfish.webservices.InstanceResolverImpl$1.invoke(InstanceResolverImpl.java:144)
+	at com.sun.xml.ws.server.InvokerTube$2.invoke(InvokerTube.java:149)
+	at com.sun.xml.ws.server.sei.SEIInvokerTube.processRequest(SEIInvokerTube.java:88)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at org.glassfish.webservices.MonitoringPipe.process(MonitoringPipe.java:142)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.processRequest(CommonServerSecurityPipe.java:209)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.process(CommonServerSecurityPipe.java:141)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.server.WSEndpointImpl$2.process(WSEndpointImpl.java:419)
+	at com.sun.xml.ws.transport.http.HttpAdapter$HttpToolkit.handle(HttpAdapter.java:868)
+	at com.sun.xml.ws.transport.http.HttpAdapter.handle(HttpAdapter.java:422)
+	at com.sun.xml.ws.transport.http.servlet.ServletAdapter.handle(ServletAdapter.java:169)
+	at org.glassfish.webservices.JAXWSServlet.doPost(JAXWSServlet.java:169)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1682)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:318)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:160)
+	at org.apache.catalina.core.StandardPipeline.doInvoke(StandardPipeline.java:734)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:673)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:99)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:174)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:415)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:282)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper$HttpHandlerCallable.call(ContainerMapper.java:459)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:167)
+	at org.glassfish.grizzly.http.server.HttpHandler.runService(HttpHandler.java:201)
+	at org.glassfish.grizzly.http.server.HttpHandler.doHandle(HttpHandler.java:175)
+	at org.glassfish.grizzly.http.server.HttpServerFilter.handleRead(HttpServerFilter.java:235)
+	at org.glassfish.grizzly.filterchain.ExecutorResolver$9.execute(ExecutorResolver.java:119)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeFilter(DefaultFilterChain.java:284)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeChainPart(DefaultFilterChain.java:201)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.execute(DefaultFilterChain.java:133)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.process(DefaultFilterChain.java:112)
+	at org.glassfish.grizzly.ProcessorExecutor.execute(ProcessorExecutor.java:77)
+	at org.glassfish.grizzly.nio.transport.TCPNIOTransport.fireIOEvent(TCPNIOTransport.java:561)
+	at org.glassfish.grizzly.strategies.AbstractIOStrategy.fireIOEvent(AbstractIOStrategy.java:112)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.run0(WorkerThreadIOStrategy.java:117)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.access$100(WorkerThreadIOStrategy.java:56)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy$WorkerThreadRunnable.run(WorkerThreadIOStrategy.java:137)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:565)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.run(AbstractThreadPool.java:545)
+	at java.lang.Thread.run(Thread.java:745)
+]]
+
+[2015-11-12T16:48:29.094+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321709094] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:48:29.145+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321709145] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:48:29.162+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321709162] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:48:29.231+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321709231] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:48:29.232+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321709232] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:48:29.233+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321709233] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T16:48:29.234+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321709234] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:48:29.468+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321709468] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:48:29.499+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321709499] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 421 milliseconds.]]
+
+[2015-11-12T16:48:41.134+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00111] [javax.enterprise.webservices] [tid: _ThreadID=75 _ThreadName=http-listener-1(1)] [timeMillis: 1447321721134] [levelValue: 800] [[
+  Invoking wsimport with http://localhost:8081/StackExchange_WS/AnswerWS?WSDL]]
+
+[2015-11-12T16:48:41.146+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=75 _ThreadName=Thread-8] [timeMillis: 1447321721146] [levelValue: 800] [[
+  parsing WSDL...]]
+
+[2015-11-12T16:48:41.224+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=75 _ThreadName=Thread-8] [timeMillis: 1447321721224] [levelValue: 800] [[
+  Generating code...]]
+
+[2015-11-12T16:48:41.249+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=75 _ThreadName=Thread-8] [timeMillis: 1447321721249] [levelValue: 800] [[
+  Compiling code...]]
+
+[2015-11-12T16:48:41.336+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00112] [javax.enterprise.webservices] [tid: _ThreadID=75 _ThreadName=http-listener-1(1)] [timeMillis: 1447321721336] [levelValue: 800] [[
+  wsimport successful]]
+
+[2015-11-12T16:48:41.950+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00111] [javax.enterprise.webservices] [tid: _ThreadID=77 _ThreadName=http-listener-1(3)] [timeMillis: 1447321721950] [levelValue: 800] [[
+  Invoking wsimport with http://localhost:8081/StackExchange_WS/AnswerWS?WSDL]]
+
+[2015-11-12T16:48:41.953+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=77 _ThreadName=Thread-8] [timeMillis: 1447321721953] [levelValue: 800] [[
+  parsing WSDL...]]
+
+[2015-11-12T16:48:42.050+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=77 _ThreadName=Thread-8] [timeMillis: 1447321722050] [levelValue: 800] [[
+  Generating code...]]
+
+[2015-11-12T16:48:42.072+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=77 _ThreadName=Thread-8] [timeMillis: 1447321722072] [levelValue: 800] [[
+  Compiling code...]]
+
+[2015-11-12T16:48:42.167+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00112] [javax.enterprise.webservices] [tid: _ThreadID=77 _ThreadName=http-listener-1(3)] [timeMillis: 1447321722167] [levelValue: 800] [[
+  wsimport successful]]
+
+[2015-11-12T16:48:46.028+0700] [glassfish 4.1] [SEVERE] [] [QuestionModel.QuestionWS] [tid: _ThreadID=78 _ThreadName=http-listener-1(4)] [timeMillis: 1447321726028] [levelValue: 1000] [[
+  
+java.lang.ClassNotFoundException: com.mysql.jdbc.Driver
+	at org.glassfish.web.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1783)
+	at org.glassfish.web.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1633)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:195)
+	at Database.DB.connect(DB.java:33)
+	at AnswerModel.AnswerWS.<init>(AnswerWS.java:33)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at com.sun.enterprise.container.common.impl.util.InjectionManagerImpl.createManagedObject(InjectionManagerImpl.java:410)
+	at org.glassfish.webservices.InstanceResolverImpl.resolve(InstanceResolverImpl.java:89)
+	at org.glassfish.webservices.InstanceResolverImpl$1.invoke(InstanceResolverImpl.java:144)
+	at com.sun.xml.ws.server.InvokerTube$2.invoke(InvokerTube.java:149)
+	at com.sun.xml.ws.server.sei.SEIInvokerTube.processRequest(SEIInvokerTube.java:88)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at org.glassfish.webservices.MonitoringPipe.process(MonitoringPipe.java:142)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.processRequest(CommonServerSecurityPipe.java:209)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.process(CommonServerSecurityPipe.java:141)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.server.WSEndpointImpl$2.process(WSEndpointImpl.java:419)
+	at com.sun.xml.ws.transport.http.HttpAdapter$HttpToolkit.handle(HttpAdapter.java:868)
+	at com.sun.xml.ws.transport.http.HttpAdapter.handle(HttpAdapter.java:422)
+	at com.sun.xml.ws.transport.http.servlet.ServletAdapter.handle(ServletAdapter.java:169)
+	at org.glassfish.webservices.JAXWSServlet.doPost(JAXWSServlet.java:169)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1682)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:318)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:160)
+	at org.apache.catalina.core.StandardPipeline.doInvoke(StandardPipeline.java:734)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:673)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:99)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:174)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:415)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:282)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper$HttpHandlerCallable.call(ContainerMapper.java:459)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:167)
+	at org.glassfish.grizzly.http.server.HttpHandler.runService(HttpHandler.java:201)
+	at org.glassfish.grizzly.http.server.HttpHandler.doHandle(HttpHandler.java:175)
+	at org.glassfish.grizzly.http.server.HttpServerFilter.handleRead(HttpServerFilter.java:235)
+	at org.glassfish.grizzly.filterchain.ExecutorResolver$9.execute(ExecutorResolver.java:119)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeFilter(DefaultFilterChain.java:284)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeChainPart(DefaultFilterChain.java:201)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.execute(DefaultFilterChain.java:133)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.process(DefaultFilterChain.java:112)
+	at org.glassfish.grizzly.ProcessorExecutor.execute(ProcessorExecutor.java:77)
+	at org.glassfish.grizzly.nio.transport.TCPNIOTransport.fireIOEvent(TCPNIOTransport.java:561)
+	at org.glassfish.grizzly.strategies.AbstractIOStrategy.fireIOEvent(AbstractIOStrategy.java:112)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.run0(WorkerThreadIOStrategy.java:117)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.access$100(WorkerThreadIOStrategy.java:56)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy$WorkerThreadRunnable.run(WorkerThreadIOStrategy.java:137)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:565)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.run(AbstractThreadPool.java:545)
+	at java.lang.Thread.run(Thread.java:745)
+]]
+
+[2015-11-12T16:48:46.029+0700] [glassfish 4.1] [SEVERE] [] [com.sun.xml.ws.server.sei.TieHandler] [tid: _ThreadID=78 _ThreadName=http-listener-1(4)] [timeMillis: 1447321726029] [levelValue: 1000] [[
+  
+java.lang.NullPointerException
+	at AnswerModel.AnswerWS.getAnswerByQID(AnswerWS.java:43)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.glassfish.webservices.InstanceResolverImpl$1.invoke(InstanceResolverImpl.java:144)
+	at com.sun.xml.ws.server.InvokerTube$2.invoke(InvokerTube.java:149)
+	at com.sun.xml.ws.server.sei.SEIInvokerTube.processRequest(SEIInvokerTube.java:88)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at org.glassfish.webservices.MonitoringPipe.process(MonitoringPipe.java:142)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.processRequest(CommonServerSecurityPipe.java:209)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.process(CommonServerSecurityPipe.java:141)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.server.WSEndpointImpl$2.process(WSEndpointImpl.java:419)
+	at com.sun.xml.ws.transport.http.HttpAdapter$HttpToolkit.handle(HttpAdapter.java:868)
+	at com.sun.xml.ws.transport.http.HttpAdapter.handle(HttpAdapter.java:422)
+	at com.sun.xml.ws.transport.http.servlet.ServletAdapter.handle(ServletAdapter.java:169)
+	at org.glassfish.webservices.JAXWSServlet.doPost(JAXWSServlet.java:169)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1682)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:318)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:160)
+	at org.apache.catalina.core.StandardPipeline.doInvoke(StandardPipeline.java:734)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:673)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:99)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:174)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:415)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:282)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper$HttpHandlerCallable.call(ContainerMapper.java:459)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:167)
+	at org.glassfish.grizzly.http.server.HttpHandler.runService(HttpHandler.java:201)
+	at org.glassfish.grizzly.http.server.HttpHandler.doHandle(HttpHandler.java:175)
+	at org.glassfish.grizzly.http.server.HttpServerFilter.handleRead(HttpServerFilter.java:235)
+	at org.glassfish.grizzly.filterchain.ExecutorResolver$9.execute(ExecutorResolver.java:119)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeFilter(DefaultFilterChain.java:284)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeChainPart(DefaultFilterChain.java:201)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.execute(DefaultFilterChain.java:133)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.process(DefaultFilterChain.java:112)
+	at org.glassfish.grizzly.ProcessorExecutor.execute(ProcessorExecutor.java:77)
+	at org.glassfish.grizzly.nio.transport.TCPNIOTransport.fireIOEvent(TCPNIOTransport.java:561)
+	at org.glassfish.grizzly.strategies.AbstractIOStrategy.fireIOEvent(AbstractIOStrategy.java:112)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.run0(WorkerThreadIOStrategy.java:117)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.access$100(WorkerThreadIOStrategy.java:56)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy$WorkerThreadRunnable.run(WorkerThreadIOStrategy.java:137)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:565)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.run(AbstractThreadPool.java:545)
+	at java.lang.Thread.run(Thread.java:745)
+]]
+
+[2015-11-12T16:49:53.403+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321793403] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:49:53.456+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321793456] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:49:53.471+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321793471] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:49:53.545+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321793545] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:49:53.546+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321793546] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T16:49:53.548+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321793548] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:49:53.549+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321793549] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:49:53.775+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321793775] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:49:53.793+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321793793] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 437 milliseconds.]]
+
+[2015-11-12T16:50:05.000+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321805000] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:50:05.057+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321805057] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:50:05.073+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321805073] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:50:05.162+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321805162] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:50:05.164+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321805164] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:50:05.166+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321805166] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:50:05.167+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321805167] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T16:50:05.465+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321805465] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:50:05.494+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447321805494] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 538 milliseconds.]]
+
+[2015-11-12T16:50:09.356+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00111] [javax.enterprise.webservices] [tid: _ThreadID=79 _ThreadName=http-listener-1(5)] [timeMillis: 1447321809356] [levelValue: 800] [[
+  Invoking wsimport with http://localhost:8081/StackExchange_WS/AnswerWS?WSDL]]
+
+[2015-11-12T16:50:09.370+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=79 _ThreadName=Thread-8] [timeMillis: 1447321809370] [levelValue: 800] [[
+  parsing WSDL...]]
+
+[2015-11-12T16:50:09.448+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=79 _ThreadName=Thread-8] [timeMillis: 1447321809448] [levelValue: 800] [[
+  Generating code...]]
+
+[2015-11-12T16:50:09.465+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=79 _ThreadName=Thread-8] [timeMillis: 1447321809465] [levelValue: 800] [[
+  Compiling code...]]
+
+[2015-11-12T16:50:09.567+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00112] [javax.enterprise.webservices] [tid: _ThreadID=79 _ThreadName=http-listener-1(5)] [timeMillis: 1447321809567] [levelValue: 800] [[
+  wsimport successful]]
+
+[2015-11-12T16:50:10.195+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00111] [javax.enterprise.webservices] [tid: _ThreadID=75 _ThreadName=http-listener-1(1)] [timeMillis: 1447321810195] [levelValue: 800] [[
+  Invoking wsimport with http://localhost:8081/StackExchange_WS/AnswerWS?WSDL]]
+
+[2015-11-12T16:50:10.200+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=75 _ThreadName=Thread-8] [timeMillis: 1447321810200] [levelValue: 800] [[
+  parsing WSDL...]]
+
+[2015-11-12T16:50:10.298+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=75 _ThreadName=Thread-8] [timeMillis: 1447321810298] [levelValue: 800] [[
+  Generating code...]]
+
+[2015-11-12T16:50:10.314+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=75 _ThreadName=Thread-8] [timeMillis: 1447321810314] [levelValue: 800] [[
+  Compiling code...]]
+
+[2015-11-12T16:50:10.413+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00112] [javax.enterprise.webservices] [tid: _ThreadID=75 _ThreadName=http-listener-1(1)] [timeMillis: 1447321810413] [levelValue: 800] [[
+  wsimport successful]]
+
+[2015-11-12T16:50:14.537+0700] [glassfish 4.1] [SEVERE] [] [QuestionModel.QuestionWS] [tid: _ThreadID=78 _ThreadName=http-listener-1(4)] [timeMillis: 1447321814537] [levelValue: 1000] [[
+  
+java.lang.ClassNotFoundException: com.mysql.jdbc.Driver
+	at org.glassfish.web.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1783)
+	at org.glassfish.web.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1633)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:195)
+	at Database.DB.connect(DB.java:33)
+	at AnswerModel.AnswerWS.<init>(AnswerWS.java:33)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at com.sun.enterprise.container.common.impl.util.InjectionManagerImpl.createManagedObject(InjectionManagerImpl.java:410)
+	at org.glassfish.webservices.InstanceResolverImpl.resolve(InstanceResolverImpl.java:89)
+	at org.glassfish.webservices.InstanceResolverImpl$1.invoke(InstanceResolverImpl.java:144)
+	at com.sun.xml.ws.server.InvokerTube$2.invoke(InvokerTube.java:149)
+	at com.sun.xml.ws.server.sei.SEIInvokerTube.processRequest(SEIInvokerTube.java:88)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at org.glassfish.webservices.MonitoringPipe.process(MonitoringPipe.java:142)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.processRequest(CommonServerSecurityPipe.java:209)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.process(CommonServerSecurityPipe.java:141)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.server.WSEndpointImpl$2.process(WSEndpointImpl.java:419)
+	at com.sun.xml.ws.transport.http.HttpAdapter$HttpToolkit.handle(HttpAdapter.java:868)
+	at com.sun.xml.ws.transport.http.HttpAdapter.handle(HttpAdapter.java:422)
+	at com.sun.xml.ws.transport.http.servlet.ServletAdapter.handle(ServletAdapter.java:169)
+	at org.glassfish.webservices.JAXWSServlet.doPost(JAXWSServlet.java:169)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1682)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:318)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:160)
+	at org.apache.catalina.core.StandardPipeline.doInvoke(StandardPipeline.java:734)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:673)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:99)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:174)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:415)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:282)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper$HttpHandlerCallable.call(ContainerMapper.java:459)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:167)
+	at org.glassfish.grizzly.http.server.HttpHandler.runService(HttpHandler.java:201)
+	at org.glassfish.grizzly.http.server.HttpHandler.doHandle(HttpHandler.java:175)
+	at org.glassfish.grizzly.http.server.HttpServerFilter.handleRead(HttpServerFilter.java:235)
+	at org.glassfish.grizzly.filterchain.ExecutorResolver$9.execute(ExecutorResolver.java:119)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeFilter(DefaultFilterChain.java:284)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeChainPart(DefaultFilterChain.java:201)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.execute(DefaultFilterChain.java:133)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.process(DefaultFilterChain.java:112)
+	at org.glassfish.grizzly.ProcessorExecutor.execute(ProcessorExecutor.java:77)
+	at org.glassfish.grizzly.nio.transport.TCPNIOTransport.fireIOEvent(TCPNIOTransport.java:561)
+	at org.glassfish.grizzly.strategies.AbstractIOStrategy.fireIOEvent(AbstractIOStrategy.java:112)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.run0(WorkerThreadIOStrategy.java:117)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.access$100(WorkerThreadIOStrategy.java:56)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy$WorkerThreadRunnable.run(WorkerThreadIOStrategy.java:137)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:565)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.run(AbstractThreadPool.java:545)
+	at java.lang.Thread.run(Thread.java:745)
+]]
+
+[2015-11-12T16:50:14.538+0700] [glassfish 4.1] [SEVERE] [] [com.sun.xml.ws.server.sei.TieHandler] [tid: _ThreadID=78 _ThreadName=http-listener-1(4)] [timeMillis: 1447321814538] [levelValue: 1000] [[
+  
+java.lang.NullPointerException
+	at AnswerModel.AnswerWS.getAnswerByQID(AnswerWS.java:43)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.glassfish.webservices.InstanceResolverImpl$1.invoke(InstanceResolverImpl.java:144)
+	at com.sun.xml.ws.server.InvokerTube$2.invoke(InvokerTube.java:149)
+	at com.sun.xml.ws.server.sei.SEIInvokerTube.processRequest(SEIInvokerTube.java:88)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at org.glassfish.webservices.MonitoringPipe.process(MonitoringPipe.java:142)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.processRequest(CommonServerSecurityPipe.java:209)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.process(CommonServerSecurityPipe.java:141)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.server.WSEndpointImpl$2.process(WSEndpointImpl.java:419)
+	at com.sun.xml.ws.transport.http.HttpAdapter$HttpToolkit.handle(HttpAdapter.java:868)
+	at com.sun.xml.ws.transport.http.HttpAdapter.handle(HttpAdapter.java:422)
+	at com.sun.xml.ws.transport.http.servlet.ServletAdapter.handle(ServletAdapter.java:169)
+	at org.glassfish.webservices.JAXWSServlet.doPost(JAXWSServlet.java:169)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1682)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:318)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:160)
+	at org.apache.catalina.core.StandardPipeline.doInvoke(StandardPipeline.java:734)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:673)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:99)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:174)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:415)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:282)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper$HttpHandlerCallable.call(ContainerMapper.java:459)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:167)
+	at org.glassfish.grizzly.http.server.HttpHandler.runService(HttpHandler.java:201)
+	at org.glassfish.grizzly.http.server.HttpHandler.doHandle(HttpHandler.java:175)
+	at org.glassfish.grizzly.http.server.HttpServerFilter.handleRead(HttpServerFilter.java:235)
+	at org.glassfish.grizzly.filterchain.ExecutorResolver$9.execute(ExecutorResolver.java:119)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeFilter(DefaultFilterChain.java:284)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeChainPart(DefaultFilterChain.java:201)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.execute(DefaultFilterChain.java:133)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.process(DefaultFilterChain.java:112)
+	at org.glassfish.grizzly.ProcessorExecutor.execute(ProcessorExecutor.java:77)
+	at org.glassfish.grizzly.nio.transport.TCPNIOTransport.fireIOEvent(TCPNIOTransport.java:561)
+	at org.glassfish.grizzly.strategies.AbstractIOStrategy.fireIOEvent(AbstractIOStrategy.java:112)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.run0(WorkerThreadIOStrategy.java:117)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.access$100(WorkerThreadIOStrategy.java:56)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy$WorkerThreadRunnable.run(WorkerThreadIOStrategy.java:137)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:565)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.run(AbstractThreadPool.java:545)
+	at java.lang.Thread.run(Thread.java:745)
+]]
+
+[2015-11-12T16:51:17.963+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321877963] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:51:18.005+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321878005] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:51:18.027+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321878027] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:51:18.140+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321878140] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:51:18.142+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321878142] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:51:18.144+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321878144] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T16:51:18.146+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321878146] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:51:18.645+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321878645] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:51:18.691+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447321878691] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 849 milliseconds.]]
+
+[2015-11-12T16:51:24.314+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321884314] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:51:24.353+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321884353] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:51:24.371+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321884371] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:51:24.441+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321884441] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T16:51:24.443+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321884443] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:51:24.444+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321884444] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:51:24.445+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321884445] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:51:24.666+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321884666] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:51:24.693+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447321884693] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 395 milliseconds.]]
+
+[2015-11-12T16:51:45.717+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321905717] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:51:45.765+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321905765] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:51:45.798+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321905798] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:51:45.894+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321905894] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:51:45.895+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321905895] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:51:45.896+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321905896] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:51:45.897+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321905897] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T16:51:46.145+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321906145] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:51:46.164+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=48 _ThreadName=admin-listener(2)] [timeMillis: 1447321906164] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 490 milliseconds.]]
+
+[2015-11-12T16:51:48.328+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00111] [javax.enterprise.webservices] [tid: _ThreadID=75 _ThreadName=http-listener-1(1)] [timeMillis: 1447321908328] [levelValue: 800] [[
+  Invoking wsimport with http://localhost:8081/StackExchange_WS/AnswerWS?WSDL]]
+
+[2015-11-12T16:51:48.353+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=75 _ThreadName=Thread-8] [timeMillis: 1447321908353] [levelValue: 800] [[
+  parsing WSDL...]]
+
+[2015-11-12T16:51:48.447+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=75 _ThreadName=Thread-8] [timeMillis: 1447321908447] [levelValue: 800] [[
+  Generating code...]]
+
+[2015-11-12T16:51:48.460+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=75 _ThreadName=Thread-8] [timeMillis: 1447321908460] [levelValue: 800] [[
+  Compiling code...]]
+
+[2015-11-12T16:51:48.565+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00112] [javax.enterprise.webservices] [tid: _ThreadID=75 _ThreadName=http-listener-1(1)] [timeMillis: 1447321908565] [levelValue: 800] [[
+  wsimport successful]]
+
+[2015-11-12T16:51:49.169+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00111] [javax.enterprise.webservices] [tid: _ThreadID=77 _ThreadName=http-listener-1(3)] [timeMillis: 1447321909169] [levelValue: 800] [[
+  Invoking wsimport with http://localhost:8081/StackExchange_WS/AnswerWS?WSDL]]
+
+[2015-11-12T16:51:49.172+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=77 _ThreadName=Thread-8] [timeMillis: 1447321909172] [levelValue: 800] [[
+  parsing WSDL...]]
+
+[2015-11-12T16:51:49.275+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=77 _ThreadName=Thread-8] [timeMillis: 1447321909275] [levelValue: 800] [[
+  Generating code...]]
+
+[2015-11-12T16:51:49.293+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=77 _ThreadName=Thread-8] [timeMillis: 1447321909293] [levelValue: 800] [[
+  Compiling code...]]
+
+[2015-11-12T16:51:49.378+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00112] [javax.enterprise.webservices] [tid: _ThreadID=77 _ThreadName=http-listener-1(3)] [timeMillis: 1447321909378] [levelValue: 800] [[
+  wsimport successful]]
+
+[2015-11-12T16:51:53.319+0700] [glassfish 4.1] [SEVERE] [] [QuestionModel.QuestionWS] [tid: _ThreadID=76 _ThreadName=http-listener-1(2)] [timeMillis: 1447321913319] [levelValue: 1000] [[
+  
+java.lang.ClassNotFoundException: com.mysql.jdbc.Driver
+	at org.glassfish.web.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1783)
+	at org.glassfish.web.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1633)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:195)
+	at Database.DB.connect(DB.java:33)
+	at AnswerModel.AnswerWS.<init>(AnswerWS.java:34)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at com.sun.enterprise.container.common.impl.util.InjectionManagerImpl.createManagedObject(InjectionManagerImpl.java:410)
+	at org.glassfish.webservices.InstanceResolverImpl.resolve(InstanceResolverImpl.java:89)
+	at org.glassfish.webservices.InstanceResolverImpl$1.invoke(InstanceResolverImpl.java:144)
+	at com.sun.xml.ws.server.InvokerTube$2.invoke(InvokerTube.java:149)
+	at com.sun.xml.ws.server.sei.SEIInvokerTube.processRequest(SEIInvokerTube.java:88)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at org.glassfish.webservices.MonitoringPipe.process(MonitoringPipe.java:142)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.processRequest(CommonServerSecurityPipe.java:209)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.process(CommonServerSecurityPipe.java:141)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.server.WSEndpointImpl$2.process(WSEndpointImpl.java:419)
+	at com.sun.xml.ws.transport.http.HttpAdapter$HttpToolkit.handle(HttpAdapter.java:868)
+	at com.sun.xml.ws.transport.http.HttpAdapter.handle(HttpAdapter.java:422)
+	at com.sun.xml.ws.transport.http.servlet.ServletAdapter.handle(ServletAdapter.java:169)
+	at org.glassfish.webservices.JAXWSServlet.doPost(JAXWSServlet.java:169)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1682)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:318)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:160)
+	at org.apache.catalina.core.StandardPipeline.doInvoke(StandardPipeline.java:734)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:673)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:99)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:174)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:415)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:282)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper$HttpHandlerCallable.call(ContainerMapper.java:459)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:167)
+	at org.glassfish.grizzly.http.server.HttpHandler.runService(HttpHandler.java:201)
+	at org.glassfish.grizzly.http.server.HttpHandler.doHandle(HttpHandler.java:175)
+	at org.glassfish.grizzly.http.server.HttpServerFilter.handleRead(HttpServerFilter.java:235)
+	at org.glassfish.grizzly.filterchain.ExecutorResolver$9.execute(ExecutorResolver.java:119)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeFilter(DefaultFilterChain.java:284)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeChainPart(DefaultFilterChain.java:201)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.execute(DefaultFilterChain.java:133)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.process(DefaultFilterChain.java:112)
+	at org.glassfish.grizzly.ProcessorExecutor.execute(ProcessorExecutor.java:77)
+	at org.glassfish.grizzly.nio.transport.TCPNIOTransport.fireIOEvent(TCPNIOTransport.java:561)
+	at org.glassfish.grizzly.strategies.AbstractIOStrategy.fireIOEvent(AbstractIOStrategy.java:112)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.run0(WorkerThreadIOStrategy.java:117)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.access$100(WorkerThreadIOStrategy.java:56)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy$WorkerThreadRunnable.run(WorkerThreadIOStrategy.java:137)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:565)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.run(AbstractThreadPool.java:545)
+	at java.lang.Thread.run(Thread.java:745)
+]]
+
+[2015-11-12T16:51:53.320+0700] [glassfish 4.1] [SEVERE] [] [com.sun.xml.ws.server.sei.TieHandler] [tid: _ThreadID=76 _ThreadName=http-listener-1(2)] [timeMillis: 1447321913320] [levelValue: 1000] [[
+  
+java.lang.NullPointerException
+	at AnswerModel.AnswerWS.getAnswerByQID(AnswerWS.java:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.glassfish.webservices.InstanceResolverImpl$1.invoke(InstanceResolverImpl.java:144)
+	at com.sun.xml.ws.server.InvokerTube$2.invoke(InvokerTube.java:149)
+	at com.sun.xml.ws.server.sei.SEIInvokerTube.processRequest(SEIInvokerTube.java:88)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at org.glassfish.webservices.MonitoringPipe.process(MonitoringPipe.java:142)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.processRequest(CommonServerSecurityPipe.java:209)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.process(CommonServerSecurityPipe.java:141)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.server.WSEndpointImpl$2.process(WSEndpointImpl.java:419)
+	at com.sun.xml.ws.transport.http.HttpAdapter$HttpToolkit.handle(HttpAdapter.java:868)
+	at com.sun.xml.ws.transport.http.HttpAdapter.handle(HttpAdapter.java:422)
+	at com.sun.xml.ws.transport.http.servlet.ServletAdapter.handle(ServletAdapter.java:169)
+	at org.glassfish.webservices.JAXWSServlet.doPost(JAXWSServlet.java:169)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1682)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:318)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:160)
+	at org.apache.catalina.core.StandardPipeline.doInvoke(StandardPipeline.java:734)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:673)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:99)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:174)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:415)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:282)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper$HttpHandlerCallable.call(ContainerMapper.java:459)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:167)
+	at org.glassfish.grizzly.http.server.HttpHandler.runService(HttpHandler.java:201)
+	at org.glassfish.grizzly.http.server.HttpHandler.doHandle(HttpHandler.java:175)
+	at org.glassfish.grizzly.http.server.HttpServerFilter.handleRead(HttpServerFilter.java:235)
+	at org.glassfish.grizzly.filterchain.ExecutorResolver$9.execute(ExecutorResolver.java:119)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeFilter(DefaultFilterChain.java:284)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeChainPart(DefaultFilterChain.java:201)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.execute(DefaultFilterChain.java:133)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.process(DefaultFilterChain.java:112)
+	at org.glassfish.grizzly.ProcessorExecutor.execute(ProcessorExecutor.java:77)
+	at org.glassfish.grizzly.nio.transport.TCPNIOTransport.fireIOEvent(TCPNIOTransport.java:561)
+	at org.glassfish.grizzly.strategies.AbstractIOStrategy.fireIOEvent(AbstractIOStrategy.java:112)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.run0(WorkerThreadIOStrategy.java:117)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.access$100(WorkerThreadIOStrategy.java:56)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy$WorkerThreadRunnable.run(WorkerThreadIOStrategy.java:137)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:565)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.run(AbstractThreadPool.java:545)
+	at java.lang.Thread.run(Thread.java:745)
+]]
+
+[2015-11-12T16:59:33.618+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447322373618] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:59:33.688+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447322373688] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:59:33.711+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447322373711] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T16:59:33.792+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447322373792] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T16:59:33.793+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447322373793] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T16:59:33.795+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447322373795] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T16:59:33.797+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447322373797] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T16:59:34.044+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447322374044] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T16:59:34.063+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447322374063] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 774 milliseconds.]]
+
+[2015-11-12T17:05:50.104+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447322750104] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:05:50.142+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447322750142] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:05:50.161+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447322750161] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:05:50.228+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447322750228] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T17:05:50.229+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447322750229] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T17:05:50.231+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447322750231] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T17:05:50.232+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447322750232] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T17:05:50.454+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447322750454] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T17:05:50.478+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447322750478] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 417 milliseconds.]]
+
+[2015-11-12T17:05:56.765+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00111] [javax.enterprise.webservices] [tid: _ThreadID=79 _ThreadName=http-listener-1(5)] [timeMillis: 1447322756765] [levelValue: 800] [[
+  Invoking wsimport with http://localhost:8081/StackExchange_WS/AnswerWS?WSDL]]
+
+[2015-11-12T17:05:56.781+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=79 _ThreadName=Thread-8] [timeMillis: 1447322756781] [levelValue: 800] [[
+  parsing WSDL...]]
+
+[2015-11-12T17:05:56.851+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=79 _ThreadName=Thread-8] [timeMillis: 1447322756851] [levelValue: 800] [[
+  Generating code...]]
+
+[2015-11-12T17:05:56.866+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=79 _ThreadName=Thread-8] [timeMillis: 1447322756866] [levelValue: 800] [[
+  Compiling code...]]
+
+[2015-11-12T17:05:56.929+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00112] [javax.enterprise.webservices] [tid: _ThreadID=79 _ThreadName=http-listener-1(5)] [timeMillis: 1447322756929] [levelValue: 800] [[
+  wsimport successful]]
+
+[2015-11-12T17:05:57.785+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00111] [javax.enterprise.webservices] [tid: _ThreadID=78 _ThreadName=http-listener-1(4)] [timeMillis: 1447322757785] [levelValue: 800] [[
+  Invoking wsimport with http://localhost:8081/StackExchange_WS/AnswerWS?WSDL]]
+
+[2015-11-12T17:05:57.788+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=78 _ThreadName=Thread-8] [timeMillis: 1447322757788] [levelValue: 800] [[
+  parsing WSDL...]]
+
+[2015-11-12T17:05:57.871+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=78 _ThreadName=Thread-8] [timeMillis: 1447322757871] [levelValue: 800] [[
+  Generating code...]]
+
+[2015-11-12T17:05:57.884+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=78 _ThreadName=Thread-8] [timeMillis: 1447322757884] [levelValue: 800] [[
+  Compiling code...]]
+
+[2015-11-12T17:05:58.013+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00112] [javax.enterprise.webservices] [tid: _ThreadID=78 _ThreadName=http-listener-1(4)] [timeMillis: 1447322758013] [levelValue: 800] [[
+  wsimport successful]]
+
+[2015-11-12T17:06:03.656+0700] [glassfish 4.1] [SEVERE] [] [QuestionModel.QuestionWS] [tid: _ThreadID=77 _ThreadName=http-listener-1(3)] [timeMillis: 1447322763656] [levelValue: 1000] [[
+  
+java.lang.ClassNotFoundException: com.mysql.jdbc.Driver
+	at org.glassfish.web.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1783)
+	at org.glassfish.web.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1633)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:195)
+	at Database.DB.connect(DB.java:33)
+	at AnswerModel.AnswerWS.<init>(AnswerWS.java:33)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at com.sun.enterprise.container.common.impl.util.InjectionManagerImpl.createManagedObject(InjectionManagerImpl.java:410)
+	at org.glassfish.webservices.InstanceResolverImpl.resolve(InstanceResolverImpl.java:89)
+	at org.glassfish.webservices.InstanceResolverImpl$1.invoke(InstanceResolverImpl.java:144)
+	at com.sun.xml.ws.server.InvokerTube$2.invoke(InvokerTube.java:149)
+	at com.sun.xml.ws.server.sei.SEIInvokerTube.processRequest(SEIInvokerTube.java:88)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at org.glassfish.webservices.MonitoringPipe.process(MonitoringPipe.java:142)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.processRequest(CommonServerSecurityPipe.java:209)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.process(CommonServerSecurityPipe.java:141)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.server.WSEndpointImpl$2.process(WSEndpointImpl.java:419)
+	at com.sun.xml.ws.transport.http.HttpAdapter$HttpToolkit.handle(HttpAdapter.java:868)
+	at com.sun.xml.ws.transport.http.HttpAdapter.handle(HttpAdapter.java:422)
+	at com.sun.xml.ws.transport.http.servlet.ServletAdapter.handle(ServletAdapter.java:169)
+	at org.glassfish.webservices.JAXWSServlet.doPost(JAXWSServlet.java:169)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1682)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:318)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:160)
+	at org.apache.catalina.core.StandardPipeline.doInvoke(StandardPipeline.java:734)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:673)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:99)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:174)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:415)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:282)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper$HttpHandlerCallable.call(ContainerMapper.java:459)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:167)
+	at org.glassfish.grizzly.http.server.HttpHandler.runService(HttpHandler.java:201)
+	at org.glassfish.grizzly.http.server.HttpHandler.doHandle(HttpHandler.java:175)
+	at org.glassfish.grizzly.http.server.HttpServerFilter.handleRead(HttpServerFilter.java:235)
+	at org.glassfish.grizzly.filterchain.ExecutorResolver$9.execute(ExecutorResolver.java:119)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeFilter(DefaultFilterChain.java:284)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeChainPart(DefaultFilterChain.java:201)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.execute(DefaultFilterChain.java:133)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.process(DefaultFilterChain.java:112)
+	at org.glassfish.grizzly.ProcessorExecutor.execute(ProcessorExecutor.java:77)
+	at org.glassfish.grizzly.nio.transport.TCPNIOTransport.fireIOEvent(TCPNIOTransport.java:561)
+	at org.glassfish.grizzly.strategies.AbstractIOStrategy.fireIOEvent(AbstractIOStrategy.java:112)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.run0(WorkerThreadIOStrategy.java:117)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.access$100(WorkerThreadIOStrategy.java:56)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy$WorkerThreadRunnable.run(WorkerThreadIOStrategy.java:137)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:565)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.run(AbstractThreadPool.java:545)
+	at java.lang.Thread.run(Thread.java:745)
+]]
+
+[2015-11-12T17:06:03.657+0700] [glassfish 4.1] [SEVERE] [] [com.sun.xml.ws.server.sei.TieHandler] [tid: _ThreadID=77 _ThreadName=http-listener-1(3)] [timeMillis: 1447322763657] [levelValue: 1000] [[
+  
+java.lang.NullPointerException
+	at AnswerModel.AnswerWS.getAnswerByQID(AnswerWS.java:43)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.glassfish.webservices.InstanceResolverImpl$1.invoke(InstanceResolverImpl.java:144)
+	at com.sun.xml.ws.server.InvokerTube$2.invoke(InvokerTube.java:149)
+	at com.sun.xml.ws.server.sei.SEIInvokerTube.processRequest(SEIInvokerTube.java:88)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at org.glassfish.webservices.MonitoringPipe.process(MonitoringPipe.java:142)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl.process(AbstractTubeImpl.java:136)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.processRequest(CommonServerSecurityPipe.java:209)
+	at com.sun.enterprise.security.webservices.CommonServerSecurityPipe.process(CommonServerSecurityPipe.java:141)
+	at com.sun.xml.ws.api.pipe.helper.PipeAdapter.processRequest(PipeAdapter.java:119)
+	at com.sun.xml.ws.api.pipe.Fiber.__doRun(Fiber.java:1136)
+	at com.sun.xml.ws.api.pipe.Fiber._doRun(Fiber.java:1050)
+	at com.sun.xml.ws.api.pipe.Fiber.doRun(Fiber.java:1019)
+	at com.sun.xml.ws.api.pipe.Fiber.runSync(Fiber.java:877)
+	at com.sun.xml.ws.server.WSEndpointImpl$2.process(WSEndpointImpl.java:419)
+	at com.sun.xml.ws.transport.http.HttpAdapter$HttpToolkit.handle(HttpAdapter.java:868)
+	at com.sun.xml.ws.transport.http.HttpAdapter.handle(HttpAdapter.java:422)
+	at com.sun.xml.ws.transport.http.servlet.ServletAdapter.handle(ServletAdapter.java:169)
+	at org.glassfish.webservices.JAXWSServlet.doPost(JAXWSServlet.java:169)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.apache.catalina.core.StandardWrapper.service(StandardWrapper.java:1682)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:318)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:160)
+	at org.apache.catalina.core.StandardPipeline.doInvoke(StandardPipeline.java:734)
+	at org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:673)
+	at com.sun.enterprise.web.WebPipeline.invoke(WebPipeline.java:99)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:174)
+	at org.apache.catalina.connector.CoyoteAdapter.doService(CoyoteAdapter.java:415)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:282)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper$HttpHandlerCallable.call(ContainerMapper.java:459)
+	at com.sun.enterprise.v3.services.impl.ContainerMapper.service(ContainerMapper.java:167)
+	at org.glassfish.grizzly.http.server.HttpHandler.runService(HttpHandler.java:201)
+	at org.glassfish.grizzly.http.server.HttpHandler.doHandle(HttpHandler.java:175)
+	at org.glassfish.grizzly.http.server.HttpServerFilter.handleRead(HttpServerFilter.java:235)
+	at org.glassfish.grizzly.filterchain.ExecutorResolver$9.execute(ExecutorResolver.java:119)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeFilter(DefaultFilterChain.java:284)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.executeChainPart(DefaultFilterChain.java:201)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.execute(DefaultFilterChain.java:133)
+	at org.glassfish.grizzly.filterchain.DefaultFilterChain.process(DefaultFilterChain.java:112)
+	at org.glassfish.grizzly.ProcessorExecutor.execute(ProcessorExecutor.java:77)
+	at org.glassfish.grizzly.nio.transport.TCPNIOTransport.fireIOEvent(TCPNIOTransport.java:561)
+	at org.glassfish.grizzly.strategies.AbstractIOStrategy.fireIOEvent(AbstractIOStrategy.java:112)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.run0(WorkerThreadIOStrategy.java:117)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy.access$100(WorkerThreadIOStrategy.java:56)
+	at org.glassfish.grizzly.strategies.WorkerThreadIOStrategy$WorkerThreadRunnable.run(WorkerThreadIOStrategy.java:137)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.doWork(AbstractThreadPool.java:565)
+	at org.glassfish.grizzly.threadpool.AbstractThreadPool$Worker.run(AbstractThreadPool.java:545)
+	at java.lang.Thread.run(Thread.java:745)
+]]
+
+[2015-11-12T17:10:43.384+0700] [glassfish 4.1] [SEVERE] [NCLS-CORE-00048] [javax.enterprise.system.core] [tid: _ThreadID=105 _ThreadName=deployment-jar-scanner] [timeMillis: 1447323043384] [levelValue: 1000] [[
+  Invalid InputStream returned for WEB-INF/classes/UserModel/UserWS.class]]
+
+[2015-11-12T17:10:43.386+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323043386] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:10:43.445+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323043445] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:10:43.483+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323043483] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:10:43.589+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323043589] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T17:10:43.590+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323043590] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T17:10:43.591+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323043591] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T17:10:43.882+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323043882] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T17:10:43.906+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323043906] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 643 milliseconds.]]
+
+[2015-11-12T17:10:44.115+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=50 _ThreadName=admin-listener(4)] [timeMillis: 1447323044115] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:10:44.174+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=50 _ThreadName=admin-listener(4)] [timeMillis: 1447323044174] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:10:44.195+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=50 _ThreadName=admin-listener(4)] [timeMillis: 1447323044195] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:10:44.283+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=50 _ThreadName=admin-listener(4)] [timeMillis: 1447323044283] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T17:10:44.285+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=50 _ThreadName=admin-listener(4)] [timeMillis: 1447323044285] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T17:10:44.286+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=50 _ThreadName=admin-listener(4)] [timeMillis: 1447323044286] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T17:10:44.288+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=50 _ThreadName=admin-listener(4)] [timeMillis: 1447323044288] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T17:10:44.580+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=50 _ThreadName=admin-listener(4)] [timeMillis: 1447323044580] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T17:10:44.613+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=50 _ThreadName=admin-listener(4)] [timeMillis: 1447323044613] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 604 milliseconds.]]
+
+[2015-11-12T17:11:01.030+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323061030] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:11:01.631+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323061631] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:11:01.662+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323061662] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:11:01.665+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323061665] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:11:01.769+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323061769] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T17:11:01.771+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323061771] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T17:11:01.773+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323061773] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T17:11:01.775+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323061775] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T17:11:02.127+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323062127] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T17:11:02.174+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323062174] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 1,560 milliseconds.]]
+
+[2015-11-12T17:11:13.863+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323073863] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:11:13.959+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323073959] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:11:13.983+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323073983] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:11:13.985+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323073985] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:11:14.115+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323074115] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T17:11:14.117+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323074117] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T17:11:14.118+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323074118] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T17:11:14.120+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323074120] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T17:11:14.372+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323074372] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T17:11:14.390+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=49 _ThreadName=admin-listener(3)] [timeMillis: 1447323074390] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 942 milliseconds.]]
+
+[2015-11-12T17:11:22.476+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323082476] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:11:22.559+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323082559] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:11:22.583+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323082583] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:11:22.586+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.tools.deployment.common] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323082586] [levelValue: 800] [[
+  visiting unvisited references]]
+
+[2015-11-12T17:11:22.666+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323082666] [levelValue: 800] [[
+  Webservice Endpoint deployed UserWS
+ listening at address at http://W8:8081/StackExchange_WS/UserWS.]]
+
+[2015-11-12T17:11:22.667+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323082667] [levelValue: 800] [[
+  Webservice Endpoint deployed AnswerWS
+ listening at address at http://W8:8081/StackExchange_WS/AnswerWS.]]
+
+[2015-11-12T17:11:22.668+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323082668] [levelValue: 800] [[
+  Webservice Endpoint deployed QuestionWS
+ listening at address at http://W8:8081/StackExchange_WS/QuestionWS.]]
+
+[2015-11-12T17:11:22.670+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00018] [javax.enterprise.webservices] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323082670] [levelValue: 800] [[
+  Webservice Endpoint deployed StackExchangeWS
+ listening at address at http://W8:8081/StackExchange_WS/StackExchangeWS.]]
+
+[2015-11-12T17:11:22.884+0700] [glassfish 4.1] [INFO] [AS-WEB-GLUE-00172] [javax.enterprise.web] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323082884] [levelValue: 800] [[
+  Loading application [StackExchange_WS] at [/StackExchange_WS]]]
+
+[2015-11-12T17:11:22.906+0700] [glassfish 4.1] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=47 _ThreadName=admin-listener(1)] [timeMillis: 1447323082906] [levelValue: 800] [[
+  StackExchange_WS was successfully deployed in 781 milliseconds.]]
+
+[2015-11-12T17:11:41.803+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00111] [javax.enterprise.webservices] [tid: _ThreadID=76 _ThreadName=http-listener-1(2)] [timeMillis: 1447323101803] [levelValue: 800] [[
+  Invoking wsimport with http://localhost:8081/StackExchange_WS/AnswerWS?WSDL]]
+
+[2015-11-12T17:11:41.815+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=76 _ThreadName=Thread-8] [timeMillis: 1447323101815] [levelValue: 800] [[
+  parsing WSDL...]]
+
+[2015-11-12T17:11:41.887+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=76 _ThreadName=Thread-8] [timeMillis: 1447323101887] [levelValue: 800] [[
+  Generating code...]]
+
+[2015-11-12T17:11:41.905+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=76 _ThreadName=Thread-8] [timeMillis: 1447323101905] [levelValue: 800] [[
+  Compiling code...]]
+
+[2015-11-12T17:11:41.972+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00112] [javax.enterprise.webservices] [tid: _ThreadID=76 _ThreadName=http-listener-1(2)] [timeMillis: 1447323101972] [levelValue: 800] [[
+  wsimport successful]]
+
+[2015-11-12T17:11:42.733+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00111] [javax.enterprise.webservices] [tid: _ThreadID=79 _ThreadName=http-listener-1(5)] [timeMillis: 1447323102733] [levelValue: 800] [[
+  Invoking wsimport with http://localhost:8081/StackExchange_WS/AnswerWS?WSDL]]
+
+[2015-11-12T17:11:42.736+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=79 _ThreadName=Thread-8] [timeMillis: 1447323102736] [levelValue: 800] [[
+  parsing WSDL...]]
+
+[2015-11-12T17:11:42.807+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=79 _ThreadName=Thread-8] [timeMillis: 1447323102807] [levelValue: 800] [[
+  Generating code...]]
+
+[2015-11-12T17:11:42.823+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=79 _ThreadName=Thread-8] [timeMillis: 1447323102823] [levelValue: 800] [[
+  Compiling code...]]
+
+[2015-11-12T17:11:42.923+0700] [glassfish 4.1] [INFO] [AS-WSJSR109IMPL-00112] [javax.enterprise.webservices] [tid: _ThreadID=79 _ThreadName=http-listener-1(5)] [timeMillis: 1447323102923] [levelValue: 800] [[
+  wsimport successful]]
+
+[2015-11-12T17:12:29.294+0700] [glassfish 4.1] [WARNING] [] [javax.enterprise.web.util] [tid: _ThreadID=51 _ThreadName=admin-listener(5)] [timeMillis: 1447323149294] [levelValue: 900] [[
+  The web application [/StackExchange_WS] registered the JDBC driver [com.mysql.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.]]
+
+[2015-11-12T17:29:50.950+0700] [glassfish 4.1] [INFO] [NCLS-CORE-00092] [javax.enterprise.system.core] [tid: _ThreadID=350 _ThreadName=Thread-32] [timeMillis: 1447324190950] [levelValue: 800] [[
+  Server shutdown initiated]]
+
+[2015-11-12T17:29:51.958+0700] [glassfish 4.1] [INFO] [NCLS-BOOTSTRAP-00028] [javax.enterprise.bootstrap] [tid: _ThreadID=350 _ThreadName=Thread-32] [timeMillis: 1447324191958] [levelValue: 800] [[
+  Unregistered com.sun.enterprise.glassfish.bootstrap.osgi.EmbeddedOSGiGlassFishImpl@56b43a4d from service registry.]]
+
+[2015-11-12T17:29:51.992+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=350 _ThreadName=Thread-8] [timeMillis: 1447324191992] [levelValue: 800] [[
+  FileMonitoring shutdown]]
+
+[2015-11-12T17:29:53.102+0700] [glassfish 4.1] [INFO] [NCLS-JMX-00002] [javax.enterprise.system.jmx] [tid: _ThreadID=350 _ThreadName=Thread-32] [timeMillis: 1447324193102] [levelValue: 800] [[
+  JMXStartupService: Stopped JMXConnectorServer: null]]
+
+[2015-11-12T17:29:53.191+0700] [glassfish 4.1] [INFO] [NCLS-JMX-00001] [javax.enterprise.system.jmx] [tid: _ThreadID=350 _ThreadName=Thread-32] [timeMillis: 1447324193191] [levelValue: 800] [[
+  JMXStartupService and JMXConnectors have been shut down.]]
+
+[2015-11-12T17:30:03.380+0700] [glassfish 4.1] [INFO] [] [] [tid: _ThreadID=359 _ThreadName=Thread-8] [timeMillis: 1447324203380] [levelValue: 800] [[
+  JdbcRuntimeExtension,  getAllSystemRAResourcesAndPools = [GlassFishConfigBean.org.glassfish.jdbc.config.JdbcResource, GlassFishConfigBean.org.glassfish.jdbc.config.JdbcResource, GlassFishConfigBean.org.glassfish.jdbc.config.JdbcResource, GlassFishConfigBean.org.glassfish.jdbc.config.JdbcConnectionPool, GlassFishConfigBean.org.glassfish.jdbc.config.JdbcConnectionPool, GlassFishConfigBean.org.glassfish.jdbc.config.JdbcConnectionPool]]]
+

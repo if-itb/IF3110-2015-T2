@@ -55,6 +55,10 @@ public class Question {
   public String getTimestamp() {
       return timestamp;
   }
+
+  public void setId(int id) {
+      this.id = id;
+  }
   
   public void setIdUser(int uid) {
       this.idUser = uid;
@@ -66,5 +70,9 @@ public class Question {
   
   public void setContent(String content) {
       this.content = content;
+  }
+  
+  public void setTimestamp(String timestamp) {
+      this.timestamp = timestamp;
   }
 }

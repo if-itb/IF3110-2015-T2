@@ -23,13 +23,14 @@
   <managed-job-config></managed-job-config>
   <system-applications></system-applications>
   <resources>
+    <jdbc-resource pool-name="SamplePool" jndi-name="jdbc/sample"></jdbc-resource>
     <jdbc-resource pool-name="__TimerPool" jndi-name="jdbc/__TimerPool" object-type="system-admin"></jdbc-resource>
     <jdbc-resource pool-name="DerbyPool" jndi-name="jdbc/__default" object-type="system-all"></jdbc-resource>
     <jdbc-connection-pool datasource-classname="org.apache.derby.jdbc.EmbeddedXADataSource" res-type="javax.sql.XADataSource" name="__TimerPool">
       <property name="databaseName" value="${com.sun.aas.instanceRoot}/lib/databases/ejbtimer"></property>
       <property name="connectionAttributes" value=";create=true"></property>
     </jdbc-connection-pool>
-    <jdbc-connection-pool is-isolation-level-guaranteed="false" datasource-classname="org.apache.derby.jdbc.ClientDataSource" res-type="javax.sql.DataSource" name="DerbyPool">
+    <jdbc-connection-pool datasource-classname="org.apache.derby.jdbc.ClientDataSource" is-isolation-level-guaranteed="false" res-type="javax.sql.DataSource" name="DerbyPool">
       <property name="PortNumber" value="1527"></property>
       <property name="Password" value="APP"></property>
       <property name="User" value="APP"></property>
@@ -39,12 +40,21 @@
     </jdbc-connection-pool>
     <connector-connection-pool max-pool-size="250" steady-pool-size="1" name="jms/__defaultConnectionFactory-Connection-Pool" resource-adapter-name="jmsra" connection-definition-name="javax.jms.ConnectionFactory"></connector-connection-pool>
     <connector-resource pool-name="jms/__defaultConnectionFactory-Connection-Pool" jndi-name="jms/__defaultConnectionFactory" object-type="system-all-req"></connector-resource>
+    <jdbc-connection-pool datasource-classname="org.apache.derby.jdbc.ClientDataSource" res-type="javax.sql.DataSource" name="SamplePool">
+      <property name="DatabaseName" value="sample"></property>
+      <property name="User" value="app"></property>
+      <property name="Password" value="app"></property>
+      <property name="URL" value="jdbc:derby://localhost:1527/sample"></property>
+      <property name="PortNumber" value="1527"></property>
+      <property name="serverName" value="localhost"></property>
+    </jdbc-connection-pool>
   </resources>
   <servers>
     <server name="server" config-ref="server-config">
       <resource-ref ref="jdbc/__TimerPool"></resource-ref>
       <resource-ref ref="jdbc/__default"></resource-ref>
       <resource-ref ref="jms/__defaultConnectionFactory"></resource-ref>
+      <resource-ref ref="jdbc/sample"></resource-ref>
     </server>
   </servers>
   <nodes>
@@ -61,11 +71,11 @@
       </http-service>
       <iiop-service>
         <orb use-thread-pool-ids="thread-pool-1"></orb>
-        <iiop-listener port="45085" id="orb-listener-1" address="0.0.0.0" lazy-init="true"></iiop-listener>
-        <iiop-listener port="45086" id="SSL" address="0.0.0.0" security-enabled="true">
+        <iiop-listener id="orb-listener-1" port="45085" address="0.0.0.0" lazy-init="true"></iiop-listener>
+        <iiop-listener id="SSL" port="45086" address="0.0.0.0" security-enabled="true">
           <ssl classname="com.sun.enterprise.security.ssl.GlassfishSSLImpl" cert-nickname="s1as"></ssl>
         </iiop-listener>
-        <iiop-listener port="45087" id="SSL_MUTUALAUTH" address="0.0.0.0" security-enabled="true">
+        <iiop-listener id="SSL_MUTUALAUTH" port="45087" address="0.0.0.0" security-enabled="true">
           <ssl classname="com.sun.enterprise.security.ssl.GlassfishSSLImpl" cert-nickname="s1as" client-auth-enabled="true"></ssl>
         </iiop-listener>
       </iiop-service>
@@ -197,18 +207,18 @@
           </protocol>
         </protocols>
         <network-listeners>
-          <network-listener port="45128" protocol="http-listener-1" transport="tcp" name="http-listener-1" thread-pool="http-thread-pool"></network-listener>
-          <network-listener port="45129" protocol="http-listener-2" transport="tcp" name="http-listener-2" thread-pool="http-thread-pool"></network-listener>
-          <network-listener port="45096" protocol="admin-listener" transport="tcp" name="admin-listener" thread-pool="admin-thread-pool"></network-listener>
+          <network-listener port="8080" protocol="http-listener-1" transport="tcp" name="http-listener-1" thread-pool="http-thread-pool"></network-listener>
+          <network-listener port="8181" protocol="http-listener-2" transport="tcp" name="http-listener-2" thread-pool="http-thread-pool"></network-listener>
+          <network-listener port="4848" protocol="admin-listener" transport="tcp" name="admin-listener" thread-pool="admin-thread-pool"></network-listener>
         </network-listeners>
         <transports>
           <transport name="tcp"></transport>
         </transports>
       </network-config>
       <thread-pools>
-        <thread-pool name="admin-thread-pool" max-thread-pool-size="50" max-queue-size="256"></thread-pool>
+        <thread-pool max-thread-pool-size="50" name="admin-thread-pool" max-queue-size="256"></thread-pool>
         <thread-pool name="http-thread-pool"></thread-pool>
-        <thread-pool name="thread-pool-1" max-thread-pool-size="200"></thread-pool>
+        <thread-pool max-thread-pool-size="200" name="thread-pool-1"></thread-pool>
       </thread-pools>
       <monitoring-service>
         <module-monitoring-levels></module-monitoring-levels>
@@ -228,11 +238,11 @@
       </http-service>
       <iiop-service>
         <orb use-thread-pool-ids="thread-pool-1"></orb>
-        <iiop-listener port="${IIOP_LISTENER_PORT}" id="orb-listener-1" address="0.0.0.0"></iiop-listener>
-        <iiop-listener port="${IIOP_SSL_LISTENER_PORT}" id="SSL" address="0.0.0.0" security-enabled="true">
+        <iiop-listener id="orb-listener-1" port="${IIOP_LISTENER_PORT}" address="0.0.0.0"></iiop-listener>
+        <iiop-listener id="SSL" port="${IIOP_SSL_LISTENER_PORT}" address="0.0.0.0" security-enabled="true">
           <ssl classname="com.sun.enterprise.security.ssl.GlassfishSSLImpl" cert-nickname="s1as"></ssl>
         </iiop-listener>
-        <iiop-listener port="${IIOP_SSL_MUTUALAUTH_PORT}" id="SSL_MUTUALAUTH" address="0.0.0.0" security-enabled="true">
+        <iiop-listener id="SSL_MUTUALAUTH" port="${IIOP_SSL_MUTUALAUTH_PORT}" address="0.0.0.0" security-enabled="true">
           <ssl classname="com.sun.enterprise.security.ssl.GlassfishSSLImpl" cert-nickname="s1as" client-auth-enabled="true"></ssl>
         </iiop-listener>
       </iiop-service>
@@ -371,15 +381,15 @@
             <http default-virtual-server="__asadmin" encoded-slash-enabled="true">
               <file-cache></file-cache>
             </http>
-            <ssl client-auth="want" ssl3-enabled="false" classname="com.sun.enterprise.security.ssl.GlassfishSSLImpl" cert-nickname="glassfish-instance" renegotiate-on-client-auth-want="false"></ssl>
+            <ssl client-auth="want" classname="com.sun.enterprise.security.ssl.GlassfishSSLImpl" ssl3-enabled="false" cert-nickname="glassfish-instance" renegotiate-on-client-auth-want="false"></ssl>
           </protocol>
           <protocol name="admin-http-redirect">
             <http-redirect secure="true"></http-redirect>
           </protocol>
           <protocol name="pu-protocol">
             <port-unification>
-              <protocol-finder protocol="sec-admin-listener" name="http-finder" classname="org.glassfish.grizzly.config.portunif.HttpProtocolFinder"></protocol-finder>
-              <protocol-finder protocol="admin-http-redirect" name="admin-http-redirect" classname="org.glassfish.grizzly.config.portunif.HttpProtocolFinder"></protocol-finder>
+              <protocol-finder protocol="sec-admin-listener" classname="org.glassfish.grizzly.config.portunif.HttpProtocolFinder" name="http-finder"></protocol-finder>
+              <protocol-finder protocol="admin-http-redirect" classname="org.glassfish.grizzly.config.portunif.HttpProtocolFinder" name="admin-http-redirect"></protocol-finder>
             </port-unification>
           </protocol>
         </protocols>

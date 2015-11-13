@@ -16,6 +16,7 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import Database.DB;
+import java.util.ArrayList;
 import javax.jws.Oneway;
 
 /**
@@ -29,38 +30,6 @@ public class QuestionWS {
   /* MANDATORY */
   Connection conn = DB.connect();  
   
-  /**
-   * This is a sample web service operation
-   */
-  @WebMethod(operationName = "hello")
-  public String hello(@WebParam(name = "name") String txt) {
-    int ret = -1;
-    try {      
-      Statement stmt = conn.createStatement();
-      String sql;
-      sql = "SELECT * FROM questions WHERE topic = ?";
-      PreparedStatement dbStatement = conn.prepareStatement(sql);
-      dbStatement.setString(1, txt);
-      
-      ResultSet rs = dbStatement.executeQuery();
-      
-      // Extract data from result set
-      while(rs.next()){
-        //Retrieve by column name
-        int id = rs.getInt("id");
-        
-        ret = id;   
-      }
-      
-      rs.close();
-      stmt.close();
-      conn.close();
-    } catch (SQLException ex) {
-      Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    return "Yea its:" + ret;
-  }
-
     /**
      * Web service operation
      */
@@ -128,6 +97,74 @@ public class QuestionWS {
         } catch(SQLException ex) {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    /**
+     * Web service operation
+     * @param id
+     * @return Question
+     */
+    @WebMethod(operationName = "getQuesstionById")
+    public Question getQuesstionById(@WebParam(name = "id") int id) {
+        Question res = new Question();
+        try {
+            Statement stmt = conn.createStatement();
+            String sql;
+            
+            sql = "SELECT * FROM questions WHERE id = ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, id);
+            
+            ResultSet rs = dbStatement.executeQuery();
+            
+            // Extract data from result set
+            if(rs.next()){
+                res.setId(rs.getInt("id"));
+                res.setIdUser(rs.getInt("id_user"));
+                res.setTopic(rs.getString("topic"));
+                res.setContent(rs.getString("content"));
+                res.setTimestamp(rs.getString("timestamp"));
+            }
+            rs.close();
+            stmt.close();
+        } catch(SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+    }
+
+    /**
+     * Web service operation
+     * @return ArrayList<Question>
+     */
+    @WebMethod(operationName = "getAllQuestion")
+    public ArrayList getAllQuestion() {
+        ArrayList<Question> questions = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            String sql;
+            
+            sql = "SELECT * FROM questions";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            
+            ResultSet rs = dbStatement.executeQuery();
+            
+            // Extract data from result set
+            while(rs.next()){        
+                questions.add(new Question( rs.getInt("id"),
+                                            rs.getInt("id_user"),
+                                            rs.getString("topic"),
+                                            rs.getString("content"),
+                                            rs.getString("timestamp")
+                                ));   
+            }
+      
+            rs.close();
+            stmt.close();
+        } catch(SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return questions;
     }
     
 }
