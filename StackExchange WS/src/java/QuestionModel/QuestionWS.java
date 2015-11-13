@@ -106,7 +106,7 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "getQuesstionById")
     public Question getQuesstionById(@WebParam(name = "id") int id) {
-        Question res = new Question();
+        Question res = null;
         try {
             Statement stmt = conn.createStatement();
             String sql;
@@ -119,11 +119,15 @@ public class QuestionWS {
             
             // Extract data from result set
             if(rs.next()){
-                res.setId(rs.getInt("id"));
-                res.setIdUser(rs.getInt("id_user"));
-                res.setTopic(rs.getString("topic"));
-                res.setContent(rs.getString("content"));
-                res.setTimestamp(rs.getString("timestamp"));
+                res = new Question(rs.getInt("id"),
+                                            rs.getInt("id_user"),
+                                            rs.getString("topic"),
+                                            rs.getString("content"),
+                                            rs.getString("timestamp")
+                                            );
+            }
+            else{
+                res = new Question();
             }
             rs.close();
             stmt.close();

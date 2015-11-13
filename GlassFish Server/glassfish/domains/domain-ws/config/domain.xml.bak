@@ -51,7 +51,6 @@
   </resources>
   <servers>
     <server name="server" config-ref="server-config">
-      <application-ref ref="StackExchange_WS" virtual-servers="server"></application-ref>
       <resource-ref ref="jdbc/__TimerPool"></resource-ref>
       <resource-ref ref="jdbc/__default"></resource-ref>
       <resource-ref ref="jdbc/sample"></resource-ref>
@@ -441,16 +440,5 @@
     <secure-admin-principal dn="CN=W8-instance,OU=GlassFish,O=Oracle Corporation,L=Santa Clara,ST=California,C=US"></secure-admin-principal>
   </secure-admin>
   <clusters></clusters>
-  <applications>
-    <application context-root="/StackExchange_WS" location="file:/C:/Users/User/Documents/NetBeansProjects/WBD/IF3110-2015-T2/StackExchange%20WS/build/web/" name="StackExchange_WS" directory-deployed="true" object-type="user">
-      <property name="appLocation" value="file:/C:/Users/User/Documents/NetBeansProjects/WBD/IF3110-2015-T2/StackExchange%20WS/build/web/"></property>
-      <property name="archiveType" value="war"></property>
-      <property name="defaultAppName" value="web"></property>
-      <module name="StackExchange_WS">
-        <engine sniffer="webservices"></engine>
-        <engine sniffer="security"></engine>
-        <engine sniffer="web"></engine>
-      </module>
-    </application>
-  </applications>
+  <applications></applications>
 </domain>
