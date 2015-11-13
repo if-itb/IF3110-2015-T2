@@ -26,6 +26,9 @@ public class Question {
   public Question() {
     id = 0;
     idUser = 0;
+    topic = null;
+    content = null;
+    timestamp = null;
   }
   
   public Question(int id, int uid, String topic, String content, String timestamp) {
@@ -53,4 +56,15 @@ public class Question {
       return timestamp;
   }
   
+  public void setIdUser(int uid) {
+      this.idUser = uid;
+  }
+  
+  public void setTopic(String topic) {
+      this.topic = topic;
+  }
+  
+  public void setContent(String content) {
+      this.content = content;
+  }
 }
