@@ -28,7 +28,8 @@ public class QuestionWS {
 
   /* Connecting to Database */
   /* MANDATORY */
-  Connection conn = DB.connect();  
+  DB db = new DB();
+  Connection conn = db.connect();  
   
     /**
      * Web service operation

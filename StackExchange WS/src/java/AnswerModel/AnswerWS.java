@@ -30,7 +30,8 @@ public class AnswerWS {
 
   /* Connecting to Database */
   /* MANDATORY */
-  Connection conn = DB.connect();  
+  DB db = new DB();
+  Connection conn = db.connect();  
 
   /**
    * Web service operation
@@ -71,7 +72,7 @@ public class AnswerWS {
    * Web service operation
    */
   @WebMethod(operationName = "insertAnswer")
-  public int insertAnswer(@WebParam(name = "answer") Answer answer) {
+  public void insertAnswer(@WebParam(name = "answer") Answer answer) {
     
     try {      
       Statement stmt = conn.createStatement();
@@ -91,7 +92,6 @@ public class AnswerWS {
       Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
     }
     
-    return 1;
   }
 
 }

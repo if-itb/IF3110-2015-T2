@@ -20,7 +20,8 @@ public class UserWS {
   
   /* Connecting to Database */
   /* MANDATORY */
-  Connection conn = DB.connect();  
+  DB db = new DB();
+  Connection conn = db.connect();   
 
   /**
    * This is a sample web service operation
