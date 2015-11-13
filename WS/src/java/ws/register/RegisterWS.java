@@ -5,51 +5,50 @@
  */
 package ws.register;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import javax.jws.WebResult;
 
 /**
  *
  * @author Asus
  */
-@WebService(serviceName = "RegisterWS")
+@WebService(serviceName = "RegisterWS") 
 public class RegisterWS {
-    Connection conn;
+    Connection conn = null;
     /**
      * Web service operation
      */
     @WebMethod(operationName = "register")
-    public int register(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
+    public String register(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
+        String sql = "asd";
         try {
             //TODO write your implementation code here:
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
+            sql = "asdf";
             Statement stmt = conn.createStatement();
-            String sql;
+            
             sql = "INSERT INTO users (Name, Email, Password) VALUES (?,?,?)";
             
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setString(1, name);
             dbStatement.setString(2, email);
             dbStatement.setString(3, password);
-            
             dbStatement.executeUpdate();
-            stmt.close();
             conn.close();
+            stmt.close();
+            dbStatement.close();
         } catch (SQLException ex) {
+            //Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (name.contains("Y"))
-            return 2;
-        else
-            return 1;
+        
+        return sql;
     }
 }

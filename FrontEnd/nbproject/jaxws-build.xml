@@ -28,7 +28,7 @@
     </target>
     <target name="wsimport-client-RegisterWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/RegisterWS"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/RegisterWS" destdir="${build.generated.dir}/jax-wsCache/RegisterWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/RegisterWS/wsdl/localhost_8002/WS/RegisterWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8002/WS/RegisterWS?wsdl" xnocompile="true" xendorsed="true" package="">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/RegisterWS" destdir="${build.generated.dir}/jax-wsCache/RegisterWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/RegisterWS/wsdl/localhost_8002/WS/RegisterWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8002/WS/RegisterWS?wsdl" xnocompile="true" xendorsed="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/RegisterWS/wsdl/localhost_8002/WS/RegisterWS.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/RegisterWS"/>
         </wsimport>
@@ -39,7 +39,7 @@
         </copy>
     </target>
     <target name="wsimport-client-clean-RegisterWS" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/client/ws"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ws/register"/>
         <delete dir="${build.generated.dir}/jax-wsCache/RegisterWS"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-RegisterWS"/>

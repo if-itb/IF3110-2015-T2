@@ -3,7 +3,6 @@
     Created on : Nov 12, 2015, 2:18:23 AM
     Author     : Asus
 --%>
-<%@ page import = "FrontEndClient.Client" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.util.*" %>
 <!DOCTYPE html>
@@ -25,14 +24,14 @@
             String Name = request.getParameter("name");
             String Email = request.getParameter("email");
             String Password = request.getParameter("password");
-            client.ws.RegisterWS_Service service = new client.ws.RegisterWS_Service();
-            client.ws.RegisterWS port = service.getRegisterWSPort();
+            ws.register.RegisterWS_Service service = new ws.register.RegisterWS_Service();
+            ws.register.RegisterWS port = service.getRegisterWSPort();
              // TODO initialize WS operation arguments here
             java.lang.String name = Name;
             java.lang.String email = Email;
             java.lang.String password = Password;
             // TODO process result here
-            int result = port.register(name, email, password);
+            java.lang.String result = port.register(name, email, password);
             out.println("Result = "+result);
         } catch (Exception ex) {
             // TODO handle custom exceptions here

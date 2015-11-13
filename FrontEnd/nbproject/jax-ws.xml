@@ -5,7 +5,7 @@
     <client name="RegisterWS">
       <wsdl-url>http://localhost:8002/WS/RegisterWS?wsdl</wsdl-url>
       <local-wsdl-file>localhost_8002/WS/RegisterWS.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">client.ws</package-name>
+      <package-name>ws.register</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -31,10 +31,6 @@
         <wsimport-option>
           <wsimport-option-name>xendorsed</wsimport-option-name>
           <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value/>
         </wsimport-option>
       </wsimport-options>
     </client>
