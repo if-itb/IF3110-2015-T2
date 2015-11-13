@@ -7,7 +7,7 @@ public class SQLManager {
   final private String SRV = "jdbc:mysql://localhost/";
   final private String USR = "root";
   final private String PWD = "";
-  final private String DB = "wbd";
+  final private String DB = "wbd2";
   private Connection conn;
   private Statement stmt;
 
@@ -18,10 +18,12 @@ public class SQLManager {
   }
 
   public ResultSet exec(String query) throws Throwable {
+    stmt = conn.createStatement();   
     return stmt.executeQuery(query);
   }
 
   public int upd(String query) throws Throwable {
+    stmt = conn.createStatement(); 
     return stmt.executeUpdate(query);
   }
 

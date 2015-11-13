@@ -27,7 +27,7 @@ public class Page extends HttpServlet
               "</head>\n"+
               "<body>\n"+
               "<div class='title-box'>\n"+
-              "<a href = '/'>\n"+
+              "<a href = '/WBD02'>\n"+
               "  <h1>Simple Stack Exchange</h1><br>\n"+
               "</a>\n"+
               "</div>");

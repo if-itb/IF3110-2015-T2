@@ -52,6 +52,6 @@ public class save extends Page
 
     response.setContentType("text/html");
     response.setStatus(response.SC_MOVED_TEMPORARILY);
-    response.setHeader("Location", "/");    
+    response.setHeader("Location", "/WBD02");    
   }
 }

@@ -16,7 +16,9 @@ public class index extends Page
   private String isi;
   private String id;
 
-  public index() throws Throwable {}
+  public index() throws Throwable {
+      
+  }
 
   public void doGet(HttpServletRequest request,
                     HttpServletResponse response)
@@ -53,7 +55,7 @@ public class index extends Page
           vote = rs.getString("vote");
           datetime = rs.getString("datetime");
           isi = rs.getString("isi");
-
+          
           // handling special chars
           isi = isi.replaceAll("\n", "<br>");
           isi = isi.replaceAll("\t", "&nbsp;&nbsp");
@@ -102,5 +104,6 @@ public class index extends Page
     }
 
     footer(out);
-  }
+ }
+  
 }
