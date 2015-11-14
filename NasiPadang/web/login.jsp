@@ -1,4 +1,10 @@
-<%@ page import ="java.sql.*" %>
+<%-- 
+    Document   : login
+    Created on : Nov 14, 2015, 7:34:51 AM
+    Author     : theaolivia
+--%>
+
+<%@ page import ="stackexchange.sql.*" %>
 <%
     String userid = request.getParameter("uname");    
     String pwd = request.getParameter("pass");
