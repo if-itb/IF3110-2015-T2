@@ -23,13 +23,13 @@ public class RegisterWS {
      * Web service operation
      */
     @WebMethod(operationName = "register")
-    public String register(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
-        String sql = "asd";
+    public int register(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
+        String sql = "";
+        int result = 0;
         try {
             //TODO write your implementation code here:
             Class.forName("com.mysql.jdbc.Driver");
             conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
-            sql = "asdf";
             Statement stmt = conn.createStatement();
             
             sql = "INSERT INTO users (Name, Email, Password) VALUES (?,?,?)";
@@ -38,7 +38,7 @@ public class RegisterWS {
             dbStatement.setString(1, name);
             dbStatement.setString(2, email);
             dbStatement.setString(3, password);
-            dbStatement.executeUpdate();
+            result = dbStatement.executeUpdate();
             conn.close();
             stmt.close();
             dbStatement.close();
@@ -48,7 +48,6 @@ public class RegisterWS {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return sql;
+        return result;
     }
 }
