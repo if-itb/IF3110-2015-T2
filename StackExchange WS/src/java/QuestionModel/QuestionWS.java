@@ -126,8 +126,7 @@ public class QuestionWS {
                                             rs.getString("content"),
                                             rs.getString("timestamp")
                                             );
-            }
-            else{
+            }else{
                 res = new Question();
             }
             rs.close();
