@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2015 at 11:05 AM
+-- Generation Time: Nov 14, 2015 at 08:50 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -25,16 +25,37 @@ USE `stackexchange`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `access_token`
+--
+
+DROP TABLE IF EXISTS `access_token`;
+CREATE TABLE IF NOT EXISTS `access_token` (
+`id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `expire_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `access_token`:
+--   `user_id`
+--       `users` -> `id`
+--
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `answers`
 --
 
+DROP TABLE IF EXISTS `answers`;
 CREATE TABLE IF NOT EXISTS `answers` (
 `id` int(11) NOT NULL,
   `id_question` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `content` text NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- RELATIONS FOR TABLE `answers`:
@@ -50,13 +71,14 @@ CREATE TABLE IF NOT EXISTS `answers` (
 -- Table structure for table `questions`
 --
 
+DROP TABLE IF EXISTS `questions`;
 CREATE TABLE IF NOT EXISTS `questions` (
 `id` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `topic` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- RELATIONS FOR TABLE `questions`:
@@ -70,12 +92,13 @@ CREATE TABLE IF NOT EXISTS `questions` (
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
 `id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -83,6 +106,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Table structure for table `vote_answer`
 --
 
+DROP TABLE IF EXISTS `vote_answer`;
 CREATE TABLE IF NOT EXISTS `vote_answer` (
   `id_user` int(11) NOT NULL,
   `id_answer` int(11) NOT NULL,
@@ -103,6 +127,7 @@ CREATE TABLE IF NOT EXISTS `vote_answer` (
 -- Table structure for table `vote_question`
 --
 
+DROP TABLE IF EXISTS `vote_question`;
 CREATE TABLE IF NOT EXISTS `vote_question` (
   `id_user` int(11) NOT NULL,
   `id_question` int(11) NOT NULL,
@@ -120,6 +145,12 @@ CREATE TABLE IF NOT EXISTS `vote_question` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `access_token`
+--
+ALTER TABLE `access_token`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `token` (`token`), ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `answers`
@@ -156,23 +187,34 @@ ALTER TABLE `vote_question`
 --
 
 --
+-- AUTO_INCREMENT for table `access_token`
+--
+ALTER TABLE `access_token`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `access_token`
+--
+ALTER TABLE `access_token`
+ADD CONSTRAINT `access_token_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `answers`
