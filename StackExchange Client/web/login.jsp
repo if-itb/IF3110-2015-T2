@@ -9,13 +9,13 @@
                 <div class="login-form-wrapper">
                     <form id="askForm" action="" method="POST">
                         <div class="form-field">
-                            <label for="name">Email</label>
-                            <input id="email-login" class="login" type="text" placeholder="email@something.com" required>
+                            <label for="email">Email</label>
+                            <input name="email" id="email-login" class="login" type="text" placeholder="email@something.com" required>
                         </div>
 
                         <div class="form-field">
-                            <label for="email">Password</label>
-                            <input id="password-login" class="login" type="password" placeholder="password" required>
+                            <label for="password">Password</label>
+                            <input name="password" id="password-login" class="login" type="password" placeholder="password" required>
                         </div>
                         <input type="submit" id="" class="btn-submit" value="Log in">
                     </form>

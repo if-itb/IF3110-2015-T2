@@ -5,12 +5,24 @@
  */
 package ReST;
 
+import Database.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -18,29 +30,64 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Login extends HttpServlet {
 
-  /**
-   * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-   * methods.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
+  /* Connecting to Database */
+  /* MANDATORY */
+  DB db = new DB();
+  Connection conn = db.connect();   
+
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
+    response.setContentType("application/json");
+    JSONObject obj = new JSONObject();
+    
     try (PrintWriter out = response.getWriter()) {
-      /* TODO output your page here. You may use following sample code. */
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<title>Servlet Login</title>");      
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
-      out.println("</body>");
-      out.println("</html>");
+      
+      String email = request.getParameter("email");
+      String password = request.getParameter("password");
+      
+      try {      
+        Statement stmt = conn.createStatement();
+        String sql;
+
+        sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+        PreparedStatement dbStatement = conn.prepareStatement(sql);
+        dbStatement.setString(1, email);
+        dbStatement.setString(2, password);
+
+        ResultSet rs = dbStatement.executeQuery();
+        if(rs.next()){
+          Random rand = new Random();
+          int randomNum = rand.nextInt((1000 - 1) + 1) + 1;
+          
+          String token = email + Integer.toString(randomNum);
+          
+          Calendar date = Calendar.getInstance();
+          long t = date.getTimeInMillis();
+          Date expirationDate = new Date(t + (5 * 60000));
+          
+          sql = "INSERT INTO access_token (user_id, token, expire_date) VALUES (?, ?, ?)";
+          dbStatement = conn.prepareStatement(sql);
+          dbStatement.setInt(1, rs.getInt("id"));
+          dbStatement.setString(2, token);
+          dbStatement.setString(3, expirationDate.toString());
+
+          dbStatement.executeUpdate();
+
+          stmt.close();
+
+          obj.put("access_token", token);
+          obj.put("expire_date", expirationDate.toString());
+
+          out.print(obj);
+          
+        } else {
+          obj.put("error", "invalid email or password");  
+          out.print(obj);        
+        }
+      } catch (SQLException ex) {
+          obj.put("error", ex);  
+          out.print(obj);        
+      }      
     }
   }
 

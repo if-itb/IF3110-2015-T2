@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -41,6 +42,15 @@ public class Validation extends HttpServlet {
       out.println("<h1>Servlet Validation at " + request.getContextPath() + "</h1>");
       out.println("</body>");
       out.println("</html>");
+      
+      JSONObject obj = new JSONObject();
+
+      obj.put("name", "foo");
+      obj.put("num", new Integer(100));
+      obj.put("balance", new Double(1000.21));
+      obj.put("is_vip", new Boolean(true));
+
+      out.print(obj);
     }
   }
 
@@ -70,7 +80,7 @@ public class Validation extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    processRequest(request, response);
+    //processRequest(request, response);
   }
 
   /**
