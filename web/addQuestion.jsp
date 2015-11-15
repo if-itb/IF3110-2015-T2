@@ -7,10 +7,10 @@
 </head>
 <body>
 <div class="container">
-  <h1 class="align-center margin-bot"><a class="text-link" href="index.php"><black>Simple StackExchange</black></a></h1>
+  <h1 class="align-center margin-bot"><a class="text-link" href="index.jsp"><black>Simple StackExchange</black></a></h1>
   <h2>What's Your Question?</h2>
   <hr>
-  <form name="addQuestion" action="data-question.php" onsubmit="return validateForm()" method = "Post">
+  <form name="addQuestion" action="data-question.jsp" onsubmit="return validateForm()" method = "Post">
     <input type="text" class="form" placeholder="Name" name="Name">
     <input type="text" class="form" placeholder="Email" name="Email">
     <input type="text" class="form" placeholder="Question Topic" name="Topic">
