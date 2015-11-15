@@ -13,7 +13,7 @@ import javax.jws.*;
  *
  * @author gazandic
  */
-@WebService(serviceName = "StackExchangeWebService")
+@WebService(serviceName = "AnswerWS")
 public class AnswerWS {
     Connection conn;
 
@@ -30,11 +30,11 @@ public class AnswerWS {
     @WebResult(name="Answer")
     public ArrayList<Answer> getAnswerByQID(@WebParam(name = "qid") int qid) {
         ArrayList<Answer> answers = new ArrayList<>();  
-        String query = "SELECT * FROM answer WHERE qid= ?";
+        String query = "SELECT * FROM answer WHERE qid = "+qid;
         try {
           Statement stmt = conn.createStatement(); 
           PreparedStatement dbStatement =  conn.prepareStatement(query); 
-          dbStatement.setInt(1, qid);
+          //dbStatement.setInt(1, qid);
           ResultSet rs = dbStatement.executeQuery(query);
           int i=0;
           while(rs.next()){                 

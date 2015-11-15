@@ -5,24 +5,22 @@
  */
 package Answer;
 
+import AnswerWS.AnswerWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
-import jaxws.AnswerWS;
-import jaxws.StackExchangeWebService;
 
 /**
  *
  * @author gazandic
  */
 public class Test extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Web_Service/StackExchangeWebService.wsdl")
-    private StackExchangeWebService service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Web_Service/AnswerWS.wsdl")
+    private AnswerWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,21 +43,26 @@ public class Test extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Test at " + request.getContextPath() + "</h1>");
-            try {           
-                int i = 1;           
-                java.util.List<AnswerWS.Answer> result = getAnswerByQID(i);
-                out.println("Result: " + result);           
-                for (AnswerWS.Answer answer : result) {             
-                    out.println(answer.getContent());           
-                }       
-            } catch (Exception ex) {           
-                out.println("Exception: " + ex);       
-            } 
+             try {           
+                 int i = 1;           
+                 java.util.List<AnswerWS.Answer> result = getAnswerByQID(i);
+                 out.println("Result: " + result);          
+                 for (AnswerWS.Answer answer : result) {             
+                     out.println(answer.getId());
+                     out.println(answer.getQid());
+                     out.println(answer.getUsername());
+                     out.println(answer.getIsi());
+                     out.println(answer.getDatetime());
+                 }       
+             } 
+             catch (Exception ex){           
+                     out.println("Exception: " + ex);       
+             }   
             out.println("</body>");
             out.println("</html>");
         }
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -99,10 +102,10 @@ public class Test extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private List<AnswerWS.Answer> getAnswerByQID(int qid) {
+    private java.util.List<AnswerWS.Answer> getAnswerByQID(int qid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        jaxws.AnswerWS port = service.getAnswerWSPort();
+        AnswerWS.AnswerWS port = service.getAnswerWSPort();
         return port.getAnswerByQID(qid);
     }
 

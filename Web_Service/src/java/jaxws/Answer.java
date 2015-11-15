@@ -33,4 +33,22 @@ import javax.xml.bind.*; import javax.xml.bind.annotation.*;
       this.isi = isi;     
       this.datetime = datetime;   
   }    
+  public int getId(){
+      return id;
+  }
+  public int getQId(){
+      return qid;
+  }
+  public String getUsername(){
+      return username;
+  }
+  public String getIsi(){
+      return isi;
+  }
+  public String getDatetime(){
+      return datetime;
+  }
+  
+   
+  
 }
