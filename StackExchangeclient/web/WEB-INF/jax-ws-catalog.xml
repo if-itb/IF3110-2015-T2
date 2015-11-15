@@ -2,4 +2,6 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://localhost:8081/Web_Service/StackExchangeWebService?wsdl" uri="wsdl/localhost_8081/Web_Service/StackExchangeWebService.wsdl"/>
     <system systemId="http://localhost:8081/Web_Service/StackExchangeWebService?xsd=1" uri="wsdl/localhost_8081/Web_Service/StackExchangeWebService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8081/Web_Service/AnswerWS?wsdl" uri="wsdl/localhost_8081/Web_Service/AnswerWS.wsdl"/>
+    <system systemId="http://localhost:8081/Web_Service/AnswerWS?xsd=1" uri="wsdl/localhost_8081/Web_Service/AnswerWS.xsd_1.xsd"/>
 </catalog>
