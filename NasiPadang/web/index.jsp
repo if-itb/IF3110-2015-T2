@@ -4,6 +4,7 @@
     Author     : user
 --%>
 
+<%@page import="org.jaxws.StackExchangeImpl"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="org.data.Question"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,7 +13,10 @@
     <title>Simple StackExchange</title>
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/delete_question.js"></script>
-    <?php include('backend/all_questions.php');?>
+    <%! 
+    StackExchangeImpl impl = new StackExchangeImpl();
+    ArrayList a = impl.getAllQuestion();
+    %>
 </head>
 <body>
     <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
@@ -27,23 +31,22 @@
     <div class="list">
     <div class="title">Recently Asked Questions</div>
     <ul>
-    <%! ArrayList<Question> question = %>
+    <%c:for(Question q :a){%>
         <li>
             <table>
                 <tbody>
                     <tr>
-                        <td><div class="votes"><?php echo $row['votes'];?><br>Votes</div></td>
-                        <td><div class="count"><?php echo $row['count'];?><br>Answers</div></td>
+                        <td><div class="votes"><% out.print(q.getVote())%><br>Votes</div></td>
+                        <td><div class="count"><% out.print(q.getCount())%><br>Answers</div></td>
                         <td>
-                                <div class="content"><?php echo '<a href="question.php?id='.$row['id'].'">'.$row['topic'].'</a>';?></div>
-                                <div class="credential">asked by <div class="name"><?php echo $row['name'];?></div> | <?php echo '<a class="yellow" href="edit.php?id='.$row['id'].'">edit</a> | <a class="delete" href="javascript:confirmDelete('.$row['id'].')">delete</a>';?></div>
+                                <div class="content"><a href="question.php?id=<% out.print(q.getID())%>"><% out.print(q.getTopic())%></a></div>
+                                <div class="credential">asked by <div class="name"><% out.print(q.getName())%></div> | <a class="yellow" href="edit.php?id=<% out.print(q.getID())%>">edit</a> | <a class="delete" href="javascript:confirmDelete(<% out.print(q.getName())%>)">delete</a></div>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </li>
-    <?php 
-    };?>
+    <%! }%>
     </ul>
     </div>
 </body>

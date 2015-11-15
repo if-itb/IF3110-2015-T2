@@ -11,9 +11,12 @@ package org.data;
  */
 public class Question {
     private int id;
+    private String name;
     private String topic;
     private String content;
     private String date;
+    private int vote;
+    private int count;
     public Question(){}
     public Question(String topic, String content, String date){
         this.topic = topic;
@@ -22,6 +25,9 @@ public class Question {
     }
     public void setID(int id){
         this.id = id;
+    }
+    public void setName(String name){
+        this.name = name;
     }
     public void setTopic(String topic){
         this.topic = topic;
@@ -32,8 +38,17 @@ public class Question {
     public void setDate(String date){
         this.date = date;
     }
+    public void setVote(int vote){
+        this.vote = vote;
+    }
+    public void setCount(int count){
+        this.count = count;
+    }
     public int getID(){
         return id;
+    }
+    public String getName(){
+        return name;
     }
     public String getTopic(){
         return topic;
@@ -43,5 +58,11 @@ public class Question {
     }
     public String getDate(){
         return date;
+    }
+    public int getVote(){
+        return vote;
+    }
+    public int getCount(){
+        return count;
     }
 }
