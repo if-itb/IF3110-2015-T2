@@ -16,12 +16,13 @@ import java.net.URL ;
 import javax.xml.namespace.QName ;
 import javax.xml.ws.Service;
 import WebService.StackWS ;
+
 /**
  *
  * @author tama
  */
-@WebServlet(name = "Home", urlPatterns = {"/Home"})
-public class Home extends HttpServlet {
+@WebServlet(name = "regsuccess", urlPatterns = {"/regsuccess"})
+public class regsuccess extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,99 +42,80 @@ public class Home extends HttpServlet {
       out.write("<html>\n");
       out.write("    <head>\n");
       out.write("        \n");
-      out.write("        \n");
-      out.write("        ");
+      out.write("       ");
  URL url = new URL("http://localhost:9998/WebService?wsdl"); 
            QName qname = new QName("http://WebService/", "StackWSImplService");
            Service service = Service.create(url, qname);           
         
       out.write("\n");
+      out.write("         \n");
       out.write("        \n");
       out.write("        ");
  StackWS sws = service.getPort(StackWS.class); 
       out.write("\n");
+      out.write("       \n");
       out.write("        ");
  
-        String sq = request.getParameter("s");
-        String R[][] =sws.getAllQuestions();
-        int rsize = R.length;
-        if (sq!=null && sq!=""){
-            R = sws.searchQuestion(sq);
-            rsize = R.length;
-        }
             
+           String ru = request.getParameter("rusername"); 
+           String re = request.getParameter("remail") ;
+           String rp = request.getParameter("rpass") ;
+           int status = 0;          
+        
+      out.write("\n");
+      out.write("        \n");
+      out.write("        ");
+   if (ru==null||re==null) {status=0;}
+            else {            
+                if (ru.length()>0||re.length()>0) {                    
+                    status = sws.register(ru, re, rp);         
+                    if (status==0) {                                  
+                        ru="" ;
+                        re="";
+                        rp="";
+                        response.sendRedirect("regsuccess");
+                    }
+                    else {}
+                }
+                else status=0;
+            }
         
       out.write("\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
-      out.write("        <title>Stack Exchange</title>\n");
+      out.write("        <title>Register</title>        \n");
       out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\">\n");
+      out.write("        \n");
       out.write("    </head>\n");
       out.write("    <body>\n");
+      out.write("        \n");
       out.write("        <div id=\"head1\">            \n");
       out.write("            <a href=\"login\"><div id=\"login\" >Login</div></a>\n");
       out.write("            <a href=\"register\"><div id =\"reg\">Register</div></a>\n");
       out.write("        </div>\n");
-      out.write("         <a href=\"Home\"><div id=\"h\">Stack <at>Exchange</at></div></a>\n");
+      out.write("         <a href=\"home\"><div id=\"h\">Stack <at>Exchange</at></div></a>\n");
       out.write("        \n");
-      out.write("         <form id=\"searchbox\" method=\"GET\">\n");
-      out.write("             <input id=\"search\" type=\"text\" name=\"s\" placeholder=\" Type any keyword here . . . \">\n");
-      out.write("             <input id=\"submit\" type=\"submit\" value=\"Search\">\n");
-      out.write("        </form>\n");
-      out.write("        <p>Cannot find what you are looking for ? <a href=\"askhere\"><as>Ask here</as></a></p>        \n");
-      out.write("        <div class=\"raq\">Recently Asked Questions </div>\n");
-      out.write("        <div class=\"separator\"></div>       \n");
-      out.write("        ");
- for (int i=0; i<rsize;i++) { 
       out.write("        \n");
-      out.write("            <div class =\"info\">\n");
-      out.write("                <div class =\"vote\">\n");
-      out.write("                    <div class=\"vnum\"> ");
- out.println(R[i][3]); 
-      out.write("</div>\n");
-      out.write("                    <div class=\"vname\">Votes</div>           \n");
-      out.write("                </div>\n");
+      out.write("        <div class=\"raq\">Register Page </div>\n");
+      out.write("        <div class=\"separator\"></div>\n");
+      out.write("        \n");
+      out.write("         <form method=\"post\" >\n");
+      out.write("             <input id=\"rname\" type=\"text\" name=\"rusername\" placeholder=\"Name : \"/><br> \n");
+      out.write("            <input id=\"remail\" type=\"text\" name=\"remail\" placeholder=\"Email : \" /><br>\n");
+      out.write("            <input id=\"rpass\" type=\"password\" name=\"rpass\" placeholder=\"Password : \" /><br> \n");
+      out.write("            <div id=\"regerror\">\n");
+      out.write("                ");
+ if (status!=0) { 
       out.write("\n");
-      out.write("                <div class =\"answers\">\n");
-      out.write("                    <div class=\"vnum\">");
- out.println(R[i][7]); 
-      out.write("</div>\n");
-      out.write("                    <div class=\"vname\">Answers</div>           \n");
-      out.write("                </div>\n");
-      out.write("\n");
-      out.write("                <div class=\"thread\">\n");
-      out.write("                    <a href=\"open?id=");
-out.println(R[i][0]);
-      out.write("\"><div class=\"title\">");
- out.println(R[i][1]); 
-      out.write("</div></a>\n");
-      out.write("                    <div class = \"content\">                     \n");
-      out.write("                        ");
- if (R[i][2].length() > 150) R[i][2] = R[i][2].substring(0,149) + " . . . ";
-                        out.println(R[i][2]); 
-      out.write("<br>\n");
-      out.write("                    </div>\n");
-      out.write("                </div>\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("               </div>\n");
-      out.write("                <div class=\"utility\">\n");
-      out.write("                    <aa>asked by : </aa>\n");
-      out.write("                    <a1> ");
- out.println(R[i][5]); 
-      out.write("</a1>|\n");
-      out.write("                    <a href=\"askhere?id=");
- out.println(R[i][0]) ; 
-      out.write("\"><span class=\"bb\">edit</span></a> |\n");
-      out.write("                    <a onclick =\"return confirm('Are you sure to delete this question ?')\" href=\"process?action=del&id=");
- out.println(R[i][0]) ;
-      out.write("\"><span class=\"cc\">delete</span></a>\n");
-      out.write("                </div>\n");
-      out.write("             <div class=\"uline\"></div>       \n");
-      out.write("        ");
+      out.write("                This account has been registered. Click <a href=\"login\"><rr>here</rr></a> to login.\n");
+      out.write("                ");
  } 
       out.write("\n");
-      out.write("        \n");
-      out.write("       \n");
+      out.write("            </div>\n");
+      out.write("            \n");
+      out.write("            <input id=\"rsubmit\" type=\"submit\" value=\"Register\"><br>\n");
+      out.write("            \n");
+      out.write("            \n");
+      out.write("         </form>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
         }

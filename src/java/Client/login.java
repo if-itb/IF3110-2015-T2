@@ -21,8 +21,8 @@ import WebService.StackWS ;
  *
  * @author tama
  */
-@WebServlet(name = "askhere", urlPatterns = {"/askhere"})
-public class askhere extends HttpServlet {
+@WebServlet(name = "login", urlPatterns = {"/login"})
+public class login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,74 +41,25 @@ public class askhere extends HttpServlet {
             out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
-      out.write("        \n");
-      out.write("       ");
- URL url = new URL("http://localhost:9998/WebService?wsdl"); 
-           QName qname = new QName("http://WebService/", "StackWSImplService");
-           Service service = Service.create(url, qname);           
-        
-      out.write("\n");
-      out.write("         \n");
-      out.write("        ");
- StackWS sws = service.getPort(StackWS.class); 
- 
-           String s = request.getParameter("s");
-      out.write("\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
-      out.write("         ");
-
-            String t_id = request.getParameter("id");
-            String Q[] = null;
-            String prcs = "new";
-            int id = 0 ;
-            if (t_id !=null) {
-                id = Integer.valueOf(t_id);
-                Q = sws.getQuestions(id);
-                prcs = "edit";
-            }
-        
-      out.write("\n");
-      out.write("        <title>");
- if (id==0) out.println("Create New Questions");
-                    else out.println("Edit Question"); 
-      out.write("   \n");
-      out.write("        </title>\n");
+      out.write("        <title>Register</title>        \n");
       out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\">\n");
-      out.write("        \n");
-      out.write("       \n");
       out.write("    </head>\n");
       out.write("    <body>\n");
-      out.write("       <div id=\"head1\">            \n");
+      out.write("        <div id=\"head1\">            \n");
       out.write("            <a href=\"login\"><div id=\"login\" >Login</div></a>\n");
       out.write("            <a href=\"register\"><div id =\"reg\">Register</div></a>\n");
       out.write("        </div>\n");
-      out.write("        <a href=\"Home\"><div id=\"h\">Stack <at>Exchange</at></div></a>\n");
-      out.write("         <form id=\"searchbox\" action=\"Home?s="+s+"\">\n");
-      out.write("             <input id=\"search\" type=\"text\" name=\"s\" placeholder=\" Type any keyword here . . . \">\n");
-      out.write("             <input id=\"submit\" type=\"submit\" value=\"Search\">\n");
-      out.write("        </form>\n");
+      out.write("         <a href=\"Home\"><div id=\"h\">Stack <at>Exchange</at></div></a>\n");
       out.write("        \n");
-      out.write("        <div class=\"raq\">");
- if (id==0) out.println("Create New Questions");
-                    else out.println("Edit Your Question"); 
-      out.write("   </div>\n");
+      out.write("        \n");
+      out.write("        <div class=\"raq\">Login Page </div>\n");
       out.write("        <div class=\"separator\"></div>\n");
       out.write("        \n");
-      out.write("        <form action=\"process\" method=\"POST\">\n");
-      out.write("            <input id=\"atitle\" type=\"text\" name=\"atitle\" placeholder=\"Title\" value=\"");
- if (id!=0) out.println(Q[1]) ; 
-      out.write("\"/><br>             \n");
-      out.write("             <textarea id=\"acontent\" name=\"acontent\" placeholder=\"Content\" >");
- if (id!=0) out.println(Q[2]) ; 
-      out.write("</textarea> <br>\n");
-      out.write("             <input id=\"asubmit\" type=\"submit\" value=\"Post this !!\"><br>\n");
-      out.write("             <input type=\"hidden\" name=\"process\" value=\"");
- out.println(prcs) ; 
-      out.write("\">\n");
-      out.write("             <input type=\"hidden\" name=\"qid\" value=\"");
- out.println(id) ; 
-      out.write("\">\n");
-      out.write("             <input type=\"hidden\" name=\"action\" value=\"askhere\">\n");
+      out.write("         <form>\n");
+      out.write("             <input id=\"lname\" type=\"text\" name=\"lusername\" placeholder=\"Name : \"/><br>             \n");
+      out.write("            <input id=\"lpass\" type=\"text\" name=\"lpass\" placeholder=\"Password : \" /><br> \n");
+      out.write("             <input id=\"lsubmit\" type=\"submit\" value=\"Login\"><br>\n");
       out.write("         </form>\n");
       out.write("    </body>\n");
       out.write("</html>\n");

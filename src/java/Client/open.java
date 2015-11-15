@@ -75,11 +75,11 @@ public class open extends HttpServlet {
       out.write("    </head>\n");
       out.write("    <body>\n");
       out.write("        <div id=\"head1\">            \n");
-      out.write("            <a><div id=\"login\" >Login</div></a>\n");
-      out.write("            <a><div id =\"reg\">Register</div></a>\n");
+      out.write("            <a href=\"login\"><div id=\"login\" >Login</div></a>\n");
+      out.write("            <a href=\"register\"><div id =\"reg\">Register</div></a>\n");
       out.write("        </div>\n");
       out.write("         <a href=\"Home\"><div id=\"h\">Stack <at>Exchange</at></div></a>\n");
-      out.write("         <form id=\"searchbox\" href=\"Home\">\n");
+      out.write("         <form id=\"searchbox\" action=\"Home?s="+s+"\">\n");
       out.write("             <input id=\"search\" type=\"text\" name=\"s\" placeholder=\" Type any keyword here . . . \">\n");
       out.write("             <input id=\"submit\" type=\"submit\" value=\"Search\">\n");
       out.write("        </form>\n");
