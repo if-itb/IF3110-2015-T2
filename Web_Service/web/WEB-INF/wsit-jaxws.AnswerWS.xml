@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <definitions 
+ xmlns="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="StackExchangeWebService" targetNamespace="http://jaxws/" xmlns:tns="http://jaxws/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" 
+ >
+    <message name="getAnswerByQID"/>
+    <message name="getAnswerByQIDResponse"/>
+    <portType name="AnswerWS">
+        <operation name="getAnswerByQID">
+            <input message="tns:getAnswerByQID"/>
+            <output message="tns:getAnswerByQIDResponse"/>
+        </operation>
+    </portType>
+    <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
+        <operation name="getAnswerByQID">
+            <input/>
+            <output/>
+        </operation>
+    </binding>
+    <service name="StackExchangeWebService">
+        <port name="AnswerWSPort" binding="tns:AnswerWSPortBinding"/>
+    </service>
+</definitions>
