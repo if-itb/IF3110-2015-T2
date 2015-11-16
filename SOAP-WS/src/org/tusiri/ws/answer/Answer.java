@@ -1,4 +1,4 @@
-package org.tusiri.ws.question;
+package org.tusiri.ws.answer;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
@@ -6,7 +6,6 @@ import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.sql.*;
 
@@ -23,20 +22,13 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.tusiri.ws.db.DBConnection;
+import org.tusiri.ws.question.QuestionItem;
 
-
-//This statement means that class "Bookstore.java" is the root-element of our example
-
-@WebService(endpointInterface = "org.tusiri.ws.question.Question")
-public class Question {
+public class Answer {
 	
-	@WebMethod
-	public int createQuestion(String access_token,String title,String content) throws ClientProtocolException, IOException, ParseException{
-		int q_id = 0;
-		
-		System.out.println(access_token);
-		System.out.println(title);
-		System.out.println(content);
+	
+	public int createAnswer(String access_token,int id_question, String content) throws ClientProtocolException, IOException, ParseException{
+		int status = 0;
 		try {
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			HttpPost postRequest = new HttpPost(
@@ -44,27 +36,21 @@ public class Question {
 			StringEntity input = new StringEntity("{\"access_token\":\""+access_token+"\"}");
 			input.setContentType("application/json");
 			postRequest.setEntity(input);
-			System.out.println("masuk createQuestion");
 			HttpResponse response = httpClient.execute(postRequest);
-
 			if (response.getStatusLine().getStatusCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : "
 						+ response.getStatusLine().getStatusCode());
 			}
-			System.out.println("masuk createQuestion 2");
 			BufferedReader br = new BufferedReader(
 				new InputStreamReader((response.getEntity().getContent())));
 			String output;
-			System.out.println("Output from REST ..... \n");
 			boolean isTokenValid=false;
 			int id_user;
 			if ((output = br.readLine()) != null) {
 				System.out.println(output);
 				JSONParser jsonParser = new JSONParser();
 				JSONObject jsonObject = (JSONObject) jsonParser.parse(output);
-				System.out.println("after JSON Parse");
 				isTokenValid = (boolean) jsonObject.get("valid");
-				System.out.println("after JSON Parse 2");
 				long id_user_long = (long) jsonObject.get("id_user");
 				id_user = (int) id_user_long; //bahaya, tapi asumsi ga ada angka yang besar
 				
@@ -72,27 +58,26 @@ public class Question {
 				if(isTokenValid){
 					//Masukkan ke database
 					DBConnection dbc = new DBConnection();
-					PreparedStatement stmt = dbc.getDBStmt();
 					Connection conn = dbc.getConn();
+					PreparedStatement stmt = dbc.getDBStmt();
 					try{
-						
-						
-						String sql = "INSERT INTO question(id_user,content,question_date,topic,num_vote)"
-								+ " VALUES(?,?,NOW(),?,?)";
-						stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-						stmt.setInt(1, id_user);
-						stmt.setString(2, content);
-						
-						stmt.setString(3, title);
-						stmt.setInt(4, 0);
-						
-						
-						stmt.executeUpdate();
+						String sql = "INSERT INTO answer(id_question,id_user,content,answer_date,num_votes)"
+								+ "VALUES(?,?,?,?,?)";
+						stmt = conn.prepareStatement(sql);
+						stmt.setInt(1, id_question);
+						stmt.setInt(2, id_user);
+						stmt.setString(3, content);
+						java.util.Date dt = new java.util.Date();
+						java.text.SimpleDateFormat sdf = 
+						     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						String currentTime = sdf.format(dt);
+						stmt.setString(4, currentTime);
+						stmt.setInt(5, 0);
+						status = stmt.executeUpdate();
 						ResultSet rs = stmt.getGeneratedKeys();
 			            while (rs.next()) {
-			               q_id = rs.getInt(1);
-			            } 	
-						System.out.println("q_id = " + q_id);
+			            	status = rs.getInt(1);
+			            }
 						//res = 1;
 					} catch(SQLException se){
 						//Handle errors for JDBC
@@ -110,41 +95,29 @@ public class Question {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return q_id;
+		return status;
 	}
 	
 	@WebMethod
-	public ArrayList<QuestionItem> getQuestionList() {
-		ArrayList<QuestionItem> questionItemList = new ArrayList();
+	public ArrayList<AnswerItem> getAnswerList(int id_question) {
+		ArrayList<AnswerItem> questionItemList = new ArrayList<AnswerItem>();
 		DBConnection dbc = new DBConnection();
-		PreparedStatement stmt = dbc.getDBStmt();
-		Connection conn = dbc.getConn();
+		Statement stmt = dbc.getDBStmt();
 		try{
-			String sql = "SELECT * FROM question";
-			
-			
-			stmt = conn.prepareStatement(sql);
+			String sql = "SELECT * FROM answer WHERE id_question="+id_question;
 			ResultSet rs = stmt.executeQuery(sql);
-			
 			
 			// Extract data from result set
 			while(rs.next()){
 				//Retrieve by column name
-				int id_question  = rs.getInt("id_question");
-				int id_user  = rs.getInt("id_user");
+				
+				int num_answer = rs.getInt("num_answers");
+				int id_user = rs.getInt("id_user");
 				String content = rs.getString("content");
-				String question_date = rs.getDate("question_date").toString();
-				String topic = rs.getString("topic");
-				int num_vote = rs.getInt("num_vote");
+				String answer_date = rs.getString("date");
+				int num_votes = rs.getInt("num_votes");
 				
-				QuestionItem q = new QuestionItem();
-				q.setIDQuestion(id_question);
-				q.setIDUser(id_user);
-				q.setContent(content);
-				q.setQuestionDate(question_date);
-				q.setTopic(topic);
-				q.setNumVote(num_vote);
-				
+				AnswerItem q = new AnswerItem();
 				questionItemList.add(q);
 			}
 		} catch(SQLException se){
@@ -156,4 +129,4 @@ public class Question {
 		}
 		return questionItemList;
 	}
-} 
+}
