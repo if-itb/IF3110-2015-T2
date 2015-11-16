@@ -13,12 +13,13 @@ public class DBConnection {
 	final String PASS = "1234";//sesuaikan dengan password database
 	
 	public Connection conn;
-	public PreparedStatement stmt;
+	public Statement stmt;
 	
 	public DBConnection(){
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			stmt = conn.createStatement();
 		} catch (SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
@@ -28,11 +29,7 @@ public class DBConnection {
 		}
 	}
 	
-	public Connection getConn(){
-		return conn;
-	}
-	
-	public PreparedStatement getDBStmt(){
+	public Statement getDBStmt(){
 		return stmt;
 	}
 	

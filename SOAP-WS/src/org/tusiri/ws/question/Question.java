@@ -72,22 +72,11 @@ public class Question {
 				if(isTokenValid){
 					//Masukkan ke database
 					DBConnection dbc = new DBConnection();
-					PreparedStatement stmt = dbc.getDBStmt();
-					Connection conn = dbc.getConn();
+					Statement stmt = dbc.getDBStmt();
 					try{
-						
-						
 						String sql = "INSERT INTO question(id_user,content,question_date,topic,num_vote)"
-								+ " VALUES(?,?,NOW(),?,?)";
-						stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-						stmt.setInt(1, id_user);
-						stmt.setString(2, content);
-						
-						stmt.setString(3, title);
-						stmt.setInt(4, 0);
-						
-						
-						stmt.executeUpdate();
+								+ "VALUES("+id_user+",'"+content+"',NOW(),'"+title+"',0)";
+						q_id = stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 						ResultSet rs = stmt.getGeneratedKeys();
 			            while (rs.next()) {
 			               q_id = rs.getInt(1);
@@ -117,15 +106,10 @@ public class Question {
 	public ArrayList<QuestionItem> getQuestionList() {
 		ArrayList<QuestionItem> questionItemList = new ArrayList();
 		DBConnection dbc = new DBConnection();
-		PreparedStatement stmt = dbc.getDBStmt();
-		Connection conn = dbc.getConn();
+		Statement stmt = dbc.getDBStmt();
 		try{
 			String sql = "SELECT * FROM question";
-			
-			
-			stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery(sql);
-			
 			
 			// Extract data from result set
 			while(rs.next()){
