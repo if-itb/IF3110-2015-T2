@@ -10,32 +10,36 @@
 	<div class="container">
 		<a class="homelink" href="http://mystackexchange.dev"><h1 id="title">My StackExchange</h1></a>
 		<div class="content">
-			<h2>Register</h2>
+			<h2>What's your question?</h2>
 			<hr>
-			<form action="register.jsp", method="post" onsubmit="return validateRegistration()">
+			<form action="ask.jsp", method="post" onsubmit="return validatequestion()">
 			<input class="textbox" type="text", name="name", id="name" placeholder="Name">
 			<br>
 			<input class="textbox" type="text", name="email", id="email" placeholder="Email">
 			<br>
-			<input class="textbox" type="password", name="password", id="password" placeholder="Password">
+			<input class="textbox" type="text", name="topic", id="topic" placeholder="Question Topic">
+			<br>
+			<textarea class="textarea", name="content", id="content" placeholder="Content" ></textarea>
 			<br>
 			<input type="submit" id="post"  value="Post">
 			</form>
 		</div>	
 	</div>
+	<script type="text/javascript" src="js/script.js"></script>
 	<%@page import= "java.net.URL,javax.xml.namespace.QName,javax.xml.ws.Service" %>
 	<%@page import= "com.yangnormal.sstackex.ws.WebServiceImpl;" %>
 		
 	<% 
 	String name = request.getParameter("name");
 	String email = request.getParameter("email");
-	String password = request.getParameter("password");
-	if ((name!= null) && (email!=null) && (password!=null)){
+	String topic = request.getParameter("topic");
+	String content = request.getParameter("content");
+	if ((name!= null) && (email!=null) && (topic!=null)&&(content!=null)){
 		URL url = new URL ("http://localhost:8080/ws/stackexchange?wsdl");
 		QName qname = new QName("http://ws.yangnormal.com/","RegistrationImplService");
 		Service service = Service.create(url,qname);
 		WebServiceImpl ws = service.getPort(WebService.class);
-		int status = ws.register(name,email,password); //method register di webservicenya return status ngecek kalau emailnya udah ada di DB atau belum
+		int status = ws.insertQuestion(name,email,topic,content);
 		if (status==0){
 			response.redirect("registerSuccess.jsp");
 		} else {
@@ -43,6 +47,5 @@
 		}
 	}
 	%>
-	<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

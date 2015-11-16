@@ -1,41 +1,44 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"  pageEncoding="ISO-8859-1"%>
-<!DOCTYPE HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<title>Your Answer</title>
-<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+<title>Edit Post</title>
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 	<div class="container">
 		<a class="homelink" href="http://mystackexchange.dev"><h1 id="title">My StackExchange</h1></a>
 		<div class="content">
-			<h2>Register</h2>
+			<h2>Edit Post</h2>
 			<hr>
-			<form action="register.jsp", method="post" onsubmit="return validateRegistration()">
-			<input class="textbox" type="text", name="name", id="name" placeholder="Name">
+			<form action="editpost.jsp", method="post">
+			<input class="textbox" type="text", name="name", id="name" value="'.$rows[0]['name'].'">
 			<br>
-			<input class="textbox" type="text", name="email", id="email" placeholder="Email">
+			<input class="textbox" type="text", name="email", id="email" value="'.$rows[0]['email'].'">
 			<br>
-			<input class="textbox" type="password", name="password", id="password" placeholder="Password">
+			<input class="textbox" type="text", name="topic", id="topic" value="'.$rows[0]['topic'].'">
 			<br>
-			<input type="submit" id="post"  value="Post">
+			<textarea class="textarea", name="content", id="content">'.$rows[0]['content'].'</textarea>
+			<br>
+			<input type="submit" id="post" value="Post">
 			</form>
 		</div>	
-	</div>
 	<%@page import= "java.net.URL,javax.xml.namespace.QName,javax.xml.ws.Service" %>
 	<%@page import= "com.yangnormal.sstackex.ws.WebServiceImpl;" %>
 		
 	<% 
 	String name = request.getParameter("name");
 	String email = request.getParameter("email");
-	String password = request.getParameter("password");
-	if ((name!= null) && (email!=null) && (password!=null)){
+	String topic = request.getParameter("topic");
+	String content = request.getParameter("content");
+	if ((name!= null) && (email!=null) && (topic!=null)&&(content!=null)){
 		URL url = new URL ("http://localhost:8080/ws/stackexchange?wsdl");
 		QName qname = new QName("http://ws.yangnormal.com/","RegistrationImplService");
 		Service service = Service.create(url,qname);
 		WebServiceImpl ws = service.getPort(WebService.class);
-		int status = ws.register(name,email,password); //method register di webservicenya return status ngecek kalau emailnya udah ada di DB atau belum
+		int status = ws.updateQuestion(name,email,topic,content);
 		if (status==0){
 			response.redirect("registerSuccess.jsp");
 		} else {
@@ -43,6 +46,6 @@
 		}
 	}
 	%>
-	<script type="text/javascript" src="js/script.js"></script>
+	</div>
 </body>
 </html>
