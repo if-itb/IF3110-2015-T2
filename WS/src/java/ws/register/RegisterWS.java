@@ -35,8 +35,8 @@ public class RegisterWS {
             
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setString(1, email);
-            result = dbStatement.executeUpdate();
-            if (result == 0) {
+            ResultSet rs = dbStatement.executeQuery();
+            if (!rs.next()) {
                 sql = "INSERT INTO users (Name, Email, Password) VALUES (?,?,?)";
 
                 dbStatement = conn.prepareStatement(sql);
