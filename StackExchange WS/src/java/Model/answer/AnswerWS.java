@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * To change this license header, choose License Headeresult in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -32,53 +32,78 @@ public class AnswerWS {
      */
     Connection conn = DB.connect();
 
-    /**
-     * This is a sample web service operation
-     */
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
-    }
 
     /**
      * Web service operation
      */
     @WebMethod(operationName = "getAnswerByQID")
-    @WebResult(name="Answer")
-    public List<Answer> getAnswerByQID(@WebParam(name = "qid")
-            int qid) {
-        ArrayList<Answer> answers = new ArrayList<>();
+    @WebResult(name = "Answer")
+    public List<Answer> getAnswerByQID(@WebParam(name = "qid") int qid) {
+        List<Answer> answeresult = new ArrayList<>();
         
         try{
-            Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM answers WHERE id_quetstion = ?";
+            sql = "SELECT * FROM answer WHERE id_question = ?";
             
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1, qid);
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, qid);
             
-            ResultSet rs = dbStatement.executeQuery(sql);
+            ResultSet result = statement.executeQuery();
             
             /* Get every data returned by SQL Query */
             int i = 0;
-            while(rs.next()){
-                answers.add(new Answer(rs.getInt("id"),
-                                        rs.getInt("id_question"),
-                                        rs.getInt("id_user"),
-                                        rs.getString("content"),
-                                        rs.getString("timestamp")
+            while(result.next()){
+                answeresult.add(new Answer(result.getInt("id"),
+                                        result.getInt("id_question"),
+                                        result.getInt("id_user"),
+                                        result.getString("content"),
+                                        result.getString("timestamp")
                 ));
                 i++;
             }
             
-            rs.close();
-            stmt.close();
+            result.close();
         }
         catch(SQLException ex){
-            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AnswerWS.class).log(Level.SEVERE, null, ex);
         }
         
         //TODO write your implementation code here:
-        return answers;
+        return answeresult;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "addAnswer")
+    @WebResult(name = "Answer")
+    public boolean addAnswer(@WebParam(name = "idQuestion") int idQuestion,
+                            @WebParam(name = "idUser") int idUser, 
+                            @WebParam(name = "content") String content) throws SQLException 
+    {
+        boolean success = false;
+        PreparedStatement statement = null;
+        
+        try{
+            String sql;
+            sql = "INSERT INTO answer(id_question, id_user, content) VALUES (?,?,?)";
+            
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, idQuestion);
+            statement.setInt(2, idUser);
+            statement.setString(3, content);
+            
+            success = statement.executeUpdate() > 0;
+        }
+        catch(SQLException ex){
+            Logger.getLogger(AnswerWS.class).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            if(statement != null)
+                statement.close();
+        }
+        
+        //TODO write your implementation code here:
+        return success;
     }
 }
