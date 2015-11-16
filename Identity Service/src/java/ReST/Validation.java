@@ -5,8 +5,15 @@
  */
 package ReST;
 
+import Database.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,29 +35,48 @@ public class Validation extends HttpServlet {
    * @throws ServletException if a servlet-specific error occurs
    * @throws IOException if an I/O error occurs
    */
+    
+  DB db = new DB();
+  Connection conn = db.connect();
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
+    response.setContentType("application/json");
+    JSONObject obj = new JSONObject();
+    
     try (PrintWriter out = response.getWriter()) {
-      /* TODO output your page here. You may use following sample code. */
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<title>Servlet Validation</title>");      
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<h1>Servlet Validation at " + request.getContextPath() + "</h1>");
-      out.println("</body>");
-      out.println("</html>");
+      String token = request.getParameter("token");
+      String date = request.getParameter("expirateDate");
       
-      JSONObject obj = new JSONObject();
-
-      obj.put("name", "foo");
-      obj.put("num", new Integer(100));
-      obj.put("balance", new Double(1000.21));
-      obj.put("is_vip", new Boolean(true));
-
-      out.print(obj);
+      try {
+          Statement stmt = conn.createStatement();
+          String sql;
+          
+          sql = "SELECT * FROM acess_token WHERE token = ?";
+          PreparedStatement dbStatement = conn.prepareStatement(sql);
+          dbStatement.setString(1, token);
+          
+          ResultSet rs = dbStatement.executeQuery(sql);
+          
+          if(rs.next()) {
+              Date expirationDate = new Date(date);
+              Date currentDate = new Date();
+              
+              if (currentDate.after(expirationDate)) {
+                  obj.put("message", "expirate");
+              } else {
+                  obj.put("message", "valid");
+              }
+              
+              out.print(obj);
+          } else {
+              obj.put("message", "invalid");
+              out.print(obj);
+          }
+          
+      } catch(SQLException ex) {
+          obj.put("error", ex);  
+          out.print(obj);
+      }
     }
   }
 
@@ -66,7 +92,7 @@ public class Validation extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    processRequest(request, response);
+    //processRequest(request, response);
   }
 
   /**
@@ -80,7 +106,7 @@ public class Validation extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    //processRequest(request, response);
+    processRequest(request, response);
   }
 
   /**
