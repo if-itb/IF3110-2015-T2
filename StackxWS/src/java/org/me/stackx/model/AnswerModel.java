@@ -13,13 +13,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import org.me.stackx.module.Question;
+import org.me.stackx.module.Answer;
 
 /**
  *
  * @author natanelia
  */
-public class QuestionModel {
+public class AnswerModel {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
     static final String DB_URL = "jdbc:mysql://localhost/stackx";
 
@@ -27,7 +27,7 @@ public class QuestionModel {
     static final String USER = "root";
     static final String PASS = "";
  
-    public static int create(String access_token, String title, String content) {
+    public static int create(String access_token, int questionId, String content) {
         //TODO: request to oauth to get who is the requester
         int r = -1;
         boolean valid = true;
@@ -44,10 +44,10 @@ public class QuestionModel {
 
                //STEP 4: Execute a query
                String sql;
-               sql = "INSERT INTO question (user_id, title, content, create_date) VALUES(?, ?, ?, CURRENT_TIMESTAMP)";
+               sql = "INSERT INTO answer (question_id, user_id, content, create_date) VALUES(?, ?, ?, CURRENT_TIMESTAMP)";
                stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-               stmt.setInt(1, userId);
-               stmt.setString(2, title);
+               stmt.setInt(1, questionId);
+               stmt.setInt(2, userId);
                stmt.setString(3, content);
                
                int affectedRows = stmt.executeUpdate();
@@ -92,7 +92,7 @@ public class QuestionModel {
         return r;
     }
     
-    public static int edit(String access_token, int questionId, String title, String content) {
+    public static int edit(String access_token, int answerId, String content) {
         //TODO: request to oauth to get who is the requester
         int r = -1;
         boolean valid = true;
@@ -109,13 +109,12 @@ public class QuestionModel {
 
                //STEP 4: Execute a query
                String sql;
-               sql = "UPDATE question SET title=?, content=? WHERE question_id=? AND user_id=?";
+               sql = "UPDATE answer SET content=? WHERE answer_id=? AND user_id=?";
                stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                
-               stmt.setString(1, title);
-               stmt.setString(2, content);
-               stmt.setInt(3, questionId);
-               stmt.setInt(4, userId);
+               stmt.setString(1, content);
+               stmt.setInt(2, answerId);
+               stmt.setInt(3, userId);
                
                int affectedRows = stmt.executeUpdate();
                if (affectedRows == 0) {
@@ -159,7 +158,7 @@ public class QuestionModel {
         return r;
     }
     
-    public static int vote(String access_token, int questionId, int inc) {
+    public static int vote(String access_token, int answerId, int inc) {
         //TODO: request to oauth to get who is the requester
         int r = -1;
         boolean valid = true;
@@ -176,11 +175,11 @@ public class QuestionModel {
 
                //STEP 4: Execute a query
                String sql;
-               sql = "UPDATE question SET vote=vote+? WHERE question_id=? AND user_id=?";
+               sql = "UPDATE answer SET vote=vote+? WHERE answer_id=? AND user_id=?";
                stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                
                stmt.setInt(1, inc);
-               stmt.setInt(2, questionId);
+               stmt.setInt(2, answerId);
                stmt.setInt(3, userId);
                
                int affectedRows = stmt.executeUpdate();
@@ -225,7 +224,7 @@ public class QuestionModel {
         return r;
     }
     
-    public static Question getById(int id) {
+    public static Answer getById(int id) {
         Connection conn = null;
         Statement stmt = null;
         try {
@@ -238,20 +237,20 @@ public class QuestionModel {
            //STEP 4: Execute a query
            stmt = (Statement) conn.createStatement();
            String sql;
-           sql = "SELECT question_id, user_id, title, content, vote, create_date FROM question WHERE question_id=" + id;
+           sql = "SELECT answer_id, question_id, user_id, content, vote, create_date FROM question WHERE answer_id=" + id;
             //STEP 5: Extract data from result set
             try (ResultSet rs = stmt.executeQuery(sql)) {
                 //STEP 5: Extract data from result set
                 rs.next();
                 //Retrieve by column name
+                int answerId  = rs.getInt("answer_id");
                 int questionId  = rs.getInt("question_id");
                 int userId = rs.getInt("user_id");
-                String title = rs.getString("title");
                 String content = rs.getString("content");
                 int vote = rs.getInt("vote");
                 int createDate = rs.getInt("create_date");
 
-                return new Question(questionId, userId, title, content, vote, createDate);
+                return new Answer(answerId, questionId, userId, content, vote, createDate);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -279,10 +278,10 @@ public class QuestionModel {
         return null;
     }
     
-    public static Question[] getAll() {
+    public static Answer[] getAllFromQuestionId(int questionId) {
         //TODO: request to oauth to get who is the requester
-        ArrayList<Question> questionList = new ArrayList<>();
-        Question[] r = null;
+        ArrayList<Answer> answerList = new ArrayList<>();
+        Answer[] r = null;
         Connection conn = null;
         Statement stmt = null;
         try {
@@ -295,24 +294,22 @@ public class QuestionModel {
            //STEP 4: Execute a query
            stmt = (Statement) conn.createStatement();
            String sql;
-           sql = "SELECT question_id, user_id, title, content, vote, create_date FROM question";
+           sql = "SELECT answer_id, user_id, title, content, vote, create_date FROM answer WHERE question_id=" + questionId;
             //STEP 5: Extract data from result set
             try (ResultSet rs = stmt.executeQuery(sql)) {
                 //STEP 5: Extract data from result set
                 while (rs.next()) {
                     //Retrieve by column name
-                    int questionId  = rs.getInt("question_id");
+                    int answerId  = rs.getInt("answer_id");
                     int userId = rs.getInt("user_id");
-                    String title = rs.getString("title");
                     String content = rs.getString("content");
                     int vote = rs.getInt("vote");
                     int createDate = rs.getInt("create_date");
 
-                    questionList.add(new Question(questionId, userId, title, content, vote, createDate));
+                    answerList.add(new Answer(answerId, questionId, userId, content, vote, createDate));
                 }
-                out.println(questionList);
-                r = new Question[questionList.size()];
-                r = questionList.toArray(r);
+                r = new Answer[answerList.size()];
+                r = answerList.toArray(r);
             } catch (Exception e) {
                 e.printStackTrace();
             }

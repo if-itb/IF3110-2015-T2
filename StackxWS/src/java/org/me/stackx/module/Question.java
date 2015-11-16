@@ -3,26 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.me.stackx;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
-import static java.lang.System.out;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+package org.me.stackx.module;
 
 /**
  *
  * @author natanelia
  */
 public class Question {
-    private int questionId;
-    private int userId;
+    private final int questionId;
+    private final int userId;
     private String title;
     private String content;
     private int vote;
-    private int createDate;
+    private final int createDate;
 
     public Question(int questionId, int userId, String title, String content, int vote, int createDate) {
         this.questionId = questionId;
