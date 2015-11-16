@@ -54,7 +54,7 @@ public class Test extends HttpServlet {
                      out.println(answer.getIsi());
                      out.println(answer.getDatetime());
                  }       
-             } 
+             }
              catch (Exception ex){           
                      out.println("Exception: " + ex);       
              }   
