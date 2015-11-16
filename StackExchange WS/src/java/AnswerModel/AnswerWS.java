@@ -54,7 +54,6 @@ public class AnswerWS {
             stmt.close();
         } catch (SQLException ex) {
         }
-        System.out.println(i);
         return answers;
     }
 }
