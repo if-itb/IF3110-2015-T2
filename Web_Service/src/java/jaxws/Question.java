@@ -5,6 +5,9 @@
  */
 package jaxws;
 
+import java.util.ArrayList;
+import java.sql.ResultSet;
+
 /**
  *
  * @author gazandic
@@ -64,6 +67,29 @@ import javax.xml.bind.*; import javax.xml.bind.annotation.*;
   public int getVote(){
       return vote;
   }
-  
-  
+  public ArrayList<Question> fetchQuestions(ResultSet rs) {
+    ArrayList<Question> ret = new ArrayList<Question>();
+    try {
+      DB db = new DB();
+      while(rs.next()) {
+        String query = "SELECT COUNT(*) FROM answer WHERE qid = " + rs.getInt("question.id");
+        ResultSet tmp = db.getResultQuery(query);
+        tmp.next();
+        int numAnswer = tmp.getInt("COUNT(*)");
+        tmp.close();
+        
+        ret.add(new Question( rs.getInt("question.id"),                                                                    
+                              rs.getInt("uid"), 
+                              rs.getString("user.username"), 
+                              rs.getString("topic"),
+                              rs.getString("content"),
+                              rs.getString("datetime"),
+                              rs.getInt("vote"), numAnswer
+        ));   
+      }
+    } catch(Throwable e) {
+      e.printStackTrace();
+    }
+    return ret;
+  }
 }

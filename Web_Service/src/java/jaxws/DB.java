@@ -5,14 +5,18 @@
  */
 package jaxws;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import javax.jws.WebService;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
 
-/**
- *
- * @author gazandic
- */
+
 public class DB {
   final private String SRV = "jdbc:mysql://localhost/";
   final private String USR = "root"; 
@@ -22,10 +26,29 @@ public class DB {
   private Statement stmt;
   public DB() throws Throwable {
     Class.forName("com.mysql.jdbc.Driver");   // register JDBC driver
-    conn = DriverManager.getConnection(SRV+DB, USR, PWD);  // open connection
+    conn = DriverManager.getConnection(SRV + DB, USR, PWD);  // open connection
     stmt = conn.createStatement();    // initialize statement for query
   }
-  public Connection connect(){
-      return conn;
-  } 
+  
+  public void executeQuery(String query) {
+    try {
+      PreparedStatement dbStatement =  conn.prepareStatement(query); 
+      dbStatement.executeUpdate(query);
+      stmt.close();
+    } 
+    catch (Throwable ex) {
+      ex.printStackTrace();
+    }
+  }
+  
+  public ResultSet getResultQuery(String query) {
+    ResultSet res = null;
+    try {
+      PreparedStatement dbStatement =  conn.prepareStatement(query);
+      res = dbStatement.executeQuery(query);
+    } catch(Exception ex) {
+      ex.printStackTrace();
+    }
+    return res;
+  }
 }

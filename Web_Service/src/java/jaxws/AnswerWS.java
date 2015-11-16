@@ -15,11 +15,12 @@ import javax.jws.*;
  */
 @WebService(serviceName = "AnswerWS")
 public class AnswerWS {
-    Connection conn;
+    DB database;
+    Answer model;
 
     public AnswerWS() throws Throwable {
-        DB a = new DB();
-        this.conn = a.connect();
+        database = new DB();
+        model = new Answer();
     }
     /**
      * Web service operation
@@ -29,32 +30,10 @@ public class AnswerWS {
     @WebMethod(operationName = "getAnswerByQID")
     @WebResult(name="Answer")
     public ArrayList<Answer> getAnswerByQID(@WebParam(name = "qid") int qid) {
-        ArrayList<Answer> answers = new ArrayList<>();  
-        String query = "SELECT * FROM answer JOIN user WHERE qid = "+qid+" AND uid = user.id";
-        try {
-          Statement stmt = conn.createStatement(); 
-          PreparedStatement dbStatement =  conn.prepareStatement(query); 
-          //dbStatement.setInt(1, qid);
-          ResultSet rs = dbStatement.executeQuery(query);
-          int i=0;
-          while(rs.next()){                 
-                 answers.add(new Answer( rs.getInt("answer.id"),                                  
-                         rs.getInt("qid"),                                  
-                         rs.getInt("uid"), 
-                         rs.getString("user.username"), 
-                         rs.getString("content"),                                  
-                         rs.getString("datetime"),
-                         rs.getInt("vote")
-                 ));               
-             i++;
-          }       
-          rs.close();
-          stmt.close();
-        } 
-        catch (Throwable ex) {
-          ex.printStackTrace();
-        }
-        return answers;
+      ArrayList<Answer> answers = new ArrayList<>();  
+      String query = "SELECT * FROM answer WHERE qid="+qid;
+      ResultSet rs = database.getResultQuery(query);
+      return model.fetchAnswers(rs);
     }
     /**
      * Web service operation
@@ -66,36 +45,8 @@ public class AnswerWS {
     @WebMethod(operationName = "insertAnswer")
     @WebResult(name="saveAnswer")
     public void insertAnswer(@WebParam(name = "uid") int uid,@WebParam(name = "qid") int qid,@WebParam(name = "content") String content) {
-        int ans = 0;
-        try {
-            String query2 = "SELECT answer.id FROM answer ";
-            Statement stmt2 = conn.createStatement(); 
-            PreparedStatement dbStatement2 =  conn.prepareStatement(query2); 
-            //dbStatement.setInt(1, qid);
-            ResultSet tmp = dbStatement2.executeQuery(query2);
-            while(tmp.next()){
-                    ans = tmp.getInt("answer.id");
-            }     
-            stmt2.close();
-            tmp.close();
-        }   
-        
-       catch (Exception e) {
-                 
-        }
-        ans++;
-        String query = "INSERT INTO `answer` (`id`, `qid`, `uid`, `content`, `datetime`, `vote`) VALUES ('"+ans+"','"+qid+"','"+uid+"', '"+content+"', CURRENT_TIMESTAMP, '0')";
-    
-        try {
-          Statement stmt = conn.createStatement(); 
-          PreparedStatement dbStatement =  conn.prepareStatement(query); 
-          //dbStatement.setInt(1, qid);
-          dbStatement.executeUpdate(query);
-          stmt.close();
-        } 
-        catch (Throwable ex) {
-          ex.printStackTrace();
-        }
+      String query = "INSERT INTO `answer` (`qid`, `uid`, `content`) VALUES ('"+qid+"','"+uid+"', '"+content+"')";
+      database.executeQuery(query);
     }
     /**
      * Web service operation
@@ -106,50 +57,16 @@ public class AnswerWS {
      */
     @WebMethod(operationName = "voteAnswer")
     @WebResult(name="vtAnswer")
-    public int voteAnswer(@WebParam(name = "aid") int aid,@WebParam(name = "uid") int uid,@WebParam(name = "type") int type) {
-        int ans = 0;
-        try {
-          String query2 = "SELECT vote FROM answer WHERE id ="+aid;
-          Statement stmt2 = conn.createStatement(); 
-          PreparedStatement dbStatement2 =  conn.prepareStatement(query2); 
-          //dbStatement.setInt(1, qid);
-          ResultSet tmp = dbStatement2.executeQuery(query2);
-          tmp.next();
-          ans = tmp.getInt("id");
-          stmt2.close();
-          tmp.close();
-        }   
-        
-        catch (Exception e) {
-                 
-        }
-        ans+= type;
-        String queryvt = "INSERT INTO `vote_answer` (`aid`, `uid`, `type`) VALUES ('"+aid+"','"+uid+"','"+type+"')";
-    
-        try {
-          Statement stmtvt = conn.createStatement(); 
-          PreparedStatement dbStatementvt =  conn.prepareStatement(queryvt); 
-          //dbStatement.setInt(1, qid);
-          dbStatementvt.executeUpdate(queryvt);
-          stmtvt.close();
-        } 
-        catch (Throwable ex) {
-          ex.printStackTrace();
-        }
-        String query = "UPDATE answer SET vote = " + ans + " WHERE id = " + aid + "";
-        
-        try {
-          Statement stmt = conn.createStatement(); 
-          PreparedStatement dbStatement =  conn.prepareStatement(query); 
-          //dbStatement.setInt(1, qid);
-          dbStatement.executeUpdate(query);
-          stmt.close();
-        } 
-        catch (Throwable ex) {
-          ex.printStackTrace();
-        }
-        
-        return ans;
+    public void voteAnswer(@WebParam(name = "aid") int aid,@WebParam(name = "uid") int uid,@WebParam(name = "type") int type) {
+      String query = "SELECT * FROM vote_answer WHERE aid=" + aid + " AND uid=" + uid;
+      ResultSet tmp = database.getResultQuery(query);
+      try {
+        if(tmp.next()) return;  // user pernah melakukan vote
+      } catch(Throwable e) {
+        e.printStackTrace();
+      }
+      query = "INSERT INTO `vote_answer` (`aid`, `uid`, `type`) VALUES ('"+aid+"','"+uid+"','"+type+"')";
+      database.executeQuery(query);
     }
     
     

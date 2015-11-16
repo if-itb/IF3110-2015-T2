@@ -51,7 +51,6 @@ public class Test extends HttpServlet {
                      out.println(answer.getId());
                      out.println(answer.getQid());
                      out.println(answer.getUsername());
-                     out.println(answer.getIsi());
                      out.println(answer.getDatetime());
                  }       
              }

@@ -9,7 +9,11 @@ package jaxws;
  *
  * @author gazandic
  */
-import javax.xml.bind.*; import javax.xml.bind.annotation.*;  
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import javax.xml.bind.*;
+import javax.xml.bind.annotation.*;  
+
 @XmlRootElement(name = "Answer") public class Answer {  
   @XmlElement(name="id", required=true)  
   private int id;  
@@ -49,7 +53,7 @@ import javax.xml.bind.*; import javax.xml.bind.annotation.*;
   public int getUid(){
       return uid;
   }
-    public String getEmail(){
+  public String getEmail(){
       return username;
   }
   public String getContent(){
@@ -58,10 +62,27 @@ import javax.xml.bind.*; import javax.xml.bind.annotation.*;
   public String getDatetime(){
       return datetime;
   }
-  
-  
   public int getVote(){
       return vote;
   }
   
+  public ArrayList<Answer> fetchAnswers(ResultSet rs) {
+    ArrayList<Answer> ret = new ArrayList<Answer>();
+    try {
+      DB db = new DB();
+      while(rs.next()) {
+        ret.add(new Answer( rs.getInt("answer.id"),                                  
+                rs.getInt("qid"),                                  
+                rs.getInt("uid"), 
+                rs.getString("user.username"), 
+                rs.getString("content"),                                  
+                rs.getString("date"),
+                rs.getInt("vote")
+        ));  
+      }
+    } catch(Throwable e) {
+      e.printStackTrace();
+    }
+    return ret;
+  }
 }
