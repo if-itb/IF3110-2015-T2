@@ -6,10 +6,10 @@
 package model.question;
 
 import com.sun.istack.logging.Logger;
+import connection.DB;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,64 +30,68 @@ public class QuestionWS {
      * Get question by ID
      * @param id
      * @return Question
+     * @throws java.sql.SQLException
      */
     @WebMethod(operationName = "getQuestionByID")
     @WebResult(name = "Question")
-    public Question getQuestionByID(@WebParam(name = "id") final int id) {        
+    public Question getQuestionByID(@WebParam(name = "id") final int id) throws SQLException {        
         Question question = null;
-        try (Statement statement = conn.createStatement()) {
+        PreparedStatement statement = null;            
+        try {
             String sql ="SELECT * FROM question WHERE id = ?";            
-            
-            PreparedStatement dbStatement = conn.prepareStatement(sql);            
-            dbStatement.setInt(1, id);
+            statement = conn.prepareStatement(sql);            
+            statement.setInt(1, id);
                         
-            try (ResultSet result = dbStatement.executeQuery(sql)) {
-                if (result.next())
-                    question = new Question(
-                            result.getInt("id"),
-                            result.getInt("id_user"),
-                            result.getString("topic"),
-                            result.getString("content"),
-                            result.getInt("votes"),
-                            result.getString("date")
-                    );
-                result.close();
-            }
-            statement.close();
+            ResultSet result = statement.executeQuery();
+            if (result.next())
+                question = new Question(
+                    result.getInt("id"),
+                    result.getInt("id_user"),
+                    result.getString("topic"),
+                    result.getString("content"),
+                    result.getInt("votes"),
+                    result.getString("date")
+                );                                        
         }
         catch (SQLException ex) {
             Logger.getLogger(QuestionWS.class).log(Level.SEVERE, null, ex);            
+        }
+        finally {
+            if (statement != null)
+                statement.close();
         }
         return question;
     }
 
     /**
-     * Get list of all questions
+     * Get list of all questions from database
      * @return List of all questions
+     * @throws java.sql.SQLException
      */
     @WebMethod(operationName = "getAllQuestions")
-    public List<Question> getAllQuestions() {
+    public List<Question> getAllQuestions() throws SQLException {
         List<Question> questions = new ArrayList<>();
-        try (Statement statement = conn.createStatement()) {
-            String sql ="SELECT * FROM question";                        
-            PreparedStatement dbStatement = conn.prepareStatement(sql);                                                
-            
-            try (ResultSet result = dbStatement.executeQuery(sql)) {
-                while (result.next())
-                    questions.add(new Question(
-                            result.getInt("id"),
-                            result.getInt("id_user"),
-                            result.getString("topic"),
-                            result.getString("content"),
-                            result.getInt("votes"),
-                            result.getString("date")
-                    ));
-                result.close();
-            }
-            statement.close();
+        PreparedStatement statement = null;                                                
+        try {
+            String sql ="SELECT * FROM question";                                    
+            statement = conn.prepareStatement(sql);
+            ResultSet result = statement.executeQuery();
+            while (result.next())
+                questions.add(new Question(
+                    result.getInt("id"),
+                    result.getInt("id_user"),
+                    result.getString("topic"),
+                    result.getString("content"),
+                    result.getInt("votes"),
+                    result.getString("date")
+                ));            
         }
         catch (SQLException ex) {
             Logger.getLogger(QuestionWS.class).log(Level.SEVERE, null, ex);            
+        }
+        finally {
+            if (statement != null)
+                statement.close();
         }
         return questions;
     }
@@ -100,22 +104,53 @@ public class QuestionWS {
      * @return Boolean true if success, false otherwise
      */
     @WebMethod(operationName = "addQuestion")
-    public boolean addQuestion(@WebParam(name = "id_user") final int id_user, @WebParam(name = "topic") final String topic, @WebParam(name = "content") final String content) {
+    public boolean addQuestion(@WebParam(name = "id_user") final int id_user, @WebParam(name = "topic") final String topic, @WebParam(name = "content") final String content) throws SQLException {
         boolean success = false;
-        try (Statement statement = conn.createStatement()) {
-            String sql ="INSERT INTO"
+        PreparedStatement statement = null;
+        try {
+            String sql = "INSERT INTO"
                     + "question (id_user, topic, content)"
                     + "VALUES (?, ?, ?)";                        
-            PreparedStatement dbStatement = conn.prepareStatement(sql);            
-            dbStatement.setInt(1, id_user);
-            dbStatement.setString(2, topic);
-            dbStatement.setString(3, content);            
+            statement = conn.prepareStatement(sql);                        
+            statement.setInt(1, id_user);
+            statement.setString(2, topic);
+            statement.setString(3, content);            
                         
-            success = dbStatement.execute(sql);            
-            statement.close();
+            success = statement.executeUpdate() > 0;                        
         }
         catch (SQLException ex) {
             Logger.getLogger(QuestionWS.class).log(Level.SEVERE, null, ex);            
+        }
+        finally {
+            if (statement != null)
+                statement.close();
+        }
+        return success;
+    }
+
+    /**
+     * Delete question from database
+     * @param id
+     * @return Boolean true if success, false otherwise
+     * @throws java.sql.SQLException
+     */
+    @WebMethod(operationName = "deleteQuestion")
+    public boolean deleteQuestion(@WebParam(name = "id") final int id) throws SQLException {
+        boolean success = false;
+        PreparedStatement statement = null;
+        try {
+            String sql = "DELETE FROM question WHERE id = ?";                        
+            statement = conn.prepareStatement(sql);                        
+            statement.setInt(1, id);            
+                        
+            success = statement.executeUpdate() > 0;                        
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(QuestionWS.class).log(Level.SEVERE, null, ex);            
+        }
+        finally {
+            if (statement != null)
+                statement.close();
         }
         return success;
     }
