@@ -5,16 +5,43 @@
  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="StackExchangeWebService" targetNamespace="http://jaxws/" xmlns:tns="http://jaxws/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" 
  >
-    <message name="add"/>
-    <message name="addResponse"/>
+<<<<<<< HEAD
+    
+=======
+    <message name="getAnswerByQID"/>
+    <message name="getAnswerByQIDResponse"/>
+    <message name="insertAnswer"/>
+    <message name="insertAnswerResponse"/>
+    <message name="voteAnswer"/>
+    <message name="voteAnswerResponse"/>
+>>>>>>> origin/master
+    
+    <message name="getAnswerByQID"/>
+    <message name="getAnswerByQIDResponse"/>
     <portType name="AnswerWS">
-        <operation name="add">
-            <input message="tns:add"/>
-            <output message="tns:addResponse"/>
+        <operation name="insertAnswer">
+            <input message="tns:insertAnswer"/>
+            <output message="tns:insertAnswerResponse"/>
+        </operation>
+        <operation name="voteAnswer">
+            <input message="tns:voteAnswer"/>
+            <output message="tns:voteAnswerResponse"/>
+        </operation>
+        <operation name="getAnswerByQID">
+            <input message="tns:getAnswerByQID"/>
+            <output message="tns:getAnswerByQIDResponse"/>
         </operation>
     </portType>
     <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
-        <operation name="add">
+        <operation name="insertAnswer">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="voteAnswer">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="getAnswerByQID">
             <input/>
             <output/>
         </operation>
@@ -35,6 +62,30 @@
         </wsp:ExactlyOne>
     </wsp:Policy>
     <wsp:Policy wsu:Id="AnswerWSPortBinding_getAnswerByQID_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedParts>
+                    <sp:Body/>
+                </sp:EncryptedParts>
+                <sp:SignedParts>
+                    <sp:Body/>
+                </sp:SignedParts>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="AnswerWSPortBinding_add_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedParts>
+                    <sp:Body/>
+                </sp:EncryptedParts>
+                <sp:SignedParts>
+                    <sp:Body/>
+                </sp:SignedParts>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="AnswerWSPortBinding_add_Output_Policy">
         <wsp:ExactlyOne>
             <wsp:All>
                 <sp:EncryptedParts>

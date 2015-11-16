@@ -44,7 +44,7 @@ public class Test extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet Test at " + request.getContextPath() + "</h1>");
              try {           
-                 int i = 1;           
+                 int i = 16;           
                  java.util.List<AnswerWS.Answer> result = getAnswerByQID(i);
                  out.println("Result: " + result);          
                  for (AnswerWS.Answer answer : result) {             
