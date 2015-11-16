@@ -5,32 +5,41 @@
  */
 package AnsOperation;
 
+import javax.xml.bind.annotation.*;
+
 /**
  *
  * @author Muhtar Hartopo
  */
+@XmlRootElement(name = "Answer")
 public class Answer {
+        @XmlElement(name = "Ansid", required = true)
 	private int id;
+        @XmlElement(name = "Ansqid", required = true)
 	private int qid;
-	private String nama;
+        @XmlElement(name = "Ansname", required = true)
+	private String name;
+        @XmlElement(name = "Ansemail", required = true)
 	private String email;
-	private String konten;
+        @XmlElement(name = "Anscontent", required = true)
+	private String content;
+        @XmlElement(name = "Ansvote", required = true)
 	private int vote;
 	
         public Answer() {
             id = 0;
             qid = 0;
-            nama = "";
+            name = "";
             email = "empty@emp.ty";
-            konten = "";
+            content = "";
             vote = 0;
         }
 	public Answer(int _id, int _qid, String _nama, String _email, String _konten, int _vote) {
 		id = _id;
 		qid = _qid;
-		nama = _nama;
+		name = _nama;
 		email = _email;
-		konten = _konten;
+		content = _konten;
 		vote = _vote;
 	}
 	
@@ -39,36 +48,19 @@ public class Answer {
 	}
 	
 	public String getNama() {
-		return nama;
-	}
-	public void setNama(String nama) {
-		this.nama = nama;
+		return name;
 	}
 	public String getEmail() {
 		return email;
 	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	public String getKonten() {
-		return konten;
-	}
-	public void setKonten(String konten) {
-		this.konten = konten;
+		return content;
 	}
 	public int getVote() {
 		return vote;
-	}
-	public void setVote(int vote) {
-		this.vote = vote;
 	}
 
 	public int getQid() {
 		return qid;
 	}
-
-	public void setQid(int qid) {
-		this.qid = qid;
-	}
-	
 }

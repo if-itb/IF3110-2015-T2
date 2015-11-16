@@ -189,10 +189,11 @@ public class QuestionWS {
     }
     
     @WebMethod(operationName = "delete")
-    public void delete(@WebParam(name = "qid")int qid) {
+    public int delete(@WebParam(name = "qid")int qid) {
         String Query = "delete from question where id = ?";
         Connection conn = null;
         PreparedStatement ps = null;
+        int res = -1;
         try {
                 //new com.mysql.jdbc.Driver();
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -204,15 +205,18 @@ public class QuestionWS {
                 ps = conn.prepareStatement("delete from question where id = ?;");
                 ps.setInt(1, qid);
                 ps.executeUpdate();
+                ps = conn.prepareStatement("delete from Answer where q_id = ?;");
+                ps.setInt(1, qid);
+                res = ps.executeUpdate();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
         } finally {
                 try { if (ps != null) ps.close(); } catch (SQLException e) {}
                 try { if (conn != null) conn.close(); } catch (SQLException e) {}
         }
+        return res;
     }
     @WebMethod(operationName = "getNumAnswer")
     public int getNumAnswer(@WebParam(name = "id") int id) {
-        String Query = "delete from question where id = ?";
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
