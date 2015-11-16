@@ -6,6 +6,7 @@
 package model.answer;
 
 import com.sun.istack.logging.Logger;
+import connection.DB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
