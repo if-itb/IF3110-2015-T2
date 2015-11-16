@@ -2,7 +2,7 @@
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
     <service name="AnswerWS">
-      <implementation-class>AnswerModel.AnswerWS</implementation-class>
+      <implementation-class>model.answer.AnswerWS</implementation-class>
     </service>
   </services>
   <clients/>

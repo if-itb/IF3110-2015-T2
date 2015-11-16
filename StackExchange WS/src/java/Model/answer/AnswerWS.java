@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AnswerModel;
+package model.answer;
 
 import com.sun.istack.logging.Logger;
 import java.sql.Connection;
@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -44,10 +45,11 @@ public class AnswerWS {
      */
     @WebMethod(operationName = "getAnswerByQID")
     @WebResult(name="Answer")
-    public ArrayList<Answer> getAnswerByQID(@WebParam(name = "qid") int qid) {
+    public List<Answer> getAnswerByQID(@WebParam(name = "qid")
+            int qid) {
         ArrayList<Answer> answers = new ArrayList<>();
         
-        try(){
+        try{
             Statement stmt = conn.createStatement();
             String sql;
             sql = "SELECT * FROM answers WHERE id_quetstion = ?";
