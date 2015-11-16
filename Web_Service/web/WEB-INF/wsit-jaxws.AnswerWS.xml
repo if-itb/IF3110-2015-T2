@@ -3,18 +3,18 @@
  xmlns="http://schemas.xmlsoap.org/wsdl/" 
  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
- xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="StackExchangeWebService" targetNamespace="http://jaxws/" xmlns:tns="http://jaxws/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="StackExchangeWebService" targetNamespace="http://jaxws/" xmlns:tns="http://jaxws/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" 
  >
-    <message name="getAnswerByQID"/>
-    <message name="getAnswerByQIDResponse"/>
+    <message name="add"/>
+    <message name="addResponse"/>
     <portType name="AnswerWS">
-        <operation name="getAnswerByQID">
-            <input message="tns:getAnswerByQID"/>
-            <output message="tns:getAnswerByQIDResponse"/>
+        <operation name="add">
+            <input message="tns:add"/>
+            <output message="tns:addResponse"/>
         </operation>
     </portType>
     <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
-        <operation name="getAnswerByQID">
+        <operation name="add">
             <input/>
             <output/>
         </operation>
@@ -22,4 +22,28 @@
     <service name="StackExchangeWebService">
         <port name="AnswerWSPort" binding="tns:AnswerWSPortBinding"/>
     </service>
+    <wsp:Policy wsu:Id="AnswerWSPortBinding_getAnswerByQID_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedParts>
+                    <sp:Body/>
+                </sp:EncryptedParts>
+                <sp:SignedParts>
+                    <sp:Body/>
+                </sp:SignedParts>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="AnswerWSPortBinding_getAnswerByQID_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedParts>
+                    <sp:Body/>
+                </sp:EncryptedParts>
+                <sp:SignedParts>
+                    <sp:Body/>
+                </sp:SignedParts>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
 </definitions>

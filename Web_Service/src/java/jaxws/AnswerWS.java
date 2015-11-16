@@ -21,6 +21,9 @@ public class AnswerWS {
         DB a = new DB();
         this.conn = a.connect();
     }
+    @WebMethod(operationName = "add")
+    @WebResult(name = "result")
+    public int add(@WebParam(name = "i") int i, @WebParam(name = "j") int j)
     /**
      * Web service operation
      * @param qid
@@ -37,7 +40,7 @@ public class AnswerWS {
           //dbStatement.setInt(1, qid);
           ResultSet rs = dbStatement.executeQuery(query);
           int i=0;
-          while(rs.next()){                 
+          while(rs.next()){
                  answers.add(new Answer( rs.getInt("id"),                                  
                          rs.getInt("qid"),                                  
                          rs.getString("username"),                                  

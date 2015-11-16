@@ -15,7 +15,7 @@ import java.sql.Statement;
  */
 public class DB {
   final private String SRV = "jdbc:mysql://localhost/";
-  final private String USR = "root";
+  final private String USR = "root"; 
   final private String PWD = "";
   final private String DB = "wbd2";
   private Connection conn;
