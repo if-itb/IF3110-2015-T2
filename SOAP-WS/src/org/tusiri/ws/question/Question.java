@@ -3,27 +3,104 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.sql.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.tusiri.ws.db.DBConnection;
 
 
 //This statement means that class "Bookstore.java" is the root-element of our example
-@XmlRootElement(namespace = "de.vogella.xml.jaxb.model")
+
 @WebService(endpointInterface = "org.tusiri.ws.question.Question")
 public class Question {
 	
-	// XmLElementWrapper generates a wrapper element around XML representation
-	@XmlElementWrapper(name = "bookList")
-	// XmlElement sets the name of the entities
-	@XmlElement(name = "book")
-	private ArrayList<QuestionItem> bookList;
-	private String name;
-	private String location;
+	@WebMethod
+	public int createQuestion(String access_token,String title,String content) throws ClientProtocolException, IOException, ParseException{
+		int q_id = 0;
+		
+		System.out.println(access_token);
+		System.out.println(title);
+		System.out.println(content);
+		try {
+			DefaultHttpClient httpClient = new DefaultHttpClient();
+			HttpPost postRequest = new HttpPost(
+				"http://localhost:8080/REST-WS/rest/token-validity/getUserID");
+			StringEntity input = new StringEntity("{\"access_token\":\""+access_token+"\"}");
+			input.setContentType("application/json");
+			postRequest.setEntity(input);
+			System.out.println("masuk createQuestion");
+			HttpResponse response = httpClient.execute(postRequest);
+
+			if (response.getStatusLine().getStatusCode() != 200) {
+				throw new RuntimeException("Failed : HTTP error code : "
+						+ response.getStatusLine().getStatusCode());
+			}
+			System.out.println("masuk createQuestion 2");
+			BufferedReader br = new BufferedReader(
+				new InputStreamReader((response.getEntity().getContent())));
+			String output;
+			System.out.println("Output from REST ..... \n");
+			boolean isTokenValid=false;
+			int id_user;
+			if ((output = br.readLine()) != null) {
+				System.out.println(output);
+				JSONParser jsonParser = new JSONParser();
+				JSONObject jsonObject = (JSONObject) jsonParser.parse(output);
+				System.out.println("after JSON Parse");
+				isTokenValid = (boolean) jsonObject.get("valid");
+				System.out.println("after JSON Parse 2");
+				long id_user_long = (long) jsonObject.get("id_user");
+				id_user = (int) id_user_long; //bahaya, tapi asumsi ga ada angka yang besar
+				
+				System.out.println(id_user);
+				if(isTokenValid){
+					//Masukkan ke database
+					DBConnection dbc = new DBConnection();
+					Statement stmt = dbc.getDBStmt();
+					try{
+						String sql = "INSERT INTO question(id_user,content,question_date,topic,num_vote)"
+								+ "VALUES("+id_user+",'"+content+"',NOW(),'"+title+"',0)";
+						q_id = stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+						ResultSet rs = stmt.getGeneratedKeys();
+			            while (rs.next()) {
+			               q_id = rs.getInt(1);
+			            } 	
+						System.out.println("q_id = " + q_id);
+						//res = 1;
+					} catch(SQLException se){
+						//Handle errors for JDBC
+						se.printStackTrace();
+					} catch(Exception e){
+						//Handle errors for Class.forName
+						e.printStackTrace();
+					}
+				}
+			}
+			httpClient.getConnectionManager().shutdown();
+
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return q_id;
+	}
 	
 	@WebMethod
 	public ArrayList<QuestionItem> getQuestionList() {
@@ -39,8 +116,6 @@ public class Question {
 				//Retrieve by column name
 				int id_question  = rs.getInt("id_question");
 				int id_user  = rs.getInt("id_user");
-				String username = rs.getString("username");
-				String email = rs.getString("email");
 				String content = rs.getString("content");
 				String question_date = rs.getDate("question_date").toString();
 				String topic = rs.getString("topic");
@@ -49,8 +124,6 @@ public class Question {
 				QuestionItem q = new QuestionItem();
 				q.setIDQuestion(id_question);
 				q.setIDUser(id_user);
-				q.setUsername(username);
-				q.setEmail(email);
 				q.setContent(content);
 				q.setQuestionDate(question_date);
 				q.setTopic(topic);
