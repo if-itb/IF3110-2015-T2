@@ -5,6 +5,7 @@
  */
 package Question;
 
+import AnswerWS.AnswerWS_Service;
 import QuestionWS.Question;
 import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
@@ -22,6 +23,8 @@ import javax.xml.ws.WebServiceRef;
  * @author Asus
  */
 public class QuestionView extends HttpServlet {
+  @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/AnswerWS.wsdl")
+  private AnswerWS_Service service_1;
   @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/QuestionWS.wsdl")
   private QuestionWS_Service service;
 
@@ -38,8 +41,10 @@ public class QuestionView extends HttpServlet {
     throws ServletException, IOException {
         
     QuestionWS.Question question = getQuesstionById(Integer.parseInt(request.getParameter("id")));
+    java.util.List<AnswerWS.Answer> answers = getAnswerByQID(Integer.parseInt(request.getParameter("id")));
     
     request.setAttribute("question", question);
+    request.setAttribute("answers", answers);
     RequestDispatcher dispatcher = request.getRequestDispatcher("/question.jsp"); 
     dispatcher.forward(request, response); 
     
@@ -89,6 +94,13 @@ public class QuestionView extends HttpServlet {
     // If the calling of port operations may lead to race condition some synchronization is required.
     QuestionWS.QuestionWS port = service.getQuestionWSPort();
     return port.getQuesstionById(id);
+  }
+
+  private java.util.List<AnswerWS.Answer> getAnswerByQID(int qid) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
+    return port.getAnswerByQID(qid);
   }
 
 }

@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="layout/header.jsp" flush="true"/>
 <jsp:useBean id="question" type="QuestionWS.Question" scope="request" /> 
+<jsp:useBean id="answers" type="java.util.List<AnswerWS.Answer>" scope="request" /> 
 
     <form action="" method="GET" id="searchForm">
         <input type="text" placeholder="Search...">
@@ -66,6 +67,7 @@
         </div>
     </div>
 
+    <% for( AnswerWS.Answer answer: answers ) { %>
     <div class="inner-container">
         <div class="answer">
             <div class="row">
@@ -87,9 +89,7 @@
                 </div> <!-- .answer-status -->
 
                 <div class="answer-content col-10">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat rem quibusdam nihil sequi odit doloremque. Nemo eaque alias repudiandae, consequatur itaque ea pariatur aliquid quasi quo quos, ducimus deserunt eum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, dolorum recusandae dolore delectus expedita, eum eveniet facilis libero rem obcaecati sit ipsam illo doloribus ratione, deleniti tenetur hic aperiam enim.</p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, labore quia velit, sint pariatur beatae reiciendis, aperiam sit totam, iste ea sequi. Excepturi, inventore quidem? Rerum mollitia, necessitatibus itaque laudantium?</p>
+                    <p><%= answer.getContent() %></p>
                 </div>
 
                 <div class="answer-meta">
@@ -105,6 +105,8 @@
         </div> <!-- .answes -->
     </div> <!-- .inner-container -->
 
+   <% } %>
+    
     <div class="inner-container">
         <div class="row">
             <div class="answer-form col-10 col-push-2">
