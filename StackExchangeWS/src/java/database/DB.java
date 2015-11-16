@@ -25,13 +25,13 @@ public class DB {
         
         try {
             // create a mysql database connection
-            String driver = "org.gjt.mm.mysql.Driver";
+            String driver = "com.mysql.jdbc.Driver";
             String url = "jdbc:mysql://localhost/stackexchange";
             String username = "root";
             String password = "";
-            Class.forName(driver);
+            Class.forName(driver).newInstance();
             conn = DriverManager.getConnection(url, username, password);
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
         

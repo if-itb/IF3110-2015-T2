@@ -36,16 +36,62 @@ public class Question {
        q_id = 0;
     }
     
-    public Question(int _id, String _topic, String _content, String _username, String _timestamp, int _votes) {
+    public Question(int _id, String _topic, String _content, String _name, String _email, String _timestamp, int _votes) {
         q_id = _id;
         q_topic = _topic;
         q_content = _content;
-        q_name = _username;
+        q_name = _name;
+        q_email = _email;
         q_datetime = _timestamp;
         q_vote = _votes;
     }
-    
+
+    /**
+     * @return the q_id
+     */
+    public int getId() {
+        return q_id;
+    }
+
+    /**
+     * @return the q_topic
+     */
+    public String getTopic() {
+        return q_topic;
+    }
+
+    /**
+     * @return the q_content
+     */
     public String getContent() {
         return q_content;
+    }
+
+    /**
+     * @return the q_name
+     */
+    public String getName() {
+        return q_name;
+    }
+
+    /**
+     * @return the q_email
+     */
+    public String getEmail() {
+        return q_email;
+    }
+
+    /**
+     * @return the q_datetime
+     */
+    public String getDatetime() {
+        return q_datetime;
+    }
+
+    /**
+     * @return the q_vote
+     */
+    public int getVote() {
+        return q_vote;
     }
 }
