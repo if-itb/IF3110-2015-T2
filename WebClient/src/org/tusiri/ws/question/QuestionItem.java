@@ -18,13 +18,11 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="content" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="id_question" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="id_user" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="num_vote" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="question_date" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="topic" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,18 +34,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "questionItem", propOrder = {
     "content",
-    "email",
     "idQuestion",
     "idUser",
     "numVote",
     "questionDate",
-    "topic",
-    "username"
+    "topic"
 })
 public class QuestionItem {
 
     protected String content;
-    protected String email;
     @XmlElement(name = "id_question")
     protected int idQuestion;
     @XmlElement(name = "id_user")
@@ -57,7 +52,6 @@ public class QuestionItem {
     @XmlElement(name = "question_date")
     protected String questionDate;
     protected String topic;
-    protected String username;
 
     /**
      * Gets the value of the content property.
@@ -81,30 +75,6 @@ public class QuestionItem {
      */
     public void setContent(String value) {
         this.content = value;
-    }
-
-    /**
-     * Gets the value of the email property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Sets the value of the email property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setEmail(String value) {
-        this.email = value;
     }
 
     /**
@@ -201,30 +171,6 @@ public class QuestionItem {
      */
     public void setTopic(String value) {
         this.topic = value;
-    }
-
-    /**
-     * Gets the value of the username property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * Sets the value of the username property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setUsername(String value) {
-        this.username = value;
     }
 
 }

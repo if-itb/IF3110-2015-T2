@@ -3,10 +3,12 @@ package org.tusiri.ws.question;
 
 import java.util.List;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.ws.Action;
+import javax.xml.ws.FaultAction;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 
@@ -23,6 +25,36 @@ import javax.xml.ws.ResponseWrapper;
 })
 public interface Question {
 
+
+    /**
+     * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns int
+     * @throws IOException_Exception
+     * @throws ParseException_Exception
+     * @throws ClientProtocolException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createQuestion", targetNamespace = "http://question.ws.tusiri.org/", className = "org.tusiri.ws.question.CreateQuestion")
+    @ResponseWrapper(localName = "createQuestionResponse", targetNamespace = "http://question.ws.tusiri.org/", className = "org.tusiri.ws.question.CreateQuestionResponse")
+    @Action(input = "http://question.ws.tusiri.org/Question/createQuestionRequest", output = "http://question.ws.tusiri.org/Question/createQuestionResponse", fault = {
+        @FaultAction(className = ClientProtocolException_Exception.class, value = "http://question.ws.tusiri.org/Question/createQuestion/Fault/ClientProtocolException"),
+        @FaultAction(className = IOException_Exception.class, value = "http://question.ws.tusiri.org/Question/createQuestion/Fault/IOException"),
+        @FaultAction(className = ParseException_Exception.class, value = "http://question.ws.tusiri.org/Question/createQuestion/Fault/ParseException")
+    })
+    public int createQuestion(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2)
+        throws ClientProtocolException_Exception, IOException_Exception, ParseException_Exception
+    ;
 
     /**
      * 
