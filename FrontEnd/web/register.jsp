@@ -50,7 +50,7 @@
             <h1><a href="index1.php" id = "title">Simple StackExchange</a></h1>
             <div class = "tabbutton" style="background-color : silver;" onclick = "changetab('login')">Login</div><div class = "tabbutton" style="background-color : white;" onclick = "changetab('register')">Create New Account</div>
             <div id ="formaccount">
-                <form method = "post" action = "index.jsp">
+                <form method = "post" action = "register.jsp">
                     <br>
                     <%-- start web service invocation --%>
                     <%

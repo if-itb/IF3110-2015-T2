@@ -31,14 +31,20 @@ public class RegisterWS {
             Class.forName("com.mysql.jdbc.Driver");
             conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
             Statement stmt = conn.createStatement();
-            
-            sql = "INSERT INTO users (Name, Email, Password) VALUES (?,?,?)";
+            sql = "SELECT * FROM users WHERE Email = ?";
             
             PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setString(1, name);
-            dbStatement.setString(2, email);
-            dbStatement.setString(3, password);
+            dbStatement.setString(1, email);
             result = dbStatement.executeUpdate();
+            if (result == 0) {
+                sql = "INSERT INTO users (Name, Email, Password) VALUES (?,?,?)";
+
+                dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1, name);
+                dbStatement.setString(2, email);
+                dbStatement.setString(3, password);
+                result = dbStatement.executeUpdate();
+            }
             conn.close();
             stmt.close();
             dbStatement.close();
