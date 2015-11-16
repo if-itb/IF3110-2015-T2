@@ -67,12 +67,13 @@
                         java.lang.String password = Password;
                         java.lang.String registered = Submitted;
                         // TODO process result here
-                        int result = port.register(name, email, password);
-                        if (result == 1 && Submitted.equalsIgnoreCase("yes"))
-                            out.println("Registration successful!");
-                        else
-                            if (Submitted.equalsIgnoreCase("yes"))
+                        if (Submitted.equalsIgnoreCase("yes")) {
+                            int result = port.register(name, email, password);
+                            if (result == 1)
+                                out.println("Registration successful!");
+                            else
                                 out.println("Registration unsuccessful. Please try again.");
+                        }
                     } catch (Exception ex) {
                         // TODO handle custom exceptions here
                     }
