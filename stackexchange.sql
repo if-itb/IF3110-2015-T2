@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
   `id_question` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `content` text,
-  `time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `votes` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `id_user` int(11) NOT NULL,
   `topic` varchar(255) NOT NULL,
   `content` text NOT NULL,
-  `time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `votes` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
