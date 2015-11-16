@@ -16,8 +16,17 @@
     <body>
         <div class="link-normalizer"><a class='title' href="index.jsp">Simple StackExchange</a></div>
         <br>
-        <br>
-        <br>
-        <br>
+	<br>
+	<br>
+	<br>
+	<div class="subtitle">Please Register</div>
+	<hr class='line'>
+        <form name="registerForm" action="askpost.php" onsubmit="return validateQuestion()" method="post">
+	    <input type="hidden" name="question_id">
+            <input type="text" class='form-text' name="name" placeholder="Name"><br>
+            <input type="text" class='form-text' name="email" placeholder="Email"><br>
+            <input type="text" class='form-text' name="password" placeholder="Password"><br>
+            <button class='button-post' type='submit'> Register </button>
+	</form>
     </body>
 </html>
