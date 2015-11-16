@@ -9,46 +9,25 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <title>Simple StackExchange</title>
     </head>
-    <body>
-        <h1>Hello World!</h1>
-    <%-- start web service invocation --%><hr/>
-    <%
-    try {
-	com.wbd.ans.AnswerWS_Service service = new com.wbd.ans.AnswerWS_Service();
-	com.wbd.ans.AnswerWS port = service.getAnswerWSPort();
-	 // TODO initialize WS operation arguments here
-	int qid = 0;
-	// TODO process result here
-	java.util.List<com.wbd.ans.Answer> result = port.getAnswerByQID(qid);
-	out.println("Result = "+result);
-    } catch (Exception ex) {
-	// TODO handle custom exceptions here
-    }
-    %>
-    <%-- end web service invocation --%><hr/>
-    <%-- start web service invocation --%><hr/>
-    <%
-    try {
-	com.wbd.rgs.RegisterWS_Service service = new com.wbd.rgs.RegisterWS_Service();
-	com.wbd.rgs.RegisterWS port = service.getRegisterWSPort();
-	 // TODO initialize WS operation arguments here
-	java.lang.String name = "";
-	java.lang.String email = "";
-	java.lang.String password = "";
-	// TODO process result here
-	int result = port.register(name, email, password);
-        if (result == 1){
-            out.println("Registration Successful!");
-        } else {
-            out.println("Registration Failed!");
-        }
-    } catch (Exception ex) {
-	// TODO handle custom exceptions here
-    }
-    %>
-    <%-- end web service invocation --%><hr/>
 
+    <body>
+        <div class="link-normalizer"><a class='title' href="index.jsp">Simple StackExchange</a></div>
+
+        <br><br><br><br>
+
+        <form name='searchForm' action='search.php' method='post'>
+            <input class='form-search' type="text" name="search_key" size='120%'>
+            <button class='button-search' type='submit'> Search </button>
+        </form>
+
+        <div class="smalltitle-center">Cannot find what you are looking for? <a id = "color-orange" href="askQuestion.jsp" >Ask here</a></div>
+        <br>
+
+        <div class="smalltitle-left"> Recently Asked Questions </div>
+
+        <hr class='line'>
     </body>
 </html>
