@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -65,18 +67,20 @@ public class Login extends HttpServlet {
           long t = date.getTimeInMillis();
           Date expirationDate = new Date(t + (5 * 60000));
           
+          DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+          
           sql = "INSERT INTO access_token (user_id, token, expire_date) VALUES (?, ?, ?)";
           dbStatement = conn.prepareStatement(sql);
           dbStatement.setInt(1, rs.getInt("id"));
           dbStatement.setString(2, token);
-          dbStatement.setString(3, expirationDate.toString());
+          dbStatement.setString(3, df.format(expirationDate));
 
           dbStatement.executeUpdate();
 
           stmt.close();
 
           obj.put("access_token", token);
-          obj.put("expire_date", expirationDate.toString());
+          obj.put("expire_date", df.format(expirationDate));
 
           out.print(obj);
           

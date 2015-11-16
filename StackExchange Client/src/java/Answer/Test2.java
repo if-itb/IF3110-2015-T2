@@ -6,9 +6,11 @@
 package Answer;
 
 import AnswerWS.AnswerWS_Service;
+import Tools.Tools;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,9 +45,7 @@ public class Test2 extends HttpServlet {
       out.println("</head>");
       out.println("<body>");
       out.println("<h1>Servlet Test2 at " + request.getContextPath() + "</h1>");
-      
-      out.println("Inputing Question");
-      
+            
       AnswerWS.Answer answer = new AnswerWS.Answer();
       answer.setId(0);
       answer.setIdUser(1);
@@ -53,7 +53,11 @@ public class Test2 extends HttpServlet {
       answer.setContent("Hai");
       answer.setTimestamp("0");
       
-      insertAnswer(answer);
+      Tools tools = new Tools();
+      String access_token = tools.getCookie("access_token", request);
+      
+      out.println("Inputing Question");
+      out.println(insertAnswer(access_token, answer));
       
       out.println("</body>");
       out.println("</html>");
@@ -99,11 +103,11 @@ public class Test2 extends HttpServlet {
     return "Short description";
   }// </editor-fold>
 
-  private void insertAnswer(AnswerWS.Answer answer) {
+  private int insertAnswer(java.lang.String token, AnswerWS.Answer answer) {
     // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
     // If the calling of port operations may lead to race condition some synchronization is required.
     AnswerWS.AnswerWS port = service.getAnswerWSPort();
-    port.insertAnswer(answer);
+    return port.insertAnswer(token, answer);
   }
 
 }

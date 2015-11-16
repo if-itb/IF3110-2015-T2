@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,24 +47,31 @@ public class Validation extends HttpServlet {
     
     try (PrintWriter out = response.getWriter()) {
       String token = request.getParameter("token");
-      String date = request.getParameter("expirateDate");
       
       try {
           Statement stmt = conn.createStatement();
           String sql;
           
-          sql = "SELECT * FROM acess_token WHERE token = ?";
+          sql = "SELECT * FROM access_token WHERE token = ?";
           PreparedStatement dbStatement = conn.prepareStatement(sql);
           dbStatement.setString(1, token);
           
-          ResultSet rs = dbStatement.executeQuery(sql);
+          ResultSet rs = dbStatement.executeQuery();
           
           if(rs.next()) {
-              Date expirationDate = new Date(date);
+              Date expirationDate = null;
+              DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+              try{
+                  expirationDate = df.parse(rs.getString("expire_date"));
+              }
+              catch ( Exception ex ){
+                  System.out.println(ex);
+              }
+              
               Date currentDate = new Date();
               
               if (currentDate.after(expirationDate)) {
-                  obj.put("message", "expirate");
+                  obj.put("message", "expired");
               } else {
                   obj.put("message", "valid");
               }

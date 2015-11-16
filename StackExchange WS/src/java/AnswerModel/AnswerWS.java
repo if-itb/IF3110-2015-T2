@@ -5,6 +5,7 @@
  */
 package AnswerModel;
 
+import Auth.Auth;
 import Database.DB;
 import QuestionModel.QuestionWS;
 import java.sql.Connection;
@@ -72,25 +73,33 @@ public class AnswerWS {
    * Web service operation
    */
   @WebMethod(operationName = "insertAnswer")
-  public void insertAnswer(@WebParam(name = "answer") Answer answer) {
+  public int insertAnswer(@WebParam(name = "token") String token, @WebParam(name = "answer") Answer answer) {
     
-    try {      
-      Statement stmt = conn.createStatement();
-      String sql;
+    Auth auth = new Auth();
+    int ret = auth.check(token);
+    
+    if ( ret == 1 ) {
+      try {      
+        Statement stmt = conn.createStatement();
+        String sql;
+
+        sql = "INSERT INTO answers (id_question, id_user, content) VALUES (?, ?, ?)";
+        PreparedStatement dbStatement = conn.prepareStatement(sql);
+        dbStatement.setInt(1, answer.getIdQuestion());
+        dbStatement.setInt(2, answer.getIdUser());
+        dbStatement.setString(3, answer.getContent());
+
+        dbStatement.executeUpdate();
+
+        stmt.close();
+        //conn.close();
+      } catch (SQLException ex) {
+        Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+      }   
       
-      sql = "INSERT INTO answers (id_question, id_user, content) VALUES (?, ?, ?)";
-      PreparedStatement dbStatement = conn.prepareStatement(sql);
-      dbStatement.setInt(1, answer.getIdQuestion());
-      dbStatement.setInt(2, answer.getIdUser());
-      dbStatement.setString(3, answer.getContent());
-      
-      dbStatement.executeUpdate();
-      
-      stmt.close();
-      //conn.close();
-    } catch (SQLException ex) {
-      Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
     }
+    
+    return ret;
     
   }
 
