@@ -5,6 +5,7 @@
  */
 package QuestionModel;
 
+import Auth.Auth;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,7 +38,11 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "deleteQuestion")
     @Oneway
-    public void deleteQuestion(@WebParam(name = "id") int id) {
+    public int deleteQuestion(@WebParam(name = "token") String token, @WebParam(name = "id") int id) {
+      Auth auth = new Auth();
+      int ret = auth.check(token);
+
+      if ( ret == 1 ) {
         try {
             Statement stmt = conn.createStatement();
             String sql;
@@ -52,6 +57,9 @@ public class QuestionWS {
         } catch(SQLException ex) {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
+      }
+      
+      return ret;
     }
 
     /**
@@ -59,7 +67,11 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "insertQuestion")
     @Oneway
-    public void insertQuestion(@WebParam(name = "question") Question question) {
+    public int insertQuestion(@WebParam(name = "token") String token, @WebParam(name = "question") Question question) {
+      Auth auth = new Auth();
+      int ret = auth.check(token);
+
+      if ( ret == 1 ) {
         try {
             Statement stmt = conn.createStatement();
             String sql;
@@ -75,6 +87,9 @@ public class QuestionWS {
         } catch(SQLException ex) {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
+      }
+      
+      return ret;
     }
 
     /**
@@ -82,7 +97,12 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "updateQuestion")
     @Oneway
-    public void updateQuestion(@WebParam(name = "question") Question question) {
+    public int updateQuestion(@WebParam(name = "token") String token, @WebParam(name = "question") Question question) {
+        
+      Auth auth = new Auth();
+      int ret = auth.check(token);
+
+      if ( ret == 1 ) {
         try {
             Statement stmt = conn.createStatement();
             String sql;
@@ -99,6 +119,9 @@ public class QuestionWS {
         } catch(SQLException ex) {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
+      }
+      
+      return ret;
     }
 
     /**
@@ -172,6 +195,32 @@ public class QuestionWS {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
         return questions;
+    }
+        
+    @WebMethod(operationName = "getAnswerCount")
+    public int getAnswerCount(@WebParam(name = "qid") int qid) {
+        int ret = 0;
+        try {
+            Statement stmt = conn.createStatement();
+            String sql;
+            
+            sql = "SELECT * FROM answers WHERE id_question = ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, qid);
+            
+            ResultSet rs = dbStatement.executeQuery();
+            
+            // Extract data from result set
+            while(rs.next()){        
+              ++ret;
+            }
+      
+            rs.close();
+            stmt.close();
+        } catch(SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
     }
     
 }

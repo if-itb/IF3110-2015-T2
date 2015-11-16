@@ -45,6 +45,7 @@ public class QuestionView extends HttpServlet {
     
     request.setAttribute("question", question);
     request.setAttribute("answers", answers);
+    request.setAttribute("answer_count", new Integer(getAnswerCount(question.getId())));
     RequestDispatcher dispatcher = request.getRequestDispatcher("/question.jsp"); 
     dispatcher.forward(request, response); 
     
@@ -101,6 +102,13 @@ public class QuestionView extends HttpServlet {
     // If the calling of port operations may lead to race condition some synchronization is required.
     AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
     return port.getAnswerByQID(qid);
+  }
+
+  private int getAnswerCount(int qid) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    QuestionWS.QuestionWS port = service.getQuestionWSPort();
+    return port.getAnswerCount(qid);
   }
 
 }

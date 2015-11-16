@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page = "layout/header.jsp" flush = "true"/>
 <jsp:useBean id="questions" type="java.util.List<QuestionWS.Question>" scope="request" /> 
+<jsp:useBean id="answer_counts" type="java.util.HashMap<Integer, Integer>" scope="request" /> 
 
     <form action="" method="GET" id="searchForm">
         <input type="text" placeholder="Search...">
@@ -38,7 +39,7 @@
                         </div>
                         <div class="question-answers">
                             <div class="status-counts">
-                                <span>0</span>
+                                <span><%= answer_counts.get(question.getId()) %></span>
                             </div>
                             <div class="status-title">
                                 <span>answer</span>

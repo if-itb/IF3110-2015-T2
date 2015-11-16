@@ -8,6 +8,7 @@
 <jsp:include page="layout/header.jsp" flush="true"/>
 <jsp:useBean id="question" type="QuestionWS.Question" scope="request" /> 
 <jsp:useBean id="answers" type="java.util.List<AnswerWS.Answer>" scope="request" /> 
+<jsp:useBean id="answer_count" type="Integer" scope="request" /> 
 
     <form action="" method="GET" id="searchForm">
         <input type="text" placeholder="Search...">
@@ -63,7 +64,7 @@
 
     <div class="row">
         <div class="answer-header col-10 col-push-1">
-            <h2>1 Answers</h2>
+            <h2><%= answer_count %> Answers</h2>
         </div>
     </div>
 

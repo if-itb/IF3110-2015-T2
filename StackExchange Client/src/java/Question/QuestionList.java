@@ -8,6 +8,7 @@ package Question;
 import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,8 +38,14 @@ public class QuestionList extends HttpServlet {
     throws ServletException, IOException {
     
     List<QuestionWS.Question> questions = getAllQuestion();
+    HashMap answer_counts = new HashMap();
+    
+    for ( QuestionWS.Question question: questions ) {
+      answer_counts.put(new Integer(question.getId()), new Integer(getAnswerCount(question.getId())));
+    }
     
     request.setAttribute("questions", questions);
+    request.setAttribute("answer_counts", answer_counts);
     RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp"); 
     dispatcher.forward(request, response); 
     
@@ -88,6 +95,13 @@ public class QuestionList extends HttpServlet {
     // If the calling of port operations may lead to race condition some synchronization is required.
     QuestionWS.QuestionWS port = service.getQuestionWSPort();
     return port.getAllQuestion();
+  }
+
+  private int getAnswerCount(int qid) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    QuestionWS.QuestionWS port = service.getQuestionWSPort();
+    return port.getAnswerCount(qid);
   }
 
 
