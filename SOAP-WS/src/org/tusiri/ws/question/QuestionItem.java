@@ -13,6 +13,8 @@ public class QuestionItem {
 	
 	private int id_question;
 	private int id_user;
+	private String username;
+	private String email;
 	private String content;
 	private String question_date;
 	private String topic;
@@ -35,6 +37,24 @@ public class QuestionItem {
 
 	public void setIDUser(int id_user) {
 		this.id_user = id_user;
+	}
+	
+	@XmlElement(name = "username")
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	@XmlElement(name = "email")
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	@XmlElement(name = "content")
