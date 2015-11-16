@@ -6,6 +6,7 @@
 package model.answer;
 
 import com.sun.istack.logging.Logger;
+import connection.DB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -75,7 +76,6 @@ public class AnswerWS {
             stmt.close();
         }
         catch(SQLException ex){
-            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         //TODO write your implementation code here:
