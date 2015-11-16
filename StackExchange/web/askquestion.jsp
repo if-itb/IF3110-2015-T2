@@ -1,6 +1,6 @@
 <%-- 
-    Document   : register
-    Created on : Nov 10, 2015, 4:17:09 PM
+    Document   : askquestion
+    Created on : Nov 16, 2015, 9:28:26 PM
     Author     : TOSHIBA PC
 --%>
 
@@ -15,14 +15,14 @@
     <body>
         <div class="container">
             <h1>Simple StackExchange</h1><br>
-            <h2>Register </h2><br>
-            <form name="RegisterForm" method="POST">
+            <h2>What's your question? </h2><br>
+            <form class="QuestionForm" method="POST">
 		<input type="text" name="name" id="inputtext1" placeholder="Name"><br>
 		<input type="text" name="email" id="inputtext1" placeholder="Email"><br>
-		<input type="text" name="password" id="inputtext1" placeholder="Password"><br>
-		<input type="text" name="confirmpassword" id="inputtext1" placeholder="Confirm Password"><br><br>
-		<input type="submit" value="Sign Up">
+		<input type="text" name="topic" id="inputtext1" placeholder="Question Topic"><br>
+		<textarea name="content" placeholder="Content"></textarea><br><br>
+		<input type="submit" value="Post">
             </form>
-        </div>
+	</div>
     </body>
 </html>
