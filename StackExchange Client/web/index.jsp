@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page = "layout/header.jsp" flush = "true"/>
+<jsp:useBean id="questions" type="java.util.List<QuestionWS.Question>" scope="request" /> 
 
     <form action="" method="GET" id="searchForm">
         <input type="text" placeholder="Search...">
@@ -22,6 +23,7 @@
     </div>
         
     <div class="question-list">
+        <% for(QuestionWS.Question question: questions) { %>
         <div class="inner-container">
             <div class="question">
                 <div class="row">
@@ -45,7 +47,7 @@
                     </div>
                     <div class="question-summary col-9">
                         <h2 class="question-title">
-                            <a href="question.php">iOS periodic background location updates which depends not only on significant location change</a>
+                            <a href="question?id=<%= question.getId() %>"><%= question.getTopic() %></a>
                         </h2>
                     </div>
                     <div class="question-meta">
@@ -59,44 +61,8 @@
                 </div> <!-- .row -->
             </div> <!-- .question -->
         </div> <!-- .inner-container -->
-
-        <div class="inner-container">
-            <div class="question">
-                <div class="row">
-                    <div class="question-status col-3">
-                        <div class="question-vote">
-                            <div class="status-counts">
-                                <span>0</span>
-                            </div>
-                            <div class="status-title">
-                                <span>vote</span>
-                            </div>
-                        </div>
-                        <div class="question-answers">
-                            <div class="status-counts">
-                                <span>0</span>
-                            </div>
-                            <div class="status-title">
-                                <span>answer</span>
-                            </div>
-                        </div>
-                    </div> <!-- .question-status -->
-                    <div class="question-summary col-9">
-                        <h2 class="question-title">
-                            <a href="question.php">How to avoid generating empty .deflate files for a Hive query?</a>
-                        </h2>
-                    </div> <!-- .question-summary -->
-                    <div class="question-meta">
-                        <span>
-                            Asked by
-                            Name |
-                            <a href="edit.php" class="question-edit">Edit</a> |
-                            <a href="" class="question-delete">Delete</a>
-                        </span>
-                    </div>
-                </div> <!-- .row -->
-            </div> <!-- .question -->
-        </div> <!-- .inner-container -->
+        <% } %>
+        
     </div> <!-- .question-list -->
 
 <jsp:include page = "layout/footer.jsp" flush = "true"/>

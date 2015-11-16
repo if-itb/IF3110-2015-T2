@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><xs:schema xmlns:tns="http://QuestionModel/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://QuestionModel/">
+
+<xs:element name="Question" type="tns:question"/>
+
+<xs:element name="deleteQuestion" type="tns:deleteQuestion"/>
+
+<xs:element name="getAllQuestion" type="tns:getAllQuestion"/>
+
+<xs:element name="getAllQuestionResponse" type="tns:getAllQuestionResponse"/>
+
+<xs:element name="getQuesstionById" type="tns:getQuesstionById"/>
+
+<xs:element name="getQuesstionByIdResponse" type="tns:getQuesstionByIdResponse"/>
+
+<xs:element name="insertQuestion" type="tns:insertQuestion"/>
+
+<xs:element name="updateQuestion" type="tns:updateQuestion"/>
+
+<xs:complexType name="insertQuestion">
+<xs:sequence>
+<xs:element name="question" type="tns:question" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="question">
+<xs:sequence>
+<xs:element name="id" type="xs:int"/>
+<xs:element name="id_user" type="xs:int"/>
+<xs:element name="topic" type="xs:string"/>
+<xs:element name="content" type="xs:string"/>
+<xs:element name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="updateQuestion">
+<xs:sequence>
+<xs:element name="question" type="tns:question" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAllQuestion">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getAllQuestionResponse">
+<xs:sequence>
+<xs:element name="Question" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteQuestion">
+<xs:sequence>
+<xs:element name="id" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getQuesstionById">
+<xs:sequence>
+<xs:element name="id" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getQuesstionByIdResponse">
+<xs:sequence>
+<xs:element name="Question" type="tns:question" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

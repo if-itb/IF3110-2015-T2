@@ -18,6 +18,7 @@ import javax.jws.WebParam;
 import Database.DB;
 import java.util.ArrayList;
 import javax.jws.Oneway;
+import javax.jws.WebResult;
 
 /**
  *
@@ -106,6 +107,7 @@ public class QuestionWS {
      * @return Question
      */
     @WebMethod(operationName = "getQuesstionById")
+    @WebResult(name="Question")
     public Question getQuesstionById(@WebParam(name = "id") int id) {
         Question res = null;
         try {
@@ -142,7 +144,8 @@ public class QuestionWS {
      * @return ArrayList<Question>
      */
     @WebMethod(operationName = "getAllQuestion")
-    public ArrayList getAllQuestion() {
+    @WebResult(name="Question")
+    public ArrayList<Question> getAllQuestion() {
         ArrayList<Question> questions = new ArrayList<>();
         try {
             Statement stmt = conn.createStatement();

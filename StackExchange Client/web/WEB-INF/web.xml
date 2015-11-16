@@ -12,6 +12,18 @@
         <servlet-name>TestRest</servlet-name>
         <servlet-class>Answer.TestRest</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Test3</servlet-name>
+        <servlet-class>Answer.Test3</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuestionList</servlet-name>
+        <servlet-class>Question.QuestionList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuestionView</servlet-name>
+        <servlet-class>Question.QuestionView</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -23,6 +35,18 @@
     <servlet-mapping>
         <servlet-name>TestRest</servlet-name>
         <url-pattern>/TestRest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Test3</servlet-name>
+        <url-pattern>/Test3</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionList</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionView</servlet-name>
+        <url-pattern>/question</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

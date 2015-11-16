@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="layout/header.jsp" flush="true"/>
+<jsp:useBean id="question" type="QuestionWS.Question" scope="request" /> 
+
     <form action="" method="GET" id="searchForm">
         <input type="text" placeholder="Search...">
         <input type="submit" value="Search">
@@ -16,7 +18,7 @@
     <div class="inner-container">
 
         <div class="question-header">
-            <h1>Question Title</h1>
+            <h1><%= question.getTopic() %></h1>
         </div>
 
         <div class="question-item">
@@ -41,9 +43,7 @@
                 </div> <!-- .question-status -->
 
                 <div class="question-content col-10">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat rem quibusdam nihil sequi odit doloremque. Nemo eaque alias repudiandae, consequatur itaque ea pariatur aliquid quasi quo quos, ducimus deserunt eum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, dolorum recusandae dolore delectus expedita, eum eveniet facilis libero rem obcaecati sit ipsam illo doloribus ratione, deleniti tenetur hic aperiam enim.</p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, labore quia velit, sint pariatur beatae reiciendis, aperiam sit totam, iste ea sequi. Excepturi, inventore quidem? Rerum mollitia, necessitatibus itaque laudantium?</p>
+                    <p><%= question.getContent() %></p> 
                 </div>
 
                 <div class="question-meta">
