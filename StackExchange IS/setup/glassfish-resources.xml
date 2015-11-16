@@ -7,7 +7,7 @@
         <property name="databaseName" value="wbdtb2"/>
         <property name="User" value="root"/>
         <property name="Password" value="alberttriadrian"/>
-        <property name="URL" value="jdbc:mysql://localhost:3306/wbd?zeroDateTimeBehavior=convertToNull"/>
+        <property name="URL" value="jdbc:mysql://localhost:3306/wbdtb2?zeroDateTimeBehavior=convertToNull"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="WBD_DB" object-type="user" pool-name="mysql_wbd_rootPool"/>
