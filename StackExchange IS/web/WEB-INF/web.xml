@@ -4,9 +4,17 @@
         <servlet-name>SimpleHttpServer</servlet-name>
         <servlet-class>SimpleHttpServer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DatabaseAccess</servlet-name>
+        <servlet-class>DatabaseAccess</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SimpleHttpServer</servlet-name>
         <url-pattern>/SimpleHttpServer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DatabaseAccess</servlet-name>
+        <url-pattern>/DatabaseAccess</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -29,7 +29,7 @@ public class CreateQuestionWS {
         Connection conn = null;
         PreparedStatement dbStatement = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbdtb2","root","");
             Statement stmt = conn.createStatement();
             String sql;
             sql = "INSERT INTO question(QuestionTopic, Content) VALUES (?,?)";
