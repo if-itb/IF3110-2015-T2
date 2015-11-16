@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
         <title>Simple StackExchange</title>
     </head>
 
@@ -23,7 +23,7 @@
             <button class='button-search' type='submit'> Search </button>
         </form>
 
-        <div class="smalltitle-center">Cannot find what you are looking for? <a id = "color-orange" href="askQuestion.jsp" >Ask here</a></div>
+        <div class="smalltitle-center">Cannot find what you are looking for? <a id = "color-orange" href="ask.jsp" >Ask here</a></div>
         <br>
 
         <div class="smalltitle-left"> Recently Asked Questions </div>
