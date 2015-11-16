@@ -107,4 +107,77 @@ public class AnswerWS {
         //TODO write your implementation code here:
         return success;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "voteAnswerUpByID")
+    @WebResult(name = "Answer")
+    public boolean voteAnswerUpByID(@WebParam(name = "idAnswer") int idAnswer, int idUser) throws SQLException {
+        boolean success = false;
+        boolean available = isVoteAnswerAvailable(idUser, idAnswer);
+        PreparedStatement statement = null;
+        
+        if(available == true){
+            try{
+                /* update vote value in answer table */
+                String sql;
+                sql = "UPDATE answer SET votes = votes + 1 WHERE id_answer = ?";
+                
+                statement = conn.prepareStatement(sql);
+                statement.setInt(1, idAnswer);
+                
+                sql = "INSERT INTO vote_answer VALUES (?, ?)";
+                
+                statement = conn.prepareStatement(sql);
+                statement.setInt(1, idUser);
+                statement.setInt(2, idAnswer);
+                
+                success = statement.executeUpdate() > 0;
+            }
+            catch(SQLException ex){
+                Logger.getLogger(AnswerWS.class).log(Level.SEVERE, null, ex);
+            }
+            finally{
+                if(statement != null)
+                    statement.close();
+            }
+            
+            return success;
+        }
+        
+        //TODO write your implementation code here:
+        return false;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "isVoteAnswerAvailable")
+    @WebResult(name = "Answer")
+    public boolean isVoteAnswerAvailable(@WebParam(name = "idUser") int idUser, @WebParam(name = "idAnswer") int idAnswer) throws SQLException {
+        boolean available = false;
+        PreparedStatement statement = null;
+                
+        try{
+            String sql;
+            sql = "SELECT * FROM vote_answer WHERE id_user = ? AND id_answer = ?";
+            
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, idUser);
+            statement.setInt(2, idAnswer);
+            
+            available = statement.execute();
+        }
+        catch(SQLException ex){
+            Logger.getLogger(AnswerWS.class).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            if(statement != null)
+                statement.close();
+        }
+        
+        //TODO write your implementation code here:
+        return available;
+    }
 }
