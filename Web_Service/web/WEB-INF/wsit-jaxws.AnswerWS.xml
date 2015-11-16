@@ -7,14 +7,34 @@
  >
     <message name="getAnswerByQID"/>
     <message name="getAnswerByQIDResponse"/>
+    <message name="insertAnswer"/>
+    <message name="insertAnswerResponse"/>
+    <message name="voteAnswer"/>
+    <message name="voteAnswerResponse"/>
     <portType name="AnswerWS">
         <operation name="getAnswerByQID">
             <input message="tns:getAnswerByQID"/>
             <output message="tns:getAnswerByQIDResponse"/>
         </operation>
+        <operation name="insertAnswer">
+            <input message="tns:insertAnswer"/>
+            <output message="tns:insertAnswerResponse"/>
+        </operation>
+        <operation name="voteAnswer">
+            <input message="tns:voteAnswer"/>
+            <output message="tns:voteAnswerResponse"/>
+        </operation>
     </portType>
     <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
         <operation name="getAnswerByQID">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="insertAnswer">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="voteAnswer">
             <input/>
             <output/>
         </operation>
