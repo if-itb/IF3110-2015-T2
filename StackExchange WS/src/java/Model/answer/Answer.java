@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AnswerModel;
+package model.answer;
 
 /**
  *
@@ -13,18 +13,18 @@ package AnswerModel;
 import javax.xml.bind.*;
 import javax.xml.bind.annotation.*;
 
-@XmlRootElement(name="Answer")
+@XmlRootElement(name = "Answer")
 public class Answer {
-    @XmlElement(name="id", required=true)
+    @XmlElement(name = "id", required = true)
     private int id;
-    @XmlElement(name="id question", required=true)
+    @XmlElement(name = "id_question", required = true)
     private int idQuestion;
-    @XmlElement(name="id_user", required=true)
+    @XmlElement(name = "id_user", required = true)
     private int idUser;
-    @XmlElement(name="content", required=true)
+    @XmlElement(name = "content", required = true)
     private String content;
-    @XmlElement(name="timestamp", required=true)
-    private String timestamp;
+    @XmlElement(name = "date", required = true)
+    private String date;
     
     public Answer(){
         id = 0;
@@ -32,11 +32,11 @@ public class Answer {
         idUser = 0;
     }
 
-    public Answer(int id, int qid, int uid, String content, String timestamp){
+    public Answer(int id, int qid, int uid, String content, String date){
         this.id = id;
         idQuestion = qid;
         idUser = uid;
         this.content = content;
-        this.timestamp = timestamp;
+        this.date = date;
     }
 }
