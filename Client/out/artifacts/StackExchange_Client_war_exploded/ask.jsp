@@ -27,25 +27,26 @@
 	</div>
 	<script type="text/javascript" src="js/script.js"></script>
 	<%@page import= "java.net.URL,javax.xml.namespace.QName,javax.xml.ws.Service" %>
-	<%@page import= "com.yangnormal.sstackex.ws.WebServiceImpl;" %>
-		
-	<% 
-	String name = request.getParameter("name");
-	String email = request.getParameter("email");
-	String topic = request.getParameter("topic");
-	String content = request.getParameter("content");
-	if ((name!= null) && (email!=null) && (topic!=null)&&(content!=null)){
-		URL url = new URL ("http://localhost:8080/ws/stackexchange?wsdl");
-		QName qname = new QName("http://ws.yangnormal.com/","RegistrationImplService");
-		Service service = Service.create(url,qname);
-		WebServiceImpl ws = service.getPort(WebService.class);
-		int status = ws.insertQuestion(name,email,topic,content);
-		if (status==0){
-			response.redirect("registerSuccess.jsp");
-		} else {
-			response.redirect("registerFail.jsp");
+	<%@page import= "com.yangnormal.sstackex.ws.WebServiceInterface" %>
+	<%@page import= "com.yangnormal.sstackex.ws.WebServiceImplService" %>
+	<%
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String topic = request.getParameter("topic");
+		String content = request.getParameter("content");
+		if ((name!= null) && (email!=null) && (topic!=null)&&(content!=null)){
+			URL url = new URL ("http://localhost:8082/ws/stackexchange?wsdl");
+			QName qname = new QName("http://ws.sstackex.yangnormal.com/","WebServiceImplService");
+			WebServiceImplService webService = new WebServiceImplService(url,qname);
+			WebServiceInterface ws = webService.getWebServiceImplPort();
+			out.println(ws.printMessage());
+			/*int status = ws.insertQuestion(name,email,topic,content);
+			if (status==0){
+				response.sendRedirect("registerSuccess.jsp");
+			} else {
+				response.sendRedirect("registerFail.jsp");
+			}*/
 		}
-	}
 	%>
 </body>
 </html>

@@ -5,7 +5,7 @@ import com.yangnormal.sstackex.ws.WebServiceImpl;
 
 public class StackExchangePublisher {
     public static void main (String[] args){
-        String location = "http://localhost:8080/ws/stackexchange";
+        String location = "http://localhost:8082/ws/stackexchange";
         Endpoint.publish(location, new WebServiceImpl());
     }
 }
