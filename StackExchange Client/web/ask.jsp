@@ -20,7 +20,16 @@
 	<br>
 	<div class="subtitle">What's your question?</div>
 	<hr class='line'>
+        <form name="askForm" action="askpost.php" onsubmit="return validateQuestion()" method="post">
+	    <input value="question_id lama" type="hidden" name="question_id">
+            <input value="name lama" type="text" class='form-text' name="name" placeholder="Name"><br>
+            <input value="email lama" type="text" class='form-text' name="email" placeholder="Email"><br>
+            <input value="topic lama" type="text" class='form-text' name="topic" placeholder="Question Topic"><br>
+            <textarea name="content lama" class='form-textarea' placeholder="Content"> content lama </textarea><br>
+            <button class='button-post' type='submit'> Post </button>
+	</form>
     </body>
 </html>
+
 
 
