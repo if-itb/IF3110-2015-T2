@@ -1,128 +1,142 @@
--- phpMyAdmin SQL Dump
--- version 4.2.11
--- http://www.phpmyadmin.net
+-- MySQL dump 10.13  Distrib 5.6.16, for Win32 (x86)
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 09, 2015 at 05:18 AM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: stackexchange
+-- ------------------------------------------------------
+-- Server version	5.6.16
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-
---
--- Database: `stackexchange`
---
-
--- --------------------------------------------------------
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `answer`
 --
 
-CREATE TABLE IF NOT EXISTS `answer` (
-`num_answer` int(11) NOT NULL,
+DROP TABLE IF EXISTS `answer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `answer` (
+  `num_answer` int(11) NOT NULL AUTO_INCREMENT,
   `id_question` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `content` longtext NOT NULL,
   `answer_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `num_votes` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+  `num_votes` int(11) NOT NULL,
+  PRIMARY KEY (`num_answer`),
+  KEY `id_user` (`id_user`),
+  CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `answer`
+--
+
+LOCK TABLES `answer` WRITE;
+/*!40000 ALTER TABLE `answer` DISABLE KEYS */;
+/*!40000 ALTER TABLE `answer` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `question`
 --
 
-CREATE TABLE IF NOT EXISTS `question` (
-`id_question` int(11) NOT NULL,
+DROP TABLE IF EXISTS `question`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `question` (
+  `id_question` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `email` varchar(100) NOT NULL,
   `content` longtext NOT NULL,
   `question_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `topic` varchar(100) NOT NULL,
-  `num_vote` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+  `num_vote` int(11) NOT NULL,
+  PRIMARY KEY (`id_question`),
+  KEY `id_user` (`id_user`),
+  CONSTRAINT `question_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `question`
+--
+
+LOCK TABLES `question` WRITE;
+/*!40000 ALTER TABLE `question` DISABLE KEYS */;
+INSERT INTO `question` VALUES (47,1,'Apakah CherryBelle itu unyu? Kalo iya kenapa?','2015-11-12 19:31:24','Keunyuan CherryBelle',0),(49,2,'Pilih CherryBelle atau JKT48?','2015-11-12 20:08:05','JKT48 vs CherryBelle',0),(50,1,'Gila','2015-11-16 04:42:44','Topik1',0),(51,1,'aaaadsfdas','2015-11-16 12:37:18','Aasawarw',0),(52,1,'aaaadsfdas','2015-11-16 12:38:44','Aasawarw',0),(53,1,'Kon','2015-11-16 14:19:14','Asu',0);
+/*!40000 ALTER TABLE `question` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `token`
+--
+
+DROP TABLE IF EXISTS `token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `token` (
+  `access_token` varchar(50) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `timestamp` datetime NOT NULL,
+  PRIMARY KEY (`access_token`),
+  UNIQUE KEY `access_token` (`access_token`),
+  KEY `id_user` (`id_user`),
+  CONSTRAINT `token_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `token`
+--
+
+LOCK TABLES `token` WRITE;
+/*!40000 ALTER TABLE `token` DISABLE KEYS */;
+INSERT INTO `token` VALUES ('CZG5z4iT97dg8a3hXAO2rnUkOquiF8l1Pu0S1HZ1FtNWQVp5Sw',1,'2015-11-15 23:16:52');
+/*!40000 ALTER TABLE `token` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
-`id_user` int(11) NOT NULL,
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(50) DEFAULT NULL,
   `email` varchar(50) NOT NULL,
-  `fullname` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `fullname` text NOT NULL,
+  PRIMARY KEY (`id_user`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Indexes for dumped tables
+-- Dumping data for table `user`
 --
 
---
--- Indexes for table `answer`
---
-ALTER TABLE `answer`
- ADD PRIMARY KEY (`num_answer`), ADD KEY `id_user` (`id_user`);
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'ivanchibi','81dc9bdb52d04dc20036dbd8313ed055','andrianto.ivan@yahoo.co.id','Ivan Andrianto'),(2,'ivanjkt48','81dc9bdb52d04dc20036dbd8313ed055','','Ivan Andrianto'),(3,'Gila','81dc9bdb52d04dc20036dbd8313ed055','','Gilazzzz'),(4,'Gilaaaa','81dc9bdb52d04dc20036dbd8313ed055','','Gilaaaaaaaaaaa'),(5,'a','81dc9bdb52d04dc20036dbd8313ed055','','b'),(6,'Wilhelmus','81dc9bdb52d04dc20036dbd8313ed055','','Wilhelmus Andrian Tusiri');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Indexes for table `question`
---
-ALTER TABLE `question`
- ADD PRIMARY KEY (`id_question`), ADD KEY `id_user` (`id_user`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
- ADD PRIMARY KEY (`id_user`), ADD UNIQUE KEY `username` (`username`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `answer`
---
-ALTER TABLE `answer`
-MODIFY `num_answer` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
---
--- AUTO_INCREMENT for table `question`
---
-ALTER TABLE `question`
-MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `answer`
---
-ALTER TABLE `answer`
-ADD CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
-
---
--- Constraints for table `question`
---
-ALTER TABLE `question`
-ADD CONSTRAINT `question_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-11-16 14:44:45
