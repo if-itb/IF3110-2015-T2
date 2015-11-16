@@ -53,7 +53,7 @@ public class Test2 extends HttpServlet {
       answer.setContent("Hai");
       answer.setTimestamp("0");
       
-      out.println(insertAnswer(answer));
+      insertAnswer(answer);
       
       out.println("</body>");
       out.println("</html>");
@@ -99,11 +99,11 @@ public class Test2 extends HttpServlet {
     return "Short description";
   }// </editor-fold>
 
-  private int insertAnswer(AnswerWS.Answer answer) {
+  private void insertAnswer(AnswerWS.Answer answer) {
     // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
     // If the calling of port operations may lead to race condition some synchronization is required.
     AnswerWS.AnswerWS port = service.getAnswerWSPort();
-    return port.insertAnswer(answer);
+    port.insertAnswer(answer);
   }
 
 }

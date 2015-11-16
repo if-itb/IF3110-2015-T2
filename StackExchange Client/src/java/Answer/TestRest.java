@@ -12,10 +12,17 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -33,14 +40,15 @@ public class TestRest extends HttpServlet {
    * @throws IOException if an I/O error occurs
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+    throws ServletException, IOException, ParseException {
     
+    JSONParser parser = new JSONParser();    
     try {
       String charset = "UTF-8";
       String email = "admin@se.com";
       String password = "aaaa";
       
-      URL url = new URL("http://localhost:8081/Identity_Service/login");
+      URL url = new URL("http://localhost:8082/Identity_Service/login");
       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
       conn.setDoOutput(true);
       conn.setRequestMethod("POST");
@@ -63,10 +71,20 @@ public class TestRest extends HttpServlet {
 
       String output;
       System.out.println("Output from Server .... \n");
+      
+      Object obj;
+      JSONObject jobj;
+      
       while ((output = br.readLine()) != null) {
-        System.out.println(output);
+        obj = parser.parse(output);
+        jobj = (JSONObject) obj;
+        System.out.println(jobj.get("access_token"));
+        
+        /* Save the token as Cookie, so browser have the identification */
+        Cookie ck = new Cookie("access_token", (String) jobj.get("access_token"));
+        response.addCookie(ck);
       }
-
+      
       conn.disconnect();
 
 	  } catch (MalformedURLException e) {
@@ -93,7 +111,11 @@ public class TestRest extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    processRequest(request, response);
+    try {
+      processRequest(request, response);
+    } catch (ParseException ex) {
+      Logger.getLogger(TestRest.class.getName()).log(Level.SEVERE, null, ex);
+    }
   }
 
   /**
@@ -107,7 +129,11 @@ public class TestRest extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    processRequest(request, response);
+    try {
+      processRequest(request, response);
+    } catch (ParseException ex) {
+      Logger.getLogger(TestRest.class.getName()).log(Level.SEVERE, null, ex);
+    }
   }
 
   /**
