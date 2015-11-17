@@ -29,25 +29,39 @@ public class AnswerWebService {
         database.connect(path);
     }
     
-    @WebMethod(operationName = "test")
+    @WebMethod(operationName = "addAnswer")
     @WebResult(name="String")
-    public String getData (int id) {
-        ResultSet rs = database.execute("Select * from answer where question_id = " + id);
-        try {
-            rs.next();
-            return rs.getString("answer_content");
-        } catch (SQLException ex) {
-            Logger.getLogger(AnswerWebService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "gagal";
+    public String addAnswer(int qid, String name, String email, String content) {
+        String query = "INSERT INTO answer (answer_id, answerer_name, answerer_email, answer_content, answer_vote, question_id)"
+                + "VALUES (NULL, '" + name + "', '" + email + "', '"+ content + "', 0, " + qid + ")";
+        database.changeData(query);
+        return "Success";
+    }
+    
+    @WebMethod(operationName = "incrVote")
+    @WebResult(name="String")
+    public String incrVote(int id) {
+        String result = new String();
+        String query = "UPDATE answer SET answer_vote = answer_vote + 1 WHERE answer_id = " + id;
+        result = database.changeData(query);
+        return result;
+    }
+    
+    @WebMethod(operationName = "decrVote")
+    @WebResult(name="String")
+    public String decrVote(int id) {
+        String result = new String();
+        String query = "UPDATE answer SET answer_vote = answer_vote - 1 WHERE answer_id = " + id;
+        result = database.changeData(query);
+        return result;
     }
     
     @WebMethod(operationName = "getAnswerByQid")
     @WebResult(name="Answer")
     public ArrayList<Answer> getAnswerByQid(@WebParam(name = "qid") int qid) throws ClassNotFoundException {
-        String query = "Select * from answer where question_id = " + qid;
+        String query = "SELECT * FROM answer WHERE question_id = " + qid;
         ArrayList<Answer> tab = new ArrayList<Answer>();
-        ResultSet rs = database.execute(query);
+        ResultSet rs = database.fetchData(query);
         try {
             while(rs.next()) {
                 Answer answer = new Answer(rs.getInt("answer_id"), 
@@ -66,5 +80,20 @@ public class AnswerWebService {
         return tab;
     }
     
+    @WebMethod(operationName = "getCountAnswerByQid")
+    @WebResult(name="int")
+    public int getCountAnswerByQid(int id) {
+        int result = -999;
+        String query = "Select count(answer_id) As count From answer Where question_id = " + id;
+        ResultSet rs = database.fetchData(query);
+        try {
+            rs.next();
+            result = rs.getInt("count");
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AnswerWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
     
 }
