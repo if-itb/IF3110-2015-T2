@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4de58132-407c-47b6-9ac5-5501651fc490" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/AbstractCollection.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/AbstractCollection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/AbstractList.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/AbstractList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/ArrayList.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/ArrayList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/ObjectFactory.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/ObjectFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceImplService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceImplService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceInterface.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceInterface.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/package-info.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/package-info.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client.java" afterPath="$PROJECT_DIR$/src/Client.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web Service/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Web Service/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web Service/src/com/yangnormal/sstackex/ws/WebServiceImpl.java" afterPath="$PROJECT_DIR$/../Web Service/src/com/yangnormal/sstackex/ws/WebServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web Service/src/com/yangnormal/sstackex/ws/WebServiceInterface.java" afterPath="$PROJECT_DIR$/../Web Service/src/com/yangnormal/sstackex/ws/WebServiceInterface.java" />
     </list>
     <ignored path="SEClient.iws" />
     <ignored path=".idea/workspace.xml" />
