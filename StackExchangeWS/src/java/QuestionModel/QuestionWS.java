@@ -56,8 +56,7 @@ public class QuestionWS {
                                     rs.getInt("vote"),
                                     rs.getString("time"),
                                     rs.getInt("answer_count")
-                                    );
-                
+                                    );                
             
             rs.close();
             stmt.close();

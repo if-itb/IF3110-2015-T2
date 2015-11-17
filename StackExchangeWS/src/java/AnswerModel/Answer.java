@@ -42,4 +42,61 @@ public class Answer {
         this.vote = vote;
         this.timestamp = timestamp;
     }
+    
+    public void setAnswer(int aid, int qid, int uid, String content, int vote, String timestamp) {
+        answerID = aid;
+        questionID = qid;
+        userID = uid;
+        this.content = content;
+        this.vote = vote;
+        this.timestamp = timestamp;
+    }
+    
+    public void setAID(int aid) {
+        answerID = aid;
+    }
+    
+    public void setQID(int qid) {
+        questionID = qid;
+    }
+    
+    public void setUID(int uid) {
+        userID = uid;
+    }
+    
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
+    public void setVote(int vote) {
+        this.vote = vote;
+    }
+    
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+    
+    public int getAID() {
+        return answerID;
+    }
+    
+    public int getQID() {
+        return questionID;
+    }
+    
+    public int getUID() {
+        return userID;
+    }
+    
+    public String getContent() {
+        return content;
+    }
+    
+    public int getVote() {
+        return vote;
+    }
+    
+    public String getTimestamp() {
+        return timestamp;
+    }
 }
