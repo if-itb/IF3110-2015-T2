@@ -38,7 +38,7 @@ public class Database {
         }
     }
     
-    public ResultSet execute(String sql) {
+    public ResultSet fetchData(String sql) {
         try {
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             ResultSet rs = dbStatement.executeQuery();
@@ -48,6 +48,18 @@ public class Database {
             return null;
         }
     }       
+    
+    public String changeData(String sql) {
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+            stmt.close();
+            return "Change success";
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return "Change failed";
+        }
+    }
     
     public void closeDatabase() {
         try {
