@@ -9,13 +9,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.Random;
+import java.util.UUID;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +37,7 @@ public class Request extends HttpServlet {
    static final String USER = "root";
    static final String PASS = "";
    
-   public void getNewToken(String email, String password){
+   public void createNewToken(String email, String password){
         Connection conn = null;
         Statement stmt = null;
         try{
@@ -51,23 +49,46 @@ public class Request extends HttpServlet {
 
            //STEP 4: Execute a query
            stmt = conn.createStatement();
-           String sql;
-           sql = "";
-           ResultSet rs = stmt.executeQuery(sql);
            
-           if(!rs.next()){
-               name = "";
-               email = "";
-               user_id = "";
-               create_time= "";
+           String sql;
+           sql = "SELECT user_id FROM user WHERE email ='" + email + "' AND password='" + password + "'";
+           ResultSet rs = stmt.executeQuery(sql);
+           if(rs.next()){
+                String user_id = rs.getString("user_id");
+                String new_token = getRandomToken();
+                
+                sql = "SELECT access_token FROM user_token WHERE access_token ='" + new_token + "'";
+                rs = stmt.executeQuery(sql);
+                
+                while(rs.next()){
+                    new_token = getRandomToken();
+                    sql = "SELECT access_token FROM user_token WHERE access_token ='" + new_token + "'";
+                    rs = stmt.executeQuery(sql);
+                }
+                token = new_token;
+                
+                Date temp = new Date(); 
+                create_time = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(temp);
+                
+                //check if current user_id has invalid token
+                sql = "SELECT user_id FROM user_token WHERE user_id='" + user_id +"'";
+                rs = stmt.executeQuery(sql);
+                 
+                if(!rs.next()){ //current user_id have no token
+                    
+                    sql = "INSERT INTO user_token VALUES(" + user_id +",'" + new_token + "','" + create_time + "' )";
+                    int res = stmt.executeUpdate(sql);
+                }
+                else{ // current user_id have invalid token
+                
+                    sql = "UPDATE user_token SET access_token='" + new_token + "', create_time='" + create_time + "' WHERE user_id=" + user_id;
+                    int res = stmt.executeUpdate(sql);
+                }
+                
            }
-           else{
-               name = rs.getString("name");
-               email = rs.getString("email");
-               user_id = rs.getInt("user_id") + "";
-               
-               Timestamp temp = rs.getTimestamp("create_time"); 
-               create_time = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(temp);
+           else{ //INVALID email or password
+               token = "";
+               create_time ="";
            }
            
            //closing database
@@ -98,8 +119,10 @@ public class Request extends HttpServlet {
     }
     
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-        String token = request.getParameter("token");
-        getUser(token);
+        
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        createNewToken(email, password);
         
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -113,14 +136,12 @@ public class Request extends HttpServlet {
         
     }
     
-    // return a token
-    public String getToken(String email, String password){
-        String token;
-        // randomize a new token
-        SecureRandom random = new SecureRandom();
-        token = new BigInteger(130,random).toString(32);
+    // randomize a token
+    public String getRandomToken(){
         
-        return token;
+        UUID uuid = UUID.randomUUID();
+        String randomUUIDString = uuid.toString();
+        
+        return randomUUIDString;
     }
-
 }

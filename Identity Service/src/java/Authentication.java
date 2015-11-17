@@ -56,9 +56,7 @@ public class Authentication extends HttpServlet {
                name = rs.getString("name");
                email = rs.getString("email");
                user_id = rs.getInt("user_id") + "";
-               
-               Timestamp temp = rs.getTimestamp("create_time"); 
-               create_time = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(temp);
+               create_time = rs.getString("create_time");
            }
            
            //closing database
