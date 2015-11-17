@@ -54,4 +54,27 @@ public class XmlParser {
 
         return out;
     }
+
+    public static boolean isSuccessResponse(String requestResponse){
+
+        String returns = "";
+
+        try{
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            InputSource is = new InputSource(new StringReader(requestResponse));
+
+            Document doc = builder.parse(is);
+
+            returns = doc.getElementsByTagName("return").item(0).getTextContent();
+        } catch(Exception e){
+
+        }
+
+        if (returns.equals("-1")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
