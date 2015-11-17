@@ -1,107 +1,54 @@
-@font-face {
-    font-family: "Cardo";
-    src: url(../fonts/Cardo/Cardo-Regular.ttf);
-}
-@font-face {
-    font-family: "Cardo";
-    src: url(../fonts/Cardo/Cardo-Bold.ttf);
-    font-weight: bold;
-}
-@font-face {
-    font-family: "Cardo";
-    src: url(../fonts/Cardo/Cardo-Italic.ttf);
-    font-style: italic, oblique;
-}
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
 
 body{
-    padding: 30px 200px;
-    font-family: 'Cardo', serif;
+    background: #fafafa;
 }
-header{
-    font-weight: bold;
-    text-align: center;
-    text-transform: uppercase;
-    margin-bottom: 50px;
+@font-face {
+    font-family: "LakkyReddy";
+    src: url('LakkiReddy-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 
-/* Anchor */
-a{
-    text-decoration: none;
+#logo-container{
+    padding: 0 1em;
+    font-family: "LakkyReddy";
+    transition: all .2s ease-out;
 }
-a:hover{
-    text-decoration: underline;
-}
-
-.btn{
-    border: 2px solid #000;
-    text-decoration: none;
-    color: #000;
-    padding: 5px 10px;
-}
-.btn:hover{
-    text-decoration: none;
+#logo-container:hover{
+    color:#BBDEFB;
 }
 
-/* Search Section */
-#search{
-    text-align: center;
-    margin-bottom: 30px;
+input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #2196F3;
+    box-shadow: 0 1px 0 0 #2196F3;
 }
-#search input{
-    width: 80%;
-    height: 22px;
-    padding: 5px 10px;
-    border: 2px solid #000;
-}
-#search .ask-title{
-    margin-top: 10px;
-}
-#search .ask{
-    color:#FFC14D;
+input[type=text]:focus:not([readonly]) + label, input[type=password]:focus:not([readonly]) + label, input[type=email]:focus:not([readonly]) + label, input[type=url]:focus:not([readonly]) + label, input[type=time]:focus:not([readonly]) + label, input[type=date]:focus:not([readonly]) + label, input[type=datetime-local]:focus:not([readonly]) + label, input[type=tel]:focus:not([readonly]) + label, input[type=number]:focus:not([readonly]) + label, input[type=search]:focus:not([readonly]) + label, textarea.materialize-textarea:focus:not([readonly]) + label {
+    color: #2196F3 !important;
 }
 
-/* Recent Questions Section */
-#recent .question-table{
-    width: 100%;
-    border-collapse: collapse;
+#search {
+    margin: 40px auto;
 }
-#recent .question-table th{
-    text-align: left;
+#search-btn-wrapper{
+    padding-top:22px;
 }
-#recent .question-table th, #recent .question-table td{
-    border-bottom: 2px solid #000;
+
+#recent-post .card{
+    transition: all .1s ease-out;
+    cursor: pointer;
 }
-#recent .question-table tr td{
+#recent-post .card:hover{
+    transform: scale(1.02);
+}
+#recent-post .card-content{
     padding-top: 10px;
-    padding-bottom: 10px;
 }
-#recent .question-table td:nth-child(1), #recent .question-table td:nth-child(2){
-    text-align: center;
-    font-weight: bold;
-    line-height: 1.5em;
-}
-#recent .question-table td:nth-child(3){
-    padding-left: 30px;
-    padding-right: 5px;
-}
-#recent .questions-body-wrapper{
-    position: relative;
-    width: 100%;
-}
-#recent .questions-body-wrapper .topic{
-    color:#4799CC;
-}
-#recent .name{
-    color:#B496FF;
-}
-#recent .edit{
-    color:#FFC14D;
-}
-#recent .delete{
-    color:#ED3B53;
-}
-#recent .action{
-    text-align: right;
-    margin-top: 40px;
-    font-weight: bold;
+#recent-post .card hr{
+    margin: 0 auto 2em auto;
+    border-color: #fff;
 }
