@@ -8,7 +8,11 @@ package QuestionModel;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="Question")  // nama elemen SOAP
+/**
+ *
+ * @author FiqieUlya
+ */
+@XmlRootElement(name="Answer") 
 public class Question {
     @XmlElement(name="id_question", required=true)
     private int id_question;
@@ -26,7 +30,7 @@ public class Question {
     public Question() {
         id_question = 0;
         vote = 0;
-    }
+}
     
     public Question(int id_question, int vote, String topic, String content, String date, String username) {
         this.id_question = id_question;
