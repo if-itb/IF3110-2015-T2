@@ -6,7 +6,15 @@
 package is.login.service;
 
 import is.login.Users;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,10 +42,23 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     }
 
     @POST
-    @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(Users entity) {
-        super.create(entity);
+    public void validate(Users entity) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM users WHERE Email = ? AND Password = ?";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1, entity.getEmail());
+            dbStatement.setString(2, entity.getPassword());
+            ResultSet rs = dbStatement.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UsersFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @PUT

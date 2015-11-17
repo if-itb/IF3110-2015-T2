@@ -50,7 +50,7 @@
             <h1><a href="index1.php" id = "title">Simple StackExchange</a></h1>
             <div class = "tabbutton" style="background-color : white;" onclick = "changetab('login')">Login</div><div class = "tabbutton" style="background-color : silver;" onclick = "changetab('register')">Create New Account</div>
             <div id ="formaccount">
-                <form method = "post" action = "loginIS">
+                <form method = "post" action = "http://localhost:8001/Identity/loginIS">
                     <br>
                     <table class = "borderless">
                         <tr><td class = "borderless">Email</td><td class = "borderless">:</td><td class = "borderless"><input type ="text" name = "email"></td></tr>

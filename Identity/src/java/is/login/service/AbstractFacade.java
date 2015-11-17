@@ -5,14 +5,17 @@
  */
 package is.login.service;
 
+
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.servlet.*;
+import javax.servlet.http.*;
 
 /**
  *
  * @author Asus
  */
-public abstract class AbstractFacade<T> {
+public abstract class AbstractFacade<T> extends HttpServlet {
     private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
