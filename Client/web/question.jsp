@@ -4,12 +4,10 @@
 	<%
 	import com.yangnormal.sstackex.ws.WebServiceImpl;
 	if (request.getParameter("id")!=null){
-		int qid = Integer.parseInt(request.getParameter("id"));
-		URL url = new URL ("http://localhost:8080/ws/registration?wsdl");
-		QName qname = new QName("http://ws.yangnormal.com/","RegistrationImplService");
-		Service service = Service.create(url,qname);
-		WebServiceImpl ws = service.getPort(WebService.class);
-		Question status = ws.getQuestion(id); 
+		URL url = new URL ("http://localhost:8082/ws/stackexchange?wsdl");
+		QName qname = new QName("http://ws.sstackex.yangnormal.com/","WebServiceImplService");
+		WebServiceImplService webService = new WebServiceImplService(url,qname);
+		WebServiceInterface ws = webService.getWebServiceImplPort();
 
 	%>
 	<html>

@@ -24,22 +24,22 @@
 		</div>	
 	</div>
 	<%@page import= "java.net.URL,javax.xml.namespace.QName,javax.xml.ws.Service" %>
-	<%@page import= "com.yangnormal.sstackex.ws.WebServiceImpl;" %>
-		
+	<%@page import= "com.yangnormal.sstackex.WebServiceImplService" %>
+	<%@page import= "com.yangnormal.sstackex.WebServiceInterface" %>
 	<% 
 	String name = request.getParameter("name");
 	String email = request.getParameter("email");
 	String password = request.getParameter("password");
 	if ((name!= null) && (email!=null) && (password!=null)){
-		URL url = new URL ("http://localhost:8080/ws/stackexchange?wsdl");
-		QName qname = new QName("http://ws.yangnormal.com/","RegistrationImplService");
-		Service service = Service.create(url,qname);
-		WebServiceImpl ws = service.getPort(WebService.class);
+		URL url = new URL ("http://localhost:8082/ws/stackexchange?wsdl");
+		QName qname = new QName("http://ws.sstackex.yangnormal.com/","WebServiceImplService");
+		WebServiceImplService webService = new WebServiceImplService(url,qname);
+		WebServiceInterface ws = webService.getWebServiceImplPort();
 		int status = ws.register(name,email,password); //method register di webservicenya return status ngecek kalau emailnya udah ada di DB atau belum
 		if (status==0){
-			response.redirect("registerSuccess.jsp");
+			response.sendRedirect("registerSuccess.jsp");
 		} else {
-			response.redirect("registerFail.jsp");
+			response.sendRedirect("registerFail.jsp");
 		}
 	}
 	%>

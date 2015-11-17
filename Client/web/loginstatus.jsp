@@ -11,7 +11,7 @@
 		<div class="content">
 			<h1>
 			<%
-				int status = request.getAttribute("status");
+				int status = (int) (request.getAttribute("status"));
 				if (status==0) {
 					out.println("Login Success");
 					String token=request.getAttribute("token")

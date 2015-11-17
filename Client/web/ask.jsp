@@ -26,9 +26,9 @@
 		</div>	
 	</div>
 	<script type="text/javascript" src="js/script.js"></script>
-	<%@page import= "java.net.URL,javax.xml.namespace.QName,javax.xml.ws.Service" %>
-	<%@page import= "com.yangnormal.sstackex.ws.WebServiceInterface" %>
-	<%@page import= "com.yangnormal.sstackex.ws.WebServiceImplService" %>
+	<%@page import= "java.net.URL,javax.xml.namespace.QName,java.lang.String" %>
+	<%@page import= "com.yangnormal.sstackex.WebServiceInterface" %>
+	<%@page import= "com.yangnormal.sstackex.WebServiceImplService" %>
 	<%
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
@@ -39,13 +39,12 @@
 			QName qname = new QName("http://ws.sstackex.yangnormal.com/","WebServiceImplService");
 			WebServiceImplService webService = new WebServiceImplService(url,qname);
 			WebServiceInterface ws = webService.getWebServiceImplPort();
-			out.println(ws.printMessage());
-			/*int status = ws.insertQuestion(name,email,topic,content);
+			int status = ws.postQuestion(name,email,topic,content);
 			if (status==0){
 				response.sendRedirect("registerSuccess.jsp");
 			} else {
 				response.sendRedirect("registerFail.jsp");
-			}*/
+			}
 		}
 	%>
 </body>
