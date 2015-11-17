@@ -4,12 +4,6 @@
 <xsd:import namespace="http://AnswerModel/" schemaLocation="http://localhost:8081/StackExchange_WS/AnswerWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getVoteCountByAId">
-<part name="parameters" element="tns:getVoteCountByAId"/>
-</message>
-<message name="getVoteCountByAIdResponse">
-<part name="parameters" element="tns:getVoteCountByAIdResponse"/>
-</message>
 <message name="getAnswerByQID">
 <part name="parameters" element="tns:getAnswerByQID"/>
 </message>
@@ -28,11 +22,13 @@
 <message name="voteAnswerResponse">
 <part name="parameters" element="tns:voteAnswerResponse"/>
 </message>
+<message name="getVoteCountByAId">
+<part name="parameters" element="tns:getVoteCountByAId"/>
+</message>
+<message name="getVoteCountByAIdResponse">
+<part name="parameters" element="tns:getVoteCountByAIdResponse"/>
+</message>
 <portType name="AnswerWS">
-<operation name="getVoteCountByAId">
-<input wsam:Action="http://AnswerModel/AnswerWS/getVoteCountByAIdRequest" message="tns:getVoteCountByAId"/>
-<output wsam:Action="http://AnswerModel/AnswerWS/getVoteCountByAIdResponse" message="tns:getVoteCountByAIdResponse"/>
-</operation>
 <operation name="getAnswerByQID">
 <input wsam:Action="http://AnswerModel/AnswerWS/getAnswerByQIDRequest" message="tns:getAnswerByQID"/>
 <output wsam:Action="http://AnswerModel/AnswerWS/getAnswerByQIDResponse" message="tns:getAnswerByQIDResponse"/>
@@ -45,18 +41,13 @@
 <input wsam:Action="http://AnswerModel/AnswerWS/voteAnswerRequest" message="tns:voteAnswer"/>
 <output wsam:Action="http://AnswerModel/AnswerWS/voteAnswerResponse" message="tns:voteAnswerResponse"/>
 </operation>
+<operation name="getVoteCountByAId">
+<input wsam:Action="http://AnswerModel/AnswerWS/getVoteCountByAIdRequest" message="tns:getVoteCountByAId"/>
+<output wsam:Action="http://AnswerModel/AnswerWS/getVoteCountByAIdResponse" message="tns:getVoteCountByAIdResponse"/>
+</operation>
 </portType>
 <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getVoteCountByAId">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="getAnswerByQID">
 <soap:operation soapAction=""/>
 <input>
@@ -76,6 +67,15 @@
 </output>
 </operation>
 <operation name="voteAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getVoteCountByAId">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

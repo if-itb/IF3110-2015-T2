@@ -34,11 +34,7 @@
 
 <xs:element name="voteQuestionResponse" type="tns:voteQuestionResponse"/>
 
-<<<<<<< Updated upstream
 <xs:complexType name="insertQuestion">
-=======
-<xs:complexType name="updateQuestion">
->>>>>>> Stashed changes
 <xs:sequence>
 <xs:element name="token" type="xs:string" minOccurs="0"/>
 <xs:element name="question" type="tns:question" minOccurs="0"/>
@@ -55,32 +51,20 @@
 </xs:sequence>
 </xs:complexType>
 
-<<<<<<< Updated upstream
 <xs:complexType name="insertQuestionResponse">
-=======
-<xs:complexType name="updateQuestionResponse">
->>>>>>> Stashed changes
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
-<<<<<<< Updated upstream
 <xs:complexType name="updateQuestion">
-=======
-<xs:complexType name="insertQuestion">
->>>>>>> Stashed changes
 <xs:sequence>
 <xs:element name="token" type="xs:string" minOccurs="0"/>
 <xs:element name="question" type="tns:question" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<<<<<<< Updated upstream
 <xs:complexType name="updateQuestionResponse">
-=======
-<xs:complexType name="insertQuestionResponse">
->>>>>>> Stashed changes
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
 </xs:sequence>

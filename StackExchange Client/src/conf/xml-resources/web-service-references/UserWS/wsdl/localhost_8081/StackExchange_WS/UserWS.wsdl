@@ -4,12 +4,6 @@
 <xsd:import namespace="http://UserModel/" schemaLocation="http://localhost:8081/StackExchange_WS/UserWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getUserById">
-<part name="parameters" element="tns:getUserById"/>
-</message>
-<message name="getUserByIdResponse">
-<part name="parameters" element="tns:getUserByIdResponse"/>
-</message>
 <message name="registerUser">
 <part name="parameters" element="tns:registerUser"/>
 </message>
@@ -23,10 +17,6 @@
 <part name="parameters" element="tns:getUserByIdResponse"/>
 </message>
 <portType name="UserWS">
-<operation name="getUserById">
-<input wsam:Action="http://UserModel/UserWS/getUserByIdRequest" message="tns:getUserById"/>
-<output wsam:Action="http://UserModel/UserWS/getUserByIdResponse" message="tns:getUserByIdResponse"/>
-</operation>
 <operation name="registerUser">
 <input wsam:Action="http://UserModel/UserWS/registerUserRequest" message="tns:registerUser"/>
 <output wsam:Action="http://UserModel/UserWS/registerUserResponse" message="tns:registerUserResponse"/>
@@ -38,15 +28,6 @@
 </portType>
 <binding name="UserWSPortBinding" type="tns:UserWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getUserById">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="registerUser">
 <soap:operation soapAction=""/>
 <input>

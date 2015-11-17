@@ -28,6 +28,10 @@
         <servlet-name>QuestionNew</servlet-name>
         <servlet-class>Question.QuestionNew</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuestionAsk</servlet-name>
+        <servlet-class>Question.QuestionAsk</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>QuestionNew</servlet-name>
         <url-pattern>/newquestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionAsk</servlet-name>
+        <url-pattern>/ask</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

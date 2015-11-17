@@ -16,7 +16,7 @@
         <input type="submit" value="Search">
     </form>
 
-    <p class="ask-here">Can't find what you are looking for? <a href="ask.jsp">Ask here</a></p>
+    <p class="ask-here">Can't find what you are looking for? <a href="${pageContext.request.contextPath}/ask">Ask here</a></p>
 
 
     <div class="row">
