@@ -35,6 +35,14 @@
         <servlet-name>QuestionAsk</servlet-name>
         <servlet-class>Question.QuestionAsk</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserNew</servlet-name>
+        <servlet-class>User.UserNew</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserRegister</servlet-name>
+        <servlet-class>User.UserRegister</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -66,6 +74,14 @@
     <servlet-mapping>
         <servlet-name>QuestionAsk</servlet-name>
         <url-pattern>/ask</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserNew</servlet-name>
+        <url-pattern>/newuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserRegister</servlet-name>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
