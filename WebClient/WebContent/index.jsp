@@ -96,12 +96,13 @@
 					</span>
 						|
 					<span class="edit">
-						<a href="#" class="edit">
+						<a href="editQuestion.jsp" class="edit">
 						 edit 
 						</a>
 					</span>
 						|
-					<span class="delete"onclick="#"> <a href="index.jsp" class="delete">
+					<span class="delete">
+					 <a href="delete.jsp" class="delete">
 						 delete 
 						</a>
 					</span>
