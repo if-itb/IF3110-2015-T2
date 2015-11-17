@@ -45,17 +45,19 @@ public class registerCallWS extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet registerCallWS at " + request.getContextPath() + "</h1>");
 
+            out.println("AHHAHA");
             try {
-                System.out.println("Hello World");
+                out.println("Hello World");
                 java.lang.String name = request.getParameter("name");
                 java.lang.String email = request.getParameter("email");
                 java.lang.String password = request.getParameter("password");
-                // TODO process result here
-                System.out.println("Value of first name " +name + email + password);
+                //ODO process result here
+                out.println("Value of first name " +name + email + password);
                 int result = register(name,email,password);
                 out.println("Result = "+result);
             }catch (Exception ex) {
-                // TODO handle custom exceptions here
+                
+// TODO handle custom exceptions here
             }
             
             
@@ -111,6 +113,7 @@ public class registerCallWS extends HttpServlet {
     private int register(java.lang.String name, java.lang.String email, java.lang.String password) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
+        System.out.println("Regsiter");
         com.wbd.rgs.RegisterWS port = service.getRegisterWSPort();
         return port.register(name, email, password);
     }

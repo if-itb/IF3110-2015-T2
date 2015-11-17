@@ -43,15 +43,18 @@ public class RegisterWS {
      */
     @WebMethod(operationName = "register")
     public int register(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password){
-        //TODO write your implementation code here:
+        //TOD wt.prirlite your implementation code here:
+        System.out.println("Ivan mab");
         int hasil = 0;
         Connection conn = null;
         PreparedStatement dbStatement = null;
         try {
+         
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             Statement stmt = conn.createStatement();
-            String sql;
-            sql = "INSERT INTO user(Nama, Email, Password) VALUES (?,?,?)";
+            String sql; 
+            System.out.println("Ivan");
+            sql = "INSERT INTO user(Name, Email, Password) VALUES (?,?,?)";
             
             dbStatement = conn.prepareStatement(sql);
 
