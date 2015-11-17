@@ -6,20 +6,32 @@
 package stackexchange.webservice.model;
 
 import java.util.Date;
+import javax.xml.bind.*;
+import javax.xml.bind.annotation.*;
 
 /**
  *
  * @author fauzanrifqy
  */
+@XmlRootElement(name="Question")
 public class Question {
+    @XmlElement(name="id", required=true)
     private int id;
+    @XmlElement(name="name", required=true)
     private String name;
+    @XmlElement(name="email", required=true)
     private String email;
+    @XmlElement(name="topic", required=true)
     private String topic;
+    @XmlElement(name="content", required=true)
     private String content;
+    @XmlElement(name="dateMade", required=true)
     private Date dateMade;
+    @XmlElement(name="errorMessage", required=true)
     private String errorMessage;
+    @XmlElement(name="vote", required=true)
     private int vote;
+    @XmlElement(name="answer", required=true)
     private int answer;
 
     /**
