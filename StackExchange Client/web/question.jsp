@@ -30,7 +30,7 @@
                     <div class="vote">
 
                         <div class="vote-up">
-                            <a class="vote-link" href="">▲</a>
+                            <a class="vote-link" href="questionvote?id=<%= question.getId() %>&value=1">▲</a>
                         </div>
 
                         <div class="vote-counts">
@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="vote-down">
-                            <a class="vote-link" href="">▼</a>
+                            <a class="vote-link" href="questionvote?id=<%= question.getId() %>&value=-1">▼</a>
                         </div>
 
                     </div>

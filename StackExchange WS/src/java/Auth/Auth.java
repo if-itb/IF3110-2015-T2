@@ -5,6 +5,8 @@
  */
 package Auth;
 
+import Database.DB;
+import QuestionModel.QuestionWS;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +16,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.Cookie;
@@ -88,6 +95,33 @@ public class Auth {
       Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);
     }
     
+    return ret;
+  }
+  
+  public int getUserID ( String token ) {
+    int ret = -1;
+    DB db = new DB();
+    Connection conn = db.connect();  
+      try {
+          Statement stmt = conn.createStatement();
+          String sql;
+
+          sql = "SELECT * FROM access_token WHERE token = ?";
+          PreparedStatement dbStatement = conn.prepareStatement(sql);
+          dbStatement.setString(1, token);
+
+          ResultSet rs = dbStatement.executeQuery();
+
+          // Extract data from result set
+          while(rs.next()){        
+            ret = rs.getInt("user_id");
+          }
+
+          rs.close();
+          stmt.close();
+      } catch(SQLException ex) {
+          Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+      }
     return ret;
   }
   
