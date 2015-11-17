@@ -37,8 +37,4 @@ public class Answer {
     public String getContent() {
         return content;
     }
-    
-    public String getUsername() {
-        return username;
-    }
 }

@@ -8,49 +8,59 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
+import Config.DB;
 
 @WebService(serviceName = "AnswerWS")
 public class AnswerWS {
+    
+    private final DB db = new DB();
+    private Connection conn;
 
+    /**
+     *
+     * @param qid
+     * @return
+     */
     @WebMethod(operationName = "getAnswerByQID")
     @WebResult(name = "Answer")
     public List<Answer> getAnswerByQID(@WebParam(name = "qid") int qid) {
         
         List<Answer> answers = new ArrayList<Answer>();
         
-        Connection conn = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange2?zeroDateTimeBehaviour=convertToNull","root","dininta");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        conn = db.connect();
         
         try {
-            Statement stmt = conn.createStatement();
+            Statement stmt;
+            stmt = conn.createStatement();
+            
             String sql;
             sql = "SELECT * FROM answer where id_question = ?";
+            
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, qid);
-            ResultSet rs = dbStatement.executeQuery();
+            
+            ResultSet rs;
+            rs = dbStatement.executeQuery();
             
             /* Get every data returned by SQLquery */
-            int i = 0;
             while(rs.next()) {
                 answers.add( new Answer(
-                    rs.getInt("id"),
+                    rs.getInt("id_answer"),
                     rs.getInt("id_question"),
                     rs.getInt("vote"),
                     rs.getString("content"),
                     rs.getString("date"),
                     rs.getString("username")));
-                ++i;
             }
             rs.close();
             stmt.close();
+            conn.close();
         }
-        catch(SQLException ex) {}
+        catch(SQLException ex) {
+           Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex); 
+        }
+        
         return answers;
     }
+    
 }
