@@ -43,11 +43,11 @@ public class QuestionNew extends HttpServlet {
         QuestionWS.Question question = new Question();
         
         question.setTopic(request.getParameter("title"));
-        System.out.println(question.getTopic());
         question.setContent(request.getParameter("content"));
-        System.out.println(question.getContent());
         
         insertQuestion(access_token, question);
+        
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

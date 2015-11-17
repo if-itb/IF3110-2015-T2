@@ -10,15 +10,34 @@
 <message name="registerUserResponse">
 <part name="parameters" element="tns:registerUserResponse"/>
 </message>
+<message name="getUserById">
+<part name="parameters" element="tns:getUserById"/>
+</message>
+<message name="getUserByIdResponse">
+<part name="parameters" element="tns:getUserByIdResponse"/>
+</message>
 <portType name="UserWS">
 <operation name="registerUser">
 <input wsam:Action="http://UserModel/UserWS/registerUserRequest" message="tns:registerUser"/>
 <output wsam:Action="http://UserModel/UserWS/registerUserResponse" message="tns:registerUserResponse"/>
 </operation>
+<operation name="getUserById">
+<input wsam:Action="http://UserModel/UserWS/getUserByIdRequest" message="tns:getUserById"/>
+<output wsam:Action="http://UserModel/UserWS/getUserByIdResponse" message="tns:getUserByIdResponse"/>
+</operation>
 </portType>
 <binding name="UserWSPortBinding" type="tns:UserWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
 <operation name="registerUser">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getUserById">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

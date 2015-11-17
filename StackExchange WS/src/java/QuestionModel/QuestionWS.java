@@ -172,7 +172,7 @@ public class QuestionWS {
             Statement stmt = conn.createStatement();
             String sql;
             
-            sql = "SELECT * FROM questions";
+            sql = "SELECT * FROM questions ORDER BY id DESC";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             
             ResultSet rs = dbStatement.executeQuery();
