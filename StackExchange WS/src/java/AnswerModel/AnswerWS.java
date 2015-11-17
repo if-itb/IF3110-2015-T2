@@ -28,31 +28,41 @@ public class AnswerWS {
     @WebMethod(operationName = "getAnswerByQID")
     @WebResult(name = "Answer")
     public ArrayList<Answer> getAnswerByQID(@WebParam(name = "qid") int qid) {
-        ArrayList<Answer> answers;
-        answers = new ArrayList<>();
-        int i = 0;
         try {
-            String url = "jdbc:mysql://localhost:3306/stackexchange";
-            String username = "root";
-            String password = "";
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Driver loaded!");
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("Cannot find the driver in the classpath!", e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/stackexchange";
+        String username = "root";
+        String password = "";
+        
+        ArrayList<Answer> answers = new ArrayList<Answer>();
+        
+        try {
             Connection conn = DriverManager.getConnection(url, username, password);
             Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM answer WHERE qid = ?";
+            
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, qid);
+            pstmt.setInt(1,qid);
             ResultSet rs = pstmt.executeQuery();
+            
             while (rs.next()) {
-                int aid = rs.getInt("AID");
-                int uid = rs.getInt("UserID");
-                String content = rs.getString("Content");
-                int votes = rs.getInt("Votes");
-                int qid1 = qid;
-                String datetime = rs.getString("DateTime");
-                answers.add(new Answer(aid, uid, content, votes, qid, datetime));
-                i++;
+                answers.add(new Answer(rs.getInt("AID"),
+                            rs.getInt("UserID"),
+                            rs.getString("content"),
+                            rs.getInt("Votes"),
+                            qid,
+                            rs.getString("DateTime")
+                            ));
             }
+            rs.close();
             stmt.close();
         } catch (SQLException ex) {
+            
         }
         return answers;
     }

@@ -30,12 +30,19 @@ public class UserWS {
      * @return 
      */
     @WebMethod(operationName = "register")
-    public int register(@WebParam(name = "nama") String nama, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
-        int i = 0;
+    public void register(@WebParam(name = "nama") String nama, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
         try {
-            String url = "jdbc:mysql://localhost:3306/stackexchange";
-            String username = "root";
-            String pswd = "";
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Driver loaded!");
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("Cannot find the driver in the classpath!", e);
+        }
+        
+        String url = "jdbc:mysql://localhost:3306/stackexchange";
+        String username = "root";
+        String pswd = "";
+        
+        try {
             Connection conn = DriverManager.getConnection(url, username, pswd);
             Statement stmt = conn.createStatement();
             String sql = "INSERT INTO user VALUES (0,?,?,?)";
@@ -43,13 +50,9 @@ public class UserWS {
             pstmt.setString(1, nama);
             pstmt.setString(2, email);
             pstmt.setString(3, password);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                i++;
-            }
-        } catch (SQLException ex) {
-            
+            int a = pstmt.executeUpdate();
+            stmt.close();
+	} catch (SQLException ex) {
         }
-        return i;
     }
 }
