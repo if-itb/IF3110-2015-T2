@@ -41,6 +41,11 @@ public class Homepage extends HttpServlet {
         }
 
         request.setAttribute("questions", questions);
+        request.setAttribute("response", requestResponse);
+
+        if (request.getParameter("token") != null && !request.getParameter("token").isEmpty()){
+            request.setAttribute("login", "true");
+        }
 
         response.setContentType("text/html;charset=UTF-8");
         request.getRequestDispatcher("views/index.jsp").forward(request, response);
