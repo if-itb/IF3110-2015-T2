@@ -1,3 +1,9 @@
 .DS_STORE
 .idea
+*.iml
 /Identity Service/dist/
+Identity Service/nbproject/*
+Identity Service/build/*
+StackxWS/nbproject/*
+StackxWS/build/*
+StackExchange_FrontEnd/out/*
