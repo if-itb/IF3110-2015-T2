@@ -27,7 +27,11 @@ import javax.xml.bind.annotation.*;
   private int vote;
   public Answer() { 
       id = 0;     
-      qid = 0;  
+      qid = 0; 
+      uid = 0;
+      name = "";
+      content = "";
+      date = "";
       vote = 0;
   }      
   public Answer(int id, int qid, int uid, String name, 
@@ -49,7 +53,7 @@ import javax.xml.bind.annotation.*;
   public int getUid(){
       return uid;
   }
-  public String getEmail(){
+  public String getName(){
       return name;
   }
   public String getContent(){

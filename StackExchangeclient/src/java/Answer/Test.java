@@ -51,7 +51,6 @@ public class Test extends HttpServlet {
                      out.println(answer.getId());
                      out.println(answer.getQid());
                      out.println(answer.getUid());
-                     out.println(answer.getDate());
                  }       
              }
              catch (Exception ex){           

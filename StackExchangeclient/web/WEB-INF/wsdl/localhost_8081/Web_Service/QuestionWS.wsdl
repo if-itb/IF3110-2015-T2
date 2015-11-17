@@ -4,11 +4,23 @@
 <xsd:import namespace="http://jaxws/" schemaLocation="http://localhost:8081/Web_Service/QuestionWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="voteQuestion">
-<part name="parameters" element="tns:voteQuestion"/>
+<message name="getQuestionByQuery">
+<part name="parameters" element="tns:getQuestionByQuery"/>
 </message>
-<message name="voteQuestionResponse">
-<part name="parameters" element="tns:voteQuestionResponse"/>
+<message name="getQuestionByQueryResponse">
+<part name="parameters" element="tns:getQuestionByQueryResponse"/>
+</message>
+<message name="setQuestionVote">
+<part name="parameters" element="tns:setQuestionVote"/>
+</message>
+<message name="setQuestionVoteResponse">
+<part name="parameters" element="tns:setQuestionVoteResponse"/>
+</message>
+<message name="getQuestionVote">
+<part name="parameters" element="tns:getQuestionVote"/>
+</message>
+<message name="getQuestionVoteResponse">
+<part name="parameters" element="tns:getQuestionVoteResponse"/>
 </message>
 <message name="getQuestion">
 <part name="parameters" element="tns:getQuestion"/>
@@ -40,10 +52,24 @@
 <message name="deleteQuestionResponse">
 <part name="parameters" element="tns:deleteQuestionResponse"/>
 </message>
+<message name="voteQuestion">
+<part name="parameters" element="tns:voteQuestion"/>
+</message>
+<message name="voteQuestionResponse">
+<part name="parameters" element="tns:voteQuestionResponse"/>
+</message>
 <portType name="QuestionWS">
-<operation name="voteQuestion">
-<input wsam:Action="http://jaxws/QuestionWS/voteQuestionRequest" message="tns:voteQuestion"/>
-<output wsam:Action="http://jaxws/QuestionWS/voteQuestionResponse" message="tns:voteQuestionResponse"/>
+<operation name="getQuestionByQuery">
+<input wsam:Action="http://jaxws/QuestionWS/getQuestionByQueryRequest" message="tns:getQuestionByQuery"/>
+<output wsam:Action="http://jaxws/QuestionWS/getQuestionByQueryResponse" message="tns:getQuestionByQueryResponse"/>
+</operation>
+<operation name="setQuestionVote">
+<input wsam:Action="http://jaxws/QuestionWS/setQuestionVoteRequest" message="tns:setQuestionVote"/>
+<output wsam:Action="http://jaxws/QuestionWS/setQuestionVoteResponse" message="tns:setQuestionVoteResponse"/>
+</operation>
+<operation name="getQuestionVote">
+<input wsam:Action="http://jaxws/QuestionWS/getQuestionVoteRequest" message="tns:getQuestionVote"/>
+<output wsam:Action="http://jaxws/QuestionWS/getQuestionVoteResponse" message="tns:getQuestionVoteResponse"/>
 </operation>
 <operation name="getQuestion">
 <input wsam:Action="http://jaxws/QuestionWS/getQuestionRequest" message="tns:getQuestion"/>
@@ -65,10 +91,32 @@
 <input wsam:Action="http://jaxws/QuestionWS/deleteQuestionRequest" message="tns:deleteQuestion"/>
 <output wsam:Action="http://jaxws/QuestionWS/deleteQuestionResponse" message="tns:deleteQuestionResponse"/>
 </operation>
+<operation name="voteQuestion">
+<input wsam:Action="http://jaxws/QuestionWS/voteQuestionRequest" message="tns:voteQuestion"/>
+<output wsam:Action="http://jaxws/QuestionWS/voteQuestionResponse" message="tns:voteQuestionResponse"/>
+</operation>
 </portType>
 <binding name="QuestionWSPortBinding" type="tns:QuestionWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="voteQuestion">
+<operation name="getQuestionByQuery">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="setQuestionVote">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getQuestionVote">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -114,6 +162,15 @@
 </output>
 </operation>
 <operation name="deleteQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="voteQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

@@ -56,7 +56,7 @@ public class QuestionWS {
     @WebResult(name="Questions")
     public ArrayList<Question> getQuestion() {
       ArrayList<Question> questions = new ArrayList<>();  
-      String query =  "SELECT * FROM question";
+      String query =  "SELECT * FROM question ORDER BY date DESC";
       ResultSet rs = database.getResultQuery(query);
       return Question.fetchQuestions(rs);
     }
@@ -70,7 +70,21 @@ public class QuestionWS {
     @WebResult(name="Question")
     public ArrayList<Question> getQuestionByQID(@WebParam(name = "qid") int qid) {
       ArrayList<Question> questions = new ArrayList<>();  
-      String query = "SELECT * FROM question JOIN user WHERE uid = user.id AND id = " + qid;
+      String query = "SELECT * FROM `question` WHERE `id`=" + qid;
+      ResultSet rs = database.getResultQuery(query);
+      return Question.fetchQuestions(rs);
+    }
+    
+    /**
+     * Web service operation
+     * @param q
+     * @return 
+     */
+    @WebMethod(operationName = "getQuestionByQuery")
+    @WebResult(name="QuestionQuery")
+    public ArrayList<Question> getQuestionByQuery(@WebParam(name = "q") String q) {
+      ArrayList<Question> questions = new ArrayList<>();  
+      String query = "SELECT * from `question` WHERE topic LIKE '%" + q + "%' UNION SELECT * from question WHERE content LIKE '%" + q + "%'";
       ResultSet rs = database.getResultQuery(query);
       return Question.fetchQuestions(rs);
     }

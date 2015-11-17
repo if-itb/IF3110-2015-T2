@@ -18,7 +18,21 @@ public class AnswerWS {
         database = new DB();
         model = new Answer();
     }
-
+      @WebMethod(operationName = "getAnswerQID")
+      @WebResult(name="gtQID")
+      public int getAnswerQID(@WebParam(name = "id") int id) {
+        String query = "SELECT `qid` FROM answer WHERE id=" + id;
+        int qid = 0;
+        try {
+          ResultSet tmp = database.getResultQuery(query);
+          tmp.next();
+          qid = tmp.getInt("qid");
+        } catch (Throwable e) {
+          e.printStackTrace();
+        }
+        return qid;
+      }
+    
     @WebMethod(operationName = "getAnswerVote")
     @WebResult(name="gtVote")
     public int getAnswerVote(@WebParam(name = "id") int id) {

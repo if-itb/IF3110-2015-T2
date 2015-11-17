@@ -32,9 +32,14 @@ import javax.xml.bind.*; import javax.xml.bind.annotation.*;
   @XmlElement(name="sumAns", required=true)  
   private int sumAns; 
   public Question() { 
-      id = 0;          
+      id = 0;         
+      uid = 0;
       vote = 0;
       sumAns = 0;
+      name = "";
+      topic = "";
+      content = "";
+      date = "";
   }      
   public Question(int id, int uid, String name, String topic,
           String content, String date, int vote, int sumAns) {
@@ -55,6 +60,9 @@ import javax.xml.bind.*; import javax.xml.bind.annotation.*;
   }
   public String getContent(){
       return content;
+  }
+  public String getName() {
+      return name;
   }
   public String getTopic(){
       return topic;
