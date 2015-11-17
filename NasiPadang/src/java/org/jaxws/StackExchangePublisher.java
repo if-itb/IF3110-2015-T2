@@ -14,6 +14,6 @@ import javax.xml.ws.Endpoint;
 public class StackExchangePublisher {
 
     public static void main(String[] args) {
-	   Endpoint.publish("http://localhost:8001/ws/stackexchange?wsdl", new StackExchangeImpl());
+	   Endpoint.publish("http://localhost:8001/ws/stackexchange", new StackExchangeImpl());
     }
 }

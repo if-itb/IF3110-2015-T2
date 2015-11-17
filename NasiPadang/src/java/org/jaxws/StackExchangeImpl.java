@@ -30,7 +30,7 @@ public class StackExchangeImpl implements StackExchange {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Cannot find the driver in the classpath!", e);
         }
-        String url = "jdbc:mysql://localhost:3306/post";
+        String url = "jdbc:mysql://localhost:3306/db_stackexchange";
         String username = "root";
         String password = "";
         connection = null;
@@ -55,14 +55,17 @@ public class StackExchangeImpl implements StackExchange {
             
             while(rs.next()){
                 question = new Question();
-                question.setID(rs.getInt("id"));
-                question.setTopic(rs.getString("topic"));
-                question.setContent(rs.getString("content"));
-                question.setDate(rs.getString("date"));
+                question.id = rs.getInt("id");
+                question.name = rs.getString("name");
+                question.topic = rs.getString("topic");
+                question.content = rs.getString("content");
+                question.timestamp = rs.getString("timestamp");
+                question.vote = rs.getInt("votes");
+                question.count = rs.getInt("count");
             }
         
         } catch (SQLException e) {
-            System.err.println("Gagal melakukan koneksi.");
+            e.printStackTrace();
         }
         return question;
     }
@@ -83,17 +86,17 @@ public class StackExchangeImpl implements StackExchange {
             
             while(rs.next()){
                 question = new Question();
-                question.setID(rs.getInt("id"));
-                question.setName(rs.getString("name"));
-                question.setTopic(rs.getString("topic"));
-                question.setContent(rs.getString("content"));
-                question.setDate(rs.getString("date"));
-                question.setVote(rs.getInt("votes"));
-                question.setCount(rs.getInt("count"));
+                question.id = rs.getInt("id");
+                question.name = rs.getString("name");
+                question.topic = rs.getString("topic");
+                question.content = rs.getString("content");
+                question.timestamp = rs.getString("timestamp");
+                question.vote = rs.getInt("votes");
+                question.count = rs.getInt("count");
                 allQuestion.add(question);
             }
         } catch (SQLException ex) {
-            System.err.println("Gagal melakukan koneksi."); 
+            ex.printStackTrace();
         }
         return allQuestion;
     }

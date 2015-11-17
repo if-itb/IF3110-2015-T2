@@ -4,19 +4,12 @@
     Author     : user
 --%>
 
-<%@page import="org.jaxws.StackExchangeImpl"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="org.data.Question"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
     <title>Simple StackExchange</title>
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/delete_question.js"></script>
-    <%! 
-    StackExchangeImpl impl = new StackExchangeImpl();
-    ArrayList a = impl.getAllQuestion();
-    %>
 </head>
 <body>
     <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
@@ -31,22 +24,22 @@
     <div class="list">
     <div class="title">Recently Asked Questions</div>
     <ul>
-    <%c:for(Question q :a){%>
+    <c:forEach items="${allQuestion}" var="question">
         <li>
             <table>
                 <tbody>
                     <tr>
-                        <td><div class="votes"><% out.print(q.getVote())%><br>Votes</div></td>
-                        <td><div class="count"><% out.print(q.getCount())%><br>Answers</div></td>
+                        <td><div class="votes">${question.vote}<br>Votes</div></td>
+                        <td><div class="count">${qestion.count}<br>Answers</div></td>
                         <td>
-                                <div class="content"><a href="question.php?id=<% out.print(q.getID())%>"><% out.print(q.getTopic())%></a></div>
-                                <div class="credential">asked by <div class="name"><% out.print(q.getName())%></div> | <a class="yellow" href="edit.php?id=<% out.print(q.getID())%>">edit</a> | <a class="delete" href="javascript:confirmDelete(<% out.print(q.getName())%>)">delete</a></div>
+                                <div class="content"><a href="question.php?id=${question.id}">${question.topic}</a></div>
+                                <div class="credential">asked by <div class="name">${question.name}</div> | <a class="yellow" href="edit.php?id=${question.id}">edit</a> | <a class="delete" href="javascript:confirmDelete(${question.id})">delete</a></div>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </li>
-    <%! }%>
+    <c:forEach>
     </ul>
     </div>
 </body>
