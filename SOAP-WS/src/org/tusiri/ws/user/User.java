@@ -1,9 +1,7 @@
 package org.tusiri.ws.user;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -21,11 +19,15 @@ public class User {
 		boolean exist = true;
 		
 		DBConnection dbc = new DBConnection();
-		Statement stmt = dbc.getDBStmt();
+		PreparedStatement stmt = dbc.getDBStmt();
+		Connection conn = dbc.getConn();
 		try{
-			String sql = "SELECT email FROM user"
-					+ "WHERE email='"+email+"'";
-			ResultSet rs = stmt.executeQuery(sql);
+			String sql = "SELECT username,email FROM user "
+					+ "WHERE email = ? OR username = ? ";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, email);
+			stmt.setString(2, username);
+			ResultSet rs = stmt.executeQuery();
             if (!rs.next()){
             	exist = false;
             }
@@ -42,10 +44,19 @@ public class User {
 		} 
 		else{
 			try{
-				String sql = "INSERT INTO user(username,password,email,fullname)"
-						+ "VALUES('"+username+"','"+password+"','"+email+"','"+fullname+"')";
-				u_id = stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-				ResultSet rd = stmt.getGeneratedKeys();
+				String sql = "INSERT INTO user(username,password,email,fullname) "
+						+ "VALUES(?,MD5(?),?,?)";
+				stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, username);
+				stmt.setString(2, password);
+				stmt.setString(3, email);
+				stmt.setString(4, fullname);
+				stmt.executeUpdate();
+				ResultSet rs = stmt.getGeneratedKeys();
+	            while (rs.next()) {
+	               u_id = rs.getInt(1);
+	            } 	
+				System.out.println("u_id = " + u_id);
 			} catch(SQLException se){
 				//Handle errors for JDBC
 				se.printStackTrace();
@@ -54,7 +65,6 @@ public class User {
 				e.printStackTrace();
 			}
 		}
-		
 		return u_id;
 	}
 }
