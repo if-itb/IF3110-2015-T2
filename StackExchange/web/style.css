@@ -47,13 +47,13 @@ form.search-box > input[type="submit"]{
 	text-align:center;
 }
 
-// Ask Question & Register
-#inputtext1{
-    width:99%;
-    display:block;
-    border: 1px solid;
-    height: 25px;
-    padding-left:1%;
+table {
+    width: 100%;
+    border-collapse:collapse;
+}
+img {
+    width:20px;
+    height:15px;
 }
 #inputtext1{
     width:99%;
@@ -62,8 +62,8 @@ form.search-box > input[type="submit"]{
     height: 25px;
     padding-left:1%;
 }
-form.QuestionForm > textarea {
-    width:98.5%;
+textarea {
+    width:99%;
     height:150px;
     border: 1px solid;
     resize: none;
