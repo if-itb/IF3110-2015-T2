@@ -16,12 +16,6 @@
 <message name="getQuestionResponse">
 <part name="parameters" element="tns:getQuestionResponse"/>
 </message>
-<message name="getQuestions">
-<part name="parameters" element="tns:getQuestions"/>
-</message>
-<message name="getQuestionsResponse">
-<part name="parameters" element="tns:getQuestionsResponse"/>
-</message>
 <message name="addQuestion">
 <part name="parameters" element="tns:addQuestion"/>
 </message>
@@ -33,6 +27,12 @@
 </message>
 <message name="deleteQuestionResponse">
 <part name="parameters" element="tns:deleteQuestionResponse"/>
+</message>
+<message name="getQuestions">
+<part name="parameters" element="tns:getQuestions"/>
+</message>
+<message name="getQuestionsResponse">
+<part name="parameters" element="tns:getQuestionsResponse"/>
 </message>
 <message name="updateQuestion">
 <part name="parameters" element="tns:updateQuestion"/>
@@ -94,6 +94,12 @@
 <message name="isVoteAnswerAvailableResponse">
 <part name="parameters" element="tns:isVoteAnswerAvailableResponse"/>
 </message>
+<message name="getUser">
+<part name="parameters" element="tns:getUser"/>
+</message>
+<message name="getUserResponse">
+<part name="parameters" element="tns:getUserResponse"/>
+</message>
 <portType name="StackExchange">
 <operation name="addUser">
 <input wsam:Action="http://service/StackExchange/addUserRequest" message="tns:addUser"/>
@@ -103,10 +109,6 @@
 <input wsam:Action="http://service/StackExchange/getQuestionRequest" message="tns:getQuestion"/>
 <output wsam:Action="http://service/StackExchange/getQuestionResponse" message="tns:getQuestionResponse"/>
 </operation>
-<operation name="getQuestions">
-<input wsam:Action="http://service/StackExchange/getQuestionsRequest" message="tns:getQuestions"/>
-<output wsam:Action="http://service/StackExchange/getQuestionsResponse" message="tns:getQuestionsResponse"/>
-</operation>
 <operation name="addQuestion">
 <input wsam:Action="http://service/StackExchange/addQuestionRequest" message="tns:addQuestion"/>
 <output wsam:Action="http://service/StackExchange/addQuestionResponse" message="tns:addQuestionResponse"/>
@@ -114,6 +116,10 @@
 <operation name="deleteQuestion">
 <input wsam:Action="http://service/StackExchange/deleteQuestionRequest" message="tns:deleteQuestion"/>
 <output wsam:Action="http://service/StackExchange/deleteQuestionResponse" message="tns:deleteQuestionResponse"/>
+</operation>
+<operation name="getQuestions">
+<input wsam:Action="http://service/StackExchange/getQuestionsRequest" message="tns:getQuestions"/>
+<output wsam:Action="http://service/StackExchange/getQuestionsResponse" message="tns:getQuestionsResponse"/>
 </operation>
 <operation name="updateQuestion">
 <input wsam:Action="http://service/StackExchange/updateQuestionRequest" message="tns:updateQuestion"/>
@@ -155,6 +161,10 @@
 <input wsam:Action="http://service/StackExchange/isVoteAnswerAvailableRequest" message="tns:isVoteAnswerAvailable"/>
 <output wsam:Action="http://service/StackExchange/isVoteAnswerAvailableResponse" message="tns:isVoteAnswerAvailableResponse"/>
 </operation>
+<operation name="getUser">
+<input wsam:Action="http://service/StackExchange/getUserRequest" message="tns:getUser"/>
+<output wsam:Action="http://service/StackExchange/getUserResponse" message="tns:getUserResponse"/>
+</operation>
 </portType>
 <binding name="StackExchangePortBinding" type="tns:StackExchange">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
@@ -176,15 +186,6 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getQuestions">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="addQuestion">
 <soap:operation soapAction=""/>
 <input>
@@ -195,6 +196,15 @@
 </output>
 </operation>
 <operation name="deleteQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getQuestions">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -285,6 +295,15 @@
 </output>
 </operation>
 <operation name="isVoteAnswerAvailable">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getUser">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

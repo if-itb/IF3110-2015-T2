@@ -7,4 +7,4 @@
     <title>Exchange Lyz</title>
 </head>
 <body>
-    <div class="header"><a class="title" href="/">Exchange Lyz</a></div>
+    <div class="header"><a class="title" href="${pageContext.request.contextPath}">Exchange Lyz</a></div>

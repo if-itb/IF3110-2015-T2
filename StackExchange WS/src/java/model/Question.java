@@ -23,20 +23,20 @@ public class Question {
     private String content;
     @XmlElement(name = "votes", required = true)
     private int votes;
-    @XmlElement(name = "date", required = true)
-    private String date;    
+    @XmlElement(name = "timestamp", required = true)
+    private String timestamp;    
     
     private Question() {
         
     }
     
     public Question(int id, int id_user, String topic, String content,
-            int votes, String date) {
+            int votes, String timestamp) {
         this.id = id;
         this.idUser = id_user;
         this.topic = topic;
         this.content = content;
         this.votes = votes;
-        this.date = date;
+        this.timestamp = timestamp;
     }    
 }
