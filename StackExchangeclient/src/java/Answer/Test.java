@@ -50,8 +50,8 @@ public class Test extends HttpServlet {
                  for (AnswerWS.Answer answer : result) {             
                      out.println(answer.getId());
                      out.println(answer.getQid());
-                     out.println(answer.getUsername());
-                     out.println(answer.getDatetime());
+                     out.println(answer.getUid());
+                     out.println(answer.getDate());
                  }       
              }
              catch (Exception ex){           

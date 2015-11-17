@@ -9,13 +9,13 @@
 <html>
   <head>
     <title>Ask Question | Overflow48</title>
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-    <link rel="icon" type="image/png" href="/assets/white-icon.jpg">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="assets/white-icon.jpg">
     
   </head>
   <body>
     <div class="container">
-      <h1 class="text-center"><a href="/view/index.php">OVERFLOW48</a></h1>
+      <h1 class="text-center"><a href="/StackExchangeclient">OVERFLOW48</a></h1>
       <br/>
       <h2>What's your question?</h2>
       <?php
