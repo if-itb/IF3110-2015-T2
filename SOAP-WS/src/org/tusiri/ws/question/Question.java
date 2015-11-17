@@ -108,7 +108,7 @@ public class Question {
 		DBConnection dbc = new DBConnection();
 		Statement stmt = dbc.getDBStmt();
 		try{
-			String sql = "SELECT * FROM question";
+			String sql = "SELECT * FROM question NATURAL JOIN user";
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			// Extract data from result set
@@ -120,6 +120,7 @@ public class Question {
 				String question_date = rs.getDate("question_date").toString();
 				String topic = rs.getString("topic");
 				int num_vote = rs.getInt("num_vote");
+				String username = rs.getString("username");
 				
 				QuestionItem q = new QuestionItem();
 				q.setIDQuestion(id_question);
@@ -128,6 +129,7 @@ public class Question {
 				q.setQuestionDate(question_date);
 				q.setTopic(topic);
 				q.setNumVote(num_vote);
+				q.setUsername(username);
 				
 				questionItemList.add(q);
 			}

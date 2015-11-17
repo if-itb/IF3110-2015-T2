@@ -24,7 +24,6 @@ Pada contoh ini, hanya pertanyaan pertama yang diprint
 Question Pertama Isinya</br>
 Id Question: <%= questionList.get(0).getIdQuestion() %></br>
 Id User: <%= questionList.get(0).getIdUser() %></br>
-Email: <%= questionList.get(0).getEmail() %></br>
 Topic: <%= questionList.get(0).getTopic() %></br>
 Content: <%= questionList.get(0).getContent() %></br>
 

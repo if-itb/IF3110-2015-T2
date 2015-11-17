@@ -53,10 +53,7 @@ if(result>0){//success
 </html>
 
 
-/*
-
-QuestionService qservice = new QuestionService();
+<!--QuestionService qservice = new QuestionService();
 Question q = qservice.getQuestionPort();
 int result = q.createQuestion(access_token, request.getParameter("topic"), request.getParameter("content"));
-
-*/
+  -->

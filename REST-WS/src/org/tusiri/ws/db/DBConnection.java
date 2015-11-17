@@ -10,7 +10,7 @@ public class DBConnection {
 		
 	//  Username dan password
 	final String USER = "root";
-	final String PASS = "1234";//sesuaikan dengan password database
+	final String PASS = "";//sesuaikan dengan password database
 	
 	public Connection conn;
 	public Statement stmt;
