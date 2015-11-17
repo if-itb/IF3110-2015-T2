@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.16, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.21, for Win32 (x86)
 --
 -- Host: localhost    Database: stackexchange
 -- ------------------------------------------------------
--- Server version	5.6.16
+-- Server version	5.6.21
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,7 +28,7 @@ CREATE TABLE `answer` (
   `id_user` int(11) NOT NULL,
   `content` longtext NOT NULL,
   `answer_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `num_votes` int(11) NOT NULL,
+  `num_vote` int(11) DEFAULT '0',
   PRIMARY KEY (`num_answer`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
@@ -57,7 +57,7 @@ CREATE TABLE `question` (
   `content` longtext NOT NULL,
   `question_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `topic` varchar(100) NOT NULL,
-  `num_vote` int(11) NOT NULL,
+  `num_vote` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_question`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
@@ -139,4 +139,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-16 14:44:45
+-- Dump completed on 2015-11-17 20:53:54
