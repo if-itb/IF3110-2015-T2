@@ -59,46 +59,38 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("  </head>\n");
       out.write("\n");
       out.write("  <body>\n");
+      out.write("     ");
+
+        //allow access only if session exists
+        String email = null;
+        Boolean isLogin= false;
+        if(session.getAttribute("email") != null){
+           isLogin= true;
+           email = (String) session.getAttribute("email");
+        }
+        
+        String userEmail = null;
+        String sessionID = null;
+        Cookie[] cookies = request.getCookies();
+        if(cookies !=null){
+        for(Cookie cookie : cookies){
+            if(cookie.getName().equals("email")) userEmail = cookie.getValue();
+            if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
+        }
+        }else{
+            sessionID = session.getId();
+        }
+      
       out.write("\n");
-      out.write("    <nav class=\"navbar\">\n");
-      out.write("      <div class=\"container\">\n");
-      out.write("        <div class=\"navbar-header\">\n");
-      out.write("          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n");
-      out.write("            <span class=\"sr-only\">Toggle navigation</span>\n");
-      out.write("            <span class=\"icon-bar\"></span>\n");
-      out.write("            <span class=\"icon-bar\"></span>\n");
-      out.write("            <span class=\"icon-bar\"></span>\n");
-      out.write("          </button>\n");
-      out.write("            <a class=\"navbar-brand\" href=\"#\">Simple <strong>StackExchange</strong></a>\n");
-      out.write("        </div>\n");
-      out.write("        <div id=\"navbar\" class=\"navbar-collapse collapse\" aria-expanded=\"false\" style=\"height: 1px;\">\n");
-      out.write("            <form class=\"navbar-form navbar-right\" action=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/UserAuthentication\" method=\"POST\">\n");
-      out.write("            <div class=\"form-group\">\n");
-      out.write("              <input type=\"text\" name=\"email\" placeholder=\"Email\" class=\"form-control\">\n");
-      out.write("            </div>\n");
-      out.write("            <div class=\"form-group\">\n");
-      out.write("              <input type=\"password\" name=\"password\" placeholder=\"Password\" class=\"form-control\">\n");
-      out.write("            </div>\n");
-      out.write("            <button type=\"submit\" class=\"btn btn-success\">Sign in</button>\n");
-      out.write("          </form>\n");
-      out.write("        </div><!--/.navbar-collapse -->\n");
-      out.write("      </div>\n");
-      out.write("    </nav>\n");
+      out.write("    ");
+      org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "template/navbar.jsp" + "?" + org.apache.jasper.runtime.JspRuntimeLibrary.URLEncode("isLogin", request.getCharacterEncoding())+ "=" + org.apache.jasper.runtime.JspRuntimeLibrary.URLEncode(String.valueOf(isLogin), request.getCharacterEncoding()), out, false);
       out.write("\n");
+      out.write("    \n");
+      out.write("    ");
+      org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "template/userinfo.jsp" + "?" + org.apache.jasper.runtime.JspRuntimeLibrary.URLEncode("isLogin", request.getCharacterEncoding())+ "=" + org.apache.jasper.runtime.JspRuntimeLibrary.URLEncode(String.valueOf(isLogin), request.getCharacterEncoding()) + "&" + org.apache.jasper.runtime.JspRuntimeLibrary.URLEncode("userEmail", request.getCharacterEncoding())+ "=" + org.apache.jasper.runtime.JspRuntimeLibrary.URLEncode(String.valueOf(userEmail), request.getCharacterEncoding()), out, false);
+      out.write("\n");
+      out.write("    \n");
       out.write("    <div class=\"container\">\n");
-      out.write("        <div class=\"row jumbotron\">\n");
-      out.write("            <h2><span class=\"glyphicon glyphicon-user\" aria-hidden=\"true\"></span> Hello, Guest!</h2>\n");
-      out.write("            <div class=\"row\">\n");
-      out.write("                <span>\n");
-      out.write("                <a class=\"btn btn-default btn-sm\" href=\"#\" role=\"button\">Go Signup!</a>\n");
-      out.write("                </span>\n");
-      out.write("                <span>\n");
-      out.write("                    for getting access to all features.\n");
-      out.write("                </span>\n");
-      out.write("            </div>\n");
-      out.write("        </div>\n");
       out.write("        <div class=\"row\">\n");
       out.write("            <form class=\"form-horizontal\" action=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
@@ -112,12 +104,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                </div><!-- /input-group -->\n");
       out.write("            </div><!-- /.col-lg-12 -->\n");
       out.write("          </form>\n");
-      out.write("            <div class=\"col-sm-12\">\n");
-      out.write("                <p class=\"text-center\">Cannot find what you are looking for? <strong><a href=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/ask\">Ask here</a></strong></p>\n");
-      out.write("                <hr>\n");
-      out.write("            </div>\n");
+      out.write("            \n");
       out.write("        </div>\n");
       out.write("            \n");
       out.write("        <div class=\"row\">\n");
@@ -127,6 +114,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                </h2>\n");
       out.write("                <hr>\n");
       out.write("            </div>\n");
+      out.write("          </div>\n");
       out.write("           \n");
       out.write("            <div class=\"question-item row\">\n");
       out.write("            <div class=\"col-sm-1 \">\n");
@@ -140,7 +128,9 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <div class=\"col-sm-10\">\n");
       out.write("            <div class=\"panel panel-default\">\n");
       out.write("                <!-- Default panel contents -->\n");
-      out.write("                <div class=\"panel-heading\"><h4>Judul Pertanyaan</h4></div>\n");
+      out.write("                <div class=\"panel-heading\"><h4><a href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("/question/?qid=1\">Judul Pertanyaan</a></h4></div>\n");
       out.write("                <div class=\"panel-body\">\n");
       out.write("                  \n");
       out.write("                  <span class=\"pull-right\">\n");
