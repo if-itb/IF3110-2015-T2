@@ -35,24 +35,18 @@ public class AnswerWS {
         ArrayList<Answer> answers = new ArrayList<Answer>();
         try {
             Statement stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT * FROM answer WHERE q_id="+qId;
-            
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            
-            ResultSet rs = dbStatement.executeQuery();
-            
+            String query = "SELECT * FROM answer WHERE q_id=";
+            //dbStatement.setInt(1, qId);
+            ResultSet rs = stmt.executeQuery(query);
             /* Get data */
-            int i = 0;
             while (rs.next()) {
                 answers.add(new Answer (
-                        rs.getInt("a_id"),
-                        rs.getInt("u_id"),
-                        rs.getString("content"),
-                        rs.getInt("vote"),
-                        rs.getString("date_created"),
-                        rs.getInt("q_id")));
-                i++;
+                    rs.getInt("a_id"),
+                    rs.getInt("u_id"),
+                    rs.getString("content"),
+                    rs.getInt("vote"),
+                    rs.getString("date_created"),
+                    rs.getInt("q_id")));
             }
             rs.close();
             stmt.close();
@@ -76,6 +70,7 @@ public class AnswerWS {
         } catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
+            return 0;
         }
         return 1;
     }
@@ -97,6 +92,7 @@ public class AnswerWS {
         } catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
+            return 0;
         }
         return 1;
     }
@@ -118,6 +114,7 @@ public class AnswerWS {
         } catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
+            return 0;
         }
         return 1;
     }
