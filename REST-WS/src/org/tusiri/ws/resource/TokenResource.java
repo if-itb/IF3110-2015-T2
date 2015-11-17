@@ -72,12 +72,9 @@ public class TokenResource {
 		try{
 			String sql = "SELECT * FROM user "
 					+ "WHERE email = ? AND password = MD5(?)";
-			System.out.println(email);
-			System.out.println(password);
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, email);
 			stmt.setString(2, password);
-			System.out.println(stmt);
 			ResultSet rs = stmt.executeQuery();
 			System.out.println(sql);
 			if(rs.next()){

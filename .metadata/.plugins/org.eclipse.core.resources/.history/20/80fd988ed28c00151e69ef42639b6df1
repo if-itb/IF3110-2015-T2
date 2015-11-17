@@ -1,0 +1,7 @@
+package org.tusiri.ws.dbxxx;
+
+public class User {
+ public int gethai(){
+	 return 1;
+ }
+}
