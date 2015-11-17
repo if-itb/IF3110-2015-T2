@@ -455,4 +455,32 @@ public class StackExchange {
         
         return success;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUser")
+    @WebResult(name = "User")
+    public User getUser(@WebParam(name = "id") final int id) {
+        //TODO write your implementation code here:
+        User user = null;
+        try{
+            String sql = "SELECT * FROM user WHERE id = ?";            
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            
+            try (ResultSet result = statement.executeQuery()) {
+                if (result.next()){
+                    user = new User (result.getInt("id"),
+                        result.getString("password"),
+                        result.getString("name"),
+                        result.getString("email"));
+                }
+            }
+        }
+        catch(SQLException ex){
+            Logger.getLogger(StackExchange.class.getName()).log(Level.SEVERE, null, ex);
+        }                                
+        return user;
+    }
 }
