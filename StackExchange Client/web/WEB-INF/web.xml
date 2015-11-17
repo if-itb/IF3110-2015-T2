@@ -24,6 +24,10 @@
         <servlet-name>QuestionView</servlet-name>
         <servlet-class>Question.QuestionView</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuestionNew</servlet-name>
+        <servlet-class>Question.QuestionNew</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>QuestionView</servlet-name>
         <url-pattern>/question</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionNew</servlet-name>
+        <url-pattern>/newquestion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

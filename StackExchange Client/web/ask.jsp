@@ -23,26 +23,19 @@
             <div class="col-12">
 
                 <div class="form-wrapper">
-                    <form id="askForm" action="" method="POST">
-                        <div class="form-field">
-                            <label for="name">Name</label>
-                            <input id="name" type="text" placeholder="Name">
-                        </div>
-
-                        <div class="form-field">
-                            <label for="email">Email</label>
-                            <input id="email" type="text" placeholder="Email">
-                        </div>
-
+                    <form id="askForm" action="newquestion" method="POST">
+                        
                         <div class="form-field">
                             <label for="title">Question Topic</label>
-                            <input id="title" type="text" placeholder="Question Topic">
+                            <input id="title" name="title" type="text" placeholder="Question Topic">
                         </div>
 
                         <div class="form-field">
                             <label for="content">Content</label>
-                            <textarea placeholder="Your question content goes here"></textarea>
+                            <textarea name="content" placeholder="Your question content goes here"></textarea>
                         </div>
+                        
+                        <input type="submit" value="Ask"/>
                     </form>
                 </div>
 

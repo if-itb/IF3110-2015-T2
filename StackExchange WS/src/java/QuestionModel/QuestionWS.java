@@ -76,11 +76,12 @@ public class QuestionWS {
             
             sql = "INSERT INTO questions (id_user, topic, content) VALUES (?, ?, ?)";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1, question.getIdUser());
+            dbStatement.setInt(1, auth.getUserID(token));
             dbStatement.setString(2, question.getTopic());
             dbStatement.setString(3, question.getContent());
             dbStatement.executeUpdate();
             
+            conn.commit();
             stmt.close();
         } catch(SQLException ex) {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
@@ -126,7 +127,7 @@ public class QuestionWS {
      * @param id
      * @return Question
      */
-    @WebMethod(operationName = "getQuesstionById")
+    @WebMethod(operationName = "getQuestionById")
     @WebResult(name="Question")
     public Question getQuesstionById(@WebParam(name = "id") int id) {
         Question res = null;
@@ -265,6 +266,7 @@ public class QuestionWS {
               dbStatement.executeUpdate();              
             }
             
+            conn.commit();
             stmt.close();
         } catch(SQLException ex) {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);

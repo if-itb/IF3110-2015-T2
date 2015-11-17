@@ -86,7 +86,7 @@ public class AnswerWS {
         sql = "INSERT INTO answers (id_question, id_user, content) VALUES (?, ?, ?)";
         PreparedStatement dbStatement = conn.prepareStatement(sql);
         dbStatement.setInt(1, answer.getIdQuestion());
-        dbStatement.setInt(2, answer.getIdUser());
+        dbStatement.setInt(2, auth.getUserID(token));
         dbStatement.setString(3, answer.getContent());
 
         dbStatement.executeUpdate();
