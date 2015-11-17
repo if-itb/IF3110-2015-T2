@@ -32,8 +32,8 @@
 									<div class="questiontitle"><a href="">${param.questiontitle}</a></div>
 									<div class="detail">asked by <a class="linkname">${param.email}</a> | <a class="linkedit" href="">edit</a> | <a class="linkdelete" onclick="return validatedelete()" href="">delete</a></div>
 									<hr>
-								</div> //;}
-								//}
+								</div>}
+								}
 							</div>	
 						</div>
 						<script src="js/script.js"></script>

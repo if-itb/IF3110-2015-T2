@@ -6,6 +6,7 @@ public class Client{
         WebServiceImplService webService = new WebServiceImplService();
         WebServiceInterface wsi = webService.getWebServiceImplPort();
         for (int i=0;i<wsi.getQuestionList().getItem().size();i++){
+            System.out.println(i);
             System.out.println(wsi.getQuestionList().getItem().get(i).getItem().toString());
         }
     }
