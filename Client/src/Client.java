@@ -1,3 +1,4 @@
+import com.yangnormal.sstackex.Question;
 import com.yangnormal.sstackex.WebServiceImplService;
 import com.yangnormal.sstackex.WebServiceInterface;
 
@@ -13,6 +14,7 @@ public class Client{
         for (int i=0;i<wsi.getAnswerList(1).getItem().size();i++) {
             System.out.println(wsi.getAnswerList(1).getItem().get(i).getItem().toString());
         }
+        Question q = new Question();
         System.out.println("register Test");
         System.out.println(wsi.register("john", "john@j.com", "abc"));
         System.out.println("Post Question Test");
@@ -27,9 +29,15 @@ public class Client{
         wsi.vote(1,1,1,1);
         System.out.println("Vote Answer Down Test");
         wsi.vote(1,1,-1,2);
-        System.out.println("getQuestion Test");
-        System.out.println(wsi.getQuestion(3).getItem().toString());
+        System.out.println("getQuestion Array Test");
+        System.out.println(wsi.getQuestionArray(1).getItem().toString());
+        System.out.println("getQuestion (object)test");
+        q = wsi.getQuestion(1);
+        System.out.println(q.getAnswerSum());
         System.out.println("Delete Question Test");
         wsi.deleteQuestion(3, "a");
+
+
+
     }
 }

@@ -1,21 +1,22 @@
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"  pageEncoding="ISO-8859-1"%>
-<!DOCTYPE HTML">
-	<%
-	import com.yangnormal.sstackex.ws.WebServiceImpl;
-	if (request.getParameter("id")!=null){
-		int qid = Integer.parseInt(request.getParameter("id"));
-		URL url = new URL ("http://localhost:8080/ws/registration?wsdl");
-		QName qname = new QName("http://ws.yangnormal.com/","RegistrationImplService");
-		Service service = Service.create(url,qname);
-		WebServiceImpl ws = service.getPort(WebService.class);
-		Question status = ws.getQuestion(id); 
+<%@page import= "java.net.URL,javax.xml.namespace.QName,javax.xml.ws.Service" %>
+<%@page import= "com.yangnormal.sstackex.WebServiceImplService" %>
+<%@page import= "com.yangnormal.sstackex.WebServiceInterface" %>
+<%@ page import="com.yangnormal.sstackex.Question" %>
+<%
+	URL url = new URL ("http://localhost:8082/ws/stackexchange?wsdl");
+	QName qname = new QName("http://ws.sstackex.yangnormal.com/","WebServiceImplService");
+	WebServiceImplService webService = new WebServiceImplService(url,qname);
+	WebServiceInterface ws = webService.getWebServiceImplPort();
+	int id = Integer.parseInt(request.getParameter("id"));
+	Question q=ws.getQuestion(1);
+%>
+<!DOCTYPE HTML>
 
-	%>
 	<html>
 	<head>
 
-		<title>'.$rows[0]['topic'].'</title>
+		<title><% out.println(q.getTopic());%></title>
 		<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		</head>
@@ -23,39 +24,32 @@
 			<div class="container">
 				<a class="homelink" href="http://mystackexchange.dev"><h1 id="title">My StackExchange</h1></a>
 				<div class="content">
-					<h2>'.$rows[0]['topic'].'</h2>
+					<h2><% out.println(q.getTopic());%></h2>
 					<hr>
 					<div class="stackquestion">
-						<div class="votes"><div class="arrow-up" onclick="voteupquestion('.$_GET['id'].')"></div><div id="votequestion">'.$rows[0]['vote'].'</div><div class="arrow-down"  onclick="votedownquestion('.$_GET['id'].')"></div></div>
-						<div class="content">'.$rows[0]['content'].'</div>
-						<div class="detail">asked by <a class="linkname">'.$rows[0]['name'].' ('.$rows[0]['email'].')</a> at '.$rows[0]['date'].' | <a class="linkedit" href="editpost.php?id='.$_GET['id'].'">edit</a> | <a class="linkdelete" onclick="return validatedelete()" href="deletepost.php?id='.$_GET['id'].'">delete</a></div>
+						<div class="votes"><div class="arrow-up" onclick=""></div><div id="votequestion"><% out.println(q.getVote());%></div><div class="arrow-down"  onclick=""></div></div>
+						<div class="content"><% out.println(q.getContent());%></div>
+						<div class="detail">asked by <a class="linkname"></a> at <% out.println(q.getDate());%> | <a class="linkedit" href="">edit</a> | <a class="linkdelete" onclick="" href="">delete</a></div>
 					</div>
 					<br>
-					<h2>'.$id[0].' Answers</h2>
+					<h2><% out.println(q.getAnswerSum());%> Answers</h2>
 					<hr>
-					<% 
-					
-					//REQUEST ANSWER DARI WEB SERVICE
-					//MENERIMA RESPONSE LIST ANSWER DARI WEB SERVICE
-					ArrayList<Answer> ListAnswer = Arrays.asList(ws.getListAnswer(qid)); //Berarti boleh return array kosong kalau ga ada answers
-					for (Answer answer : ListAnswer){
-					%>
+
 					<div class="stackanswer">
 						<br>
-						<div class="votes"><div class="arrow-up" onclick="voteupanswer('.$val['id'].','.$_GET['id'].')"></div><div id="voteanswer'.$val['id'].'">'.$val['vote'].'</div><div class="arrow-down" onclick="votedownanswer('.$val['id'].','.$_GET['id'].')"></div></div>
-						<div class="content">'.$val['content'].'</div>
-						<div class="detail">answered by <a class="linkname">'.$val['name'].'</a> at '.$val['date'].'</div>
+						<div class="votes"><div class="arrow-up" onclick=""></div><div id="voteanswer">'</div><div class="arrow-down" onclick=""></div></div>
+						<div class="content">'</div>
+						<div class="detail">answered by <a class="linkname"></a> at </div>
 					</div>
 					<br>
 					<hr>
-					<% 
-					}
-					%>
+
 				</div>
+				<% if (q.getAnswerSum()>0) {%>
 				<div class="content question">
 					<h2 class="title2">Your Answer</h2>
 					<hr>
-					<form action="answer.php?qid='.$_GET['id'].'" method="post" onsubmit="return validateanswer()">
+					<form action="" method="post" onsubmit="">
 					<input class="textbox" type="text", name="name", id="name" placeholder="Name">
 					<br>
 					<input class="textbox" type="text", name="email", id="email" placeholder="Email">
@@ -66,7 +60,7 @@
 					</form>	
 				</div>	
 			</div>
+			<% } %>
 			<script src="js/script.js"></script>
 		</body>
-	<%
 	</html>
