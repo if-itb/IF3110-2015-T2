@@ -33,7 +33,5 @@
             <input type="text" class='form-text' name="password" placeholder="Password"><br>
             <button class='button-post' type='submit'> Register </button>
         </form>
-        
-
     </body>
 </html>
