@@ -76,6 +76,15 @@ public class ws {
         return QuestionModel.vote(u, id, -1);
     }
     
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deleteQuestion")
+    public String deleteQuestion(@WebParam(name = "access_token") String access_token, @WebParam(name = "id") final int id) {
+        User u = new User(access_token);
+        return QuestionModel.delete(u, id);
+    }
+
     
     /**
      * Web service operation
@@ -130,6 +139,15 @@ public class ws {
     public int voteDownAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "id") final int id) {
         User u = new User(access_token);
         return AnswerModel.vote(u, id, -1);
+    }
+    
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deleteAnswer")
+    public String deleteAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "id") final int id) {
+        User u = new User(access_token);
+        return AnswerModel.delete(u, id);
     }
 
     /**

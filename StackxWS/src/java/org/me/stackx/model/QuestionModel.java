@@ -8,7 +8,6 @@ package org.me.stackx.model;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 import static java.lang.System.out;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -171,6 +170,59 @@ public class QuestionModel {
                    r = -1;
                } else {
                    r = questionId;
+               }
+               
+               stmt.close();
+               conn.close();
+            } catch(SQLException se) {
+               //Handle errors for JDBC
+               se.printStackTrace();
+            } catch(Exception e) {
+               //Handle errors for Class.forName
+               e.printStackTrace();
+            } finally {
+               //finally block used to close resources
+               try {
+                  if (stmt!=null)
+                    stmt.close();
+               } catch(SQLException se2) { }// nothing we can do
+               try {
+                  if (conn!=null) {
+                    conn.close();
+                  }
+               } catch (SQLException se) {
+                    se.printStackTrace();
+               }//end finally try
+            }//end try
+        }
+        return r;
+    }
+    
+    public static String delete(User user, int questionId) {
+        String r = "ERROR";
+        if (user.isValid()) {
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            try {
+               //STEP 2: Register JDBC driver
+               Class.forName("com.mysql.jdbc.Driver");
+
+               //STEP 3: Open a connection
+               conn = (Connection) DriverManager.getConnection(DB_URL,USER,PASS);
+
+               //STEP 4: Execute a query
+               String sql;
+               sql = "DELETE FROM question WHERE question_id=? AND user_id=?";
+               stmt = conn.prepareStatement(sql);
+               
+               stmt.setInt(1, questionId);
+               stmt.setInt(2, user.getUserId());
+               
+               int affectedRows = stmt.executeUpdate();
+               if (affectedRows == 0) {
+                   r = "ERROR";
+               } else {
+                   r = "SUCCESS";
                }
                
                stmt.close();
