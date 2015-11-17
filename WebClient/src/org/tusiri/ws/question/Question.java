@@ -33,9 +33,9 @@ public interface Question {
      * @param arg0
      * @return
      *     returns int
+     * @throws ClientProtocolException_Exception
      * @throws IOException_Exception
      * @throws ParseException_Exception
-     * @throws ClientProtocolException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")

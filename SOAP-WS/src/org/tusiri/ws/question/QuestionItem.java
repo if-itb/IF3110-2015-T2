@@ -17,7 +17,7 @@ public class QuestionItem {
 	private String question_date;
 	private String topic;
 	private int num_vote;
-	
+	private String username;
 	
 	@XmlElement(name = "id_question")
 	public int getIDQuestion() {
@@ -37,11 +37,20 @@ public class QuestionItem {
 		this.id_user = id_user;
 	}
 	
+	@XmlElement(name = "username")
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
 	@XmlElement(name = "content")
 	public String getContent() {
 		return content;
 	}
-
+	
 	public void setContent(String content) {
 		this.content = content;
 	}

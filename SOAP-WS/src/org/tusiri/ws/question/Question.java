@@ -122,8 +122,12 @@ public class Question {
 		PreparedStatement stmt = dbc.getDBStmt();
 		Connection conn = dbc.getConn();
 		try{
+<<<<<<< HEAD
+			String sql = "SELECT * FROM question NATURAL JOIN user";
+=======
 			String sql = "SELECT * FROM question";
 			stmt = conn.prepareStatement(sql);
+>>>>>>> origin/master
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			// Extract data from result set
@@ -135,6 +139,7 @@ public class Question {
 				String question_date = rs.getDate("question_date").toString();
 				String topic = rs.getString("topic");
 				int num_vote = rs.getInt("num_vote");
+				String username = rs.getString("username");
 				
 				QuestionItem q = new QuestionItem();
 				q.setIDQuestion(id_question);
@@ -143,6 +148,7 @@ public class Question {
 				q.setQuestionDate(question_date);
 				q.setTopic(topic);
 				q.setNumVote(num_vote);
+				q.setUsername(username);
 				
 				questionItemList.add(q);
 			}

@@ -50,4 +50,14 @@ if(result>0){//success
 </p></li>
 </ul>
 </body>
+<<<<<<< HEAD
 </html>
+
+
+<!--QuestionService qservice = new QuestionService();
+Question q = qservice.getQuestionPort();
+int result = q.createQuestion(access_token, request.getParameter("topic"), request.getParameter("content"));
+  -->
+=======
+</html>
+>>>>>>> origin/master

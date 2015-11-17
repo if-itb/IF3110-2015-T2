@@ -5,9 +5,17 @@
 		implementation="org.tusiri.ws.hello.HelloImpl"
 		url-pattern="/hello" />
 	<endpoint name="question"
+<<<<<<< HEAD
+	implementation="org.tusiri.ws.question.Question"
+	url-pattern="/question" />
+	<endpoint name="answer"
+	implementation="org.tusiri.ws.answer.Answer"
+	url-pattern="/answer" />
+=======
 		implementation="org.tusiri.ws.question.Question"
 		url-pattern="/question" />
 	<endpoint name="user"
 		implementation="org.tusiri.ws.user.User"
 		url-pattern="/user" />
+>>>>>>> 2e95718a0b5f6d5c4d06fa9c8629f1181327ef36
 </endpoints>
