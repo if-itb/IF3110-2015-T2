@@ -18,7 +18,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import model.Question;
-import sun.util.logging.PlatformLogger;
+//import sun.util.logging.PlatformLogger;
 
 /**
  *
@@ -62,7 +62,8 @@ public class QuestionWS {
             rs.close();
             stmt.close();
         } catch (SQLException e) {
-            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
+            //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
+            e.printStackTrace();
         }
         return questions;
     }

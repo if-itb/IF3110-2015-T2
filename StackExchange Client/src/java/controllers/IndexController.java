@@ -18,9 +18,7 @@ import javax.xml.ws.WebServiceRef;
  * @author Tifani
  */
 public class IndexController extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WebService/QuestionWS.wsdl")
-    private QuestionWS_Service service_1;
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WebService/QuestionWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WebService/QuestionWS.wsdl")
     private QuestionWS_Service service;
 
     /**
@@ -44,9 +42,7 @@ public class IndexController extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet IndexController at " + request.getContextPath() + "</h1>");
-            
             try {
-                int i=1;
                 java.util.List<controllers.Question> questions = getAllQuestions();
                 out.println("Result: " + questions);
                 for (controllers.Question q : questions) {
@@ -55,7 +51,6 @@ public class IndexController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
             out.println("</body>");
             out.println("</html>");
         }
@@ -103,10 +98,8 @@ public class IndexController extends HttpServlet {
     private java.util.List<controllers.Question> getAllQuestions() {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        controllers.QuestionWS port = service_1.getQuestionWSPort();
+        controllers.QuestionWS port = service.getQuestionWSPort();
         return port.getAllQuestions();
     }
-
-    
 
 }

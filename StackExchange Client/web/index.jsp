@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <jsp:include page="/views/header.jsp" flush="true"/>
+
 	<div class="container">
 		<div class="center">
 			<div id="search">
@@ -24,9 +25,14 @@
 
 		<br>
 		<h2>Recently Asked Questions</h2>
-		<div>
+                
+                
+                        
+		
 			<!-- TODO: <?php showQuestionList()?> -->
-		</div>
+                        
+                        
+		
 	</div>
 <script src="assets/js/confirmation.js"></script>
 <jsp:include page="/views/footer.jsp" flush="true"/>
