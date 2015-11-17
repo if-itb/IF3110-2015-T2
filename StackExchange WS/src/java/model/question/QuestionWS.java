@@ -5,7 +5,6 @@
  */
 package model.question;
 
-import com.sun.istack.logging.Logger;
 import connection.DB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -25,7 +25,7 @@ import javax.jws.WebResult;
  */
 @WebService(serviceName = "QuestionWS")
 public class QuestionWS {
-    private Connection conn = DB.connect();
+    private final Connection connection = DB.connect();
     
     /**
      * Get question by ID
@@ -40,7 +40,7 @@ public class QuestionWS {
         PreparedStatement statement = null;            
         try {
             String sql ="SELECT * FROM question WHERE id = ?";            
-            statement = conn.prepareStatement(sql);            
+            statement = connection.prepareStatement(sql);            
             statement.setInt(1, id);
                         
             ResultSet result = statement.executeQuery();
@@ -55,7 +55,7 @@ public class QuestionWS {
                 );                                        
         }
         catch (SQLException ex) {
-            Logger.getLogger(QuestionWS.class).log(Level.SEVERE, null, ex);            
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);            
         }
         finally {
             if (statement != null)
@@ -75,7 +75,7 @@ public class QuestionWS {
         PreparedStatement statement = null;                                                
         try {
             String sql ="SELECT * FROM question";                                    
-            statement = conn.prepareStatement(sql);
+            statement = connection.prepareStatement(sql);
             ResultSet result = statement.executeQuery();
             while (result.next())
                 questions.add(new Question(
@@ -88,7 +88,7 @@ public class QuestionWS {
                 ));            
         }
         catch (SQLException ex) {
-            Logger.getLogger(QuestionWS.class).log(Level.SEVERE, null, ex);            
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);            
         }
         finally {
             if (statement != null)
@@ -103,6 +103,7 @@ public class QuestionWS {
      * @param topic
      * @param content
      * @return Boolean true if success, false otherwise
+     * @throws java.sql.SQLException
      */
     @WebMethod(operationName = "addQuestion")
     public boolean addQuestion(@WebParam(name = "id_user") final int id_user, @WebParam(name = "topic") final String topic, @WebParam(name = "content") final String content) throws SQLException {
@@ -112,7 +113,7 @@ public class QuestionWS {
             String sql = "INSERT INTO"
                     + "question (id_user, topic, content)"
                     + "VALUES (?, ?, ?)";                        
-            statement = conn.prepareStatement(sql);                        
+            statement = connection.prepareStatement(sql);                        
             statement.setInt(1, id_user);
             statement.setString(2, topic);
             statement.setString(3, content);            
@@ -120,7 +121,7 @@ public class QuestionWS {
             success = statement.executeUpdate() > 0;                        
         }
         catch (SQLException ex) {
-            Logger.getLogger(QuestionWS.class).log(Level.SEVERE, null, ex);            
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);            
         }
         finally {
             if (statement != null)
@@ -141,19 +142,50 @@ public class QuestionWS {
         PreparedStatement statement = null;
         try {
             String sql = "DELETE FROM question WHERE id = ?";                        
-            statement = conn.prepareStatement(sql);                        
+            statement = connection.prepareStatement(sql);                        
             statement.setInt(1, id);            
                         
             success = statement.executeUpdate() > 0;                        
         }
         catch (SQLException ex) {
-            Logger.getLogger(QuestionWS.class).log(Level.SEVERE, null, ex);            
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);            
         }
         finally {
             if (statement != null)
                 statement.close();
         }
         return success;
+    }
+
+    /**
+     * Update question
+     * @param id
+     * @param topic
+     * @param content
+     * @return boolean
+     * @throws java.sql.SQLException
+     */
+    @WebMethod(operationName = "updateQuestion")
+    public boolean updateQuestion(@WebParam(name = "id") final int id, @WebParam(name = "topic") final String topic, @WebParam(name = "content") final String content) throws SQLException {
+        boolean success = false;
+        PreparedStatement statement = null;
+        try {
+            String sql = "UPDATE question SET topic = ?, content = ? WHERE id = ?";                        
+            statement = connection.prepareStatement(sql);                        
+            statement.setString(1, topic);
+            statement.setString(2, content);
+            statement.setInt(3, id);            
+                        
+            success = statement.executeUpdate() > 0;                        
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);            
+        }
+        finally {
+            if (statement != null)
+                statement.close();
+        }
+        return success;        
     }
        
     
