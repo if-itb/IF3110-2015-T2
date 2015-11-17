@@ -54,6 +54,11 @@ public class QuestionWS {
 
     /**
      * Web service operation
+     * @param qid
+     * @param access_token
+     * @param title
+     * @param content
+     * @return 
      */
     @WebMethod(operationName = "editQuestion")
     public String editQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "access_token") String access_token, @WebParam(name = "title") String title, @WebParam(name = "content") String content) {
@@ -72,6 +77,32 @@ public class QuestionWS {
             SimpleDateFormat ft = new SimpleDateFormat("y-M-d H:m:s");
             pstmt.setString(3, ft.format(new Date()));
             pstmt.setInt(4,qid);
+            int a = pstmt.executeUpdate();
+            stmt.close();
+            return "Respons oke!";
+        } catch (SQLException se) {
+            return "Gagal!";
+        }
+    }
+
+    /**
+     * Web service operation
+     * @param qid
+     * @param access_token
+     * @return 
+     */
+    @WebMethod(operationName = "deleteQuestion")
+    public String deleteQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "access_token") String access_token) {
+        Connection conn = new Database().connect();
+        //1.HTTP Request connection ke Identity Service, untuk memastikan pemilik access_token
+        //2a.Jika access token kadaluarsa, respons expired token
+        //2b.Jika access token tidak valid, respons error
+        //2c.Jika access token valid, ambil user ID
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "DELETE FROM question WHERE qid = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, qid);
             int a = pstmt.executeUpdate();
             stmt.close();
             return "Respons oke!";
