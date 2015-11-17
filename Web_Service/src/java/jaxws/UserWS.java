@@ -39,13 +39,15 @@ public class UserWS {
   @WebMethod(operationName = "getName")
   @WebResult(name="gettingName")
   public String getName(@WebParam(name = "id") int id) {
-    String query = "SELECT * FROM `user` WHERE id=" + id;
+    String query = "SELECT name FROM `user` WHERE id=" + id;
     ResultSet rs = database.getResultQuery(query);
+    String ret = "";
     try {
-      return rs.getString("name");
+      rs.next();
+      ret =  rs.getString("name");
     } catch(Throwable e) {
       e.printStackTrace();
     }
-    return "";
+    return ret;
   }
 }

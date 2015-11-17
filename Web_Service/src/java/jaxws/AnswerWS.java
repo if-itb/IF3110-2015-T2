@@ -9,10 +9,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.jws.*;
 
-/**
- *
- * @author gazandic
- */
 @WebService(serviceName = "AnswerWS")
 public class AnswerWS {
     DB database;
@@ -22,6 +18,33 @@ public class AnswerWS {
         database = new DB();
         model = new Answer();
     }
+
+    @WebMethod(operationName = "getAnswerVote")
+    @WebResult(name="gtVote")
+    public int getAnswerVote(@WebParam(name = "id") int id) {
+      String query = "SELECT vote FROM answer WHERE id=" + id;
+      int vote = 0;
+      try {
+        ResultSet tmp = database.getResultQuery(query);
+        tmp.next();
+        vote = tmp.getInt("vote");
+      } catch (Throwable e) {
+        e.printStackTrace();
+      }
+      return vote;
+    }
+
+    @WebMethod(operationName = "setAnswerVote")
+    @WebResult(name="stVote")
+    public void setAnswerVote(@WebParam(name = "id") int id, @WebParam(name = "val") int val) {
+      String query = "UPDATE `answer` SET `vote`=" + val + " WHERE `id`=" + id;
+      try {
+        database.executeQuery(query);
+      } catch (Throwable e) {
+        e.printStackTrace();
+      }
+    }
+    
     /**
      * Web service operation
      * @param qid
@@ -40,7 +63,6 @@ public class AnswerWS {
      * @param uid
      * @param qid
      * @param content
-     * @return 
      */
     @WebMethod(operationName = "insertAnswer")
     @WebResult(name="saveAnswer")
@@ -53,7 +75,6 @@ public class AnswerWS {
      * @param aid
      * @param uid
      * @param type
-     * @return 
      */
     @WebMethod(operationName = "voteAnswer")
     @WebResult(name="vtAnswer")
@@ -63,10 +84,11 @@ public class AnswerWS {
       try {
         if(tmp.next()) return;  // user pernah melakukan vote
       } catch(Throwable e) {
-        e.printStackTrace();
       }
       query = "INSERT INTO `vote_answer` (`aid`, `uid`, `type`) VALUES ('"+aid+"','"+uid+"','"+type+"')";
       database.executeQuery(query);
+      int vote = getAnswerVote(aid);
+      setAnswerVote(aid, vote + type);
     }
     
     

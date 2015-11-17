@@ -5,10 +5,6 @@
  */
 package jaxws;
 
-/**
- *
- * @author gazandic
- */
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.xml.bind.*;
@@ -65,23 +61,23 @@ import javax.xml.bind.annotation.*;
   public int getVote(){
       return vote;
   }
-  
+
   public ArrayList<Answer> fetchAnswers(ResultSet rs) {
-    ArrayList<Answer> ret = new ArrayList<Answer>();
+    ArrayList<Answer> ret = new ArrayList<>();
     try {
-      DB db = new DB();
+      UserWS userws = new UserWS();
       while(rs.next()) {
-        ret.add(new Answer( rs.getInt("answer.id"),                                  
+        String name = userws.getName(rs.getInt("uid"));
+        ret.add(new Answer( rs.getInt("id"),                                  
                 rs.getInt("qid"),                                  
                 rs.getInt("uid"), 
-                rs.getString("user.username"), 
+                name,
                 rs.getString("content"),                                  
                 rs.getString("date"),
                 rs.getInt("vote")
         ));  
       }
     } catch(Throwable e) {
-      e.printStackTrace();
     }
     return ret;
   }
