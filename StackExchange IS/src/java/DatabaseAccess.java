@@ -35,7 +35,7 @@ public class DatabaseAccess extends HttpServlet{
     private Connection conn;
     
     //Declare Database Name
-    static final String DB_NAME = "wbdtb2";
+    static final String DB_NAME = "wbd";
     
     //Declare JDBC Driver Name and Database URL
     static final String JDBC_DRIVER="com.mysql.jdbc.Driver";  
