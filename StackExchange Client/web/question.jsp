@@ -53,6 +53,50 @@
                 </a>
             </div>
         </div>
+        
+        <br><br><br><br><br>
+        
+        <%
+            //Answer Count and Line
+            String answerCount = "<div class='subtitle'>" + "$row['answer_count']" + "$answer" + "</div>";//answer = "Answer" atau "Answers, nanti kalo udah bisa count beneran baru kuedit
+            String border = "<hr class='line'>";
+            out.write(answerCount + border);
+            
+            //for each answer
+            String eachAnswer = 
+            "<div class='block-QA'>"
+		+"<div class='bQA-vote'>"
+		    +"<div class='vote-up' onclick='addAnswerVote("+"$row['answer_id']" + ")''>"
+                    +"</div>"
+                    +"<br>"
+                    +"<a class='vote-value' id='answer_vote" + "$row['answer_id']" + "'>" + "$row['vote']"
+                    +"</a>"
+                    +"<br><br>"
+                    +"<div class='vote-down' onclick='subtractAnswerVote(" + "$row['answer_id']" + ")''>"
+                    +"</div>"
+                +"</div>"
+                +"<div class='bQA-content'>"
+                    +"$row['content']"
+                    +"<br><br>"
+                +"</div>"
+                +"<div class='bQA-identity'>" 
+                    +"answered by "
+                    +"$row['email']"
+                    +" at "
+                    +"$row['time']"
+                +"</div>"
+            +"</div>"
+            +"<hr class='line'>"
+            ;
+            
+            out.write(eachAnswer);
+                    
+            
+            
+          
+        %>
+            
+        
 
     </body>
 </html>
