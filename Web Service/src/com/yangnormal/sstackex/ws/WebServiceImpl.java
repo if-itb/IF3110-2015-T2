@@ -1,7 +1,6 @@
 package com.yangnormal.sstackex.ws;
 
 import java.sql.*;
-import java.util.ArrayList;
 import javax.jws.WebService;
 
 @WebService(endpointInterface = "com.yangnormal.sstackex.ws.WebServiceInterface")
@@ -9,7 +8,6 @@ public class WebServiceImpl implements WebServiceInterface{
 
 
 	final String DB_URL="jdbc:mysql://localhost/mystackexchange";
-	final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	final String USER="root";
 	final String PASS="";
 	Connection conn = null;
@@ -21,7 +19,32 @@ public class WebServiceImpl implements WebServiceInterface{
         return "Hello World!";
     }
 
-	@Override
+    @Override
+    public void register() {
+
+    }
+
+    @Override
+    public void postQuestion() {
+
+    }
+
+    @Override
+    public void postAnswer() {
+
+    }
+
+    @Override
+    public void deleteQuestion() {
+
+    }
+
+    @Override
+    public String[][] getQuestion() {
+        return new String[0][];
+    }
+
+    @Override
 	public String[][] getQuestionList(){
         int i = 0;
         int j = 0;
@@ -33,7 +56,7 @@ public class WebServiceImpl implements WebServiceInterface{
 			// Open a connection
 			conn = DriverManager.getConnection(DB_URL,USER,PASS);
             // Query
-            String query = "SELECT * FROM question";
+            String query = "SELECT topic,vote,content,date,fullname FROM question JOIN user WHERE user.id = question.uid";
             String counter = "SELECT COUNT(id) AS questions FROM question";
             stmt = conn.createStatement();
             stmt2 = conn.createStatement();
@@ -67,4 +90,9 @@ public class WebServiceImpl implements WebServiceInterface{
         }
 
 	}
+
+    @Override
+    public String[][] getAnswerList() {
+        return new String[0][];
+    }
 }

@@ -6,49 +6,27 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec66678a-2e36-467f-9472-eb9e78ad3f50" name="Default" comment="Added WS Operation : getQuestionList">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/AbstractCollection.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/AbstractList.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/ArrayList.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/ObjectFactory.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/WebServiceImplService.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/WebServiceInterface.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/package-info.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/net/java/dev/jaxb/array/ObjectFactory.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/net/java/dev/jaxb/array/StringArray.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/net/java/dev/jaxb/array/package-info.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/mysql-connector-java-5.1.37-bin.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/Client.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/Client.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/AbstractCollection.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/AbstractList.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/ArrayList.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/ObjectFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/WebServiceImplService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/WebServiceInterface.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/package-info.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/net/java/dev/jaxb/array/ObjectFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/net/java/dev/jaxb/array/StringArray.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/net/java/dev/jaxb/array/StringArrayArray.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Client/src/net/java/dev/jaxb/array/package-info.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_5_1_37_bin.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Sayhello.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/JAX_WS_test_war.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/JAX_WS_test_war.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/JAX_WS_test_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/JAX_WS_test_war_exploded.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="ec66678a-2e36-467f-9472-eb9e78ad3f50" name="Default" comment="Added WS Interface, tidying things">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/AbstractCollection.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/AbstractCollection.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/AbstractList.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/AbstractList.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/ArrayList.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/ArrayList.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/ObjectFactory.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/ObjectFactory.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/WebServiceImplService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/WebServiceImplService.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/WebServiceInterface.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/WebServiceInterface.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/package-info.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Client/src/com/yangnormal/sstackex/ws/package-info.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Client/.idea/misc.xml" afterPath="$PROJECT_DIR$/../Client/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Client/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Client/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Client/src/Client.java" afterPath="$PROJECT_DIR$/../Client/src/Client.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JAX-WS-test.iml" afterPath="$PROJECT_DIR$/JAX-WS-test.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceImpl.java" afterPath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceInterface.java" afterPath="$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" />
     </list>
     <ignored path="JAX-WS-test.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -74,38 +52,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="WebServiceImpl.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WebServiceImpl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="39" column="25" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.8857143">
+              <caret line="48" column="18" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1447587671671" expanded="true" signature="975:997" placeholder="SELECT * FRO..question..." />
-                <marker date="1447587671671" expanded="true" signature="1030:1073" placeholder="SELECT COUNT..question..." />
+                <element signature="e#774#775#0" expanded="true" />
+                <element signature="e#812#813#0" expanded="true" />
+                <element signature="e#2393#2394#0" expanded="true" />
+                <element signature="e#2431#2432#0" expanded="true" />
+                <marker date="1447732602304" expanded="true" signature="1204:1257" placeholder="SELECT * FRO..question..." />
+                <marker date="1447732602304" expanded="true" signature="1204:1296" placeholder="SELECT topic..." />
+                <marker date="1447732602304" expanded="true" signature="1329:1372" placeholder="SELECT COUNT..question..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../Client/src/Client.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="45" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StringArrayArray.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../Client/src/net/java/dev/jaxb/array/StringArrayArray.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.440594">
-              <caret line="63" column="33" selection-start-line="63" selection-start-column="33" selection-end-line="63" selection-end-column="33" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -114,7 +75,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceInterface.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <caret line="18" column="14" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -126,7 +87,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/yangnormal/sstackex/endpoint/StackExchangePublisher.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -175,10 +136,9 @@
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="754" />
+    <option name="x" value="1366" />
+    <option name="width" value="1366" />
+    <option name="height" value="768" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -205,7 +165,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -234,25 +195,82 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sstackex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ws" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StackExchangeWS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Web Service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sstackex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="endpoint" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StackExchangeWS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Web Service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="out" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StackExchangeWS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Web Service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/mysql-connector-java-5.1.37-bin.jar!/" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files (x86)\nodejs\node.exe" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Ignored.Files" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.webservices" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
@@ -802,7 +820,8 @@
       <workItem from="1447147308872" duration="2398000" />
       <workItem from="1447399730363" duration="1519000" />
       <workItem from="1447405580645" duration="1204000" />
-      <workItem from="1447549426498" duration="22594000" />
+      <workItem from="1447549426498" duration="26657000" />
+      <workItem from="1447729353848" duration="2381000" />
     </task>
     <task id="LOCAL-00001" summary="endpoint init">
       <created>1447550458405</created>
@@ -810,32 +829,37 @@
       <option name="project" value="LOCAL" />
       <updated>1447550458405</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added WS Operation : getQuestionList">
+      <created>1447587898497</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1447587898497</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31821000" />
+    <option name="totallyTimeSpent" value="38265000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="false" />
+    <frame x="1366" y="0" width="1366" height="768" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32919255" sideWeight="0.49707174" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32916668" sideWeight="0.49707174" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32919255" sideWeight="0.50292826" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.66837484" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919255" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919255" sideWeight="0.48828697" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.3316252" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24743778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24743778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919255" sideWeight="0.49707174" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -846,7 +870,36 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919255" sideWeight="0.49707174" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32916668" sideWeight="0.66837484" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919255" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919255" sideWeight="0.49707174" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32916668" sideWeight="0.3316252" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24743778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919255" sideWeight="0.49707174" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -862,7 +915,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="endpoint init" />
     <MESSAGE value="Added WS Operation : getQuestionList" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added WS Operation : getQuestionList" />
+    <MESSAGE value="Added WS Interface, tidying things" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added WS Interface, tidying things" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -877,11 +931,51 @@
     <entry file="file://$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#774#775#0" expanded="true" />
+            <element signature="e#812#813#0" expanded="true" />
+            <element signature="e#2393#2394#0" expanded="true" />
+            <element signature="e#2431#2432#0" expanded="true" />
+            <marker date="1447732602304" expanded="true" signature="1204:1257" placeholder="SELECT * FRO..question..." />
+            <marker date="1447732602304" expanded="true" signature="1204:1296" placeholder="SELECT topic..." />
+            <marker date="1447732602304" expanded="true" signature="1329:1372" placeholder="SELECT COUNT..question..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="37" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/yangnormal/sstackex/endpoint/StackExchangePublisher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1447587671671" expanded="true" signature="975:997" placeholder="SELECT * FRO..question..." />
-            <marker date="1447587671671" expanded="true" signature="1030:1073" placeholder="SELECT COUNT..question..." />
+            <element signature="e#774#775#0" expanded="true" />
+            <element signature="e#812#813#0" expanded="true" />
+            <element signature="e#2393#2394#0" expanded="true" />
+            <element signature="e#2431#2432#0" expanded="true" />
+            <marker date="1447732602304" expanded="true" signature="1204:1257" placeholder="SELECT * FRO..question..." />
+            <marker date="1447732602304" expanded="true" signature="1204:1296" placeholder="SELECT topic..." />
+            <marker date="1447732602304" expanded="true" signature="1329:1372" placeholder="SELECT COUNT..question..." />
           </folding>
         </state>
       </provider>
@@ -910,8 +1004,13 @@
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1447587671671" expanded="true" signature="975:997" placeholder="SELECT * FRO..question..." />
-            <marker date="1447587671671" expanded="true" signature="1030:1073" placeholder="SELECT COUNT..question..." />
+            <element signature="e#774#775#0" expanded="true" />
+            <element signature="e#812#813#0" expanded="true" />
+            <element signature="e#2393#2394#0" expanded="true" />
+            <element signature="e#2431#2432#0" expanded="true" />
+            <marker date="1447732602304" expanded="true" signature="1204:1257" placeholder="SELECT * FRO..question..." />
+            <marker date="1447732602304" expanded="true" signature="1204:1296" placeholder="SELECT topic..." />
+            <marker date="1447732602304" expanded="true" signature="1329:1372" placeholder="SELECT COUNT..question..." />
           </folding>
         </state>
       </provider>
@@ -940,8 +1039,13 @@
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1447587671671" expanded="true" signature="975:997" placeholder="SELECT * FRO..question..." />
-            <marker date="1447587671671" expanded="true" signature="1030:1073" placeholder="SELECT COUNT..question..." />
+            <element signature="e#774#775#0" expanded="true" />
+            <element signature="e#812#813#0" expanded="true" />
+            <element signature="e#2393#2394#0" expanded="true" />
+            <element signature="e#2431#2432#0" expanded="true" />
+            <marker date="1447732602304" expanded="true" signature="1204:1257" placeholder="SELECT * FRO..question..." />
+            <marker date="1447732602304" expanded="true" signature="1204:1296" placeholder="SELECT topic..." />
+            <marker date="1447732602304" expanded="true" signature="1329:1372" placeholder="SELECT COUNT..question..." />
           </folding>
         </state>
       </provider>
@@ -970,8 +1074,13 @@
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1447587671671" expanded="true" signature="975:997" placeholder="SELECT * FRO..question..." />
-            <marker date="1447587671671" expanded="true" signature="1030:1073" placeholder="SELECT COUNT..question..." />
+            <element signature="e#774#775#0" expanded="true" />
+            <element signature="e#812#813#0" expanded="true" />
+            <element signature="e#2393#2394#0" expanded="true" />
+            <element signature="e#2431#2432#0" expanded="true" />
+            <marker date="1447732602304" expanded="true" signature="1204:1257" placeholder="SELECT * FRO..question..." />
+            <marker date="1447732602304" expanded="true" signature="1204:1296" placeholder="SELECT topic..." />
+            <marker date="1447732602304" expanded="true" signature="1329:1372" placeholder="SELECT COUNT..question..." />
           </folding>
         </state>
       </provider>
@@ -1000,8 +1109,13 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1447587671671" expanded="true" signature="975:997" placeholder="SELECT * FRO..question..." />
-            <marker date="1447587671671" expanded="true" signature="1030:1073" placeholder="SELECT COUNT..question..." />
+            <element signature="e#774#775#0" expanded="true" />
+            <element signature="e#812#813#0" expanded="true" />
+            <element signature="e#2393#2394#0" expanded="true" />
+            <element signature="e#2431#2432#0" expanded="true" />
+            <marker date="1447732602304" expanded="true" signature="1204:1257" placeholder="SELECT * FRO..question..." />
+            <marker date="1447732602304" expanded="true" signature="1204:1296" placeholder="SELECT topic..." />
+            <marker date="1447732602304" expanded="true" signature="1329:1372" placeholder="SELECT COUNT..question..." />
           </folding>
         </state>
       </provider>
@@ -1040,10 +1154,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../Client/src/net/java/dev/jaxb/array/StringArrayArray.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="3" selection-start-line="13" selection-start-column="3" selection-end-line="13" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/yangnormal/sstackex/endpoint/StackExchangePublisher.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1051,21 +1172,9 @@
     <entry file="file://$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <caret line="18" column="14" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="25" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1447587671671" expanded="true" signature="975:997" placeholder="SELECT * FRO..question..." />
-            <marker date="1447587671671" expanded="true" signature="1030:1073" placeholder="SELECT COUNT..question..." />
           </folding>
         </state>
       </provider>
@@ -1073,18 +1182,25 @@
     <entry file="file://$PROJECT_DIR$/../Client/src/Client.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="45" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="0" column="31" selection-start-line="0" selection-start-column="31" selection-end-line="0" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Client/src/net/java/dev/jaxb/array/StringArrayArray.java">
+    <entry file="file://$PROJECT_DIR$/src/com/yangnormal/sstackex/ws/WebServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.440594">
-          <caret line="63" column="33" selection-start-line="63" selection-start-column="33" selection-end-line="63" selection-end-column="33" />
-          <folding />
+        <state vertical-scroll-proportion="0.8857143">
+          <caret line="48" column="18" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#774#775#0" expanded="true" />
+            <element signature="e#812#813#0" expanded="true" />
+            <element signature="e#2393#2394#0" expanded="true" />
+            <element signature="e#2431#2432#0" expanded="true" />
+            <marker date="1447732602304" expanded="true" signature="1204:1257" placeholder="SELECT * FRO..question..." />
+            <marker date="1447732602304" expanded="true" signature="1204:1296" placeholder="SELECT topic..." />
+            <marker date="1447732602304" expanded="true" signature="1329:1372" placeholder="SELECT COUNT..question..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1107,7 +1223,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>Web</last-edited>
+          <last-edited>Web (JAX-WS-test)|Web</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1142,7 +1258,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>JAX-WS-test</last-edited>
+          <last-edited>Web|JAX-WS-test</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1154,7 +1270,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>mysql-connector-java-5.1.37-bin</last-edited>
+          <last-edited>servlet-api</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

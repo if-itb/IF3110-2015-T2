@@ -10,8 +10,20 @@ import javax.jws.soap.SOAPBinding.Style;
 @WebService
 @SOAPBinding(style = Style.RPC)
 public interface WebServiceInterface {
-		@WebMethod
-        String[][] getQuestionList();
-	    @WebMethod
-		String printMessage();
+    @WebMethod
+    void register();
+    @WebMethod
+    void postQuestion();
+    @WebMethod
+    void postAnswer();
+    @WebMethod
+    void deleteQuestion();
+    @WebMethod
+    String[][] getQuestion();
+    @WebMethod
+    String[][] getQuestionList();
+    @WebMethod
+    String[][] getAnswerList();
+    @WebMethod
+    String printMessage();
 }
