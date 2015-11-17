@@ -5,19 +5,21 @@
  */
 package org.me.stackx.module;
 
+import java.sql.Date;
+
 /**
  *
  * @author natanelia
  */
 public class Question {
-    private final int questionId;
-    private final int userId;
+    private int questionId;
+    private int userId;
     private String title;
     private String content;
     private int vote;
-    private final int createDate;
+    private String createDate;
 
-    public Question(int questionId, int userId, String title, String content, int vote, int createDate) {
+    public Question(int questionId, int userId, String title, String content, int vote, String createDate) {
         this.questionId = questionId;
         this.userId = userId;
         this.title = title;
@@ -25,13 +27,17 @@ public class Question {
         this.vote = vote;
         this.createDate = createDate;
     }
-
-    public int getQuestionId() {
-        return questionId;
+    
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
     }
 
     public int getUserId() {
         return userId;
+    }
+    
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {
@@ -46,8 +52,12 @@ public class Question {
         return vote;
     }
 
-    public int getCreateDate() {
+    public String getCreateDate() {
         return createDate;
+    }
+    
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 
     public void setTitle(String title) {

@@ -8,10 +8,12 @@ package org.me.stackx.model;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 import static java.lang.System.out;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import org.me.stackx.module.Answer;
 
@@ -248,9 +250,9 @@ public class AnswerModel {
                 int userId = rs.getInt("user_id");
                 String content = rs.getString("content");
                 int vote = rs.getInt("vote");
-                int createDate = rs.getInt("create_date");
+                Timestamp createDate = rs.getTimestamp("create_date");
 
-                return new Answer(answerId, questionId, userId, content, vote, createDate);
+                return new Answer(answerId, questionId, userId, content, vote, createDate.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -304,9 +306,9 @@ public class AnswerModel {
                     int userId = rs.getInt("user_id");
                     String content = rs.getString("content");
                     int vote = rs.getInt("vote");
-                    int createDate = rs.getInt("create_date");
+                    Timestamp createDate = rs.getTimestamp("create_date");
 
-                    answerList.add(new Answer(answerId, questionId, userId, content, vote, createDate));
+                    answerList.add(new Answer(answerId, questionId, userId, content, vote, createDate.toString()));
                 }
                 r = new Answer[answerList.size()];
                 r = answerList.toArray(r);

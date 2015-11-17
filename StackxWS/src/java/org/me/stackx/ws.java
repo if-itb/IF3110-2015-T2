@@ -10,8 +10,10 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import org.me.stackx.model.AnswerModel;
 import org.me.stackx.model.QuestionModel;
+import org.me.stackx.model.UserModel;
 import org.me.stackx.module.Answer;
 import org.me.stackx.module.Question;
+import org.me.stackx.module.User;
 
 /**
  *
@@ -121,4 +123,22 @@ public class ws {
     public int voteDownAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "id") final int id) {
         return AnswerModel.vote(access_token, id, -1);
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "registerUser")
+    public String registerUser(@WebParam(name = "name") final String name, @WebParam(name = "email") final String email, @WebParam(name = "password") final String password) {
+        return UserModel.register(name, email, password);
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUserById")
+    public User getUserById(@WebParam(name = "id") final int id) {
+        return UserModel.getById(id);
+    }
+    
+    
 }

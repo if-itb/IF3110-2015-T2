@@ -10,14 +10,14 @@ package org.me.stackx.module;
  * @author natanelia
  */
 public class Answer {
-    private final int answerId;
-    private final int questionId;
-    private final int userId;
+    private int answerId;
+    private int questionId;
+    private int userId;
     private String content;
     private int vote;
-    private final int createDate;
+    private String createDate;
 
-    public Answer(int answerId, int questionId, int userId, String content, int vote, int createDate) {
+    public Answer(int answerId, int questionId, int userId, String content, int vote, String createDate) {
         this.answerId = answerId;
         this.questionId = questionId;
         this.userId = userId;
@@ -30,12 +30,24 @@ public class Answer {
         return answerId;
     }
 
+    public void setAnswerId(int answerId) {
+        this.answerId = answerId;
+    }
+
     public int getQuestionId() {
         return questionId;
     }
 
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
+    }
+
     public int getUserId() {
         return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getContent() {
@@ -54,7 +66,12 @@ public class Answer {
         this.vote = vote;
     }
 
-    public int getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
 }
