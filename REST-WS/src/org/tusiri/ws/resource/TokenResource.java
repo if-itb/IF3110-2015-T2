@@ -2,6 +2,8 @@ package org.tusiri.ws.resource;
 
 import java.io.IOException;
 import java.net.URI;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -38,11 +40,15 @@ public class TokenResource {
 	public static boolean isTokenUnique(Token token){
 		boolean unique = true;
 		DBConnection dbc = new DBConnection();
-		Statement stmt = dbc.getDBStmt();
+		PreparedStatement stmt = dbc.getDBStmt();
+		Connection conn = dbc.getConn();
 		try{
 			String sql = "SELECT access_token FROM token "
-					+ "WHERE access_token='"+token.access_token+"'";
-			ResultSet rs = stmt.executeQuery(sql);
+					+ "WHERE access_token = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, token.access_token);
+			ResultSet rs = stmt.executeQuery();
+			
 			if(rs.next()){
 				unique = false;
 			}
@@ -61,11 +67,18 @@ public class TokenResource {
 		Token token = new Token();
 		//Check if email and password match
 		DBConnection dbc = new DBConnection();
-		Statement stmt = dbc.getDBStmt();
+		PreparedStatement stmt = dbc.getDBStmt();
+		Connection conn = dbc.getConn();
 		try{
 			String sql = "SELECT * FROM user "
-					+ "WHERE email='"+email+"' AND password=MD5('"+ password +"')";
-			ResultSet rs = stmt.executeQuery(sql);
+					+ "WHERE email = ? AND password = MD5(?)";
+			System.out.println(email);
+			System.out.println(password);
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, email);
+			stmt.setString(2, password);
+			System.out.println(stmt);
+			ResultSet rs = stmt.executeQuery();
 			System.out.println(sql);
 			if(rs.next()){
 				int user_id = rs.getInt("id_user");
