@@ -41,6 +41,8 @@ public class QuestionVote extends HttpServlet {
     String access_token = tools.getCookie("access_token", request);
             
     voteQuestion(access_token, Integer.parseInt(request.getParameter("id")), Integer.parseInt(request.getParameter("value")));
+  
+    response.sendRedirect(request.getContextPath() + "/question?id=" + Integer.parseInt(request.getParameter("id")));
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Answer;
+package Test;
 
 import AnswerWS.AnswerWS_Service;
 import java.io.IOException;
