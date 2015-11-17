@@ -21,7 +21,7 @@ public class AnswerWS {
   
   /* Connecting to DB */
   /* DB is other java file where DB settings is there */
-  
+  private Database db = new Database();
   
   /**
    * Web service operation
@@ -30,10 +30,10 @@ public class AnswerWS {
   @WebResult(name = "Answer")
   public ArrayList<Answer> getAnswerByQId(@WebParam(name = "qid") int qid) {
     ArrayList<Answer> answers = new ArrayList<Answer>();
-    Database db = new Database();
     
     try {
       //TODO write your implementation code here:
+      
       Connection conn = db.connectDatabase();
       Statement stmt = conn.createStatement();
       String sql;
@@ -52,5 +52,32 @@ public class AnswerWS {
       Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
     }
     return answers;
+  }
+
+  @WebMethod()
+  public String sayHello(String name) {
+    String message = new String("Hello, ");
+    return message + name + ".";
+  }
+  
+  @WebMethod(operationName = "addAnswer")
+  public boolean addAnswer(@WebParam(name = "qid") int qid, @WebParam(name = "uid") int uid, @WebParam(name = "content") String content) {
+    //TODO write your implementation code here:
+    boolean isAdded;
+    try {
+      Connection conn = db.connectDatabase();
+      String sql;
+      sql = "INSERT INTO answer (id_question, id_user, content) VALUES (?,?,?)";
+      PreparedStatement dbStatement = conn.prepareStatement(sql);
+      dbStatement.setInt(1, qid);
+      dbStatement.setInt(2, uid);
+      dbStatement.setString(3, content);
+      dbStatement.executeUpdate();
+      isAdded = true;
+    } catch (SQLException ex) {
+      Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
+      isAdded = false;
+    }  
+    return isAdded;
   }
 }
