@@ -4,9 +4,17 @@
         <servlet-name>Test</servlet-name>
         <servlet-class>answer.Test</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>registerCallWS</servlet-name>
+        <servlet-class>registerCallWS</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>registerCallWS</servlet-name>
+        <url-pattern>/registerCallWS</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

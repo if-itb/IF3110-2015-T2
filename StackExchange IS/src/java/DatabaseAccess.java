@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import org.json.simple.JSONObject;
 /**
  *
  * @author alberttriadrian
@@ -53,9 +54,16 @@ public class DatabaseAccess extends HttpServlet{
         try{
             System.out.println("HAHAHAHA");
     
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            PrintWriter out = response.getWriter();
+
+            //create Json Object
+            JSONObject json = new JSONObject();
+
             //Set response content type 
             response.setContentType("text/html");
-            PrintWriter out = response.getWriter();
+            //PrintWriter out = response.getWriter();
             String title = "Database Result";
       
             String docType = "<!doctype html public \"-//w3c//dtd html 4.0 " +
@@ -82,20 +90,32 @@ public class DatabaseAccess extends HttpServlet{
             ResultSet rs = stmt.executeQuery(sql);
              // Extract data from result set
              while(rs.next()){
+                
                 //Retrieve by column name
                 int id  = rs.getInt("IDQ");
                 String name = rs.getString("Nama");
                 String email = rs.getString("Email");
                 String answer = rs.getString("Answer");
+                
+                // put some value pairs into the JSON object .
+                json.put("IDQuestion",id);
+                json.put("Name", name);
+                json.put("Email",email);
+                json.put("Answer", answer);
 
                 //Display values
                 out.println("ID_Question: " + id + "<br>");
                 out.println(", Name: " + name + "<br>");
                 out.println(", Email: " + email + "<br>");
                 out.println(", Answer: " + answer + "<br>");
+                
+                // finally output the json string       
+                out.print(json.toString());        
+            
              }
              out.println("</body></html>");            
-            
+
+                        
             //PreparedStatement dbStatement = conn.prepareStatement(sql);
             
             //dbStatement.executeUpdate();
