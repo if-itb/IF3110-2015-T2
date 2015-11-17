@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
+import MD5Hashing.MD5Hashing;
 
 /**
  *
@@ -98,6 +99,7 @@ public class ValidateUser extends HttpServlet {
        out.println("hello"); 
        try{
             String user_email = request.getParameter("email");
+            String user_password = request.getParameter("password");
             //User Token = access token and life time 
             out.println("Hello Wolrd");
             JSONObject userToken = new JSONObject();
@@ -135,15 +137,22 @@ public class ValidateUser extends HttpServlet {
                  }
                  i++;
              }
+
+             MD5Hashing md5 = new MD5Hashing();
              
-             String access_token = UUID.randomUUID().toString();
-             int lifetime = 5;
+             String access_token; 
+             int lifetime;
              if (found){
-                //Login Successful
+                //Login Successful and send the token response
+                access_token = md5.Hash(user_password);
+                lifetime = 5;
+                
+                //Format the response to JSON
                 userToken.put("access_token",access_token);
                 userToken.put("lifetime", lifetime);             
              }
              else{
+                 
              }
                        
             out.println(userToken.toString());
