@@ -42,15 +42,19 @@ public class QuestionList extends HttpServlet {
     throws ServletException, IOException {
     
     List<QuestionWS.Question> questions = getAllQuestion();
+    
     HashMap answer_counts = new HashMap();
     HashMap question_asker = new HashMap();
+    HashMap questions_vote_counts = new HashMap();
     
     for ( QuestionWS.Question question: questions ) {
-      answer_counts.put(new Integer(question.getId()), new Integer(getAnswerCount(question.getId())));
-      question_asker.put(new Integer(question.getId()), (getUserById(question.getIdUser())).getName());
+        questions_vote_counts.put(new Integer(question.getId()), new Integer(getVoteCountByQId(question.getId())));
+        answer_counts.put(new Integer(question.getId()), new Integer(getAnswerCount(question.getId())));
+        question_asker.put(new Integer(question.getId()), (getUserById(question.getIdUser())).getName());
     }
     
     request.setAttribute("questions", questions);
+    request.setAttribute("questions_vote_counts", questions_vote_counts);
     request.setAttribute("answer_counts", answer_counts);
     request.setAttribute("question_asker", question_asker);
     RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp"); 
@@ -117,6 +121,13 @@ public class QuestionList extends HttpServlet {
     UserWS.UserWS port = service_1.getUserWSPort();
     return port.getUserById(id);
   }
+  
+    private int getVoteCountByQId(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        return port.getVoteCountByQId(qid);
+    }
 
 
 }

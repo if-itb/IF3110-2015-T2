@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page = "layout/header.jsp" flush = "true"/>
 <jsp:useBean id="questions" type="java.util.List<QuestionWS.Question>" scope="request" /> 
+<jsp:useBean id="questions_vote_counts" type="java.util.HashMap<Integer, Integer>" scope="request" /> 
 <jsp:useBean id="answer_counts" type="java.util.HashMap<Integer, Integer>" scope="request" /> 
 <jsp:useBean id="question_asker" type="java.util.HashMap<Integer, String>" scope="request" /> 
 
@@ -32,7 +33,7 @@
                     <div class="question-status col-3">
                         <div class="question-vote">
                             <div class="status-counts">
-                                <span>0</span>
+                                <span><%= questions_vote_counts.get(question.getId()) %></span>
                             </div>
                             <div class="status-title">
                                 <span>vote</span>

@@ -45,9 +45,11 @@ public class QuestionView extends HttpServlet {
     throws ServletException, IOException {
         
     QuestionWS.Question question = getQuesstionById(Integer.parseInt(request.getParameter("id")));
+    int questionVoteCount = new Integer(getVoteCountByQId(question.getId()));
     java.util.List<AnswerWS.Answer> answers = getAnswerByQID(Integer.parseInt(request.getParameter("id")));
     
     request.setAttribute("question", question);
+    request.setAttribute("question_vote_count", questionVoteCount);
     request.setAttribute("answers", answers);
     request.setAttribute("answer_count", new Integer(getAnswerCount(question.getId())));
     request.setAttribute("question_asker", (getUserById(question.getIdUser())).getName());
@@ -116,11 +118,19 @@ public class QuestionView extends HttpServlet {
     return port.getAnswerCount(qid);
   }
 
+
   private User getUserById(int id) {
     // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
     // If the calling of port operations may lead to race condition some synchronization is required.
     UserWS.UserWS port = service_2.getUserWSPort();
     return port.getUserById(id);
   }
+
+    private int getVoteCountByQId(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        return port.getVoteCountByQId(qid);
+    }
 
 }

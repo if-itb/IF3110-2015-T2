@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="layout/header.jsp" flush="true"/>
 <jsp:useBean id="question" type="QuestionWS.Question" scope="request" /> 
+<jsp:useBean id="question_vote_count" type="Integer" scope="request" /> 
 <jsp:useBean id="answers" type="java.util.List<AnswerWS.Answer>" scope="request" /> 
 <jsp:useBean id="answer_count" type="Integer" scope="request" /> 
 <jsp:useBean id="question_asker" type="String" scope="request" /> 
@@ -35,7 +36,7 @@
                         </div>
 
                         <div class="vote-counts">
-                            <span>0</span>
+                            <span><%= question_vote_count %></span>
                         </div>
 
                         <div class="vote-down">
