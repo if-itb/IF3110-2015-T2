@@ -1,7 +1,7 @@
 <%-- 
     Document   : answer.jsp
     Created on : Nov 17, 2015, 3:55:29 PM
-    Author     : user
+    Author     : Vincent
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -22,7 +22,7 @@
     <div class="nav-wrapper container">
       <a id="logo-container" href="index.jsp" class="brand-logo">StackExchange</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="">About Us</a></li>
+        <li><a href="about.jsp">About Us</a></li>
         <li><a href="login.jsp">Log In</a></li>
         <li><a href="register.jsp">Sign Up</a></li>
       </ul>

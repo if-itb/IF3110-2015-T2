@@ -1,6 +1,6 @@
 <%-- 
-    Document   : addQuestion.jsp
-    Created on : Nov 17, 2015, 1:40:13 PM
+    Document   : about.jsp
+    Created on : Nov 17, 2015, 4:19:10 PM
     Author     : Vincent
 --%>
 
@@ -22,7 +22,7 @@
     <div class="nav-wrapper container">
       <a id="logo-container" href="index.jsp" class="brand-logo">StackExchange</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="about.jsp">About Us</a></li>
+        <li class="active"><a href="about.jsp">About Us</a></li>
         <li><a href="login.jsp">Log In</a></li>
         <li><a href="register.jsp">Sign Up</a></li>
       </ul>
@@ -35,49 +35,46 @@
         <br><br>
         <h1 class="header center white-text">StackExchange</h1>
         <div class="row center">
-          <h5 class="header col s12 light">Ask Your Question</h5>
+          <h2 class="header col s12 light">About Us</h2>
         </div>
+        <br><br>
       </div>
     </div>
     <div class="parallax"><img src="images/background1.jpg" alt="Unsplashed background img 1"></div>
   </div>
-
-
+    
   <div class="container">
     <div class="section">
-        <h2 class="header center blue-text text-darken-4">Question</h2>
-          <div class="row">
-            <form class="col s12">
-              <div class="row">
-                <div class="input-field col s12">
-                  <input id="topic" type="text" class="validate">
-                  <label for="topic">Question Topic</label>
-                </div>
-              </div>
-                <div class="row">
-                  <form class="col s12">
-                      <div class="input-field col s12">
-                        <textarea id="content" class="materialize-textarea"></textarea>
-                        <label for="content">Content</label>
-                      </div>
-                  </form>
-                </div>
-            </form>
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center brown-text"><img src="images/vincent.jpg" class="circle foto"></h2>
+            <h5 class="center">Vincent Theophilus C.</h5>
+            <p class="light center">Teknik Informatika</p>
+            <p class="light center">13513005</p>
           </div>
-        <br>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="section">
-        <div class="row right">
-          <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action">Post
-            <i class="material-icons right">send</i>
-          </button>
         </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center brown-text"><img src="images/juan.jpg" class="circle foto"></h2>
+            <h5 class="center">Juan Anton</h5>
+            <p class="light center">Teknik Informatika</p>
+            <p class="light center">13513013</p> </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center brown-text"><img src="images/hans.jpg" class="circle foto"></h2>
+            <h5 class="center">Hans Christian G.</h5>
+            <p class="light center">Teknik Informatika</p>
+            <p class="light center">13513047</p></div>
+        </div>
+      </div>
     </div>
   </div>
-  <br><br><br><br>
 
   <footer class="page-footer black">
     <div class="container">
@@ -90,7 +87,7 @@
     </div>
     <div class="footer-copyright">
       <div class="container">
-        Made by RestingSOAP Group</a>
+      Made by RestingSOAP Group</a>
       </div>
     </div>
   </footer>

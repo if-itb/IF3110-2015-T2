@@ -114,3 +114,8 @@ footer.page-footer {
 .card {
     padding-bottom: 35px;
 }
+
+.foto {
+    height : 200px;
+    width : 200px;
+}
