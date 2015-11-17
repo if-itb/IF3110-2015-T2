@@ -34,9 +34,9 @@
         <div class="item">
           <div class="vote">
             <table width="100%" class="text-center">
-              <tr><td><div class="arrow"><a href="../upvoteQuestion.jsp?id=<%=id%>">&#9650;</a></div></td></tr>
+              <tr><td><div class="arrow"><a href="../controller/upvoteQuestion.jsp?id=<%=id%>">&#9650;</a></div></td></tr>
               <tr><td><div class="votes" id="voteQuestion"><%=q.getVote()%></div></td></tr>
-              <tr><td><div class="arrow"><a href="../downvoteQuestion.jsp?id=<%=id%>">&#9660;</a></div></td></tr>
+              <tr><td><div class="arrow"><a href="../controller/downvoteQuestion.jsp?id=<%=id%>">&#9660;</a></div></td></tr>
             </table>
           </div>
           <div class="text-long">
@@ -56,9 +56,9 @@
         <div class="item">
           <div class="vote">
             <table width="100%" class="text-center">
-              <tr><td><div class="arrow"><a href="../upvoteAnswer.jsp?id=<%=a.getId()%>">&#9650;</a></div></td></tr>
+              <tr><td><div class="arrow"><a href="../controller/upvoteAnswer.jsp?id=<%=a.getId()%>">&#9650;</a></div></td></tr>
               <tr><td><div class="votes" id="voteQuestion"><%=a.getVote()%></div></td></tr>
-              <tr><td><div class="arrow"><a href="../downvoteAnswer.jsp?id=<%=a.getId()%>">&#9660;</a></div></td></tr>
+              <tr><td><div class="arrow"><a href="../controller/downvoteAnswer.jsp?id=<%=a.getId()%>">&#9660;</a></div></td></tr>
             </table>
           </div>
           <div class="text-long">
@@ -73,7 +73,7 @@
 
       <br/><h3>Your Answer</h3>
 
-      <form id="answer" action="controller/answer.jsp" method="POST">
+      <form id="answer" action="../controller/answer.jsp" method="POST">
         <input name="id" type="hidden" value=<%=id%>>
         <textarea id="content" placeholder="Content" class="box" name="content" rows="5"></textarea>
         <div class="text-right">
