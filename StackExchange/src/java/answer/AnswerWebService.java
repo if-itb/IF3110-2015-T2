@@ -8,7 +8,6 @@ package answer;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.jws.*;
-import com.mysql.jdbc.Driver;
 import database.Database;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author William Sentosa
  */
-@WebService(serviceName = "answerWS")
+@WebService(serviceName = "AnswerWebService")
 public class AnswerWebService {
     /* Atribut */
     private final String path = "jdbc:mysql://localhost:3306/stack_exchange";
@@ -31,7 +30,7 @@ public class AnswerWebService {
         database.connect(path);
         database.changeData(query);
         database.closeDatabase();
-        return "Success";
+        return "executed";
     }
     
     @WebMethod(operationName = "incrVote")
@@ -83,6 +82,31 @@ public class AnswerWebService {
         }
         database.closeDatabase();
         return tab;
+    }
+    
+    @WebMethod(operationName = "getQuestionById")
+    @WebResult(name="Answer")
+    public Answer getAnswerById(@WebParam(name = "id") int id) {
+        String query = "SELECT * FROM answer WHERE answer_id = " + id;
+        Database database = new Database();
+        database.connect(path);
+        ResultSet rs = database.fetchData(query);
+        try {
+            rs.next();
+            Answer answer = new Answer(rs.getInt("answer_id"), 
+                rs.getString("answerer_name"), 
+                rs.getString("answerer_email"), 
+                rs.getString("answer_content"), 
+                rs.getInt("answer_vote"),
+                rs.getInt("question_id")
+            );
+            rs.close();
+            return answer;
+        } catch (SQLException ex) {
+            Logger.getLogger(AnswerWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        database.closeDatabase();
+        return null;
     }
     
     @WebMethod(operationName = "getCountAnswerByQid")

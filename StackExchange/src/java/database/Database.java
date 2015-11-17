@@ -57,7 +57,7 @@ public class Database {
             return "Change success";
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            return "Change failed";
+            return "Change ailed";
         }
     }
     

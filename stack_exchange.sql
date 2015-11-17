@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 17 Nov 2015 pada 09.31
--- Versi Server: 5.6.16
+-- Generation Time: Nov 17, 2015 at 02:12 PM
+-- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `answer`
+-- Table structure for table `answer`
 --
 
 CREATE TABLE IF NOT EXISTS `answer` (
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
--- Dumping data untuk tabel `answer`
+-- Dumping data for table `answer`
 --
 
 INSERT INTO `answer` (`answer_id`, `answerer_name`, `answerer_email`, `answer_content`, `answer_vote`, `question_id`) VALUES
@@ -46,13 +46,12 @@ INSERT INTO `answer` (`answer_id`, `answerer_name`, `answerer_email`, `answer_co
 (14, 'Roni', 'roni@yahool.com', 'Untuk nanya-nanya doang kok', 3, 9),
 (16, 'Rachel', 'rachel@live.com', 'That would be an alleged affair but no not why he stepped down. ', 0, 11),
 (17, 'alex', 'alex@yahoo.com', 'From his own answer on Quora; \r\n"When I said that my leadership style is based on listening, I meant it. You may have trouble believing this – I truly didn’t seek public office to be someone, but to do something for our country. \r\n\r\nI know people are angry at Congress. I know people are frustrated by Washington’s seeming inability to do the work that you send people there to do. I know people are skeptical of anything an elected official has to say. To be completely candid, I understand why you feel that way, because I feel the same way. \r\n\r\nI truly believe that we are here as public servants; our job is to work for you – period. Your public servants should not be here to gain power or positions; we should be here to do what’s best for our country. \r\n\r\nHouse Republicans need a new leader that can unite them, and after many days of talking with my colleagues, it became clear that I would not be that person. The selection of a new Speaker can never be about a single person, it must be about doing what s right for the country. \r\n\r\nWe need a new start – a fresh face who can bring Congress together. I hope that my choice will help heal the wounds that are keeping well-meaning people from finding common cause for our country. \r\n"', 0, 11),
-(18, 'billy', 'billy@rocketmail.com', 'No, dont upgrade ', 0, 12),
 (19, 'William', 'william@live.com', 'Halo salam kenal', 0, 9);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `question`
+-- Table structure for table `question`
 --
 
 CREATE TABLE IF NOT EXISTS `question` (
@@ -62,24 +61,45 @@ CREATE TABLE IF NOT EXISTS `question` (
   `question_topic` varchar(400) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `question_content` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `question_vote` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL,
   PRIMARY KEY (`question_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
--- Dumping data untuk tabel `question`
+-- Dumping data for table `question`
 --
 
-INSERT INTO `question` (`question_id`, `asker_name`, `asker_email`, `question_topic`, `question_content`, `question_vote`) VALUES
-(9, 'William', 'william@gmail.com', 'Website ini gunanya untuk apa sih ?', 'Aku baru aja ketemu website ini. Website ini dibuat untuk apa sih ? Aku bingung nih .... lalalallalalallala', 9),
-(11, 'Billy', 'billy@gmail.com', 'Do we now know why McCarthy suddenly dropped out of the vote for House Speaker?', 'Is it because he was was carrying on a long running affair with a Congresswoman? \r\n\r\nMultiple sources within Bakersfield, North Carolina, & on Capitol Hill tell Gotnews.com that Majority Leader Kevin McCarthy (R-CA) and Renee Ellmers (R-NC) have been carrying on a long-running affair since 2011. \r\n\r\nThe affair is something of an open secret in Washington, D.C. Reporters at other publications, lobbyists, congressional staffers of both parties all know about it. One staffer for a congressman describes it as the “biggest open secret” in D.C. A lobbyist describes Ellmers as a “social climber who has ingratiated herself” with McCarthy. ', 0),
-(12, 'shana', 'shana@gmail.com', 'Should I get windows 10? Is it worth it?', 'I am so confused whether i should upgrade my computer or not', 3);
+INSERT INTO `question` (`question_id`, `asker_name`, `asker_email`, `question_topic`, `question_content`, `question_vote`, `user_id`) VALUES
+(9, 'Will', 'William@live.com', 'Apa sih ini ?', 'hahahahhahahahahah', 9, 0),
+(11, 'Billy', 'billy@gmail.com', 'Do we now know why McCarthy suddenly dropped out of the vote for House Speaker?', 'Is it because he was was carrying on a long running affair with a Congresswoman? \n\nMultiple sources within Bakersfield, North Carolina, & on Capitol Hill tell Gotnews.com that Majority Leader Kevin McCarthy (R-CA) and Renee Ellmers (R-NC) have been carrying on a long-running affair since 2011. ', 0, 0);
+
+-- --------------------------------------------------------
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Table structure for table `user`
+--
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(200) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `nama`, `email`, `password`) VALUES
+(1, 'William', 'william.sentosa@live.com', 'william');
+
+--
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `answer`
+-- Constraints for table `answer`
 --
 ALTER TABLE `answer`
   ADD CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`) ON DELETE CASCADE;
