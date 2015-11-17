@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index.jsp
-    Created on : Nov 17, 2015, 12:51:04 PM
+    Document   : login.jsp
+    Created on : Nov 17, 2015, 2:19:38 PM
     Author     : Vincent
 --%>
 
@@ -23,7 +23,7 @@
       <a id="logo-container" href="index.jsp" class="brand-logo">StackExchange</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="">About Us</a></li>
-        <li><a href="login.jsp">Log In</a></li>
+        <li class="active"><a href="login.jsp">Log In</a></li>
         <li><a href="register.jsp">Sign Up</a></li>
       </ul>
     </div>
@@ -35,12 +35,8 @@
         <br><br>
         <h1 class="header center white-text">StackExchange</h1>
         <div class="row center">
-          <h5 class="header col s12 light">A Website for ask and answer</h5>
+          <h5 class="header col s12 light">Log In to your account</h5>
         </div>
-        <div class="row center">
-          <a href="addQuestion.jsp" id="download-button" class="btn-large waves-effect waves-light blue darken-4">Ask Question</a>
-        </div>
-        <br><br>
       </div>
     </div>
     <div class="parallax"><img src="images/background1.jpg" alt="Unsplashed background img 1"></div>
@@ -49,40 +45,39 @@
 
   <div class="container">
     <div class="section">
-        <h2 class="header center blue-text text-darken-4">Search Question</h2>
-        <nav>
-          <div class="nav-wrapper">
-            <form>
-              <div class="input-field indigo darken-4">
-                <input id="search" type="search" required>
-                <label for="search"><i class="material-icons">search</i></label>
-                <i class="material-icons">close</i>
+        <h2 class="header center blue-text text-darken-4">Log In</h2>
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="email" type="email" class="validate">
+                  <label for="email">Email</label>
+                </div>
               </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="password" type="password" class="validate">
+                  <label for="password">Password</label>
+                </div>
+              </div>
+              
             </form>
           </div>
-        </nav>
         <br>
-        <div class="center">
-            <button class="btn center waves-effect waves-light blue darken-4" type="submit" name="action">Search
-              <i class="material-icons right">search</i>
-            </button>
-        </div>
     </div>
   </div>
-  <br><br>
 
-  <div class="parallax-container valign-wrapper">
-    <div class="section no-pad-bot">
-      <div class="container">
-        <div class="row center">
-          <h1 class="header col s12 light">Recently Asked Question</h1>
+  <div class="container">
+    <div class="section">
+        <div class="row right">
+          <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+          </button>
         </div>
-      </div>
     </div>
-    <div class="parallax"><img src="images/background1.jpg" alt="Unsplashed background img 1"></div>
   </div>
-  <br><br>
-  
+  <br><br><br><br>
+
   <footer class="page-footer black">
     <div class="container">
       <div class="row">
@@ -94,7 +89,7 @@
     </div>
     <div class="footer-copyright">
       <div class="container">
-      Made by RestingSOAP Group</a>
+        Made by RestingSOAP Group</a>
       </div>
     </div>
   </footer>
