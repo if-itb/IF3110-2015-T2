@@ -6,4 +6,8 @@
 /StackExchange Client/dist/
 /StackExchange WebService/dist/
 StackExchange Client/nbproject/private/private.properties
-StackExchange Client/nbproject/private/private.properties
+StackExchange WebService/web/WEB-INF/mysql-connector-java-5.1.23-bin.jar
+StackExchange WebService/setup/sun-resources.xml
+StackExchange WebService/setup/sun-resources.xml
+StackExchange WebService/nbproject/project.xml
+StackExchange WebService/nbproject/build-impl.xml
