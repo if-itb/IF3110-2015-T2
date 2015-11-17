@@ -20,30 +20,29 @@ import java.util.logging.Logger;
 @WebService(serviceName = "answerWS")
 public class AnswerWebService {
     /* Atribut */
-    private final Database database;
     private final String path = "jdbc:mysql://localhost:3306/stack_exchange";
-
-    /* Constructor */
-    public AnswerWebService() {
-        database = new Database();
-        database.connect(path);
-    }
     
     @WebMethod(operationName = "addAnswer")
     @WebResult(name="String")
     public String addAnswer(int qid, String name, String email, String content) {
         String query = "INSERT INTO answer (answer_id, answerer_name, answerer_email, answer_content, answer_vote, question_id)"
                 + "VALUES (NULL, '" + name + "', '" + email + "', '"+ content + "', 0, " + qid + ")";
+        Database database = new Database();
+        database.connect(path);
         database.changeData(query);
+        database.closeDatabase();
         return "Success";
     }
     
     @WebMethod(operationName = "incrVote")
     @WebResult(name="String")
     public String incrVote(int id) {
-        String result = new String();
+        String result;
         String query = "UPDATE answer SET answer_vote = answer_vote + 1 WHERE answer_id = " + id;
+        Database database = new Database();
+        database.connect(path);
         result = database.changeData(query);
+        database.closeDatabase();
         return result;
     }
     
@@ -52,7 +51,10 @@ public class AnswerWebService {
     public String decrVote(int id) {
         String result = new String();
         String query = "UPDATE answer SET answer_vote = answer_vote - 1 WHERE answer_id = " + id;
+        Database database = new Database();
+        database.connect(path);
         result = database.changeData(query);
+        database.closeDatabase();
         return result;
     }
     
@@ -60,6 +62,8 @@ public class AnswerWebService {
     @WebResult(name="Answer")
     public ArrayList<Answer> getAnswerByQid(@WebParam(name = "qid") int qid) throws ClassNotFoundException {
         String query = "SELECT * FROM answer WHERE question_id = " + qid;
+        Database database = new Database();
+        database.connect(path);
         ArrayList<Answer> tab = new ArrayList<Answer>();
         ResultSet rs = database.fetchData(query);
         try {
@@ -77,6 +81,7 @@ public class AnswerWebService {
         } catch (SQLException ex) {
             Logger.getLogger(AnswerWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
+        database.closeDatabase();
         return tab;
     }
     
@@ -85,6 +90,8 @@ public class AnswerWebService {
     public int getCountAnswerByQid(int id) {
         int result = -999;
         String query = "Select count(answer_id) As count From answer Where question_id = " + id;
+        Database database = new Database();
+        database.connect(path);
         ResultSet rs = database.fetchData(query);
         try {
             rs.next();
@@ -93,6 +100,7 @@ public class AnswerWebService {
         } catch (SQLException ex) {
             Logger.getLogger(AnswerWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
+        database.closeDatabase();
         return result;
     }
     
