@@ -104,3 +104,13 @@ footer.page-footer {
   border-bottom: 1px solid #0d47a1;
   box-shadow: 0 1px 0 0 #0d47a1;
 }
+
+.cardhome:hover {
+    transform : scaleX(1.1);
+    transform : scaleY(1.1);
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card {
+    padding-bottom: 35px;
+}

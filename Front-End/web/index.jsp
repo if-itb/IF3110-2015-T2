@@ -46,7 +46,6 @@
     <div class="parallax"><img src="images/background1.jpg" alt="Unsplashed background img 1"></div>
   </div>
 
-
   <div class="container">
     <div class="section">
         <h2 class="header center blue-text text-darken-4">Search Question</h2>
@@ -82,6 +81,48 @@
     <div class="parallax"><img src="images/background1.jpg" alt="Unsplashed background img 1"></div>
   </div>
   <br><br>
+  
+  <div class="container">
+    <div class="section">
+      <div class="row">
+        <div class="col s12">
+          <div class="card cardhome blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title"><a href="" class="white-text">Question Topic</a></span>
+              <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+              <p class="orange-text text-lighten-1 right">Asked by Vincent Theophilus Ciputra</p>
+              <a href="">Edit</a>
+              <a href="">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="section">
+      <div class="row">
+        <div class="col s12">
+          <div class="card cardhome blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title"><a href="" class="white-text">Question Topic</a></span>
+              <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+              <p class="orange-text text-lighten-1 right">Asked by Vincent Theophilus Ciputra</p>
+              <a href="">Edit</a>
+              <a href="">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   
   <footer class="page-footer black">
     <div class="container">
