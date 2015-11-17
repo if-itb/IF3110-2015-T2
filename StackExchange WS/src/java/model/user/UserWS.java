@@ -7,6 +7,10 @@ package model.user;
 
 import connection.DB;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -28,6 +32,15 @@ public class UserWS {
     @WebMethod(operationName = "addUser")
     @WebResult(name="User")
     public void addUser(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
-        //TODO write your implementation code here:
+        try{
+            Statement stmt = conn.createStatement();
+            String sql;
+            sql = "INSERT INTO user (name, email, password)"
+                    + "VALUES(" + name + "," + email + "," + password + ");";
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserWS.class.getName()).log
+            (Level.SEVERE, null, ex);
+           }
     }
 }

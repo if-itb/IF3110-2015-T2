@@ -1,32 +1,31 @@
 <%-- 
     Document   : index
-    Created on : Nov 17, 2015, 11:36:58 AM
-    Author     : Venny
+    Created on : Nov 17, 2015, 5:22:56 PM
+    Author     : zainelwati
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Simple StackExchange</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
         <div class="container">
             <h1>Simple StackExchange</h1>
-            <div class="login">
-                <h5>Do not have an account? <a href="register.jsp">Register here</a></h5>
-                <form method="post" action="" name="login">
-                    <input type="text" class="input-group" placeholder="Email" name="email">
-                    <input type="password" class="input-group" placeholder="Password" name="password">
-                    <div class="button-bottom">
-                        <button type="submit" name="login" value="Submit">Log in</button>
-                    </div>
-                </form>
-            </div>
-
+            <form action="Search.jsp"><!--ini filenya belum ada-->
+		<input class="searchBox" type="text" name="questions">
+		<input type="submit" class="submitButton" value="Search">
+            </form>
+            <p>
+		Cannot find what you are looking for? <a href="ask.jsp">Ask here</a>
+		<br>
+		<br>
+            </p>
+            <div class="raqtitle left"><h3>Recently Asked Question</h3></div>
+            <!-- codingan tampilan list pertanyaan oleh nilta-->
         </div>
-        
     </body>
 </html>

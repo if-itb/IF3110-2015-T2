@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class DB {
       public static Connection connect() {
-        String host = "jdbc:mysql://localhost:3306/wbd2?zeroDateTimeBehavior=convertToNull [root on Default schema]";
+        String host = "jdbc:mysql://localhost:3306/wbd2?zeroDateTimeBehavior=convertToNull";
         String uName = "root";
         String uPass = "12345";
         Connection con=null;
