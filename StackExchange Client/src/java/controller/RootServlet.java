@@ -5,7 +5,6 @@
  */
 package controller;
 
-import question.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -20,10 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
-import question.Question;
-import question.QuestionWS;
-import question.QuestionWS_Service;
-import question.SQLException_Exception;
+import service.*;
 
 /**
  *
@@ -31,9 +27,8 @@ import question.SQLException_Exception;
  */
 @WebServlet(name = "root", urlPatterns = {""})
 public class RootServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation =
-            "WEB-INF/wsdl/localhost_8080/StackExchange_WS/QuestionWS.wsdl")
-    private QuestionWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
+    private StackExchange_Service service;    
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,14 +41,8 @@ public class RootServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
-        QuestionWS port = service.getQuestionWSPort();        
-        List<Question> questions = null; 
-        try {
-            questions = port.getAllQuestions();
-        } catch (SQLException_Exception ex) {
-            Logger.getLogger(RootServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        request.setAttribute("questions", questions);
+        StackExchange port = service.getStackExchangePort();                
+        request.setAttribute("questions", port.getQuestions());
         request.getRequestDispatcher("WEB-INF/view/index.jsp").forward(request, response);        
     }
 
@@ -95,5 +84,5 @@ public class RootServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+   
 }
