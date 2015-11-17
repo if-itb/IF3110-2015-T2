@@ -28,13 +28,25 @@ public interface Question {
 
     /**
      * 
+     * @return
+     *     returns java.util.List<org.tusiri.ws.question.QuestionItem>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getQuestionList", targetNamespace = "http://question.ws.tusiri.org/", className = "org.tusiri.ws.question.GetQuestionList")
+    @ResponseWrapper(localName = "getQuestionListResponse", targetNamespace = "http://question.ws.tusiri.org/", className = "org.tusiri.ws.question.GetQuestionListResponse")
+    @Action(input = "http://question.ws.tusiri.org/Question/getQuestionListRequest", output = "http://question.ws.tusiri.org/Question/getQuestionListResponse")
+    public List<QuestionItem> getQuestionList();
+
+    /**
+     * 
      * @param arg2
      * @param arg1
      * @param arg0
      * @return
      *     returns int
-     * @throws IOException_Exception
      * @throws ParseException_Exception
+     * @throws IOException_Exception
      * @throws ClientProtocolException_Exception
      */
     @WebMethod
@@ -55,17 +67,5 @@ public interface Question {
         String arg2)
         throws ClientProtocolException_Exception, IOException_Exception, ParseException_Exception
     ;
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<org.tusiri.ws.question.QuestionItem>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getQuestionList", targetNamespace = "http://question.ws.tusiri.org/", className = "org.tusiri.ws.question.GetQuestionList")
-    @ResponseWrapper(localName = "getQuestionListResponse", targetNamespace = "http://question.ws.tusiri.org/", className = "org.tusiri.ws.question.GetQuestionListResponse")
-    @Action(input = "http://question.ws.tusiri.org/Question/getQuestionListRequest", output = "http://question.ws.tusiri.org/Question/getQuestionListResponse")
-    public List<QuestionItem> getQuestionList();
 
 }
