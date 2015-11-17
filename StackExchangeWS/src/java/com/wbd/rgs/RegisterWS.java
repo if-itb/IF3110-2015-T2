@@ -28,15 +28,14 @@ public class RegisterWS {
     //private Connection conn;
     
     //Declare Database Name
-    static final String DB_NAME = "wbdtb2";
-    
+    static final String DB_NAME = "wbd";    
     //Declare JDBC Driver Name and Database URL
     static final String JDBC_DRIVER="com.mysql.jdbc.Driver";  
     static final String DB_URL="jdbc:mysql://localhost:3306/" + DB_NAME +"?zeroDateTimeBehavior=convertToNull";
     
     //Declare Database Credentials
     static final String USER = "root";
-    static final String PASS = "alberttriadrian";
+    static final String PASS = "";
 
     /**
      * Web service operation
@@ -45,16 +44,23 @@ public class RegisterWS {
     public int register(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password){
         //TOD wt.prirlite your implementation code here:
         
-        int hasil = 0;
+        int hasil;
         Connection conn = null;
         PreparedStatement dbStatement = null;
         try {
-         
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             Statement stmt = conn.createStatement();
             String sql; 
-            System.out.println("Ivan");
-            sql = "INSERT INTO user(Name, Email, Password) VALUES (?,?,?)";
+            sql = "SELECT * FROM user";
+            dbStatement = conn.prepareStatement(sql);
+            ResultSet rs = dbStatement.executeQuery();
+            while (rs.next()){
+                if (email == rs.getString("email")){
+                    return 0;
+                }
+            }
+            
+            sql = "INSERT INTO user(Nama, Email, Password) VALUES (?,?,?)";
             
             dbStatement = conn.prepareStatement(sql);
 
@@ -63,18 +69,13 @@ public class RegisterWS {
             dbStatement.setString(3, password);
             
             dbStatement.executeUpdate();
-
-            /********************* @LUMINTO : RESPONSE DI SINI HARUSNYA 1 TAPI KLO DITES KEMBALIANNAY 0 *********************/
             hasil = 1;
             dbStatement.close();
             conn.close();
         }catch(SQLException se){
             se.printStackTrace();
+            hasil = 0;
         }
-        /*catch (Exception e){
-            e.printStackTrace();
-            //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
         return hasil;
     }
 }
