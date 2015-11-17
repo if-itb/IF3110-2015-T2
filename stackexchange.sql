@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS `answer` (
 `id` int(11) NOT NULL,
   `id_question` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `content` text,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `content` text NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `votes` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `id_user` int(11) NOT NULL,
   `topic` varchar(255) NOT NULL,
   `content` text NOT NULL,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `votes` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 `id` int(11) NOT NULL,
   `password` varchar(32) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `email` varchar(255) DEFAULT NULL
+  `email` varchar(255) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -146,26 +146,27 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- Constraints for table `answer`
 --
 ALTER TABLE `answer`
-ADD CONSTRAINT `answer_question` FOREIGN KEY (`id_question`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `answer_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `answer_question_fk` FOREIGN KEY (`id_question`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `answer_user_fk` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `question`
 --
 ALTER TABLE `question`
-ADD CONSTRAINT `question_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `question_user_fk` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `vote_answer`
 --
 ALTER TABLE `vote_answer`
-ADD CONSTRAINT `vote-answer` FOREIGN KEY (`id_answer`) REFERENCES `answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
+ADD CONSTRAINT `vote_answer_fk` FOREIGN KEY (`id_answer`) REFERENCES `answer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `vote_answer_user_fk` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 --
 -- Constraints for table `vote_question`
 --
 ALTER TABLE `vote_question`
-ADD CONSTRAINT `vote-question` FOREIGN KEY (`id_question`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `vote_question_fk` FOREIGN KEY (`id_question`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `vote_question_user_fk` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
