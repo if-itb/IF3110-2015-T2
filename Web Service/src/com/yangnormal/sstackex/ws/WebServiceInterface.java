@@ -1,5 +1,7 @@
 package com.yangnormal.sstackex.ws;
 
+import com.yangnormal.sstackex.ws.classes.*;
+
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
@@ -19,7 +21,7 @@ public interface WebServiceInterface {
     @WebMethod
     void deleteQuestion(int qid, String token);
     @WebMethod
-    String[] getQuestion(int qid);
+    Question getQuestion(int qid);
     @WebMethod
     String[][] getQuestionList();
     @WebMethod

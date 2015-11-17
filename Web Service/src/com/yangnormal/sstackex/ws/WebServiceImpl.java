@@ -2,6 +2,7 @@ package com.yangnormal.sstackex.ws;
 
 import java.sql.*;
 import javax.jws.WebService;
+import com.yangnormal.sstackex.ws.classes.*;
 
 @WebService(endpointInterface = "com.yangnormal.sstackex.ws.WebServiceInterface")
 public class WebServiceImpl implements WebServiceInterface{
@@ -35,12 +36,13 @@ public class WebServiceImpl implements WebServiceInterface{
     }
 
     @Override
-    public String[] getQuestion(int qid) {
+    public Question getQuestion(int qid) {
         Connection conn = null;
         Statement stmt = null;
         int i = 0;
         int j = 0;
         String question[] = {"Failed"};
+        Question q = new Question();
         String[][] questionList = new String[1][1];
         try{
             // Register JDBC driver
@@ -48,15 +50,27 @@ public class WebServiceImpl implements WebServiceInterface{
             // Open a connection
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             // Query
-            String query = "SELECT topic,vote,content,date,fullname FROM question JOIN user WHERE question.uid = qid";
+            String query = "SELECT question.topic,question.vote,question.content,question.date,question.uid,count(answer.qid) as answerSum " +
+                    "FROM question LEFT JOIN answer ON (question.id = answer.id) " +
+                    "WHERE question.id = "+qid+" " +
+                    "GROUP BY question.id, question.topic, question.content, question.vote, question.date";
             stmt = conn.createStatement();
             // Result Set
             ResultSet rs = stmt.executeQuery(query);
             // Put result into array
-            question = new String[rs.getMetaData().getColumnCount()];
+            /*question = new String[rs.getMetaData().getColumnCount()];
             for (i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                 question[i] = rs.getString(i + 1);
+            }*/
+            while (rs.next()){
+                q.setContent(rs.getString("content"));
+                q.setTopic(rs.getString("topic"));
+                q.setUserid(rs.getInt("uid"));
+                q.setVote(rs.getInt("vote"));
+                q.setDate(rs.getDate("date"));
+                q.setAnswerSum(rs.getInt("answerSum"));
             }
+
         }
         catch (SQLException se){
             se.printStackTrace();
@@ -66,7 +80,7 @@ public class WebServiceImpl implements WebServiceInterface{
             e.printStackTrace();
         }
         finally{
-            return question;
+            return q;
         }
     }
 
