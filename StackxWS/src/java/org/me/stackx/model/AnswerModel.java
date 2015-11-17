@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import org.me.stackx.module.Answer;
+import org.me.stackx.module.User;
 
 /**
  *
@@ -29,12 +30,9 @@ public class AnswerModel {
     static final String USER = "root";
     static final String PASS = "";
  
-    public static int create(String access_token, int questionId, String content) {
-        //TODO: request to oauth to get who is the requester
+    public static int create(User user, int questionId, String content) {
         int r = -1;
-        boolean valid = true;
-        int userId = 1;
-        if (valid) {
+        if (user.isValid()) {
             Connection conn = null;
             PreparedStatement stmt = null;
             try {
@@ -49,7 +47,7 @@ public class AnswerModel {
                sql = "INSERT INTO answer (question_id, user_id, content, create_date) VALUES(?, ?, ?, CURRENT_TIMESTAMP)";
                stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                stmt.setInt(1, questionId);
-               stmt.setInt(2, userId);
+               stmt.setInt(2, user.getUserId());
                stmt.setString(3, content);
                
                int affectedRows = stmt.executeUpdate();
@@ -70,11 +68,9 @@ public class AnswerModel {
             } catch(SQLException se) {
                //Handle errors for JDBC
                se.printStackTrace();
-               valid = false;
             } catch(Exception e) {
                //Handle errors for Class.forName
                e.printStackTrace();
-               valid = false;
             } finally {
                //finally block used to close resources
                try {
@@ -94,12 +90,9 @@ public class AnswerModel {
         return r;
     }
     
-    public static int edit(String access_token, int answerId, String content) {
-        //TODO: request to oauth to get who is the requester
+    public static int edit(User user, int answerId, String content) {
         int r = -1;
-        boolean valid = true;
-        int userId = 1;
-        if (valid) {
+        if (user.isValid()) {
             Connection conn = null;
             PreparedStatement stmt = null;
             try {
@@ -112,24 +105,17 @@ public class AnswerModel {
                //STEP 4: Execute a query
                String sql;
                sql = "UPDATE answer SET content=? WHERE answer_id=? AND user_id=?";
-               stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+               stmt = conn.prepareStatement(sql);
                
                stmt.setString(1, content);
                stmt.setInt(2, answerId);
-               stmt.setInt(3, userId);
+               stmt.setInt(3, user.getUserId());
                
                int affectedRows = stmt.executeUpdate();
                if (affectedRows == 0) {
                    r = -1;
                } else {
-                    try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                        if (generatedKeys.next()) {
-                            r = generatedKeys.getInt(1);
-                        }
-                        else {
-                            r = -1;
-                        }
-                    }
+                   r = answerId;
                }
                
                stmt.close();
@@ -137,11 +123,9 @@ public class AnswerModel {
             } catch(SQLException se) {
                //Handle errors for JDBC
                se.printStackTrace();
-               valid = false;
             } catch(Exception e) {
                //Handle errors for Class.forName
                e.printStackTrace();
-               valid = false;
             } finally {
                //finally block used to close resources
                try {
@@ -160,12 +144,9 @@ public class AnswerModel {
         return r;
     }
     
-    public static int vote(String access_token, int answerId, int inc) {
-        //TODO: request to oauth to get who is the requester
+    public static int vote(User user, int answerId, int inc) {
         int r = -1;
-        boolean valid = true;
-        int userId = 1;
-        if (valid) {
+        if (user.isValid()) {
             Connection conn = null;
             PreparedStatement stmt = null;
             try {
@@ -178,24 +159,17 @@ public class AnswerModel {
                //STEP 4: Execute a query
                String sql;
                sql = "UPDATE answer SET vote=vote+? WHERE answer_id=? AND user_id=?";
-               stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+               stmt = conn.prepareStatement(sql);
                
                stmt.setInt(1, inc);
                stmt.setInt(2, answerId);
-               stmt.setInt(3, userId);
+               stmt.setInt(3, user.getUserId());
                
                int affectedRows = stmt.executeUpdate();
                if (affectedRows == 0) {
                    r = -1;
                } else {
-                    try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                        if (generatedKeys.next()) {
-                            r = generatedKeys.getInt("vote");
-                        }
-                        else {
-                            r = -1;
-                        }
-                    }
+                   r = answerId;
                }
                
                stmt.close();
@@ -203,11 +177,9 @@ public class AnswerModel {
             } catch(SQLException se) {
                //Handle errors for JDBC
                se.printStackTrace();
-               valid = false;
             } catch(Exception e) {
                //Handle errors for Class.forName
                e.printStackTrace();
-               valid = false;
             } finally {
                //finally block used to close resources
                try {
@@ -225,6 +197,61 @@ public class AnswerModel {
         }
         return r;
     }
+    
+    
+    public static String delete(User user, int answerId) {
+        String r = "ERROR";
+        if (user.isValid()) {
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            try {
+               //STEP 2: Register JDBC driver
+               Class.forName("com.mysql.jdbc.Driver");
+
+               //STEP 3: Open a connection
+               conn = (Connection) DriverManager.getConnection(DB_URL,USER,PASS);
+
+               //STEP 4: Execute a query
+               String sql;
+               sql = "DELETE FROM answer WHERE answer_id=? AND user_id=?";
+               stmt = conn.prepareStatement(sql);
+               
+               stmt.setInt(1, answerId);
+               stmt.setInt(2, user.getUserId());
+               
+               int affectedRows = stmt.executeUpdate();
+               if (affectedRows == 0) {
+                   r = "ERROR";
+               } else {
+                   r = "SUCCESS";
+               }
+               
+               stmt.close();
+               conn.close();
+            } catch(SQLException se) {
+               //Handle errors for JDBC
+               se.printStackTrace();
+            } catch(Exception e) {
+               //Handle errors for Class.forName
+               e.printStackTrace();
+            } finally {
+               //finally block used to close resources
+               try {
+                  if (stmt!=null)
+                    stmt.close();
+               } catch(SQLException se2) { }// nothing we can do
+               try {
+                  if (conn!=null) {
+                    conn.close();
+                  }
+               } catch (SQLException se) {
+                    se.printStackTrace();
+               }//end finally try
+            }//end try
+        }
+        return r;
+    }
+    
     
     public static Answer getById(int id) {
         Connection conn = null;
@@ -239,7 +266,7 @@ public class AnswerModel {
            //STEP 4: Execute a query
            stmt = (Statement) conn.createStatement();
            String sql;
-           sql = "SELECT answer_id, question_id, user_id, content, vote, create_date FROM question WHERE answer_id=" + id;
+           sql = "SELECT answer_id, question_id, user_id, content, vote, create_date FROM answer WHERE answer_id=" + id;
             //STEP 5: Extract data from result set
             try (ResultSet rs = stmt.executeQuery(sql)) {
                 //STEP 5: Extract data from result set
@@ -296,7 +323,7 @@ public class AnswerModel {
            //STEP 4: Execute a query
            stmt = (Statement) conn.createStatement();
            String sql;
-           sql = "SELECT answer_id, user_id, title, content, vote, create_date FROM answer WHERE question_id=" + questionId;
+           sql = "SELECT answer_id, user_id, content, vote, create_date FROM answer WHERE question_id=" + questionId;
             //STEP 5: Extract data from result set
             try (ResultSet rs = stmt.executeQuery(sql)) {
                 //STEP 5: Extract data from result set

@@ -27,7 +27,8 @@ public class ws {
      */
     @WebMethod(operationName = "createQuestion")
     public int createQuestion(@WebParam(name = "access_token") String access_token, @WebParam(name = "title") String title, @WebParam(name = "content") String content) {
-        return QuestionModel.create(access_token, title, content);
+        User u = new User(access_token);
+        return QuestionModel.create(u, title, content);
     }
 
     /**
@@ -53,7 +54,8 @@ public class ws {
      */
     @WebMethod(operationName = "editQuestion")
     public int editQuestion(@WebParam(name = "access_token") String access_token, @WebParam(name = "id") final int id, @WebParam(name = "title") final String title, @WebParam(name = "content") final String content) {
-        return QuestionModel.edit(access_token, id, title, content);
+        User u = new User(access_token);
+        return QuestionModel.edit(u, id, title, content);
     }
 
     /**
@@ -61,7 +63,8 @@ public class ws {
      */
     @WebMethod(operationName = "voteUp")
     public int voteUpQuestion(@WebParam(name = "access_token") String access_token, @WebParam(name = "id") final int id) {
-        return QuestionModel.vote(access_token, id, 1);
+        User u = new User(access_token);
+        return QuestionModel.vote(u, id, 1);
     }
     
     /**
@@ -69,9 +72,19 @@ public class ws {
      */
     @WebMethod(operationName = "voteDownQuestion")
     public int voteDownQuestion(@WebParam(name = "access_token") String access_token, @WebParam(name = "id") final int id) {
-        return QuestionModel.vote(access_token, id, -1);
+        User u = new User(access_token);
+        return QuestionModel.vote(u, id, -1);
     }
     
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deleteQuestion")
+    public String deleteQuestion(@WebParam(name = "access_token") String access_token, @WebParam(name = "id") final int id) {
+        User u = new User(access_token);
+        return QuestionModel.delete(u, id);
+    }
+
     
     /**
      * Web service operation
@@ -79,7 +92,8 @@ public class ws {
      */
     @WebMethod(operationName = "createAnswer")
     public int createAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "question_id") int question_id, @WebParam(name = "content") String content) {
-        return AnswerModel.create(access_token, question_id, content);
+        User u = new User(access_token);
+        return AnswerModel.create(u, question_id, content);
     }
 
     /**
@@ -105,7 +119,8 @@ public class ws {
      */
     @WebMethod(operationName = "editAnswer")
     public int editAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "id") final int id, @WebParam(name = "content") final String content) {
-        return AnswerModel.edit(access_token, id, content);
+        User u = new User(access_token);
+        return AnswerModel.edit(u, id, content);
     }
 
     /**
@@ -113,7 +128,8 @@ public class ws {
      */
     @WebMethod(operationName = "voteUpAnswer")
     public int voteUpAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "id") final int id) {
-        return AnswerModel.vote(access_token, id, 1);
+        User u = new User(access_token);
+        return AnswerModel.vote(u, id, 1);
     }
     
     /**
@@ -121,7 +137,17 @@ public class ws {
      */
     @WebMethod(operationName = "voteDownAnswer")
     public int voteDownAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "id") final int id) {
-        return AnswerModel.vote(access_token, id, -1);
+        User u = new User(access_token);
+        return AnswerModel.vote(u, id, -1);
+    }
+    
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deleteAnswer")
+    public String deleteAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "id") final int id) {
+        User u = new User(access_token);
+        return AnswerModel.delete(u, id);
     }
 
     /**
