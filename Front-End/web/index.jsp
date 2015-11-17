@@ -1,0 +1,150 @@
+<%-- 
+    Document   : index.jsp
+    Created on : Nov 17, 2015, 12:51:04 PM
+    Author     : Vincent
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>StackExchange</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="index.jsp" class="brand-logo">StackExchange</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="about.jsp">About Us</a></li>
+        <li><a href="login.jsp">Log In</a></li>
+        <li><a href="register.jsp">Sign Up</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br>
+        <h1 class="header center white-text">StackExchange</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">A Website for ask and answer</h5>
+        </div>
+        <div class="row center">
+          <a href="addQuestion.jsp" id="download-button" class="btn-large waves-effect waves-light blue darken-4">Ask Question</a>
+        </div>
+        <br><br>
+      </div>
+    </div>
+    <div class="parallax"><img src="images/background1.jpg" alt="Unsplashed background img 1"></div>
+  </div>
+
+  <div class="container">
+    <div class="section">
+        <h2 class="header center blue-text text-darken-4">Search Question</h2>
+        <nav>
+          <div class="nav-wrapper">
+            <form>
+              <div class="input-field indigo darken-4">
+                <input id="search" type="search" required>
+                <label for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+              </div>
+            </form>
+          </div>
+        </nav>
+        <br>
+        <div class="center">
+            <button class="btn center waves-effect waves-light blue darken-4" type="submit" name="action">Search
+              <i class="material-icons right">search</i>
+            </button>
+        </div>
+    </div>
+  </div>
+  <br><br>
+
+  <div class="parallax-container valign-wrapper">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <div class="row center">
+          <h1 class="header col s12 light">Recently Asked Question</h1>
+        </div>
+      </div>
+    </div>
+    <div class="parallax"><img src="images/background1.jpg" alt="Unsplashed background img 1"></div>
+  </div>
+  <br><br>
+  
+  <div class="container">
+    <div class="section">
+      <div class="row">
+        <div class="col s12">
+          <div class="card cardhome blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title"><a href="answer.jsp" class="white-text">Question Topic</a></span>
+              <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+              <p class="orange-text text-lighten-1 right">Asked by Vincent Theophilus Ciputra</p>
+              <a href="">Edit</a>
+              <a href="">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="section">
+      <div class="row">
+        <div class="col s12">
+          <div class="card cardhome blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title"><a href="answer.jsp" class="white-text">Question Topic</a></span>
+              <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+              <p class="orange-text text-lighten-1 right">Asked by Vincent Theophilus Ciputra</p>
+              <a href="">Edit</a>
+              <a href="">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="page-footer black">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About Us</h5>
+          <p class="grey-text text-lighten-4">We are a team of college students working on this project for fulfilling Web-Based Development task.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by RestingSOAP Group</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
+</html>
