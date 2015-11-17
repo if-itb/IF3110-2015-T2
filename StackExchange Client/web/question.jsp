@@ -9,6 +9,7 @@
 <jsp:useBean id="question" type="QuestionWS.Question" scope="request" /> 
 <jsp:useBean id="answers" type="java.util.List<AnswerWS.Answer>" scope="request" /> 
 <jsp:useBean id="answer_count" type="Integer" scope="request" /> 
+<jsp:useBean id="question_asker" type="String" scope="request" /> 
 
     <form action="" method="GET" id="searchForm">
         <input type="text" placeholder="Search...">
@@ -51,9 +52,9 @@
                 <div class="question-meta">
                     <span>
                         Asked by
-                        Name |
-                        <a href="edit.php" class="question-edit">Edit</a> |
-                        <a href="" class="question-delete">Delete</a>
+                        <%= question_asker %> |
+                        <a href="${pageContext.request.contextPath}/edit.php?id=<%= question.getId() %>" class="question-edit">Edit</a> |
+                        <a href="${pageContext.request.contextPath}/delete.php?id=<%= question.getId() %>" class="question-delete">Delete</a>
                     </span>
                 </div>
 

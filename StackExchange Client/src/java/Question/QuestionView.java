@@ -8,6 +8,8 @@ package Question;
 import AnswerWS.AnswerWS_Service;
 import QuestionWS.Question;
 import QuestionWS.QuestionWS_Service;
+import UserWS.User;
+import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -23,6 +25,8 @@ import javax.xml.ws.WebServiceRef;
  * @author Asus
  */
 public class QuestionView extends HttpServlet {
+  @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/UserWS.wsdl")
+  private UserWS_Service service_2;
   @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/AnswerWS.wsdl")
   private AnswerWS_Service service_1;
   @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/QuestionWS.wsdl")
@@ -46,6 +50,7 @@ public class QuestionView extends HttpServlet {
     request.setAttribute("question", question);
     request.setAttribute("answers", answers);
     request.setAttribute("answer_count", new Integer(getAnswerCount(question.getId())));
+    request.setAttribute("question_asker", (getUserById(question.getIdUser())).getName());
     RequestDispatcher dispatcher = request.getRequestDispatcher("/question.jsp"); 
     dispatcher.forward(request, response); 
     
@@ -94,7 +99,7 @@ public class QuestionView extends HttpServlet {
     // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
     // If the calling of port operations may lead to race condition some synchronization is required.
     QuestionWS.QuestionWS port = service.getQuestionWSPort();
-    return port.getQuesstionById(id);
+    return port.getQuestionById(id);
   }
 
   private java.util.List<AnswerWS.Answer> getAnswerByQID(int qid) {
@@ -109,6 +114,13 @@ public class QuestionView extends HttpServlet {
     // If the calling of port operations may lead to race condition some synchronization is required.
     QuestionWS.QuestionWS port = service.getQuestionWSPort();
     return port.getAnswerCount(qid);
+  }
+
+  private User getUserById(int id) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    UserWS.UserWS port = service_2.getUserWSPort();
+    return port.getUserById(id);
   }
 
 }

@@ -5,12 +5,6 @@
 <xsd:import namespace="http://QuestionModel/" schemaLocation="http://localhost:8081/StackExchange_WS/QuestionWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getVoteCountByQId">
-<part name="parameters" element="tns:getVoteCountByQId"/>
-</message>
-<message name="getVoteCountByQIdResponse">
-<part name="parameters" element="tns:getVoteCountByQIdResponse"/>
-</message>
 <message name="getAllQuestion">
 <part name="parameters" element="tns:getAllQuestion"/>
 </message>
@@ -47,17 +41,19 @@
 <message name="updateQuestionResponse">
 <part name="parameters" element="tns:updateQuestionResponse"/>
 </message>
-<message name="getQuesstionById">
-<part name="parameters" element="tns:getQuesstionById"/>
+<message name="getQuestionById">
+<part name="parameters" element="tns:getQuestionById"/>
 </message>
-<message name="getQuesstionByIdResponse">
-<part name="parameters" element="tns:getQuesstionByIdResponse"/>
+<message name="getQuestionByIdResponse">
+<part name="parameters" element="tns:getQuestionByIdResponse"/>
+</message>
+<message name="getVoteCountByQId">
+<part name="parameters" element="tns:getVoteCountByQId"/>
+</message>
+<message name="getVoteCountByQIdResponse">
+<part name="parameters" element="tns:getVoteCountByQIdResponse"/>
 </message>
 <portType name="QuestionWS">
-<operation name="getVoteCountByQId">
-<input wsam:Action="http://QuestionModel/QuestionWS/getVoteCountByQIdRequest" message="tns:getVoteCountByQId"/>
-<output wsam:Action="http://QuestionModel/QuestionWS/getVoteCountByQIdResponse" message="tns:getVoteCountByQIdResponse"/>
-</operation>
 <operation name="getAllQuestion">
 <input wsam:Action="http://QuestionModel/QuestionWS/getAllQuestionRequest" message="tns:getAllQuestion"/>
 <output wsam:Action="http://QuestionModel/QuestionWS/getAllQuestionResponse" message="tns:getAllQuestionResponse"/>
@@ -82,23 +78,18 @@
 <input wsam:Action="http://QuestionModel/QuestionWS/updateQuestionRequest" message="tns:updateQuestion"/>
 <output wsam:Action="http://QuestionModel/QuestionWS/updateQuestionResponse" message="tns:updateQuestionResponse"/>
 </operation>
-<operation name="getQuesstionById">
-<input wsam:Action="http://QuestionModel/QuestionWS/getQuesstionByIdRequest" message="tns:getQuesstionById"/>
-<output wsam:Action="http://QuestionModel/QuestionWS/getQuesstionByIdResponse" message="tns:getQuesstionByIdResponse"/>
+<operation name="getQuestionById">
+<input wsam:Action="http://QuestionModel/QuestionWS/getQuestionByIdRequest" message="tns:getQuestionById"/>
+<output wsam:Action="http://QuestionModel/QuestionWS/getQuestionByIdResponse" message="tns:getQuestionByIdResponse"/>
+</operation>
+<operation name="getVoteCountByQId">
+<input wsam:Action="http://QuestionModel/QuestionWS/getVoteCountByQIdRequest" message="tns:getVoteCountByQId"/>
+<output wsam:Action="http://QuestionModel/QuestionWS/getVoteCountByQIdResponse" message="tns:getVoteCountByQIdResponse"/>
 </operation>
 </portType>
 <binding name="QuestionWSPortBinding" type="tns:QuestionWS">
 <wsp:PolicyReference URI="#QuestionWSPortBindingPolicy"/>
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getVoteCountByQId">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="getAllQuestion">
 <soap:operation soapAction=""/>
 <input>
@@ -153,7 +144,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getQuesstionById">
+<operation name="getQuestionById">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getVoteCountByQId">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

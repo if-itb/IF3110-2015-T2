@@ -6,6 +6,8 @@
 package Question;
 
 import QuestionWS.QuestionWS_Service;
+import UserWS.User;
+import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -22,6 +24,8 @@ import javax.xml.ws.WebServiceRef;
  * @author Asus
  */
 public class QuestionList extends HttpServlet {
+  @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/UserWS.wsdl")
+  private UserWS_Service service_1;
   @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/QuestionWS.wsdl")
   private QuestionWS_Service service;
 
@@ -39,13 +43,16 @@ public class QuestionList extends HttpServlet {
     
     List<QuestionWS.Question> questions = getAllQuestion();
     HashMap answer_counts = new HashMap();
+    HashMap question_asker = new HashMap();
     
     for ( QuestionWS.Question question: questions ) {
       answer_counts.put(new Integer(question.getId()), new Integer(getAnswerCount(question.getId())));
+      question_asker.put(new Integer(question.getId()), (getUserById(question.getIdUser())).getName());
     }
     
     request.setAttribute("questions", questions);
     request.setAttribute("answer_counts", answer_counts);
+    request.setAttribute("question_asker", question_asker);
     RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp"); 
     dispatcher.forward(request, response); 
     
@@ -102,6 +109,13 @@ public class QuestionList extends HttpServlet {
     // If the calling of port operations may lead to race condition some synchronization is required.
     QuestionWS.QuestionWS port = service.getQuestionWSPort();
     return port.getAnswerCount(qid);
+  }
+
+  private User getUserById(int id) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    UserWS.UserWS port = service_1.getUserWSPort();
+    return port.getUserById(id);
   }
 
 

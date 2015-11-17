@@ -8,6 +8,7 @@
 <jsp:include page = "layout/header.jsp" flush = "true"/>
 <jsp:useBean id="questions" type="java.util.List<QuestionWS.Question>" scope="request" /> 
 <jsp:useBean id="answer_counts" type="java.util.HashMap<Integer, Integer>" scope="request" /> 
+<jsp:useBean id="question_asker" type="java.util.HashMap<Integer, String>" scope="request" /> 
 
     <form action="" method="GET" id="searchForm">
         <input type="text" placeholder="Search...">
@@ -54,9 +55,9 @@
                     <div class="question-meta">
                         <span>
                             Asked by
-                            Name |
-                            <a href="edit.php" class="question-edit">Edit</a> |
-                            <a href="delete.php" class="question-delete">Delete</a>
+                            <%= question_asker.get(question.getId()) %> |
+                            <a href="${pageContext.request.contextPath}/edit.php?id=<%= question.getId() %>" class="question-edit">Edit</a> |
+                            <a href="${pageContext.request.contextPath}/delete.php?id=<%= question.getId() %>" class="question-delete">Delete</a>
                         </span>
                     </div>
                 </div> <!-- .row -->

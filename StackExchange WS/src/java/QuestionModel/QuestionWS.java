@@ -81,7 +81,6 @@ public class QuestionWS {
             dbStatement.setString(3, question.getContent());
             dbStatement.executeUpdate();
             
-            conn.commit();
             stmt.close();
         } catch(SQLException ex) {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
@@ -266,7 +265,6 @@ public class QuestionWS {
               dbStatement.executeUpdate();              
             }
             
-            conn.commit();
             stmt.close();
         } catch(SQLException ex) {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
