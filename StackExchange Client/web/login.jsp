@@ -7,7 +7,7 @@
             <div class="col-12">
 
                 <div class="login-form-wrapper">
-                    <form id="askForm" action="" method="POST">
+                    <form id="askForm" action="${pageContext.request.contextPath}/auth" method="POST">
                         <div class="form-field">
                             <label for="email">Email</label>
                             <input name="email" id="email-login" class="login" type="text" placeholder="email@something.com" required>
