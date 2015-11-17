@@ -13,9 +13,9 @@ public interface WebServiceInterface {
     @WebMethod
     int register(String name, String email, String password);
     @WebMethod
-    void postQuestion(String token);
+    void postQuestion(int uid, String token, String title, String email, String content);
     @WebMethod
-    void postAnswer(int qid, String token);
+    void postAnswer(int qid, int uid, String token, String email, String content);
     @WebMethod
     void deleteQuestion(int qid, String token);
     @WebMethod
@@ -25,5 +25,5 @@ public interface WebServiceInterface {
     @WebMethod
     String[][] getAnswerList(int qid);
     @WebMethod
-    void vote(int qid, int direction);
+    void vote(int type, int id, int direction, int uid);
 }

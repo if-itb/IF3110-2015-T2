@@ -13,5 +13,23 @@ public class Client{
         for (int i=0;i<wsi.getAnswerList(1).getItem().size();i++) {
             System.out.println(wsi.getAnswerList(1).getItem().get(i).getItem().toString());
         }
+        System.out.println("register Test");
+        System.out.println(wsi.register("john", "john@j.com", "abc"));
+        System.out.println("Post Question Test");
+        wsi.postQuestion(2,"a","HAHA","a@a.com", "HAHAHAHAHA");
+        System.out.println("Post Answer");
+        wsi.postAnswer(1,1,"a","a@a.com", "HAHAHAHAHA");
+        System.out.println("Vote Question Up Test");
+        wsi.vote(0,1,1,1);
+        System.out.println("Vote Question Down Test");
+        wsi.vote(0,1,-1,2);
+        System.out.println("Vote Answer Up Test");
+        wsi.vote(1,1,1,1);
+        System.out.println("Vote Answer Down Test");
+        wsi.vote(1,1,-1,2);
+        System.out.println("getQuestion Test");
+        System.out.println(wsi.getQuestion(3).getItem().toString());
+        System.out.println("Delete Question Test");
+        wsi.deleteQuestion(3, "a");
     }
 }
