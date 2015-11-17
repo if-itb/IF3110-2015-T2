@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -42,7 +44,16 @@ public class RootServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
         StackExchange port = service.getStackExchangePort();                
-        request.setAttribute("questions", port.getQuestions());
+        List<Question> questions = port.getQuestions();        
+        Map<Question, Integer> answers = new HashMap<>();
+        Map<Question, String> askers = new HashMap<>();
+        for (Question question: port.getQuestions()) {            
+            answers.put(question, port.getAnswers(question.getId()).size());
+            askers.put(question, port.getUser(question.getIdUser()).getName());
+        }                        
+        request.setAttribute("questions", questions);
+        request.setAttribute("answers", answers);
+        request.setAttribute("askers", askers);
         request.getRequestDispatcher("WEB-INF/view/index.jsp").forward(request, response);        
     }
 
