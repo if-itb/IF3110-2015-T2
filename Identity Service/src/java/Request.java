@@ -31,7 +31,7 @@ public class Request extends HttpServlet {
     
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-   static final String DB_URL = "jdbc:mysql://localhost:3306/stack_x";
+   static final String DB_URL = "jdbc:mysql://localhost:3306/stackx";
 
    //  Database credentials
    static final String USER = "root";
@@ -54,7 +54,7 @@ public class Request extends HttpServlet {
            sql = "SELECT user_id FROM user WHERE email ='" + email + "' AND password='" + password + "'";
            ResultSet rs = stmt.executeQuery(sql);
            if(rs.next()){
-                String user_id = rs.getString("user_id");
+                int user_id = rs.getInt("user_id");
                 String new_token = getRandomToken();
                 
                 sql = "SELECT access_token FROM user_token WHERE access_token ='" + new_token + "'";
@@ -71,18 +71,20 @@ public class Request extends HttpServlet {
                 create_time = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(temp);
                 
                 //check if current user_id has invalid token
-                sql = "SELECT user_id FROM user_token WHERE user_id='" + user_id +"'";
+                sql = "SELECT user_id FROM user_token WHERE user_id=" + user_id;
                 rs = stmt.executeQuery(sql);
                  
                 if(!rs.next()){ //current user_id have no token
                     
                     sql = "INSERT INTO user_token VALUES(" + user_id +",'" + new_token + "','" + create_time + "' )";
                     int res = stmt.executeUpdate(sql);
+                    System.out.println(res);
                 }
                 else{ // current user_id have invalid token
                 
                     sql = "UPDATE user_token SET access_token='" + new_token + "', create_time='" + create_time + "' WHERE user_id=" + user_id;
                     int res = stmt.executeUpdate(sql);
+                    System.out.println(res);
                 }
                 
            }
