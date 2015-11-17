@@ -19,6 +19,7 @@ public class Database {
     private String passWord = "root";
     private String hostName = "localhost";
     private String dbName = "StackExchange";
+    private String port = "8889";
     
     public Database(){
         try {
@@ -27,7 +28,7 @@ public class Database {
             throw new NestedException("Error driver : " + e.getMessage(), e, 0);
         }
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://" + hostName + ":3306/" + dbName + "?user=" + userName + "&password=" + passWord);
+            connection = DriverManager.getConnection("jdbc:mysql://" + hostName + ":"+ port +"/" + dbName + "?user=" + userName + "&password=" + passWord);
         } catch (Exception e) {
             throw new NestedException("Error connection : " + e.getMessage(), e, 0);
         }

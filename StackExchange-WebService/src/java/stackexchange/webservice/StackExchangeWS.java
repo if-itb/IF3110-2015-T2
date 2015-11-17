@@ -15,6 +15,7 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebResult;
 
 /**
  *
@@ -27,6 +28,7 @@ public class StackExchangeWS {
      * Web service operations
      */
     @WebMethod(operationName = "getQuestions")
+    @WebResult(name="Question")
     public List<Question> getQuestions() {
         List<Question> questions = new ArrayList<Question>();
         Database db = new Database();
@@ -57,8 +59,9 @@ public class StackExchangeWS {
         }
     }
     
-    @WebMethod(operationName = "getQuestions")
-    public List<Question> getQuestions(int id) {
+    /*@WebMethod(operationName = "getQuestions")
+    @WebResult(name="Question")
+    public List<Question> getQuestions(@WebParam(name="id") int id) {
         List<Question> questions = new ArrayList<Question>();
         Database db = new Database();
         try{
@@ -86,10 +89,10 @@ public class StackExchangeWS {
             db.closeConnection();
             db = null;
         }
-    }
+    }*/
     
     @WebMethod(operationName = "addQuestion")
-    public void addQuestion(Question question) {
+    public void addQuestion(@WebParam(name="question") Question question) {
         Database db = new Database();
         try{
             String values="(";
@@ -113,7 +116,7 @@ public class StackExchangeWS {
     }
     
     @WebMethod(operationName = "updateQuestion")
-    public void updateQuestion(Question question) {
+    public void updateQuestion(@WebParam(name="question") Question question) {
         Database db = new Database();
         try{
             int id = question.getId();
@@ -135,7 +138,7 @@ public class StackExchangeWS {
     }
     
     @WebMethod(operationName = "deleteQuestion")
-    public void deleteQuestion(int id) {
+    public void deleteQuestion(@WebParam(name="id") int id) {
         Database db = new Database();
         try{
             String sql="delete from questions where id=" + id;
@@ -149,8 +152,8 @@ public class StackExchangeWS {
         }
     }
     
-    @WebMethod(operationName = "deleteQuestion")
-    public void deleteQuestion(Question question) {
+    /*@WebMethod(operationName = "deleteQuestion")
+    public void deleteQuestion(@WebParam(name="question") Question question) {
         int id = question.getId();
         Database db = new Database();
         try{
@@ -163,10 +166,10 @@ public class StackExchangeWS {
             db.closeConnection();
             db = null;
         }
-    }
+    }*/
     
     @WebMethod(operationName = "voteQuestion")
-    public void voteQuestion(Question question, boolean inc) {
+    public void voteQuestion(@WebParam(name="question") Question question,@WebParam(name="inc") boolean inc) {
         Database db = new Database();
         try{
             int val=0;
@@ -189,8 +192,8 @@ public class StackExchangeWS {
         }
     }
     
-    @WebMethod(operationName = "voteQuestion")
-    public void voteQuestion(int id, boolean inc) {
+    /*@WebMethod(operationName = "voteQuestion")
+    public void voteQuestion(@WebParam(name="id") int id, @WebParam(name="inc") boolean inc) {
         Database db = new Database();
         try{
             int val=0;
@@ -210,7 +213,7 @@ public class StackExchangeWS {
             db.closeConnection();
             db = null;
         }
-    }
+    }*/
     
     @WebMethod(operationName = "getAnswers")
     public List<Answer> getAnswers() {
@@ -244,8 +247,9 @@ public class StackExchangeWS {
         }
     }
     
-    @WebMethod(operationName = "getAnswers")
-    public List<Answer> getAnswers(int questionId) {
+    /*@WebMethod(operationName = "getAnswers")
+    @WebResult(name="Answer")
+    public List<Answer> getAnswers(@WebParam(name="questionId") int questionId) {
         List<Answer> answers = new ArrayList<Answer>();
         Database db = new Database();
         try{
@@ -274,10 +278,10 @@ public class StackExchangeWS {
             db.closeConnection();
             db = null;
         }
-    }
+    }*/
     
     @WebMethod(operationName = "addAnswer")
-    public void addAnswer(Answer answer) {
+    public void addAnswer(@WebParam(name="answer") Answer answer) {
         Database db = new Database();
         try{
             String values="(";
@@ -299,8 +303,8 @@ public class StackExchangeWS {
         }
     }
     
-    @WebMethod(operationName = "addAnswer")
-    public void addAnswer(Answer answer, int questionId) {
+    /*@WebMethod(operationName = "addAnswer")
+    public void addAnswer(@WebParam(name="answer") Answer answer, @WebParam(name="questionId") int questionId) {
         Database db = new Database();
         try{
             answer.setQuestionId(questionId);
@@ -321,10 +325,10 @@ public class StackExchangeWS {
             db.closeConnection();
             db = null;
         }
-    }
+    }*/
     
     @WebMethod(operationName = "updateAnswer")
-    public void updateAnswer(Answer answer) {
+    public void updateAnswer(@WebParam(name="answer") Answer answer) {
         Database db = new Database();
         try{
             int id = answer.getId();
@@ -344,7 +348,7 @@ public class StackExchangeWS {
     }
     
     @WebMethod(operationName = "deleteAnswer")
-    public void deleteAnswer(int questionId) {
+    public void deleteAnswer(@WebParam(name="questionId") int questionId) {
         Database db = new Database();
         try{
             String sql="delete from questions where questionId=" + questionId;
@@ -358,8 +362,8 @@ public class StackExchangeWS {
         }
     }
     
-    @WebMethod(operationName = "deleteAnswer")
-    public void deleteAnswer(int id, int questionId) {
+    /*@WebMethod(operationName = "deleteAnswer")
+    public void deleteAnswer(@WebParam(name="id") int id, @WebParam(name="questionId") int questionId) {
         Database db = new Database();
         try{
             String sql="delete from questions where id=" + id + " and questionId=" + questionId;
@@ -374,7 +378,7 @@ public class StackExchangeWS {
     }
     
     @WebMethod(operationName = "deleteAnswer")
-    public void deleteAnswer(Answer answer) {
+    public void deleteAnswer(@WebParam(name="answer") Answer answer) {
         int id = answer.getId();
         int questionId = answer.getQuestionId();
         Database db = new Database();
@@ -388,10 +392,10 @@ public class StackExchangeWS {
             db.closeConnection();
             db = null;
         }
-    }
+    }*/
     
     @WebMethod(operationName = "voteAnswer")
-    public void voteAnswer(Answer answer, boolean inc) {
+    public void voteAnswer(@WebParam(name="answer") Answer answer, @WebParam(name="inc") boolean inc) {
         Database db = new Database();
         try{
             int val=0;
@@ -415,8 +419,8 @@ public class StackExchangeWS {
         }
     }
     
-    @WebMethod(operationName = "voteAnswer")
-    public void voteAnswer(int id, int questionId, boolean inc) {
+    /*@WebMethod(operationName = "voteAnswer")
+    public void voteAnswer(@WebParam(name="id") int id, @WebParam(name="questionId") int questionId, @WebParam(name="inc") boolean inc) {
         Database db = new Database();
         try{
             int val=0;
@@ -436,6 +440,6 @@ public class StackExchangeWS {
             db.closeConnection();
             db = null;
         }
-    }
+    }*/
     
 }

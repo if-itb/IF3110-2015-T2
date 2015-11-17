@@ -14,10 +14,13 @@ import javax.xml.bind.annotation.*;
  */
 @XmlRootElement(name="User")
 public class User {
-    @XmlElement(name="id", )
+    @XmlElement(name="id", required=true)
     private int id;
+    @XmlElement(name="name", required=true)
     private String name;
+    @XmlElement(name="email", required=true)
     private String email;
+    @XmlElement(name="token", required=true)
     private String token;
 
     /**
