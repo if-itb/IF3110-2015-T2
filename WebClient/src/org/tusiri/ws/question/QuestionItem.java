@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="num_vote" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="question_date" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="topic" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -38,7 +39,8 @@ import javax.xml.bind.annotation.XmlType;
     "idUser",
     "numVote",
     "questionDate",
-    "topic"
+    "topic",
+    "username"
 })
 public class QuestionItem {
 
@@ -52,6 +54,7 @@ public class QuestionItem {
     @XmlElement(name = "question_date")
     protected String questionDate;
     protected String topic;
+    protected String username;
 
     /**
      * Gets the value of the content property.
@@ -171,6 +174,30 @@ public class QuestionItem {
      */
     public void setTopic(String value) {
         this.topic = value;
+    }
+
+    /**
+     * Gets the value of the username property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Sets the value of the username property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setUsername(String value) {
+        this.username = value;
     }
 
 }
