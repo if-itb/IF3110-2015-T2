@@ -35,14 +35,15 @@ public class LoginRSServlet extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM users WHERE Email = ? AND Password = ?";
-            
+            String sql = "SELECT * FROM users WHERE Email = ? AND Password = ?"; // Login query validation
+            final PrintWriter out = response.getWriter();
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setString(1, request.getParameter("email"));
             dbStatement.setString(2, request.getParameter("password"));
             ResultSet rs = dbStatement.executeQuery();
-            if (!rs.next()) {
-                
+            if (rs.next()) { // If the query returns a row (login succeeded)
+                out.println(rs.getString("Email"));
+                out.println(rs.getString("Password"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginRSServlet.class.getName()).log(Level.SEVERE, null, ex);
