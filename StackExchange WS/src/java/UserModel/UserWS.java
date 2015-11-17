@@ -72,4 +72,38 @@ public class UserWS {
         }
         return 0;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUserById")
+    public User getUserById(@WebParam(name = "id") int id) {
+        User res = null;
+        try {
+            Statement stmt = conn.createStatement();
+            String sql;
+            
+            sql = "SELECT * FROM users WHERE id = ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, id);
+            
+            ResultSet rs = dbStatement.executeQuery();
+            
+            // Extract data from result set
+            if(rs.next()){
+                res = new User( rs.getInt("id"),
+                                rs.getString("email"),
+                                rs.getString("password"),
+                                rs.getString("name")
+                                );
+            }else{
+                res = new User();
+            }
+            rs.close();
+            stmt.close();
+        } catch(SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+    }
 }

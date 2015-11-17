@@ -102,5 +102,59 @@ public class AnswerWS {
     return ret;
     
   }
+  
+  @WebMethod(operationName = "voteAnswer")
+    public int voteAnswer(@WebParam(name = "token") String token, @WebParam(name = "aid") int aid, @WebParam(name = "value") int value) {
+        
+      Auth auth = new Auth();
+      int ret = auth.check(token);
+
+      if ( ret == 1 ) {
+        try {
+            int uid = auth.getUserID(token);
+            int count = 0;
+            
+            Statement stmt = conn.createStatement();
+            String sql;
+            PreparedStatement dbStatement;
+            
+            sql = "SELECT * FROM vote_answer WHERE id_user = ? AND id_answer = ?";
+            dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, uid);
+            dbStatement.setInt(2, aid);
+            
+            ResultSet rs = dbStatement.executeQuery();
+            
+            // Extract data from result set
+            while(rs.next()){        
+              ++count;
+            }
+            
+            if ( count == 0 ) {
+              sql = "INSERT INTO vote_answer (id_user, id_answer, value) VALUES (?, ?, ?)";
+              dbStatement = conn.prepareStatement(sql);
+              dbStatement.setInt(1, uid);
+              dbStatement.setInt(2, aid);
+              dbStatement.setInt(3, value);
+
+              dbStatement.executeUpdate();
+            } else {
+              sql = "UPDATE vote_answer SET value = ? WHERE id_user = ? AND id_answer = ?";
+              dbStatement = conn.prepareStatement(sql);
+              dbStatement.setInt(1, value);
+              dbStatement.setInt(2, uid);
+              dbStatement.setInt(3, aid);
+
+              dbStatement.executeUpdate();              
+            }
+            
+            stmt.close();
+        } catch(SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      }
+      
+      return ret;
+    }
 
 }
