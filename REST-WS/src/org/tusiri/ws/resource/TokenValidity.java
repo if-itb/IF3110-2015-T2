@@ -1,5 +1,7 @@
 package org.tusiri.ws.resource;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,12 +35,16 @@ public class TokenValidity {
 		
 		//Check database
 		DBConnection dbc = new DBConnection();
-		Statement stmt = dbc.getDBStmt();
+		PreparedStatement stmt = dbc.getDBStmt();
+		Connection conn = dbc.getConn();
 		try{
-			String sql = "SELECT * FROM token "
-					+ "WHERE access_token='"+access_token+"'";
-			System.out.print(sql);
-			ResultSet rs = stmt.executeQuery(sql);
+			System.out.println(access_token);
+			String sql = "SELECT * FROM token WHERE access_token = ?";
+			
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, access_token);
+	
+			ResultSet rs = stmt.executeQuery();
 			if(rs.next()){
 				//cek tanngal expire
 				java.util.Date date = rs.getTimestamp("timestamp");
