@@ -1,0 +1,5 @@
+package org.tusiri.ws.answer;
+
+public class Answer {
+	
+}

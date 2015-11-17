@@ -1,0 +1,52 @@
+package org.tusiri.ws.answer;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+
+import java.util.*;
+import java.sql.*;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.tusiri.ws.db.DBConnection;
+import org.tusiri.ws.question.QuestionItem;
+
+public class Answer {
+	@WebMethod
+	public ArrayList<AnswerItem> getAnswerList(int id_question) {
+		ArrayList<AnswerItem> questionItemList = new ArrayList<AnswerItem>();
+		DBConnection dbc = new DBConnection();
+		PreparedStatement stmt = dbc.getDBStmt();
+		Connection conn = dbc.getConn();
+		try{
+			String sql = "SELECT * FROM answer WHERE id_question = ? "
+					+ "INNER JOIN user WHERE question.id_user = user.id_user";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id_question);
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			// Extract data from result set
+			while(rs.next()){
+				//Retrieve by column name
+				
+				int num_answer = rs.getInt("num_answers");
+				int id_user = rs.getInt("id_user");
+				String content = rs.getString("content");
+				String answer_date = rs.getString("date");
+				int num_votes = rs.getInt("num_votes");
+				
+				AnswerItem q = new AnswerItem();
+				questionItemList.add(q);
+			}
+		} catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		} catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}
+		return questionItemList;
+	}
+}
+
