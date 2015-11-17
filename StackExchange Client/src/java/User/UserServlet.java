@@ -5,6 +5,7 @@
  */
 package User;
 
+import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
-import usermodel.UserWS_Service;
 
 /**
  *
@@ -33,10 +33,26 @@ public class UserServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nama = request.getParameter("nama");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        int result = register(nama,email,password);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UserServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>");
+            out.println("<a href=\"index.jsp\">Simple StackExchange</a>");
+            out.println("</h1>");
+            String nama = request.getParameter("nama");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            register(nama,email,password);
+            out.println("<p style=\"font-family:Calibri,color:blue\">Akun dengan nama "+nama+" berhasil diregistrasi</p>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -78,11 +94,11 @@ public class UserServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int register(java.lang.String nama, java.lang.String email, java.lang.String password) {
+    private void register(java.lang.String nama, java.lang.String email, java.lang.String password) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        usermodel.UserWS port = service.getUserWSPort();
-        return port.register(nama, email, password);
+        UserWS.UserWS port = service.getUserWSPort();
+        port.register(nama, email, password);
     }
 
 }

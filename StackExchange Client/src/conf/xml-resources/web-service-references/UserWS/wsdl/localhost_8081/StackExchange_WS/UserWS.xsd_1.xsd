@@ -13,8 +13,6 @@
 </xs:complexType>
 
 <xs:complexType name="registerResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int"/>
-</xs:sequence>
+<xs:sequence/>
 </xs:complexType>
 </xs:schema>
