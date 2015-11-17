@@ -61,4 +61,35 @@ public class UserWs {
         
         return password;
     }
+    @WebMethod(operationName = "createAccount")
+     public boolean createAccount(@WebParam(name = "username") String uname, @WebParam(name = "password") String pwd,
+             @WebParam(name = "email") String email, @WebParam(name = "nama") String name){
+         conn = db.connect();
+         Boolean status = true;
+         
+        try {
+        Statement stmt;
+            stmt = conn.createStatement();
+            
+            String sql;
+            sql = "INSERT INTO account(username, nama, password, email)"
+                    + " VALUES (?, ?, ?, ?)";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1, uname);
+            dbStatement.setString(2, name);
+            dbStatement.setString(3, pwd);
+            dbStatement.setString(4, email);
+            
+            status =dbStatement.execute();
+            stmt.close();
+            conn.close();
+        } 
+        catch(SQLException ex) {
+           Logger.getLogger(UserWs.class.getName()).log(Level.SEVERE, null, ex); 
+        }
+        return status;
+     }
+        
+    
 }
