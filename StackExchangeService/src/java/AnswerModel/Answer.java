@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="Answer")  
 public class Answer {
     
-    @XmlElement(name= "id", required = true)
+    @XmlElement(name= "id_answer", required = true)
     private int id_answer;
     @XmlElement(name= "id_question", required = true)
     private int id_question;
@@ -36,5 +36,13 @@ public class Answer {
     
     public String getContent() {
         return content;
+    }
+    
+    public int getVote() {
+        return vote;
+    }
+    
+    public String getUsername() {
+        return username;
     }
 }
