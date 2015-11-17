@@ -22,8 +22,8 @@
         <hr class='line'>
         <form name="loginForm" action="" onsubmit="" method="POST">
             <input type="hidden" name="question_id">
-            <input type="text" class='form-text' name="email" placeholder="Email"><br>
-            <input type="text" class='form-text' name="password" placeholder="Password"><br>
+            <input type="text" class='form-text' name="email" placeholder="Email" required><br>
+            <input type="password" class='form-text' name="password" placeholder="Password" required><br>
             <button class='button-post' type='submit'> Register </button>
         </form>
     </body>
