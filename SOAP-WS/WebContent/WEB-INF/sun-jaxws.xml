@@ -10,4 +10,7 @@
 	<endpoint name="user"
 		implementation="org.tusiri.ws.user.User"
 		url-pattern="/user" />
+	<endpoint name="answer"
+		implementation="org.tusiri.ws.answer.Answer"
+		url-pattern="/answer" />
 </endpoints>
