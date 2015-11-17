@@ -51,7 +51,7 @@ public class StackExchange {
                             result.getString("topic"),
                             result.getString("content"),
                             result.getInt("votes"),
-                            result.getString("date")
+                            result.getString("timestamp")
                         );
                 }
             }

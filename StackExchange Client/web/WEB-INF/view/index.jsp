@@ -36,7 +36,7 @@
                 <h3 class="topic"><a class="topic" href="question?id=<c:out value="${question.id}"/>" title="<c:out value="${question.topic}"/>"><c:out value="${question.topic}"/></a></h3>
                 <p title="<c:out value="${question.content}"/>"><c:out value="${question.content}"/></p><br>
                 <div class="timestamp">
-                    asked by <a href="mailto:<c:out value="${askers[question.id].email}"/>" target="_blank"><c:out value="${askers[question.id].name}"/></a> at <c:out value="${question.timestamp}"/> | <a class="edit" href="ask?id<c:out value="${question.id}"/>">edit</a> | <a class="delete" href="#" onclick="deleteQuestion(<c:out value="${question.id}"/>)">delete</a>
+                    asked by <a href="mailto:<c:out value="${askers[question.id].email}"/>" target="_blank"><c:out value="${askers[question.id].name}"/></a> at <c:out value="${question.timestamp}"/> | <a class="edit" href="ask?id=<c:out value="${question.id}"/>">edit</a> | <a class="delete" href="#" onclick="deleteQuestion(<c:out value="${question.id}"/>)">delete</a>
                 </div>
             </div>
         </div>

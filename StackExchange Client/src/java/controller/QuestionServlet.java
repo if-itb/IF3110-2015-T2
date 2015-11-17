@@ -7,16 +7,10 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,11 +21,9 @@ import service.*;
  *
  * @author visat
  */
-@WebServlet(name = "RootServlet", urlPatterns = {""})
-public class RootServlet extends HttpServlet {
+public class QuestionServlet extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
-    private StackExchange_Service service;    
-    
+    private StackExchange_Service service;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,19 +34,8 @@ public class RootServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {        
-        StackExchange port = service.getStackExchangePort();                
-        List<Question> questions = port.getQuestions();        
-        Map<Integer, Integer> answers = new HashMap<>();
-        Map<Integer, User> askers = new HashMap<>();
-        for (Question question: port.getQuestions()) {            
-            answers.put(question.getId(), port.getAnswers(question.getId()).size());
-            askers.put(question.getId(), port.getUser(question.getIdUser()));
-        }                        
-        request.setAttribute("questions", questions);
-        request.setAttribute("answers", answers);
-        request.setAttribute("askers", askers);
-        request.getRequestDispatcher("WEB-INF/view/index.jsp").forward(request, response);        
+            throws ServletException, IOException {
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -69,7 +50,29 @@ public class RootServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        StackExchange port = service.getStackExchangePort();        
+        String paramId = request.getParameter("id");
+        Question question = null;
+        if (paramId != null) {
+            try {                
+                question = port.getQuestion(Integer.parseInt(paramId));
+            }
+            catch (NumberFormatException ex) {                
+            }
+        }                
+        if (question != null) {
+            request.setAttribute("question", question);
+            request.setAttribute("asker", port.getUser(question.getIdUser()));
+            List<Answer> answers = port.getAnswers(question.getId());
+            Map<Integer, User> answerers = new HashMap<>();
+            for (Answer answer: answers)
+                answerers.put(answer.getId(), port.getUser(answer.getIdUser()));
+            request.setAttribute("answers", answers);
+            request.setAttribute("answerers", answerers);            
+            request.getRequestDispatcher("WEB-INF/view/question.jsp").forward(request, response);
+        }
+        else
+            response.sendRedirect(request.getContextPath());
     }
 
     /**
@@ -95,5 +98,5 @@ public class RootServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-   
+
 }
