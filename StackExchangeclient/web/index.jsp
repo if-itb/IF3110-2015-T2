@@ -16,7 +16,7 @@
     <div class="container">
       <h1 class="text-center"><a href="/StackExchangeclient">OVERFLOW48</a></h1>
       
-      <form id="search" action="search.jsp" action="GET" onsubmit="return validateSearch()">
+      <form id="search" action="search.jsp?id=" action="GET" onsubmit="return validateSearch()">
         <table>
         <tr>
           <td width="200%"> <input id="q" placeholder="What are you looking for?" type="text" class="form" name="q"></td>

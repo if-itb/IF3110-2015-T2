@@ -7,6 +7,7 @@ package jaxws;
 
 import java.util.ArrayList;
 import java.sql.ResultSet;
+import javax.jws.WebParam;
 
 /**
  *
@@ -52,9 +53,6 @@ import javax.xml.bind.*; import javax.xml.bind.annotation.*;
   public int getUid(){
       return uid;
   }
-    public String getEmail(){
-      return name;
-  }
   public String getContent(){
       return content;
   }
@@ -73,17 +71,18 @@ import javax.xml.bind.*; import javax.xml.bind.annotation.*;
   public static ArrayList<Question> fetchQuestions(ResultSet rs) {
     ArrayList<Question> ret = new ArrayList<Question>();
     try {
-      DB db = new DB();
+      DB database = new DB();
+      UserWS userws = new UserWS();
       while(rs.next()) {
-        String query = "SELECT COUNT(*) FROM answer WHERE qid = " + rs.getInt("question.id");
-        ResultSet tmp = db.getResultQuery(query);
+        String query = "SELECT COUNT(*) FROM answer WHERE qid=" + rs.getInt("id");
+        ResultSet tmp = database.getResultQuery(query);
         tmp.next();
         int numAnswer = tmp.getInt("COUNT(*)");
+        String name = userws.getName(rs.getInt("uid"));
         tmp.close();
-        
-        ret.add(new Question( rs.getInt("question.id"),                                                                    
-                              rs.getInt("uid"), 
-                              rs.getString("user.name"), 
+
+        ret.add(new Question( rs.getInt("id"),                                                                    
+                              rs.getInt("uid"), name, 
                               rs.getString("topic"),
                               rs.getString("content"),
                               rs.getString("date"),
