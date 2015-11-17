@@ -17,6 +17,7 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import Database.DB;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import javax.jws.Oneway;
 import javax.jws.WebResult;
@@ -37,18 +38,19 @@ public class QuestionWS {
      * Web service operation
      */
     @WebMethod(operationName = "deleteQuestion")
-    public int deleteQuestion(@WebParam(name = "token") String token, @WebParam(name = "id") int id) {
+    public int deleteQuestion(@WebParam(name = "token") String token, @WebParam(name = "id") int id, @WebParam(name = "uid") int uid) {
       Auth auth = new Auth();
       int ret = auth.check(token);
-
+      
       if ( ret == 1 ) {
         try {
             Statement stmt = conn.createStatement();
             String sql;
             
-            sql = "DELETE FROM questions WHERE id = ?";
+            sql = "DELETE FROM questions WHERE id = ? AND id_user = ?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, id);
+            dbStatement.setInt(2, uid);
             
             dbStatement.executeUpdate();
             

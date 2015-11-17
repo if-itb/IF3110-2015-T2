@@ -42,8 +42,9 @@ public class QuestionDelete extends HttpServlet {
         Tools tools = new Tools();
         String access_token = tools.getCookie("access_token", request);
         
-        int id_question = Integer.parseInt(request.getParameter("id_question"));      
-        deleteQuestion(access_token, id_question);
+        int id_question = Integer.parseInt(request.getParameter("id_question"));
+        int id_user = Integer.parseInt(request.getParameter("id_user"));
+        deleteQuestion(access_token, id_question, id_user);
                 
         response.sendRedirect(request.getContextPath() + "/home");
         
@@ -88,11 +89,12 @@ public class QuestionDelete extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int deleteQuestion(java.lang.String token, int id) {
+    private int deleteQuestion(java.lang.String token, int id, int uid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.deleteQuestion(token, id);
+        return port.deleteQuestion(token, id, uid);
     }
+
 
 }

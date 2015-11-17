@@ -136,4 +136,38 @@ public class UserWS {
       return ret;
     }
 
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUserByToken")
+    public User getUserByToken(@WebParam(name = "token") String token) {
+        Auth auth = new Auth();
+        int ret = auth.check(token);
+        User user = null;
+        if (ret == 1) {
+            try {
+                Statement stmt = conn.createStatement();
+                String sql;
+                
+                sql = "SELECT users.id, users.email, users.password, users.name FROM users JOIN access_token ON users.id = access_token.user_id WHERE token = ?";
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1, token);
+                
+                ResultSet rs = dbStatement.executeQuery();
+                
+                if (rs.next()) {
+                    user = new User( rs.getInt("id"),
+                                rs.getString("email"),
+                                rs.getString("password"),
+                                rs.getString("name")
+                                );
+                }
+                
+            } catch(SQLException ex) {
+                Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return user;
+    }
+
 }
