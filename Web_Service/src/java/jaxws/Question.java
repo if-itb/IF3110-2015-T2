@@ -18,14 +18,14 @@ import javax.xml.bind.*; import javax.xml.bind.annotation.*;
   private int id;    
   @XmlElement(name="uid", required=true)   
   private int uid;   
-  @XmlElement(name="username", required=true)   
-  private String username; 
+  @XmlElement(name="name", required=true)   
+  private String name; 
   @XmlElement(name="topic", required=true)   
   private String topic;
   @XmlElement(name="content", required=true)   
   private String content;   
-  @XmlElement(name="datetime", required=true)  
-  private String datetime;   
+  @XmlElement(name="date", required=true)  
+  private String date;   
   @XmlElement(name="vote", required=true)  
   private int vote; 
   @XmlElement(name="sumAns", required=true)  
@@ -35,14 +35,14 @@ import javax.xml.bind.*; import javax.xml.bind.annotation.*;
       vote = 0;
       sumAns = 0;
   }      
-  public Question(int id, int uid, String username, String topic,
-          String content, String datetime, int vote, int sumAns) {
+  public Question(int id, int uid, String name, String topic,
+          String content, String date, int vote, int sumAns) {
       this.id = id;      
       this.uid = uid; 
-      this.username = username;
+      this.name = name;
       this.topic = topic;
       this.content = content;     
-      this.datetime = datetime;  
+      this.date = date;  
       this.vote = vote;
       this.sumAns = sumAns;
   }    
@@ -53,7 +53,7 @@ import javax.xml.bind.*; import javax.xml.bind.annotation.*;
       return uid;
   }
     public String getEmail(){
-      return username;
+      return name;
   }
   public String getContent(){
       return content;
@@ -61,13 +61,16 @@ import javax.xml.bind.*; import javax.xml.bind.annotation.*;
   public String getTopic(){
       return topic;
   }
-  public String getDatetime(){
-      return datetime;
+  public String getDate(){
+      return date;
   }
   public int getVote(){
       return vote;
   }
-  public ArrayList<Question> fetchQuestions(ResultSet rs) {
+  public int getSumAns(){
+      return sumAns;
+  }
+  public static ArrayList<Question> fetchQuestions(ResultSet rs) {
     ArrayList<Question> ret = new ArrayList<Question>();
     try {
       DB db = new DB();
@@ -80,10 +83,10 @@ import javax.xml.bind.*; import javax.xml.bind.annotation.*;
         
         ret.add(new Question( rs.getInt("question.id"),                                                                    
                               rs.getInt("uid"), 
-                              rs.getString("user.username"), 
+                              rs.getString("user.name"), 
                               rs.getString("topic"),
                               rs.getString("content"),
-                              rs.getString("datetime"),
+                              rs.getString("date"),
                               rs.getInt("vote"), numAnswer
         ));   
       }

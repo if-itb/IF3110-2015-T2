@@ -19,11 +19,9 @@ import javax.jws.WebResult;
 @WebService(serviceName = "QuestionWS")
 public class QuestionWS {
     DB database;
-    Question model;
     
     public QuestionWS() throws Throwable {
       database = new DB();
-      model = new Question();
     }
     /**
      * Web service operation
@@ -34,9 +32,9 @@ public class QuestionWS {
     @WebResult(name="Questions")
     public ArrayList<Question> getQuestion() {
       ArrayList<Question> questions = new ArrayList<>();  
-      String query = "SELECT * FROM question";
+      String query = "SELECT * FROM question JOIN user WHERE uid = user.id";
       ResultSet rs = database.getResultQuery(query);
-      return model.fetchQuestions(rs);
+      return Question.fetchQuestions(rs);
     }
     
     /**
@@ -48,9 +46,9 @@ public class QuestionWS {
     @WebResult(name="Question")
     public ArrayList<Question> getQuestionByQID(@WebParam(name = "qid") int qid) {
       ArrayList<Question> questions = new ArrayList<>();  
-      String query = "SELECT * FROM question WHERE id = " + qid;
+      String query = "SELECT * FROM question JOIN user WHERE uid = user.id AND id = " + qid;
       ResultSet rs = database.getResultQuery(query);
-      return model.fetchQuestions(rs);
+      return Question.fetchQuestions(rs);
     }
     
     /**
@@ -62,7 +60,7 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "insertQuestion")
     @WebResult(name="saveQuestion")
-    public void insertQuestion(@WebParam(name = "uid") int uid,@WebParam(name = "topic") int topic,@WebParam(name = "content") String content) {
+    public void insertQuestion(@WebParam(name = "uid") int uid,@WebParam(name = "topic") String topic,@WebParam(name = "content") String content) {
       String query = "INSERT INTO `question` (`uid`, `topic`, `content`) VALUES ('"+uid+"','"+topic+"', '"+content+")";
       database.executeQuery(query);
     }

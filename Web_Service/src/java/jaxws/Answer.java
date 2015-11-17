@@ -21,12 +21,12 @@ import javax.xml.bind.annotation.*;
   private int qid;   
   @XmlElement(name="uid", required=true)   
   private int uid;   
-  @XmlElement(name="username", required=true)   
-  private String username; 
+  @XmlElement(name="name", required=true)   
+  private String name; 
   @XmlElement(name="content", required=true)   
   private String content;   
-  @XmlElement(name="datetime", required=true)  
-  private String datetime;  
+  @XmlElement(name="date", required=true)  
+  private String date;  
   @XmlElement(name="vote", required=true)  
   private int vote;
   public Answer() { 
@@ -34,14 +34,14 @@ import javax.xml.bind.annotation.*;
       qid = 0;  
       vote = 0;
   }      
-  public Answer(int id, int qid, int uid, String username, 
-          String content, String datetime, int vote) {
+  public Answer(int id, int qid, int uid, String name, 
+          String content, String date, int vote) {
       this.id = id;     
       this.qid = qid;     
       this.uid = uid; 
-      this.username = username;
+      this.name = name;
       this.content = content;     
-      this.datetime = datetime;  
+      this.date = date;  
       this.vote = vote;
   }    
   public int getId(){
@@ -54,13 +54,13 @@ import javax.xml.bind.annotation.*;
       return uid;
   }
   public String getEmail(){
-      return username;
+      return name;
   }
   public String getContent(){
       return content;
   }
-  public String getDatetime(){
-      return datetime;
+  public String getDate(){
+      return date;
   }
   public int getVote(){
       return vote;
@@ -74,7 +74,7 @@ import javax.xml.bind.annotation.*;
         ret.add(new Answer( rs.getInt("answer.id"),                                  
                 rs.getInt("qid"),                                  
                 rs.getInt("uid"), 
-                rs.getString("user.username"), 
+                rs.getString("user.name"), 
                 rs.getString("content"),                                  
                 rs.getString("date"),
                 rs.getInt("vote")

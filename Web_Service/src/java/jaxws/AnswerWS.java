@@ -31,7 +31,7 @@ public class AnswerWS {
     @WebResult(name="Answer")
     public ArrayList<Answer> getAnswerByQID(@WebParam(name = "qid") int qid) {
       ArrayList<Answer> answers = new ArrayList<>();  
-      String query = "SELECT * FROM answer WHERE qid="+qid;
+      String query = "SELECT * FROM answer JOIN user WHERE uid = user.id AND qid="+qid;
       ResultSet rs = database.getResultQuery(query);
       return model.fetchAnswers(rs);
     }
