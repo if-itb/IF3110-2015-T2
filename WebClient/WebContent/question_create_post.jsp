@@ -50,6 +50,7 @@ if(result>0){//success
 </p></li>
 </ul>
 </body>
+<<<<<<< HEAD
 </html>
 
 
@@ -57,3 +58,6 @@ if(result>0){//success
 Question q = qservice.getQuestionPort();
 int result = q.createQuestion(access_token, request.getParameter("topic"), request.getParameter("content"));
   -->
+=======
+</html>
+>>>>>>> origin/master

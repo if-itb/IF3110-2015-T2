@@ -25,6 +25,12 @@ import org.json.simple.parser.ParseException;
 import org.tusiri.ws.db.DBConnection;
 
 
+
+import java.sql.*;
+
+import org.tusiri.ws.db.DBConnection;
+
+
 //This statement means that class "Bookstore.java" is the root-element of our example
 
 @WebService(endpointInterface = "org.tusiri.ws.question.Question")
@@ -72,11 +78,18 @@ public class Question {
 				if(isTokenValid){
 					//Masukkan ke database
 					DBConnection dbc = new DBConnection();
-					Statement stmt = dbc.getDBStmt();
+					PreparedStatement stmt = dbc.getDBStmt();
+					Connection conn = dbc.getConn();
 					try{
+						/*String sql = "INSERT INTO question(id_user,content,question_date,topic,num_vote)"
+								+ "VALUES("+id_user+",'"+content+"',NOW(),'"+title+"',0)";*/
 						String sql = "INSERT INTO question(id_user,content,question_date,topic,num_vote)"
-								+ "VALUES("+id_user+",'"+content+"',NOW(),'"+title+"',0)";
-						q_id = stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+								+ "VALUES(?,?,NOW(),?,0)";
+						stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+						stmt.setInt(1, id_user);
+						stmt.setString(2,content);
+						stmt.setString(3,title);
+						stmt.executeUpdate();
 						ResultSet rs = stmt.getGeneratedKeys();
 			            while (rs.next()) {
 			               q_id = rs.getInt(1);
@@ -106,9 +119,15 @@ public class Question {
 	public ArrayList<QuestionItem> getQuestionList() {
 		ArrayList<QuestionItem> questionItemList = new ArrayList();
 		DBConnection dbc = new DBConnection();
-		Statement stmt = dbc.getDBStmt();
+		PreparedStatement stmt = dbc.getDBStmt();
+		Connection conn = dbc.getConn();
 		try{
+<<<<<<< HEAD
 			String sql = "SELECT * FROM question NATURAL JOIN user";
+=======
+			String sql = "SELECT * FROM question";
+			stmt = conn.prepareStatement(sql);
+>>>>>>> origin/master
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			// Extract data from result set
