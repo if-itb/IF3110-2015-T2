@@ -212,4 +212,118 @@ public class QuestionWS {
         
         return count;
     }
+    @WebMethod(operationName = "voteUp")
+    public int voteUp(@WebParam(name = "qid") int qid,@WebParam(name = "username") String username ){
+        int count=0;
+        conn = db.connect();
+        try {
+            Statement stmt;
+            stmt = conn.createStatement();
+            
+            String sql, sql_select;
+            sql="UPDATE question SET vote = vote+ 1 WHERE id_question = ? ";
+            sql_select = "SELECT vote FROM question where id_question = ?";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, qid);
+            dbStatement.execute();
+            
+            sql="INSERT INTO vote_question (id_question, username) VALUES (?,?)";
+            PreparedStatement dbStatement2 = conn.prepareStatement(sql);
+            dbStatement2.setInt(1, qid);
+            dbStatement2.setString(2, username);
+            dbStatement2.execute();
+            
+            PreparedStatement dbStatementSelect = conn.prepareStatement(sql_select);
+            dbStatementSelect.setInt(1, qid);
+            
+            ResultSet rs;
+            rs = dbStatementSelect.executeQuery();
+            
+            /* Get every data returned by SQLquery */
+            while(rs.next()) {
+                count = rs.getInt("vote");
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        }
+        catch(SQLException ex) {
+           Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex); 
+        }
+        return count;
+    }
+    @WebMethod(operationName = "voteDown")
+    public int voteDown(@WebParam(name = "qid") int qid,@WebParam(name = "username") String username ){
+        int count=0;
+        conn = db.connect();
+        try {
+            Statement stmt;
+            stmt = conn.createStatement();
+            
+            String sql, sql_select;
+            sql="UPDATE question SET vote = vote- 1 WHERE id_question = ? ";
+            sql_select = "SELECT vote FROM question where id_question = ?";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, qid);
+            dbStatement.execute();
+            
+            sql="INSERT INTO vote_question (id_question, username) VALUES (?,?)";
+            PreparedStatement dbStatement2 = conn.prepareStatement(sql);
+            dbStatement2.setInt(1, qid);
+            dbStatement2.setString(2, username);
+            dbStatement2.execute();
+            
+            PreparedStatement dbStatementSelect = conn.prepareStatement(sql_select);
+            dbStatementSelect.setInt(1, qid);
+            
+            ResultSet rs;
+            rs = dbStatementSelect.executeQuery();
+            
+            /* Get every data returned by SQLquery */
+            while(rs.next()) {
+                count = rs.getInt("vote");
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        }
+        catch(SQLException ex) {
+           Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex); 
+        }
+        return count;
+    }
+    
+    @WebMethod(operationName = "deleteQuestionById")
+    public Boolean deleteQuestionById(@WebParam(name = "qid") int qid){
+        int count=0;
+        conn = db.connect();
+        Boolean status= true;
+         try {
+            Statement stmt;
+            stmt = conn.createStatement();
+            
+            String sqlAns, sqlQ;
+            sqlAns="DELETE FROM answer WHERE id_question = ? ";
+            sqlQ = "DELETE FROM question where id_question = ?";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sqlAns);
+            dbStatement.setInt(1, qid);
+            status=dbStatement.execute();
+            
+            
+            PreparedStatement dbStatement2 = conn.prepareStatement(sqlQ);
+            dbStatement2.setInt(1, qid);
+            status=dbStatement2.execute();
+
+            stmt.close();
+            conn.close();
+        }
+        catch(SQLException ex) {
+           Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex); 
+        }
+         return status;
+    }
+    
 }
