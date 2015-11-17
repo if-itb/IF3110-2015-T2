@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simplestackexchange.service;
+package com.simpleStackExchange.service;
 
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -37,7 +37,13 @@ public abstract class AbstractFacade<T> {
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
     }
-
+    
+    public T findByEmail(String email) {
+        return (T) getEntityManager().createNamedQuery("Registereduser.findByEmail")
+    .setParameter("email", email)
+    .getResultList().get(0);
+    }
+    
     public List<T> findAll() {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));

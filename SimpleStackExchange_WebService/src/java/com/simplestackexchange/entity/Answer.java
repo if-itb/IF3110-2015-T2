@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Answer.findByAid", query = "SELECT a FROM Answer a WHERE a.aid = :aid"),
     @NamedQuery(name = "Answer.findByQid", query = "SELECT a FROM Answer a WHERE a.qid = :qid"),
     @NamedQuery(name = "Answer.findByCountvotes", query = "SELECT a FROM Answer a WHERE a.countvotes = :countvotes"),
-    @NamedQuery(name = "Answer.findByDatetime", query = "SELECT a FROM Answer a WHERE a.datetime = :datetime")})
+    @NamedQuery(name = "Answer.findByDatetime", query = "SELECT a FROM Answer a WHERE a.datetime = :datetime"),
+    @NamedQuery(name = "Answer.findByUid", query = "SELECT a FROM Answer a WHERE a.uid = :uid")})
 public class Answer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,6 +56,8 @@ public class Answer implements Serializable {
     @Column(name = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datetime;
+    @Column(name = "UID")
+    private Integer uid;
 
     public Answer() {
     }
@@ -106,6 +109,14 @@ public class Answer implements Serializable {
 
     public void setDatetime(Date datetime) {
         this.datetime = datetime;
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
     @Override

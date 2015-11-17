@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simplestackexchange.entity;
+package com.simpleStackExchange.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -57,6 +57,14 @@ public class Registereduser implements Serializable {
     private Date datetime;
 
     public Registereduser() {
+    }
+    
+    public Registereduser(Registereduser user) {
+        this.uid = user.uid;
+        this.name = user.name;
+        this.datetime = user.datetime;
+        this.email = user.email;
+        this.password = user.password;        
     }
 
     public Registereduser(Integer uid) {
@@ -125,7 +133,7 @@ public class Registereduser implements Serializable {
 
     @Override
     public String toString() {
-        return "com.simplestackexchange.entity.Registereduser[ uid=" + uid + " ]";
+        return "com.simpleStackExchange.entity.Registereduser[ uid=" + uid + " ]";
     }
     
 }
