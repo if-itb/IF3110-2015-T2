@@ -55,7 +55,10 @@
                         Asked by
                         <%= question_asker %> |
                         <a href="${pageContext.request.contextPath}/edit.php?id=<%= question.getId() %>" class="question-edit">Edit</a> |
-                        <a href="${pageContext.request.contextPath}/delete.php?id=<%= question.getId() %>" class="question-delete">Delete</a>
+                        <form method="POST" action="deletequestion" id="deleteForm_question<%= question.getId() %>" class="delete-form">
+                            <input type="hidden" value="<%= question.getId() %>" name="id_question">
+                            <input type="submit" value="Delete" class="form-delete">
+                        </form>
                     </span>
                 </div>
 
@@ -97,10 +100,7 @@
 
                 <div class="answer-meta">
                     <span>
-                        Answered by
-                        Name |
-                        <a href="edit.php" class="question-edit">Edit</a> |
-                        <a href="" class="question-delete">Delete</a>
+                        Answered by Name
                     </span>
                 </div>
 

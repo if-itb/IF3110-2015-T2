@@ -167,7 +167,7 @@ public class AnswerWS {
             Statement stmt = conn.createStatement();
             String sql;
 
-            sql = "SELECT COUNT(value) vote_count FROM `vote_answer` WHERE id_answer = ?";
+            sql = "SELECT SUM(value) vote_count FROM `vote_answer` WHERE id_answer = ?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, aid);
 

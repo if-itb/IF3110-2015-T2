@@ -284,7 +284,7 @@ public class QuestionWS {
             Statement stmt = conn.createStatement();
             String sql;
 
-            sql = "SELECT COUNT(value) vote_count FROM `vote_question` WHERE id_question = ?";
+            sql = "SELECT SUM(value) vote_count FROM `vote_question` WHERE id_question = ?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, qid);
 

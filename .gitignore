@@ -1,4 +1,6 @@
 /StackExchange Client/nbproject/private/
+/StackExchange Client/web/WEB-INF/wsdl
+/StackExchange Client/src/conf/xml-resources
 /StackExchange WS/nbproject/private/
 /Identity Service/nbproject/private/
 /Identity Service/build/
