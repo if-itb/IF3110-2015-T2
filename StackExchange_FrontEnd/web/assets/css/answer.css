@@ -1,217 +1,114 @@
-@font-face {
-    font-family: "Cardo";
-    src: url(../fonts/Cardo/Cardo-Regular.ttf);
-}
-@font-face {
-    font-family: "Cardo";
-    src: url(../fonts/Cardo/Cardo-Bold.ttf);
-    font-weight: bold;
-}
-@font-face {
-    font-family: "Cardo";
-    src: url(../fonts/Cardo/Cardo-Italic.ttf);
-    font-style: italic, oblique;
-}
-
 body{
-    padding: 30px 200px;
-    font-family: 'Cardo', serif;
-}
-header{
-    font-weight: bold;
-    text-align: center;
-    text-transform: uppercase;
-    margin-bottom: 50px;
+    background: #fafafa;
 }
 
-/* Anchor */
-a{
-    text-decoration: none;
-}
-a:hover{
-    text-decoration: underline;
+@font-face {
+    font-family: "LakkyReddy";
+    src: url('LakkiReddy-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 
-.btn{
-    border: 2px solid #000;
-    text-decoration: none;
-    color: #000;
-    padding: 5px 10px;
+#logo-container{
+    padding: 0 1em;
+    font-family: "LakkyReddy";
+    transition: all .2s ease-out;
+    font-size: 2.1rem;
 }
-#answer-form input, #answer-form textarea{
-    border: 0.5px solid #000;
+#logo-container:hover{
+    color:#BBDEFB;
 }
 
-/* Questions Section */
-#question table{
-    width: 100%;
-    border-collapse: collapse;
+.btn,
+.btn-floating{
+    transition: all .2s ease-out;
 }
-#question table th{
-    text-align: left;
+.btn:hover,
+.btn-floating:hover{
+    transform: scale(1.1) !important;
 }
-#question table th{
-    border-bottom: 1px solid #000;    
+
+.question-close {
+    opacity: 0;
+    line-height: 2rem;
+    width: 2rem;
+    height: 2rem;
+    position:absolute;
+    right:-0.5rem;
+    top:-10px;
 }
-#question table tr td:first-child{
-    padding-top: 35px;
-    vertical-align: top;
+.question-close:hover{
+    transform: scale(1.15) !important;
 }
-#question table tr td{
-    padding: 15px 5px;
+.question-close i{
+    font-size: 2rem;
+    line-height: 2rem;
 }
-#question table .votes{
-    text-align: center;
-    font-weight: bold;
+
+input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #2196F3;
+    box-shadow: 0 1px 0 0 #2196F3;
 }
-#question table .question-arrow-up, #question table .question-arrow-down {
-    margin: auto;
-    width: 0; 
-    height: 0; 
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
+input[type=text]:focus:not([readonly]) + label, input[type=password]:focus:not([readonly]) + label, input[type=email]:focus:not([readonly]) + label, input[type=url]:focus:not([readonly]) + label, input[type=time]:focus:not([readonly]) + label, input[type=date]:focus:not([readonly]) + label, input[type=datetime-local]:focus:not([readonly]) + label, input[type=tel]:focus:not([readonly]) + label, input[type=number]:focus:not([readonly]) + label, input[type=search]:focus:not([readonly]) + label, textarea.materialize-textarea:focus:not([readonly]) + label {
+    color: #2196F3 !important;
 }
-#question table .question-arrow-up:hover, #question table .question-arrow-down:hover{
+
+section#question{
+    margin: 20px auto;
+}
+section#question .card:hover,
+section#answer .card:hover{
     cursor: pointer;
 }
-#question table .question-arrow-up:hover{
-    border-left: 13px solid transparent;
-    border-right: 13px solid transparent;
-    border-bottom: 13px solid #000;
+section#question .card:hover .question-close{
+    opacity: 1;
 }
-#question table .question-arrow-down:hover{
-    border-left: 13px solid transparent;
-    border-right: 13px solid transparent;
-    border-top: 13px solid #000;
+section#question .card,
+section#answer .card{
+    padding-bottom: 60px;
 }
-#question table .question-arrow-up {
-    border-bottom: 10px solid #000;
-    margin-bottom: 7px;
+section#question .card .fixed-action-btn,
+section#answer .card .fixed-action-btn{
+    bottom: 1em;
+    right: -60px;
+    position:absolute;
 }
-#question table .question-arrow-down {
-    border-top: 10px solid #000;
-    margin-top: 5px;
-}
-#question table .action{
-    text-align: right;
-    margin-top: 50px;
-    font-weight: bold;
-}
-#question .edit{
-    color:#FFC14D;
-}
-#question .delete{
-    color:#ED3B53;
+section#question .card .fixed-action-btn > .btn-floating,
+section#answer .card .fixed-action-btn > .btn-floating{
+    visibility: hidden;
 }
 
-/* Error Messages */
-#error-message{
-    margin-top: 20px;
-    color:#fff;
-    padding: 15px 10px;
-    font-weight: bold;
-    background-color: rgba(255,89,89,0.7);
-    border-radius: 4px;
-    margin-bottom: 20px;
+.card-content .input-field{
+    margin-top: 0;
+}
+/*.input-content{*/
+/*white-space: pre;*/
+/*}*/
+
+.thumb-btn-wrapper{
+    position:relative;
 }
 
-/* Answers Section */
-#answer table{
-    width: 100%;
-    border-collapse: collapse;
-}
-#answer table th{
-    text-align: left;
-}
-#answer table th, #answer table tr td{
-    border-bottom: 1px solid #000;
-}
-#answer table tr td:first-child{
-    padding-top: 35px;
-    vertical-align: top;
-}
-#answer table tr td{
-    padding: 15px 5px;
-}
-#answer table .votes{
-    text-align: center;
-    font-weight: bold;
-}
-#answer table .answer-arrow-up, #answer table .answer-arrow-down {
-    margin: auto;
-    width: 0; 
-    height: 0; 
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-}
-#answer table .answer-arrow-up:hover, #answer table .answer-arrow-down:hover{
-    cursor: pointer;
-}
-#answer table .answer-arrow-up:hover{
-    border-left: 13px solid transparent;
-    border-right: 13px solid transparent;
-    border-bottom: 13px solid #000;
-}
-#answer table .answer-arrow-down:hover{
-    border-left: 13px solid transparent;
-    border-right: 13px solid transparent;
-    border-top: 13px solid #000;
-}
-#answer table .answer-arrow-up {
-    border-bottom: 10px solid #000;
-    margin-bottom: 7px;
-}
-#answer table .answer-arrow-down {
-    border-top: 10px solid #000;
-    margin-top: 5px;
-}
-#answer table .action{
-    text-align: right;
-    margin-top: 50px;
-    font-weight: bold;
-}
-#answer .name{
-    color:#B496FF;
-}
-#answer .edit{
-    color:#FFC14D;
-}
-#answer .delete{
-    color:#ED3B53;
+.thumbs-num{
+    position:absolute;
+    top:-1.1em;
+    left:1.6em;
+    border-radius: 0;
+    padding:4px 6px;
+    overflow: visible;
+    width: auto;
+    height: auto;
+    line-height: 1;
 }
 
-/* Answer Form */
-#your-answer .title{
-    margin-top: 20px;
-    margin-bottom: 20px;
+section#question .card .fixed-action-btn.horizontal ul li:not(:last-child),
+section#answer .card .fixed-action-btn.horizontal ul li{
+    margin: 15px 45px 0 0;
 }
-#answer-form input{
-    height: 20px;
+
+#question-title{
+    width:90%;
+    margin:0 auto;
 }
-#answer-form input, #answer-form textarea{
-    border: 2px solid #000;
-    width: 90%;
-    display: block;
-    margin: 10px auto;
-    padding: 5px 10px;
-}
-#answer-form textarea{
-    padding: 10px 10px;
-}
-#answer-form textarea{
-    resize:none;
-}
-#answer-form div:last-child{
-    width: 100%;
-    margin-top: 20px;
-}
-#answer-form div:last-child > div{
-    display: block;
-    margin: 10px auto;
-    width: 90%;
-    text-align: right;
-}
-#answer-form div .post-btn{
-    position: relative;
-    left:12px;
+#answer-title{
+    width:90%;
+    margin:0 auto;
 }
