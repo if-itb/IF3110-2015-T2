@@ -36,12 +36,25 @@
         <servlet-class>Question.QuestionAsk</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< Updated upstream
         <servlet-name>UserNew</servlet-name>
         <servlet-class>User.UserNew</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserRegister</servlet-name>
         <servlet-class>User.UserRegister</servlet-class>
+=======
+        <servlet-name>Login</servlet-name>
+        <servlet-class>User.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Auth</servlet-name>
+        <servlet-class>User.Auth</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>User.Logout</servlet-class>
+>>>>>>> Stashed changes
     </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
@@ -76,12 +89,25 @@
         <url-pattern>/ask</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< Updated upstream
         <servlet-name>UserNew</servlet-name>
         <url-pattern>/newuser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserRegister</servlet-name>
         <url-pattern>/register</url-pattern>
+=======
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Auth</servlet-name>
+        <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+>>>>>>> Stashed changes
     </servlet-mapping>
     <session-config>
         <session-timeout>
