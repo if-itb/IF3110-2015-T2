@@ -32,7 +32,7 @@ CREATE TABLE `answer` (
   PRIMARY KEY (`num_answer`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,34 @@ CREATE TABLE `answer` (
 
 LOCK TABLES `answer` WRITE;
 /*!40000 ALTER TABLE `answer` DISABLE KEYS */;
+INSERT INTO `answer` VALUES (1,49,1,'JKT48','2015-11-17 22:01:27',0);
 /*!40000 ALTER TABLE `answer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `answer_vote`
+--
+
+DROP TABLE IF EXISTS `answer_vote`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `answer_vote` (
+  `id_answer` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  KEY `id_answer` (`id_answer`),
+  KEY `id_user` (`id_user`),
+  CONSTRAINT `answer_vote_ibfk_1` FOREIGN KEY (`id_answer`) REFERENCES `answer` (`num_answer`),
+  CONSTRAINT `answer_vote_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `answer_vote`
+--
+
+LOCK TABLES `answer_vote` WRITE;
+/*!40000 ALTER TABLE `answer_vote` DISABLE KEYS */;
+/*!40000 ALTER TABLE `answer_vote` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -70,8 +97,34 @@ CREATE TABLE `question` (
 
 LOCK TABLES `question` WRITE;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
-INSERT INTO `question` VALUES (47,1,'Apakah CherryBelle itu unyu? Kalo iya kenapa?','2015-11-12 19:31:24','Keunyuan CherryBelle',0),(49,2,'Pilih CherryBelle atau JKT48?','2015-11-12 20:08:05','JKT48 vs CherryBelle',0),(50,1,'Gila','2015-11-16 04:42:44','Topik1',0),(51,1,'aaaadsfdas','2015-11-16 12:37:18','Aasawarw',0),(52,1,'aaaadsfdas','2015-11-16 12:38:44','Aasawarw',0),(53,1,'Kon','2015-11-16 14:19:14','Asu',0);
+INSERT INTO `question` VALUES (47,1,'Apakah CherryBelle itu unyu? Kalo iya kenapa?','2015-11-12 19:31:24','Keunyuan CherryBelle',0),(49,2,'Pilih CherryBelle atau JKT48?','2015-11-12 20:08:05','JKT48 vs CherryBelle',0),(50,1,'Gila','2015-11-16 04:42:44','Topik1',0),(51,1,'aaaadsfdas','2015-11-16 12:37:18','Aasawarw',0),(52,1,'halo apa kabar?','2015-11-16 12:38:44','kabar',0);
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `question_vote`
+--
+
+DROP TABLE IF EXISTS `question_vote`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `question_vote` (
+  `id_question` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  KEY `id_question` (`id_question`),
+  KEY `id_user` (`id_user`),
+  CONSTRAINT `question_vote_ibfk_1` FOREIGN KEY (`id_question`) REFERENCES `question` (`id_question`),
+  CONSTRAINT `question_vote_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `question_vote`
+--
+
+LOCK TABLES `question_vote` WRITE;
+/*!40000 ALTER TABLE `question_vote` DISABLE KEYS */;
+/*!40000 ALTER TABLE `question_vote` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -139,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-17 20:53:54
+-- Dump completed on 2015-11-18  6:04:41
