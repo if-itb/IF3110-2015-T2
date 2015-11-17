@@ -11,19 +11,19 @@ import javax.jws.soap.SOAPBinding.Style;
 @SOAPBinding(style = Style.RPC)
 public interface WebServiceInterface {
     @WebMethod
-    void register();
+    int register(String name, String email, String password);
     @WebMethod
-    void postQuestion();
+    void postQuestion(String token);
     @WebMethod
-    void postAnswer();
+    void postAnswer(int qid, String token);
     @WebMethod
-    void deleteQuestion();
+    void deleteQuestion(int qid, String token);
     @WebMethod
-    String[][] getQuestion();
+    String[] getQuestion(int qid);
     @WebMethod
     String[][] getQuestionList();
     @WebMethod
-    String[][] getAnswerList();
+    String[][] getAnswerList(int qid);
     @WebMethod
-    String printMessage();
+    void vote(int qid, int direction);
 }
