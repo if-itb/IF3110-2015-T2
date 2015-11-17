@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author FiqieUlya
  */
-@XmlRootElement(name="Answer") 
+@XmlRootElement(name="Question") 
 public class Question {
     @XmlElement(name="id_question", required=true)
     private int id_question;
