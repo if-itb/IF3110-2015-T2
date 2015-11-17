@@ -11,6 +11,33 @@
 <jsp:useBean id="answer_counts" type="java.util.HashMap<Integer, Integer>" scope="request" /> 
 <jsp:useBean id="question_asker" type="java.util.HashMap<Integer, String>" scope="request" /> 
 
+    <%
+        Cookie[] cookies = null;
+        cookies = request.getCookies();
+        String token = null;
+        if (cookies != null) {
+            for (Cookie cookie: cookies) {
+                if (cookie.getName().equals("access_token")) {
+                    token = cookie.getValue();
+                }
+            }
+        }
+    %>
+    <%-- start web service invocation --%>
+    <%
+    UserWS.User user = null;
+    try {
+	UserWS.UserWS_Service service = new UserWS.UserWS_Service();
+	UserWS.UserWS port = service.getUserWSPort();
+	
+	user = port.getUserByToken(token);
+	
+    } catch (Exception ex) {
+	// TODO handle custom exceptions here
+    }
+    %>
+    <%-- end web service invocation --%>
+    
     <form action="" method="GET" id="searchForm">
         <input type="text" placeholder="Search...">
         <input type="submit" value="Search">
@@ -60,6 +87,7 @@
                             <a href="${pageContext.request.contextPath}/edit.php?id=<%= question.getId() %>" class="question-edit">Edit</a> |
                             <form method="POST" action="deletequestion" id="deleteForm_question<%= question.getId() %>" class="delete-form">
                                 <input type="hidden" value="<%= question.getId() %>" name="id_question">
+                                <input type="hidden" value="<%= user != null ? user.getId() : 0 %>" name="id_user">
                                 <input type="submit" value="Delete" class="form-delete">
                             </form>
                         </span>
