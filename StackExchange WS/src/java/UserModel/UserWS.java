@@ -5,6 +5,7 @@
  */
 package UserModel;
 
+import Auth.Auth;
 import Database.DB;
 import QuestionModel.QuestionWS;
 import java.sql.Connection;
@@ -106,4 +107,33 @@ public class UserWS {
         }
         return res;
     }
+    
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "logoutUser")
+    public int logoutUser(@WebParam(name = "token") String token) {
+      Auth auth = new Auth();
+      int ret = auth.check(token);
+
+      if ( ret == 1 ) {
+        try {
+            Statement stmt = conn.createStatement();
+            String sql;
+            
+            sql = "DELETE FROM access_token WHERE token = ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1, token);
+            
+            dbStatement.executeUpdate();
+            
+            stmt.close();
+        } catch(SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      }
+      
+      return ret;
+    }
+
 }

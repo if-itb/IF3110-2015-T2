@@ -5,18 +5,24 @@
  */
 package User;
 
+import Tools.Tools;
+import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.WebServiceRef;
 
 /**
  *
  * @author Asus
  */
 public class Logout extends HttpServlet {
+  @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/UserWS.wsdl")
+  private UserWS_Service service;
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,6 +35,7 @@ public class Logout extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+    
     
     
   }
@@ -46,6 +53,15 @@ public class Logout extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     processRequest(request, response);
+    
+    Tools tools = new Tools();
+    logoutUser(tools.getCookie("access_token", request));
+    
+    Cookie ck = new Cookie("access_token", "youvebeenlogout");
+    response.addCookie(ck);
+    
+    response.sendRedirect(request.getContextPath() + "/home");
+    
   }
 
   /**
@@ -71,5 +87,12 @@ public class Logout extends HttpServlet {
   public String getServletInfo() {
     return "Short description";
   }// </editor-fold>
+
+  private int logoutUser(java.lang.String token) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    UserWS.UserWS port = service.getUserWSPort();
+    return port.logoutUser(token);
+  }
 
 }

@@ -22,7 +22,7 @@ public class DB {
 
   //  Database credentials
   static final String USER = "root";
-  static final String PASS = "";
+  static final String PASS = "default";
   
   public static Connection connect() {
     Connection ret = null;
