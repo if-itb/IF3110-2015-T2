@@ -26,7 +26,7 @@ CREATE TABLE `answer` (
   `a_id` int(7) NOT NULL AUTO_INCREMENT,
   `u_id` int(7) NOT NULL,
   `content` text NOT NULL,
-  `vote` int(10) NOT NULL,
+  `vote` int(10) NOT NULL DEFAULT '0',
   `date_created` datetime NOT NULL,
   `q_id` int(10) NOT NULL,
   PRIMARY KEY (`a_id`),
