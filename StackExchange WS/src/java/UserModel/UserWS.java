@@ -8,10 +8,8 @@ package UserModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.jws.Oneway;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -22,15 +20,17 @@ import javax.jws.WebParam;
  */
 @WebService(serviceName = "UserWS")
 public class UserWS {
+
     /**
      * Web service operation
+     *
      * @param nama
      * @param email
      * @param password
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "register")
-    public void register(@WebParam(name = "nama") String nama, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
+    public String register(@WebParam(name = "nama") String nama, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded!");
@@ -41,7 +41,7 @@ public class UserWS {
         String url = "jdbc:mysql://localhost:3306/stackexchange";
         String username = "root";
         String pswd = "";
-        
+
         try {
             Connection conn = DriverManager.getConnection(url, username, pswd);
             Statement stmt = conn.createStatement();
@@ -52,7 +52,9 @@ public class UserWS {
             pstmt.setString(3, password);
             int a = pstmt.executeUpdate();
             stmt.close();
-	} catch (SQLException ex) {
+            return "Sukses!";
+        } catch (SQLException ex) {
+            return "Error!";
         }
     }
 }

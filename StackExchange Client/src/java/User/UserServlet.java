@@ -21,7 +21,6 @@ import javax.xml.ws.WebServiceRef;
 public class UserServlet extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/UserWS.wsdl")
     private UserWS_Service service;
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,7 +38,8 @@ public class UserServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UserServlet</title>");            
+            out.println("<title>Servlet UserServlet</title>");
+            out.println("<link rel=\"stylesheet\" href=\"css/main.css\">");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>");
@@ -48,8 +48,12 @@ public class UserServlet extends HttpServlet {
             String nama = request.getParameter("nama");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            register(nama,email,password);
-            out.println("<p style=\"font-family:Calibri,color:blue\">Akun dengan nama "+nama+" berhasil diregistrasi</p>");
+            String result = register(nama,email,password);
+            if (result.equals("Sukses!")) {
+                out.println("<p class=\"blue\">Akun dengan nama "+nama+" berhasil diregistrasi</p>");
+            } else {
+                out.println("<p class=\"blue\">Registrasi akun gagal</p>");
+            }
             out.println("</body>");
             out.println("</html>");
         }
@@ -94,11 +98,11 @@ public class UserServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void register(java.lang.String nama, java.lang.String email, java.lang.String password) {
+    private String register(java.lang.String nama, java.lang.String email, java.lang.String password) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         UserWS.UserWS port = service.getUserWSPort();
-        port.register(nama, email, password);
+        return port.register(nama, email, password);
     }
 
 }

@@ -89,8 +89,6 @@
 
         <form name="answerForm" action="" method="post" onsubmit="">
             <input name="qid" type="hidden" value="">
-            <input name="name" class="text" type="text" placeholder="Name"><br>
-            <input name="email" class="text" type="text" placeholder="Email"><br>
             <textarea name="content" id="question" placeholder="Content"></textarea>
             <input class="button" type="submit" value="Post"><br>
         </form>

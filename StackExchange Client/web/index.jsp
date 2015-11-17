@@ -8,7 +8,7 @@
     </head>
     <body>
         <h1>
-            Simple StackExchange <a href="Test">Test</a>
+            Simple StackExchange
         </h1>
         <a class="gold" href="register.jsp">Register</a><br>
         <a class="red" href="login.jsp">Login</a><br>
