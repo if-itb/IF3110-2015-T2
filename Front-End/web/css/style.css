@@ -20,7 +20,7 @@ p {
 }
 
 .parallax-container {
-  min-height: 380px;
+  min-height: 300px;
   line-height: 0;
   height: auto;
   color: rgba(255,255,255,.9);
@@ -73,6 +73,28 @@ footer.page-footer {
 }
 
 /* label focus color */
+.input-field input[type=email]:focus + label {
+  color: #0d47a1;
+}
+
+/* label underline focus color */
+.input-field input[type=email]:focus {
+  border-bottom: 1px solid #0d47a1;
+  box-shadow: 0 1px 0 0 #0d47a1;
+}
+
+/* label focus color */
+.input-field input[type=password]:focus + label {
+  color: #0d47a1;
+}
+
+/* label underline focus color */
+.input-field input[type=password]:focus {
+  border-bottom: 1px solid #0d47a1;
+  box-shadow: 0 1px 0 0 #0d47a1;
+}
+
+/* label focus color */
 .input-field textarea[id=content]:focus + label {
   color: #0d47a1;
 }
@@ -81,3 +103,4 @@ footer.page-footer {
 .input-field textarea[id=content]:focus {
   border-bottom: 1px solid #0d47a1;
   box-shadow: 0 1px 0 0 #0d47a1;
+}
