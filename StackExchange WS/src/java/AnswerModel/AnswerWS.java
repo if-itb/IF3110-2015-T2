@@ -161,28 +161,24 @@ public class AnswerWS {
      * Web service operation
      */
     @WebMethod(operationName = "getVoteCountByAId")
-    public int getVoteCountByAId(@WebParam(name = "token") String token, @WebParam(name = "aid") int aid) {
-        Auth auth = new Auth();
-        int ret = auth.check(token);
+    public int getVoteCountByAId(@WebParam(name = "aid") int aid) {
         int vote_count = 0;
-        if (ret == 1) {
-            try {
-                Statement stmt = conn.createStatement();
-                String sql;
+        try {
+            Statement stmt = conn.createStatement();
+            String sql;
 
-                sql = "SELECT COUNT(value) vote_count FROM `vote_answer` WHERE id_answer = ?";
-                PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setInt(1, aid);
+            sql = "SELECT COUNT(value) vote_count FROM `vote_answer` WHERE id_answer = ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, aid);
 
-                ResultSet rs = dbStatement.executeQuery();
-                
-                while(rs.next()) {
-                    vote_count = rs.getInt("vote_count");
-                }
-                stmt.close();
-            } catch(SQLException ex) {
-                Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+            ResultSet rs = dbStatement.executeQuery();
+
+            while(rs.next()) {
+                vote_count = rs.getInt("vote_count");
             }
+            stmt.close();
+        } catch(SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
         return vote_count;
     }
