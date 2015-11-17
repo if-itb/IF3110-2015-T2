@@ -14,6 +14,15 @@ body{
     src: url('LakkiReddy-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 
+.btn,
+.btn-floating{
+    transition: all .2s ease-out;
+}
+.btn:hover,
+.btn-floating:hover{
+    transform: scale(1.1) !important;
+}
+
 #logo-container{
     padding: 0 1em;
     font-family: "LakkyReddy";
@@ -51,4 +60,61 @@ input[type=text]:focus:not([readonly]) + label, input[type=password]:focus:not([
 #recent-post .card hr{
     margin: 0 auto 2em auto;
     border-color: #fff;
+}
+
+#question-title{
+    width:90%;
+    margin:0 auto;
+    margin-bottom: 2em;
+}
+
+.create-date{
+    font-size: 1em !important;
+    font-style: italic;
+}
+
+section#recent-post .card .fixed-action-btn.horizontal ul li{
+    margin: 15px 45px 0 0;
+}
+section#recent-post .card:hover .question-close{
+    opacity: 1;
+}
+section#recent-post .card{
+    padding-bottom: 60px;
+}
+section#recent-post .card .fixed-action-btn{
+    bottom: 1em;
+    right: -60px;
+    position:absolute;
+}
+section#recent-post .card .fixed-action-btn > .btn-floating{
+    visibility: hidden;
+}
+
+.fixed-action-btn ul a.btn-floating {
+    opacity: 1;
+}
+section#recent-post .fixed-action-btn ul {
+    visibility: visible;
+}
+
+.thumb-btn-wrapper{
+    position:relative;
+}
+
+.thumbs-num{
+    position:absolute;
+    top:-1.1em;
+    left:1.6em;
+    border-radius: 0;
+    padding:4px 6px;
+    overflow: visible;
+    width: auto;
+    height: auto;
+    line-height: 1;
+}
+
+img.responsive-img{
+    width: 40px;
+    margin: 12px 12px;
 }
