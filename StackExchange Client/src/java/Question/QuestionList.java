@@ -47,7 +47,8 @@ public class QuestionList extends HttpServlet {
     HashMap question_asker = new HashMap();
     HashMap questions_vote_counts = new HashMap();
     
-    for ( QuestionWS.Question question: questions ) {
+    for ( QuestionWS.Question question: questions )
+    {
         questions_vote_counts.put(new Integer(question.getId()), new Integer(getVoteCountByQId(question.getId())));
         answer_counts.put(new Integer(question.getId()), new Integer(getAnswerCount(question.getId())));
         question_asker.put(new Integer(question.getId()), (getUserById(question.getIdUser())).getName());
