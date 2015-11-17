@@ -45,11 +45,11 @@ public class RootServlet extends HttpServlet {
             throws ServletException, IOException {        
         StackExchange port = service.getStackExchangePort();                
         List<Question> questions = port.getQuestions();        
-        Map<Question, Integer> answers = new HashMap<>();
-        Map<Question, String> askers = new HashMap<>();
+        Map<Integer, Integer> answers = new HashMap<>();
+        Map<Integer, User> askers = new HashMap<>();
         for (Question question: port.getQuestions()) {            
-            answers.put(question, port.getAnswers(question.getId()).size());
-            askers.put(question, port.getUser(question.getIdUser()).getName());
+            answers.put(question.getId(), port.getAnswers(question.getId()).size());
+            askers.put(question.getId(), port.getUser(question.getIdUser()));
         }                        
         request.setAttribute("questions", questions);
         request.setAttribute("answers", answers);

@@ -7,10 +7,10 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp" flush="true"/>
     <div class="div-search">
-        <form action="search.jsp" method="get">
+        <form action="search" method="get">
             <input class="txt-search" type="search" name="q" placeholder="Search..." autofocus required>
             <input class="btn-search" type="submit" value="Search"><br>
-            Cannot find what you are looking for? <a href="ask.jsp">Ask here</a>
+            Cannot find what you are looking for? <a href="ask">Ask here</a>
         </form>
     </div>
     <div class="container">
@@ -21,22 +21,22 @@
             <div class="stat">
                 <div class="vote">
                     <div class="vote-count-mini">
-                        <span><c:out value="${question.value}"/></span>
+                        <span><c:out value="${question.votes}"/></span>
                     </div>
                     <div>votes</div>
                 </div>
                 <div class="answer">
                     <div class="answer-count-mini">
-                        <span><c:out value="${question.key.votes}"/></span>
+                        <span><c:out value="${answers[question.id]}"/></span>
                     </div>
                     <div>answers</div>
                 </div>
             </div>
             <div class="question-summary">
-                <h3 class="topic"><a class="topic" href="question?id=<c:out value="${question.key.id}"/>" title="<c:out value="{questions.key.topic}"/>"><c:out value="{questions.key.topic}"/></a></h3>
-                <p title="<c:out value="${question.key.content}"/>"><c:out value="${question.key.content}"/>></p><br>
+                <h3 class="topic"><a class="topic" href="question?id=<c:out value="${question.id}"/>" title="<c:out value="${question.topic}"/>"><c:out value="${question.topic}"/></a></h3>
+                <p title="<c:out value="${question.content}"/>"><c:out value="${question.content}"/></p><br>
                 <div class="timestamp">
-                    asked by <a href="mailto:" target="_blank"><c:out value="${question.key.name}"/></a> at <c:out value="${question.key.timestamp}"/> | <a class="edit" href="ask?id<c:out value="${question.key.id}"/>">edit</a> | <a class="delete" href="#" onclick="deleteQuestion(<c:out value="${question.key.id}"/>)">delete</a>
+                    asked by <a href="mailto:<c:out value="${askers[question.id].email}"/>" target="_blank"><c:out value="${askers[question.id].name}"/></a> at <c:out value="${question.timestamp}"/> | <a class="edit" href="ask?id<c:out value="${question.id}"/>">edit</a> | <a class="delete" href="#" onclick="deleteQuestion(<c:out value="${question.id}"/>)">delete</a>
                 </div>
             </div>
         </div>
