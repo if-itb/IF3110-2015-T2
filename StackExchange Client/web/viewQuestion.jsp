@@ -11,16 +11,15 @@
 <jsp:useBean id="answers" type="java.util.List<AnswerWS.Answer>" scope="request"/>
 
 	<div class="container">
-            <h2><a href="question?q_id=<%= question.getQId() %> class="question-title-big">
+            <h2><a href="question?q_id=<%= question.getQId() %>" class="question-title-big">
                    <%= question.getTopic() %>
             </a></h2>
             <hr>
             <span id="question-vote"><br>
                 <div onclick="vote(<%= question.getQId() %>,'question','up')" class="arrow-up">
                 </div><br>
-                <span id="questvote" class="question-number">
-                    <%= question.getVote()%>
-                </span><br><br>
+                <span id="questvote" class="question-number"><%= question.getVote()%></span>
+                <br><br>
 		<div onclick="vote(<%= question.getQId() %>,'question','down')" class="arrow-down">
                 </div><br></span>
 		<span id="question-content">

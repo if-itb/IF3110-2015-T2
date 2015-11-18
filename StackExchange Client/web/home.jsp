@@ -20,7 +20,7 @@
                             </form>
                     </div>
                     <br>
-                    Cannot find what you are looking for? <a href="ask.jsp">Ask here</a>
+                    Cannot find what you are looking for? <a href="ask">Ask here</a>
             </div>
 
             <br>

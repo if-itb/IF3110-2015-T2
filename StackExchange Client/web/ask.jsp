@@ -13,10 +13,8 @@
 		<br>
 		<div class="center">
                     <!-- TODO: Ask Controller -->
-                    <form name="ask" class="basic-grey" action="controllers/ask.controller.php" 
+                    <form name="ask" class="basic-grey" action="ask" 
                               onsubmit="return validateAskForm()" method="post">
-				<input type="text" id="name" name="name" placeholder="Name"><br>
-				<input type="text" id="email" name="email" placeholder="Email"><br>
 				<input type="text" id="topic" name="topic" placeholder="Question Topic"><br>
 				<textarea id="content" name="content" placeholder="Content"></textarea><br>
 				<div class="div-right-button">
