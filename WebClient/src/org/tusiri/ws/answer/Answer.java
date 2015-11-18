@@ -8,6 +8,7 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.ws.Action;
+import javax.xml.ws.FaultAction;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 
@@ -39,5 +40,35 @@ public interface Answer {
     public List<AnswerItem> getAnswerList(
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0);
+
+    /**
+     * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns int
+     * @throws IOException_Exception
+     * @throws ParseException_Exception
+     * @throws ClientProtocolException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createAnswer", targetNamespace = "http://answer.ws.tusiri.org/", className = "org.tusiri.ws.answer.CreateAnswer")
+    @ResponseWrapper(localName = "createAnswerResponse", targetNamespace = "http://answer.ws.tusiri.org/", className = "org.tusiri.ws.answer.CreateAnswerResponse")
+    @Action(input = "http://answer.ws.tusiri.org/Answer/createAnswerRequest", output = "http://answer.ws.tusiri.org/Answer/createAnswerResponse", fault = {
+        @FaultAction(className = ClientProtocolException_Exception.class, value = "http://answer.ws.tusiri.org/Answer/createAnswer/Fault/ClientProtocolException"),
+        @FaultAction(className = IOException_Exception.class, value = "http://answer.ws.tusiri.org/Answer/createAnswer/Fault/IOException"),
+        @FaultAction(className = ParseException_Exception.class, value = "http://answer.ws.tusiri.org/Answer/createAnswer/Fault/ParseException")
+    })
+    public int createAnswer(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2)
+        throws ClientProtocolException_Exception, IOException_Exception, ParseException_Exception
+    ;
 
 }

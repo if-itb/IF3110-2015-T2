@@ -24,8 +24,13 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _ParseException_QNAME = new QName("http://answer.ws.tusiri.org/", "ParseException");
     private final static QName _GetAnswerListResponse_QNAME = new QName("http://answer.ws.tusiri.org/", "getAnswerListResponse");
+    private final static QName _CreateAnswerResponse_QNAME = new QName("http://answer.ws.tusiri.org/", "createAnswerResponse");
+    private final static QName _ClientProtocolException_QNAME = new QName("http://answer.ws.tusiri.org/", "ClientProtocolException");
     private final static QName _GetAnswerList_QNAME = new QName("http://answer.ws.tusiri.org/", "getAnswerList");
+    private final static QName _CreateAnswer_QNAME = new QName("http://answer.ws.tusiri.org/", "createAnswer");
+    private final static QName _IOException_QNAME = new QName("http://answer.ws.tusiri.org/", "IOException");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.tusiri.ws.answer
@@ -35,11 +40,51 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IOException }
+     * 
+     */
+    public IOException createIOException() {
+        return new IOException();
+    }
+
+    /**
+     * Create an instance of {@link CreateAnswer }
+     * 
+     */
+    public CreateAnswer createCreateAnswer() {
+        return new CreateAnswer();
+    }
+
+    /**
+     * Create an instance of {@link ClientProtocolException }
+     * 
+     */
+    public ClientProtocolException createClientProtocolException() {
+        return new ClientProtocolException();
+    }
+
+    /**
+     * Create an instance of {@link CreateAnswerResponse }
+     * 
+     */
+    public CreateAnswerResponse createCreateAnswerResponse() {
+        return new CreateAnswerResponse();
+    }
+
+    /**
      * Create an instance of {@link GetAnswerList }
      * 
      */
     public GetAnswerList createGetAnswerList() {
         return new GetAnswerList();
+    }
+
+    /**
+     * Create an instance of {@link ParseException }
+     * 
+     */
+    public ParseException createParseException() {
+        return new ParseException();
     }
 
     /**
@@ -59,6 +104,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ParseException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "ParseException")
+    public JAXBElement<ParseException> createParseException(ParseException value) {
+        return new JAXBElement<ParseException>(_ParseException_QNAME, ParseException.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetAnswerListResponse }{@code >}}
      * 
      */
@@ -68,12 +122,48 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateAnswerResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "createAnswerResponse")
+    public JAXBElement<CreateAnswerResponse> createCreateAnswerResponse(CreateAnswerResponse value) {
+        return new JAXBElement<CreateAnswerResponse>(_CreateAnswerResponse_QNAME, CreateAnswerResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ClientProtocolException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "ClientProtocolException")
+    public JAXBElement<ClientProtocolException> createClientProtocolException(ClientProtocolException value) {
+        return new JAXBElement<ClientProtocolException>(_ClientProtocolException_QNAME, ClientProtocolException.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetAnswerList }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "getAnswerList")
     public JAXBElement<GetAnswerList> createGetAnswerList(GetAnswerList value) {
         return new JAXBElement<GetAnswerList>(_GetAnswerList_QNAME, GetAnswerList.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateAnswer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "createAnswer")
+    public JAXBElement<CreateAnswer> createCreateAnswer(CreateAnswer value) {
+        return new JAXBElement<CreateAnswer>(_CreateAnswer_QNAME, CreateAnswer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link IOException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "IOException")
+    public JAXBElement<IOException> createIOException(IOException value) {
+        return new JAXBElement<IOException>(_IOException_QNAME, IOException.class, null, value);
     }
 
 }
