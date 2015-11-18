@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class register_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -50,12 +50,11 @@ public final class register_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
-      out.write("        <h1>Register</h1>\n");
-      out.write("        <form action=\"upon-click.jsp\" name=\"newuser\" method=\"post\">\n");
-      out.write("\t\t<input type=\"text\" name=\"name\" placeholder=\"Name\" class=\"medium\">\n");
+      out.write("        <h1>StackExchange Login</h1>\n");
+      out.write("        <form action=\"checkLogin\" name=\"user\" method=\"post\">\n");
       out.write("\t\t<input type=\"email\" name=\"email\" placeholder=\"Email\" class=\"medium\">\n");
       out.write("\t\t<input type=\"password\" name=\"password\" placeholder=\"Password\" class=\"medium\">\n");
-      out.write("\t\t<input type=\"submit\" value=\"submit\" id=\"button\">\n");
+      out.write("\t\t<input type=\"submit\" value=\"login\" id=\"button\">\n");
       out.write("        </form> \n");
       out.write("    </body>\n");
       out.write("</html>\n");
