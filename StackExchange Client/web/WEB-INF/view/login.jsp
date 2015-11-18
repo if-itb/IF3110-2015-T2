@@ -10,8 +10,8 @@
         <h2>Login</h2>
         <hr class="heading">
         <form action="" method="post">            
-            <input type="text" name="email" placeholder="Email" required autofocus"></input>
-            <input type="text" name="password" placeholder="Password" required"></input>            
+            <input type="email" name="email" placeholder="Email" required autofocus"></input>
+            <input type="password" name="password" placeholder="Password" required"></input>            
             <input type="submit" class="btn-default btn-right" value="Login"></input>            
         </form>
     </div>

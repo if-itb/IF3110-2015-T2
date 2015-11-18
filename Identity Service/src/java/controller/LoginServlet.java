@@ -10,8 +10,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -37,44 +41,53 @@ public class LoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        PreparedStatement statement = null;
-        String token;
-        JSONObject object = new JSONObject();
-        
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {                                
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            
-            String sql;
-            sql = "SELECT * FROM user WHERE email = ? AND password = ?";
-            
-            statement.setString(1, email);
-            statement.setString(2, password);
-            
-            statement = conn.prepareStatement(email);
-            
-            if(statement.execute()){
-                Timestamp time = new Timestamp(System.currentTimeMillis());
-                token = time.toString();
-                
-                /*
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                JsonParser jp = new JsonParser();
-                JsonElement je = jp.parse(uglyJSONString);
-                String prettyJsonString = gson.toJson(je);*/
-                
-                object.put("auth", token);
-            }
-            else{
-                
-            }
+            JSONObject object = new JSONObject();
+            if (email != null && password != null) {
+                String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
+                try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                    statement.setString(1, email);
+                    statement.setString(2, password); 
+                    ResultSet result = statement.executeQuery();
+                    if (result.next()) {                                
+                        int user_id = result.getInt("id");
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(new Date());
+                        calendar.add(Calendar.DATE, 1);
+                        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+                        conn.setAutoCommit(false);
+                        String deleteQuery = "DELETE from token WHERE user_id = ?";
+                        String insertQuery = "INSERT INTO token (access_token, user_id, expire_date) VALUES (?, ?, ?)";
+                        try (
+                            PreparedStatement deleteStatement = conn.prepareStatement(deleteQuery);
+                            PreparedStatement insertStatement = conn.prepareStatement(insertQuery)) {                            
+                            deleteStatement.setInt(1, user_id);
+                            insertStatement.setString(1, uuid);
+                            insertStatement.setInt(2, user_id);
+                            insertStatement.setString(3, calendar.getTime().toString());
+                            deleteStatement.execute();
+                            insertStatement.execute();
+                            object.put("auth", uuid);
+                            conn.commit();
+                        }
+                        finally {
+                            conn.setAutoCommit(true);
+                        }                        
+                    }        
+                    else {
+                        object.put("error", "Invalid username or password");
+                    }
+                }                        
+            }                                       
             out.println(object.toString());
         }
         catch(SQLException ex){
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

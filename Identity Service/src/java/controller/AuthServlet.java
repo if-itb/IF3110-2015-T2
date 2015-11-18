@@ -8,13 +8,13 @@ package controller;
 import connection.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.sql.Connection;
 import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,10 +27,10 @@ import org.json.simple.JSONObject;
  *
  * @author Acer
  */
-@WebServlet(name = "Validation", urlPatterns = {"/validation"})
-public class Validation extends HttpServlet {
+@WebServlet(name = "AuthServlet", urlPatterns = {"/auth"})
+public class AuthServlet extends HttpServlet {
 
-    Connection conn = DB.connect();
+    private final Connection conn = DB.connect();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,54 +41,38 @@ public class Validation extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        response.setContentType("application/json");
-        JSONObject obj = new JSONObject();
-        
-        PreparedStatement statement = null;
-        
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String token = request.getParameter("token");
-            try {
-                String query = new String();
-                query = "SELECT * FROM token WHERE access_token = ?";
-                
-                statement = conn.prepareStatement(query);
+            throws ServletException, IOException {        
+        response.setContentType("application/json");        
+        try (PrintWriter out = response.getWriter()) {            
+            String token = request.getParameter("auth");
+            String query = "SELECT * FROM token WHERE access_token = ?";            
+            JSONObject obj = new JSONObject();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {                    
                 statement.setString(1, token);
-                
+
                 ResultSet result = statement.executeQuery();
-                
                 if(result.next()) {
-                    Date expire_date = null;
+                    Date current_date = new Date();                    
                     DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    try{
-                        expire_date = format.parse(result.getString("expire_date"));
+                    try {
+                        Date expire_date = format.parse(result.getString("expire_date"));
+                        if (current_date.after(expire_date))
+                            obj.put("message", "expired");                        
+                        else
+                            obj.put("message", "valid");                        
                     }
-                    catch ( Exception ex ){
+                    catch ( SQLException | ParseException ex ){
                         System.out.println(ex);
-                    }
-
-                    Date current_date = new Date();
-
-                    if (current_date.after(expire_date)) {
-                        obj.put("message", "expired");
-                    } else {
-                        obj.put("message", "valid");
-                    }
-
-                    out.print(obj);
-                } else {
-                    obj.put("message", "invalid");
-                    out.print(obj);
+                    }                                                            
                 }
-
-            } catch(SQLException ex) {
-                obj.put("error", ex);  
-                out.print(obj);
-           }
+                else {
+                    obj.put("message", "invalid");                    
+                }
+            }
+            out.println(obj);            
+        }
+        catch(SQLException ex) {               
+            
         }
     }
 

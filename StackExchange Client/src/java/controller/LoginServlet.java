@@ -78,10 +78,10 @@ public class LoginServlet extends HttpServlet {
         if (email == null || password == null) {
             response.sendRedirect(request.getContextPath());
             return;
-        }
-        URLConnection connection = new URL("http://localhost:8080/IdentityService/login").openConnection();        
+        }                
+        URLConnection connection = new URL("http://localhost:8080/Identity_Service/login").openConnection();                
         connection.setDoOutput(true);
-        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");        
         try (OutputStream output = connection.getOutputStream()) {
             String charset = java.nio.charset.StandardCharsets.UTF_8.name();
             String query = String.format(
@@ -89,17 +89,22 @@ public class LoginServlet extends HttpServlet {
                     URLEncoder.encode(email, charset),
                     URLEncoder.encode(password, charset));
             output.write(query.getBytes(charset));
-        }        
+        }                
+        StringBuilder builder = new StringBuilder();
+        BufferedReader buf = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String read;
+        while ((read = buf.readLine()) != null)
+            builder.append(read);
         try {
-            JSONObject jsonResponse = (JSONObject)new JSONParser().parse(new InputStreamReader(connection.getInputStream()));            
+            JSONObject jsonResponse = (JSONObject)new JSONParser().parse(builder.toString());                        
             for (Iterator iterator = jsonResponse.keySet().iterator(); iterator.hasNext();) {
                 String key = (String)iterator.next();
                 Cookie cookie = new Cookie(key, (String)jsonResponse.get(key));
                 response.addCookie(cookie);
-            }            
+            }                        
         } catch (ParseException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }       
         response.sendRedirect(request.getContextPath());
 }
 
