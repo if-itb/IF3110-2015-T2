@@ -11,12 +11,10 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.json.Json;
-import javax.json.JsonObject;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,8 +24,8 @@ import org.json.simple.JSONObject;
  *
  * @author Adz
  */
-public class Login extends HttpServlet {
-    
+public class LoginServlet extends HttpServlet {
+
     Connection conn = DB.connect();
 
     /**
@@ -41,7 +39,7 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         PreparedStatement statement = null;
-        String token = "";
+        String token;
         JSONObject object = new JSONObject();
         
         response.setContentType("application/json");
@@ -58,7 +56,8 @@ public class Login extends HttpServlet {
             statement = conn.prepareStatement(email);
             
             if(statement.execute()){
-                token = "bebas";
+                Timestamp time = new Timestamp(System.currentTimeMillis());
+                token = time.toString();
                 
                 /*
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -74,7 +73,7 @@ public class Login extends HttpServlet {
             out.println(object.toString());
         }
         catch(SQLException ex){
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -93,7 +92,7 @@ public class Login extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -111,7 +110,7 @@ public class Login extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
