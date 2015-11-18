@@ -1,6 +1,7 @@
 package com.yangnormal.sstackex.ws;
 
 import java.sql.*;
+import java.util.ArrayList;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import com.yangnormal.sstackex.ws.classes.*;
@@ -160,8 +161,8 @@ public class WebServiceImpl implements WebServiceInterface{
             // Open a connection
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             // Query
-            String query = "SELECT question.topic,question.vote,question.content,question.date,question.uid,count(answer.qid) as answerSum " +
-                    "FROM question LEFT JOIN answer ON (question.id = answer.id) " +
+            String query = "SELECT question.topic,question.vote,question.content,question.date,question.uid,fullname,count(answer.qid) as answerSum " +
+                    "FROM question JOIN user LEFT JOIN answer ON (question.id = answer.id) " +
                     "WHERE question.id = "+qid+" " +
                     "GROUP BY question.id, question.topic, question.content, question.vote, question.date";
             stmt = conn.createStatement();
@@ -171,7 +172,7 @@ public class WebServiceImpl implements WebServiceInterface{
             while (rs.next()){
                 q.setContent(rs.getString("content"));
                 q.setTopic(rs.getString("topic"));
-                q.setUserid(rs.getInt("uid"));
+                q.getUser().setName(rs.getString("fullname"));
                 q.setVote(rs.getInt("vote"));
                 q.setDate(rs.getDate("date"));
                 q.setAnswerSum(rs.getInt("answerSum"));
@@ -228,7 +229,93 @@ public class WebServiceImpl implements WebServiceInterface{
     }
 
     @Override
-	public String[][] getQuestionList(){
+    public Question[] getQuestionList(){
+        ArrayList<Question> questionList = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+
+        try{
+            // Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Open a connection
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            // Query
+            String query = "SELECT question.topic,question.vote,question.content,question.date,question.uid,fullname,count(answer.qid) as answerSum " +
+                    "FROM question JOIN user LEFT JOIN answer ON (question.id = answer.id) " +
+                    "GROUP BY question.id, question.topic, question.content, question.vote, question.date";
+            stmt = conn.createStatement();
+            // Result Set
+            ResultSet rs = stmt.executeQuery(query);
+            // Put result into array
+            while (rs.next()) {
+                Question q = new Question();
+                q.setContent(rs.getString("content"));
+                q.setTopic(rs.getString("topic"));
+                q.getUser().setName(rs.getString("fullname"));
+                q.setVote(rs.getInt("vote"));
+                q.setDate(rs.getDate("date"));
+                q.setAnswerSum(rs.getInt("answerSum"));
+                questionList.add(q);
+            }
+
+        }
+        catch (SQLException se){
+            se.printStackTrace();
+            System.out.println("SQL get question list Error");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            Question[] qList = questionList.toArray(new Question[questionList.size()]);
+            return qList;
+        }
+
+    }
+
+    @Override
+    public Answer[] getAnswerList(int qid){
+        Connection conn = null;
+        Statement stmt = null;
+        ArrayList<Answer> answerList = new ArrayList<>();
+        try{
+            // Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Open a connection
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            // Query
+            String query = "SELECT answer.content,answer.vote,answer.date,fullname FROM answer JOIN user JOIN question WHERE user.id = answer.uid AND question.id = "+qid;
+            stmt = conn.createStatement();
+            // Result Set
+            ResultSet rs = stmt.executeQuery(query);
+            // Put result into array
+            while (rs.next()) {
+                Answer answer = new Answer();
+                answer.setId(rs.getInt("id"));
+                answer.setVote(rs.getInt("vote"));
+                answer.setContent(rs.getString("content"));
+                answer.setDate(rs.getDate("date"));
+                answer.getUser().setName("fullname");
+                answer.setQid(rs.getInt("qid"));
+
+            }
+
+        }
+        catch (SQLException se){
+            se.printStackTrace();
+            System.out.println("SQL get answer list Error");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            Answer[] alist = answerList.toArray(new Answer[answerList.size()]);
+            return alist;
+        }
+    }
+
+    @Override
+	public String[][] getQuestionListArray(){
         Connection conn = null;
         Statement stmt = null;
         Statement stmt2 = null;
@@ -278,7 +365,7 @@ public class WebServiceImpl implements WebServiceInterface{
 	}
 
     @Override
-    public String[][] getAnswerList(int qid) {
+    public String[][] getAnswerListArray(int qid) {
         Connection conn = null;
         Statement stmt = null;
         Statement stmt2 = null;

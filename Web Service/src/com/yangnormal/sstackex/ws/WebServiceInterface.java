@@ -6,7 +6,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
-
+import java.util.ArrayList;
 
 
 @WebService
@@ -23,9 +23,13 @@ public interface WebServiceInterface {
     @WebMethod
     Question getQuestion(int qid);
     @WebMethod
-    String[][] getQuestionList();
+    Question[] getQuestionList();
     @WebMethod
-    String[][] getAnswerList(int qid);
+    Answer[] getAnswerList(int qid);
+    @WebMethod
+    String[][] getQuestionListArray();
+    @WebMethod
+    String[][] getAnswerListArray(int qid);
     @WebMethod
     void vote(int type, int id, int direction, int uid, String token) throws Exception;
     @WebMethod

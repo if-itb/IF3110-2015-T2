@@ -5,30 +5,30 @@ import java.sql.Date;
  * Created by Julio Savigny on 11/17/2015.
  */
 public class Question {
+    public Question() {
+        user = new User();
+    }
 
     String topic;
     String content;
-
-
     int answerSum;
-    int userid;
+    User user;
     int vote;
     int id;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     public int getAnswerSum() {
         return answerSum;
     }
 
     public void setAnswerSum(int answerSum) {
         this.answerSum = answerSum;
-    }
-
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
     }
 
     public Date getDate() {

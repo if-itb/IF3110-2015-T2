@@ -1,12 +1,24 @@
 import com.yangnormal.sstackex.Question;
-import com.yangnormal.sstackex.WebServiceImplService;
+import com.yangnormal.sstackex.QuestionArray;
 import com.yangnormal.sstackex.WebServiceInterface;
+import com.yangnormal.sstackex.WebServiceImplService;
+
+import java.lang.Exception;
+import java.util.ArrayList;
 
 public class Client{
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         WebServiceImplService webService = new WebServiceImplService();
         WebServiceInterface wsi = webService.getWebServiceImplPort();
-        System.out.println("getQuestionList Test");
+        Question q = wsi.getQuestion(1);
+        System.out.println(q.getUser().getName());
+
+        QuestionArray qList = wsi.getQuestionList();
+        ArrayList<Question> QuestionList = (ArrayList<Question>) qList.getItem();
+        System.out.println(QuestionList.get(0).getUser().getName());
+
+        //System.out.println(questionList.toString());
+        /*System.out.println("getQuestionList Test");
         for (int i=0;i<wsi.getQuestionList().getItem().size();i++){
             System.out.println(wsi.getQuestionList().getItem().get(i).getItem().toString());
         }
@@ -35,6 +47,6 @@ public class Client{
         q = wsi.getQuestion(1);
         System.out.println(q.getAnswerSum());
         System.out.println("Delete Question Test");
-        wsi.deleteQuestion(3, 1, "a");
+        wsi.deleteQuestion(3, 1, "a");*/
     }
 }
