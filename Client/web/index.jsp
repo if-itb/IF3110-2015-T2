@@ -3,12 +3,13 @@
 <%@page import= "com.yangnormal.sstackex.WebServiceImplService" %>
 <%@page import= "com.yangnormal.sstackex.WebServiceInterface" %>
 <%@ page import="com.yangnormal.sstackex.Question" %>
+<%@ page import="com.yangnormal.sstackex.QuestionArray" %>
 <%
 	URL url = new URL ("http://localhost:8082/ws/stackexchange?wsdl");
 	QName qname = new QName("http://ws.sstackex.yangnormal.com/","WebServiceImplService");
 	WebServiceImplService webService = new WebServiceImplService(url,qname);
 	WebServiceInterface ws = webService.getWebServiceImplPort();
-	Question q=ws.getQuestion(1);
+	QuestionArray qList=ws.getQuestionList();
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 					<html>
@@ -29,16 +30,17 @@
 								Can't find what you are looking for? <a href="ask.jsp">Ask here!</a>
 							</div>
 							<div class="content">
+								<% for (Question q : qList.getItem()) { %>
 								<h2>Recently Asked Questions</h2>
 								<hr>
 									<div class="stack">
 									<div class="votes"><div><% out.println(q.getVote());%></div>Votes</div>
 									<div class="answers"><div><% out.println(q.getAnswerSum());%></div>Answers</div>
 									<div class="questiontitle"><a href="question.jsp?id=<%out.println(q.getId());%>"><% out.println(q.getTopic());%></a></div>
-									<div class="detail">asked by <a class="linkname"></a> @<% out.println(q.getDate());%>| <a class="linkedit" href="">edit</a> | <a class="linkdelete" onclick="return validatedelete()" href="">delete</a></div>
+									<div class="detail">asked by <% out.println(q.getUser().getName()); %> <a class="linkname"></a> @<% out.println(q.getDate());%>| <a class="linkedit" href="">edit</a> | <a class="linkdelete" onclick="return validatedelete()" href="">delete</a></div>
 									<hr>
 								</div>
-
+								<% } %>
 							</div>	
 						</div>
 						<script src="js/script.js"></script>
