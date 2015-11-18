@@ -84,7 +84,7 @@
                     <span>
                         Asked by
                         <%= question_asker %> |
-                        <a href="${pageContext.request.contextPath}/edit.php?id=<%= question.getId() %>" class="question-edit">Edit</a> |
+                        <a href="${pageContext.request.contextPath}/questioneditor?id=<%= question.getId() %>" class="question-edit">Edit</a> |
                         <form method="POST" action="deletequestion" id="deleteForm_question<%= question.getId() %>" class="delete-form">
                             <input type="hidden" value="<%= question.getId() %>" name="id_question">
                             <input type="hidden" value="<%= user != null ? user.getId() : 0 %>" name="id_user">

@@ -63,6 +63,14 @@
         <servlet-name>AnswerNew</servlet-name>
         <servlet-class>Answer.AnswerNew</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuestionEdit</servlet-name>
+        <servlet-class>Question.QuestionEdit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuestionEditor</servlet-name>
+        <servlet-class>Question.QuestionEditor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -122,6 +130,14 @@
     <servlet-mapping>
         <servlet-name>AnswerNew</servlet-name>
         <url-pattern>/newanswer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionEdit</servlet-name>
+        <url-pattern>/editquestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionEditor</servlet-name>
+        <url-pattern>/questioneditor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
