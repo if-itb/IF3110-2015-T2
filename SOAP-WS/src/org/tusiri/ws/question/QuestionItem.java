@@ -2,7 +2,6 @@ package org.tusiri.ws.question;
 
 
 import java.sql.Date;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -18,6 +17,7 @@ public class QuestionItem {
 	private String topic;
 	private int num_vote;
 	private String username;
+	private int num_answer;
 	
 	
 	@XmlElement(name = "id_question")
@@ -81,5 +81,14 @@ public class QuestionItem {
 
 	public void setNumVote(int num_vote) {
 		this.num_vote = num_vote;
+	}
+	
+	@XmlElement(name = "num_answer")
+	public int getNumAnswer() {
+		return num_answer;
+	}
+
+	public void setNumAnswer(int num_answer) {
+		this.num_vote = num_answer;
 	}
 } 
