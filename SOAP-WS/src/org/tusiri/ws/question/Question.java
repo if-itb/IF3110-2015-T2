@@ -223,4 +223,42 @@ public class Question {
 		}
 		return questionItemList;
 	}
-} 
+	
+	@WebMethod
+	public QuestionItem getQuestionInfo(int id_question) {
+		
+		QuestionItem q = new QuestionItem();
+		DBConnection dbc = new DBConnection();
+		PreparedStatement stmt = dbc.getDBStmt();
+		Connection conn = dbc.getConn();
+		
+		try{
+			String sql = "SELECT * FROM question NATURAL JOIN user WHERE id_question = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id_question);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()){
+				int id_user  = rs.getInt("id_user");
+				String content = rs.getString("content");
+				String question_date = rs.getDate("question_date").toString();
+				String topic = rs.getString("topic");
+				int num_vote = rs.getInt("num_vote");
+				String username = rs.getString("username");
+				int num_answer = rs.getInt("num_answer");
+				
+				q.setIDQuestion(id_question);
+				q.setIDUser(id_user);
+				q.setContent(content);
+				q.setQuestionDate(question_date);
+				q.setTopic(topic);
+				q.setNumVote(num_vote);
+				q.setUsername(username);
+				q.setNumAnswer(num_answer);
+			}
+		} catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}
+		return q;
+	}
+}

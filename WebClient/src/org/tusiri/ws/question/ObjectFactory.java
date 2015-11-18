@@ -24,17 +24,19 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _GetQuestionInfo_QNAME = new QName("http://question.ws.tusiri.org/", "getQuestionInfo");
     private final static QName _Questionitem_QNAME = new QName("http://question.ws.tusiri.org/", "questionitem");
+    private final static QName _GetQuestionList_QNAME = new QName("http://question.ws.tusiri.org/", "getQuestionList");
+    private final static QName _CreateQuestionResponse_QNAME = new QName("http://question.ws.tusiri.org/", "createQuestionResponse");
+    private final static QName _GetQuestionListResponse_QNAME = new QName("http://question.ws.tusiri.org/", "getQuestionListResponse");
+    private final static QName _GetQuestionInfoResponse_QNAME = new QName("http://question.ws.tusiri.org/", "getQuestionInfoResponse");
     private final static QName _ParseException_QNAME = new QName("http://question.ws.tusiri.org/", "ParseException");
     private final static QName _EditQuestion_QNAME = new QName("http://question.ws.tusiri.org/", "editQuestion");
-    private final static QName _GetQuestionList_QNAME = new QName("http://question.ws.tusiri.org/", "getQuestionList");
     private final static QName _EditQuestionResponse_QNAME = new QName("http://question.ws.tusiri.org/", "editQuestionResponse");
     private final static QName _ClientProtocolException_QNAME = new QName("http://question.ws.tusiri.org/", "ClientProtocolException");
     private final static QName _CreateQuestion_QNAME = new QName("http://question.ws.tusiri.org/", "createQuestion");
-    private final static QName _CreateQuestionResponse_QNAME = new QName("http://question.ws.tusiri.org/", "createQuestionResponse");
     private final static QName _IOException_QNAME = new QName("http://question.ws.tusiri.org/", "IOException");
     private final static QName _DeleteQuestionResponse_QNAME = new QName("http://question.ws.tusiri.org/", "deleteQuestionResponse");
-    private final static QName _GetQuestionListResponse_QNAME = new QName("http://question.ws.tusiri.org/", "getQuestionListResponse");
     private final static QName _DeleteQuestion_QNAME = new QName("http://question.ws.tusiri.org/", "deleteQuestion");
 
     /**
@@ -42,14 +44,6 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link GetQuestionListResponse }
-     * 
-     */
-    public GetQuestionListResponse createGetQuestionListResponse() {
-        return new GetQuestionListResponse();
     }
 
     /**
@@ -61,6 +55,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IOException }
+     * 
+     */
+    public IOException createIOException() {
+        return new IOException();
+    }
+
+    /**
      * Create an instance of {@link DeleteQuestionResponse }
      * 
      */
@@ -69,11 +71,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IOException }
+     * Create an instance of {@link ClientProtocolException }
      * 
      */
-    public IOException createIOException() {
-        return new IOException();
+    public ClientProtocolException createClientProtocolException() {
+        return new ClientProtocolException();
     }
 
     /**
@@ -85,11 +87,43 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ClientProtocolException }
+     * Create an instance of {@link GetQuestionInfoResponse }
      * 
      */
-    public ClientProtocolException createClientProtocolException() {
-        return new ClientProtocolException();
+    public GetQuestionInfoResponse createGetQuestionInfoResponse() {
+        return new GetQuestionInfoResponse();
+    }
+
+    /**
+     * Create an instance of {@link ParseException }
+     * 
+     */
+    public ParseException createParseException() {
+        return new ParseException();
+    }
+
+    /**
+     * Create an instance of {@link EditQuestion }
+     * 
+     */
+    public EditQuestion createEditQuestion() {
+        return new EditQuestion();
+    }
+
+    /**
+     * Create an instance of {@link EditQuestionResponse }
+     * 
+     */
+    public EditQuestionResponse createEditQuestionResponse() {
+        return new EditQuestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetQuestionListResponse }
+     * 
+     */
+    public GetQuestionListResponse createGetQuestionListResponse() {
+        return new GetQuestionListResponse();
     }
 
     /**
@@ -109,6 +143,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetQuestionInfo }
+     * 
+     */
+    public GetQuestionInfo createGetQuestionInfo() {
+        return new GetQuestionInfo();
+    }
+
+    /**
      * Create an instance of {@link GetQuestionList }
      * 
      */
@@ -117,27 +159,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link EditQuestion }
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionInfo }{@code >}}
      * 
      */
-    public EditQuestion createEditQuestion() {
-        return new EditQuestion();
-    }
-
-    /**
-     * Create an instance of {@link ParseException }
-     * 
-     */
-    public ParseException createParseException() {
-        return new ParseException();
-    }
-
-    /**
-     * Create an instance of {@link EditQuestionResponse }
-     * 
-     */
-    public EditQuestionResponse createEditQuestionResponse() {
-        return new EditQuestionResponse();
+    @XmlElementDecl(namespace = "http://question.ws.tusiri.org/", name = "getQuestionInfo")
+    public JAXBElement<GetQuestionInfo> createGetQuestionInfo(GetQuestionInfo value) {
+        return new JAXBElement<GetQuestionInfo>(_GetQuestionInfo_QNAME, GetQuestionInfo.class, null, value);
     }
 
     /**
@@ -147,6 +174,42 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://question.ws.tusiri.org/", name = "questionitem")
     public JAXBElement<QuestionItem> createQuestionitem(QuestionItem value) {
         return new JAXBElement<QuestionItem>(_Questionitem_QNAME, QuestionItem.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionList }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://question.ws.tusiri.org/", name = "getQuestionList")
+    public JAXBElement<GetQuestionList> createGetQuestionList(GetQuestionList value) {
+        return new JAXBElement<GetQuestionList>(_GetQuestionList_QNAME, GetQuestionList.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateQuestionResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://question.ws.tusiri.org/", name = "createQuestionResponse")
+    public JAXBElement<CreateQuestionResponse> createCreateQuestionResponse(CreateQuestionResponse value) {
+        return new JAXBElement<CreateQuestionResponse>(_CreateQuestionResponse_QNAME, CreateQuestionResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionListResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://question.ws.tusiri.org/", name = "getQuestionListResponse")
+    public JAXBElement<GetQuestionListResponse> createGetQuestionListResponse(GetQuestionListResponse value) {
+        return new JAXBElement<GetQuestionListResponse>(_GetQuestionListResponse_QNAME, GetQuestionListResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionInfoResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://question.ws.tusiri.org/", name = "getQuestionInfoResponse")
+    public JAXBElement<GetQuestionInfoResponse> createGetQuestionInfoResponse(GetQuestionInfoResponse value) {
+        return new JAXBElement<GetQuestionInfoResponse>(_GetQuestionInfoResponse_QNAME, GetQuestionInfoResponse.class, null, value);
     }
 
     /**
@@ -165,15 +228,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://question.ws.tusiri.org/", name = "editQuestion")
     public JAXBElement<EditQuestion> createEditQuestion(EditQuestion value) {
         return new JAXBElement<EditQuestion>(_EditQuestion_QNAME, EditQuestion.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionList }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://question.ws.tusiri.org/", name = "getQuestionList")
-    public JAXBElement<GetQuestionList> createGetQuestionList(GetQuestionList value) {
-        return new JAXBElement<GetQuestionList>(_GetQuestionList_QNAME, GetQuestionList.class, null, value);
     }
 
     /**
@@ -204,15 +258,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreateQuestionResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://question.ws.tusiri.org/", name = "createQuestionResponse")
-    public JAXBElement<CreateQuestionResponse> createCreateQuestionResponse(CreateQuestionResponse value) {
-        return new JAXBElement<CreateQuestionResponse>(_CreateQuestionResponse_QNAME, CreateQuestionResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link IOException }{@code >}}
      * 
      */
@@ -228,15 +273,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://question.ws.tusiri.org/", name = "deleteQuestionResponse")
     public JAXBElement<DeleteQuestionResponse> createDeleteQuestionResponse(DeleteQuestionResponse value) {
         return new JAXBElement<DeleteQuestionResponse>(_DeleteQuestionResponse_QNAME, DeleteQuestionResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionListResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://question.ws.tusiri.org/", name = "getQuestionListResponse")
-    public JAXBElement<GetQuestionListResponse> createGetQuestionListResponse(GetQuestionListResponse value) {
-        return new JAXBElement<GetQuestionListResponse>(_GetQuestionListResponse_QNAME, GetQuestionListResponse.class, null, value);
     }
 
     /**

@@ -30,6 +30,10 @@ public class TokenValidity {
 		public int id_user=0;
 	}
 	
+	public static class AccessValidity{
+		public boolean valid=false;
+	}
+	
 	public static Identity getIdentity(String access_token){
 		Identity identity = new Identity();
 		
@@ -67,6 +71,32 @@ public class TokenValidity {
 		return identity;
 	}
 	
+	public static int getQuestionUserId(int id_question){
+		int id_user = 0;
+		DBConnection dbc = new DBConnection();
+		PreparedStatement stmt = dbc.getDBStmt();
+		Connection conn = dbc.getConn();
+		try{
+			
+			String sql = "SELECT * FROM question WHERE id_question = ?";
+			
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id_question);
+	
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()){
+				id_user = rs.getInt("id_user");
+			}
+		} catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		} catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}
+		return id_user;
+	}
+	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -93,4 +123,47 @@ public class TokenValidity {
 		System.out.println("id_user = " + identity.id_user);
 		return identity;
 	}
+	
+	@POST
+	@Path("/getQuestionAccessValidity")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public AccessValidity isHasRightForThisQuestion(@FormParam("access_token") String access_token,
+		@FormParam("id_question") int id_question) {
+		System.out.println("zzz");
+		AccessValidity a = new AccessValidity();
+		a.valid = false;
+		Identity identity = getIdentity(access_token);
+		if (identity.valid){
+			if(getQuestionUserId(id_question) == identity.id_user){
+				a.valid = true;
+				System.out.println("sesuai");
+			}
+		}
+		return a;
+	}
+	
+	/*@POST
+	@Path("/validateAnswerRight")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public AccessValidity isHasRightForThisQuestion(String access_token, int id_question) throws ParseException{
+		AccessValidity a = new AccessValidity();
+		a.valid = false;
+		//Input: JSON
+		//Output: JSON
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObject = (JSONObject) jsonParser.parse(access_token);
+		String token = (String) jsonObject.get("access_token");
+		
+		System.out.println("a_t = " + token);
+		Identity identity = getIdentity(token);
+		System.out.println("id_user = " + identity.id_user);
+		if (identity.valid){
+			if(getQuestionUserId(id_question) == identity.id_user){
+				a.valid = true;
+			}
+		}
+		return a;
+	}*/
 }

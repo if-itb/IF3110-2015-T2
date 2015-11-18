@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="java.util.*, java.io.*"%>
 <%@ page import = "org.tusiri.ws.question.QuestionService" %>
 <%@ page import = "org.tusiri.ws.question.Question" %>
 <%@ page import = "org.tusiri.ws.question.QuestionItem" %>
-<html>
-<title>Simple StackExchange</title>
-<head>
-	<title>Simple StackExchange</title>
-</head>
-<body>
-    <jsp:include page="Header.jsp"/>
+
+<%
+String pageTitle = "Simple Stackexchange";
+%>
+<jsp:include page="Header.jsp" flush="true">
+	<jsp:param name="pageTitle" value="<%=pageTitle%>" />
+</jsp:include>
+
     <!-- Header Carousel -->
     <header id="myCarousel" class="carousel slide">
         <!-- Wrapper for slides -->
@@ -78,7 +78,7 @@
 					</div>
 				</div>
 				<div class = 'details'>Asked by <span class = 'b_link'><%= questionList.get(i).getUsername() %> </span>|
-                <a href = '#' class = 'y_link'> edit </a>|
+                <a href = 'question_edit.jsp?id=<%= questionList.get(i).getIdQuestion() %>' class = 'y_link'> edit </a>|
                 <a href='#' class = 'r_link'>delete</a><br></div>
 			</div>
 	        <hr>
