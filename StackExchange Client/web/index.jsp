@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <jsp:include page="/views/header.jsp" flush="true"/>
-
+<jsp:useBean id="questions" type="java.util.List<controllers.Question>" scope="request"/>
 	<div class="container">
 		<div class="center">
 			<div id="search">
@@ -25,8 +25,36 @@
 
 		<br>
 		<h2>Recently Asked Questions</h2>
-                
-                
+                    <% for (controllers.Question q : questions) { %>
+                        <hr>
+			<span id="vote"><br>
+                            <span class="number"><%= q.getVote() %></span><br>
+                            Votes
+                        </span>
+			<span id="answer"><br>
+                            <span class="number"> 5 <!-- TODO: num answer--></span><br>
+                            Answers
+                        </span>
+			<span id="question">
+                            <a href="question.php?q_id= <%= q.getQId() %>" class="question-title">
+                                <%= q.getTopic() %>
+                            </a><br>
+                            <% if (q.getContent().length()>700) { %>
+                                <%= (q.getContent().substring(700) + " ...") %>                            
+                            <% } else { %>
+                                <%= q.getContent() %>
+                            <% } %>
+                            <br><br>
+                            <span class="question-info">
+                                asked by <span class="author"><%= q.getUId() %></span> | 
+                                <a href="edit.php?q_id=<%= q.getUId() %>" class="edit-question">edit</a> | 
+                                <a href="controllers/delete-question.controller.php/?q_id=<%= q.getQId() %>" class="delete-question"
+                                onclick="return deleteConfirmation(<%= q.getQId() %>)">delete</a>
+                               <br>
+                            </span>
+                        </span> 
+                        <% } %>
+                    
                         
 		
 			<!-- TODO: <?php showQuestionList()?> -->

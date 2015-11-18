@@ -7,6 +7,8 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,28 +34,12 @@ public class IndexController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet IndexController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet IndexController at " + request.getContextPath() + "</h1>");
-            try {
-                java.util.List<controllers.Question> questions = getAllQuestions();
-                out.println("Result: " + questions);
-                for (controllers.Question q : questions) {
-                    out.println(q.getContent());
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            out.println("</body>");
-            out.println("</html>");
-        }
+        java.util.List<controllers.Question> questions = getAllQuestions();
+        request.setAttribute("questions", questions);
+        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

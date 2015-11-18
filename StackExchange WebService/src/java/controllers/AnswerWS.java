@@ -30,15 +30,14 @@ public class AnswerWS {
      * Web service operation
      */
     @WebMethod(operationName = "getAnswerByQId")
-    public ArrayList getAnswerByQId(@WebParam(name = "qId") int qId) {
-        //TODO write your implementation code here:
-        ArrayList<Answer> answers = new ArrayList<Answer>();
+    public ArrayList getAnswerByQId(@WebParam(name = "q_id") int q_id) {
+        ArrayList<Answer> answers = new ArrayList<>();
         try {
             Statement stmt = conn.createStatement();
-            String query = "SELECT * FROM answer WHERE q_id=";
-            //dbStatement.setInt(1, qId);
-            ResultSet rs = stmt.executeQuery(query);
+            String sql = "SELECT * FROM answer WHERE q_id="+q_id;
+            ResultSet rs = stmt.executeQuery(sql);
             /* Get data */
+            //int a_id, int u_id, String content, int vote, String date_created, int q_id
             while (rs.next()) {
                 answers.add(new Answer (
                     rs.getInt("a_id"),
@@ -61,10 +60,10 @@ public class AnswerWS {
      * Web service operation
      */
     @WebMethod(operationName = "addNewAnswer")
-    public int addNewAnswer(@WebParam(name = "uId") int uId, @WebParam(name = "content") String content, @WebParam(name = "qId") int qId) {
+    public int addNewAnswer(@WebParam(name = "u_id") int u_id, @WebParam(name = "content") String content, @WebParam(name = "q_id") int q_id) {
         try {
             try (Statement stmt = conn.createStatement()) {
-                String sql = "INSERT INTO answer(u_Id,content,date_created,q_Id) VALUE ("+uId+",'"+content+"',now(),"+qId+")";
+                String sql = "INSERT INTO answer(u_id,content,date_created,q_id) VALUE ("+u_id+",'"+content+"',now(),"+q_id+")";
                 stmt.executeUpdate(sql);
             }
         } catch (SQLException e) {
@@ -79,43 +78,45 @@ public class AnswerWS {
      * Web service operation
      */
     @WebMethod(operationName = "voteAnswer")
-    public int voteAnswer(@WebParam(name = "aId") int aId) {
+    public int voteAnswer(@WebParam(name = "a_id") int a_id) {
+        int vote = 0;
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT vote FROM answer WHERE a_id="+aId;
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            int vote = dbStatement.executeQuery().getInt("vote");
-            vote++;
-            sql = "UPDATE answer SET vote = " +vote+ "WHERE a_id="+aId;
+            String sql = "UPDATE answer SET vote = vote+1 WHERE a_id="+a_id;
             stmt.executeUpdate(sql);
+            sql = "SELECT vote FROM answer WHERE a_id="+a_id;
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                vote = rs.getInt("vote");
+            }
             stmt.close();
         } catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
-            return 0;
         }
-        return 1;
+        return vote;
     }
 
     /**
      * Web service operation
      */
     @WebMethod(operationName = "devoteAnswer")
-    public int devoteAnswer(@WebParam(name = "aId") int aId) {
+    public int devoteAnswer(@WebParam(name = "a_id") int a_id) {
+        int vote = 0;
         try {
-            try (Statement stmt = conn.createStatement()) {
-                String sql = "SELECT vote FROM answer WHERE a_id="+aId;
-                PreparedStatement dbStatement = conn.prepareStatement(sql);
-                int vote = dbStatement.executeQuery().getInt("vote");
-                vote--;
-                sql = "UPDATE answer SET vote = " +vote+ "WHERE a_id="+aId;
-                stmt.executeUpdate(sql);
+            Statement stmt = conn.createStatement();
+            String sql = "UPDATE answer SET vote = vote-1 WHERE a_id="+a_id;
+            stmt.executeUpdate(sql);
+            sql = "SELECT vote FROM answer WHERE a_id="+a_id;
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                vote = rs.getInt("vote");
             }
+            stmt.close();
         } catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
-            return 0;
         }
-        return 1;
+        return vote;
     }
 }
