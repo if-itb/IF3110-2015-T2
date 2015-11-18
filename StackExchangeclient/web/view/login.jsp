@@ -8,10 +8,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>JSP Page</title>
+    <title>Login | Overflow48</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="icon" type="image/png" href="../assets/white-icon.jpg">
+    
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <div class="container">
+      <h1 class="text-center"><a href="/StackExchangeclient">OVERFLOW48</a></h1>
+      <form id="search" action="view/search.jsp" action="GET">
+        <table>
+        <tr>
+          <td width="200%"> <input id="q" placeholder="What are you looking for?" type="text" class="form" name="q"></td>
+          <td width="20%"> <button class="button" type="submit">Search</button> </td>
+        </tr>
+        </table>
+      </form>
+      <p class="text-right"><a href="login.jsp" class="link">Login</a> | <a href="register.jsp" class="link">Register</a></p>
+
+      <br> <br>
+        <div class="small_container">
+          <form id="login" action="../controller/login.jsp" method="POST">
+          <input id="email" placeholder="Email" class="form" type="text" name="email" value="">
+          <input id="pass" placeholder="Password" class="form" type="text" name="pass" value="">
+          <div class="text-right">
+              <button class="button" type="submit">Login</button>
+          </div>
+        </div>
+      </form>
+      
+    </div>
+    
   </body>
+  <footer> <br><br> </footer>
 </html>

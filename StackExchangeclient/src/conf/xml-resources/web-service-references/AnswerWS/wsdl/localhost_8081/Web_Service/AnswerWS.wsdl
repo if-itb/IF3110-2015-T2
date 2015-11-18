@@ -4,6 +4,24 @@
 <xsd:import namespace="http://jaxws/" schemaLocation="http://localhost:8081/Web_Service/AnswerWS?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="getAnswerQID">
+<part name="parameters" element="tns:getAnswerQID"/>
+</message>
+<message name="getAnswerQIDResponse">
+<part name="parameters" element="tns:getAnswerQIDResponse"/>
+</message>
+<message name="getAnswerVote">
+<part name="parameters" element="tns:getAnswerVote"/>
+</message>
+<message name="getAnswerVoteResponse">
+<part name="parameters" element="tns:getAnswerVoteResponse"/>
+</message>
+<message name="setAnswerVote">
+<part name="parameters" element="tns:setAnswerVote"/>
+</message>
+<message name="setAnswerVoteResponse">
+<part name="parameters" element="tns:setAnswerVoteResponse"/>
+</message>
 <message name="getAnswerByQID">
 <part name="parameters" element="tns:getAnswerByQID"/>
 </message>
@@ -23,6 +41,18 @@
 <part name="parameters" element="tns:voteAnswerResponse"/>
 </message>
 <portType name="AnswerWS">
+<operation name="getAnswerQID">
+<input wsam:Action="http://jaxws/AnswerWS/getAnswerQIDRequest" message="tns:getAnswerQID"/>
+<output wsam:Action="http://jaxws/AnswerWS/getAnswerQIDResponse" message="tns:getAnswerQIDResponse"/>
+</operation>
+<operation name="getAnswerVote">
+<input wsam:Action="http://jaxws/AnswerWS/getAnswerVoteRequest" message="tns:getAnswerVote"/>
+<output wsam:Action="http://jaxws/AnswerWS/getAnswerVoteResponse" message="tns:getAnswerVoteResponse"/>
+</operation>
+<operation name="setAnswerVote">
+<input wsam:Action="http://jaxws/AnswerWS/setAnswerVoteRequest" message="tns:setAnswerVote"/>
+<output wsam:Action="http://jaxws/AnswerWS/setAnswerVoteResponse" message="tns:setAnswerVoteResponse"/>
+</operation>
 <operation name="getAnswerByQID">
 <input wsam:Action="http://jaxws/AnswerWS/getAnswerByQIDRequest" message="tns:getAnswerByQID"/>
 <output wsam:Action="http://jaxws/AnswerWS/getAnswerByQIDResponse" message="tns:getAnswerByQIDResponse"/>
@@ -38,6 +68,33 @@
 </portType>
 <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="getAnswerQID">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getAnswerVote">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="setAnswerVote">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="getAnswerByQID">
 <soap:operation soapAction=""/>
 <input>

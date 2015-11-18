@@ -16,7 +16,16 @@
   <body>
     <div class="container">
       <h1 class="text-center"><a href="/StackExchangeclient">OVERFLOW48</a></h1>
-      <br/>
+      <form id="search" action="view/search.jsp" action="GET">
+        <table>
+        <tr>
+          <td width="200%"> <input id="q" placeholder="What are you looking for?" type="text" class="form" name="q"></td>
+          <td width="20%"> <button class="button" type="submit">Search</button> </td>
+        </tr>
+        </table>
+      </form>
+      <p class="text-right"><a href="login.jsp" class="link">Login</a> | <a href="register.jsp" class="link">Register</a></p>
+
       <h2>What's your question?</h2>
       <%
         QuestionWS.QuestionWS_Service service = new QuestionWS.QuestionWS_Service();

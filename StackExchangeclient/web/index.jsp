@@ -16,7 +16,6 @@
   <body>
     <div class="container">
       <h1 class="text-center"><a href="/StackExchangeclient">OVERFLOW48</a></h1>
-      
       <form id="search" action="view/search.jsp" action="GET">
         <table>
         <tr>
@@ -25,10 +24,11 @@
         </tr>
         </table>
       </form>
-
+      <p class="text-right"><a href="view/login.jsp" class="link">Login</a> | <a href="view/register.jsp" class="link">Register</a></p>
+      
       <p class="text-center">Cannot find what you are looking for? <a href="view/ask.jsp" class="link">Ask here.</a></p>
 
-      <br/> <h3>Recently Asked Questions</h3>
+      <h3>Recently Asked Questions</h3>
 
       <%
         QuestionWS.QuestionWS_Service service = new QuestionWS.QuestionWS_Service();
