@@ -3,9 +3,9 @@
   <services/>
   <clients>
     <client name="QuestionWS">
-      <wsdl-url>http://localhost:8082/StackExchange_WS/QuestionWS?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8082/StackExchange_WS/QuestionWS.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">QuestionWS</package-name>
+      <wsdl-url>http://localhost:8081/StackExchange_WS/QuestionWS?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8081/StackExchange_WS/QuestionWS.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">Question</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -22,7 +22,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8082/StackExchange_WS/QuestionWS?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:8081/StackExchange_WS/QuestionWS?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -34,7 +34,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>QuestionWS</wsimport-option-value>
+          <wsimport-option-value>Question</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

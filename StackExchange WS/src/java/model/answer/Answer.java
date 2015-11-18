@@ -40,4 +40,28 @@ public class Answer {
            this.content = content;
            this.create_time = create_time; 
     }
+    
+    public int getAnswerID() {
+        return answer_id;
+    }
+    
+    public int getQuestionID() {
+        return question_id;
+    }
+    
+    public int getUserID() {
+        return user_id;
+    }
+    
+    public String getContent() {
+        return content;
+    }
+    
+    public int getVote(){
+        return vote;
+    }
+    
+    public String getCreateTime() {
+        return create_time;
+    }
 }

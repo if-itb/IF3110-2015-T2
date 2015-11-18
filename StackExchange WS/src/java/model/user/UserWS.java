@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.jws.Oneway;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -33,18 +34,18 @@ public class UserWS {
      * Web service operation
      */
     @WebMethod(operationName = "addUser")
-    @WebResult(name="User")
-    public void addUser(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
+    @Oneway
+    public void addUser(@WebParam(name = "u") User u) {
         try{
             Statement stmt = conn.createStatement();
-            String sql;
-            sql = "INSERT INTO user (name, email, password, token) "
-                    + "VALUES(" + name + "," + email + "," + password + "," + "'abcd');";
+            String sql = "INSERT INTO user(name,email,password,content) VALUES("+
+                    u.getName() + "," + u.getEmail() + "," + u.getPassword() + "," + u.getToken() +")";
             stmt.executeUpdate(sql);
+            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(UserWS.class.getName()).log
             (Level.SEVERE, null, ex);
-           }
+        }
     }
     
     /**

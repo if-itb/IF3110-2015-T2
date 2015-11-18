@@ -42,4 +42,24 @@ public class User {
         this.token = token;
         this.user_id = user_id;
     }
+    
+    public int getUserID(){
+        return user_id;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public String getPassword(){
+        return password;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public String getToken() {
+        return token;
+    }
 }
