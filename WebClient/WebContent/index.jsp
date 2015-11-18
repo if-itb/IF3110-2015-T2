@@ -11,108 +11,111 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" href="style.css">
 	<base href="http://localhost:8080/WebClient/index.jsp"/>
+	<title>Simple StackExchange</title>
+	
+	<!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<div class="header">
-		<span class="subheader">
-			log in
-		</span> | 
-		<span class="subheader">
-			register
-		</span>
-		<div style="width:94%">
+
+<!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.jsp">StackExchange</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="signin.jsp">Sign In</a>
+                    </li>
+                    <li>
+                        <a href="register.jsp">Register</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    
+    <!-- Header Carousel -->
+    <header id="myCarousel" class="carousel slide">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="fill" style="background-image:url('http://localhost:8080/WebClient/images/Home2.jpg');"></div>
+                <div class="carousel-caption">
+                    <h2>Welcome To StackExchange</h2>
+                    <h4>Where Ivan is better than Google</h4>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Page Content -->
+    <div class="container">
+		<div class="search">
+	        <form action = "#" method="get">
+	            <input name ='search' class = "searchbar" type = "text"/>
+	            <input class = "button" type = "submit" value="Search"/>
+	        </form>
+	        <p>Cannot find what you are looking for? <a href = "question_create.jsp">Ask here</a></p>
 		</div>
+
+		<h2 style="color:darkblue">Recently Asked Questions</h2>
 		<hr>
-	</div>
-	<a href="index.jsp" style="text-decoration:none; color:black">
-		<h1>Simple StackExchange</h1>
-	</a>
-	<div>
-		<form action="#" method="POST">
-			<span>
-				<input type="text" name="key" class="search"></input>
-			</span>
-			<span>
-				<input type="submit" class="buttonsearch" value="Search">
-			</span>
-		</form>
-	</div>
-	<h3>
-		Cannot find what you are looking for? 
-		<a href="question_create.jsp" class="ask">Ask here</a>
-	</h3>
-	<h2 style="color:darkblue">Recently Asked Questions</h2>
-	<hr>
 	
-	<%
-		QuestionService qservice = new QuestionService();
-		Question q = qservice.getQuestionPort();
-		List<QuestionItem> questionList = q.getQuestionList();
-		int n = questionList.size();
-	%>
+		<%
+			QuestionService qservice = new QuestionService();
+			Question q = qservice.getQuestionPort();
+			List<QuestionItem> questionList = q.getQuestionList();
+			int n = questionList.size();
+		%>
 	
-	<% for (int i = 0; i < n; i++) { %>
-			<table>
-    		<tr>
-    			<td class="vote" rowspan="2">
-    				<% questionList.get(i).getNumVote(); %> 
-    			</td>
-    			<td class="vote" rowspan="2">
-    				0
-    			</td>
-				<td class="topic">
-					<a href="#" class="topic">
-						<%= questionList.get(i).getTopic() %>
-					</a>
-				</td>
-				<td class="askedby">
-				</td>
-				</tr>
-				<tr>
-  				<%
-  					String str = questionList.get(i).getContent();
-		  			if(str.length() < 90) {
-		  				out.println ("<td style=\"padding-left:2.6%\" class=\"discontent\">"+questionList.get(i).getContent()+"</td><td></td>");
-		  			} else {
-		  				out.println ("<td style=\"padding-left:2.6%\" class=\"discontent\">");
-		  				out.println (str.substring(0, 90));
-		  				out.println ("...</td><td></td>");
-		  			}
-    			%>
-			</tr>
-			<tr>
-				<td class="vote1">
-					Votes
-				</td>
-				<td class="vote1">
-					Answers
-				</td>
-				<td class="topic">
-				</td>
-				<td class="askedby">
-					asked by  
-					<span class="user">
-						<%= questionList.get(i).getUsername() %>
-					</span>
-						|
-					<span class="edit">
-						<a href="editQuestion.jsp" class="edit">
-						 edit 
-						</a>
-					</span>
-						|
-					<span class="delete">
-					 <a href="delete.jsp" class="delete">
-						 delete 
-						</a>
-					</span>
-				</td>
-				</tr>
-        </table>
-        <hr>
-		
-		<% } %>
-	
-	
+		<% for (int i = 0; i < n; i++) { %>
+			<div class = 'content'>
+				<div class = 'q_or_a'>
+					<div class = 'left'>
+						<span class = 'vote'><% questionList.get(i).getNumVote(); %><br>Votes</span>
+						<span class = 'answer'>0<br>Answers</span>
+					</div>
+					<div class = 'mid'>
+						<a class = 'topic' href='#'><%= questionList.get(i).getTopic() %><br></a>
+						<div class = 'q_content'>
+						<%
+		  					String str = questionList.get(i).getContent();
+				  			if(str.length() < 90) {
+				  				out.println ("<td style=\"padding-left:2.6%\" class=\"discontent\">"+questionList.get(i).getContent()+"</td><td></td>");
+				  			} else {
+				  				out.println ("<td style=\"padding-left:2.6%\" class=\"discontent\">");
+				  				out.println (str.substring(0, 90));
+				  				out.println ("...</td><td></td>");
+				  			}
+	    				%>
+	    				</div>
+					</div>
+				</div>
+				<div class = 'details'>Asked by <span class = 'b_link'><%= questionList.get(i).getUsername() %> </span>|
+                <a href = '#' class = 'y_link'> edit </a>|
+                <a href='#' class = 'r_link'>delete</a><br></div>
+			</div>
+	        <hr>
+			<% } %>
+		</div>
 </body>
 </html>
