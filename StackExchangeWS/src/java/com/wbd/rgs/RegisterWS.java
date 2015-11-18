@@ -5,7 +5,6 @@
  */
 package com.wbd.rgs;
 
-import com.wbd.ans.Answer;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,7 +14,6 @@ import java.sql.Statement;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import sun.security.util.Password;
 
 /**
  *
@@ -23,7 +21,6 @@ import sun.security.util.Password;
  */
 @WebService(serviceName = "RegisterWS")
 public class RegisterWS {
-
     //Declare Connection
     //private Connection conn;
     
@@ -36,14 +33,11 @@ public class RegisterWS {
     //Declare Database Credentials
     static final String USER = "root";
     static final String PASS = "";
-
     /**
      * Web service operation
      */
     @WebMethod(operationName = "register")
-    public int register(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password){
-        //TOD wt.prirlite your implementation code here:
-        
+    public int register(@WebParam(name = "nama") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
         int hasil;
         Connection conn = null;
         PreparedStatement dbStatement = null;

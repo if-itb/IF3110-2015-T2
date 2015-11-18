@@ -24,7 +24,7 @@
         <br>
         <br>
         <br>
-        <div class="subtitle">Register Here</div>
+        <div class="subtitle">Please Register</div>
         <hr class='line'>
         <form name="registerForm" action="registerresult.jsp" onsubmit="" method="POST">
             <input type="hidden" name="question_id">
