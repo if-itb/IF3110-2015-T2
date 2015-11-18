@@ -9,6 +9,7 @@ package com.dazzlesquad.question_package;
  * @author ryanyonata
  */
 import com.dazzesquad.database_console.DBConnect;
+import com.dazzlesquad.answer_package.*;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
@@ -71,34 +72,25 @@ public class QuestionWS {
     }
     
     @WebMethod(operationName = "deleteQuestion")
+    @WebResult(name="Success")
     public int deleteQuestion(@WebParam(name = "id") int id) {
         int deletesuccessful = 1; // nanti diganti fungsi validasi
         if (deletesuccessful == 1) {
             try {
-                String sql1, sql2;
-                Statement statement1 = conn.createStatement();
+                String sql;
+                Statement statement = conn.createStatement();
 
-                sql1 = "DELETE * FROM Answer WHERE questionId=?";
+                sql = "DELETE FROM Question WHERE id=?";
 
-                PreparedStatement dbStatement1 = conn.prepareStatement(sql1);
-                dbStatement1.setInt(1,id);
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1,id);
 
-                ResultSet result1 = dbStatement1.executeQuery(); 
-
-                result1.close();
-                statement1.close();
-
-                Statement statement2 = conn.createStatement();
-
-                sql1 = "DELETE * FROM Question WHERE id=?";
-
-                PreparedStatement dbStatement2 = conn.prepareStatement(sql1);
-                dbStatement1.setInt(1,id);
-
-                ResultSet result2 = dbStatement1.executeQuery(); 
-
-                result2.close();
-                statement2.close();
+                dbStatement.executeUpdate(); 
+                
+                AnswerWS answers = new AnswerWS();
+                answers.deleteAnswer(id);
+                statement.close();
+                
             } catch (SQLException ex) {
                 Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -107,6 +99,8 @@ public class QuestionWS {
         return deletesuccessful;
     }
     
+    @WebMethod(operationName = "insertQuestion")
+    @WebResult(name="Question")
     public int insertQuestion(@WebParam(name = "Question") Question q) {
         int insertsuccessful = 1; // nanti diganti fungsi validasi
         
@@ -121,10 +115,11 @@ public class QuestionWS {
                 dbStatement.setString(2,q.getQuestionTopic());
                 dbStatement.setString(3,q.getQuestionContent());
 
-                ResultSet result = dbStatement.executeQuery(); 
+                dbStatement.executeUpdate(); 
 
-                result.close();
+              
                 statement.close();
+                
             } catch (SQLException ex) {
                 Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -162,6 +157,7 @@ public class QuestionWS {
     }
     
     @WebMethod(operationName = "editQuestion")
+    @WebResult(name="NewQuestion")
     public int editQuestion(@WebParam(name = "id") int id, @WebParam(name = "topic") String newtopic, @WebParam(name = "content") String newcontent) {
         int editsuccessful = 1; // nanti diganti fungsi validasi
         
@@ -174,12 +170,11 @@ public class QuestionWS {
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
                 dbStatement.setString(1,newtopic);
                 dbStatement.setString(2,newcontent);
-                //dbStatement.setString(3,);
                 dbStatement.setInt(3,id);
 
-                ResultSet result = dbStatement.executeQuery(); 
+                dbStatement.executeUpdate(); 
 
-                result.close();
+                
                 statement.close();
             } catch (SQLException ex) {
                 Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);

@@ -48,4 +48,28 @@ public class Answer {
         
     }
     
+    public int getId() {
+        return id;
+    }
+    
+    public int getQid() {
+        return questionId;
+    }
+    
+    public int getUid() {
+        return userId;
+    }
+    
+    public String getContent() {
+        return content;
+    }
+    
+    public int getVote() {
+        return vote;
+    }
+    
+    public String getDate() {
+        return date;
+    }
+    
 }

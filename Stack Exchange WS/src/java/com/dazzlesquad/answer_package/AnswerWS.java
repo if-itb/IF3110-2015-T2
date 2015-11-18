@@ -27,13 +27,6 @@ public class AnswerWS {
         DBConnect db = new DBConnect();
         conn = db.connect();
     }
-    /**
-     * This is a sample web service operation
-     */
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
-    }
 
     /**
      * Web service operation
@@ -69,4 +62,69 @@ public class AnswerWS {
         return answers;
         
     }
+
+    @WebMethod(operationName = "insertAnswer")
+    @WebResult(name="NewAnswer")
+    public int insertAnswer(@WebParam(name = "answer") Answer answer) {
+        int insertsuccessful = 1; // nanti diganti fungsi validasi
+        
+        if (insertsuccessful == 1) {
+            try {
+                Statement statement = conn.createStatement();
+                String sql;
+                sql = "INSERT INTO Answer (id_user, question_id, content, vote, date) VALUES (?,?,?,?,?)";
+
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1,answer.getId());
+                dbStatement.setInt(2,answer.getQid());
+                dbStatement.setString(3,answer.getContent());
+                dbStatement.setInt(4,answer.getVote());
+                dbStatement.setString(5,answer.getDate());
+
+                dbStatement.executeUpdate(); 
+
+                
+                statement.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return insertsuccessful;
+    }
+    
+    @WebMethod(operationName = "deleteAnswer")
+    @WebResult(name="Success")
+    public int deleteAnswer(@WebParam(name = "qid") int qid) {
+        int deletesuccessful = 1; // nanti diganti fungsi validasi
+        if (deletesuccessful == 1) {
+            try {
+                String sql;
+                Statement statement = conn.createStatement();
+
+                sql = "DELETE FROM Answer WHERE question_id=?";
+
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1,qid);
+
+                dbStatement.executeUpdate(); 
+
+               
+                statement.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return deletesuccessful;
+    }
+    
+    @WebMethod(operationName = "countAnswer")
+    @WebResult(name="count")
+    public int countAnswer(@WebParam(name = "qid") int qid) {
+        java.util.ArrayList<Answer> answers = getAnswerById(qid);
+        int size = answers.size();
+        return size;
+    }
+    
+    
 }
