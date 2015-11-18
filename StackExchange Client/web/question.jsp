@@ -4,12 +4,14 @@
     Author     : Asus
 --%>
 
+<%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="layout/header.jsp" flush="true"/>
 <jsp:useBean id="question" type="QuestionWS.Question" scope="request" /> 
 <jsp:useBean id="question_vote_count" type="Integer" scope="request" /> 
 <jsp:useBean id="answers" type="java.util.List<AnswerWS.Answer>" scope="request" /> 
 <jsp:useBean id="answer_count" type="Integer" scope="request" /> 
+<jsp:useBean id="answers_vote_counts" type="HashMap<Integer,Integer>" scope="request" />
 <jsp:useBean id="question_asker" type="String" scope="request" /> 
 
     <%
@@ -109,15 +111,15 @@
                 <div class="answer-status col-2">
                     <div class="vote">
                         <div class="vote-up">
-                            <a class="vote-link" href="">▲</a>
+                            <a class="vote-link" href="answervote?qid=<%= question.getId() %>&aid=<%= answer.getId() %>&value=1">▲</a>
                         </div>
 
                         <div class="vote-counts">
-                            <span>0</span>
+                            <span><%= answers_vote_counts.get(answer.getId()) %></span>
                         </div>
 
                         <div class="vote-down">
-                            <a class="vote-link" href="">▼</a>
+                            <a class="vote-link" href="answervote?qid=<%= question.getId() %>&aid=<%= answer.getId() %>&value=-1">▼</a>
                         </div>
                     </div>
                 </div> <!-- .answer-status -->

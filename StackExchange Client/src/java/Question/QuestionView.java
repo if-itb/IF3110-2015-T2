@@ -12,6 +12,7 @@ import UserWS.User;
 import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,10 +49,18 @@ public class QuestionView extends HttpServlet {
     int questionVoteCount = new Integer(getVoteCountByQId(question.getId()));
     java.util.List<AnswerWS.Answer> answers = getAnswerByQID(Integer.parseInt(request.getParameter("id")));
     
+    HashMap answers_vote_counts = new HashMap();
+    
+    for ( AnswerWS.Answer answer: answers )
+    {
+        answers_vote_counts.put(new Integer(answer.getId()), new Integer(getVoteCountByAId(answer.getId())));
+    }
+    
     request.setAttribute("question", question);
     request.setAttribute("question_vote_count", questionVoteCount);
     request.setAttribute("answers", answers);
     request.setAttribute("answer_count", new Integer(getAnswerCount(question.getId())));
+    request.setAttribute("answers_vote_counts", answers_vote_counts);
     request.setAttribute("question_asker", (getUserById(question.getIdUser())).getName());
     RequestDispatcher dispatcher = request.getRequestDispatcher("/question.jsp"); 
     dispatcher.forward(request, response); 
@@ -131,6 +140,13 @@ public class QuestionView extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
         return port.getVoteCountByQId(qid);
+    }
+
+    private int getVoteCountByAId(int aid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
+        return port.getVoteCountByAId(aid);
     }
 
 }
