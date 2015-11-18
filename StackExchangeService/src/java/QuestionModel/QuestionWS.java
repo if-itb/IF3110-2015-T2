@@ -88,7 +88,7 @@ public class QuestionWS {
     public  Boolean createQuestion(@WebParam(name = "username") String uname , 
             @WebParam(name = "topic") String topic, 
             @WebParam(name = "content") String content){
-        
+        conn = db.connect();
         Boolean status = true;
         try {
             Statement stmt;
@@ -304,19 +304,14 @@ public class QuestionWS {
             Statement stmt;
             stmt = conn.createStatement();
             
-            String sqlAns, sqlQ;
-            sqlAns="DELETE FROM answer WHERE id_question = ? ";
-            sqlQ = "DELETE FROM question where id_question = ?";
+            String sql;
+
+            sql = "DELETE FROM question where id_question = ?";
             
-            PreparedStatement dbStatement = conn.prepareStatement(sqlAns);
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, qid);
             status=dbStatement.execute();
             
-            
-            PreparedStatement dbStatement2 = conn.prepareStatement(sqlQ);
-            dbStatement2.setInt(1, qid);
-            status=dbStatement2.execute();
-
             stmt.close();
             conn.close();
         }
@@ -325,5 +320,36 @@ public class QuestionWS {
         }
          return status;
     }
-    
+    @WebMethod(operationName = "isVoted")
+    public Boolean isVoted(@WebParam(name = "qid") int qid,@WebParam(name = "username") String username){
+        Boolean status = false;
+        conn = db.connect();
+        
+         try {
+            Statement stmt;
+            stmt = conn.createStatement();
+            
+            String sql;
+            sql="Select * from vote_question where id_question = ? and username = ?";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, qid);
+            dbStatement.setString(2, username);
+
+            ResultSet rs;
+            rs = dbStatement.executeQuery();
+            
+            /* Get every data returned by SQLquery */
+            while(rs.next()) {
+                status= true;
+            }
+            
+            stmt.close();
+            conn.close();
+        }
+        catch(SQLException ex) {
+           Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex); 
+        }
+        return status;
+    }
 }

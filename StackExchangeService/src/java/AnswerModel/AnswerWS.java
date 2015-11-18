@@ -191,5 +191,37 @@ public class AnswerWS {
         }
         return count;
     }
+    @WebMethod(operationName = "isVoted")
+    public Boolean isVoted(@WebParam(name = "aid") int aid,@WebParam(name = "username") String username){
+        Boolean status = false;
+        conn = db.connect();
+        
+         try {
+            Statement stmt;
+            stmt = conn.createStatement();
+            
+            String sql;
+            sql="Select * from vote_answer where id_answer = ? and username = ?";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, aid);
+            dbStatement.setString(2, username);
+
+            ResultSet rs;
+            rs = dbStatement.executeQuery();
+            
+            /* Get every data returned by SQLquery */
+            while(rs.next()) {
+                status= true;
+            }
+            
+            stmt.close();
+            conn.close();
+        }
+        catch(SQLException ex) {
+           Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex); 
+        }
+        return status;
+    }
    
 }
