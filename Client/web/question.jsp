@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"  pageEncoding="ISO-8859-1"%>
 <%@page import= "java.net.URL,javax.xml.namespace.QName,javax.xml.ws.Service" %>
-<%@page import= "com.yangnormal.sstackex.WebServiceImplService" %>
-<%@page import= "com.yangnormal.sstackex.WebServiceInterface" %>
-<%@ page import="com.yangnormal.sstackex.Question" %>
+<%@ page import="com.yangnormal.sstackex.*" %>
 <%
 	URL url = new URL ("http://localhost:8082/ws/stackexchange?wsdl");
 	QName qname = new QName("http://ws.sstackex.yangnormal.com/","WebServiceImplService");
@@ -10,6 +8,7 @@
 	WebServiceInterface ws = webService.getWebServiceImplPort();
 	int id = Integer.parseInt(request.getParameter("id"));
 	Question q=ws.getQuestion(1);
+	AnswerArray answerList = ws.getAnswerList(1);
 %>
 <!DOCTYPE HTML>
 
@@ -29,23 +28,24 @@
 					<div class="stackquestion">
 						<div class="votes"><div class="arrow-up" onclick=""></div><div id="votequestion"><% out.println(q.getVote());%></div><div class="arrow-down"  onclick=""></div></div>
 						<div class="content"><% out.println(q.getContent());%></div>
-						<div class="detail">asked by <a class="linkname"></a> at <% out.println(q.getDate());%> | <a class="linkedit" href="">edit</a> | <a class="linkdelete" onclick="" href="">delete</a></div>
+						<div class="detail">asked by <% out.println(q.getUser().getName()); %> <a class="linkname"></a> at <% out.println(q.getDate());%> | <a class="linkedit" href="">edit</a> | <a class="linkdelete" onclick="" href="">delete</a></div>
 					</div>
 					<br>
-					<h2><% out.println(q.getAnswerSum());%> Answers</h2>
+					<h2><% out.println(answerList.getItem().size());%> Answers</h2>
 					<hr>
-
+				<%
+					for (Answer answer : answerList.getItem()) {
+				%>
 					<div class="stackanswer">
 						<br>
-						<div class="votes"><div class="arrow-up" onclick=""></div><div id="voteanswer">'</div><div class="arrow-down" onclick=""></div></div>
-						<div class="content">'</div>
-						<div class="detail">answered by <a class="linkname"></a> at </div>
+						<div class="votes"><div class="arrow-up" onclick=""></div><div id="voteanswer"><% out.println(answer.getVote()); %></div><div class="arrow-down" onclick=""></div></div>
+						<div class="content"><% out.println(answer.getContent()); %></div>
+						<div class="detail">answered by <% out.println(answer.getUser().getName()); %><a class="linkname"></a> at <% out.println(answer.getDate()); %> </div>
 					</div>
 					<br>
 					<hr>
-
+					<% } %>
 				</div>
-				<% if (q.getAnswerSum()>0) {%>
 				<div class="content question">
 					<h2 class="title2">Your Answer</h2>
 					<hr>
@@ -58,9 +58,8 @@
 					<br>
 					<input type="submit" id="post" value="Post">
 					</form>	
-				</div>	
+				</div>
 			</div>
-			<% } %>
 			<script src="js/script.js"></script>
 		</body>
 	</html>

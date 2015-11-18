@@ -162,7 +162,7 @@ public class WebServiceImpl implements WebServiceInterface{
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             // Query
             String query = "SELECT question.topic,question.vote,question.content,question.date,question.uid,fullname,count(answer.qid) as answerSum " +
-                    "FROM question JOIN user LEFT JOIN answer ON (question.id = answer.id) " +
+                    "FROM question LEFT JOIN user ON (question.id = user.id) LEFT JOIN answer ON (question.id = answer.id) " +
                     "WHERE question.id = "+qid+" " +
                     "GROUP BY question.id, question.topic, question.content, question.vote, question.date";
             stmt = conn.createStatement();
@@ -174,7 +174,7 @@ public class WebServiceImpl implements WebServiceInterface{
                 q.setTopic(rs.getString("topic"));
                 q.getUser().setName(rs.getString("fullname"));
                 q.setVote(rs.getInt("vote"));
-                q.setDate(rs.getDate("date"));
+                q.setDate(rs.getString("date"));
                 q.setAnswerSum(rs.getInt("answerSum"));
             }
 
@@ -241,7 +241,7 @@ public class WebServiceImpl implements WebServiceInterface{
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             // Query
             String query = "SELECT question.topic,question.vote,question.content,question.date,question.uid,fullname,count(answer.qid) as answerSum " +
-                    "FROM question JOIN user LEFT JOIN answer ON (question.id = answer.id) " +
+                    "FROM question LEFT JOIN user ON (question.uid = user.id) LEFT JOIN answer ON (question.id = answer.id) " +
                     "GROUP BY question.id, question.topic, question.content, question.vote, question.date";
             stmt = conn.createStatement();
             // Result Set
@@ -253,7 +253,7 @@ public class WebServiceImpl implements WebServiceInterface{
                 q.setTopic(rs.getString("topic"));
                 q.getUser().setName(rs.getString("fullname"));
                 q.setVote(rs.getInt("vote"));
-                q.setDate(rs.getDate("date"));
+                q.setDate(rs.getString("date"));
                 q.setAnswerSum(rs.getInt("answerSum"));
                 questionList.add(q);
             }
@@ -284,7 +284,7 @@ public class WebServiceImpl implements WebServiceInterface{
             // Open a connection
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             // Query
-            String query = "SELECT answer.content,answer.vote,answer.date,fullname FROM answer JOIN user JOIN question WHERE user.id = answer.uid AND question.id = "+qid;
+            String query = "SELECT answer.id,answer.content,answer.vote,answer.date,fullname FROM answer JOIN user ON (answer.uid=user.id) JOIN question ON (answer.qid=user.id) WHERE question.id = "+qid;
             stmt = conn.createStatement();
             // Result Set
             ResultSet rs = stmt.executeQuery(query);
@@ -294,10 +294,10 @@ public class WebServiceImpl implements WebServiceInterface{
                 answer.setId(rs.getInt("id"));
                 answer.setVote(rs.getInt("vote"));
                 answer.setContent(rs.getString("content"));
-                answer.setDate(rs.getDate("date"));
-                answer.getUser().setName("fullname");
-                answer.setQid(rs.getInt("qid"));
-
+                answer.setDate(rs.getString("date"));
+                answer.getUser().setName(rs.getString("fullname"));
+                answer.setQid(qid);
+                answerList.add(answer);
             }
 
         }

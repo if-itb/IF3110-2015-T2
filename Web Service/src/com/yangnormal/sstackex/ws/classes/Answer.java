@@ -1,6 +1,7 @@
 package com.yangnormal.sstackex.ws.classes;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 /**
  * Created by Julio on 11/18/2015.
@@ -33,11 +34,11 @@ public class Answer {
         this.content = content;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -62,7 +63,7 @@ public class Answer {
     int id;
     int vote;
     String content;
-    Date date;
+    String date;
     User user;
     int qid;
 }

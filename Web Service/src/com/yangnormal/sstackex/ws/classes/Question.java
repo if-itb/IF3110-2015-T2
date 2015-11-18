@@ -1,5 +1,5 @@
 package com.yangnormal.sstackex.ws.classes;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by Julio Savigny on 11/17/2015.
@@ -15,6 +15,7 @@ public class Question {
     User user;
     int vote;
     int id;
+    String date;
 
     public User getUser() {
         return user;
@@ -31,15 +32,14 @@ public class Question {
         this.answerSum = answerSum;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    Date date;
 
     public String getTopic() {
         return topic;

@@ -1,7 +1,4 @@
-import com.yangnormal.sstackex.Question;
-import com.yangnormal.sstackex.QuestionArray;
-import com.yangnormal.sstackex.WebServiceInterface;
-import com.yangnormal.sstackex.WebServiceImplService;
+import com.yangnormal.sstackex.*;
 
 import java.lang.Exception;
 import java.util.ArrayList;
@@ -14,6 +11,9 @@ public class Client{
         System.out.println(q.getUser().getName());
 
         QuestionArray qList = wsi.getQuestionList();
+        AnswerArray aList = wsi.getAnswerList(1);
+        System.out.println(aList.getItem().size());
+        System.out.println(qList.getItem().size());
         ArrayList<Question> QuestionList = (ArrayList<Question>) qList.getItem();
         System.out.println(QuestionList.get(0).getUser().getName());
 

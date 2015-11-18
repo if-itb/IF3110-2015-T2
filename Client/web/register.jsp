@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Your Answer</title>
+<title>Register</title>
 <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -35,12 +35,15 @@
 		QName qname = new QName("http://ws.sstackex.yangnormal.com/","WebServiceImplService");
 		WebServiceImplService webService = new WebServiceImplService(url,qname);
 		WebServiceInterface ws = webService.getWebServiceImplPort();
-		int status = ws.register(name,email,password); //method register di webservicenya return status ngecek kalau emailnya udah ada di DB atau belum
-		if (status==0){
+		int status = ws.register(name,email,password);
+		request.setAttribute("status",status);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("registerStatus.jsp");
+		dispatcher.forward(request,response);
+		/*if (status==0){
 			response.sendRedirect("registerSuccess.jsp");
 		} else {
 			response.sendRedirect("registerFail.jsp");
-		}
+		}*/
 	}
 	%>
 	<script type="text/javascript" src="js/script.js"></script>
