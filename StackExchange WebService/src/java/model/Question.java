@@ -28,6 +28,8 @@ public class Question {
     private String content;
     @XmlElement(name="vote", required=true)
     private int vote;
+    @XmlElement(name="answer", required=true)
+    private int answer;
     @XmlElement(name="date_created", required=true)
     private String dateCreated;
     @XmlElement(name="date_edited", required=true)
@@ -37,7 +39,7 @@ public class Question {
         
     }
     
-    public Question(int qId, int uId, String username, String name, String topic, String content, int vote, String dateCreated, String dateEdited) {
+    public Question(int qId, int uId, String username, String name, String topic, String content, int vote, int answer, String dateCreated, String dateEdited) {
         this.qId = qId;
         this.uId = uId;
         this.username = username;
@@ -45,6 +47,7 @@ public class Question {
         this.topic = topic;
         this.content = content;
         this.vote = vote;
+        this.answer = answer;
         this.dateCreated = dateCreated;
         this.dateEdited = dateEdited;
     }
@@ -85,8 +88,8 @@ public class Question {
         return dateEdited;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public int getAnswer() {
+        return answer;
     }
 
 }

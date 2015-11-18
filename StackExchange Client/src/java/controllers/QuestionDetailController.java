@@ -5,18 +5,27 @@
  */
 package controllers;
 
+import AnswerWS.AnswerWS_Service;
+import QuestionWS.Question;
+import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.WebServiceRef;
 
 /**
  *
  * @author Tifani
  */
-public class QuestionInfoController extends HttpServlet {
+public class QuestionDetailController extends HttpServlet {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WebService/QuestionWS.wsdl")
+    private QuestionWS_Service service_1;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WebService/AnswerWS.wsdl")
+    private AnswerWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,18 +39,13 @@ public class QuestionInfoController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet QuestionInfoController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet QuestionInfoController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        int qId = Integer.parseInt(request.getParameter("q_id"));
+        QuestionWS.Question question = getQuestionById(qId);
+        java.util.List<AnswerWS.Answer> answers = getAnswerByQId(qId);
+        request.setAttribute("question", question);
+        request.setAttribute("answers", answers);
+        RequestDispatcher rd = request.getRequestDispatcher("question.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,5 +86,19 @@ public class QuestionInfoController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    private Question getQuestionById(int qId) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
+        return port.getQuestionById(qId);
+    }
+
+    private java.util.List<AnswerWS.Answer> getAnswerByQId(int qId) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        AnswerWS.AnswerWS port = service.getAnswerWSPort();
+        return port.getAnswerByQId(qId);
+    }
 
 }

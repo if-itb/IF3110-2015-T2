@@ -21,7 +21,7 @@ import javax.xml.ws.WebServiceRef;
  */
 public class IndexController extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WebService/QuestionWS.wsdl")
-    private QuestionWS_Service service;
+    private QuestionWS.QuestionWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,9 +36,9 @@ public class IndexController extends HttpServlet {
             throws ServletException, IOException {
         
         response.setContentType("text/html;charset=UTF-8");
-        java.util.List<controllers.Question> questions = getAllQuestions();
+        java.util.List<QuestionWS.Question> questions = getAllQuestions();
         request.setAttribute("questions", questions);
-        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
         rd.forward(request, response);
     }
 
@@ -81,10 +81,10 @@ public class IndexController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private java.util.List<controllers.Question> getAllQuestions() {
+    private java.util.List<QuestionWS.Question> getAllQuestions() {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        controllers.QuestionWS port = service.getQuestionWSPort();
+        QuestionWS.QuestionWS port = service.getQuestionWSPort();
         return port.getAllQuestions();
     }
 

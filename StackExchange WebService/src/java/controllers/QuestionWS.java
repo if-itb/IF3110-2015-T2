@@ -40,7 +40,13 @@ public class QuestionWS {
         try {
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM question NATURAL JOIN user";
+            sql = "SELECT question.q_id as q_id, question.u_id as u_id, "
+                    + "username, name, "
+                    + "topic, question.content as content, "
+                    + "question.vote as vote, count(a_id) as answer, "
+                    + "question.date_created as date_created, date_edited "
+                    + "FROM (question NATURAL JOIN user) JOIN answer "
+                    + "ON (question.q_id = answer.q_id)";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             ResultSet rs = dbStatement.executeQuery();
             /* Get data */
@@ -53,6 +59,7 @@ public class QuestionWS {
                     rs.getString("topic"),
                     rs.getString("content"),
                     rs.getInt("vote"),
+                    rs.getInt("answer"),
                     rs.getString("date_created"),
                     rs.getString("date_edited")));
             }
@@ -76,7 +83,13 @@ public class QuestionWS {
         try {
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM question NATURAL JOIN user WHERE q_id = ? ";
+            sql = "SELECT question.q_id as q_id, question.u_id as u_id, "
+                    + "username, name, "
+                    + "topic, question.content as content, "
+                    + "question.vote as vote, count(a_id) as answer, "
+                    + "question.date_created as date_created, date_edited "
+                    + "FROM (question NATURAL JOIN user) JOIN answer "
+                    + "ON (question.q_id = answer.q_id) WHERE question.q_id = ? ";
             
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, q_id);
@@ -93,6 +106,7 @@ public class QuestionWS {
                     rs.getString("topic"),
                     rs.getString("content"),
                     rs.getInt("vote"),
+                    rs.getInt("answer"),
                     rs.getString("date_created"),
                     rs.getString("date_edited"));
             }

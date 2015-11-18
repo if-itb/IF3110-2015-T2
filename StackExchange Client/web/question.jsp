@@ -7,15 +7,41 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <jsp:include page="/views/header.jsp" flush="true"/>
+<jsp:useBean id="question" type="QuestionWS.Question" scope="request"/>
+<jsp:useBean id="answers" type="java.util.List<AnswerWS.Answer>" scope="request"/>
+
 	<div class="container">
-        <!--TODO : SHOW QUESTION AND ANSWER -->
-        <!--
-        int id = (int)request.getParameter("q_id");
-	
-		showQuestion(id);
-		showAnswers(id); */
-	-->
+            <h2><a href="question?q_id=<%= question.getQId() %> class="question-title-big">
+                   <%= question.getTopic() %>
+            </a></h2>
+            <hr>
+            <span id="question-vote"><br>
+                <div onclick="vote(<%= question.getQId() %>,'question','up')" class="arrow-up">
+                </div><br>
+                <span id="questvote" class="question-number">
+                    <%= question.getVote()%>
+                </span><br><br>
+		<div onclick="vote(<%= question.getQId() %>,'question','down')" class="arrow-down">
+                </div><br></span>
+		<span id="question-content">
+                    <%= question.getContent().replace("\n", "<br>") %>
+                    <br><br><br>
+                    <span class="question-info">asked by <span class="author">
+                            <%= question.getUsername() %>
+                    </span> at <%= question.getDateCreated()%> |
+                    <% if (question.getDateEdited()!=null) { %>
+                            <%= " edited at " + question.getDateEdited() + " " %>
+                    <% } %>
+                    <a href="edit?q_id=<%= question.getQId() %>" class="edit-question"> edit</a> | 
+                    <!-- TODO --><a href="controllers/delete-question.controller.php/?q_id=<%= question.getQId() %>"
+                                    class="delete-question" onclick="return deleteConfirmation(<%= question.getQId() %>)">
+                        delete
+                    </a><br></span></span>
+		</span>
+                <br><br><br>
+		<h2><%= question.getAnswer() %> Answers</h2><hr>
 		<br><br>
+                
 		<div class="center">
 			<form class="basic-grey" name= "answer" action="controllers/answer.controller.php" onsubmit="return validateAnswerForm()" method="post">
 				<input type="hidden" name="q_id" value="<?php echo $id ?>">
