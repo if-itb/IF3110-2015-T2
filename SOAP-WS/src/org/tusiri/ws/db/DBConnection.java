@@ -6,7 +6,7 @@ import java.sql.*;
 public class DBConnection {
 	// JDBC driver name dan database URL
 	final String JDBC_DRIVER="com.mysql.jdbc.Driver";  
-	final String DB_URL="jdbc:mysql://localhost/stackexchange";
+	final String DB_URL="jdbc:mysql://localhost/stackexchange?allowMultiQueries=true";
 		
 	//  Username dan password
 	final String USER = "root";

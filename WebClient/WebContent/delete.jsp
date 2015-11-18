@@ -30,7 +30,7 @@ if( cookies != null ){
 
 QuestionService qservice = new QuestionService();
 Question q = qservice.getQuestionPort();
-int result = q.deleteQuestion(access_token, 52);
+int result = q.deleteQuestion(access_token, 50);
 if(result>0){//success
 	String site = new String("question?id="+result);
 	response.setStatus(response.SC_MOVED_TEMPORARILY);
