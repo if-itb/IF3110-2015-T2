@@ -55,6 +55,7 @@ DROP TABLE IF EXISTS `answer_vote`;
 CREATE TABLE `answer_vote` (
   `id_answer` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
+  `status` int(1) DEFAULT '0',
   KEY `id_answer` (`id_answer`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `answer_vote_ibfk_1` FOREIGN KEY (`id_answer`) REFERENCES `answer` (`num_answer`),
@@ -88,7 +89,7 @@ CREATE TABLE `question` (
   PRIMARY KEY (`id_question`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,6 +112,7 @@ DROP TABLE IF EXISTS `question_vote`;
 CREATE TABLE `question_vote` (
   `id_question` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
+  `status` int(1) DEFAULT '0',
   KEY `id_question` (`id_question`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `question_vote_ibfk_1` FOREIGN KEY (`id_question`) REFERENCES `question` (`id_question`),
@@ -192,4 +194,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-18  6:04:41
+-- Dump completed on 2015-11-18 10:30:53
