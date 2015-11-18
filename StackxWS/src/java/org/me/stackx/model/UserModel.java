@@ -82,6 +82,7 @@ public class UserModel {
     }
     
     public static User getById(int id) {
+        User r = null;
         Connection conn = null;
         Statement stmt = null;
         try {
@@ -106,7 +107,8 @@ public class UserModel {
                 String password = rs.getString("password");
                 Timestamp createDate = rs.getTimestamp("create_date");
                 
-                return new User(userId, name, email, password, createDate.toString());
+                r = new User(userId, name, email, password, createDate.toString());
+                rs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -131,6 +133,6 @@ public class UserModel {
               se.printStackTrace();
            }//end finally try
         }//end try
-        return null;
+        return r;
     }
 }

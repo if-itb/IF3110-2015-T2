@@ -150,30 +150,38 @@ public class QuestionModel {
             Connection conn = null;
             PreparedStatement stmt = null;
             try {
-               //STEP 2: Register JDBC driver
-               Class.forName("com.mysql.jdbc.Driver");
+                //STEP 2: Register JDBC driver
+                Class.forName("com.mysql.jdbc.Driver");
 
-               //STEP 3: Open a connection
-               conn = (Connection) DriverManager.getConnection(DB_URL,USER,PASS);
+                //STEP 3: Open a connection
+                conn = (Connection) DriverManager.getConnection(DB_URL,USER,PASS);
 
-               //STEP 4: Execute a query
-               String sql;
-               sql = "UPDATE question SET vote=vote+? WHERE question_id=? AND user_id=?";
-               stmt = conn.prepareStatement(sql);
+                //STEP 4: Execute a query
+                String sql;
+                sql = "SELECT COUNT(user_id) FROM vote_question WHERE question_id=? AND user_id=?";
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, questionId);
+                stmt.setInt(2, user.getUserId());
+                ResultSet rs = stmt.executeQuery();
+                rs.next();
+                if (rs.getInt(1) == 0) {
+                    sql = "INSERT INTO vote_question (user_id, question_id) VALUES (?, ?)";
+                    stmt = conn.prepareStatement(sql);
+                    stmt.setInt(1, user.getUserId());
+                    stmt.setInt(2, questionId);
+                    stmt.executeUpdate();
+                }
                
-               stmt.setInt(1, inc);
-               stmt.setInt(2, questionId);
-               stmt.setInt(3, user.getUserId());
+                sql = "SELECT COUNT(user_id) FROM vote_question WHERE question_id=?";
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, questionId);
+                rs = stmt.executeQuery();
+                rs.next();
+                r = rs.getInt(1);
                
-               int affectedRows = stmt.executeUpdate();
-               if (affectedRows == 0) {
-                   r = -1;
-               } else {
-                   r = questionId;
-               }
-               
-               stmt.close();
-               conn.close();
+                rs.close();
+                stmt.close();
+                conn.close();
             } catch(SQLException se) {
                //Handle errors for JDBC
                se.printStackTrace();
@@ -252,6 +260,7 @@ public class QuestionModel {
     }
     
     public static Question getById(int id) {
+        Question r = null;
         Connection conn = null;
         Statement stmt = null;
         try {
@@ -277,7 +286,8 @@ public class QuestionModel {
                 int vote = rs.getInt("vote");
                 Timestamp createDate = rs.getTimestamp("create_date");
 
-                return new Question(questionId, userId, title, content, vote, createDate.toString());
+                r = new Question(questionId, userId, title, content, vote, createDate.toString());
+                rs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -302,7 +312,7 @@ public class QuestionModel {
               se.printStackTrace();
            }//end finally try
         }//end try
-        return null;
+        return r;
     }
     
     public static Question[] getAll() {
@@ -336,9 +346,9 @@ public class QuestionModel {
 
                     questionList.add(new Question(questionId, userId, title, content, vote, createDate.toString()));
                 }
-                out.println(questionList);
                 r = new Question[questionList.size()];
                 r = questionList.toArray(r);
+                rs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -61,7 +61,7 @@ public class ws {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "voteUp")
+    @WebMethod(operationName = "voteUpQuestion")
     public int voteUpQuestion(@WebParam(name = "access_token") String access_token, @WebParam(name = "id") final int id) {
         User u = new User(access_token);
         return QuestionModel.vote(u, id, 1);
