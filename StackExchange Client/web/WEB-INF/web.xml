@@ -59,6 +59,10 @@
         <servlet-name>AnswerVote</servlet-name>
         <servlet-class>Answer.AnswerVote</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AnswerNew</servlet-name>
+        <servlet-class>Answer.AnswerNew</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -114,6 +118,10 @@
     <servlet-mapping>
         <servlet-name>AnswerVote</servlet-name>
         <url-pattern>/answervote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AnswerNew</servlet-name>
+        <url-pattern>/newanswer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

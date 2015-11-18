@@ -12,6 +12,7 @@
 <jsp:useBean id="answers" type="java.util.List<AnswerWS.Answer>" scope="request" /> 
 <jsp:useBean id="answer_count" type="Integer" scope="request" /> 
 <jsp:useBean id="answers_vote_counts" type="HashMap<Integer,Integer>" scope="request" />
+<jsp:useBean id="answers_answerer" type="HashMap<Integer,UserWS.User>" scope="request" />
 <jsp:useBean id="question_asker" type="String" scope="request" /> 
 
     <%
@@ -130,7 +131,7 @@
 
                 <div class="answer-meta">
                     <span>
-                        Answered by Name
+                        Answered by <%= answers_answerer.get(answer.getId()).getName() %>
                     </span>
                 </div>
 
@@ -146,21 +147,13 @@
                 
                 <h3 class="answer-form-header">Your Answer</h3>
 
-                <form id="answerForm" action="" method="POST">
-                    <div class="form-field">
-                        <label for="name">Name</label>
-                        <input id="name" type="text" placeholder="Name">
-                    </div>
-
-                    <div class="form-field">
-                        <label for="email">Email</label>
-                        <input id="email" type="text" placeholder="Email">
-                    </div>
-
+                <form id="answerForm" action="newanswer" method="POST">
+                    <input type="hidden" name="qid" value="<%= question.getId() %>">
                     <div class="form-field">
                         <label for="content">Answer</label>
-                        <textarea placeholder="Your answer goes here"></textarea>
+                        <textarea name="content" placeholder="Your answer goes here"></textarea>
                     </div>
+                    <input type="submit" value="Submit"/>
                 </form>
 
             </div> <!-- .answer-form -->
