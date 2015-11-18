@@ -135,8 +135,18 @@
 			<div class = 'content'>
 				<div class = 'q_or_a'>
 					<div class = 'left'>
-						<span class = 'vote'><% questionList.get(i).getNumVote(); %><br>Votes</span>
-						<span class = 'answer'><% questionList.get(i).getNumAnswer(); %><br>Answers</span>
+						<span class = 'vote'>
+							<% int tmp = questionList.get(i).getNumVote(); 
+								out.println(tmp);	
+							%>
+							<br>Votes
+						</span>
+						<span class = 'answer'>
+							<% tmp = questionList.get(i).getNumAnswer(); 
+								out.println(tmp);
+							%>
+							<br>Answers
+						</span>
 					</div>
 					<div class = 'mid'>
 						<a class = 'topic' href='#'><%= questionList.get(i).getTopic() %><br></a>
