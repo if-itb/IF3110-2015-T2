@@ -3,15 +3,25 @@ package com.yangnormal.sstackex.ws;
 import java.sql.*;
 import javax.jws.WebService;
 import com.yangnormal.sstackex.ws.classes.*;
+import org.json.*;
+
 
 @WebService(endpointInterface = "com.yangnormal.sstackex.ws.WebServiceInterface")
 public class WebServiceImpl implements WebServiceInterface{
 
 
-	final String DB_URL="jdbc:mysql://localhost/mystackexchange";
-	final String USER="root";
-	final String PASS="";
+    final String DB_URL="jdbc:mysql://localhost/mystackexchange";
+    final String USER="root";
+    final String PASS="";
 
+    public int checkToken(String email, String token) throws Exception{
+        int status = 1;
+        HttpConnection http = new HttpConnection();
+        JSONObject obj = new JSONObject(http.sendGet("http://luckandlogic-tcg.wikia.com/api/v1/Articles/AsSimpleJson?id=2"));
+//        JSONObject obj = new JSONObject(http.sendGet("http://localhost:8082/check?email="+email+"&token="+token));
+        System.out.println(obj.get("sections").toString());
+        return status;
+    }
 
     @Override
     public int register(String name, String email, String password) {
@@ -57,74 +67,81 @@ public class WebServiceImpl implements WebServiceInterface{
     }
 
     @Override
-    public void postQuestion(int uid, String token, String title, String email, String content) {
-        Connection conn = null;
-        Statement stmt = null;
-        try{
-            // Register JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
-            // Open a connection
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            // Query
-            String query = "INSERT INTO question (vote, topic, content, date, uid) VALUES (0,'"+title+"','"+content+"',CURRENT_TIMESTAMP,"+uid+")";
-            stmt = conn.createStatement();
-            // Result Set
-            stmt.executeUpdate(query);
-        }
-        catch (SQLException se){
-            se.printStackTrace();
-            System.out.println("SQL post question Error");
-        }
-        catch (Exception e){
-            e.printStackTrace();
+    public void postQuestion(int uid, String token, String title, String email, String content) throws Exception{
+
+        if (checkToken(email, token) == 1){
+            Connection conn = null;
+            Statement stmt = null;
+            try{
+                // Register JDBC driver
+                Class.forName("com.mysql.jdbc.Driver");
+                // Open a connection
+                conn = DriverManager.getConnection(DB_URL,USER,PASS);
+                // Query
+                String query = "INSERT INTO question (vote, topic, content, date, uid) VALUES (0,'"+title+"','"+content+"',CURRENT_TIMESTAMP,"+uid+")";
+                stmt = conn.createStatement();
+                // Result Set
+                stmt.executeUpdate(query);
+            }
+            catch (SQLException se){
+                se.printStackTrace();
+                System.out.println("SQL post question Error");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
-    public void postAnswer(int qid, int uid, String token, String email, String content) {
-        Connection conn = null;
-        Statement stmt = null;
-        try{
-            // Register JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
-            // Open a connection
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            // Query
-            String query = "INSERT INTO answer (vote, content, date, uid, qid) VALUES (0,'"+content+"',CURRENT_TIMESTAMP,"+uid+","+qid+")";
-            stmt = conn.createStatement();
-            // Result Set
-            stmt.executeUpdate(query);
-        }
-        catch (SQLException se){
-            se.printStackTrace();
-            System.out.println("SQL post answer Error");
-        }
-        catch (Exception e){
-            e.printStackTrace();
+    public void postAnswer(int qid, int uid, String token, String email, String content) throws Exception{
+        if (checkToken(email, token) == 1){
+            Connection conn = null;
+            Statement stmt = null;
+            try{
+                // Register JDBC driver
+                Class.forName("com.mysql.jdbc.Driver");
+                // Open a connection
+                conn = DriverManager.getConnection(DB_URL,USER,PASS);
+                // Query
+                String query = "INSERT INTO answer (vote, content, date, uid, qid) VALUES (0,'"+content+"',CURRENT_TIMESTAMP,"+uid+","+qid+")";
+                stmt = conn.createStatement();
+                // Result Set
+                stmt.executeUpdate(query);
+            }
+            catch (SQLException se){
+                se.printStackTrace();
+                System.out.println("SQL post answer Error");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
-    public void deleteQuestion(int qid, String token) {
-        Connection conn = null;
-        Statement stmt = null;
-        try{
-            // Register JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
-            // Open a connection
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            // Query
-            String query = "DELETE from question WHERE id="+qid;
-            stmt = conn.createStatement();
-            // Result Set
-            stmt.executeUpdate(query);
-        }
-        catch (SQLException se){
-            se.printStackTrace();
-            System.out.println("SQL delete question Error");
-        }
-        catch (Exception e){
-            e.printStackTrace();
+    public void deleteQuestion(int qid, String token, String email) throws Exception{
+        if (checkToken(email, token) == 1){
+            Connection conn = null;
+            Statement stmt = null;
+            try{
+                // Register JDBC driver
+                Class.forName("com.mysql.jdbc.Driver");
+                // Open a connection
+                conn = DriverManager.getConnection(DB_URL,USER,PASS);
+                // Query
+                String query = "DELETE from question WHERE id="+qid;
+                stmt = conn.createStatement();
+                // Result Set
+                stmt.executeUpdate(query);
+            }
+            catch (SQLException se){
+                se.printStackTrace();
+                System.out.println("SQL delete question Error");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -309,47 +326,49 @@ public class WebServiceImpl implements WebServiceInterface{
     }
 
     @Override
-    public void vote(int type, int id, int direction, int uid) {
-        Connection conn = null;
-        Statement stmt = null;
-        Statement stmt2 = null;
-        String query = "";
-        String query2 = "";
-        try{
-            // Register JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
-            // Open a connection
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            // Query
-            if (type == 0) { // vote question
-                if (direction == 1) { // up
-                    query = "UPDATE question SET vote = vote + 1 WHERE id=" + id;
-                } else if (direction == -1){ // down
-                    query = "UPDATE question SET vote = vote - 1 WHERE id=" + id;
+    public void vote(int type, int id, int direction, int uid, String email, String token) throws Exception{
+        if (checkToken(email, token) == 1){
+            Connection conn = null;
+            Statement stmt = null;
+            Statement stmt2 = null;
+            String query = "";
+            String query2 = "";
+            try{
+                // Register JDBC driver
+                Class.forName("com.mysql.jdbc.Driver");
+                // Open a connection
+                conn = DriverManager.getConnection(DB_URL,USER,PASS);
+                // Query
+                if (type == 0) { // vote question
+                    if (direction == 1) { // up
+                        query = "UPDATE question SET vote = vote + 1 WHERE id=" + id;
+                    } else if (direction == -1){ // down
+                        query = "UPDATE question SET vote = vote - 1 WHERE id=" + id;
+                    }
+                    query2 = "INSERT INTO vote_question (qid, uid, vote) VALUES ("+id+","+uid+","+direction+")";
                 }
-                query2 = "INSERT INTO vote_question (qid, uid, vote) VALUES ("+id+","+uid+","+direction+")";
-            }
-            else if (type == 1) { // vote answer
-                if (direction == 1) { // up
-                    query = "UPDATE answer SET vote = vote + 1 WHERE id=" + id;
-                } else if (direction == -1){ // down
-                    query = "UPDATE answer SET vote = vote - 1 WHERE id=" + id;
+                else if (type == 1) { // vote answer
+                    if (direction == 1) { // up
+                        query = "UPDATE answer SET vote = vote + 1 WHERE id=" + id;
+                    } else if (direction == -1){ // down
+                        query = "UPDATE answer SET vote = vote - 1 WHERE id=" + id;
+                    }
+                    query2 = "INSERT INTO vote_answer (aid, uid, vote) VALUES ("+id+","+uid+","+direction+")";
                 }
-                query2 = "INSERT INTO vote_answer (aid, uid, vote) VALUES ("+id+","+uid+","+direction+")";
-            }
 
-            stmt = conn.createStatement();
-            stmt2 = conn.createStatement();
-            // Result Set
-            stmt.executeUpdate(query);
-            stmt2.executeUpdate(query2);
-        }
-        catch (SQLException se){
-            se.printStackTrace();
-            System.out.println("SQL vote Error");
-        }
-        catch (Exception e){
-            e.printStackTrace();
+                stmt = conn.createStatement();
+                stmt2 = conn.createStatement();
+                // Result Set
+                stmt.executeUpdate(query);
+                stmt2.executeUpdate(query2);
+            }
+            catch (SQLException se){
+                se.printStackTrace();
+                System.out.println("SQL vote Error");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 }
