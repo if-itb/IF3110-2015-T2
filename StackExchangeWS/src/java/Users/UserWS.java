@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Registers;
+package Users;
 
 import database.DB;
 import java.sql.*;
@@ -21,24 +21,28 @@ import javax.jws.WebParam;
  * @author mochamadtry
  */
 @WebService(serviceName = "Register")
-public class Register {
+public class UserWS {
     Connection conn = DB.getConnection();
 
     /**
      * Web service operation
      */
     @WebMethod(operationName = "addRegister")
+    @WebResult(name = "success")
     public int addRegister(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
         int res = 0;
         try {
-            //Class.forName(driver);
-            String sql = "SELECT r_email FROM register WHERE r_email LIKE '" + email + "'"; 
-            PreparedStatement pstat = conn.prepareStatement(sql); 
+            // check if the user with the email is already registered
+            String sql = "SELECT email FROM users WHERE email = ?"; 
+            PreparedStatement pstat = conn.prepareStatement(sql);
+            pstat.setString(1, email);
             ResultSet rs = pstat.executeQuery(); 
-            if (!rs.isBeforeFirst()&& (email != null || email !=""))
+            
+            // if email not existed, insert the user
+            if (!rs.isBeforeFirst()&& (email != null || email != ""))
             {
                 //Statement st = conn.createStatement();
-                String query = "INSERT INTO register(r_name, r_email, r_password) VALUES (?, ?, ?)";
+                String query = "INSERT INTO users(name, email, password) VALUES (?, ?, ?)";
                 Statement st = conn.createStatement();
                 // set the prepared statement by the query and enter the value of where clause
                 PreparedStatement pst = conn.prepareStatement(query);
@@ -51,9 +55,10 @@ public class Register {
                 pst.close();
                 st.close();
             }
+            
             return res;
         } catch (SQLException ex) {
-            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         }
     }

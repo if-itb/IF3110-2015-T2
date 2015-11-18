@@ -35,10 +35,11 @@ public class AnswersWS {
             
             // set the prepared statement by the query and enter the value of where clause
             PreparedStatement pst = conn.prepareStatement(query);
-            pst.setString(3, q_id);
-            pst.setString(4, content);
             pst.setString(1, "null");
             pst.setString(2, "null");
+            pst.setString(3, q_id);
+            pst.setString(4, content);
+            
             pst.setInt(5, 0);
             
             //pst.setString(3, name);

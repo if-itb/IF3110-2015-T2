@@ -7,8 +7,8 @@
     <service name="AnswersWS">
       <implementation-class>Answer.AnswersWS</implementation-class>
     </service>
-    <service name="Register">
-      <implementation-class>Registers.Register</implementation-class>
+    <service name="UserWS">
+      <implementation-class>Users.UserWS</implementation-class>
     </service>
   </services>
   <clients/>
