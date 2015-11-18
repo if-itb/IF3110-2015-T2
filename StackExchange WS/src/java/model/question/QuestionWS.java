@@ -11,6 +11,7 @@ import javax.jws.WebResult;
 import connection.DB;
 import java.sql.Connection;
 import java.sql.Statement;
+import javax.jws.Oneway;
 import javax.jws.WebParam;
 
 /**
@@ -52,7 +53,7 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "getQuestion")
     @WebResult(name="Question")
-    public Question getQuestion(@WebParam(name = "question_id") int question_id) {
+    public Question getQuestionById(@WebParam(name = "question_id") int question_id) {
         Question question = null;
         try {
                 
@@ -70,5 +71,23 @@ public class QuestionWS {
         }
         
         return question;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "addQuestion")
+    @Oneway
+    public void addQuestion(@WebParam(name = "q") Question q) {
+        try {
+                
+            Statement stmt = conn.createStatement();
+            String sql = "INSERT INTO question(topic,content,user_id) VALUES("+
+                    q.getTopic() + "," + q.getContent() + "," + q.getUserId() + ")";
+            stmt.executeUpdate(sql);
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

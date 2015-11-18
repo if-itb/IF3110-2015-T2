@@ -37,4 +37,28 @@ public class Question {
         this.create_time = create_time;
         this.vote = vote;
     }
+    
+    public int getQuestionID() {
+        return question_id;
+    }
+    
+    public String getTopic() {
+        return topic;
+    }
+    
+    public String getContent() {
+        return content;
+    }
+    
+    public int getUserId() {
+        return user_id;
+    }
+    
+    public String getCreateTime() {
+        return create_time;
+    }
+    
+    public int getVote() {
+        return vote;
+    }
 }
