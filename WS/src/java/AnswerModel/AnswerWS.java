@@ -42,12 +42,13 @@ public class AnswerWS {
             conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
             Statement stmt = conn.createStatement();
             String sql;
+            //Take the question
             sql = "SELECT * FROM answers WHERE QuestionID = ?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, qid);
             ResultSet rs = dbStatement.executeQuery();
-            /* Get every data returned by SQL query */
-            int i = 0;
+            /* Get every answer for question returned by SQL query */
+            
             while (rs.next()) {
                 answers.add(new Answer(rs.getInt("AnswerID"),
                         rs.getInt("QuestionID"),
@@ -57,7 +58,6 @@ public class AnswerWS {
                         rs.getString("Email"),
                         rs.getString("Datetime")
                 ));
-                //++i;
             }
             rs.close();
             stmt.close();
