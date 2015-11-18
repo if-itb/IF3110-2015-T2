@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.*;
  *
  * @author vanyadeasysafrina
  */
+@XmlRootElement(name="Answer")
 public class Answer {
     @XmlElement(name="a_id", required=true)
     private int aId;
@@ -29,54 +30,37 @@ public class Answer {
         
     }
 
-    public Answer(int aId, int uId, String content, int vote, String dateCreated, int qId) {
-        this.aId = aId;
-        this.uId = uId;
+    public Answer(int a_id, int u_id, String content, int vote, String date_created, int q_id) {
+        this.aId = a_id;
+        this.uId = u_id;
         this.content = content;
         this.vote = vote;
-        this.dateCreated = dateCreated;
-        this.qId = qId;
+        this.dateCreated = date_created;
+        this.qId = q_id;
     }
 
-    /**
-     * @return the aId
-     */
     public int getaId() {
         return aId;
     }
 
-    /**
-     * @return the uId
-     */
     public int getuId() {
         return uId;
     }
 
-    /**
-     * @return the content
-     */
     public String getContent() {
         return content;
     }
 
-    /**
-     * @return the vote
-     */
     public int getVote() {
         return vote;
     }
 
-    /**
-     * @return the dateCreated
-     */
     public String getDateCreated() {
         return dateCreated;
     }
 
-    /**
-     * @return the qId
-     */
     public int getqId() {
         return qId;
     }
+    
 }
