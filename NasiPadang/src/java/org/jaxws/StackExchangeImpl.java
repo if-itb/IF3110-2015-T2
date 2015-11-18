@@ -40,6 +40,43 @@ public class StackExchangeImpl implements StackExchange {
     private void closeDB() throws SQLException{
         connection.close();
     }
+    @Override
+    public boolean register(String username, String email, String password){
+        boolean success = false;
+        try {
+            connectDB();
+            Statement st = connection.createStatement();
+            String sql = ("SELECT email FROM users WHERE email = '" + email + "'");
+            ResultSet rs = st.executeQuery(sql);
+            closeDB();
+            if(!rs.next()){
+                sql = ("INSERT INTO users (username, email, password) VALUES ('"+ username +"', '"+ email +"', '"+ password +"')");
+                rs = st.executeQuery(sql);
+                closeDB();
+                success = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return success;
+    }
+    @Override
+    public boolean login(String email, String password){
+        boolean success = false;
+        try {
+            connectDB();
+            Statement st = connection.createStatement();
+            String sql = ("SELECT email FROM users WHERE email = '" + email + "' AND password = '" + password + "'");
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                success = true;
+            }
+            closeDB();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return success;
+    }
     /**
      * Web service operation
      * @param id

@@ -11,8 +11,8 @@ import javax.xml.ws.Endpoint;
  *
  * @author user
  */
-public class StackExchangePublisher {
+public class IdentityPublisher {
     public static void main(String[] args) {
-	   Endpoint.publish("http://localhost:8001/ws/stackexchange", new StackExchangeImpl());
+	   Endpoint.publish("http://localhost:8002/ws/stackexchange", new IdentityImpl());
     }
 }

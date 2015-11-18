@@ -9,7 +9,6 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
-import org.data.Question;
 
 /**
  *
@@ -18,6 +17,8 @@ import org.data.Question;
 @WebService
 @SOAPBinding(style = Style.RPC)
 public interface StackExchange {
+    @WebMethod public boolean register(String username, String email, String password);
+    @WebMethod public boolean login(String email, String password);
     @WebMethod public String getQuestion(int id);
     @WebMethod public String getAllQuestion();
     @WebMethod public String getAllAnswer(int id);

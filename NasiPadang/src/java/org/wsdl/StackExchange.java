@@ -22,6 +22,25 @@ public interface StackExchange {
 
     /**
      * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://jaxws.org/StackExchange/registerRequest", output = "http://jaxws.org/StackExchange/registerResponse")
+    public boolean register(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2);
+
+    /**
+     * 
      * @param arg1
      * @param arg0
      * @return
@@ -38,7 +57,6 @@ public interface StackExchange {
 
     /**
      * 
-     * @param arg3
      * @param arg2
      * @param arg1
      * @param arg0
@@ -47,16 +65,14 @@ public interface StackExchange {
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/editQuestionRequest", output = "http://jaxws.org/StackExchange/editQuestionResponse")
-    public boolean editQuestion(
+    @Action(input = "http://jaxws.org/StackExchange/addQuestionRequest", output = "http://jaxws.org/StackExchange/addQuestionResponse")
+    public boolean addQuestion(
         @WebParam(name = "arg0", partName = "arg0")
-        int arg0,
+        String arg0,
         @WebParam(name = "arg1", partName = "arg1")
         String arg1,
         @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        String arg3);
+        String arg2);
 
     /**
      * 
@@ -76,14 +92,30 @@ public interface StackExchange {
 
     /**
      * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://jaxws.org/StackExchange/loginRequest", output = "http://jaxws.org/StackExchange/loginResponse")
+    public boolean login(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
      * @param arg0
      * @return
      *     returns java.lang.String
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/getAllAnswerRequest", output = "http://jaxws.org/StackExchange/getAllAnswerResponse")
-    public String getAllAnswer(
+    @Action(input = "http://jaxws.org/StackExchange/getQuestionRequest", output = "http://jaxws.org/StackExchange/getQuestionResponse")
+    public String getQuestion(
         @WebParam(name = "arg0", partName = "arg0")
         int arg0);
 
@@ -124,13 +156,14 @@ public interface StackExchange {
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/getQuestionRequest", output = "http://jaxws.org/StackExchange/getQuestionResponse")
-    public String getQuestion(
+    @Action(input = "http://jaxws.org/StackExchange/getAllAnswerRequest", output = "http://jaxws.org/StackExchange/getAllAnswerResponse")
+    public String getAllAnswer(
         @WebParam(name = "arg0", partName = "arg0")
         int arg0);
 
     /**
      * 
+     * @param arg3
      * @param arg2
      * @param arg1
      * @param arg0
@@ -139,13 +172,15 @@ public interface StackExchange {
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/addQuestionRequest", output = "http://jaxws.org/StackExchange/addQuestionResponse")
-    public boolean addQuestion(
+    @Action(input = "http://jaxws.org/StackExchange/editQuestionRequest", output = "http://jaxws.org/StackExchange/editQuestionResponse")
+    public boolean editQuestion(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
+        int arg0,
         @WebParam(name = "arg1", partName = "arg1")
         String arg1,
         @WebParam(name = "arg2", partName = "arg2")
-        String arg2);
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3);
 
 }

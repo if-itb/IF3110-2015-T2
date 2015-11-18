@@ -24,7 +24,7 @@ import org.wsdl.StackExchangeImplService;
  *
  * @author user
  */
-@WebServlet(name = "AllQuestion", urlPatterns = {"/index.jsp"})
+@WebServlet(name = "AllQuestion", urlPatterns = {"/AllQuestion"})
 public class AllQuestion extends HttpServlet {
 
     /**
