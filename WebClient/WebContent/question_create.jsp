@@ -3,18 +3,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+    <title>Create Question</title>
 </head>
 <body>
 <body>
-	<div id="content">
-		<span class="error"></span>
-	    <form id="createQuestionForm" action="question_create_post.jsp" METHOD="POST">
-	        Topic : <input type="text" name="topic"/><br/>
-	        Content: <input type="textarea" name="content" cols="10"/><br/>
-	        <button id="submitBtn">Submit</button>
-	    </form>
-	</div>
+	<jsp:include page="Header.jsp" />
+    <div class ="container">
+    <!-- Contact Form -->
+        <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+        <div class="row">
+            <div class="col-md-8">
+                <h3>Create A Question</h3>
+                <form name="sentMessage" id="contactForm" action="question_create_post.jsp" METHOD="POST" novalidate>
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Topic:</label>
+                            <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your name.">
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Question:</label>
+                            <textarea rows="10" cols="100" class="form-control" id="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
+                        </div>
+                    </div>
+                    <div id="success"></div>
+                    <!-- For success/fail messages -->
+                    <button type="submit" class="btn btn-primary">Ask Question</button>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.row -->
+    </div>
+    <hr>
 </body>
 </html>
