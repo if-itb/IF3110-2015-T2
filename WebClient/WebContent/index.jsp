@@ -144,11 +144,9 @@
 						<%
 		  					String str = questionList.get(i).getContent();
 				  			if(str.length() < 90) {
-				  				out.println ("<td style=\"padding-left:2.6%\" class=\"discontent\">"+questionList.get(i).getContent()+"</td><td></td>");
+				  				out.println (questionList.get(i).getContent());
 				  			} else {
-				  				out.println ("<td style=\"padding-left:2.6%\" class=\"discontent\">");
-				  				out.println (str.substring(0, 90));
-				  				out.println ("...</td><td></td>");
+				  				out.println (str.substring(0, 90)+"...");
 				  			}
 	    				%>
 	    				</div>
