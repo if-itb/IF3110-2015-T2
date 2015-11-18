@@ -28,6 +28,10 @@ public class Question {
         this.createDate = createDate;
     }
     
+    public int getQuestionId() {
+        return questionId;
+    }
+    
     public void setQuestionId(int questionId) {
         this.questionId = questionId;
     }
