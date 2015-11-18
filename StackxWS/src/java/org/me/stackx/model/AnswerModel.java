@@ -261,6 +261,7 @@ public class AnswerModel {
     
     
     public static Answer getById(int id) {
+        Answer r = null;
         Connection conn = null;
         Statement stmt = null;
         try {
@@ -286,7 +287,7 @@ public class AnswerModel {
                 int vote = rs.getInt("vote");
                 Timestamp createDate = rs.getTimestamp("create_date");
 
-                return new Answer(answerId, questionId, userId, content, vote, createDate.toString());
+                r = new Answer(answerId, questionId, userId, content, vote, createDate.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -311,7 +312,7 @@ public class AnswerModel {
               se.printStackTrace();
            }//end finally try
         }//end try
-        return null;
+        return r;
     }
     
     public static Answer[] getAllFromQuestionId(int questionId) {

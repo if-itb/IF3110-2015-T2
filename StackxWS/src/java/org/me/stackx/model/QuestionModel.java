@@ -259,6 +259,7 @@ public class QuestionModel {
     }
     
     public static Question getById(int id) {
+        Question r = null;
         Connection conn = null;
         Statement stmt = null;
         try {
@@ -284,7 +285,7 @@ public class QuestionModel {
                 int vote = rs.getInt("vote");
                 Timestamp createDate = rs.getTimestamp("create_date");
 
-                return new Question(questionId, userId, title, content, vote, createDate.toString());
+                r = new Question(questionId, userId, title, content, vote, createDate.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -309,7 +310,7 @@ public class QuestionModel {
               se.printStackTrace();
            }//end finally try
         }//end try
-        return null;
+        return r;
     }
     
     public static Question[] getAll() {
@@ -343,7 +344,6 @@ public class QuestionModel {
 
                     questionList.add(new Question(questionId, userId, title, content, vote, createDate.toString()));
                 }
-                out.println(questionList);
                 r = new Question[questionList.size()];
                 r = questionList.toArray(r);
             } catch (Exception e) {
