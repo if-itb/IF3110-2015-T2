@@ -26,5 +26,9 @@
             <input type="password" class='form-text' name="password" placeholder="Password" required><br>
             <button class='button-post' type='submit'> Register </button>
         </form>
+
+        <c:if test="${not empty message}">
+            <h1>${token}</h1>
+        </c:if>
     </body>
 </html>

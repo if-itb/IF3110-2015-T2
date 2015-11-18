@@ -34,8 +34,16 @@ public class RegisterWS {
     static final String DB_URL="jdbc:mysql://localhost:3306/" + DB_NAME +"?zeroDateTimeBehavior=convertToNull";
     
     //Declare Database Credentials
+   
+    
+    /*Luminto
     static final String USER = "root";
-    static final String PASS = "";
+    static final String PASS = "";*/
+    
+   //Albert Tri
+    static final String USER = "root";
+    static final String PASS = "alberttriadrian";
+    
 
     /**
      * Web service operation

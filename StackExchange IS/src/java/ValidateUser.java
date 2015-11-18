@@ -152,6 +152,11 @@ public class ValidateUser extends HttpServlet {
                 userToken.put("lifetime", lifetime);             
             
              }
+
+             if (!access_token.equals("")){
+                request.setAttribute("token", access_token);
+                request.getRequestDispatcher("index.jsp").forward(request,response);
+             }  
                        
             out.println(userToken.toString());
             stmt.close();
