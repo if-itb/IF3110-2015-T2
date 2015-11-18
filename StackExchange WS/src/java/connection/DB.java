@@ -20,8 +20,9 @@ public class DB {
         String uPass = "12345";
         Connection con=null;
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(host, uName, uPass);
-        } catch (SQLException err) {
+        } catch (Exception err) {
             System.out.println(err.getMessage());
         }
         return con;
