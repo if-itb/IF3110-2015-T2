@@ -43,7 +43,7 @@ public class DatabaseAccess extends HttpServlet{
     
     //Declare Database Credentials
     static final String USER = "root";
-    static final String PASS = "alberttriadrian";
+    static final String PASS = "";
     
     public void doGet(
             HttpServletRequest request,

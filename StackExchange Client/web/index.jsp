@@ -4,6 +4,7 @@
     Author     : User
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,8 +23,11 @@
             <input class='form-search' type="text" name="search_key" size='120%'>
             <button class='button-search' type='submit'> Search </button>
         </form>
-
-        <div class="smalltitle-center">Cannot find what you are looking for? <a id = "color-orange" href="ask.jsp" >Ask here</a></div>
+        <%
+        out.println("<div class='smalltitle-center'>Cannot find what you are looking for? "
+                     + "<a id = 'color-orange' href='ask.jsp?token=" + 
+                        request.getParameter("token") + "'>Ask here</a></div>");
+        %>
         <br>
         <div class="smalltitle-center">Not registered yet? <a id = "color-orange" href="register.jsp" >Register here</a></div>
         <br>
@@ -32,12 +36,29 @@
         <hr class='line'>
     <%
     try {
+	
+	 // TODO initialize WS operation arguments here
+	int qid = 0;
+	// TODO process result here
+	
+    } catch (Exception ex) {
+	// TODO handle custom exceptions here
+    }
+    %>
+   
+        
+    <%
+    try {
 	com.wbd.qst.QuestionWS_Service service = new com.wbd.qst.QuestionWS_Service();
 	com.wbd.qst.QuestionWS port = service.getQuestionWSPort();
+        com.wbd.ans.AnswerWS_Service service2 = new com.wbd.ans.AnswerWS_Service();
+	com.wbd.ans.AnswerWS port2 = service2.getAnswerWSPort();
 	// TODO process result here
-	java.util.List<com.wbd.qst.Question> result = port.retrieveQ();
+	java.util.List<com.wbd.qst.Question> result = port.retrieveQ();        
 	for(int i = 0; i < result.size() ; i++){
             String vote;
+            java.util.List<com.wbd.ans.Answer> result2 = port2.getAnswerByQID(result.get(i).getIDQ());
+            int count = result2.size();
             if(result.get(i).getVote() > 1 || result.get(i).getVote() < -1){
                 vote = "Votes";
             }
@@ -52,12 +73,12 @@
 	    		+vote
                     +"</div>"
                     +"<div class='bquestion-answer'>" 
-		    	+"$row2['answer_count']"
+		    	+ count
 		    	+"<br>"
-		    	+"$answer"
+		    	+"answer"
 		    +"</div>"
 		    +"<div class='bquestion-content'>" 
-                        +"<a id='color-black' href= question.jsp?id=" + result.get(i).getIDQ() + ">" + result.get(i).getQuestionTopic() + "</a>"
+                        +"<a id='color-black' href= question.jsp?id=" + result.get(i).getIDQ() + "&token=" + request.getParameter("token") + ">" + result.get(i).getQuestionTopic() + "</a>"
                         +"<br>"
                         +result.get(i).getContent()
                         +"<br><br>"
@@ -68,11 +89,11 @@
                             +"$row['name']"
                         +"</a>"
                         +" | "
-                        +"<a id='color-orange' href='ask.jsp?id="+ result.get(i).getIDQ() +"'>"
-                            +"edit"
+                        +"<a id='color-orange' href=edit.jsp?id=" + result.get(i).getIDQ() +"&token=" + request.getParameter("token")
+                            + ">edit"
                         +"</a>"
 			+" | "
-                        +"<a id='color-red' href=# onclick='deleteconfirm(" + "$row['question_id']" + ")' " + "'>"
+                        +"<a id='color-red' href=delete.jsp?id=" + result.get(i).getIDQ() +" onclick='deleteconfirm(" + "$row['question_id']" + ")' " + "'>"
                             +"delete"
 			+"</a>"
                     +"</div>"
@@ -86,10 +107,6 @@
     }
     %>
 
-    
-    
-    
-    
-        
+
     </body>
 </html>

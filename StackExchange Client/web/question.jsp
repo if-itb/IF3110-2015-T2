@@ -133,8 +133,6 @@
                 "<div class='subtitle'>" + "<a id='color-grey'>" + "Your Answer" + "</a>" + "</div>"
 		+"<form name='answerForm' action='anspost.php' onsubmit='return validateAnswer()' method='post'>"
 			+"<input type='hidden' name='question_id' value=' " + Integer.parseInt(request.getParameter("id")) + "'>"
-			+"<input type='text' class='form-text' name='name' placeholder='Name'><br>"
-			+"<input type='text' class='form-text' name='email' placeholder='Email'><br>"
 			+"<textarea class='form-textarea' name='content' placeholder='Content'></textarea><br>"
 			+"<button class='button-post' type='submit'> Post </button>"
 		+"</form>";
