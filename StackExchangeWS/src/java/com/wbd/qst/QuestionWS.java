@@ -6,6 +6,7 @@
 package com.wbd.qst;
 
 import com.wbd.ans.Answer;
+import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import org.jboss.logging.Logger;
 
 /**
  *
@@ -31,7 +33,7 @@ public class QuestionWS {
     public ArrayList<Question> retrieveQ() {
         ArrayList<Question> questions = new ArrayList<Question>();
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd?zeroDateTimeBehavior=convertToNull","root","");
             Statement stmt = conn.createStatement();
             String sql;
             sql = "SELECT * FROM question";
@@ -88,24 +90,23 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "createQ")
     public int createQ(@WebParam(name = "access_token") String access_token, @WebParam(name = "title") String title, @WebParam(name = "content") String content) {
-        int hasil = 0;
-        Connection conn = null;
-        PreparedStatement pstmt = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
-            String sql = "INSERT INTO question(QuestionTopic, Content) VALUES (?,?)";
-
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, title);
-            pstmt.setString(2, content);
-            pstmt.executeUpdate();
-            hasil = 1;
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+            Statement stmt = conn.createStatement();
+            String sql = "INSERT INTO question(access_token, QuestionTopic, Content, Vote) VALUES (?,?,?,?)";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1, access_token);
+            dbStatement.setString(2, title);
+            dbStatement.setString(3, content);
+            dbStatement.setInt(4, 0);
+            dbStatement.executeUpdate();
+            stmt.close();
+            return 1;
         } catch (SQLException ex){
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
-            hasil = 2;
+            return 0;
         }
-        return hasil;
     }
 
     /**
@@ -142,5 +143,27 @@ public class QuestionWS {
             System.out.println("Order failed. Please contact technical support.");
               return 0;
       }
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deleteQ")
+    public int deleteQ(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") int qid) {
+        Connection conn = null;
+        try {
+            //Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+            Statement stmt = conn.createStatement();
+            String sql = "DELETE FROM question WHERE IDQ = ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, qid);
+            dbStatement.executeUpdate();
+            stmt.close();
+            return 1;
+        } catch (SQLException ex){
+            System.out.println(ex);
+            return 0;
+        }
     }
 }

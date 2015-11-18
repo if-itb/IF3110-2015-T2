@@ -6,20 +6,19 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import MD5Hashing.MD5Hashing;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,7 +38,7 @@ public class ValidateUser extends HttpServlet {
     
     //Declare Database Credentials
     static final String USER = "root";
-    static final String PASS = "alberttriadrian";
+    static final String PASS = "";
     
 
     /**
@@ -146,16 +145,16 @@ public class ValidateUser extends HttpServlet {
                 access_token = md5.Hash(user_password);
                 //access_token = user_password;
                 lifetime = 5;
-                
+
                 //Format the response to JSON
                 userToken.put("access_token",access_token);
                 userToken.put("lifetime", lifetime);             
             
              }
-
+             
              if (!access_token.equals("")){
-                request.setAttribute("token", access_token);
-                request.getRequestDispatcher("http://localhost:8080/StackExchange_Client/login.jsp").forward(request,response);
+                 response.sendRedirect("http://localhost:8080/StackExchange_Client/index.jsp?token=" + access_token);
+                 
              }  
                        
             out.println(userToken.toString());

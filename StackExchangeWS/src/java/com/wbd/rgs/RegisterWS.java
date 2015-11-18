@@ -33,13 +33,13 @@ public class RegisterWS {
     //Declare Database Credentials
    
     
-    /*Luminto
+    //Luminto
     static final String USER = "root";
-    static final String PASS = "";*/
+    static final String PASS = "";
     
    //Albert Tri
-    static final String USER = "root";
-    static final String PASS = "alberttriadrian";
+    /*static final String USER = "root";
+    static final String PASS = "alberttriadrian";*/
     
 
 

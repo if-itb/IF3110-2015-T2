@@ -2,6 +2,14 @@
 
 <xs:element name="Question" type="tns:question"/>
 
+<xs:element name="createQ" type="tns:createQ"/>
+
+<xs:element name="createQResponse" type="tns:createQResponse"/>
+
+<xs:element name="deleteQ" type="tns:deleteQ"/>
+
+<xs:element name="deleteQResponse" type="tns:deleteQResponse"/>
+
 <xs:element name="getQuestionbyID" type="tns:getQuestionbyID"/>
 
 <xs:element name="getQuestionbyIDResponse" type="tns:getQuestionbyIDResponse"/>
@@ -9,6 +17,38 @@
 <xs:element name="retrieveQ" type="tns:retrieveQ"/>
 
 <xs:element name="retrieveQResponse" type="tns:retrieveQResponse"/>
+
+<xs:element name="updateQ" type="tns:updateQ"/>
+
+<xs:element name="updateQResponse" type="tns:updateQResponse"/>
+
+<xs:complexType name="deleteQ">
+<xs:sequence>
+<xs:element name="access_token" type="xs:string" minOccurs="0"/>
+<xs:element name="qid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteQResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="updateQ">
+<xs:sequence>
+<xs:element name="access_token" type="xs:string" minOccurs="0"/>
+<xs:element name="qid" type="xs:int"/>
+<xs:element name="title" type="xs:string" minOccurs="0"/>
+<xs:element name="content" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="updateQResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
 
 <xs:complexType name="getQuestionbyID">
 <xs:sequence>
@@ -29,6 +69,20 @@
 <xs:element name="QuestionTopic" type="xs:string"/>
 <xs:element name="Content" type="xs:string"/>
 <xs:element name="Vote" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createQ">
+<xs:sequence>
+<xs:element name="access_token" type="xs:string" minOccurs="0"/>
+<xs:element name="title" type="xs:string" minOccurs="0"/>
+<xs:element name="content" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createQResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
