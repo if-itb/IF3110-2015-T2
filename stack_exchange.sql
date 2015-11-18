@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2015 at 02:12 PM
+-- Generation Time: Nov 18, 2015 at 07:07 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `question_vote` int(11) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`question_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `question`
@@ -80,19 +80,19 @@ INSERT INTO `question` (`question_id`, `asker_name`, `asker_email`, `question_to
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `nama` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
+  `nama` varchar(200) NOT NULL,
   `password` varchar(30) NOT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  PRIMARY KEY (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `nama`, `email`, `password`) VALUES
-(1, 'William', 'william.sentosa@live.com', 'william');
+INSERT INTO `user` (`email`, `nama`, `password`) VALUES
+('acel@gmail.com', 'marcel', 'acelacel'),
+('william@gmail.com', 'william', 'william');
 
 --
 -- Constraints for dumped tables
