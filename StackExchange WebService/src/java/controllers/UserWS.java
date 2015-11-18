@@ -13,6 +13,7 @@ import java.sql.Statement;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import model.User;
 
 /**
  *
@@ -32,6 +33,7 @@ public class UserWS {
             try (Statement stmt = conn.createStatement()) {
                 String sql = "INSERT INTO user(username, password, name, email) VALUE ('"+username+"',SHA1('"+password+"'),'"+name+"','"+email+"')";
                 stmt.executeUpdate(sql);
+                
             }
         } catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);

@@ -8,6 +8,10 @@
         <servlet-name>IndexController</servlet-name>
         <servlet-class>controllers.IndexController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>UserWS.RegisterController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>QuestionController</servlet-name>
         <url-pattern>/QuestionController</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>IndexController</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/Register</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
