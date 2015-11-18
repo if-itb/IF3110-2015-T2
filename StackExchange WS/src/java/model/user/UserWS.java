@@ -7,8 +7,11 @@ package model.user;
 
 import connection.DB;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebService;
@@ -35,12 +38,47 @@ public class UserWS {
         try{
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "INSERT INTO user (name, email, password)"
-                    + "VALUES(" + name + "," + email + "," + password + ");";
+            sql = "INSERT INTO user (name, email, password, token) "
+                    + "VALUES(" + name + "," + email + "," + password + "," + "'abcd');";
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(UserWS.class.getName()).log
             (Level.SEVERE, null, ex);
            }
+    }
+    
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUserByID")
+    @WebResult(name="User")
+    public User getUserByID (@WebParam(name = "user_id") int user_id) {
+        ArrayList<User> user = new ArrayList<User>();
+        try{
+            Statement stmt = conn.createStatement();
+            String sql;
+            sql = "SELECT * FROM user WHERE user_id = ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1,user_id);
+            ResultSet rs = dbStatement.executeQuery();
+            
+            /* Get every data returned by SQL query */
+            int i = 0;
+            while(rs.next()){
+                user.add(new User( rs.getInt("user_id"),
+                rs.getString("name"),
+                rs.getString("email"),
+                rs.getString("password"),
+                rs.getString("token")
+                ));
+                ++i;
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserWS.class.getName()).log
+            (Level.SEVERE, null, ex);
+           }
+        return user.get(0);
     }
 }

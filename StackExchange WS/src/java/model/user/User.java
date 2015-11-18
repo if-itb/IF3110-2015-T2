@@ -27,9 +27,19 @@ public class User {
     @XmlElement(name="user_id", required=false)
     private int user_id;
     
-    public User(String name, String email, String password){
+    public User(){
+        user_id=0;
+        name="";
+        email="";
+        password="";
+        token="";
+    }
+    
+    public User(int user_id, String name, String email, String password, String token){
         this.name = name;
         this.email = email;
         this.password = password;
+        this.token = token;
+        this.user_id = user_id;
     }
 }

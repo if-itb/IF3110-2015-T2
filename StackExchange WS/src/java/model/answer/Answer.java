@@ -25,10 +25,18 @@ public class Answer {
     @XmlElement(name="create_time", required=true)
     private String create_time;
     
-    public Answer(int aid, int qid, int uid, String content, String create_time) {
+    public Answer(){
+        answer_id=0;
+        question_id=0;
+        user_id=0;
+        vote=0;
+    }
+    
+    public Answer(int aid, int qid, int uid, String content, int vote, String create_time) {
            answer_id = aid;
            question_id = qid;
            user_id = uid; 
+           this.vote = vote;
            this.content = content;
            this.create_time = create_time; 
     }
