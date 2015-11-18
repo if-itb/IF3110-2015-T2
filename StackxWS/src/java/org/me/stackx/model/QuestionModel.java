@@ -179,6 +179,7 @@ public class QuestionModel {
                 rs.next();
                 r = rs.getInt(1);
                
+                rs.close();
                 stmt.close();
                 conn.close();
             } catch(SQLException se) {
@@ -286,6 +287,7 @@ public class QuestionModel {
                 Timestamp createDate = rs.getTimestamp("create_date");
 
                 r = new Question(questionId, userId, title, content, vote, createDate.toString());
+                rs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -346,6 +348,7 @@ public class QuestionModel {
                 }
                 r = new Question[questionList.size()];
                 r = questionList.toArray(r);
+                rs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

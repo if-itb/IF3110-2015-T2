@@ -108,6 +108,7 @@ public class UserModel {
                 Timestamp createDate = rs.getTimestamp("create_date");
                 
                 r = new User(userId, name, email, password, createDate.toString());
+                rs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

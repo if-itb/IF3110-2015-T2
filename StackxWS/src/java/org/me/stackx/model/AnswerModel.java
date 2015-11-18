@@ -179,6 +179,7 @@ public class AnswerModel {
                 rs.next();
                 r = rs.getInt(1);
                
+                rs.close();
                 stmt.close();
                 conn.close();
             } catch(SQLException se) {
@@ -288,6 +289,7 @@ public class AnswerModel {
                 Timestamp createDate = rs.getTimestamp("create_date");
 
                 r = new Answer(answerId, questionId, userId, content, vote, createDate.toString());
+                rs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -347,6 +349,7 @@ public class AnswerModel {
                 }
                 r = new Answer[answerList.size()];
                 r = answerList.toArray(r);
+                rs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
