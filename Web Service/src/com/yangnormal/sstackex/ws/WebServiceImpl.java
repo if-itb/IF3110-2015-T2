@@ -1,6 +1,7 @@
 package com.yangnormal.sstackex.ws;
 
 import java.sql.*;
+import javax.jws.WebMethod;
 import javax.jws.WebService;
 import com.yangnormal.sstackex.ws.classes.*;
 import org.json.*;
@@ -14,7 +15,7 @@ public class WebServiceImpl implements WebServiceInterface{
     final String USER="root";
     final String PASS="";
 
-    public int checkToken(String email, String token) throws Exception{
+    public int checkToken(int uid, String token) throws Exception{
         int status = 1;
         HttpConnection http = new HttpConnection();
         JSONObject obj = new JSONObject(http.sendGet("http://luckandlogic-tcg.wikia.com/api/v1/Articles/AsSimpleJson?id=2"));
@@ -67,9 +68,8 @@ public class WebServiceImpl implements WebServiceInterface{
     }
 
     @Override
-    public void postQuestion(int uid, String token, String title, String email, String content) throws Exception{
-
-        if (checkToken(email, token) == 1){
+    public void postQuestion(int uid, String token, String title, String content) throws Exception{
+        if (checkToken(uid, token) == 1){
             Connection conn = null;
             Statement stmt = null;
             try{
@@ -94,8 +94,8 @@ public class WebServiceImpl implements WebServiceInterface{
     }
 
     @Override
-    public void postAnswer(int qid, int uid, String token, String email, String content) throws Exception{
-        if (checkToken(email, token) == 1){
+    public void postAnswer(int qid, int uid, String token, String content) throws Exception{
+        if (checkToken(uid, token) == 1){
             Connection conn = null;
             Statement stmt = null;
             try{
@@ -120,8 +120,8 @@ public class WebServiceImpl implements WebServiceInterface{
     }
 
     @Override
-    public void deleteQuestion(int qid, String token, String email) throws Exception{
-        if (checkToken(email, token) == 1){
+    public void deleteQuestion(int qid, int uid, String token) throws Exception{
+        if (checkToken(uid, token) == 1){
             Connection conn = null;
             Statement stmt = null;
             try{
@@ -326,8 +326,8 @@ public class WebServiceImpl implements WebServiceInterface{
     }
 
     @Override
-    public void vote(int type, int id, int direction, int uid, String email, String token) throws Exception{
-        if (checkToken(email, token) == 1){
+    public void vote(int type, int id, int direction, int uid, String token) throws Exception{
+        if (checkToken(uid, token) == 1){
             Connection conn = null;
             Statement stmt = null;
             Statement stmt2 = null;
@@ -365,6 +365,57 @@ public class WebServiceImpl implements WebServiceInterface{
             catch (SQLException se){
                 se.printStackTrace();
                 System.out.println("SQL vote Error");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void updateQuestion(int qid, int uid, String token, String title, String content) throws Exception{
+        if (checkToken(uid, token) == 1){
+            Connection conn = null;
+            Statement stmt = null;
+            try{
+                // Register JDBC driver
+                Class.forName("com.mysql.jdbc.Driver");
+                // Open a connection
+                conn = DriverManager.getConnection(DB_URL,USER,PASS);
+                // Query
+                String query = "UPDATE question (vote, topic, content, date, uid) VALUES (0,'"+title+"','"+content+"',CURRENT_TIMESTAMP,"+uid+")";
+                stmt = conn.createStatement();
+                // Result Set
+                stmt.executeUpdate(query);
+            }
+            catch (SQLException se){
+                se.printStackTrace();
+                System.out.println("SQL post question Error");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+    @Override
+    public void updateAnswer(int aid, int qid, int uid, String token, String content) throws Exception{
+        if (checkToken(uid, token) == 1){
+            Connection conn = null;
+            Statement stmt = null;
+            try{
+                // Register JDBC driver
+                Class.forName("com.mysql.jdbc.Driver");
+                // Open a connection
+                conn = DriverManager.getConnection(DB_URL,USER,PASS);
+                // Query
+                String query = "INSERT INTO answer (vote, content, date, uid, qid) VALUES (0,'"+content+"',CURRENT_TIMESTAMP,"+uid+","+qid+")";
+                stmt = conn.createStatement();
+                // Result Set
+                stmt.executeUpdate(query);
+            }
+            catch (SQLException se){
+                se.printStackTrace();
+                System.out.println("SQL post answer Error");
             }
             catch (Exception e){
                 e.printStackTrace();

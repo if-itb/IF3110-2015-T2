@@ -16,25 +16,25 @@ public class Client{
         }
         Question q = new Question();
         System.out.println("register Test");
-        System.out.println(wsi.register("john", "john@j.com", "abc"));
+        System.out.println(wsi.register("john", "john@abc.com","abc"));
         System.out.println("Post Question Test");
-        wsi.postQuestion(2,"a","HAHA","a@a.com", "HAHAHAHAHA");
+        wsi.postQuestion(2,"a","HAHA", "HAHAHAHAHA");
         System.out.println("Post Answer");
-        wsi.postAnswer(1,1,"a","a@a.com", "HAHAHAHAHA");
+        wsi.postAnswer(1,1,"a", "HAHAHAHAHA");
         System.out.println("Vote Question Up Test");
-        wsi.vote(0,1,1,1,"a@a.com","a");
+        wsi.vote(0,1,1,1,"a");
         System.out.println("Vote Question Down Test");
-        wsi.vote(0,1,-1,2,"a@a.com","a");
+        wsi.vote(0,1,-1,2,"a");
         System.out.println("Vote Answer Up Test");
-        wsi.vote(1,1,1,1,"a@a.com","a");
+        wsi.vote(1,1,1,1,"a");
         System.out.println("Vote Answer Down Test");
-        wsi.vote(1,1,-1,2,"a@a.com","a");
+        wsi.vote(1,1,-1,2,"a");
         System.out.println("getQuestion Array Test");
         System.out.println(wsi.getQuestionArray(1).getItem().toString());
         System.out.println("getQuestion (object)test");
         q = wsi.getQuestion(1);
         System.out.println(q.getAnswerSum());
         System.out.println("Delete Question Test");
-        wsi.deleteQuestion(3, "a", "a@a.com");
+        wsi.deleteQuestion(3, 1, "a");
     }
 }
