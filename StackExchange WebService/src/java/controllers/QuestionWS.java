@@ -40,7 +40,7 @@ public class QuestionWS {
         try {
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM question";
+            sql = "SELECT * FROM question NATURAL JOIN user";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             ResultSet rs = dbStatement.executeQuery();
             /* Get data */
@@ -48,6 +48,8 @@ public class QuestionWS {
                 questions.add(new Question (
                     rs.getInt("q_id"),
                     rs.getInt("u_id"),
+                    rs.getString("username"),
+                    rs.getString("name"),
                     rs.getString("topic"),
                     rs.getString("content"),
                     rs.getInt("vote"),
@@ -74,7 +76,7 @@ public class QuestionWS {
         try {
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM question WHERE q_id = ?";
+            sql = "SELECT * FROM question NATURAL JOIN user WHERE q_id = ? ";
             
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, q_id);
@@ -86,6 +88,8 @@ public class QuestionWS {
                 question = new Question (
                     rs.getInt("q_id"),
                     rs.getInt("u_id"),
+                    rs.getString("username"),
+                    rs.getString("name"),
                     rs.getString("topic"),
                     rs.getString("content"),
                     rs.getInt("vote"),
