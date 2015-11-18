@@ -110,4 +110,97 @@ public class QuestionWS {
         }
         return questions;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deleteQuestion")
+    @WebResult(name = "Question")
+    public int deleteQuestion(@WebParam(name = "id") int id) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
+            Statement stmt = conn.createStatement();
+            String sql;
+            sql = "DELETE FROM questions WHERE QuestionID = ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, id);
+            dbStatement.executeUpdate();
+            /* Get every data returned by SQL query */
+
+            stmt.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+            return 2;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+        return 1;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "InsertQuestion")
+     @WebResult(name = "Question")
+    public int InsertQuestion(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
+            Statement stmt = conn.createStatement();
+            String sql;
+            sql = "INSERT INTO questions (Votes,Answers,Topic,Question,Name,Email,Datetime) VALUES(0,0,?,?,?,?,NOW())";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1, topic);
+            dbStatement.setString(2, content);
+            dbStatement.setString(3, name);
+            dbStatement.setString(4, email);
+            dbStatement.executeUpdate();
+            /* Get every data returned by SQL query */
+
+            stmt.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+            return 2;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+        return 1;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "updateQuestion")
+    public int updateQuestion(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content,@WebParam(name = "id") int id) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
+            Statement stmt = conn.createStatement();
+            String sql;
+            sql = "UPDATE questions SET Topic=?,Question=?,Name=?,Email=? WHERE QuestionID=?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1, topic);
+            dbStatement.setString(2, content);
+            dbStatement.setString(3, name);
+            dbStatement.setString(4, email);
+            dbStatement.setInt(5, id);
+            dbStatement.executeUpdate();
+            /* Get every data returned by SQL query */
+
+            stmt.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+            return 2;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+        return 1;
+    }
 }

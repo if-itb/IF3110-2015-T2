@@ -11,4 +11,8 @@
 /Identity/dist/
 /WebServiceRESTTest/dist/
 /WebServiceRESTTest/build/
+<<<<<<< HEAD
 /WS/dist/
+=======
+/FrontEnd/dist/
+>>>>>>> origin/master
