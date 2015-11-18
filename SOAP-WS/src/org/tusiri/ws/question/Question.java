@@ -224,6 +224,7 @@ public class Question {
 		return questionItemList;
 	}
 	
+<<<<<<< HEAD
 	@WebMethod
 	public QuestionItem getQuestionInfo(int id_question) {
 		
@@ -262,3 +263,6 @@ public class Question {
 		return q;
 	}
 }
+=======
+} 
+>>>>>>> 9d6ace6642912f1d4c1409859da8612e1f8d2bdd
