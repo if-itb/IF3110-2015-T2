@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package answerpackage;
+package com.dazzlesquad.answer_package;
 
 import javax.xml.bind.*;
 import javax.xml.bind.annotation.*;

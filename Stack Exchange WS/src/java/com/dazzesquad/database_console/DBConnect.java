@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package database_console;
+package com.dazzesquad.database_console;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,7 +20,7 @@ public class DBConnect {
     Connection conn;
     
     public DBConnect() {
-        host= "jdbc:mysql://localhost:3307/dazzlesquad";
+        host= "jdbc:mysql://localhost:3306/dazzlesquad";
         username="root";
         pass = "password";
              
