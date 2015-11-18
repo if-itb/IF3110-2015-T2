@@ -6,9 +6,12 @@ Author:
 - Devina Ekawati    (13513002) -->
 <!-- File: index.jsp -->
 
+<%@page import="java.util.*"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Home</title>
     <meta charset="utf-8"/>
     <!-- CSS -->
@@ -17,7 +20,7 @@ Author:
   <body>
     <!-- Title -->
     <div class="title">
-      <a href="index.html">
+      <a href="Controller">
         Simple StackExchange
       </a>
     </div>
@@ -42,6 +45,14 @@ Author:
           Recently Asked Questions
         </div>
         <div class="questions-list">
+          <%
+            List<QuestionWS.Question> questions = new ArrayList<QuestionWS.Question>();
+            if (request.getAttribute("questions") != null) {
+              questions = (ArrayList<QuestionWS.Question>)request.getAttribute("questions");
+              if (questions.size() > 0) {
+                for (int i = 0; i < questions.size(); i++) {
+              
+          %>
           <div class="same-height-row border-bottom">
             <div class="vote-number">
               3
@@ -56,12 +67,12 @@ Author:
             <div class="right-position">
               <div class="answer-question-detail">
                 <!-- Question Topic & Content -->
-                <a href="question-detail.html">
+                <a href="QuestionDetailController?qid=<%= questions.get(i).getIdQuestion() %>">
                   <div class="question-topic">
-                    Question Topic
+                    <%= questions.get(i).getTopic() %>
                   </div>
                   <div class="question-content">
-                    Question content here. Question content here. Question content here. Question content here. Question content here. Question content here. Question content here. Question content here.
+                    <%= questions.get(i).getContent() %>
                   </div>
                 </a>
               </div>
@@ -79,7 +90,16 @@ Author:
               </a>
             </div>
           </div>
+          <%
+                }
+              } else {
+          %>
           <!-- If no questions: Sorry, no questions found. -->
+          Sorry, no questions found
+          <%
+              }
+            }
+          %>
         </div>
       </div>
     </div>
