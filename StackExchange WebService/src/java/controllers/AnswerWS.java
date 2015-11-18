@@ -15,6 +15,7 @@ import javax.jws.Oneway;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebResult;
 import model.*;
 
 /**
@@ -30,8 +31,9 @@ public class AnswerWS {
      * Web service operation
      */
     @WebMethod(operationName = "getAnswerByQId")
-    public ArrayList getAnswerByQId(@WebParam(name = "q_id") int q_id) {
-        ArrayList<Answer> answers = new ArrayList<>();
+    @WebResult(name="Answer")
+    public ArrayList<Answer> getAnswerByQId(@WebParam(name = "q_id") int q_id) {
+        ArrayList<Answer> answers = new ArrayList<Answer>();
         try {
             Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM answer WHERE q_id="+q_id;
