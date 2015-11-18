@@ -24,7 +24,7 @@
             <input type="hidden" name="question_id">
             <input type="text" class='form-text' name="email" placeholder="Email" required><br>
             <input type="password" class='form-text' name="password" placeholder="Password" required><br>
-            <button class='button-post' type='submit'> Register </button>
+            <button class='button-post' type='submit'> Login </button>
         </form>
 
         <c:if test="${not empty message}">

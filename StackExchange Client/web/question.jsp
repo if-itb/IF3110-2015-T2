@@ -19,84 +19,127 @@
         <br>
         <br>
         <br>
-        <div class='subtitle'> Question Topic Goes Here</div>
+        <%
+        try {
+            com.wbd.qst.QuestionWS_Service service = new com.wbd.qst.QuestionWS_Service();
+            com.wbd.qst.QuestionWS port = service.getQuestionWSPort();
+             // TODO initialize WS operation arguments here
+            int qid = Integer.parseInt(request.getParameter("id"));
+            // TODO process result here
+            //out.println("QID : " + qid);
+            java.util.List<com.wbd.qst.Question> result = port.getQuestionbyID(qid);
+            for (int i = 0; i < result.size(); i++){
+                String question = 
+                    "<div class='subtitle'>"
+			+result.get(i).getQuestionTopic()
+                    +"</div>"
+                    +"<hr class='line'>"
+                    +"<div class='block-QA'>"
+			+"<div class='bQA-vote'>"
+                            +"<div class='vote-up' onclick='addQuestionVote(" +"$row['question_id']"+")''>"
+                            +"</div>"
+                            +"<br>"
+                            +"<a class='vote-value' id='question_vote" + qid +"'>"
+				+result.get(i).getVote()
+                            +"</a>"
+                            +"<br><br>"
+                            +"<div class='vote-down' onclick='subtractQuestionVote("+"$row['question_id']"+")''>"
+                            +"</div>"
+			+"</div>"
+			+"<div class='bQA-content'>"
+                            +result.get(i).getContent()
+                            +"<br><br>"
+                        +"</div>"
+                        +"<div class='bQA-identity'>"
+                            +"asked by "
+                            +"$row['email']"
+                            +" at "
+                            +"$row['time']" 
+                            +" | "
+                            +"<a id='color-orange' href=# onclick='editconfirm(" +"$row['question_id']"+")'" +"'>"
+                                +"edit"
+                            +"</a>"
+                            +" | "
+                            +"<a id='color-red' href=# onclick='deleteconfirm("+"$row['question_id']"+")'"+"'>"
+                                +"delete"
+                            +"</a>"
+	    		+"</div>"
+	    	+"</div>"           
+                ;
+                out.write(question);
+            }
+        } catch (Exception ex) {
+            // TODO handle custom exceptions here
+        }
+        %>
         
-        <hr class='line'>
-        <div class='block-QA'>
-            <div class='bQA-vote'>
-                <div class='vote-up' onclick='addQuestionVote("$row['question_id']")''>
-                </div>
-		<br>
-                <a class='vote-value' id='question_vote$row['question_id']'>
-                    Vote Goes Here
-		</a>
-		<br><br>
-		<div class='vote-down' onclick='subtractQuestionVote("$row['question_id']")''>
-                </div>
-            </div>"
-            <div class='bQA-content'>
-                Content Goes Here
-                <br><br>
-            </div>
-            <div class='bQA-identity'>
-                asked by
-                email
-                at
-                time
-                |
-                <a id='color-orange' href=# onclick='editconfirm("question_id")'>
-                    edit
-                </a>
-                |
-                <a id='color-red' href=# onclick='deteleconfirm("question_id")'>
-                    delete
-                </a>
-            </div>
-        </div>
-        
-        <br><br><br><br><br>
+        <% out.write("<br><br><br><br><br>");%>
         
         <%
-            //Answer Count and Line
-            String answerCount = "<div class='subtitle'>" + "$row['answer_count']" + "$answer" + "</div>";//answer = "Answer" atau "Answers, nanti kalo udah bisa count beneran baru kuedit
-            String border = "<hr class='line'>";
-            out.write(answerCount + border);
-            
-            //for each answer
-            String eachAnswer = 
-            "<div class='block-QA'>"
-		+"<div class='bQA-vote'>"
-		    +"<div class='vote-up' onclick='addAnswerVote("+"$row['answer_id']" + ")''>"
-                    +"</div>"
-                    +"<br>"
-                    +"<a class='vote-value' id='answer_vote" + "$row['answer_id']" + "'>" + "$row['vote']"
-                    +"</a>"
-                    +"<br><br>"
-                    +"<div class='vote-down' onclick='subtractAnswerVote(" + "$row['answer_id']" + ")''>"
-                    +"</div>"
-                +"</div>"
-                +"<div class='bQA-content'>"
-                    +"$row['content']"
-                    +"<br><br>"
-                +"</div>"
-                +"<div class='bQA-identity'>" 
-                    +"answered by "
-                    +"$row['email']"
-                    +" at "
-                    +"$row['time']"
-                +"</div>"
-            +"</div>"
-            +"<hr class='line'>"
+        try {
+            com.wbd.ans.AnswerWS_Service service = new com.wbd.ans.AnswerWS_Service();
+            com.wbd.ans.AnswerWS port = service.getAnswerWSPort();
+             // TODO initialize WS operation arguments here
+            int qid = Integer.parseInt(request.getParameter("id"));
+            // TODO process result here
+            java.util.List<com.wbd.ans.Answer> result = port.getAnswerByQID(qid);
+            String isManyAnswer;
+            if(result.size() > 1){
+                isManyAnswer = "Answers";
+            }
+            else{
+                isManyAnswer = "Answer";
+            }
+            String answerTitle = 
+                "<div class='subtitle'>" + result.size() + " " + isManyAnswer + "</div>"
+                + "<hr class ='line'>"
             ;
-            
-            out.write(eachAnswer);
-                    
-            
-            
-          
+            out.write(answerTitle);
+            for(int i = 0; i < result.size() ; i++){
+                String answer = 
+                    "<div class='block-QA'>"
+                        +"<div class='bQA-vote'>"
+                            +"<div class='vote-up' onclick='addAnswerVote(" +"$row['answer_id']" +  ")''>"
+                            +"</div>"
+                            +"<br>"
+                            +"<a class='vote-value' id='answer_vote" + "$row['answer_id']"+  "'>" + result.get(i).getVote()
+                            +"</a>"
+                            +"<br><br>"
+                            +"<div class='vote-down' onclick='subtractAnswerVote(" +"$row['answer_id']"+ ")''>"
+                            +"</div>"
+			+"</div>"
+                        +"<div class='bQA-content'>"
+                            +result.get(i).getAnswer()
+                            +"<br><br>"
+                        +"</div>"
+                        +"<div class='bQA-identity'>" 
+                            +"answered by "
+                            +result.get(i).getNama()
+                            +" at "
+                            +"$row['time']"
+                        +"</div>"
+                    +"</div>"
+		    +"<hr class='line'>"
+                ;
+                out.write(answer);
+        }
+        } catch (Exception ex) {
+            // TODO handle custom exceptions here
+        }
         %>
-            
-        
-
+        <% out.write("<br><br>"); %>
+        <%
+        String answerForm =
+                "<div class='subtitle'>" + "<a id='color-grey'>" + "Your Answer" + "</a>" + "</div>"
+		+"<form name='answerForm' action='anspost.php' onsubmit='return validateAnswer()' method='post'>"
+			+"<input type='hidden' name='question_id' value=' " + Integer.parseInt(request.getParameter("id")) + "'>"
+			+"<input type='text' class='form-text' name='name' placeholder='Name'><br>"
+			+"<input type='text' class='form-text' name='email' placeholder='Email'><br>"
+			+"<textarea class='form-textarea' name='content' placeholder='Content'></textarea><br>"
+			+"<button class='button-post' type='submit'> Post </button>"
+		+"</form>";
+        ;
+        out.write(answerForm);
+        %>
     </body>
 </html>

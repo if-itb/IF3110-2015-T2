@@ -24,17 +24,44 @@ public class Answer {
     private String email;
     @XmlElement(name = "Answer", required = true)
     private String answer;
+    @XmlElement(name = "Vote", required = true)
+    private int Vote;
     
     public Answer(){
         idans = 0;
         idq = 0;
     }
     
-    public Answer(int idA, int qid, String name, String alamatemail, String isi){
+    public Answer(int idA, int qid, String name, String alamatemail, String isi, int vote){
         idans = idA;
         idq = qid;
         nama = name;
         email = alamatemail;
         answer = isi;
+        Vote = vote;
+    }
+    
+    public int getIDAns(){
+        return idans;
+    }
+    
+    public int getIDQ(){
+        return idq;
+    }
+    
+    public String getNama(){
+        return nama;
+    }
+    
+    public String getEmail(){
+        return email;
+    }
+    
+    public String getAnswer(){
+        return answer;
+    }
+    
+    public int getVote(){
+        return Vote;
     }
 }

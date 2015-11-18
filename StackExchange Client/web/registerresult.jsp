@@ -12,28 +12,30 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>    <%-- start web service invocation --%><hr/>
+        <h1>Hello World!</h1>
+        <%-- start web service invocation --%><hr/>
     <%
     try {
 	com.wbd.rgs.RegisterWS_Service service = new com.wbd.rgs.RegisterWS_Service();
 	com.wbd.rgs.RegisterWS port = service.getRegisterWSPort();
 	 // TODO initialize WS operation arguments here
-	java.lang.String name = request.getParameter("name");
+	java.lang.String nama = request.getParameter("name");
 	java.lang.String email = request.getParameter("email");
 	java.lang.String password = request.getParameter("password");
 	// TODO process result here
-	int result = port.register(name, email, password);
+	int result = port.register(nama, email, password);
         if (result == 1){
-            out.println("Registration success!");
+            out.println("Registration SUCCESS!");
         } else {
-            out.println("Registration failed!");
+            out.println("Registration FAILED!");
         }
-	
     } catch (Exception ex) {
 	// TODO handle custom exceptions here
     }
-    %>
-    <%-- end web service invocation --%><hr/>
-
+    
+    String site = "index.jsp";
+    response.setStatus(response.SC_MOVED_TEMPORARILY);
+    response.setHeader("Location", site);
+    %>   
     </body>
 </html>
