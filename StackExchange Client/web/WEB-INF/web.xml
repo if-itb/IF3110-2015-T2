@@ -9,8 +9,17 @@
         <servlet-class>controllers.IndexController</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>RegisterController</servlet-name>
         <servlet-class>UserWS.RegisterController</servlet-class>
+=======
+        <servlet-name>QuestionDetailController</servlet-name>
+        <servlet-class>controllers.QuestionDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AskController</servlet-name>
+        <servlet-class>controllers.AskController</servlet-class>
+>>>>>>> 2a0cc9bae5b7da70f5563585b96ace37a4568ed7
     </servlet>
     <servlet-mapping>
         <servlet-name>QuestionController</servlet-name>
@@ -21,8 +30,17 @@
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/Register</url-pattern>
+=======
+        <servlet-name>QuestionDetailController</servlet-name>
+        <url-pattern>/question</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AskController</servlet-name>
+        <url-pattern>/ask</url-pattern>
+>>>>>>> 2a0cc9bae5b7da70f5563585b96ace37a4568ed7
     </servlet-mapping>
     <session-config>
         <session-timeout>

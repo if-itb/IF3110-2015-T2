@@ -5,9 +5,11 @@
  */
 package controllers;
 
+import AnswerWS.AnswerWS_Service;
+import QuestionWS.Question;
+import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +21,11 @@ import javax.xml.ws.WebServiceRef;
  *
  * @author Tifani
  */
-public class IndexController extends HttpServlet {
+public class QuestionDetailController extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WebService/QuestionWS.wsdl")
-    private QuestionWS.QuestionWS_Service service;
+    private QuestionWS_Service service_1;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WebService/AnswerWS.wsdl")
+    private AnswerWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,11 +38,13 @@ public class IndexController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-        java.util.List<QuestionWS.Question> questions = getAllQuestions();
-        request.setAttribute("questions", questions);
-        RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
+        int qId = Integer.parseInt(request.getParameter("q_id"));
+        QuestionWS.Question question = getQuestionById(qId);
+        java.util.List<AnswerWS.Answer> answers = getAnswerByQId(qId);
+        request.setAttribute("question", question);
+        request.setAttribute("answers", answers);
+        RequestDispatcher rd = request.getRequestDispatcher("viewQuestion.jsp");
         rd.forward(request, response);
     }
 
@@ -80,12 +86,19 @@ public class IndexController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private java.util.List<QuestionWS.Question> getAllQuestions() {
+    
+    private Question getQuestionById(int qId) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.getAllQuestions();
+        QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
+        return port.getQuestionById(qId);
+    }
+
+    private java.util.List<AnswerWS.Answer> getAnswerByQId(int qId) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        AnswerWS.AnswerWS port = service.getAnswerWSPort();
+        return port.getAnswerByQId(qId);
     }
 
 }

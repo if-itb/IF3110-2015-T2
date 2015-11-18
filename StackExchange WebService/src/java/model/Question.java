@@ -18,12 +18,18 @@ public class Question {
     private int qId;
     @XmlElement(name="u_id", required=true)
     private int uId;
+    @XmlElement(name="username", required=true)
+    private String username;
+    @XmlElement(name="name", required=true)
+    private String name;
     @XmlElement(name="topic", required=true)
     private String topic;
     @XmlElement(name="content", required=true)
     private String content;
     @XmlElement(name="vote", required=true)
     private int vote;
+    @XmlElement(name="answer", required=true)
+    private int answer;
     @XmlElement(name="date_created", required=true)
     private String dateCreated;
     @XmlElement(name="date_edited", required=true)
@@ -33,12 +39,15 @@ public class Question {
         
     }
     
-    public Question(int qId, int uId, String topic, String content, int vote, String dateCreated, String dateEdited) {
+    public Question(int qId, int uId, String username, String name, String topic, String content, int vote, int answer, String dateCreated, String dateEdited) {
         this.qId = qId;
         this.uId = uId;
+        this.username = username;
+        this.name = name;
         this.topic = topic;
         this.content = content;
         this.vote = vote;
+        this.answer = answer;
         this.dateCreated = dateCreated;
         this.dateEdited = dateEdited;
     }
@@ -67,10 +76,20 @@ public class Question {
         return dateCreated;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getName() {
+        return name;
+    }
+    
     public String getDateEdited() {
         return dateEdited;
     }
-    
-    
-    
+
+    public int getAnswer() {
+        return answer;
+    }
+
 }

@@ -5,9 +5,9 @@
  */
 package controllers;
 
+import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +19,9 @@ import javax.xml.ws.WebServiceRef;
  *
  * @author Tifani
  */
-public class IndexController extends HttpServlet {
+public class AskController extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WebService/QuestionWS.wsdl")
-    private QuestionWS.QuestionWS_Service service;
+    private QuestionWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,11 +35,6 @@ public class IndexController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        response.setContentType("text/html;charset=UTF-8");
-        java.util.List<QuestionWS.Question> questions = getAllQuestions();
-        request.setAttribute("questions", questions);
-        RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
-        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -54,7 +49,9 @@ public class IndexController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        // New location to be redirected
+        RequestDispatcher rd = request.getRequestDispatcher("ask.jsp");
+        rd.forward(request, response);
     }
 
     /**
@@ -68,7 +65,12 @@ public class IndexController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String topic = request.getParameter("topic");
+        String content = request.getParameter("content");
+        //TODO: Username dan q id
+        int qId = addNewQuestion(1, topic, content);
+        RequestDispatcher rd = request.getRequestDispatcher("question?q_id=" + qId);
+        rd.forward(request, response);
     }
 
     /**
@@ -81,11 +83,11 @@ public class IndexController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private java.util.List<QuestionWS.Question> getAllQuestions() {
+    private int addNewQuestion(int uId, java.lang.String topic, java.lang.String content) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.getAllQuestions();
+        return port.addNewQuestion(uId, topic, content);
     }
 
 }
