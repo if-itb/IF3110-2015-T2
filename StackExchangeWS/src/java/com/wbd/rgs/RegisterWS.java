@@ -42,7 +42,6 @@ public class RegisterWS {
     static final String PASS = "alberttriadrian";
     
 
-    static final String PASS = "";
 
     /**
      * Web service operation

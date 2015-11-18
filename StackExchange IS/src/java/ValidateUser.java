@@ -138,7 +138,7 @@ public class ValidateUser extends HttpServlet {
              
              MD5Hashing md5 = new MD5Hashing();
              
-             String access_token; 
+             String access_token=""; 
              int lifetime;
              
              if (found){
@@ -155,7 +155,7 @@ public class ValidateUser extends HttpServlet {
 
              if (!access_token.equals("")){
                 request.setAttribute("token", access_token);
-                request.getRequestDispatcher("index.jsp").forward(request,response);
+                request.getRequestDispatcher("http://localhost:8080/StackExchange_Client/login.jsp").forward(request,response);
              }  
                        
             out.println(userToken.toString());
