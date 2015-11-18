@@ -42,7 +42,7 @@ public class Answer {
         this.vote = vote;
         this.timestamp = timestamp;
     }
-    
+    /*
     public void setAnswer(int aid, int qid, int uid, String content, int vote, String timestamp) {
         answerID = aid;
         questionID = qid;
@@ -99,4 +99,5 @@ public class Answer {
     public String getTimestamp() {
         return timestamp;
     }
+    */
 }

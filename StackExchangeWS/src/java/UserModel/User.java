@@ -35,7 +35,7 @@ public class User {
         this.email = email;
         password = pw;
     }
-    
+    /*
     public void setUser(int uid, String fname, String lname, String email, String pw) {
         userID = uid;
         first_name = fname;
@@ -83,4 +83,5 @@ public class User {
     public String getPassword() {
         return password;
     }
+    */
 }

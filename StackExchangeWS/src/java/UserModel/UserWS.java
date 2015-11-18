@@ -6,8 +6,6 @@
 package UserModel;
 
 import DatabaseAdapter.database;
-import QuestionModel.Question;
-import QuestionModel.QuestionWS;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +20,7 @@ import javax.jws.WebResult;
  */
 @WebService(serviceName = "UserWS")
 public class UserWS {
+    
     database DB = new database();
     
     Connection conn = DB.connect();
@@ -52,12 +51,43 @@ public class UserWS {
             
             rs.close();
             stmt.close();
-            conn.close();
             
         } catch (SQLException ex) {
-            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return user;
+    }
+    
+    @WebMethod(operationName = "createUser")    
+    @WebResult(name="UserID")
+    public int createUser(@WebParam(name = "firstname") String fname, @WebParam(name = "lastname") String lname, @WebParam(name = "email") String email, @WebParam(name = "password") String pw) {
+        int uid = 0;
+        // Call Identity Service
+        
+        try {
+            Statement stmt = conn.createStatement();
+            String sql;
+            sql = "INSERT INTO users(first_name, last_name, email, password) VALUES (?,?,?,?)";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            dbStatement.setString(1, fname);
+            dbStatement.setString(2, lname);
+            dbStatement.setString(3, email);            
+            dbStatement.setString(4, pw);
+            dbStatement.executeUpdate();
+            ResultSet rs = dbStatement.getGeneratedKeys();
+            while (rs.next()) {
+		uid = rs.getInt(1);
+            }            
+            
+            rs.close();
+            stmt.close();
+            
+        } catch (SQLException ex) {
+           Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return uid;
     }
 }

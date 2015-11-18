@@ -56,7 +56,6 @@ public class AnswerWS {
             
             rs.close();
             stmt.close();
-            conn.close();
             
         } catch (SQLException ex) {
            Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,4 +64,69 @@ public class AnswerWS {
         return answers;
     }
 
+    @WebMethod(operationName = "createAnswer")    
+    @WebResult(name="AnswerID")
+    public int createAnswer(@WebParam(name = "uid") int uid, @WebParam(name = "qid") int qid, @WebParam(name = "content") String content) {
+        int aid = 0;
+        // Call Identity Service
+        
+        try {
+            Statement stmt = conn.createStatement();
+            String sql;
+            sql = "INSERT INTO answers(question_id,user_id,content,vote) VALUES (?,?,?,0)";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            dbStatement.setInt(1, qid);
+            dbStatement.setInt(2, uid);
+            dbStatement.setString(3, content);
+            dbStatement.executeUpdate();
+            ResultSet rs = dbStatement.getGeneratedKeys();
+            while (rs.next()) {
+		aid = rs.getInt(1);
+            }            
+            
+            String updateAnsCount;
+            updateAnsCount = "UPDATE questions SET answer_count = answer_count + 1 WHERE question_id = ?";
+            dbStatement = conn.prepareStatement(updateAnsCount);
+            dbStatement.setInt(1, qid);            
+            dbStatement.executeUpdate();
+            
+            rs.close();
+            stmt.close();
+            
+        } catch (SQLException ex) {
+           Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return aid;
+    }
+    
+    @WebMethod(operationName = "voteQuestion")    
+    @WebResult(name="AnswerID")
+    public int voteAnswer(@WebParam(name = "aid") int aid, @WebParam(name = "vote") int vote) {            
+        try {
+            Statement stmt = conn.createStatement();
+                                    
+            String sql;
+            sql = "UPDATE answers SET vote = vote + ? WHERE answer_id = ?";
+                    
+            PreparedStatement dbStatement = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            dbStatement.setInt(1, vote);
+            dbStatement.setInt(2, aid);
+                    
+            dbStatement.executeUpdate();
+            ResultSet rs = dbStatement.getGeneratedKeys();
+            while (rs.next()) {
+                aid = rs.getInt(1);
+            }    
+                    
+            rs.close();
+            stmt.close();
+                    
+        } catch (SQLException ex) {
+            Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return aid;
+    }
 }

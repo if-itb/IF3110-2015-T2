@@ -45,7 +45,7 @@ public class Question {
         this.timestamp = timestamp;
         answer_count = ans_count;
     }
-    
+    /*
     public void setQuestion(int qid, int uid, String topic, String content, int vote, String timestamp, int ans_count) {
         questionID = qid;
         userID = uid;
@@ -111,5 +111,5 @@ public class Question {
     public int getAnswerCount() {
         return answer_count;
     }
-    
+    */
 }
