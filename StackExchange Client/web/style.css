@@ -1,11 +1,14 @@
 body{
     margin: 0;
-    font-family: Helvetica, sans-serif;
+    background-color: #fffaf0;
+    font-family: 'Dosis', sans-serif;
 }
 
 .container{
     margin-left: 15%;
     margin-right: 15%;
+    width: 100%;
+    height: auto;
 }
 
 .title{
@@ -15,19 +18,138 @@ body{
     margin-top: 2.5%;
     margin-bottom: 2%;
 }
-
 .title a{
     color:  black;
     text-decoration: none;
 }
+.formsearch:before, formsearch:after{
+    content: "";
+    display: table;
+}
 
+.formsearch:after{
+    clear: both;
+}
+.formsearch{
+    zoom:1;
+}
+.formwrap{
+    height: 43px;
+    width: 97%;
+    padding: 15px;
+    margin: 0px auto 0px auto;
+    background: rgba(0,0,0,.2);
+    border-radius: 10px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
+}
+.formwrap input{
+    width: 94.3%;
+    height: 20px;
+    padding: 10px 20px;
+    float: left;    
+    font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
+    border: 0;
+    background: #FFFFFF;
+    border-radius: 3px 0 0 3px;      
+}
+.formwrap input:focus{
+    outline: 0;
+    background: #fff;
+    box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+}
+.formwrap input::-webkit-input-placeholder {
+   color: #999;
+   font-weight: normal;
+   font-style: italic;
+}
 
+.formwrap input:-moz-placeholder {
+    color: #999;
+    font-weight: normal;
+    font-style: italic;
+}
 
-.raqtitle{
+.formwrap input:-ms-input-placeholder {
+    color: #999;
+    font-weight: normal;
+    font-style: italic;
+}    
+.formwrap button{
+    margin-left: -100px;
+    overflow: visible;
+    position: absolute;
+    float: right;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    height: 40px;
+    width: 110px;
+    font: bold 13pt 'lucida sans', 'trebuchet MS', 'Tahoma';
+    color: #fff;
+    background: #d83c3c;
+    border-radius: 0 3px 3px 0;      
+    text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
+}
+.formwrap button:hover{
+    background: #e54040;
+}
+.formwrap button:active, .formwrap button:focus{
+    background: #c42f2f;
+	outline: 0; 
+}
+.formwrap button:before { /* left arrow */
+    content: '';
+    position: absolute;
+    border-width: 8px 8px 8px 0;
+    border-style: solid solid solid none;
+    border-color: transparent #d83c3c transparent;
+    top: 12px;
+    left: -6px;
+}
+
+.formwrap button:hover:before{
+    border-right-color: #e54040;
+}
+
+.formwrap button:focus:before,
+.formwrap button:active:before{
+        border-right-color: #c42f2f;
+}      
+
+.formwrap button::-moz-focus-inner { /* remove extra button spacing for Mozilla Firefox */
+    border: 0;
+    padding: 0;
+}
+.textunder{
+    text-align: center;
+    margin: 0 auto 0 auto;
+    font-size: 12pt;
+    height: 100%;
+}
+.text1{
+    display: inline-block;
+}
+.ah{
+    margin-left: 5px;
+    color: darkorange;
+    text-decoration: none;
+}
+.textunder > p{
+    -webkit-margin-before: 10px;
+}
+.raqtext{
     font-size: 16pt;
     padding-bottom: 1.5px;
     padding-left: 10px;
     border-bottom: 2px solid black;
+}
+.raq{
+    padding-top: 3%;
+    padding-bottom: 3%;
+    border-bottom: 2px solid black;
+}
+.raq > *{
+    vertical-align: middle;
 }
 .votepart{
     margin-left: 2.5%;
@@ -43,15 +165,22 @@ body{
     display: inline-block;
     padding-right: 2%;
 }
+.questionpart{
+    display: inline-block;
+    width: 600px;
+}
 .qtopic{
     font-size: 12pt;
     font-weight: bold;
-    display: inline-block;
 }
 .qcontent{
     font-size: 10pt;
     text-align: justify;
-    
+}
+.labelunder{
+    right: 15%;
+    font-size: 12pt;
+    vertical-align: middle;
 }
 .ab{
     color: black;
@@ -91,180 +220,94 @@ a{
 .subq{
     font-size: 24pt; 
 }
-.raq{
+.createquestion{
+    float: left;
+    width:97%;
+    margin-top: 10px;
+}
+.createquestion input, .createquestion textarea{
+    line-height: 1.5;
+    font-family: 'Dosis', sans-serif;
+    font-size: 14pt;
+    padding: 5px 10px;
+    display: block;
+    width: 100%;
+    background: white;
+    border: 3px solid white;
+    border-bottom-color: #ffe1a4;
+    margin-bottom: 10px;
+}
+.createquestion textarea{
+    min-height: 150px;
+}
+.createquestion button{
+    background: #ffc03f;
+    color: white;
+    padding: 7px 20px;
+    font-size: 14pt;
+    font-family: 'Dosis', sans-serif;
+    border: none;
+    border-radius: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-left: 94%;
+    cursor: pointer;
+}
+.createquestion button:hover{
+    background: darkorange;
+}
+.abu{
+    color: grey;
+    margin-left: 10px;
+    margin-top: 3%;
+}
+.black{
+    border-bottom: 2px solid black;
+    padding-bottom: 1.5px;
+}
+.black a{
+    color: black;
+}
+.question{
     padding-top: 3%;
     padding-bottom: 3%;
-    border-bottom: 2px solid black;
-    display: inline-block;
-    float: left;
 }
-
-.raq > *{
+.question > *, .answer > *{
     vertical-align: middle;
 }
-
-.vote{
-    margin-left: 2.5%;
-    text-align: center;
-    font-size: 14pt;
-    display: inline-block;
-    padding-right: 2%;
-    
+.voteup{
+    margin-bottom: 5px;
+    width: 16px;
+    height: 16px;
 }
-.answer{
-    font-size: 14pt;
-    text-align: center;
-    display: inline-block;
-    padding-right: 2%;
+.votedown{
+    margin-top: 5px;
+    width: 16px;
+    height: 16px;
 }
-
-.questionpart{
-    width: 600px;
-    padding-right: 10px;
-    display: inlineblock;
+.medium{
+    font-size: 12pt !important;
 }
-
-.qtopic{
-    font-size: 12pt;
-    font-weight: bold;
+.partmedium{
+    width: 875px !important;
 }
-
-.qcontent{
-    font-size: 10pt;
-    text-align: justify;
-}
-
-.labelunder{
-    position: absolute;
-    right: 15%;
-    font-size: 10pt;
-    vertical-align: middle;
+.date{
     display: inline-block;
 }
-
-.askform {
-	margin-left: 20%   ;
-	margin-right: 20%;
+.qtopic a{
+    color: black;
 }
-
-form {
-	text-align: center;
+.askedname{
+    color: darkblue;
 }
-
-input.searchBox{
-	border: 3px solid;
-	width: 75%;
-}
-
-input.submitButton{
-	border: 3px solid;
-	background: white;
-	width: 10%;
-}
-
-input.postButton{
-	border: 1px solid;
-	background: white;
-	width: 10%;
-}
-
-input.textBox {
-	border: 1px solid;
-	width: 100%;
-	font-size: 15px;
-	padding-left: 2px;
-}
-h1{
-    text-align: center;
-    
-	font-size: 80%;
-}
-p{
-    text-align: center;
-    
-	font-size: 80%;
-}
-textarea {
-	border: 1px solid;
-	background: white;
-	width: 99.5%;
-	height: 200px;
-	font-size: 15px;
-}
-
-div {
-}
-
-.left {
-	text-align: left;
-}
-
-.right {
-	text-align: right;
-}
-
-.center {
-	text-align: center;
-}
-
-button, button:focus, button:active{
-	background: none;
-	border: none;
-	display: inline;
-	font: inherit;
-	margin: 0;
-	padding: 0;
-	outline: none;
-	outline-offset: 0;
-	color: blue;
-	cursor: pointer;
-	text-decoration: underline;
-}
-
-.justify {
-	text-align: justify;
-}
-
-#blue {
-	color: blue;
-}
-
-#red {
-	color: red;
-}
-
-#yellow {
-	color: yellow;
-}
-.question-block {
-    position: relative;
-    height: 85px;
-    vertical-align: middle;
-}
-.q-votes, .q-answers, .q-topic-content {
+.answernum{
     display: inline-block;
 }
-.q-votes, .q-answers {
-    text-align: center;
-    margin-top: 15px;
-    width: 10%;
+.hiddenform{
+    display: inline-block;
+    padding-right: 3px;
+    padding-left: 0;
 }
-.q-topic-content {
-    width: 75%;
-    vertical-align: top;
-    margin-left: 10px;
-}
-.q-content {
-    font-size: 13px;
-}
-.q-topic {
-    font-weight: 700;
-    font-size: 17px;
-}
-.details {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    font-size: 13px;
-    color: rgb(75,75,75);
+.qlist{
+    height: 100%;
 }

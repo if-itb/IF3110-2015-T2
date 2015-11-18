@@ -11,6 +11,8 @@
         <title>Simple StackExchange: Register</title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Dosis:500' rel='stylesheet' type='text/css'>
     </head>
     <body>
         <div class="container">
