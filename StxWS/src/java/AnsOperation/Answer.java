@@ -13,17 +13,17 @@ import javax.xml.bind.annotation.*;
  */
 @XmlRootElement(name = "Answer")
 public class Answer {
-        @XmlElement(name = "Ansid", required = true)
+        @XmlElement(name = "Ans_id", required = true)
 	private int id;
-        @XmlElement(name = "Ansqid", required = true)
+        @XmlElement(name = "Ans_qid", required = true)
 	private int qid;
-        @XmlElement(name = "Ansname", required = true)
+        @XmlElement(name = "Ans_name", required = true)
 	private String name;
-        @XmlElement(name = "Ansemail", required = true)
+        @XmlElement(name = "Ans_email", required = true)
 	private String email;
-        @XmlElement(name = "Anscontent", required = true)
+        @XmlElement(name = "Ans_content", required = true)
 	private String content;
-        @XmlElement(name = "Ansvote", required = true)
+        @XmlElement(name = "Ans_vote", required = true)
 	private int vote;
 	
         public Answer() {

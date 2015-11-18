@@ -7,6 +7,9 @@
     <service name="AnswerWS">
       <implementation-class>AnsOperation.AnswerWS</implementation-class>
     </service>
+    <service name="userWS">
+      <implementation-class>userOperation.userWS</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>

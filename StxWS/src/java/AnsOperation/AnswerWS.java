@@ -19,17 +19,9 @@ import javax.jws.WebResult;
 @WebService(serviceName = "AnswerWS")
 public class AnswerWS {
 
-    /**
-     * This is a sample web service operation
-     */
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
-    }
-    
-    @WebMethod(operationName = "getAnswer")
-    @WebResult(name = "Answer")
-    public ArrayList<Answer> getAnswer(@WebParam(name = "q_id") int q_id) throws SQLException {
+    @WebMethod(operationName = "getAnswers")
+    @WebResult(name = "Answers")
+    public ArrayList<Answer> getAAnswers(@WebParam(name = "q_id") int q_id) throws Exception {
         ArrayList<Answer> Ans = new ArrayList<Answer>();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -39,7 +31,7 @@ public class AnswerWS {
                 //new com.mysql.jdbc.Driver();
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
                 //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/databasename?user=username&password=password");
-                String connectionUrl = "jdbc:mysql://localhost:3306/coppeng";
+                String connectionUrl = "jdbc:mysql://localhost:3306/stackexchange";
                 String connectionUser = "root";
                 String connectionPassword = "";
                 conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
@@ -64,8 +56,8 @@ public class AnswerWS {
         
     }
         
-    @WebMethod(operationName = "post")
-    public int post(@WebParam(name = "Ans") Answer Ans) {
+    @WebMethod(operationName = "postAns")
+    public int postAns(@WebParam(name = "qid") int qid, @WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "content") String content) {
         int res = -1;
         Connection conn = null;
         PreparedStatement ps = null;
@@ -73,15 +65,15 @@ public class AnswerWS {
                 //new com.mysql.jdbc.Driver();
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
                 //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/databasename?user=username&password=password");
-                String connectionUrl = "jdbc:mysql://localhost:3306/coppeng";
+                String connectionUrl = "jdbc:mysql://localhost:3306/stackexchange";
                 String connectionUser = "root";
                 String connectionPassword = "";
                 conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
-                ps = conn.prepareStatement("insert into Answer value('',?,?,?,?,0)");
-                ps.setInt(1, Ans.getQid());
-                ps.setString(2, Ans.getNama());
-                ps.setString(3, Ans.getEmail());
-                ps.setString(4, Ans.getKonten());
+                ps = conn.prepareStatement("insert into Answer value(0,?,?,?,?,0)");
+                ps.setInt(1, qid);
+                ps.setString(2, name);
+                ps.setString(3, email);
+                ps.setString(4, content);
                 res = ps.executeUpdate();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
         } finally {
@@ -90,27 +82,43 @@ public class AnswerWS {
         }
         return res;
     }
-    
-    @WebMethod(operationName = "patchVote")
-    public int patchVote(@WebParam(name = "id") int id, @WebParam(name = "vote") int vote) {
+    //return value -1 = gagal, 0 = sudah divote, 1 = berhasil
+    @WebMethod(operationName = "voteAns")
+    public int voteAns(@WebParam(name = "id") int id, @WebParam(name= "usermail") String mail) {
         Connection conn = null;
         PreparedStatement ps = null;
-        int executeUpdate = 0;
+        int executeUpdate = -1;
         try {
                 //new com.mysql.jdbc.Driver();
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
                 //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/databasename?user=username&password=password");
-                String connectionUrl = "jdbc:mysql://localhost:3306/coppeng";
+                String connectionUrl = "jdbc:mysql://localhost:3306/stackexchange";
                 String connectionUser = "root";
                 String connectionPassword = "";
                 conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
-                ps = conn.prepareStatement("update Answer set vote = ? where id = ?");
-                ps.setInt(1, vote);
+                ps = conn.prepareStatement("select * from uservote where id_mail = ? and category = 'a' and id = ?");
+                ps.setString(1, mail);
                 ps.setInt(2, id);
-                executeUpdate = ps.executeUpdate();
-                
+                ResultSet rs1 = ps.executeQuery();
+                if (rs1.next()) {
+                    return 0;
+                } else {
+                    ps = conn.prepareStatement("insert into uservote values(?,'a',?)");         
+                    ps.setString(1, mail);
+                    ps.setInt(2, id);
+                    ps.executeUpdate();
+                    ps = conn.prepareStatement("select vote from answer where id = ?");
+                    ps.setInt(1, id);
+                    ResultSet rs = ps.executeQuery();
+                    rs.next();
+                    int currentVote = rs.getInt("vote");
+                    ps = conn.prepareStatement("update Answer set vote = ? where id = ?");
+                    ps.setInt(1, currentVote+1);
+                    ps.setInt(2, id);
+                    executeUpdate = ps.executeUpdate();
+                }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-            return 0;
+            
         } finally {
                 try { if (ps != null) ps.close(); } catch (SQLException e) {}
                 try { if (conn != null) conn.close(); } catch (SQLException e) {}
@@ -118,9 +126,8 @@ public class AnswerWS {
         return executeUpdate;
     }
     
-    @WebMethod(operationName = "delete")
-    public int delete(@WebParam(name = "id")int id) {
-        String Query = "delete from answer where id = ?";
+    @WebMethod(operationName = "deleteAns")
+    public int deleteAns(@WebParam(name = "id")int id) {
         Connection conn = null;
         PreparedStatement ps = null;
         int res= -1;
@@ -128,11 +135,14 @@ public class AnswerWS {
                 //new com.mysql.jdbc.Driver();
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
                 //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/databasename?user=username&password=password");
-                String connectionUrl = "jdbc:mysql://localhost:3306/coppeng";
+                String connectionUrl = "jdbc:mysql://localhost:3306/stackexchange";
                 String connectionUser = "root";
                 String connectionPassword = "";
                 conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
                 ps = conn.prepareStatement("delete from Answer where id = ?;");
+                ps.setInt(1, id);
+                res = ps.executeUpdate();
+                ps = conn.prepareStatement("delete from uservote where category = 'a' and id = ?;");
                 ps.setInt(1, id);
                 res = ps.executeUpdate();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
@@ -141,5 +151,31 @@ public class AnswerWS {
                 try { if (conn != null) conn.close(); } catch (SQLException e) {}
         }
         return res;
+    }
+    
+    @WebMethod(operationName = "getAnsVote")
+    public int getAnsVote(@WebParam(name = "id") int id) {
+        int vote = -1;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+                //new com.mysql.jdbc.Driver();
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/databasename?user=username&password=password");
+                String connectionUrl = "jdbc:mysql://localhost:3306/stackexchange";
+                String connectionUser = "root";
+                String connectionPassword = "";
+                conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
+                ps = conn.prepareStatement("select vote from Answer where id = ?;");
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                vote = rs.getInt("vote");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+        } finally {
+                try { if (ps != null) ps.close(); } catch (SQLException e) {}
+                try { if (conn != null) conn.close(); } catch (SQLException e) {}
+        }
+        return vote;
     }
 }
