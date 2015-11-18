@@ -1,5 +1,12 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%-- 
+    Document   : index
+    Created on : Nov 18, 2015, 1:51:38 PM
+    Author     : Asanilta
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="questions" type="java.util.List<QuestionWS.Question>" scope="request"/>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,19 +29,21 @@
 		<br>
             </p>
             <div class="raqtitle left"><h3>Recently Asked Question</h3></div>
-                <hr>
-                <c:forEach var="question" items="${questions}">
-                    <div class="question-block">
-                        <div class="q-votes">${question.vote}<br>Votes</div>
-                        <div class="q-answers">0<br>Answers</div>
-                        <div class="q-topic-content">
-                            <div class="q-topic"><a href="view.jsp?id=1">${question.topic}</a></div>
-                            <div class="q-content">${question.content}</div>
-                        </div>
-                        <div class="details">asked by <span class="name">name (email)</span> | <a class="edit" href="edit.jsp?id=1">edit</a> | <a class="delete" href="delete.php?id=1" onclick="return confirm('Are you sure you want delete this question?')">delete</a></span></div>    
+        
+        <hr>
+        
+        <% for (QuestionWS.Question question : questions) { %>
+                <div class="question-block">
+                    <div class="q-votes"><%= question.getVote() %><br>Votes</div>
+                    <div class="q-answers">0<br>Answers</div>
+                    <div class="q-topic-content">
+                        <div class="q-topic"><a href="view.jsp?id=<%= question.getQuestionId() %>"><%= question.getTopic() %></a></div>
+                        <div class="q-content"><%= question.getContent() %></div>
                     </div>
-                    <hr>
-                </c:forEach>
-        </div>
-    </body>
+                    <div class="details">asked by <span class="name">name (email)</span> | <a class="edit" href="edit.jsp?id=<%= question.getQuestionId() %>">edit</a> | <a class="delete" href="delete.php?id=<%= question.getQuestionId() %>" onclick="return confirm('Are you sure you want delete this question?')">delete</a></span></div>    
+                </div>
+                <hr>
+        <% } %>
+    </div>
+</body>
 </html>

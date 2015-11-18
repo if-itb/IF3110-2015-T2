@@ -1,6 +1,5 @@
 package model.question;
 
-import javax.xml.bind.*;
 import javax.xml.bind.annotation.*;
 
 /**
