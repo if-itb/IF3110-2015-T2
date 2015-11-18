@@ -31,19 +31,28 @@ public class Answer {
     private String errorMessage;
     @XmlElement(name="vote", required=true)
     private int vote;
+    
+    public Answer(){
+        id = 0;
+        questionId = 0;
+    }
+    
+    public Answer(int id, int questionId, String name, String email, String content, Date dateMade, String errorMessage, int vote){
+        this.id = id;
+        this.questionId = questionId;
+        this.name = name;
+        this.email = email;
+        this.content = content;
+        this.dateMade = dateMade;
+        this.errorMessage = errorMessage;
+        this.vote = vote;
+    } 
 
     /**
      * @return the id
      */
     public int getId() {
         return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
     }
 
     /**
@@ -54,24 +63,10 @@ public class Answer {
     }
 
     /**
-     * @param questionId the questionId to set
-     */
-    public void setQuestionId(int questionId) {
-        this.questionId = questionId;
-    }
-
-    /**
      * @return the name
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**
@@ -82,24 +77,10 @@ public class Answer {
     }
 
     /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
      * @return the content
      */
     public String getContent() {
         return content;
-    }
-
-    /**
-     * @param content the content to set
-     */
-    public void setContent(String content) {
-        this.content = content;
     }
 
     /**
@@ -110,13 +91,6 @@ public class Answer {
     }
 
     /**
-     * @param dateMade the dateMade to set
-     */
-    public void setDateMade(Date dateMade) {
-        this.dateMade = dateMade;
-    }
-
-    /**
      * @return the errorMessage
      */
     public String getErrorMessage() {
@@ -124,23 +98,9 @@ public class Answer {
     }
 
     /**
-     * @param errorMessage the errorMessage to set
-     */
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    /**
      * @return the vote
      */
     public int getVote() {
         return vote;
-    }
-
-    /**
-     * @param vote the vote to set
-     */
-    public void setVote(int vote) {
-        this.vote = vote;
     }
 }

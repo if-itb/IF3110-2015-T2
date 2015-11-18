@@ -22,19 +22,26 @@ public class User {
     private String email;
     @XmlElement(name="token", required=true)
     private String token;
+    @XmlElement(name="valid", required=true)
+    private boolean valid;
+    
+    public User(){
+        id = 0;
+    }
+    
+    public User(int id, String name, String email, String token, boolean valid){
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.token = token;
+        this.valid = valid;
+    }
 
     /**
      * @return the id
      */
     public int getId() {
         return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
     }
 
     /**
@@ -45,24 +52,10 @@ public class User {
     }
 
     /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * @return the email
      */
     public String getEmail() {
         return email;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     /**
@@ -73,9 +66,9 @@ public class User {
     }
 
     /**
-     * @param token the token to set
+     * @return the valid
      */
-    public void setToken(String token) {
-        this.token = token;
+    public boolean isValid() {
+        return valid;
     }
 }

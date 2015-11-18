@@ -37,20 +37,12 @@ public class StackExchangeWS {
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Question question = new Question();
-                question.setErrorMessage("");
-                question.setId(rs.getInt("id"));
-                question.setName(rs.getString("name"));
-                question.setEmail(rs.getString("email"));
-                question.setTopic(rs.getString("topic"));
-                question.setContent(rs.getString("content"));
-                question.setDateMade(rs.getDate("dateMade"));
+                Question question = new Question(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("topic"), rs.getString("content"), rs.getDate("dateMade"), rs.getInt("vote"), rs.getInt("answer"));
                 questions.add(question);
             }
             return questions;
         }catch(Exception e){
             Question question = new Question();
-            question.setErrorMessage(e.getMessage());
             questions.add(question);
             return questions;
         }finally{
@@ -69,20 +61,12 @@ public class StackExchangeWS {
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Question question = new Question();
-                question.setErrorMessage("");
-                question.setId(rs.getInt("id"));
-                question.setName(rs.getString("name"));
-                question.setEmail(rs.getString("email"));
-                question.setTopic(rs.getString("topic"));
-                question.setContent(rs.getString("content"));
-                question.setDateMade(rs.getDate("dateMade"));
+                Question question = new Question(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("topic"), rs.getString("content"), rs.getDate("dateMade"), rs.getInt("vote"), rs.getInt("answer"));
                 questions.add(question);
             }
             return questions;
         }catch(Exception e){
             Question question = new Question();
-            question.setErrorMessage(e.getMessage());
             questions.add(question);
             return questions;
         }finally{
@@ -91,7 +75,7 @@ public class StackExchangeWS {
         }
     }*/
     
-    @WebMethod(operationName = "addQuestion")
+    /*@WebMethod(operationName = "addQuestion")
     public void addQuestion(@WebParam(name="question") Question question) {
         Database db = new Database();
         try{
@@ -113,7 +97,7 @@ public class StackExchangeWS {
             db.closeConnection();
             db = null;
         }
-    }
+    }*/
     
     @WebMethod(operationName = "updateQuestion")
     public void updateQuestion(@WebParam(name="question") Question question) {
@@ -224,21 +208,11 @@ public class StackExchangeWS {
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Answer answer = new Answer();
-                answer.setErrorMessage("");
-                answer.setId(rs.getInt("id"));
-                answer.setQuestionId(rs.getInt("questionId"));
-                answer.setName(rs.getString("name"));
-                answer.setEmail(rs.getString("email"));
-                answer.setContent(rs.getString("content"));
-                answer.setDateMade(rs.getDate("dateMade"));
-                answer.setVote(rs.getInt("vote"));
-                answers.add(answer);
+                Answer answer = new Answer(rs.getInt("id"), rs.getInt("questionId"), rs.getString("name"), rs.getString("email"), rs.getString("content"), rs.getDate("dateMade"), "", rs.getInt("vote"));
             }
             return answers;
         }catch(Exception e){
             Answer answer = new Answer();
-            answer.setErrorMessage(e.getMessage());
             answers.add(answer);
             return answers;
         }finally{
@@ -257,21 +231,12 @@ public class StackExchangeWS {
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Answer answer = new Answer();
-                answer.setErrorMessage("");
-                answer.setId(rs.getInt("id"));
-                answer.setQuestionId(rs.getInt("questionId"));
-                answer.setName(rs.getString("name"));
-                answer.setEmail(rs.getString("email"));
-                answer.setContent(rs.getString("content"));
-                answer.setDateMade(rs.getDate("dateMade"));
-                answer.setVote(rs.getInt("vote"));
+                Answer answer = new Answer(rs.getInt("id"), rs.getInt("questionId"), rs.getString("name"), rs.getString("email"), rs.getString("content"), rs.getDate("dateMade"), "", rs.getInt("vote"));
                 answers.add(answer);
             }
             return answers;
         }catch(Exception e){
             Answer answer = new Answer();
-            answer.setErrorMessage(e.getMessage());
             answers.add(answer);
             return answers;
         }finally{
@@ -307,10 +272,9 @@ public class StackExchangeWS {
     public void addAnswer(@WebParam(name="answer") Answer answer, @WebParam(name="questionId") int questionId) {
         Database db = new Database();
         try{
-            answer.setQuestionId(questionId);
             String values="(";
             values+= answer.getId() +",";
-            values+= answer.getQuestionId() +",";
+            values+= questionId +",";
             values+= "'"+ answer.getName() +"',";
             values+= "'"+ answer.getEmail() +"',";
             values+= "'"+ answer.getContent() +"',";
@@ -343,7 +307,7 @@ public class StackExchangeWS {
             
         }finally{
             db.closeConnection();
-            db = null;
+            //db = null;
         }
     }
     
@@ -358,7 +322,7 @@ public class StackExchangeWS {
             
         }finally{
             db.closeConnection();
-            db = null;
+            //db = null;
         }
     }
     
@@ -415,7 +379,7 @@ public class StackExchangeWS {
             
         }finally{
             db.closeConnection();
-            db = null;
+            //db = null;
         }
     }
     
