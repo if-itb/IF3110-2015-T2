@@ -6,8 +6,7 @@
 package stackexchange.webservice;
 
 import stackexchange.webservice.util.Database;
-import stackexchange.webservice.model.Question;
-import stackexchange.webservice.model.Answer;
+import stackexchange.webservice.model.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -75,7 +74,7 @@ public class StackExchangeWS {
         }
     }*/
     
-    /*@WebMethod(operationName = "addQuestion")
+    @WebMethod(operationName = "addQuestion")
     public void addQuestion(@WebParam(name="question") Question question) {
         Database db = new Database();
         try{
@@ -97,7 +96,7 @@ public class StackExchangeWS {
             db.closeConnection();
             db = null;
         }
-    }*/
+    }
     
     @WebMethod(operationName = "updateQuestion")
     public void updateQuestion(@WebParam(name="question") Question question) {
@@ -200,6 +199,7 @@ public class StackExchangeWS {
     }*/
     
     @WebMethod(operationName = "getAnswers")
+    @WebResult(name="Answer")
     public List<Answer> getAnswers() {
         List<Answer> answers = new ArrayList<Answer>();
         Database db = new Database();
@@ -209,6 +209,7 @@ public class StackExchangeWS {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Answer answer = new Answer(rs.getInt("id"), rs.getInt("questionId"), rs.getString("name"), rs.getString("email"), rs.getString("content"), rs.getDate("dateMade"), "", rs.getInt("vote"));
+                answers.add(answer);
             }
             return answers;
         }catch(Exception e){
@@ -405,5 +406,29 @@ public class StackExchangeWS {
             db = null;
         }
     }*/
+    
+    @WebMethod(operationName = "getUsers")
+    @WebResult(name="User")
+    public List<User> getUsers() {
+        List<User> users = new ArrayList<User>();
+        Database db = new Database();
+        try{
+            String sql="select * from users";
+            PreparedStatement ps = db.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("token"), rs.getBoolean("valid"));
+                users.add(user);
+            }
+            return users;
+        }catch(Exception e){
+            User user = new User();
+            users.add(user);
+            return users;
+        }finally{
+            db.closeConnection();
+            db = null;
+        }
+    }
     
 }

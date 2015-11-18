@@ -4,6 +4,15 @@
     <service name="StackExchangeWS">
       <implementation-class>stackexchange.webservice.StackExchangeWS</implementation-class>
     </service>
+    <service name="QuestionWS">
+      <implementation-class>stackexchange.webservice.QuestionWS</implementation-class>
+    </service>
+    <service name="AnswerWS">
+      <implementation-class>stackexchange.webservice.AnswerWS</implementation-class>
+    </service>
+    <service name="UserWS">
+      <implementation-class>stackexchange.webservice.UserWS</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>
