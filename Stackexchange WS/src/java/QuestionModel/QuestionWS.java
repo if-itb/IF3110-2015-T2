@@ -145,4 +145,38 @@ public class QuestionWS {
     
     return questionDeleted;
   }
+  
+  @WebMethod(operationName = "getQuestion")
+  public ArrayList<Question> getQuestion(@WebParam(name = "id_question") int idQuestion) {
+    //TODO write your implementation code here:
+    ArrayList<Question> question = new ArrayList<Question>();
+    
+    try {
+      // Connect database
+      Connection connection = database.connectDatabase();
+      Statement statement = connection.createStatement();
+      
+      // Menjalankan query
+      String query = "SELECT * FROM question WHERE id_question = ?";
+      PreparedStatement databaseStatement = connection.prepareStatement(query);
+      databaseStatement.setInt(1, idQuestion);
+      ResultSet result = databaseStatement.executeQuery();
+      
+      // Mengambil data hasil eksekusi query
+      while (result.next()) {
+        question.add(new Question( result.getInt("id_question"),
+                                    result.getString("topic"),
+                                    result.getString("content"),
+                                    result.getString("datetime"),
+                                    result.getInt("id_user")));
+      }
+      
+      result.close();
+      statement.close();
+    } catch (SQLException ex) {
+      Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    return question;
+  }
 }
