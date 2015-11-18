@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "questionitem")
-
 public class QuestionItem {
 	
 	private int id_question;
