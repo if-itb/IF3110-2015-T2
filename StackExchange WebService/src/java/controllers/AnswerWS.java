@@ -33,24 +33,28 @@ public class AnswerWS {
     @WebMethod(operationName = "getAnswerByQId")
     @WebResult(name="Answer")
     public ArrayList<Answer> getAnswerByQId(@WebParam(name = "q_id") int q_id) {
+        Answer a = null;
         ArrayList<Answer> answers = new ArrayList<Answer>();
-        try {
-            Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM answer WHERE q_id="+q_id;
-            ResultSet rs = stmt.executeQuery(sql);
-            /* Get data */
-            //int a_id, int u_id, String content, int vote, String date_created, int q_id
-            while (rs.next()) {
-                answers.add(new Answer (
-                    rs.getInt("a_id"),
-                    rs.getInt("u_id"),
-                    rs.getString("content"),
-                    rs.getInt("vote"),
-                    rs.getString("date_created"),
-                    rs.getInt("q_id")));
+        try {    
+            try (Statement stmt = conn.createStatement()) {
+                String sql = "SELECT * FROM answer WHERE q_id="+q_id;
+                /* Get data */
+                //int a_id, int u_id, String content, int vote, String date_created, int q_id
+                try (ResultSet rs = stmt.executeQuery(sql)) {
+                    /* Get data */
+                    //int a_id, int u_id, String content, int vote, String date_created, int q_id
+                    while (rs.next()) {
+                        a = new Answer (
+                                rs.getInt("a_id"),
+                                rs.getInt("u_id"),
+                                rs.getString("content"),
+                                rs.getInt("vote"),
+                                rs.getString("date_created"),
+                                rs.getInt("q_id"));
+                        answers.add(a);
+                    }
+                }
             }
-            rs.close();
-            stmt.close();
         } catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
@@ -71,30 +75,46 @@ public class AnswerWS {
         } catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
-            return 0;
+            return -1;
         }
-        return 1;
+        return q_id;
     }
 
     /**
      * Web service operation
      */
     @WebMethod(operationName = "voteAnswer")
-    public int voteAnswer(@WebParam(name = "a_id") int a_id) {
-        int vote = 0;
+    public String voteAnswer(@WebParam(name = "a_id") int a_id, @WebParam(name = "u_id") int u_id) {
+        String vote = "null";
         try {
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE answer SET vote = vote+1 WHERE a_id="+a_id;
-            stmt.executeUpdate(sql);
-            sql = "SELECT vote FROM answer WHERE a_id="+a_id;
+            String sql = "SELECT vote FROM vote_answer WHERE q_id="+a_id+" and u_id="+u_id;
             ResultSet rs = stmt.executeQuery(sql);
+            boolean empty = true;
             while (rs.next()) {
-                vote = rs.getInt("vote");
+                empty = false;
+                vote = Integer.toString(rs.getInt("vote"));
+            }
+            if(!empty && (vote.equals("1"))) return "null";
+            sql = "UPDATE answer SET vote = vote+1 WHERE q_id="+a_id;
+            stmt.executeUpdate(sql);
+            if(!empty) {
+                sql = "UPDATE vote_answer SET vote = vote+1 WHERE q_id="+a_id+" and u_id="+u_id;
+            }
+            else {
+                sql = "INSERT INTO vote_answer VALUE ("+a_id+","+u_id+",1)";
+            }
+            stmt.executeUpdate(sql);
+            sql = "SELECT vote FROM answer WHERE q_id="+a_id;
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                vote = Integer.toString(rs.getInt("vote"));
             }
             stmt.close();
         } catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
+            return "null";
         }
         return vote;
     }
@@ -103,21 +123,37 @@ public class AnswerWS {
      * Web service operation
      */
     @WebMethod(operationName = "devoteAnswer")
-    public int devoteAnswer(@WebParam(name = "a_id") int a_id) {
-        int vote = 0;
+    public String devoteAnswer(@WebParam(name = "a_id") int a_id, @WebParam(name = "u_id") int u_id) {
+        String vote = "null";
         try {
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE answer SET vote = vote-1 WHERE a_id="+a_id;
-            stmt.executeUpdate(sql);
-            sql = "SELECT vote FROM answer WHERE a_id="+a_id;
+            String sql = "SELECT vote FROM vote_answer WHERE q_id="+a_id+" and u_id="+u_id;
             ResultSet rs = stmt.executeQuery(sql);
+            boolean empty = true;
             while (rs.next()) {
-                vote = rs.getInt("vote");
+                empty = false;
+                vote = Integer.toString(rs.getInt("vote"));
+            }
+            if(!empty && (vote.equals("-1"))) return "null";
+            sql = "UPDATE answer SET vote = vote-1 WHERE q_id="+a_id;
+            stmt.executeUpdate(sql);
+            if(!empty) {
+                sql = "UPDATE vote_answer SET vote = vote-1 WHERE q_id="+a_id+" and u_id="+u_id;
+            }
+            else {
+                sql = "INSERT INTO vote_answer VALUE ("+a_id+","+u_id+",-1)";
+            }
+            stmt.executeUpdate(sql);
+            sql = "SELECT vote FROM answer WHERE q_id="+a_id;
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                vote = Integer.toString(rs.getInt("vote"));
             }
             stmt.close();
         } catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
+            return "null";
         }
         return vote;
     }
