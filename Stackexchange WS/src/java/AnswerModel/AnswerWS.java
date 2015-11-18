@@ -14,7 +14,9 @@ import javax.jws.*;
 
 /**
  *
- * @author Devina
+ * @author Irene Wiliudarsan - 13513002
+ * @author Angela Lynn - 13513032
+ * @author Devina Ekawati - 13513088
  */
 @WebService(serviceName = "AnswerWS")
 public class AnswerWS {
@@ -52,12 +54,6 @@ public class AnswerWS {
       Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
     }
     return answers;
-  }
-
-  @WebMethod()
-  public String sayHello(String name) {
-    String message = new String("Hello, ");
-    return message + name + ".";
   }
   
   @WebMethod(operationName = "addAnswer")

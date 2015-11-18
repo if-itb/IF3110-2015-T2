@@ -10,7 +10,9 @@ import javax.xml.bind.annotation.*;
 
 /**
  *
- * @author Devina
+ * @author Irene Wiliudarsan - 13513002
+ * @author Angela Lynn - 13513032
+ * @author Devina Ekawati - 13513088
  */
 @XmlRootElement(name = "Answer")
 
@@ -38,5 +40,9 @@ public class Answer {
     idUser = uid; 
     this.content = content; 
     this.datetime = datetime; 
+  }
+  
+  public String getContent() {
+    return content;
   }
 }

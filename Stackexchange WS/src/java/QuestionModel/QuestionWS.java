@@ -61,7 +61,7 @@ public class QuestionWS {
   }
   
   @WebMethod(operationName = "addQuestion")
-  public boolean addQuestions(@WebParam(name = "topic") String topic, @WebParam(name = "content") String content, @WebParam(name = "id_user") int idUser) {
+  public boolean addQuestion(@WebParam(name = "topic") String topic, @WebParam(name = "content") String content, @WebParam(name = "id_user") int idUser) {
     //TODO write your implementation code here:
     boolean questionAdded;
     
@@ -89,7 +89,7 @@ public class QuestionWS {
   }
   
   @WebMethod(operationName = "editQuestion")
-  public boolean editQuestions(@WebParam(name = "id_question") int idQuestion, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
+  public boolean editQuestion(@WebParam(name = "id_question") int idQuestion, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
     //TODO write your implementation code here:
     boolean questionEdited;
     
@@ -117,7 +117,7 @@ public class QuestionWS {
   }
   
   @WebMethod(operationName = "deleteQuestion")
-  public boolean deleteQuestions(@WebParam(name = "id_question") int idQuestion) {
+  public boolean deleteQuestion(@WebParam(name = "id_question") int idQuestion) {
     //TODO write your implementation code here:
     boolean questionDeleted;
     

@@ -42,7 +42,4 @@ public class Question {
     datetime = _datetime;
     idUser = _idUser;
   }
-  
-  // Method
-  
 }

@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Answer;
+package controller;
 
 import AnswerWS.AnswerWS_Service;
+import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,13 +17,13 @@ import javax.xml.ws.WebServiceRef;
 
 /**
  *
- * @author Irene Wiliudarsan - 13513002
- * @author Angela Lynn - 13513032
- * @author Devina Ekawati - 13513088
+ * @author Devina
  */
-public class Test extends HttpServlet {
+public class QuestionDetailController extends HttpServlet {
   @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8082/Stackexchange_WS/AnswerWS.wsdl")
-  private AnswerWS_Service service;
+  private AnswerWS_Service service_1;
+  @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8082/Stackexchange_WS/QuestionWS.wsdl")
+  private QuestionWS_Service service;
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,27 +37,14 @@ public class Test extends HttpServlet {
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
-    try (PrintWriter out = response.getWriter()) {
-      /* TODO output your page here. You may use following sample code. */
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<title>Servlet Test</title>");      
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<h1>Servlet Test at " + request.getContextPath() + "</h1>");
-      try { 
-        int i = 1; 
-        java.util.List<AnswerWS.Answer> result = getAnswerByQId(i); 
-        out.println("Result: " + result); 
-        for (AnswerWS.Answer answer : result) { 
-          out.println(answer.getContent()); 
-        } 
-      } catch (Exception ex) { 
-        out.println("Exception: " + ex); 
-      }
-      out.println("</body>");
-      out.println("</html>");
+    if (request.getParameter("qid") != null) {
+      String temp = request.getParameter("qid");
+      int id = Integer.parseInt(temp);
+      java.util.List<QuestionWS.Question> questions = getQuestion(id);
+      java.util.List<AnswerWS.Answer> answers = getAnswerByQId(id);
+      request.setAttribute("questions", questions);
+      request.setAttribute("answers", answers);
+      request.getServletContext().getRequestDispatcher("/question-detail.jsp").forward(request, response);
     }
   }
 
@@ -99,11 +87,19 @@ public class Test extends HttpServlet {
     return "Short description";
   }// </editor-fold>
 
+  private java.util.List<QuestionWS.Question> getQuestion(int idQuestion) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    QuestionWS.QuestionWS port = service.getQuestionWSPort();
+    return port.getQuestion(idQuestion);
+  }
+
   private java.util.List<AnswerWS.Answer> getAnswerByQId(int qid) {
     // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
     // If the calling of port operations may lead to race condition some synchronization is required.
-    AnswerWS.AnswerWS port = service.getAnswerWSPort();
+    AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
     return port.getAnswerByQId(qid);
   }
 
+  
 }
