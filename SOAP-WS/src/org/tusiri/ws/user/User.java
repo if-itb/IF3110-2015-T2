@@ -13,6 +13,7 @@ import org.tusiri.ws.db.DBConnection;
 
 @WebService(endpointInterface = "org.tusiri.ws.user.User")
 public class User {
+	
 	@WebMethod
 	public int createUser(String username, String password, String email, String fullname) throws ClientProtocolException, IOException, ParseException{
 		int u_id = 0;
@@ -29,6 +30,7 @@ public class User {
 			stmt.setString(2, username);
 			ResultSet rs = stmt.executeQuery();
             if (!rs.next()){
+            	
             	exist = false;
             }
 		} catch(SQLException se){
@@ -67,4 +69,11 @@ public class User {
 		}
 		return u_id;
 	}
+	
+	@WebMethod
+	public UserDetail getUser(int id_user){
+		UserDetail A = new UserDetail(id_user);
+		return A;
+	}
+	
 }

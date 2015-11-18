@@ -33,8 +33,8 @@ public interface User {
      * @param arg0
      * @return
      *     returns int
-     * @throws IOException_Exception
      * @throws ClientProtocolException_Exception
+     * @throws IOException_Exception
      * @throws ParseException_Exception
      */
     @WebMethod
@@ -57,5 +57,20 @@ public interface User {
         String arg3)
         throws ClientProtocolException_Exception, IOException_Exception, ParseException_Exception
     ;
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns org.tusiri.ws.user.UserDetail
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getUser", targetNamespace = "http://user.ws.tusiri.org/", className = "org.tusiri.ws.user.GetUser")
+    @ResponseWrapper(localName = "getUserResponse", targetNamespace = "http://user.ws.tusiri.org/", className = "org.tusiri.ws.user.GetUserResponse")
+    @Action(input = "http://user.ws.tusiri.org/User/getUserRequest", output = "http://user.ws.tusiri.org/User/getUserResponse")
+    public UserDetail getUser(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0);
 
 }

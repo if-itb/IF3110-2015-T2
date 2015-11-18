@@ -28,7 +28,9 @@ public class ObjectFactory {
     private final static QName _CreateUser_QNAME = new QName("http://user.ws.tusiri.org/", "createUser");
     private final static QName _IOException_QNAME = new QName("http://user.ws.tusiri.org/", "IOException");
     private final static QName _ParseException_QNAME = new QName("http://user.ws.tusiri.org/", "ParseException");
+    private final static QName _GetUser_QNAME = new QName("http://user.ws.tusiri.org/", "getUser");
     private final static QName _CreateUserResponse_QNAME = new QName("http://user.ws.tusiri.org/", "createUserResponse");
+    private final static QName _GetUserResponse_QNAME = new QName("http://user.ws.tusiri.org/", "getUserResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.tusiri.ws.user
@@ -38,11 +40,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetUserResponse }
+     * 
+     */
+    public GetUserResponse createGetUserResponse() {
+        return new GetUserResponse();
+    }
+
+    /**
      * Create an instance of {@link CreateUserResponse }
      * 
      */
     public CreateUserResponse createCreateUserResponse() {
         return new CreateUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetUser }
+     * 
+     */
+    public GetUser createGetUser() {
+        return new GetUser();
     }
 
     /**
@@ -75,6 +93,14 @@ public class ObjectFactory {
      */
     public ClientProtocolException createClientProtocolException() {
         return new ClientProtocolException();
+    }
+
+    /**
+     * Create an instance of {@link UserDetail }
+     * 
+     */
+    public UserDetail createUserDetail() {
+        return new UserDetail();
     }
 
     /**
@@ -114,12 +140,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://user.ws.tusiri.org/", name = "getUser")
+    public JAXBElement<GetUser> createGetUser(GetUser value) {
+        return new JAXBElement<GetUser>(_GetUser_QNAME, GetUser.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link CreateUserResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://user.ws.tusiri.org/", name = "createUserResponse")
     public JAXBElement<CreateUserResponse> createCreateUserResponse(CreateUserResponse value) {
         return new JAXBElement<CreateUserResponse>(_CreateUserResponse_QNAME, CreateUserResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetUserResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://user.ws.tusiri.org/", name = "getUserResponse")
+    public JAXBElement<GetUserResponse> createGetUserResponse(GetUserResponse value) {
+        return new JAXBElement<GetUserResponse>(_GetUserResponse_QNAME, GetUserResponse.class, null, value);
     }
 
 }
