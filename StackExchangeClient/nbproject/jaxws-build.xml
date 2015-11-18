@@ -42,5 +42,21 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/QuestionsWS"/>
         <delete dir="${build.generated.dir}/jax-wsCache/QuestionsWS"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-QuestionsWS"/>
+    <target name="wsimport-client-Register" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Register"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Register" destdir="${build.generated.dir}/jax-wsCache/Register" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/Register/wsdl/localhost_32229/StackExchangeWS/Register.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:32229/StackExchangeWS/Register?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/Register/wsdl/localhost_32229/StackExchangeWS/Register.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Register"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Register">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Register" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/registers"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/Register"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-QuestionsWS, wsimport-client-Register"/>
 </project>

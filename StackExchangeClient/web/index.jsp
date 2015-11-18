@@ -1,17 +1,39 @@
-<%-- 
-    Document   : index
-    Created on : Nov 13, 2015, 5:06:23 PM
-    Author     : Ahmad Naufal Farhan
---%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<html> 
+	<head> 
+		<title> Register</title>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+
+	<body> 
+	<div class="container">
+		<h1> Register Form </h1> 
+		<!--<div id="searchbox">-->
+		<form action="register.jsp"> 
+			<table> 
+				<tr> 
+					<td class = "container"> Username : </td> <td> <input name = "name" size = "12" type = "text" /> </td> 
+				</tr>
+
+				<tr> 
+					<td class = "container"> Email  : </td> <td> <input name = "email" size = "12" type = "text" /> </td> 
+				</tr>
+
+				<tr> 
+					<td class = "container"> Password  : </td> <td> <input name = "password" size = "12" type = "password" /> </td> 
+				</tr>
+			</table>
+                        <button class = answer1 type=submit name=answer value=Post> Submit </button>
+		</form>
+		</div>
+
+
+	</div>
+	</body>
+
+
+
+
+
 </html>
