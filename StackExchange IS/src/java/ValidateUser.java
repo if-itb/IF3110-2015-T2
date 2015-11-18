@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
+import MD5Hashing.MD5Hashing;
 
 /**
  *
@@ -95,11 +96,10 @@ public class ValidateUser extends HttpServlet {
             throws ServletException, IOException {
        // processRequest(request, response);
        PrintWriter out = response.getWriter();
-       out.println("hello"); 
        try{
             String user_email = request.getParameter("email");
+            String user_password = request.getParameter("password");
             //User Token = access token and life time 
-            out.println("Hello Wolrd");
             JSONObject userToken = new JSONObject();
 
             //Register JDBC Driver
@@ -111,7 +111,7 @@ public class ValidateUser extends HttpServlet {
             //Execute SQL Query
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT email,password FROM user";
+            String sql = "SELECT Email,Password FROM user";
             
             ResultSet rs = stmt.executeQuery(sql);
              
@@ -120,30 +120,37 @@ public class ValidateUser extends HttpServlet {
 
              // Extract data from result set
              while(rs.next()){
-                String email = rs.getString("Email");
-                String password = rs.getString("Password");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                
                 userEmailList.add(email);
                 userPasswordList.add(password);
              }
              
              boolean found = false;
              int i = 0;
-             
-             while  (i < userEmailList.size() - 1){
-                 if (user_email == userEmailList.get(i)){
+             while  (i < userEmailList.size() && !found){
+                 if (user_email.equals(userEmailList.get(i))){
                      found = true;
                  }
                  i++;
              }
              
-             String access_token = UUID.randomUUID().toString();
-             int lifetime = 5;
+             MD5Hashing md5 = new MD5Hashing();
+             
+             String access_token; 
+             int lifetime;
+             
              if (found){
-                //Login Successful
+                //Login Successful and send the token response
+                access_token = md5.Hash(user_password);
+                //access_token = user_password;
+                lifetime = 5;
+                
+                //Format the response to JSON
                 userToken.put("access_token",access_token);
                 userToken.put("lifetime", lifetime);             
-             }
-             else{
+            
              }
                        
             out.println(userToken.toString());
