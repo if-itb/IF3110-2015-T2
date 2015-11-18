@@ -28,7 +28,7 @@ import org.json.simple.JSONObject;
 public class auth extends HttpServlet 
 {
   protected final int timeLimit = 5400;         // token expires in second
-  protected static final String DB_URL = "jdbc:mysql://localhost/WBD02";
+  protected static final String DB_URL = "jdbc:mysql://localhost/WBD2";
   protected static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
   protected static final String USER = "root";
   protected static final String PASS = "";
@@ -78,6 +78,7 @@ public class auth extends HttpServlet
     PrintWriter out = response.getWriter();
     JSONObject json = new JSONObject();
     ResultSet rs = null;
+    Long time = System.currentTimeMillis() / 1000;
 
     if (request.getParameter("token") != null)        // token verification
     {
@@ -90,7 +91,6 @@ public class auth extends HttpServlet
         ex.printStackTrace();
       }
 
-      Long time = System.currentTimeMillis() / 1000;
       if (null == expires)          // token invalid
         json = generateError("token expired", 3040);
       else if (expires < time)      // token expired
@@ -103,28 +103,35 @@ public class auth extends HttpServlet
     else {        // handle login authentication
       String user = request.getParameter("user");
       String pass = request.getParameter("pass");
-      int count = 0;
+      int id = -1;
       
       try {   
-        rs = queryExecutor("SELECT COUNT(*) FROM user WHERE email=" + user + " AND pass=" + pass);
-        count = rs.getInt("COUNT(*)");
+        rs = queryExecutor("SELECT id FROM user WHERE email=" + user + " AND pass=" + pass);
+        id = rs.getInt("id");
       } catch (SQLException ex) {
         ex.printStackTrace();
       }
       
-      if (count == 1)     // user & pass match
+      if (id != -1)     // user & pass match
       {
         byte[] bytes = null;
         try {
           SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
           random.setSeed(System.currentTimeMillis());
-          bytes=new byte[DESedeKeySpec.DES_EDE_KEY_LEN];
+          bytes = new byte[DESedeKeySpec.DES_EDE_KEY_LEN];
           random.nextBytes(bytes);
         } catch (NoSuchAlgorithmException ex) {
           ex.printStackTrace();
         }
+
+        try {   
+          updateExecutor("INSERT INTO token uid, val, expires VALUES (" + id +", " + new String(bytes) +", " + (time+timeLimit) +")");
+        } catch (SQLException ex) {
+          ex.printStackTrace();
+        }
         
         json.put("token", bytes);
+        json.put("user", user);
       }
       else
         json = generateError("authentication failed", 1403);
@@ -143,11 +150,29 @@ public class auth extends HttpServlet
     }
   }
 
+  /**
+   * [queryExecutor description]
+   * 
+   * @param  sql          [description]
+   * @return              [description]
+   * @throws SQLException [description]
+   */
   public ResultSet queryExecutor(String sql) throws SQLException {
     ResultSet rs;    
     rs = stmt.executeQuery(sql);
     rs.next();    
     return rs;
+  }
+
+  /**
+   * [updateExecutor description]
+   * 
+   * @param  sql          [description]
+   * @return              [description]
+   * @throws SQLException [description]
+   */
+  public int updateExecutor(String sql) throws SQLException {
+    return stmt.executeUpdate(sql);
   }
   
   /**
