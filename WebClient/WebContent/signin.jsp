@@ -20,7 +20,7 @@
 				break;
 			}
 		}
-
+		
 		if((access_token != null) && (access_token.length()>0)){
 			//check access_token validity to server
 %>
@@ -74,7 +74,7 @@
                             if(token == null)
                             	$(".error").replaceWith( "Username and password not match" );
                             else
-                            	window.location.href = "signin_success.jsp";
+                            	window.location.href = "index.jsp";
 
                         },
                         error: function(jqxhr, status, errorMsg) {

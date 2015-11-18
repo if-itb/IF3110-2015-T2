@@ -11,6 +11,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" href="style.css">
 	<base href="http://localhost:8080/WebClient/index.jsp"/>
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<title>Simple StackExchange</title>
 	
 	<!-- Bootstrap Core CSS -->
@@ -21,6 +23,51 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<%
+	Cookie cookie = null;
+	Cookie[] cookies = null;
+	String access_token = null;
+	// Get an array of Cookies associated with this domain
+	cookies = request.getCookies();
+	if( cookies != null ){
+		for (int i = 0; i < cookies.length; i++){
+			cookie = cookies[i];
+			if(cookie.getName().equals("access_token")){
+				access_token = cookie.getValue();
+				break;
+			}
+		}
+		
+	if((access_token != null) && (access_token.length()>0)){
+		//check access_token validity to server
+%>
+
+	<script>
+	function checkToken(){
+		var tokenData = {access_token:"<%= access_token %>"}
+		var checkTokenUrl = "http://localhost:8080/REST-WS/rest/token-validity";
+		$.ajax({
+               url: checkTokenUrl,
+               data: tokenData,
+               dataType: "json",
+               type: "POST",
+               success: function(data) {
+                   var valid = data.valid;
+                   if(valid){
+                	   var element = document.getElementById('signin');
+                	   element.setAttribute('href','signout.jsp');
+                	   var str = $('a#signin').text('Sign Out');
+                   }
+               }
+           });
+	}
+	$(document).ready(function(){
+	    checkToken();
+	});
+	</script>
+	<% } 
+	} %>
 </head>
 <body>
 
@@ -33,16 +80,13 @@
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="index.jsp">StackExchange</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="signin.jsp">Sign In</a>
-                    </li>
+                    <li><a id="signin" href='signin.jsp'>Sign In</a></li>
                     <li>
                         <a href="register.jsp">Register</a>
                     </li>

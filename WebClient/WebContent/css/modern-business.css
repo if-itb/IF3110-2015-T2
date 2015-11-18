@@ -190,6 +190,7 @@ footer {
 }
 .q_content{
     margin: 0 auto;
+    padding-left : 30px;
     width: 500px;
     word-wrap: break-word;
     text-align: justify;
