@@ -55,6 +55,7 @@ DROP TABLE IF EXISTS `answer_vote`;
 CREATE TABLE `answer_vote` (
   `id_answer` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
+  `status` int(1) DEFAULT '0',
   KEY `id_answer` (`id_answer`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `answer_vote_ibfk_1` FOREIGN KEY (`id_answer`) REFERENCES `answer` (`num_answer`),
@@ -85,10 +86,11 @@ CREATE TABLE `question` (
   `question_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `topic` varchar(100) NOT NULL,
   `num_vote` int(11) NOT NULL DEFAULT '0',
+  `num_answer` int(11) DEFAULT '0',
   PRIMARY KEY (`id_question`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +99,7 @@ CREATE TABLE `question` (
 
 LOCK TABLES `question` WRITE;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
-INSERT INTO `question` VALUES (47,1,'Apakah CherryBelle itu unyu? Kalo iya kenapa?','2015-11-12 19:31:24','Keunyuan CherryBelle',0),(49,2,'Pilih CherryBelle atau JKT48?','2015-11-12 20:08:05','JKT48 vs CherryBelle',0),(50,1,'Gila','2015-11-16 04:42:44','Topik1',0),(51,1,'aaaadsfdas','2015-11-16 12:37:18','Aasawarw',0),(52,1,'halo apa kabar?','2015-11-16 12:38:44','kabar',0);
+INSERT INTO `question` VALUES (47,1,'Apakah CherryBelle itu unyu? Kalo iya kenapa?','2015-11-12 19:31:24','Keunyuan CherryBelle',0,0),(49,2,'Pilih CherryBelle atau JKT48?','2015-11-12 20:08:05','JKT48 vs CherryBelle',0,0),(50,1,'Gila','2015-11-16 04:42:44','Topik1',0,0),(51,1,'aaaadsfdas','2015-11-16 12:37:18','Aasawarw',0,0),(52,1,'halo apa kabar?','2015-11-16 12:38:44','kabar',0,0);
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,6 +113,7 @@ DROP TABLE IF EXISTS `question_vote`;
 CREATE TABLE `question_vote` (
   `id_question` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
+  `status` int(1) DEFAULT '0',
   KEY `id_question` (`id_question`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `question_vote_ibfk_1` FOREIGN KEY (`id_question`) REFERENCES `question` (`id_question`),
@@ -192,4 +195,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-18  6:04:41
+-- Dump completed on 2015-11-18 10:51:32

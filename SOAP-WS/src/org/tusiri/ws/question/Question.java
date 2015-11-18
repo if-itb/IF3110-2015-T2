@@ -10,7 +10,6 @@ import java.sql.*;
 import org.apache.http.client.ClientProtocolException;
 import org.json.simple.parser.ParseException;
 import org.tusiri.ws.db.DBConnection;
-
 import org.tusiri.ws.token_validity.CheckTokenValidity;
 import org.tusiri.ws.token_validity.TokenValidity;
 
@@ -52,9 +51,6 @@ public class Question {
 		            } 	
 					System.out.println("q_id = " + q_id);
 					//res = 1;
-				} catch(SQLException se){
-					//Handle errors for JDBC
-					se.printStackTrace();
 				} catch(Exception e){
 					//Handle errors for Class.forName
 					e.printStackTrace();
@@ -82,30 +78,43 @@ public class Question {
 			TokenValidity validity = checker.check();
 			
 			if(validity.getIsValid()){
-				//Masukkan ke database
 				DBConnection dbc = new DBConnection();
 				PreparedStatement stmt = dbc.getDBStmt();
 				Connection conn = dbc.getConn();
-				try{
-					String sql = "UPDATE question SET content = ?, topic = ?, question_date() = NOW() WHERE id_question = ?";
-					stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-					stmt.setString(1,content);
-					stmt.setString(2,title);
-					stmt.setInt(3, id_question);
-					stmt.executeUpdate();
-					ResultSet rs = stmt.getGeneratedKeys();
-		            while (rs.next()) {
-		               q_id = rs.getInt(1);
-		            } 	
-					System.out.println("q_id = " + q_id);
-					//res = 1;
-				} catch(SQLException se){
-					//Handle errors for JDBC
-					se.printStackTrace();
-				} catch(Exception e){
-					//Handle errors for Class.forName
-					e.printStackTrace();
+				
+				//Check apakah user_id sesuai dengan user_id question yang bersangkutan. 
+				String sqlCheck = "SELECT id_user FROM question WHERE id_question = ?";
+				try {
+					stmt = conn.prepareStatement(sqlCheck);
+					stmt.setInt(1,id_question);
+					ResultSet rsCheck = stmt.executeQuery();
+					if (rsCheck.next()){
+						if(rsCheck.getInt("id_user") == validity.getIdUser()){//jika id sesuai
+							try{
+								//Update database
+								String sql = "UPDATE question SET content = ?, topic = ?, question_date = NOW() WHERE id_question = ?";
+								stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+								stmt.setString(1,content);
+								stmt.setString(2,title);
+								stmt.setInt(3, id_question);
+								stmt.executeUpdate();
+								ResultSet rs = stmt.getGeneratedKeys();
+					            while (rs.next()) {
+					               q_id = rs.getInt(1);
+					            } 	
+								System.out.println("q_id = " + q_id);
+								//res = 1;
+							} catch(Exception e){
+								//Handle errors for Class.forName
+								e.printStackTrace();
+							}
+						}
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
+				
 			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -127,30 +136,43 @@ public class Question {
 			TokenValidity validity = checker.check();
 			
 			if(validity.getIsValid()){
-				//Masukkan ke database
 				DBConnection dbc = new DBConnection();
 				PreparedStatement stmt = dbc.getDBStmt();
 				Connection conn = dbc.getConn();
-				try{
-					String sql = "DELETE FROM question WHERE id_question = ?; "
-							+ "DELETE FROM answer WHERE id_question = ?";
-					stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-					stmt.setInt(1, id_question);
-					stmt.setInt(2, id_question);
-					stmt.executeUpdate();
-					ResultSet rs = stmt.getGeneratedKeys();
-		            while (rs.next()) {
-		               q_id = rs.getInt(1);
-		            } 	
-					System.out.println("q_id = " + q_id);
-					//res = 1;
-				} catch(SQLException se){
-					//Handle errors for JDBC
-					se.printStackTrace();
-				} catch(Exception e){
-					//Handle errors for Class.forName
-					e.printStackTrace();
+				
+				//Check apakah user_id sesuai dengan user_id question yang bersangkutan. 
+				String sqlCheck = "SELECT id_user FROM question WHERE id_question = ?";
+				try {
+					stmt = conn.prepareStatement(sqlCheck);
+					stmt.setInt(1,id_question);
+					ResultSet rsCheck = stmt.executeQuery();
+					if (rsCheck.next()){
+						if(rsCheck.getInt("id_user") == validity.getIdUser()){//jika id sesuai
+							//Delete question dan answer dari database
+							try{
+								String sql = "DELETE FROM question WHERE id_question = ?; "
+										+ "DELETE FROM answer WHERE id_question = ?";
+								stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+								stmt.setInt(1, id_question);
+								stmt.setInt(2, id_question);
+								stmt.executeUpdate();
+								ResultSet rs = stmt.getGeneratedKeys();
+					            while (rs.next()) {
+					               q_id = rs.getInt(1);
+					            } 	
+								System.out.println("q_id = " + q_id);
+								//res = 1;
+							} catch(Exception e){
+								//Handle errors for Class.forName
+								e.printStackTrace();
+							}
+						}
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
+				
 			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -181,6 +203,7 @@ public class Question {
 				String topic = rs.getString("topic");
 				int num_vote = rs.getInt("num_vote");
 				String username = rs.getString("username");
+				int num_answer = rs.getInt("num_answer");
 				
 				QuestionItem q = new QuestionItem();
 				q.setIDQuestion(id_question);
@@ -190,12 +213,10 @@ public class Question {
 				q.setTopic(topic);
 				q.setNumVote(num_vote);
 				q.setUsername(username);
+				q.setNumAnswer(num_answer);
 				
 				questionItemList.add(q);
 			}
-		} catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
 		} catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();

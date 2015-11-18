@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="content" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="id_question" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="id_user" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="num_answer" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="num_vote" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="question_date" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="topic" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -37,6 +38,7 @@ import javax.xml.bind.annotation.XmlType;
     "content",
     "idQuestion",
     "idUser",
+    "numAnswer",
     "numVote",
     "questionDate",
     "topic",
@@ -49,6 +51,8 @@ public class QuestionItem {
     protected int idQuestion;
     @XmlElement(name = "id_user")
     protected int idUser;
+    @XmlElement(name = "num_answer")
+    protected int numAnswer;
     @XmlElement(name = "num_vote")
     protected int numVote;
     @XmlElement(name = "question_date")
@@ -110,6 +114,22 @@ public class QuestionItem {
      */
     public void setIdUser(int value) {
         this.idUser = value;
+    }
+
+    /**
+     * Gets the value of the numAnswer property.
+     * 
+     */
+    public int getNumAnswer() {
+        return numAnswer;
+    }
+
+    /**
+     * Sets the value of the numAnswer property.
+     * 
+     */
+    public void setNumAnswer(int value) {
+        this.numAnswer = value;
     }
 
     /**
