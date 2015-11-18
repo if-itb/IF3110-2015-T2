@@ -150,30 +150,37 @@ public class AnswerModel {
             Connection conn = null;
             PreparedStatement stmt = null;
             try {
-               //STEP 2: Register JDBC driver
-               Class.forName("com.mysql.jdbc.Driver");
+                //STEP 2: Register JDBC driver
+                Class.forName("com.mysql.jdbc.Driver");
 
-               //STEP 3: Open a connection
-               conn = (Connection) DriverManager.getConnection(DB_URL,USER,PASS);
+                //STEP 3: Open a connection
+                conn = (Connection) DriverManager.getConnection(DB_URL,USER,PASS);
 
-               //STEP 4: Execute a query
-               String sql;
-               sql = "UPDATE answer SET vote=vote+? WHERE answer_id=? AND user_id=?";
-               stmt = conn.prepareStatement(sql);
+                //STEP 4: Execute a query
+                String sql;
+                sql = "SELECT COUNT(user_id) FROM vote_answer WHERE answer_id=? AND user_id=?";
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, answerId);
+                stmt.setInt(2, user.getUserId());
+                ResultSet rs = stmt.executeQuery();
+                rs.next();
+                if (rs.getInt(1) == 0) {
+                    sql = "INSERT INTO vote_answer (user_id, answer_id) VALUES (?, ?)";
+                    stmt = conn.prepareStatement(sql);
+                    stmt.setInt(1, user.getUserId());
+                    stmt.setInt(2, answerId);
+                    stmt.executeUpdate();
+                }
                
-               stmt.setInt(1, inc);
-               stmt.setInt(2, answerId);
-               stmt.setInt(3, user.getUserId());
+                sql = "SELECT COUNT(user_id) FROM vote_answer WHERE answer_id=?";
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, answerId);
+                rs = stmt.executeQuery();
+                rs.next();
+                r = rs.getInt(1);
                
-               int affectedRows = stmt.executeUpdate();
-               if (affectedRows == 0) {
-                   r = -1;
-               } else {
-                   r = answerId;
-               }
-               
-               stmt.close();
-               conn.close();
+                stmt.close();
+                conn.close();
             } catch(SQLException se) {
                //Handle errors for JDBC
                se.printStackTrace();
