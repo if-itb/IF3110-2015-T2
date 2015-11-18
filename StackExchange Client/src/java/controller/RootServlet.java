@@ -41,8 +41,7 @@ public class RootServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {        
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {        
         StackExchange port = service.getStackExchangePort();                
         List<Question> questions = port.getQuestions();        
         Map<Integer, Integer> answers = new HashMap<>();

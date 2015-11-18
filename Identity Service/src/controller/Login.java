@@ -42,6 +42,7 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         PreparedStatement statement = null;
         String token = "";
+        JSONObject object = new JSONObject();
         
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
@@ -65,13 +66,12 @@ public class Login extends HttpServlet {
                 JsonElement je = jp.parse(uglyJSONString);
                 String prettyJsonString = gson.toJson(je);*/
                 
-                JSONObject object = new JSONObject();
-                object.put("token", token);
-                System.out.println(object.toString());
+                object.put("auth", token);
             }
             else{
-                System.err.println("Login error\n");
+                
             }
+            out.println(object.toString());
         }
         catch(SQLException ex){
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
