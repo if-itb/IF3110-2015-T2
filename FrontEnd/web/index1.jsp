@@ -32,6 +32,21 @@
                 <div class="listquestion">
                     <%-- start web service invocation --%><hr/>
                     <%
+                        String token = null;
+                        /*Cookie cookies[] = request.getCookies();
+                        if (cookies != null) {
+                            out.println(cookies.length);
+                            for (int i=0;i<cookies.length;i++) {
+                                if (cookies[i].getName().equals("access_token")) {
+                                    token = cookies[i].getValue();
+                                    out.println(cookies[i].getName() + " " + token); 
+                                    break;
+                                }
+                            }
+                        }*/
+                        
+                        token = request.getParameter("access_token");
+                        out.println(token);
                         try {
                             questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();
                             questionmodel.QuestionWS port = service.getQuestionWSPort();

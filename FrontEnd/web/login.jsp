@@ -50,6 +50,23 @@
             <h1><a href="index1.jsp" id = "title">Simple StackExchange</a></h1>
             <div class = "tabbutton" style="background-color : white;" onclick = "changetab('login')">Login</div><div class = "tabbutton" style="background-color : silver;" onclick = "changetab('register')">Create New Account</div>
             <div id ="formaccount">
+                <%
+                    try {
+                        int valid = Integer.valueOf(request.getParameter("valid"));
+                        if (valid == 0) {
+                            out.println("<br>Login unsuccessful. Username and password combination is incorrect.");
+                        }
+                        else {
+                            String token = request.getParameter("token");
+                            response.setHeader("access_token", token);
+                            out.println(token);
+                            response.sendRedirect("index1.jsp?token="+token);
+                        }
+                    } catch (Exception ex) {
+                        
+                    }
+                        
+                %>
                 <form method = "post" action = "http://localhost:8001/Identity/LoginRSServlet">
                     <br>
                     <table class = "borderless">
