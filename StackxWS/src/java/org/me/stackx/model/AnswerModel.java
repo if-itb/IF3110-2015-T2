@@ -162,17 +162,18 @@ public class AnswerModel {
                 stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, answerId);
                 stmt.setInt(2, user.getUserId());
-                ResultSet rs = stmt.executeQuery();
-                rs.next();
+                ResultSet rs = stmt.executeQuery(); 
+               rs.next();
                 if (rs.getInt(1) == 0) {
-                    sql = "INSERT INTO vote_answer (user_id, answer_id) VALUES (?, ?)";
+                    sql = "INSERT INTO vote_answer (user_id, answer_id, value) VALUES (?, ?, ?)";
                     stmt = conn.prepareStatement(sql);
                     stmt.setInt(1, user.getUserId());
                     stmt.setInt(2, answerId);
+                    stmt.setInt(3, inc);
                     stmt.executeUpdate();
                 }
                
-                sql = "SELECT COUNT(user_id) FROM vote_answer WHERE answer_id=?";
+                sql = "SELECT SUM(value) FROM vote_answer WHERE answer_id=?";
                 stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, answerId);
                 rs = stmt.executeQuery();

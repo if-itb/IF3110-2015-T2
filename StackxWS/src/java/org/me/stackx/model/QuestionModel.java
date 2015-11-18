@@ -165,14 +165,15 @@ public class QuestionModel {
                 ResultSet rs = stmt.executeQuery();
                 rs.next();
                 if (rs.getInt(1) == 0) {
-                    sql = "INSERT INTO vote_question (user_id, question_id) VALUES (?, ?)";
+                    sql = "INSERT INTO vote_question (user_id, question_id, value) VALUES (?, ?, ?)";
                     stmt = conn.prepareStatement(sql);
                     stmt.setInt(1, user.getUserId());
                     stmt.setInt(2, questionId);
+                    stmt.setInt(3, inc);
                     stmt.executeUpdate();
                 }
                
-                sql = "SELECT COUNT(user_id) FROM vote_question WHERE question_id=?";
+                sql = "SELECT SUM(value) FROM vote_question WHERE question_id=?";
                 stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, questionId);
                 rs = stmt.executeQuery();
