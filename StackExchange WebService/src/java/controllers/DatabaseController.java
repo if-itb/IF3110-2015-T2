@@ -13,11 +13,11 @@ import java.sql.DriverManager;
  * @author Tifani
  */
 public class DatabaseController {
-    // Driver and database URL
+    // JDBC driver name and database URL
     private static final String driver = "com.mysql.jdbc.Driver";
     private static final String url = "jdbc:mysql://localhost:3306/stackexchange_service";
     
-    // Database info
+    // Database credentials
     private static final String username = "root";
     private static final String password = "";
     
