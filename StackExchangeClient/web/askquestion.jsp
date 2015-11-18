@@ -1,9 +1,3 @@
-<%-- 
-    Document   : askquestion
-    Created on : Nov 16, 2015, 9:28:26 PM
-    Author     : TOSHIBA PC
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

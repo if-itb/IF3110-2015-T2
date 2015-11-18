@@ -1,9 +1,3 @@
-<%-- 
-    Document   : viewpost
-    Created on : Nov 10, 2015, 3:57:58 PM
-    Author     : FiqieUlya
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

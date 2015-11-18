@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index.jsp
-    Created on : Nov 10, 2015, 3:31:09 PM
-    Author     : Rahman Adianto
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

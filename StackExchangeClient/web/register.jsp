@@ -1,9 +1,3 @@
-<%-- 
-    Document   : register
-    Created on : Nov 10, 2015, 4:17:09 PM
-    Author     : TOSHIBA PC
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
