@@ -53,7 +53,7 @@ public class Test extends HttpServlet {
                 List<Answer> answers = getAnswerByQid(9);
                 for(Answer ans : answers) {
                     out.println(ans.getAnswerId());
-                    out.println(ans.getContent());
+                    out.println(ans.getContent() + "<br>");
                 }
             } catch (ClassNotFoundException_Exception ex) {
                 Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
