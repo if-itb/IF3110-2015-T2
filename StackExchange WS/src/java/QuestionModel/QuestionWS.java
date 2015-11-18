@@ -36,14 +36,16 @@ public class QuestionWS {
         //2a.Jika access token kadaluarsa, respons expired token
         //2b.Jika access token tidak valid, respons error
         //2c.Jika access token valid, ambil user ID
+        int userID = 0;
         try {
             Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO question VALUES (0,1,?,?,0,?,0)";
+            String sql = "INSERT INTO question VALUES (0,?,?,?,0,?,0)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, title);
-            pstmt.setString(2, content);
+            pstmt.setInt(1, userID);
+            pstmt.setString(2, title);
+            pstmt.setString(3, content);
             SimpleDateFormat ft = new SimpleDateFormat("y-M-d H:m:s");
-            pstmt.setString(3, ft.format(new Date()));
+            pstmt.setString(4, ft.format(new Date()));
             int a = pstmt.executeUpdate();
             stmt.close();
             return "Respons oke!";
@@ -100,7 +102,44 @@ public class QuestionWS {
         //2c.Jika access token valid, ambil user ID
         try {
             Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM question WHERE qid = ?";
+            String sqlQ = "DELETE FROM question WHERE qid = ?";
+            String sqlA = "DELETE FROM answer WHERE qid = ?";
+            PreparedStatement pstmtQ = conn.prepareStatement(sqlQ);
+            PreparedStatement pstmtA = conn.prepareStatement(sqlA);
+            pstmtQ.setInt(1, qid);
+            pstmtA.setInt(1, qid);
+            int a = pstmtQ.executeUpdate();
+            int b = pstmtA.executeUpdate();
+            stmt.close();
+            return "Respons oke!";
+        } catch (SQLException se) {
+            return "Gagal!";
+        }
+    }
+
+    /**
+     * Web service operation
+     * @param access_token
+     * @param qid
+     * @param voteUp
+     * @return 
+     */
+    @WebMethod(operationName = "voteQuestion")
+    public String voteQuestion(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") int qid, @WebParam(name = "voteUp") boolean voteUp) {
+        Connection conn = new Database().connect();
+        //1.HTTP Request connection ke Identity Service, untuk memastikan pemilik access_token
+        //2a.Jika access token kadaluarsa, respons expired token
+        //2b.Jika access token tidak valid, respons error
+        //2c.Jika access token valid, ambil user ID
+        //Update ke DB : UPDATE question SET topic = title, content = new content, datetime = new datetime WHERE qid = 'qid'
+        try {
+            Statement stmt = conn.createStatement();
+            String sql;
+            if (voteUp) {
+                sql = "UPDATE question SET Votes=Votes+1 WHERE qid = ?";
+            } else {
+                sql = "UPDATE question SET Votes=Votes-1 WHERE qid = ?";
+            }
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, qid);
             int a = pstmt.executeUpdate();
@@ -110,5 +149,4 @@ public class QuestionWS {
             return "Gagal!";
         }
     }
-
 }
