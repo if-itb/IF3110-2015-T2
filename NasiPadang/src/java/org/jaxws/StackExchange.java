@@ -5,7 +5,6 @@
  */
 package org.jaxws;
 
-import java.util.ArrayList;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.soap.SOAPBinding;
@@ -19,7 +18,12 @@ import org.data.Question;
 @WebService
 @SOAPBinding(style = Style.RPC)
 public interface StackExchange {
-    @WebMethod public Question getQuestion(int id);
-    @WebMethod public ArrayList getAllQuestion();
-    @WebMethod public Boolean addQuestion(String topic, String content);
+    @WebMethod public String getQuestion(int id);
+    @WebMethod public String getAllQuestion();
+    @WebMethod public String getAllAnswer(int id);
+    @WebMethod public boolean addQuestion(String token, String topic, String content);
+    @WebMethod public boolean addAnswer(int id, String token, String content);
+    @WebMethod public boolean editQuestion(int id, String token, String topic, String content);
+    @WebMethod public boolean updateVoteAnswer(int id_answer, int vote);
+    @WebMethod public boolean updateVoteQuestion(int id, int vote);
 }

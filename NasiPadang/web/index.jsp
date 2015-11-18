@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <head>
     <title>Simple StackExchange</title>
@@ -39,7 +40,7 @@
                 </tbody>
             </table>
         </li>
-    <c:forEach>
+    </c:forEach>
     </ul>
     </div>
 </body>
