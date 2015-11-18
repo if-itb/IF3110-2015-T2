@@ -5,11 +5,8 @@
 <%@ page import = "org.tusiri.ws.question.Question" %>
 <%@ page import = "org.tusiri.ws.question.QuestionItem" %>
 
-<%
-String pageTitle = "Simple Stackexchange";
-%>
 <jsp:include page="Header.jsp" flush="true">
-	<jsp:param name="pageTitle" value="<%=pageTitle%>" />
+	<jsp:param name="pageTitle" value="Simple StackExchange" />
 </jsp:include>
 
     <!-- Header Carousel -->
