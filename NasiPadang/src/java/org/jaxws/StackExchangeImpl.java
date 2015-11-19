@@ -113,7 +113,7 @@ public class StackExchangeImpl implements StackExchange {
      * @return 
      */
     @Override
-    public ArrayList<Question> getAllQuestion() {
+    public Question[] getAllQuestion() {
         ArrayList<Question> allQuestion = new ArrayList<>();
         try {
             connectDB();
@@ -137,7 +137,11 @@ public class StackExchangeImpl implements StackExchange {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return allQuestion;
+        Question qu[] = new Question[allQuestion.size()];
+        for(int i = 0; i < allQuestion.size(); i++){
+            qu[i] = allQuestion.get(i);
+        }
+        return qu;
     }
     
     @Override
@@ -164,7 +168,7 @@ public class StackExchangeImpl implements StackExchange {
         return an;
     }
     @Override
-    public ArrayList<Answer> getAllAnswer(int id) {
+    public Answer[] getAllAnswer(int id) {
         ArrayList<Answer> allAnswer = new ArrayList<>();
         try {
             connectDB();
@@ -187,7 +191,11 @@ public class StackExchangeImpl implements StackExchange {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return allAnswer;
+        Answer an[] = new Answer[allAnswer.size()];
+        for(int i = 0; i < allAnswer.size(); i++){
+            an[i] = allAnswer.get(i);
+        }
+        return an;
     }
 
     /**
@@ -196,17 +204,24 @@ public class StackExchangeImpl implements StackExchange {
      * @return 
      */
     @Override
-    public boolean addQuestion(String token, String topic, String content){
+    public int addQuestion(String token, String topic, String content){
+        int id = 0;
         try {
             connectDB();
             Statement st = connection.createStatement();
             String sql = "INSERT INTO question (name, topic, content) VALUES ('"+ token +"', '"+ topic +"', '"+ content +"')";
             ResultSet rs = st.executeQuery(sql);
             closeDB();
+            sql = "SELECT id FROM question WHERE content LIKE '" + content + "'";
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                id = rs.getInt("id");
+            }
+            closeDB();
         }catch(SQLException ex){
             ex.printStackTrace();
         }
-        return true;
+        return id;
     }
     @Override
     public boolean addAnswer(int id, String token, String content){
@@ -222,11 +237,23 @@ public class StackExchangeImpl implements StackExchange {
         return true;
     }
     @Override
-    public boolean editQuestion(int id, String token, String topic, String content){
+    public int editQuestion(int id, String token, String topic, String content){
         try {
             connectDB();
             Statement st = connection.createStatement();
             String sql = "UPDATE question SET topic = '" + topic + "', content = '" + content + "' WHERE id = '" + id + "' AND name = '" + token + "'";
+            ResultSet rs = st.executeQuery(sql);
+            closeDB();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return id;
+    }
+    public boolean deleteQuestion(int id, String token){
+        try {
+            connectDB();
+            Statement st = connection.createStatement();
+            String sql = "DELETE FROM question WHERE id = '" + id + "'";
             ResultSet rs = st.executeQuery(sql);
             closeDB();
         }catch(SQLException ex){

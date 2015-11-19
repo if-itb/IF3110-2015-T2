@@ -14,14 +14,13 @@
 	<script src="js/validation.js"></script>
     </head>
     <body>
-        <a href="index.php"><h1>Simple StackExchange</h1></a><br>
+        <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
 
 	<div class="list">
 	<div class="title">What's your question?</div>
 	<hr></hr>
-	<form name="new" method="post" action="backend/add_question.php">
-		<input class="inputform" type="text" name="name" placeholder="Name"><br>
-		<input class="inputform" type="text" name="email" placeholder="Email"><br>
+        <form name="new" method="post" action="/AddQuestion">
+		<input class="inputform" type="hidden" name="token"><br>
 		<input class="inputform" type="text" name="topic" placeholder="Question Topic"><br>
 		<textarea class="inputform" name="content" placeholder="Content" rows="5"></textarea><br>
 		<input type="submit" class="button" value="Post" onclick="return validateFormNew()">

@@ -4,25 +4,27 @@
     Author     : user
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="org.wsdl.Question"%>
+<%@page import="org.wsdl.QuestionArray"%>
 <%@page import="org.wsdl.StackExchangeImplService"%>
-<%@page import="org.json.JSONArray"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <head>
     <title>Simple StackExchange</title>
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/delete_question.js"></script>
     <%!
-    StackExchangeImplService stackExchangeService = new StackExchangeImplService();
-    org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
-    String allQuestion = stackExchange.getAllQuestion();
+        StackExchangeImplService stackExchangeService = new StackExchangeImplService();
+        org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
+        QuestionArray allQuestion = stackExchange.getAllQuestion();
+        List<Question> items = allQuestion.getItem();
     %>
 </head>
 <body>
     <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
     <div class="search">
-        <form method="post" action="search.php">
+        <form method="post" action="search.jsp">
             <input class="search_form" type="text" name="keyword">
             <button class="button">Search</button>
         </form><br>
@@ -32,23 +34,22 @@
     <div class="list">
     <div class="title">Recently Asked Questions</div>
     <ul>
-        <% System.out.println(allQuestion);%>
-    <c:forEach items="${a}" var="question">
+    <%for(Question question : items){%>
         <li>
             <table>
                 <tbody>
                     <tr>
-                        <td><div class="votes">${question.vote}<br>Votes</div></td>
-                        <td><div class="count">${qestion.count}<br>Answers</div></td>
+                        <td><div class="votes"><%=question.getVote()%><br>Votes</div></td>
+                        <td><div class="count"><%=question.getCount()%><br>Answers</div></td>
                         <td>
-                                <div class="content"><a href="question.php?id=${question.id}">${question.topic}</a></div>
-                                <div class="credential">asked by <div class="name">${question.name}</div> | <a class="yellow" href="edit.php?id=${question.id}">edit</a> | <a class="delete" href="javascript:confirmDelete(${question.id})">delete</a></div>
+                            <div class="content"><a href="question.jsp?id=<%=question.getId()%>"><%=question.getTopic()%></a></div>
+                            <div class="credential">asked by <div class="name"><%=question.getName()%></div> | <a class="yellow" href="edit.php?id=<%=question.getId()%>">edit</a> | <a class="delete" href="javascript:confirmDelete(<%=question.getId()%>)">delete</a></div>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </li>
-    </c:forEach>
+    <%}%>
     </ul>
     </div>
 </body>

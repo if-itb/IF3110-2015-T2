@@ -30,14 +30,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Answer }
-     * 
-     */
-    public Answer createAnswer() {
-        return new Answer();
-    }
-
-    /**
      * Create an instance of {@link Question }
      * 
      */
@@ -46,11 +38,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ArrayList }
+     * Create an instance of {@link Answer }
      * 
      */
-    public ArrayList createArrayList() {
-        return new ArrayList();
+    public Answer createAnswer() {
+        return new Answer();
     }
 
     /**
@@ -59,6 +51,22 @@ public class ObjectFactory {
      */
     public JsonObject createJsonObject() {
         return new JsonObject();
+    }
+
+    /**
+     * Create an instance of {@link AnswerArray }
+     * 
+     */
+    public AnswerArray createAnswerArray() {
+        return new AnswerArray();
+    }
+
+    /**
+     * Create an instance of {@link QuestionArray }
+     * 
+     */
+    public QuestionArray createQuestionArray() {
+        return new QuestionArray();
     }
 
 }

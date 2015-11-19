@@ -5,6 +5,8 @@
  */
 package org.wsdl;
 
+import java.util.List;
+
 /**
  *
  * @author user
@@ -13,7 +15,8 @@ public class ExampleUsageService {
     public static void main(String args[]){
         StackExchangeImplService stackExchangeService = new StackExchangeImplService();
         org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
-        ArrayQuestion allQuestion = stackExchange.getAllQuestion();
-        System.out.println(allQuestion.get(0).name);
+        QuestionArray allQuestion = stackExchange.getAllQuestion();
+        List<Question> item = allQuestion.item;
+        System.out.println(item.get(0).content);
     }
 }
