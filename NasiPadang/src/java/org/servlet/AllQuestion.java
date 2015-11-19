@@ -67,25 +67,25 @@ public class AllQuestion extends HttpServlet {
             throws ServletException, IOException {
         StackExchangeImplService stackExchangeService = new StackExchangeImplService();
         org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
-        String allQuestion = stackExchange.getAllQuestion();
-        JSONArray array = new JSONArray();
-        array.put(allQuestion);
-        JSONObject j;
-        Collection c = new ArrayList();
-        Question q;
-        for(int i = 0; i < array.length(); i++){
-            j = array.getJSONObject(i);
-            q = new Question();
-            q.name = j.getString("name");
-            q.id = j.getInt("id");
-            q.topic = j.getString("topic");
-            q.content = j.getString("content");
-            q.vote = j.getInt("vote");
-            q.count = j.getInt("count");
-            c.add(q);
-        }
-        System.out.println(allQuestion);
-        request.setAttribute("allQuestion", allQuestion);
+//        String allQuestion = stackExchange.getAllQuestion();
+//        JSONArray array = new JSONArray();
+//        array.put(allQuestion);
+//        JSONObject j;
+//        Collection c = new ArrayList();
+//        Question q;
+//        for(int i = 0; i < array.length(); i++){
+//            j = array.getJSONObject(i);
+//            q = new Question();
+//            q.name = j.getString("name");
+//            q.id = j.getInt("id");
+//            q.topic = j.getString("topic");
+//            q.content = j.getString("content");
+//            q.vote = j.getInt("vote");
+//            q.count = j.getInt("count");
+//            c.add(q);
+//        }
+//        System.out.println(allQuestion);
+//        request.setAttribute("allQuestion", allQuestion);
         RequestDispatcher view = request.getRequestDispatcher("/faces/index.jsp");
         view.forward(request,response);
     }

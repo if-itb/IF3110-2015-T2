@@ -13,7 +13,7 @@ public class ExampleUsageService {
     public static void main(String args[]){
         StackExchangeImplService stackExchangeService = new StackExchangeImplService();
         org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
-        String allQuestion = stackExchange.getAllQuestion();
-        System.out.println(allQuestion);
+        ArrayQuestion allQuestion = stackExchange.getAllQuestion();
+        System.out.println(allQuestion.get(0).name);
     }
 }

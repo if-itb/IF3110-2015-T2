@@ -13,7 +13,6 @@ public class Answer {
     public int id;
     public int id_answer;
     public String name;
-    public String email;
     public String topic;
     public String content;
     public String timestamp;

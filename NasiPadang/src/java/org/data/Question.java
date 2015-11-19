@@ -12,7 +12,6 @@ package org.data;
 public class Question {
     public int id;
     public String name;
-    public String email;
     public String topic;
     public String content;
     public String timestamp;

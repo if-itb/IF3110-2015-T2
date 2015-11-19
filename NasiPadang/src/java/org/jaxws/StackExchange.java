@@ -5,10 +5,14 @@
  */
 package org.jaxws;
 
+import java.util.ArrayList;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
+import org.data.Answer;
+import org.data.Question;
+import org.json.JSONObject;
 
 /**
  *
@@ -18,10 +22,11 @@ import javax.jws.soap.SOAPBinding.Style;
 @SOAPBinding(style = Style.RPC)
 public interface StackExchange {
     @WebMethod public boolean register(String username, String email, String password);
-    @WebMethod public boolean login(String email, String password);
-    @WebMethod public String getQuestion(int id);
-    @WebMethod public String getAllQuestion();
-    @WebMethod public String getAllAnswer(int id);
+    @WebMethod public JSONObject login(String email, String password);
+    @WebMethod public Question getQuestion(int id);
+    @WebMethod public ArrayList<Question> getAllQuestion();
+    @WebMethod public Answer getAnswer(int id_answer);
+    @WebMethod public ArrayList<Answer> getAllAnswer(int id);
     @WebMethod public boolean addQuestion(String token, String topic, String content);
     @WebMethod public boolean addAnswer(int id, String token, String content);
     @WebMethod public boolean editQuestion(int id, String token, String topic, String content);

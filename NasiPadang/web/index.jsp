@@ -7,15 +7,17 @@
 <%@page import="org.wsdl.StackExchangeImplService"%>
 <%@page import="org.json.JSONArray"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <head>
     <title>Simple StackExchange</title>
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/delete_question.js"></script>
-    <script type="text/javascript">
-        var a = JSON.parse(allQuestion);
-    </script>
+    <%!
+    StackExchangeImplService stackExchangeService = new StackExchangeImplService();
+    org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
+    String allQuestion = stackExchange.getAllQuestion();
+    %>
 </head>
 <body>
     <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
@@ -24,12 +26,13 @@
             <input class="search_form" type="text" name="keyword">
             <button class="button">Search</button>
         </form><br>
-        <div class="search_new">Cannot find what you are looking for? <a class="yellow" href="new.php">Ask here</a><br></div>
+        <div class="search_new">Cannot find what you are looking for? <a class="yellow" href="new.jsp">Ask here</a><br></div>
     </div>
     <br><br>
     <div class="list">
     <div class="title">Recently Asked Questions</div>
     <ul>
+        <% System.out.println(allQuestion);%>
     <c:forEach items="${a}" var="question">
         <li>
             <table>

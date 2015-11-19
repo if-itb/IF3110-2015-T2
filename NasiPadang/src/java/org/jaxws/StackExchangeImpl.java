@@ -10,8 +10,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.jws.WebService;
-import org.json.JSONArray;
+import org.data.Answer;
+import org.data.Question;
 import org.json.JSONObject;
 
 /**
@@ -61,15 +63,14 @@ public class StackExchangeImpl implements StackExchange {
         return success;
     }
     @Override
-    public boolean login(String email, String password){
-        boolean success = false;
+    public JSONObject login(String email, String password){
+        JSONObject success = null;
         try {
             connectDB();
             Statement st = connection.createStatement();
             String sql = ("SELECT email FROM users WHERE email = '" + email + "' AND password = '" + password + "'");
             ResultSet rs = st.executeQuery(sql);
             if(rs.next()){
-                success = true;
             }
             closeDB();
         } catch (SQLException e) {
@@ -83,8 +84,8 @@ public class StackExchangeImpl implements StackExchange {
      * @return 
      */
     @Override
-    public String getQuestion(int id) {
-        JSONObject j = new JSONObject();
+    public Question getQuestion(int id) {
+        Question qu = new Question();
         try {
             connectDB();
             Statement st = connection.createStatement();
@@ -92,20 +93,19 @@ public class StackExchangeImpl implements StackExchange {
             ResultSet rs = st.executeQuery(sql);
             
             while(rs.next()){
-                j.put("id", rs.getInt("id"));
-                j.put("name", rs.getString("name"));
-                j.put("topic", rs.getString("topic"));
-                j.put("content", rs.getString("content"));
-                j.put("timestamp", rs.getString("timestamp"));
-                j.put("vote", rs.getInt("votes"));
-                j.put("count", rs.getInt("count"));
+                qu.id = rs.getInt("id");
+                qu.name = rs.getString("name");
+                qu.topic = rs.getString("topic");
+                qu.content = rs.getString("content");
+                qu.timestamp = rs.getString("timestamp");
+                qu.vote = rs.getInt("votes");
+                qu.count = rs.getInt("count");
             }
             closeDB();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(j.toString());
-        return j.toString();
+        return qu;
     }
 
     /**
@@ -113,8 +113,8 @@ public class StackExchangeImpl implements StackExchange {
      * @return 
      */
     @Override
-    public String getAllQuestion() {
-        JSONArray allQuestion = new JSONArray();
+    public ArrayList<Question> getAllQuestion() {
+        ArrayList<Question> allQuestion = new ArrayList<>();
         try {
             connectDB();
             Statement st = connection.createStatement();
@@ -123,27 +123,49 @@ public class StackExchangeImpl implements StackExchange {
             
             JSONObject j = new JSONObject();
             while(rs.next()){
-                j = new JSONObject();
-                j.put("id", rs.getInt("id"));
-                j.put("name", rs.getString("name"));
-                j.put("topic", rs.getString("topic"));
-                j.put("content", rs.getString("content"));
-                j.put("timestamp", rs.getString("timestamp"));
-                j.put("vote", rs.getInt("votes"));
-                j.put("count", rs.getInt("count"));
-                allQuestion.put(j);
+                Question qu = new Question();
+                qu.id = rs.getInt("id");
+                qu.name = rs.getString("name");
+                qu.topic = rs.getString("topic");
+                qu.content = rs.getString("content");
+                qu.timestamp = rs.getString("timestamp");
+                qu.vote = rs.getInt("votes");
+                qu.count = rs.getInt("count");
+                allQuestion.add(qu);
             }
             closeDB();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        System.out.println("THISSSS " + allQuestion.toString());
-        return allQuestion.toString();
+        return allQuestion;
     }
     
     @Override
-    public String getAllAnswer(int id) {
-        JSONArray allAnswer = new JSONArray();
+    public Answer getAnswer(int id_answer) {
+        Answer an = new Answer();
+        try {
+            connectDB();
+            Statement st = connection.createStatement();
+            String sql = ("SELECT * FROM answer WHERE id_answer ='" + id_answer + "'");
+            ResultSet rs = st.executeQuery(sql);
+            
+            while(rs.next()){
+                an.id = rs.getInt("id");
+                an.id_answer = rs.getInt("id_answer");
+                an.name = rs.getString("name");
+                an.content = rs.getString("content");
+                an.timestamp = rs.getString("timestamp");
+                an.vote = rs.getInt("votes");
+            }
+            closeDB();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return an;
+    }
+    @Override
+    public ArrayList<Answer> getAllAnswer(int id) {
+        ArrayList<Answer> allAnswer = new ArrayList<>();
         try {
             connectDB();
             Statement st = connection.createStatement();
@@ -152,21 +174,20 @@ public class StackExchangeImpl implements StackExchange {
             
             JSONObject j = new JSONObject();
             while(rs.next()){
-                j = new JSONObject();
-                j.put("id", rs.getInt("id"));
-                j.put("name", rs.getString("name"));
-                j.put("topic", rs.getString("topic"));
-                j.put("content", rs.getString("content"));
-                j.put("timestamp", rs.getString("timestamp"));
-                j.put("vote", rs.getInt("votes"));
-                j.put("count", rs.getInt("count"));
-                allAnswer.put(j);
+                Answer an = new Answer();
+                an.id = rs.getInt("id");
+                an.id_answer = rs.getInt("id_answer");
+                an.name = rs.getString("name");
+                an.content = rs.getString("content");
+                an.timestamp = rs.getString("timestamp");
+                an.vote = rs.getInt("votes");
+                allAnswer.add(an);
             }
             closeDB();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return allAnswer.toString();
+        return allAnswer;
     }
 
     /**
