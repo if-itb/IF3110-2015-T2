@@ -20,6 +20,12 @@
 
         <div class="main">
             <div class="container">
+                <form name="search" action="indexsearch.php" method="post" class="search">
+                    <input type="text" maxlength="50" name="key">
+                    <input type="submit" value="Search">
+                </form>
+                <h6>Cannot find what you are looking for? <a href="newquestion.jsp">Ask here</a></h6>
+                
                 <form  name="question" action="insertquestion.jsp" method="post" class="form" >
                     <input type="text" name="name" placeholder="Name" maxlength="12"><br>
                     <input type="text" name="email" placeholder="Email" maxlength="30"><br>

@@ -45,7 +45,7 @@
                             }
                         }*/
                         
-                        token = request.getParameter("token");
+                        token = request.getParameter("access_token");
                         out.println(token);
                         try {
                             questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();

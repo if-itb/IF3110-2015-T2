@@ -20,7 +20,13 @@
 
         <div class="main">
             <div class="container">
+                <form name="search" action="indexsearch.php" method="post" class="search">
+                    <input type="text" maxlength="50" name="key">
+                    <input type="submit" value="Search">
+                </form>
+                <h6>Cannot find what you are looking for? <a href="newquestion.jsp">Ask here</a></h6>
                 <h2>What's your question?</h2>
+                
                 <%-- start web service invocation --%><hr/>
                 <%
                     try {

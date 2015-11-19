@@ -91,9 +91,9 @@
                                         + "'> up </a></p> <p><a href='downAns.jsp?id=" + result.get(i).getAnswerID()
                                         + "'> down </a></p></div>");
                                 if (result.get(i).getAnswer().length() > 30) {
-                                    out.println("<div class='columnlarge center'><a href='answer.jsp?id=" + result.get(i).getQuestionID() + "'>" + "</a><p>" + result.get(i).getAnswer().substring(0,30) + ". . .</p></div>");
+                                    out.println("<div class='columnlarge center'><a href='answer.jsp?id=" + result.get(i).getAnswerID() + "'>" + "</a><p>" + result.get(i).getAnswer().substring(0,30) + ". . .</p></div>");
                                 } else {
-                                    out.println("<div class='columnlarge center'><a href='answer.jsp?id=" + result.get(i).getQuestionID() + "'>" + "</a><p>" + result.get(i).getAnswer() + "</p></div>");
+                                    out.println("<div class='columnlarge center'><a href='answer.jsp?id=" + result.get(i).getAnswerID() + "'>" + "</a><p>" + result.get(i).getAnswer() + "</p></div>");
                                 }
                             }
                         } catch (Exception ex) {

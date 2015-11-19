@@ -29,8 +29,9 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginRSServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost( HttpServletRequest request,
+                         HttpServletResponse response ) throws ServletException, IOException
+    {
         try {
             response.setContentType("text/html");
             Class.forName("com.mysql.jdbc.Driver");
@@ -46,7 +47,7 @@ public class LoginRSServlet extends HttpServlet {
                 String token = null;
                 Cookie[] cookies = request.getCookies();
                 if (cookies != null) {
-                    for (int i = 0; i < cookies.length; i++) {
+                    for (int i=0;i<cookies.length;i++) {
                         if (cookies[i].getName().equals("access_token")) {
                             token = cookies[i].getValue();
                             break;
@@ -55,21 +56,16 @@ public class LoginRSServlet extends HttpServlet {
                 }
                 if (token == null) {
                     token = UUID.randomUUID().toString(); //generate token
-
-                    sql = "INSERT INTO sessions (Email, AccessToken) VALUES (?,?)";
-                    dbStatement = conn.prepareStatement(sql);
-                    dbStatement.setString(1, request.getParameter("email"));
-                    dbStatement.setString(2, token);
-                    dbStatement.executeUpdate();
-                    
                     //Cookie c = new Cookie("access_token", token);
                     //c.setPath("/FrontEnd/");
                     //response.addCookie(c);
                     //response.setHeader("access_token", token);
                 }
                 //response.addHeader("token", token);
-                response.sendRedirect("http://localhost:8000/FrontEnd/login.jsp?token=" + token + "&valid=1");
-            } else {
+                response.sendRedirect("http://localhost:8000/FrontEnd/login.jsp?token="+token+"&valid=1");
+            }
+            else
+            {
                 response.sendRedirect("http://localhost:8000/FrontEnd/login.jsp?valid=0");
             }
         } catch (SQLException ex) {
@@ -78,7 +74,6 @@ public class LoginRSServlet extends HttpServlet {
             Logger.getLogger(LoginRSServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     /**
      * Returns a short description of the servlet.
      *
