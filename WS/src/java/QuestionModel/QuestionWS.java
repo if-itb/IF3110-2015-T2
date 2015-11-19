@@ -203,4 +203,60 @@ public class QuestionWS {
         }
         return 1;
     }
+    
+     /**
+     * Web service operation up vote an answer
+     */
+    @WebMethod(operationName = "upQuestion")
+    public int upQuestion(@WebParam(name = "qid") int qid) {
+
+        ArrayList<Answer> answers = new ArrayList<Answer>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
+            Statement stmt = conn.createStatement();
+            String sql;
+            //Take the question
+            sql = "UPDATE questions SET Votes=Votes+1 WHERE QuestionID = ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, qid);
+            int rs = dbStatement.executeUpdate();
+           
+            stmt.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 1;
+    }
+    
+    /**
+     * Web service operation down vote an answer
+     */
+    @WebMethod(operationName = "downQuestion")
+    public int downQuestion(@WebParam(name = "qid") int qid) {
+
+        ArrayList<Answer> answers = new ArrayList<Answer>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
+            Statement stmt = conn.createStatement();
+            String sql;
+            //Take the question
+            sql = "UPDATE questions SET Votes=Votes-1 WHERE QuestionID = ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, qid);
+            int rs = dbStatement.executeUpdate();
+           
+            stmt.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 1;
+    }
 }
