@@ -46,14 +46,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JsonObject }
-     * 
-     */
-    public JsonObject createJsonObject() {
-        return new JsonObject();
-    }
-
-    /**
      * Create an instance of {@link AnswerArray }
      * 
      */

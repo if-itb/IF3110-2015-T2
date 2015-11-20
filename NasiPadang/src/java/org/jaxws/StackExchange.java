@@ -11,7 +11,6 @@ import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 import org.data.Answer;
 import org.data.Question;
-import org.json.JSONObject;
 
 /**
  *
@@ -21,7 +20,7 @@ import org.json.JSONObject;
 @SOAPBinding(style = Style.RPC)
 public interface StackExchange {
     @WebMethod public boolean register(String username, String email, String password);
-    @WebMethod public JSONObject login(String email, String password);
+    @WebMethod public String login(String email, String password);
     @WebMethod public Question getQuestion(int id);
     @WebMethod public Question[] getAllQuestion();
     @WebMethod public Answer getAnswer(int id_answer);
@@ -30,6 +29,6 @@ public interface StackExchange {
     @WebMethod public boolean addAnswer(int id, String token, String content);
     @WebMethod public int editQuestion(int id, String token, String topic, String content);
     @WebMethod public boolean deleteQuestion(int id, String token);
-    @WebMethod public boolean updateVoteAnswer(int id_answer, int vote);
-    @WebMethod public boolean updateVoteQuestion(int id, int vote);
+    @WebMethod public int updateVoteAnswer(int id_answer, int vote);
+    @WebMethod public int updateVoteQuestion(int id, int vote);
 }

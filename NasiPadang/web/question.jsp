@@ -47,7 +47,7 @@
                             <table>
                                 <tbody>
                                     <tr><td><p class="content"><%=question.getContent()%></p></td></tr>
-                                    <tr><td><div class="credential">asked by <%=question.getName()%> at <%=question.getTimestamp()%> | <a class="yellow" href="edit.php?id=<%=question.getId()%>">edit</a> | <a class="delete" href="javascript:confirmDelete(<%=question.getId()%>)">delete</a></div></td></tr>
+                                    <tr><td><div class="credential">asked by <%=question.getName()%> at <%=question.getTimestamp()%> | <a class="yellow" href="edit.jsp?id=<%=question.getId()%>">edit</a> | <a class="delete" href="javascript:confirmDelete(<%=question.getId()%>)">delete</a></div></td></tr>
                                 </tbody>
                             </table>
                         </td>
@@ -89,10 +89,8 @@
 	<hr></hr>
 	<div class="new-answer">
 		<div class="title">Your Answer</div>
-		<form name="answer" method="post" action="AddAnswer.php">
+		<form name="answer" method="post" action="add_answer.jsp">
 			<input type="hidden" name="id" value="<%=question.getId()%>">
-			<input class="inputform" type="text" name="name" placeholder="Name"><br>
-			<input class="inputform" type="text" name="email" placeholder="Email"><br>
 			<textarea class="inputform" type="text" name="content" placeholder="Content"></textarea><br>
 			<input class="button" type="submit" value="Post" onclick="return validateFormAnswer()">
 		</form>

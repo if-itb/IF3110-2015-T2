@@ -19,7 +19,7 @@
 	<div class="list">
 	<div class="title">What's your question?</div>
 	<hr></hr>
-        <form name="new" method="post" action="/AddQuestion">
+        <form name="new" method="post" action="add_question.jsp">
 		<input class="inputform" type="hidden" name="token"><br>
 		<input class="inputform" type="text" name="topic" placeholder="Question Topic"><br>
 		<textarea class="inputform" name="content" placeholder="Content" rows="5"></textarea><br>

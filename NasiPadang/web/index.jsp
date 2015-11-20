@@ -43,7 +43,7 @@
                         <td><div class="count"><%=question.getCount()%><br>Answers</div></td>
                         <td>
                             <div class="content"><a href="question.jsp?id=<%=question.getId()%>"><%=question.getTopic()%></a></div>
-                            <div class="credential">asked by <div class="name"><%=question.getName()%></div> | <a class="yellow" href="edit.php?id=<%=question.getId()%>">edit</a> | <a class="delete" href="javascript:confirmDelete(<%=question.getId()%>)">delete</a></div>
+                            <div class="credential">asked by <div class="name"><%=question.getName()%></div> | <a class="yellow" href="edit.jsp?id=<%=question.getId()%>">edit</a> | <a class="delete" href="javascript:confirmDelete(<%=question.getId()%>)">delete</a></div>
                         </td>
                     </tr>
                 </tbody>

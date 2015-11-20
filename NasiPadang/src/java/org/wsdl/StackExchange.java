@@ -48,73 +48,16 @@ public interface StackExchange {
      * @param arg1
      * @param arg0
      * @return
-     *     returns boolean
+     *     returns int
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://jaxws.org/StackExchange/updateVoteQuestionRequest", output = "http://jaxws.org/StackExchange/updateVoteQuestionResponse")
-    public boolean updateVoteQuestion(
+    public int updateVoteQuestion(
         @WebParam(name = "arg0", partName = "arg0")
         int arg0,
         @WebParam(name = "arg1", partName = "arg1")
         int arg1);
-
-    /**
-     * 
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/deleteQuestionRequest", output = "http://jaxws.org/StackExchange/deleteQuestionResponse")
-    public boolean deleteQuestion(
-        @WebParam(name = "arg0", partName = "arg0")
-        int arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg3
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/editQuestionRequest", output = "http://jaxws.org/StackExchange/editQuestionResponse")
-    public int editQuestion(
-        @WebParam(name = "arg0", partName = "arg0")
-        int arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        String arg3);
-
-    /**
-     * 
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/addQuestionRequest", output = "http://jaxws.org/StackExchange/addQuestionResponse")
-    public int addQuestion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2);
 
     /**
      * 
@@ -150,32 +93,76 @@ public interface StackExchange {
 
     /**
      * 
+     * @param arg3
+     * @param arg2
+     * @param arg1
      * @param arg0
      * @return
-     *     returns org.jaxws.Question
+     *     returns int
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/getQuestionRequest", output = "http://jaxws.org/StackExchange/getQuestionResponse")
-    public Question getQuestion(
+    @Action(input = "http://jaxws.org/StackExchange/editQuestionRequest", output = "http://jaxws.org/StackExchange/editQuestionResponse")
+    public int editQuestion(
         @WebParam(name = "arg0", partName = "arg0")
-        int arg0);
+        int arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3);
 
     /**
      * 
      * @param arg1
      * @param arg0
      * @return
-     *     returns org.jaxws.JsonObject
+     *     returns java.lang.String
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://jaxws.org/StackExchange/loginRequest", output = "http://jaxws.org/StackExchange/loginResponse")
-    public JsonObject login(
+    public String login(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0,
         @WebParam(name = "arg1", partName = "arg1")
         String arg1);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://jaxws.org/StackExchange/updateVoteAnswerRequest", output = "http://jaxws.org/StackExchange/updateVoteAnswerResponse")
+    public int updateVoteAnswer(
+        @WebParam(name = "arg0", partName = "arg0")
+        int arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        int arg1);
+
+    /**
+     * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://jaxws.org/StackExchange/addQuestionRequest", output = "http://jaxws.org/StackExchange/addQuestionResponse")
+    public int addQuestion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2);
 
     /**
      * 
@@ -192,6 +179,19 @@ public interface StackExchange {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns org.jaxws.Question
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://jaxws.org/StackExchange/getQuestionRequest", output = "http://jaxws.org/StackExchange/getQuestionResponse")
+    public Question getQuestion(
+        @WebParam(name = "arg0", partName = "arg0")
+        int arg0);
+
+    /**
+     * 
      * @param arg1
      * @param arg0
      * @return
@@ -199,12 +199,12 @@ public interface StackExchange {
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/updateVoteAnswerRequest", output = "http://jaxws.org/StackExchange/updateVoteAnswerResponse")
-    public boolean updateVoteAnswer(
+    @Action(input = "http://jaxws.org/StackExchange/deleteQuestionRequest", output = "http://jaxws.org/StackExchange/deleteQuestionResponse")
+    public boolean deleteQuestion(
         @WebParam(name = "arg0", partName = "arg0")
         int arg0,
         @WebParam(name = "arg1", partName = "arg1")
-        int arg1);
+        String arg1);
 
     /**
      * 

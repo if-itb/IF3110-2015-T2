@@ -56,7 +56,7 @@ function upvoteQuestion(id){
             document.getElementById("votes").innerHTML=xmlhttp.responseText;
         }
     }
-    xmlhttp.open("POST","backend/ajax_vote_question.php",true);
+    xmlhttp.open("POST","UpdateVoteQuestion",true);
     xmlhttp.send(formdata);
 }
 function upvoteAnswer(id){
@@ -66,7 +66,7 @@ function upvoteAnswer(id){
     if (!xmlhttp)
         return;
     var formdata = new FormData();
-    formdata.set('id', id);
+    formdata.set('id_answer', id);
     formdata.set('vote', 1);
     var elementID = "votes" + id;
     xmlhttp.onreadystatechange=function() {
@@ -74,7 +74,7 @@ function upvoteAnswer(id){
             document.getElementById(elementID).innerHTML=xmlhttp.responseText;
         }
     }
-    xmlhttp.open("POST","backend/ajax_vote_answer.php",true);
+    xmlhttp.open("POST","/UpdateVoteAnswer",true);
     xmlhttp.send(formdata);
 }
 function downvoteQuestion(id){
@@ -91,7 +91,7 @@ function downvoteQuestion(id){
             document.getElementById("votes").innerHTML=xmlhttp.responseText;
         }
     }
-    xmlhttp.open("POST","backend/ajax_vote_question.php",true);
+    xmlhttp.open("POST","/UpdateVoteQuestion",true);
     xmlhttp.send(formdata);
 }
 function downvoteAnswer(id){
@@ -101,7 +101,7 @@ function downvoteAnswer(id){
     if (!xmlhttp)
         return;
     var formdata = new FormData();
-    formdata.set('id', id);
+    formdata.set('id_answer', id);
     formdata.set('vote', -1);
     var elementID = "votes" + id;
     xmlhttp.onreadystatechange=function() {
@@ -109,7 +109,7 @@ function downvoteAnswer(id){
             document.getElementById(elementID).innerHTML=xmlhttp.responseText;
         }
     }
-    xmlhttp.open("POST","backend/ajax_vote_answer.php",true);
+    xmlhttp.open("POST","UpdateVoteAnswer",true);
     xmlhttp.send(formdata);
 }
 function countAnswer(id){

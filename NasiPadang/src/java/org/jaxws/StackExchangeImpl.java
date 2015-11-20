@@ -52,8 +52,10 @@ public class StackExchangeImpl implements StackExchange {
             ResultSet rs = st.executeQuery(sql);
             closeDB();
             if(!rs.next()){
+                connectDB();
+                st = connection.createStatement();
                 sql = ("INSERT INTO users (username, email, password) VALUES ('"+ username +"', '"+ email +"', '"+ password +"')");
-                rs = st.executeQuery(sql);
+                st.execute(sql);
                 closeDB();
                 success = true;
             }
@@ -63,7 +65,7 @@ public class StackExchangeImpl implements StackExchange {
         return success;
     }
     @Override
-    public JSONObject login(String email, String password){
+    public String login(String email, String password){
         JSONObject success = null;
         try {
             connectDB();
@@ -76,7 +78,7 @@ public class StackExchangeImpl implements StackExchange {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return success;
+        return success.toString();
     }
     /**
      * Web service operation
@@ -200,7 +202,9 @@ public class StackExchangeImpl implements StackExchange {
 
     /**
      * Web service operation
-     * @param qu
+     * @param token
+     * @param topic
+     * @param content
      * @return 
      */
     @Override
@@ -210,10 +214,12 @@ public class StackExchangeImpl implements StackExchange {
             connectDB();
             Statement st = connection.createStatement();
             String sql = "INSERT INTO question (name, topic, content) VALUES ('"+ token +"', '"+ topic +"', '"+ content +"')";
-            ResultSet rs = st.executeQuery(sql);
+            st.execute(sql);
             closeDB();
+            connectDB();
+            st = connection.createStatement();
             sql = "SELECT id FROM question WHERE content LIKE '" + content + "'";
-            rs = st.executeQuery(sql);
+            ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
                 id = rs.getInt("id");
             }
@@ -229,7 +235,7 @@ public class StackExchangeImpl implements StackExchange {
             connectDB();
             Statement st = connection.createStatement();
             String sql = "INSERT INTO answer (id, name, content) VALUES ('"+ id +"', '"+ token +"', '"+ content +"')";
-            ResultSet rs = st.executeQuery(sql);
+            st.execute(sql);
             closeDB();
         }catch(SQLException ex){
             ex.printStackTrace();
@@ -242,19 +248,20 @@ public class StackExchangeImpl implements StackExchange {
             connectDB();
             Statement st = connection.createStatement();
             String sql = "UPDATE question SET topic = '" + topic + "', content = '" + content + "' WHERE id = '" + id + "' AND name = '" + token + "'";
-            ResultSet rs = st.executeQuery(sql);
+            st.execute(sql);
             closeDB();
         }catch(SQLException ex){
             ex.printStackTrace();
         }
         return id;
     }
+    @Override
     public boolean deleteQuestion(int id, String token){
         try {
             connectDB();
             Statement st = connection.createStatement();
             String sql = "DELETE FROM question WHERE id = '" + id + "'";
-            ResultSet rs = st.executeQuery(sql);
+            st.execute(sql);
             closeDB();
         }catch(SQLException ex){
             ex.printStackTrace();
@@ -262,14 +269,15 @@ public class StackExchangeImpl implements StackExchange {
         return true;
     }
     @Override
-    public boolean updateVoteAnswer(int id_answer, int vote){
+    public int updateVoteAnswer(int id_answer, int vote){
+        int votes = 0;
         try {
             connectDB();
             Statement st = connection.createStatement();
             String sql = "SELECT votes FROM answer WHERE id_answer = '" + id_answer + "'";
             ResultSet rs = st.executeQuery(sql);
             rs.next();
-            int votes = rs.getInt("votes");
+            votes = rs.getInt("votes");
             if(vote == 1){
                 votes++;
             }
@@ -277,24 +285,26 @@ public class StackExchangeImpl implements StackExchange {
                 votes--;
             }
             closeDB();
+            connectDB();
             st = connection.createStatement();
             sql = "UPDATE answer SET votes = '" + votes + "' WHERE id_answer = '" + id_answer + "'";
-            rs = st.executeQuery(sql);
+            st.execute(sql);
             closeDB();
         }catch(SQLException ex){
             ex.printStackTrace();
         }
-        return true;
+        return votes;
     }
     @Override
-    public boolean updateVoteQuestion(int id, int vote){
+    public int updateVoteQuestion(int id, int vote){
+        int votes = 0;
         try {
             connectDB();
             Statement st = connection.createStatement();
             String sql = "SELECT votes FROM question WHERE id = '" + id + "'";
             ResultSet rs = st.executeQuery(sql);
             rs.next();
-            int votes = rs.getInt("votes");
+            votes = rs.getInt("votes");
             if(vote == 1){
                 votes++;
             }
@@ -302,13 +312,14 @@ public class StackExchangeImpl implements StackExchange {
                 votes--;
             }
             closeDB();
+            connectDB();
             st = connection.createStatement();
             sql = "UPDATE answer SET votes = '" + votes + "' WHERE id = '" + id + "'";
-            rs = st.executeQuery(sql);
+            st.execute(sql);
             closeDB();
         }catch(SQLException ex){
             ex.printStackTrace();
         }
-        return true;
+        return votes;
     }
 }
