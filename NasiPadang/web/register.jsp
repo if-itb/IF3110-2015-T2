@@ -1,6 +1,6 @@
 <%-- 
-    Document   : add_answer
-    Created on : Nov 20, 2015, 10:44:35 AM
+    Document   : register
+    Created on : Nov 20, 2015, 3:01:04 PM
     Author     : user
 --%>
 
@@ -8,9 +8,8 @@
 <%
     StackExchangeImplService stackExchangeService = new StackExchangeImplService();
     org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
-    int id = Integer.parseInt(request.getParameter("id"));
-    if(stackExchange.addAnswer(id, request.getParameter("token"), request.getParameter("content"))){
+    if(stackExchange.register(request.getParameter("username"), request.getParameter("email"), request.getParameter("password"))){
         response.setStatus(response.SC_MOVED_TEMPORARILY);
-        response.setHeader("Location", "question.jsp?id=" + id);
+        response.setHeader("Location", "login.jsp");
     }
 %>

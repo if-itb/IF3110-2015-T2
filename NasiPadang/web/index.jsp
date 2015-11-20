@@ -14,15 +14,18 @@
     <title>Simple StackExchange</title>
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/delete_question.js"></script>
-    <%!
+    <%
         StackExchangeImplService stackExchangeService = new StackExchangeImplService();
         org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
         QuestionArray allQuestion = stackExchange.getAllQuestion();
         List<Question> items = allQuestion.getItem();
+        String token = request.getParameter("token");
     %>
 </head>
 <body>
     <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
+    <%=token%>
+    <%=request.getParameter("username")%>
     <div class="search">
         <form method="post" action="search.jsp">
             <input class="search_form" type="text" name="keyword">

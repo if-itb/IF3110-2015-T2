@@ -22,18 +22,28 @@ public interface Identity {
 
     /**
      * 
-     * @param arg1
      * @param arg0
      * @return
      *     returns java.lang.String
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/Identity/identityServiceRequest", output = "http://jaxws.org/Identity/identityServiceResponse")
-    public String identityService(
+    @Action(input = "http://jaxws.org/Identity/createTokenRequest", output = "http://jaxws.org/Identity/createTokenResponse")
+    public String createToken(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
+        int arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://jaxws.org/Identity/whoIsRequest", output = "http://jaxws.org/Identity/whoIsResponse")
+    public String whoIs(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
 
 }

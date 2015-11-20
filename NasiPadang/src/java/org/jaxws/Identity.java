@@ -17,5 +17,6 @@ import javax.jws.soap.SOAPBinding.Style;
 @WebService
 @SOAPBinding(style = Style.RPC)
 public interface Identity {
-    @WebMethod public String identityService(String email, String password);
+    @WebMethod public String createToken(int id);
+    @WebMethod public String whoIs(String token);
 }

@@ -15,6 +15,7 @@ import javax.jws.WebService;
 import org.data.Answer;
 import org.data.Question;
 import org.json.JSONObject;
+import org.wsdl.IdentityImplService;
 
 /**
  *
@@ -66,19 +67,22 @@ public class StackExchangeImpl implements StackExchange {
     }
     @Override
     public String login(String email, String password){
-        JSONObject success = null;
+        String token = null;
         try {
             connectDB();
             Statement st = connection.createStatement();
             String sql = ("SELECT email FROM users WHERE email = '" + email + "' AND password = '" + password + "'");
             ResultSet rs = st.executeQuery(sql);
             if(rs.next()){
+                IdentityImplService identityService = new IdentityImplService();
+                org.wsdl.Identity identity = identityService.getIdentityImplPort();
+                token = identity.createToken(rs.getInt("id_user"));
             }
             closeDB();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return success.toString();
+        return token;
     }
     /**
      * Web service operation
@@ -91,7 +95,7 @@ public class StackExchangeImpl implements StackExchange {
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT question.id, question.name, question.topic, question.content, question.timestamp, question.votes, COUNT(answer.id) AS count FROM (question LEFT JOIN answer ON question.id = answer.id) WHERE question.id = '" + id + "'");
+            String sql = ("SELECT question.id, question.id_user, question.topic, question.content, question.timestamp, (SELECT COUNT(vote_question.id_user) as votes FROM vote_question WHERE vote_question.id = question.id) as votes, COUNT(answer.id) AS count FROM (question LEFT JOIN answer ON question.id = answer.id) WHERE question.id = '" + id + "'");
             ResultSet rs = st.executeQuery(sql);
             
             while(rs.next()){
@@ -120,10 +124,9 @@ public class StackExchangeImpl implements StackExchange {
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT DISTINCT question.id, question.name, question.topic, question.content, question.timestamp, question.votes, (SELECT COUNT(answer.id) as count FROM answer WHERE answer.id = question.id) as count FROM question ORDER BY id DESC");
+            String sql = ("SELECT DISTINCT question.id, (SELECT username FROM user WHERE user.id = question.id_user) as name, question.topic, question.content, question.timestamp, (SELECT COUNT(vote_question.id_user) as votes FROM vote_question WHERE vote_question.id = question.id) as votes, (SELECT COUNT(answer.id) as count FROM answer WHERE answer.id = question.id) as count FROM question ORDER BY id DESC");
             ResultSet rs = st.executeQuery(sql);
             
-            JSONObject j = new JSONObject();
             while(rs.next()){
                 Question qu = new Question();
                 qu.id = rs.getInt("id");
@@ -152,7 +155,7 @@ public class StackExchangeImpl implements StackExchange {
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT * FROM answer WHERE id_answer ='" + id_answer + "'");
+            String sql = ("SELECT *, (SELECT COUNT(vote_answer.id_user) as votes FROM vote_answer WHERE vote_answer.id_answer = answer.id_answer) as votes FROM answer WHERE id_answer ='" + id_answer + "'");
             ResultSet rs = st.executeQuery(sql);
             
             while(rs.next()){
@@ -175,7 +178,7 @@ public class StackExchangeImpl implements StackExchange {
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT * FROM answer WHERE id ='" + id + "'");
+            String sql = ("SELECT *, (SELECT COUNT(vote_answer.id_user) as votes FROM vote_answer WHERE vote_answer.id_answer = answer.id_answer) as votes FROM answer WHERE id ='" + id + "'");
             ResultSet rs = st.executeQuery(sql);
             
             JSONObject j = new JSONObject();
@@ -210,61 +213,89 @@ public class StackExchangeImpl implements StackExchange {
     @Override
     public int addQuestion(String token, String topic, String content){
         int id = 0;
-        try {
-            connectDB();
-            Statement st = connection.createStatement();
-            String sql = "INSERT INTO question (name, topic, content) VALUES ('"+ token +"', '"+ topic +"', '"+ content +"')";
-            st.execute(sql);
-            closeDB();
-            connectDB();
-            st = connection.createStatement();
-            sql = "SELECT id FROM question WHERE content LIKE '" + content + "'";
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next()){
-                id = rs.getInt("id");
+        IdentityImplService identityService = new IdentityImplService();
+        org.wsdl.Identity identity = identityService.getIdentityImplPort();
+        String status = identity.whoIs(token);
+        JSONObject json = new JSONObject(status);
+        if(json.get("status").equals("ok")){
+            int id_user = json.getInt("id_user");
+            try {
+                connectDB();
+                Statement st = connection.createStatement();
+                String sql = "INSERT INTO question (id_user, topic, content) VALUES ('"+ id_user +"', '"+ topic +"', '"+ content +"')";
+                st.execute(sql);
+                closeDB();
+                connectDB();
+                st = connection.createStatement();
+                sql = "SELECT id FROM question WHERE content LIKE '" + content + "'";
+                ResultSet rs = st.executeQuery(sql);
+                while(rs.next()){
+                    id = rs.getInt("id");
+                }
+                closeDB();
+            }catch(SQLException ex){
+                ex.printStackTrace();
             }
-            closeDB();
-        }catch(SQLException ex){
-            ex.printStackTrace();
         }
         return id;
     }
     @Override
     public boolean addAnswer(int id, String token, String content){
-        try {
-            connectDB();
-            Statement st = connection.createStatement();
-            String sql = "INSERT INTO answer (id, name, content) VALUES ('"+ id +"', '"+ token +"', '"+ content +"')";
-            st.execute(sql);
-            closeDB();
-        }catch(SQLException ex){
-            ex.printStackTrace();
+        IdentityImplService identityService = new IdentityImplService();
+        org.wsdl.Identity identity = identityService.getIdentityImplPort();
+        String status = identity.whoIs(token);
+        JSONObject json = new JSONObject(status);
+        if(json.get("status").equals("ok")){
+            int id_user = json.getInt("id_user");
+            try {
+                connectDB();
+                Statement st = connection.createStatement();
+                String sql = "INSERT INTO answer (id, id_user, content) VALUES ('"+ id +"', '"+ id_user +"', '"+ content +"')";
+                st.execute(sql);
+                closeDB();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
         }
         return true;
     }
     @Override
     public int editQuestion(int id, String token, String topic, String content){
-        try {
-            connectDB();
-            Statement st = connection.createStatement();
-            String sql = "UPDATE question SET topic = '" + topic + "', content = '" + content + "' WHERE id = '" + id + "' AND name = '" + token + "'";
-            st.execute(sql);
-            closeDB();
-        }catch(SQLException ex){
-            ex.printStackTrace();
+        IdentityImplService identityService = new IdentityImplService();
+        org.wsdl.Identity identity = identityService.getIdentityImplPort();
+        String status = identity.whoIs(token);
+        JSONObject json = new JSONObject(status);
+        if(json.get("status").equals("ok")){
+            int id_user = json.getInt("id_user");
+            try {
+                connectDB();
+                Statement st = connection.createStatement();
+                String sql = "UPDATE question SET topic = '" + topic + "', content = '" + content + "' WHERE id = '" + id + "' AND id_user = '" + id_user + "'";
+                st.execute(sql);
+                closeDB();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
         }
         return id;
     }
     @Override
     public boolean deleteQuestion(int id, String token){
-        try {
-            connectDB();
-            Statement st = connection.createStatement();
-            String sql = "DELETE FROM question WHERE id = '" + id + "'";
-            st.execute(sql);
-            closeDB();
-        }catch(SQLException ex){
-            ex.printStackTrace();
+        IdentityImplService identityService = new IdentityImplService();
+        org.wsdl.Identity identity = identityService.getIdentityImplPort();
+        String status = identity.whoIs(token);
+        JSONObject json = new JSONObject(status);
+        if(json.get("status").equals("ok")){
+            int id_user = json.getInt("id_user");
+            try {
+                connectDB();
+                Statement st = connection.createStatement();
+                String sql = "DELETE FROM question WHERE id = '" + id + "' AND id_user = '" + id_user + "'";
+                st.execute(sql);
+                closeDB();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
         }
         return true;
     }
