@@ -454,4 +454,51 @@ public class Question {
 		return vote;
 	}
 	
+	
+	@WebMethod
+	public ArrayList<QuestionItem> searchQuestion(String keyword) {
+		ArrayList<QuestionItem> questionItemList = new ArrayList();
+		DBConnection dbc = new DBConnection();
+		PreparedStatement stmt = dbc.getDBStmt();
+		Connection conn = dbc.getConn();
+		try{
+			String like="%"+keyword+"%";
+			String sql = "SELECT * FROM question NATURAL JOIN user WHERE question.topic LIKE ? OR question.content LIKE ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, like);
+			stmt.setString(2, like);
+			System.out.println(stmt);
+			ResultSet rs = stmt.executeQuery();
+			
+			// Extract data from result set
+			while(rs.next()){
+				//Retrieve by column name
+				int id_question  = rs.getInt("id_question");
+				int id_user  = rs.getInt("id_user");
+				String content = rs.getString("content");
+				String question_date = rs.getDate("question_date").toString();
+				String topic = rs.getString("topic");
+				int num_vote = rs.getInt("num_vote");
+				String username = rs.getString("username");
+				int num_answer = rs.getInt("num_answer");
+				
+				QuestionItem q = new QuestionItem();
+				q.setIDQuestion(id_question);
+				q.setIDUser(id_user);
+				q.setContent(content);
+				q.setQuestionDate(question_date);
+				q.setTopic(topic);
+				q.setNumVote(num_vote);
+				q.setUsername(username);
+				q.setNumAnswer(num_answer);
+				
+				questionItemList.add(q);
+			}
+		} catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}
+		return questionItemList;
+	}
+	
 }
