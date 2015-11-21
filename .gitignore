@@ -1,3 +1,6 @@
 .idea
 out
 *.iml
+/stack_exchange/nbproject/private/
+/stack_exchange_netbeans/nbproject/private/
+/stack_exchange_netbeans/build/

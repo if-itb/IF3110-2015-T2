@@ -13,6 +13,8 @@ public class LoginServlet extends HttpServlet{
         response.setContentType("text/html");
 
         request.setAttribute("testVariable", "tess");
+        //dapetin objek dri service
+
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 

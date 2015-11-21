@@ -25,6 +25,21 @@
         <servlet-name>Register Page</servlet-name>
         <servlet-class>org.stackexchange.identityservice.controller.RegisterServlet</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>Check Token API</servlet-name>
+        <servlet-class>org.stackexchange.identityservice.controller.TokenCheckApiServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>Get User API</servlet-name>
+        <servlet-class>org.stackexchange.identityservice.controller.UserApiServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>Get User ID API</servlet-name>
+        <servlet-class>org.stackexchange.identityservice.controller.UserIdApiServlet</servlet-class>
+    </servlet>
     
     <servlet-mapping>
         <servlet-name>Login Page</servlet-name>
@@ -34,6 +49,21 @@
     <servlet-mapping>
         <servlet-name>Register Page</servlet-name>
         <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Check Token API</servlet-name>
+        <url-pattern>/api/token/check</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Get User API</servlet-name>
+        <url-pattern>/api/user</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Get User ID API</servlet-name>
+        <url-pattern>/api/id/user</url-pattern>
     </servlet-mapping>
     
 </web-app>

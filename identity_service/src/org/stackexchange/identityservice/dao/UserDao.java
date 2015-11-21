@@ -24,6 +24,29 @@ public class UserDao extends MySQLDao {
         }
     }
 
+    public User getById(long id) {
+        String query = "SELECT * FROM `user` WHERE id=" + id;
+        Statement statement;
+
+        try {
+            getConnection();
+            statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+
+            User user = null;
+            if (rs.next()) {
+                user= new User(rs.getInt("id"), rs.getString("fullname"), rs.getString("email"), rs.getString("password"));
+            }
+            rs.close();
+            statement.close();
+
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public boolean emailExist(String email) {
         String queryString = "SELECT * FROM `user` WHERE email='" + email + "'";
         Statement statement;
