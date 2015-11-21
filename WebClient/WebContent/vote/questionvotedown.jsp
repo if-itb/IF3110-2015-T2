@@ -2,11 +2,11 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="java.util.*, java.io.*"%>
-<%@ page import = "org.tusiri.ws.answer.AnswerService" %>
-<%@ page import = "org.tusiri.ws.answer.Answer" %>
-<%@ page import = "org.tusiri.ws.answer.AnswerItem" %>
-<%@ page import = "org.tusiri.ws.answer.AnswerVoteUp" %>
-<%@ page import = "org.tusiri.ws.answer.AnswerVoteDown" %>
+<%@ page import = "org.tusiri.ws.question.QuestionService" %>
+<%@ page import = "org.tusiri.ws.question.Question" %>
+<%@ page import = "org.tusiri.ws.question.QuestionItem" %>
+<%@ page import = "org.tusiri.ws.question.QuestionVoteUp" %>
+<%@ page import = "org.tusiri.ws.question.QuestionVoteDown" %>
 
 <html>
 <head>
@@ -32,9 +32,10 @@
 		//Redirect to signin
 	}
 	
-	AnswerService qservice = new AnswerService();
-	Answer a = qservice.getAnswerPort();
-	int vote_now = a.answerVoteUp(1,access_token);
+	QuestionService qservice = new QuestionService();
+	Question q = qservice.getQuestionPort();
+	int id = Integer.parseInt(request.getParameter("id"));
+	int vote_now = q.questionVoteDown(id,access_token);
 %>
 	<b>Hasilnya adalah : <% out.println(vote_now); %></b>
 </body>

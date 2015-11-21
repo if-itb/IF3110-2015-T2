@@ -34,7 +34,8 @@
 	
 	QuestionService qservice = new QuestionService();
 	Question q = qservice.getQuestionPort();
-	int vote_now = q.questionVoteDown(47,access_token);
+	int id = Integer.parseInt(request.getParameter("id"));
+	int vote_now = q.questionVoteUp(id,access_token);
 %>
 	<b>Hasilnya adalah : <% out.println(vote_now); %></b>
 </body>

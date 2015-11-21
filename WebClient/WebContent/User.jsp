@@ -91,11 +91,7 @@
 			                       <button id="submitBtn" type="submit" class=btn-success>Back to Homepage</button>
 			                    </a>
 			                </div>
-	                        
-	                    </div>
-	                    
-	                    
-	                        
+	                    </div>   
 	                </div>
 	            </div>
 	
