@@ -56,7 +56,7 @@ public class Identity extends HttpServlet {
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT email FROM user WHERE email = '" + email + "' AND password = '" + password + "'");
+            String sql = ("SELECT * FROM user WHERE email = '" + email + "' AND password = '" + password + "'");
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()){
                 user = new User();
@@ -91,7 +91,9 @@ public class Identity extends HttpServlet {
         JSONObject json = new JSONObject();
         String token = request.getParameter("token");
         HttpSession session = request.getSession(true);
-        if(session.getAttribute("token").equals(token)){
+        Object tokenSession = session.getAttribute("token");
+        
+        if((tokenSession != null) && (tokenSession.equals(token))){
             int id_user = (int) session.getAttribute("id_user");
             json.put("status", "ok");
             json.put("id_user", id_user);
@@ -144,7 +146,7 @@ public class Identity extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet for serving identity service";
     }// </editor-fold>
 
 }
