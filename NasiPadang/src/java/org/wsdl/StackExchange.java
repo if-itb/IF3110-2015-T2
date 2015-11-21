@@ -61,6 +61,41 @@ public interface StackExchange {
 
     /**
      * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://jaxws.org/StackExchange/addQuestionRequest", output = "http://jaxws.org/StackExchange/addQuestionResponse")
+    public int addQuestion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://jaxws.org/StackExchange/deleteQuestionRequest", output = "http://jaxws.org/StackExchange/deleteQuestionResponse")
+    public boolean deleteQuestion(
+        @WebParam(name = "arg0", partName = "arg0")
+        int arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
      * @param arg0
      * @return
      *     returns org.jaxws.Answer
@@ -69,6 +104,48 @@ public interface StackExchange {
     @WebResult(partName = "return")
     @Action(input = "http://jaxws.org/StackExchange/getAnswerRequest", output = "http://jaxws.org/StackExchange/getAnswerResponse")
     public Answer getAnswer(
+        @WebParam(name = "arg0", partName = "arg0")
+        int arg0);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://jaxws.org/StackExchange/loginRequest", output = "http://jaxws.org/StackExchange/loginResponse")
+    public String login(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns org.jaxws.Question
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://jaxws.org/StackExchange/getQuestionRequest", output = "http://jaxws.org/StackExchange/getQuestionResponse")
+    public Question getQuestion(
+        @WebParam(name = "arg0", partName = "arg0")
+        int arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns org.jaxws.AnswerArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://jaxws.org/StackExchange/getAllAnswerRequest", output = "http://jaxws.org/StackExchange/getAllAnswerResponse")
+    public AnswerArray getAllAnswer(
         @WebParam(name = "arg0", partName = "arg0")
         int arg0);
 
@@ -115,19 +192,13 @@ public interface StackExchange {
 
     /**
      * 
-     * @param arg1
-     * @param arg0
      * @return
-     *     returns java.lang.String
+     *     returns org.jaxws.QuestionArray
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/loginRequest", output = "http://jaxws.org/StackExchange/loginResponse")
-    public String login(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
+    @Action(input = "http://jaxws.org/StackExchange/getAllQuestionRequest", output = "http://jaxws.org/StackExchange/getAllQuestionResponse")
+    public QuestionArray getAllQuestion();
 
     /**
      * 
@@ -144,76 +215,5 @@ public interface StackExchange {
         int arg0,
         @WebParam(name = "arg1", partName = "arg1")
         int arg1);
-
-    /**
-     * 
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/addQuestionRequest", output = "http://jaxws.org/StackExchange/addQuestionResponse")
-    public int addQuestion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns org.jaxws.AnswerArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/getAllAnswerRequest", output = "http://jaxws.org/StackExchange/getAllAnswerResponse")
-    public AnswerArray getAllAnswer(
-        @WebParam(name = "arg0", partName = "arg0")
-        int arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns org.jaxws.Question
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/getQuestionRequest", output = "http://jaxws.org/StackExchange/getQuestionResponse")
-    public Question getQuestion(
-        @WebParam(name = "arg0", partName = "arg0")
-        int arg0);
-
-    /**
-     * 
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/deleteQuestionRequest", output = "http://jaxws.org/StackExchange/deleteQuestionResponse")
-    public boolean deleteQuestion(
-        @WebParam(name = "arg0", partName = "arg0")
-        int arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @return
-     *     returns org.jaxws.QuestionArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://jaxws.org/StackExchange/getAllQuestionRequest", output = "http://jaxws.org/StackExchange/getAllQuestionResponse")
-    public QuestionArray getAllQuestion();
 
 }

@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="timestamp" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="vote" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="count" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="hasVote" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -39,7 +40,8 @@ import javax.xml.bind.annotation.XmlType;
     "content",
     "timestamp",
     "vote",
-    "count"
+    "count",
+    "hasVote"
 })
 public class Question {
 
@@ -50,6 +52,7 @@ public class Question {
     protected String timestamp;
     protected int vote;
     protected int count;
+    protected boolean hasVote;
 
     /**
      * Gets the value of the id property.
@@ -193,6 +196,22 @@ public class Question {
      */
     public void setCount(int value) {
         this.count = value;
+    }
+
+    /**
+     * Gets the value of the hasVote property.
+     * 
+     */
+    public boolean isHasVote() {
+        return hasVote;
+    }
+
+    /**
+     * Sets the value of the hasVote property.
+     * 
+     */
+    public void setHasVote(boolean value) {
+        this.hasVote = value;
     }
 
 }

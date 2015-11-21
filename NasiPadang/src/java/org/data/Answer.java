@@ -17,5 +17,6 @@ public class Answer {
     public String content;
     public String timestamp;
     public int vote;
+    public boolean hasVote;
     public Answer(){}
 }

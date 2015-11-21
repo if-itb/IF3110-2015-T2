@@ -49,13 +49,13 @@ public class StackExchangeImpl implements StackExchange {
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT email FROM users WHERE email = '" + email + "'");
+            String sql = ("SELECT email FROM user WHERE email = '" + email + "'");
             ResultSet rs = st.executeQuery(sql);
             closeDB();
             if(!rs.next()){
                 connectDB();
                 st = connection.createStatement();
-                sql = ("INSERT INTO users (username, email, password) VALUES ('"+ username +"', '"+ email +"', '"+ password +"')");
+                sql = ("INSERT INTO user (name, email, password) VALUES ('"+ username +"', '"+ email +"', '"+ password +"')");
                 st.execute(sql);
                 closeDB();
                 success = true;
@@ -71,7 +71,7 @@ public class StackExchangeImpl implements StackExchange {
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT email FROM users WHERE email = '" + email + "' AND password = '" + password + "'");
+            String sql = ("SELECT email FROM user WHERE email = '" + email + "' AND password = '" + password + "'");
             ResultSet rs = st.executeQuery(sql);
             if(rs.next()){
                 IdentityImplService identityService = new IdentityImplService();
@@ -95,7 +95,7 @@ public class StackExchangeImpl implements StackExchange {
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT question.id, question.id_user, question.topic, question.content, question.timestamp, (SELECT COUNT(vote_question.id_user) as votes FROM vote_question WHERE vote_question.id = question.id) as votes, COUNT(answer.id) AS count FROM (question LEFT JOIN answer ON question.id = answer.id) WHERE question.id = '" + id + "'");
+            String sql = ("SELECT question.id, (SELECT name FROM user WHERE user.id_user = question.id_user) as name, question.topic, question.content, question.timestamp, (SELECT COUNT(vote_question.id_user) as votes FROM vote_question WHERE vote_question.id = question.id) as votes, COUNT(answer.id) AS count FROM (question LEFT JOIN answer ON question.id = answer.id) WHERE question.id = '" + id + "'");
             ResultSet rs = st.executeQuery(sql);
             
             while(rs.next()){
@@ -107,6 +107,14 @@ public class StackExchangeImpl implements StackExchange {
                 qu.vote = rs.getInt("votes");
                 qu.count = rs.getInt("count");
             }
+            closeDB();
+
+            connectDB();
+            st = connection.createStatement();
+            sql = "SELECT * FROM vote_question WHERE id = '" + qu.id + "'";
+            rs = st.executeQuery(sql);
+            if(rs.next()) qu.hasVote = true;
+            else qu.hasVote = false;
             closeDB();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -124,7 +132,7 @@ public class StackExchangeImpl implements StackExchange {
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT DISTINCT question.id, (SELECT username FROM user WHERE user.id = question.id_user) as name, question.topic, question.content, question.timestamp, (SELECT COUNT(vote_question.id_user) as votes FROM vote_question WHERE vote_question.id = question.id) as votes, (SELECT COUNT(answer.id) as count FROM answer WHERE answer.id = question.id) as count FROM question ORDER BY id DESC");
+            String sql = ("SELECT DISTINCT question.id, (SELECT name FROM user WHERE user.id_user = question.id_user) as name, question.topic, question.content, question.timestamp, (SELECT COUNT(vote_question.id_user) as votes FROM vote_question WHERE vote_question.id = question.id) as votes, (SELECT COUNT(answer.id) as count FROM answer WHERE answer.id = question.id) as count FROM question ORDER BY id DESC");
             ResultSet rs = st.executeQuery(sql);
             
             while(rs.next()){
@@ -166,7 +174,14 @@ public class StackExchangeImpl implements StackExchange {
                 an.timestamp = rs.getString("timestamp");
                 an.vote = rs.getInt("votes");
             }
-            closeDB();
+            closeDB();           
+            connectDB();
+            st = connection.createStatement();
+            sql = "SELECT * FROM vote_answer WHERE id_answer = '" + an.id_answer + "'";
+            rs = st.executeQuery(sql);
+            if(rs.next()) an.hasVote = true;
+            else an.hasVote = false;
+            closeDB(); 
         } catch (SQLException e) {
             e.printStackTrace();
         }

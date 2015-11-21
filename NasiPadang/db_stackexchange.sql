@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2015 at 06:03 AM
+-- Generation Time: Nov 21, 2015 at 07:54 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_stackexchange`
 --
+CREATE DATABASE IF NOT EXISTS `db_stackexchange` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `db_stackexchange`;
 
 -- --------------------------------------------------------
 
@@ -29,22 +31,10 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `answer` (
   `id` int(11) NOT NULL,
 `id_answer` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `content` text NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `votes` int(11) NOT NULL DEFAULT '0'
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `answer`
---
-
-INSERT INTO `answer` (`id`, `id_answer`, `name`, `content`, `timestamp`, `votes`) VALUES
-(19, 99, 'sa', 'as', '2015-10-10 12:56:55', 0),
-(20, 102, 'dHJKD', 'DAS', '2015-10-17 00:32:19', 0),
-(22, 103, 'das', 'fsf', '2015-10-17 01:40:53', 0),
-(23, 104, 'sdf', 'fsafsf', '2015-10-25 22:53:18', 0),
-(21, 105, 'h', 'Dengan demikian, jika disesuaikan dengan jumlah populasi penduduk Indonesia yang menurut data Badan Pusat Statistik (BPS) mencapai 252,5 juta jiwa, maka pengguna internet di Indonesia mengalami pertumbuhan 16,2 juta jiwa dari total 71,9 juta pengguna di tahun 2013 lalu.', '2015-10-25 22:54:24', 0);
 
 -- --------------------------------------------------------
 
@@ -54,21 +44,46 @@ INSERT INTO `answer` (`id`, `id_answer`, `name`, `content`, `timestamp`, `votes`
 
 CREATE TABLE IF NOT EXISTS `question` (
 `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `topic` varchar(100) NOT NULL,
   `content` text NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `votes` int(11) NOT NULL DEFAULT '0'
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `question`
+-- Table structure for table `user`
 --
 
-INSERT INTO `question` (`id`, `name`, `topic`, `content`, `timestamp`, `votes`) VALUES
-(21, 'Jun', 'hakjda', 'cdaskjdhd', '2015-10-17 01:15:41', 0),
-(23, 'Jun', 'asdasddfd', 'All HTML elements can be considered as boxes. In CSS, the term "box model" is used when talking about design and layout.\r\n\r\nThe CSS box model is essentially a box that wraps around HTML elements, and it consists of: margins, borders, padding, and the actual content.\r\n\r\nThe box model allows us to add a border around elements, and to define space between elements.\r\n\r\nThe image below illustrates the box model:', '2015-10-17 02:18:30', 0),
-(24, 'da', 'fsafsdf', 'Dengan demikian, jika disesuaikan dengan jumlah populasi penduduk Indonesia yang menurut data Badan Pusat Statistik (BPS) mencapai 252,5 juta jiwa, maka pengguna internet di Indonesia mengalami pertumbuhan 16,2 juta jiwa dari total 71,9 juta pengguna di tahun 2013 lalu.', '2015-10-25 22:54:43', 6);
+CREATE TABLE IF NOT EXISTS `user` (
+`id_user` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vote_answer`
+--
+
+CREATE TABLE IF NOT EXISTS `vote_answer` (
+  `id_user` int(11) NOT NULL,
+  `id_answer` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vote_question`
+--
+
+CREATE TABLE IF NOT EXISTS `vote_question` (
+  `id_user` int(11) NOT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -87,6 +102,12 @@ ALTER TABLE `question`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+ ADD PRIMARY KEY (`id_user`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -100,6 +121,11 @@ MODIFY `id_answer` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=106;
 --
 ALTER TABLE `question`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
