@@ -18,7 +18,6 @@ import org.json.JSONObject;
  */
 @WebService(endpointInterface = "org.jaxws.Identity")
 public class IdentityImpl implements Identity{
-    private Connection connection;
     private ArrayList<JSONObject> array;
     public IdentityImpl(){
          array = new ArrayList<>();

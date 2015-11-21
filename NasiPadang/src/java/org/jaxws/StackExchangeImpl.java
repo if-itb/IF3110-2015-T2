@@ -5,17 +5,23 @@
  */
 package org.jaxws;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.jws.WebService;
 import org.data.Answer;
 import org.data.Question;
 import org.json.JSONObject;
-import org.wsdl.IdentityImplService;
 
 /**
  *
@@ -43,6 +49,28 @@ public class StackExchangeImpl implements StackExchange {
     private void closeDB() throws SQLException{
         connection.close();
     }
+    private int whoIs(String token){
+        URL url = null;
+        int id_user = 0;
+        try {
+            url = new URL("http://localhost:8002/ws/stackexchange/rest/identity?token=" + token);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            InputStream in = conn.getInputStream();
+            String encoding = conn.getContentEncoding();
+            encoding = encoding == null ? "UTF-8" : encoding;
+            byte[] body = null;
+            int length = in.read(body);
+            JSONObject json = new JSONObject(body);
+            if(json.getString("status").equals("ok")) id_user = json.getInt("id_user");
+            System.out.println(Arrays.toString(body));
+        } catch (MalformedURLException ex) {
+            ex.printStackTrace();
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return id_user;
+    }
     @Override
     public boolean register(String username, String email, String password){
         boolean success = false;
@@ -68,19 +96,26 @@ public class StackExchangeImpl implements StackExchange {
     @Override
     public String login(String email, String password){
         String token = null;
+        URL url = null;
         try {
-            connectDB();
-            Statement st = connection.createStatement();
-            String sql = ("SELECT email FROM user WHERE email = '" + email + "' AND password = '" + password + "'");
-            ResultSet rs = st.executeQuery(sql);
-            if(rs.next()){
-                IdentityImplService identityService = new IdentityImplService();
-                org.wsdl.Identity identity = identityService.getIdentityImplPort();
-                token = identity.createToken(rs.getInt("id_user"));
+            url = new URL("http://localhost:8002/ws/stackexchange/rest/identity/");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            String urlParameters = "email="+ email + "&password=" + password;
+            try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
+                wr.writeBytes(urlParameters);
+                wr.flush();
             }
-            closeDB();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            byte[] body = null;
+            InputStream in = conn.getInputStream();
+            int length = in.read(body);
+            JSONObject json = new JSONObject(body);
+            if(json.getString("status").equals("ok")) token = json.getString("token");
+        } catch (MalformedURLException ex) {
+            ex.printStackTrace();
+        }catch (IOException ex) {
+            ex.printStackTrace();
         }
         return token;
     }
@@ -228,12 +263,8 @@ public class StackExchangeImpl implements StackExchange {
     @Override
     public int addQuestion(String token, String topic, String content){
         int id = 0;
-        IdentityImplService identityService = new IdentityImplService();
-        org.wsdl.Identity identity = identityService.getIdentityImplPort();
-        String status = identity.whoIs(token);
-        JSONObject json = new JSONObject(status);
-        if(json.get("status").equals("ok")){
-            int id_user = json.getInt("id_user");
+        int id_user = whoIs(token);
+        if(id_user != 0){
             try {
                 connectDB();
                 Statement st = connection.createStatement();
@@ -256,12 +287,8 @@ public class StackExchangeImpl implements StackExchange {
     }
     @Override
     public boolean addAnswer(int id, String token, String content){
-        IdentityImplService identityService = new IdentityImplService();
-        org.wsdl.Identity identity = identityService.getIdentityImplPort();
-        String status = identity.whoIs(token);
-        JSONObject json = new JSONObject(status);
-        if(json.get("status").equals("ok")){
-            int id_user = json.getInt("id_user");
+        int id_user = whoIs(token);
+        if(id_user != 0){
             try {
                 connectDB();
                 Statement st = connection.createStatement();
@@ -276,12 +303,8 @@ public class StackExchangeImpl implements StackExchange {
     }
     @Override
     public int editQuestion(int id, String token, String topic, String content){
-        IdentityImplService identityService = new IdentityImplService();
-        org.wsdl.Identity identity = identityService.getIdentityImplPort();
-        String status = identity.whoIs(token);
-        JSONObject json = new JSONObject(status);
-        if(json.get("status").equals("ok")){
-            int id_user = json.getInt("id_user");
+        int id_user = whoIs(token);
+        if(id_user != 0){
             try {
                 connectDB();
                 Statement st = connection.createStatement();
@@ -296,12 +319,8 @@ public class StackExchangeImpl implements StackExchange {
     }
     @Override
     public boolean deleteQuestion(int id, String token){
-        IdentityImplService identityService = new IdentityImplService();
-        org.wsdl.Identity identity = identityService.getIdentityImplPort();
-        String status = identity.whoIs(token);
-        JSONObject json = new JSONObject(status);
-        if(json.get("status").equals("ok")){
-            int id_user = json.getInt("id_user");
+        int id_user = whoIs(token);
+        if(id_user != 0){
             try {
                 connectDB();
                 Statement st = connection.createStatement();
