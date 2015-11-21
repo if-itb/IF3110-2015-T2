@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,6 +47,37 @@ public class GenerateToken extends HttpServlet {
             out.println("<h1>Servlet GenerateToken at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+            
+            //path and port for the database
+            String path = "jdbc:mysql://localhost:3306/stack_exchange";
+            
+            //soon implemented with HTTP Headers or something else
+            String usernameDummy = "william";
+            String passwordDummy = "william";
+            String query = "SELECT COUNT(*) FROM user WHERE nama = '" + usernameDummy + "' AND password = '" + passwordDummy + "'";
+            
+            Database database = new Database();
+            database.connect(path);
+            
+            int result = 0;
+            ResultSet rs = database.fetchData(query);
+            try {
+                rs.next();
+                result = rs.getInt("COUNT(*)");
+                rs.close();
+            } catch (SQLException ex) {
+            }
+            
+            database.closeDatabase();
+            
+            if(result == 1){
+                //generating token
+                String base64encodedString = Base64.getEncoder().encodeToString(usernameDummy.getBytes("utf-8"));
+                out.println("Token :" + base64encodedString);
+            } else {
+                //not generating token
+                out.println("Username does not exist or password does not match!");
+            }
         }
     }
 
