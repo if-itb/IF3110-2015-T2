@@ -261,4 +261,197 @@ public class Question {
 		}
 		return q;
 	}
+	
+	@WebMethod
+	public int QuestionVoteUp(int id_question, String access_token)throws ClientProtocolException, IOException, ParseException{
+		int vote =0;
+		int status = 0;
+		try {
+			CheckTokenValidity checker = new CheckTokenValidity(access_token);
+			TokenValidity validity = checker.check();
+			
+			DBConnection dbc = new DBConnection();
+			PreparedStatement stmt = dbc.getDBStmt();
+			Connection conn = dbc.getConn();
+			
+			if(validity.getIsValid()){
+				//mendapatkan id_user dari REST
+				int id_user = validity.getIdUser();
+				try{
+					//Lihat apakah untuk pertanyaan tersebut, user pernah melakukan vote
+					String sql = "SELECT * FROM question_vote WHERE id_question = ? AND id_user = ?";
+					stmt = conn.prepareStatement(sql);
+					stmt.setInt(1,id_question);
+					stmt.setInt(2,id_user);
+					ResultSet rs = stmt.executeQuery();
+					//Jika tidak pernah melakukan vote
+					if(!rs.next()){
+						try{
+							System.out.println("Buat baru");
+							String sql1 = "INSERT INTO question_vote(id_question,id_user,status) VALUES (?,?,0)";
+							stmt = conn.prepareStatement(sql1,Statement.RETURN_GENERATED_KEYS);
+							stmt.setInt(1,id_question);
+							stmt.setInt(2,id_user);
+							stmt.executeUpdate();
+							ResultSet rs1 = stmt.getGeneratedKeys();
+						}catch(SQLException se){
+							//Handle errors for JDBC
+							se.printStackTrace();
+						}
+					}
+					
+					//mendapatkan status dan vote_value
+					String sql2 = " SELECT num_vote, status FROM question_vote INNER JOIN question ON question.id_question=? AND question_vote.id_user=? AND question_vote.id_question=?";
+					stmt = conn.prepareStatement(sql2);
+					stmt.setInt(1,id_question);
+					stmt.setInt(2,id_user);
+					stmt.setInt(3,id_question);
+					ResultSet rs2 = stmt.executeQuery();
+					if(rs2.next()){
+						//System.out.println("Halo3");	
+						vote = rs2.getInt("num_vote");
+						status = rs2.getInt("status");
+						//System.out.println("Halo4");
+						//System.out.println("Sebelum tambah : "+vote + "Status = "+status);
+						
+						if(status == 0){
+							//System.out.println("Masuk1");
+							vote = vote+1;
+							status = 1;
+						}
+						else if(status == 1){
+							//System.out.println("Masuk2");
+							vote = vote-1;
+							status = 0;
+						}
+						else{ //status = -1
+							//System.out.println("Masuk3");
+							vote = vote +2;
+							status = 1;
+						}
+						//System.out.println("status = "+status);
+						//System.out.println("vote = "+vote);
+						
+						String sql3 = " UPDATE question_vote, question SET question_vote.status = ? , num_vote = ? WHERE question_vote.id_question=? AND question_vote.id_user=? and question.id_question=?";
+						stmt = conn.prepareStatement(sql3,Statement.RETURN_GENERATED_KEYS);
+						stmt.setInt(1,status);
+						stmt.setInt(2,vote);
+						stmt.setInt(3,id_question);
+						stmt.setInt(4,id_user);
+						stmt.setInt(5,id_question);
+						stmt.executeUpdate();
+						ResultSet rs3 = stmt.getGeneratedKeys();
+					}
+					
+				}catch(SQLException se){
+					//Handle errors for JDBC
+					se.printStackTrace();
+				} 
+			}
+		}catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//System.out.println("status = "+status);
+		//System.out.println("vote = "+vote);
+		return vote;
+	}
+	
+	@WebMethod
+	public int QuestionVoteDown(int id_question, String access_token)throws ClientProtocolException, IOException, ParseException{
+		int vote =0;
+		int status = 0;
+		try {
+			CheckTokenValidity checker = new CheckTokenValidity(access_token);
+			TokenValidity validity = checker.check();
+			
+			DBConnection dbc = new DBConnection();
+			PreparedStatement stmt = dbc.getDBStmt();
+			Connection conn = dbc.getConn();
+			
+			if(validity.getIsValid()){
+				//mendapatkan id_user dari REST
+				int id_user = validity.getIdUser();
+				try{
+					//Lihat apakah untuk pertanyaan tersebut, user pernah melakukan vote
+					String sql = "SELECT * FROM question_vote WHERE id_question = ? AND id_user = ?";
+					stmt = conn.prepareStatement(sql);
+					stmt.setInt(1,id_question);
+					stmt.setInt(2,id_user);
+					ResultSet rs = stmt.executeQuery();
+					//Jika tidak pernah melakukan vote
+					if(!rs.next()){
+						try{
+							System.out.println("Buat baru");
+							String sql1 = "INSERT INTO question_vote(id_question,id_user,status) VALUES (?,?,0)";
+							stmt = conn.prepareStatement(sql1,Statement.RETURN_GENERATED_KEYS);
+							stmt.setInt(1,id_question);
+							stmt.setInt(2,id_user);
+							stmt.executeUpdate();
+							ResultSet rs1 = stmt.getGeneratedKeys();
+						}catch(SQLException se){
+							//Handle errors for JDBC
+							se.printStackTrace();
+						}
+					}
+					
+					//mendapatkan status dan vote_value
+					String sql2 = " SELECT num_vote, status FROM question_vote INNER JOIN question ON question.id_question=? AND question_vote.id_user=? AND question_vote.id_question=?";
+					stmt = conn.prepareStatement(sql2);
+					stmt.setInt(1,id_question);
+					stmt.setInt(2,id_user);
+					stmt.setInt(3,id_question);
+					ResultSet rs2 = stmt.executeQuery();
+					if(rs2.next()){
+						//System.out.println("Halo3");	
+						vote = rs2.getInt("num_vote");
+						status = rs2.getInt("status");
+						//System.out.println("Halo4");
+						//System.out.println("Sebelum tambah : "+vote + "Status = "+status);
+						
+						if(status == 0){
+							//System.out.println("Masuk1");
+							vote = vote-1;
+							status = -1;
+						}
+						else if(status == -1){
+							//System.out.println("Masuk2");
+							vote = vote+1;
+							status = 0;
+						}
+						else{ //status = 1
+							//System.out.println("Masuk3");
+							vote = vote -2;
+							status = -1;
+						}
+						//System.out.println("status = "+status);
+						//System.out.println("vote = "+vote);
+						
+						String sql3 = " UPDATE question_vote, question SET question_vote.status = ? , num_vote = ? WHERE question_vote.id_question=? AND question_vote.id_user=? and question.id_question=?";
+						stmt = conn.prepareStatement(sql3,Statement.RETURN_GENERATED_KEYS);
+						stmt.setInt(1,status);
+						stmt.setInt(2,vote);
+						stmt.setInt(3,id_question);
+						stmt.setInt(4,id_user);
+						stmt.setInt(5,id_question);
+						stmt.executeUpdate();
+						ResultSet rs3 = stmt.getGeneratedKeys();
+					}
+					
+				}catch(SQLException se){
+					//Handle errors for JDBC
+					se.printStackTrace();
+				} 
+			}
+		}catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//System.out.println("status = "+status);
+		//System.out.println("vote = "+vote);
+		return vote;
+	}
+	
 }

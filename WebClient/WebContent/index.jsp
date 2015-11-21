@@ -50,7 +50,9 @@
 			int n = questionList.size();
 		%>
 	
-		<% for (int i = 0; i < n; i++) { %>
+		<% for (int i = 0; i < n; i++) { 
+			int id = questionList.get(i).getIdUser(); 
+		%>
 			<div class = 'content'>
 				<div class = 'q_or_a'>
 					<div class = 'left'>
@@ -81,9 +83,13 @@
 	    				</div>
 					</div>
 				</div>
-				<div class = 'details'>Asked by <span class = 'b_link'><%= questionList.get(i).getUsername() %> </span>|
-                <a href = 'question_edit.jsp?id=<%= questionList.get(i).getIdQuestion() %>' class = 'y_link'> edit </a>|
-                <a href='#' class = 'r_link'>delete</a><br></div>
+				<div class = 'details'>Asked by 
+					<span class = 'b_link'><%= questionList.get(i).getUsername() %> </span>|
+					<span class = 'modify' id = 'm_<%=id%>'>
+                		<a href = 'question_edit.jsp?id=<%= questionList.get(i).getIdQuestion() %>' class = 'y_link'> edit </a>|
+                		<a href='#' class = 'r_link'>delete</a><br>
+                	</span>
+                </div>
 			</div>
 	        <hr>
 			<% } %>
