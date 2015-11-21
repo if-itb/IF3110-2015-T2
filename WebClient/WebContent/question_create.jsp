@@ -1,13 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Create Question</title>
+	<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    	pageEncoding="ISO-8859-1"%>
+    <jsp:include page="Header.jsp" flush="true">
+		<jsp:param name="pageTitle" value="Ask A Question" />
+	</jsp:include>
 </head>
 <body>
 <body>
-	<jsp:include page="Header.jsp" />
+	<jsp:include page="navigationbar.jsp" flush ="true"/>
+	
     <div class ="container">
     <!-- Contact Form -->
         <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
@@ -33,7 +36,6 @@
                     <button type="submit" class="btn btn-primary">Ask Question</button>
                 </form>
             </div>
-
         </div>
         <!-- /.row -->
     </div>

@@ -150,7 +150,7 @@ public class Answer {
 					}
 					
 					//mendapatkan status dan vote_value
-					String sql2 = " SELECT num_vote, status FROM answer_vote JOIN answer WHERE id_answer=? AND answer_vote.id_user=? AND num_answer = ?";
+					String sql2 = " SELECT num_vote, status FROM answer_vote INNER JOIN answer ON id_answer=? AND answer_vote.id_user=? AND num_answer = ?";
 					stmt = conn.prepareStatement(sql2);
 					stmt.setInt(1,id_answer);
 					stmt.setInt(2,id_user);
@@ -249,7 +249,7 @@ public class Answer {
 					}
 					
 					//mendapatkan status dan vote_value
-					String sql2 = " SELECT num_vote, status FROM answer_vote JOIN answer WHERE id_answer=? AND answer_vote.id_user=? AND num_answer = ?";
+					String sql2 = " SELECT num_vote, status FROM answer_vote INNER JOIN answer ON id_answer=? AND answer_vote.id_user=? AND num_answer = ?";
 					stmt = conn.prepareStatement(sql2);
 					stmt.setInt(1,id_answer);
 					stmt.setInt(2,id_user);
