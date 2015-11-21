@@ -13,22 +13,36 @@
 	</jsp:include>
 </head>
 
-<body>
-	<jsp:include page="navigationbar.jsp" flush ="true"/>
+<body class="index">
 	
-    <!-- Header Carousel -->
-    <header id="myCarousel" class="carousel slide">
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <div class="fill" style="background-image:url('http://localhost:8080/WebClient/images/Home2.jpg');"></div>
-                <div class="carousel-caption">
-                    <h2>Welcome To StackExchange</h2>
-                    <h4>Where Ivan is better than Google</h4>
-                </div>
-            </div>
-        </div>
-    </header>
+	<div id="page-wrapper">
+	
+	<!-- Header -->
+	<header id="header" class="alt">
+		<h1 id="logo"><a href="index.html">Stack Exchange <span>| by Tusiri</span></a></h1>
+		<jsp:include page="navigationbar.jsp" flush ="true"/>
+	</header>
+	
+   <!-- Banner -->
+	<section id="banner">
+		<div class="inner">
+			<header>
+				<h2>STACK EXCHANGE</h2>
+			</header>
+			<p>This is <strong>STACK EXCHANGE</strong>, a place
+			<br />
+			where Ivan is
+			<br />
+			better than Google</a>.</p>
+			<footer>
+				<ul class="buttons vertical">
+					<li><a href="question_create.jsp" class="button fit scrolly">Ask a Question</a></li>
+				</ul>
+			</footer>
+
+		</div>
+
+	</section>
     
     <!-- Page Content -->
     <div class="container">
@@ -84,8 +98,9 @@
 					</div>
 				</div>
 				<div class = 'details'>Asked by 
-					<span class = 'b_link'><%= questionList.get(i).getUsername() %> </span>|
-					<span class = 'modify' id = 'm_<%=id%>'>
+					<span class = 'b_link'><%= questionList.get(i).getUsername() %> </span>
+					<span hidden class = 'modify_<%=id%>'>
+						|
                 		<a href = 'question_edit.jsp?id=<%= questionList.get(i).getIdQuestion() %>' class = 'y_link'> edit </a>|
                 		<a href='#' class = 'r_link'>delete</a><br>
                 	</span>

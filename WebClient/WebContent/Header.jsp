@@ -1,5 +1,5 @@
 
-	<title><%= request.getParameter("needRedirectWhenNotValid") %></title>
+	<title><%= request.getParameter("pageTitle") %></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<base href="http://localhost:8080/WebClient/index.jsp"/>
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -8,17 +8,12 @@
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-    
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     <%
     if((request.getParameter("isNeedCookieCheck") == null) ||  ((request.getParameter("isNeedCookieCheck") != null) && (request.getParameter("isNeedCookieCheck") == "true"))){
 		Cookie cookie = null;
@@ -57,11 +52,13 @@ function checkToken(){
               type: "POST",
               success: function(data) {
                   var valid = data.valid;
+                  var id = data.id_user;
                   if(valid){
-               	   var element = document.getElementById('signin');
-               	   element.setAttribute('href','signout.jsp');
-               	   var str = $('a#signin').text('Sign Out');
-               	   $('a#register').remove();
+	               	   var element = document.getElementById('signin');
+	               	   element.setAttribute('href','signout.jsp');
+	               	   var str = $('a#signin').text('Sign Out');
+	               	   $('a#register').remove();
+	               	   $('.modify_'+id).show();
                   }
                   <% if((request.getParameter("needRedirectWhenNotValid") != null) && (request.getParameter("needRedirectWhenNotValid").equals("true"))){%>
         	  			if(!valid){
