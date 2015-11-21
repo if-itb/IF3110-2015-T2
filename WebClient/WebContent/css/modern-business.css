@@ -146,9 +146,8 @@ footer {
     flex: 1 15%;
 }
 .mid{
-    width:auto;
+    width:75%;
     display: inline-block;
-    text-align: center;
 }
 .a_mid{
     flex: 1 85%;
@@ -191,7 +190,7 @@ footer {
 .q_content{
     margin: 0 auto;
     padding-left : 30px;
-    width: 500px;
+    width: 100%;
     word-wrap: break-word;
     text-align: justify;
     text-justify: inter-word;
@@ -199,7 +198,7 @@ footer {
 .topic{
     text-decoration: none;
     font-size: larger;
-    margin:0 auto;
+    padding-left : 30px;
 }
 .q_details{
     font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
