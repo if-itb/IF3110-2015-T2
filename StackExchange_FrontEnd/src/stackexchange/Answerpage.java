@@ -32,11 +32,10 @@ public class Answerpage extends HttpServlet {
         requestParams.put("id", request.getParameter("id"));
 
         // Set target method
-        String requestResponse = HttpRequest.executeMethod("getQuestionById", requestParams
-        );
+        String requestResponse = HttpRequest.executeMethod("getQuestionById", requestParams);
 
         // Add method parameters
-        Collections.addAll(params, "content", "createDate", "title", "userId", "vote");
+        Collections.addAll(params, "content", "createDate", "title", "questionId", "userId", "vote");
 
         // Get soap response
         ArrayList< HashMap<String, String> > responseParams = XmlParser.parse(requestResponse, params);
@@ -48,10 +47,10 @@ public class Answerpage extends HttpServlet {
         ArrayList<Answer> answers = new ArrayList<>();
 
         // Set target method
-        String requestResponse2 = HttpRequest.executeMethod("getAllAnswersFromQuestionId", requestParams2);
+        String requestResponse2 = HttpRequest.executeMethod("getAllAnswersFromQuestionId", requestParams);
 
         // Add method parameters
-        Collections.addAll(params2, "content", "createDate", "title", "userId", "vote");
+        Collections.addAll(params2, "content", "createDate", "questionId", "answerId", "userId", "vote");
 
         // Get soap response
         ArrayList< HashMap<String, String> > responseParams2 = XmlParser.parse(requestResponse2, params2);
@@ -63,7 +62,7 @@ public class Answerpage extends HttpServlet {
 
         request.setAttribute("question", question);
         request.setAttribute("answers", answers);
-        request.setAttribute("response", requestResponse);
+        request.setAttribute("response", requestResponse2);
 
         response.setContentType("text/html;charset=UTF-8");
         request.getRequestDispatcher("views/answer.jsp").forward(request, response);
