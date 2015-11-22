@@ -51,9 +51,9 @@ public class QuestionWS {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "getQuestion")
+    @WebMethod(operationName = "getQuestionByID")
     @WebResult(name="Question")
-    public Question getQuestionById(@WebParam(name = "question_id") int question_id) {
+    public Question getQuestionByID(@WebParam(name = "question_id") int question_id) {
         Question question = null;
         try {
                 
@@ -83,7 +83,25 @@ public class QuestionWS {
                 
             Statement stmt = conn.createStatement();
             String sql = "INSERT INTO question(topic,content,user_id) VALUES("+
-                    q.getTopic() + "," + q.getContent() + "," + q.getUserId() + ")";
+                    q.getTopic() + "," + q.getContent() + "," + q.getUserID() + ")";
+            stmt.executeUpdate(sql);
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "editQuestion")
+    @Oneway
+    public void editQuestion(@WebParam(name = "q") Question q) {
+        try {
+                
+            Statement stmt = conn.createStatement();
+            String sql = "UPDATE question SET topic = "+
+                    q.getTopic() + ", content = " + q.getContent() + " WHERE question_id = " + q.getQuestionID();
             stmt.executeUpdate(sql);
             stmt.close();
         } catch (SQLException ex) {
