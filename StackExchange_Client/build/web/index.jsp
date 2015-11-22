@@ -37,7 +37,7 @@
                     <div class="q-votes"><%= question.getVote() %><br>Votes</div>
                     <div class="q-answers">0<br>Answers</div>
                     <div class="q-topic-content">
-                        <div class="q-topic"><a href="view.jsp?id=<%= question.getQuestionId() %>"><%= question.getTopic() %></a></div>
+                        <div class="q-topic"><a href="view"><%= question.getTopic() %></a></div>
                         <div class="q-content"><%= question.getContent() %></div>
                     </div>
                     <div class="details">asked by <span class="name">name (email)</span> | <a class="edit" href="edit.jsp?id=<%= question.getQuestionId() %>">edit</a> | <a class="delete" href="delete.php?id=<%= question.getQuestionId() %>" onclick="return confirm('Are you sure you want delete this question?')">delete</a></span></div>    

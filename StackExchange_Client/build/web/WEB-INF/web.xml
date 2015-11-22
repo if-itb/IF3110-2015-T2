@@ -4,9 +4,17 @@
         <servlet-name>QuestionListServlet</servlet-name>
         <servlet-class>Question.QuestionListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewQuestionServlet</servlet-name>
+        <servlet-class>Question.ViewQuestionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>QuestionListServlet</servlet-name>
         <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewQuestionServlet</servlet-name>
+        <url-pattern>/view</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

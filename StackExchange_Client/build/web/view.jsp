@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="question" type="QuestionWS.Question" scope="request"/>
+<jsp:useBean id="answers" type="java.util.List<AnswerWS.Answer>" scope="request"/>
+<jsp:useBean id="q_name" type="String" scope="request"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +18,7 @@
     </head>
     <body>
         <div class="container">
-            <a href="home.php"><h1>Simple StackExchange</h1></a>
+            <a href="index"><h1>Simple StackExchange</h1></a>
             <div class="content">
                 <h2><%= question.getTopic() %></h2>
                 <div class="voting">
@@ -28,26 +30,28 @@
                     <p><%= question.getContent() %></p>
 		</div>
 		<div class="question-sign">
-                    <p>asked by <font color="#008080">Name</font> at <%= question.getCreateTime() %> <a class="edit">edit</a> |
+                    <p>asked by <font color="#008080"><%= q_name %></font> at <%= question.getCreateTime() %> <a class="edit">edit</a> |
 			<a class="delete">delete</a></p>
 		</div>
             </div>
 			
             <div class="content">
                 <h2>Answers</h2>
+                <% for (AnswerWS.Answer answer : answers) { %>
 		<div class="answer-list">
                     <div class="voting">
 			<div class="arrow-up"></div>
-			<div id="voteid"><p>?</p></div>
+			<div id="voteid"><p><%= answer.getVote() %></p></div>
 			<div class="arrow-down"></div>
                     </div>
                     <div class="answer-content">
-			<p>Answer Content</p>
+			<p><%= answer.getContent() %></p>
                     </div>
                     <div class="question-sign">
-			<p>answered by <font color="#008080">Name</font> at datetime</p>
+			<p>answered by <font color="#008080">Name</font> at <%= answer.getCreateTime() %></p>
                     </div>
 		</div>
+                <% } %>
             </div>
 
             <div class="content" style="margin-top:30px;">

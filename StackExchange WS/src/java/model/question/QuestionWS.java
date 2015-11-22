@@ -53,7 +53,7 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "getQuestion")
     @WebResult(name="Question")
-    public Question getQuestionById(@WebParam(name = "question_id") int question_id) {
+    public Question getQuestion(@WebParam(name = "question_id") int question_id) {
         Question question = null;
         try {
                 
