@@ -60,10 +60,6 @@ public class HttpRequest {
                 "    </S:Body>\n" +
                 "</S:Envelope>";
 
-//        return content;
-
-//        String content = "email=" + URLEncoder.encode(param1) + "&param2=" + URLEncoder.encode(param2);
-
         cgiInput.writeBytes(content);
         cgiInput.flush();
         cgiInput.close();
@@ -86,31 +82,35 @@ public class HttpRequest {
         DataOutputStream cgiInput;
 
         // URL of target page script.
-        url = new URL("http://localhost:9000/Identity_Service/Request");
+        url = new URL(targetURL);
         urlConn = url.openConnection();
 
         urlConn.setDoInput(true);
         urlConn.setDoOutput(true);
         urlConn.setUseCaches(false);
-        urlConn.setRequestProperty("Content-Type", "text/xml");
+        urlConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
         // Send POST output.
         cgiInput = new DataOutputStream(urlConn.getOutputStream());
 
         Iterator it = data.entrySet().iterator();
-        String body = "";
 
-        JSONObject obj = new JSONObject();
+        ArrayList<String> bodyList = new ArrayList<>();
 
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
 
             try{
-                obj.put(pair.getKey().toString(), pair.getValue().toString());
+                bodyList.add(pair.getKey().toString() + '=' + URLEncoder.encode(pair.getValue().toString()));
             }catch(Exception e){}
         }
 
-        String content = obj.toString();
+        String content = "";
+
+        for (String s : bodyList)
+        {
+            content += s + "&";
+        }
 
 //        return content;
 
