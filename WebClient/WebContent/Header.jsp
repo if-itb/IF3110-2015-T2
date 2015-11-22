@@ -6,7 +6,7 @@
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     
     <!-- js -->
-    <script src="js/jquery.js"></script>
+    <script src="assets/js/jquery.js"></script>
     <script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/jquery.dropotron.min.js"></script>
 	<script src="assets/js/jquery.scrolly.min.js"></script>
@@ -67,6 +67,9 @@ function checkToken(){
 	               	   var str = $('a#signin').text('Sign Out');
 	               	   $('a#register').remove();
 	               	   $('.modify_'+id).show();
+                  }
+                  else{
+                	  alert('halo');
                   }
                   <% if((request.getParameter("needRedirectWhenNotValid") != null) && (request.getParameter("needRedirectWhenNotValid").equals("true"))){%>
         	  			if(!valid){
