@@ -35,7 +35,7 @@ public class Call extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/xml;charset=UTF-8");
         
         Enumeration<String> params = request.getParameterNames();
         int numberOfParams = 0;
@@ -62,6 +62,7 @@ public class Call extends HttpServlet {
                 PrintWriter tw = response.getWriter();
         
                 tw.println(result);
+                tw.close();
             }
                 catch (Exception e) {
             }
@@ -82,6 +83,7 @@ public class Call extends HttpServlet {
                 PrintWriter tw = response.getWriter();
         
                 tw.println(result);
+                tw.close();
             }
                 catch (Exception e) {
             }

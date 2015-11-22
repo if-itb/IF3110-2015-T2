@@ -107,13 +107,16 @@ public class validateToken extends HttpServlet {
         }
         
         if (valid_hour != 0 && token_string != null) {
-            tw.println("date_create : " + date_create);
-            tw.println("valid_hour : " + valid_hour);
-            tw.println("isTokenValid : " + isValid(date_create, valid_hour));
+            tw.println("<tokenModel>");
+            tw.println("<date_create>" + date_create + "</date_create>");
+            tw.println("<valid_hour>" + valid_hour + "</valid_hour>");
+            tw.println("<status>" + isValid(date_create, valid_hour) + "</status>");
+            tw.println("</tokenModel>");
         }
         else {
-            tw.println("Token doesn't exist!");
+            tw.println("<tokenModel><status>false</status></tokenModel>");
         }
+        tw.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -29,7 +29,9 @@ public class TokenGenerator {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(now); 
     }
     
-    public TokenGenerator() {
+    public TokenGenerator() {}
+    
+    public TokenGenerator(int lifetime) {
         this.token = UUID.randomUUID().toString();
         
         DB db = new DB();
@@ -39,11 +41,12 @@ public class TokenGenerator {
             Statement stmt;
             stmt = conn.createStatement();
             String sql;
-            sql = "INSERT INTO token (token, date_create)VALUES (?, ?)";
+            sql = "INSERT INTO token (token, date_create, valid_hour)VALUES (?, ?, ?)";
 
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setString(1, token);
-            dbStatement.setString(4, getCurrentTimeStamp());
+            dbStatement.setString(2, getCurrentTimeStamp());
+            dbStatement.setInt(3, lifetime);
             
             dbStatement.execute();
             

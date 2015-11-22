@@ -5,7 +5,7 @@
  */
 
 import Config.DB;
-import Token.TokenGenerator;
+import Token.TokenModel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -48,7 +48,7 @@ public class getToken extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/xml;charset=UTF-8");
         
         String uname = request.getParameter("uname");
         String pass = request.getParameter("pass");
@@ -59,7 +59,9 @@ public class getToken extends HttpServlet {
         DB db = new DB();
         
         if (uname.equals("") || pass.equals("")) {
-            tw.println("Input your credential");
+            tw.println("<tokenModel>" 
+                    +   "<token>Failed</token>"        
+                    +  "</tokenModel>");
             return;
         }
         try {
@@ -89,10 +91,12 @@ public class getToken extends HttpServlet {
         catch(SQLException ex) {
         }
         
-        TokenGenerator tgen = new TokenGenerator();
+        TokenModel token;
         
         if (password.equals(pass)) {
             try {
+                
+                token = new TokenModel();
                 
                 Connection conn = db.connect();
                 
@@ -103,22 +107,25 @@ public class getToken extends HttpServlet {
                 sql = "INSERT INTO token(token_string, date_create)" + " VALUES (?, ?)";
             
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setString(1, tgen.getToken()); 
+                dbStatement.setString(1, token.getToken()); 
                 dbStatement.setString(2, getCurrentTimeStamp());
             
                 dbStatement.execute();
             
                 stmt.close();
                 conn.close();
+                
+                tw.println(token.toXML()); 
+                tw.close();
             }
             catch(SQLException ex) {
-            }
-            tw.println(tgen.getToken()); 
+            }   
         }
-        else if (password.equals(""))
-            tw.println("You must register first");
-        else
-            tw.println("Wrong password");
+        else {
+            tw.println("<tokenModel>" 
+                    +   "<token>Failed</token>"        
+                    +  "</tokenModel>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
