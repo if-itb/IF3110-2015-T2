@@ -5,6 +5,7 @@
  */
 
 import Config.DB;
+import Token.TokenGenerator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,6 +18,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,8 +28,15 @@ import java.util.logging.Logger;
  *
  * @author User
  */
-@WebServlet(urlPatterns = {"/Test"})
-public class Test extends HttpServlet {
+@WebServlet(urlPatterns = {"/getToken"})
+public class getToken extends HttpServlet {
+    
+    private static String getCurrentTimeStamp() {
+        Calendar cal = Calendar.getInstance();  
+	Timestamp now = new Timestamp(cal.getTimeInMillis());
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(now); 
+    }
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -46,9 +57,15 @@ public class Test extends HttpServlet {
         PrintWriter tw = response.getWriter();
         
         DB db = new DB();
-        Connection conn = db.connect();
         
+        if (uname.equals("") || pass.equals("")) {
+            tw.println("Input your credential");
+            return;
+        }
         try {
+            
+            Connection conn = db.connect();
+            
             Statement stmt;
             stmt = conn.createStatement();
             
@@ -72,8 +89,32 @@ public class Test extends HttpServlet {
         catch(SQLException ex) {
         }
         
-        if (password.equals(pass))
-            tw.println("Login Success");
+        TokenGenerator tgen = new TokenGenerator();
+        
+        if (password.equals(pass)) {
+            try {
+                
+                Connection conn = db.connect();
+                
+                Statement stmt;
+                stmt = conn.createStatement();
+            
+                String sql;
+                sql = "INSERT INTO token(token_string, date_create)" + " VALUES (?, ?)";
+            
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1, tgen.getToken()); 
+                dbStatement.setString(2, getCurrentTimeStamp());
+            
+                dbStatement.execute();
+            
+                stmt.close();
+                conn.close();
+            }
+            catch(SQLException ex) {
+            }
+            tw.println(tgen.getToken()); 
+        }
         else if (password.equals(""))
             tw.println("You must register first");
         else

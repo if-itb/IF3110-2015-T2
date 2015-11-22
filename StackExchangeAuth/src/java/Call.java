@@ -6,6 +6,7 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,26 +37,54 @@ public class Call extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String uname = request.getParameter("uname");
-        String pass = request.getParameter("pass");
+        Enumeration<String> params = request.getParameterNames();
+        int numberOfParams = 0;
+        while(params.hasMoreElements()) {
+            numberOfParams++;
+            params.nextElement();
+        }
         
-        Form form = new Form();
-        form.param("uname", uname);
-        form.param("pass", pass);
+        if (numberOfParams == 3) {
+            String uname = request.getParameter("uname");
+            String pass = request.getParameter("pass");
+        
+            Form form = new Form();
+            form.param("uname", uname);
+            form.param("pass", pass);
        
-        Client client = ClientBuilder.newClient();
-        String url = "http://localhost:25973/StackExchangeAuth/Test";
+            Client client = ClientBuilder.newClient();
+            String url = "http://localhost:25973/StackExchangeAuth/getToken";
         
-        try {
-            String result = client.target(url).request(MediaType.TEXT_PLAIN).post(Entity.entity(form,
+            try {
+                String result = client.target(url).request(MediaType.TEXT_PLAIN).post(Entity.entity(form,
                     MediaType.APPLICATION_FORM_URLENCODED), String.class);
             
-            PrintWriter tw = response.getWriter();
+                PrintWriter tw = response.getWriter();
         
-            tw.println(result);
+                tw.println(result);
+            }
+                catch (Exception e) {
+            }
         }
-        catch (Exception e) {
+        else if (numberOfParams == 2) {
+            String token_string = request.getParameter("token_string");
+        
+            Form form = new Form();
+            form.param("token_string", token_string);
+       
+            Client client = ClientBuilder.newClient();
+            String url = "http://localhost:25973/StackExchangeAuth/validateToken";
+        
+            try {
+                String result = client.target(url).request(MediaType.TEXT_PLAIN).post(Entity.entity(form,
+                    MediaType.APPLICATION_FORM_URLENCODED), String.class);
             
+                PrintWriter tw = response.getWriter();
+        
+                tw.println(result);
+            }
+                catch (Exception e) {
+            }
         }
     }
 
