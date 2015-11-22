@@ -1,6 +1,5 @@
 <script>
 function delQuestion(id,isList) {
-	alert(id);
 	var r = confirm("Apakah Anda mau menghapus pertanyaan ini?");
     if (r == true) {
 		var deleteData = {access_token:"<%= request.getParameter("access_token") %>",id_question:id}

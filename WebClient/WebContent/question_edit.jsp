@@ -103,14 +103,14 @@
 					<div class="control-group form-group">
 						<div class="controls">
 							<strong><label class="questionmenu">Topic:</label></strong>
-                            <input type="text" class="form-control" name="topic" required data-validation-required-message="Please enter your topic">
+                            <input type="text" class="form-control" name="topic" required="true" required data-validation-required-message="Please enter your topic" value='<%= judul %>'>
                             <p class="help-block"></p>
 						</div>
 					</div>
 					<div class="control-group form-group">
 						<div class="controls">
 							<strong><label class="questionmenu">Question:</label></strong>
-                           	<textarea rows="10" cols="100" class="form-control" name="content" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"> </textarea>
+                           	<textarea rows="10" cols="100" class="form-control" name="content" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none" ><%= content %></textarea>
 						</div>
 					</div>
 					

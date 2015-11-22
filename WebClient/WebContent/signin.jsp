@@ -116,7 +116,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2 text">
-                            <h1><strong>StackExchange</strong> Login Form</h1>
+                            <h1><a href="index.jsp"><strong>StackExchange</strong></a> Login Form</h1>
                             <div class="description">
                             	<p>
 	                            	Welcome to StackExchange!
@@ -139,7 +139,7 @@
 			                    <form id="loginForm">
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-username">Email</label>
-			                        	<input type="text" name="email" placeholder="Email..." class="form-username form-control" id="form-username">
+			                        	<input type="text" name="email" placeholder="Email..." class="form-username form-control" id="form-username" required="true">
 			                        </div>
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="form-password">Password</label>
