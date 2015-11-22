@@ -7,38 +7,70 @@
 		<jsp:param name="pageTitle" value="Ask A Question" />
 	</jsp:include>
 </head>
-<body>
-<body>
-	<jsp:include page="navigationbar.jsp" flush ="true"/>
+
+<body class="contact">
+	<div id="page-wrapper">
+	<!-- Header -->
+	<header id="header">
+		<h1 id="logo"><a href="index.jsp">Stack Exchange <span>| by Tusiri</span></a></h1>
+		<jsp:include page="navigationbar.jsp" flush ="true"/>
+	</header>
 	
-    <div class ="container">
-    <!-- Contact Form -->
-        <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-        <div class="row">
-            <div class="col-md-8">
-                <h3>Create A Question</h3>
-                <form name="sentMessage" id="contactForm" action="question_create_post.jsp" METHOD="POST" novalidate>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Topic:</label>
-                            <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your name.">
+	<article id="main">
+		<header class="special container">
+			<span class="icon fa-envelope"></span>
+			<strong><h2>Create Question</h2></strong>
+			<p>Fill the form below to ask your question.</p>
+		</header>
+		<!-- One -->
+		<section class="wrapper style4 special container 75%">
+		<!-- Content -->
+			<div class="content">
+				<form name="sentMessage" id="contactForm" action="question_create_post.jsp" METHOD="POST" novalidate>
+					<div class="control-group form-group">
+						<div class="controls">
+							<strong><label class="questionmenu">Topic:</label></strong>
+                            <input type="text" class="form-control" name="topic" required data-validation-required-message="Please enter your topic">
                             <p class="help-block"></p>
-                        </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Question:</label>
-                            <textarea rows="10" cols="100" class="form-control" id="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
-                        </div>
-                    </div>
-                    <div id="success"></div>
-                    <!-- For success/fail messages -->
-                    <button type="submit" class="btn btn-primary">Ask Question</button>
-                </form>
-            </div>
-        </div>
-        <!-- /.row -->
+						</div>
+					</div>
+					<div class="control-group form-group">
+						<div class="controls">
+							<strong><label class="questionmenu">Question:</label></strong>
+                           	<textarea rows="10" cols="100" class="form-control" name="content" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"> </textarea>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="12u">
+							<ul class="buttons">
+								<li><input type="submit" class="special" value="Ask Question" /></li>
+							</ul>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+	</article>
+	<footer id="footer">
+		<ul class="icons">
+			<li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
+			<li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
+			<li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
+			<li><a href="#" class="icon circle fa-github"><span class="label">Github</span></a></li>
+			<li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li>
+		</ul>
+	
+		<ul class="copyright">
+			<li>&copy; Tusiri</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+	
+	</footer>
     </div>
-    <hr>
 </body>
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/util.js"></script>
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="assets/js/main.js"></script>
 </html>

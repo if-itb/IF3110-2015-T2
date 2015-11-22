@@ -87,8 +87,8 @@
 	                            
 	                        </div>
 	                        <div class="bottom">
-	                        	<a href="index.jsp">
-			                       <button id="submitBtn" type="submit" class=btn-success>Back to Homepage</button>
+	                        	<a href="signin.jsp">
+			                       <button id="submitBtn" type="submit" class=btn-success>Get Started!</button>
 			                    </a>
 			                </div>
 	                    </div>   

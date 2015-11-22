@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="assets/css/form-elements.css">
         <link rel="stylesheet" href="assets/css/style.css">
+        
         <!-- Favicon and touch icons -->
         <link rel="shortcut icon" href="assets/ico/favicon.png">
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
@@ -153,13 +154,13 @@
                         <div class="col-sm-6 col-sm-offset-3 social-login">
                         	<h3>...or login with:</h3>
                         	<div class="social-login-buttons">
-	                        	<a class="btn btn-link-1 btn-link-1-facebook" href="#">
+	                        	<a class="btn-link-1 btn-link-1-facebook" href="#">
 	                        		<i class="fa fa-facebook"></i> Facebook
 	                        	</a>
-	                        	<a class="btn btn-link-1 btn-link-1-twitter" href="#">
+	                        	<a class="btn-link-1 btn-link-1-twitter" href="#">
 	                        		<i class="fa fa-twitter"></i> Twitter
 	                        	</a>
-	                        	<a class="btn btn-link-1 btn-link-1-google-plus" href="#">
+	                        	<a class="btn-link-1 btn-link-1-google-plus" href="#">
 	                        		<i class="fa fa-google-plus"></i> Google Plus
 	                        	</a>
                         	</div>

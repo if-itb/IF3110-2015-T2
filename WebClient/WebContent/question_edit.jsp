@@ -7,9 +7,9 @@
 	<%@ page import = "org.tusiri.ws.question.QuestionService" %>
 	<%@ page import = "org.tusiri.ws.question.Question" %>
 	<%@ page import = "org.tusiri.ws.question.QuestionItem" %>
-
-	<jsp:include page="Header.jsp">
-		<jsp:param name="pageTitle" value="Simple StackExchange" />
+	
+    <jsp:include page="Header.jsp" flush="true">
+		<jsp:param name="pageTitle" value="Edit Question" />
 		<jsp:param name="isNeedCookieCheck" value="false" />
 	</jsp:include>
 	
@@ -72,8 +72,8 @@
 	
 </head>
 
-<body>
-	<jsp:include page="navigationbar.jsp"/>
+<body class="contact">
+	
 <%
     QuestionService qservice = new QuestionService();
     Question q = qservice.getQuestionPort();
@@ -83,37 +83,64 @@
     String content = qi.getContent();
 %>
     
-    <div class ="container">
-    <!-- Contact Form -->
-        <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-        <div class="row">
-            <div class="col-md-8">
-                <h3>Create A Question</h3>
-                <form name="sentMessage" id="contactForm" action="question_create_post.jsp" METHOD="POST" novalidate>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Topic:</label>
-                            <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your name."
-                            value="<%= judul %>">
+    <div id="page-wrapper">
+		<!-- Header -->
+		<header id="header">
+			<h1 id="logo"><a href="index.jsp">Stack Exchange <span>| by Tusiri</span></a></h1>
+			<jsp:include page="navigationbar.jsp" flush ="true"/>
+		</header>
+	<article id="main">
+		<header class="special container">
+			<span class="icon fa-envelope"></span>
+			<strong><h2>Edit Question</h2></strong>
+			<p>Fill the form below to edit your question.</p>
+		</header>
+		<!-- One -->
+		<section class="wrapper style4 special container 75%">
+		<!-- Content -->
+			<div class="content">
+				<form name="sentMessage" id="contactForm" action="question_create_post.jsp" METHOD="POST" novalidate>
+					<div class="control-group form-group">
+						<div class="controls">
+							<strong><label class="questionmenu">Topic:</label></strong>
+                            <input type="text" class="form-control" name="topic" required data-validation-required-message="Please enter your topic">
                             <p class="help-block"></p>
-                        </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Question:</label>
-                            <textarea rows="10" cols="100" class="form-control" id="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"><%= content %></textarea>
-                        </div>
-                    </div>
-                    <div id="success"></div>
-                    <!-- For success/fail messages -->
-                    <button type="submit" class="btn btn-primary">Ask Question</button>
-                </form>
-            </div>
-
-        </div>
-        <!-- /.row -->
-    </div>
-    <hr>
+						</div>
+					</div>
+					<div class="control-group form-group">
+						<div class="controls">
+							<strong><label class="questionmenu">Question:</label></strong>
+                           	<textarea rows="10" cols="100" class="form-control" name="content" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"> </textarea>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="12u">
+							<ul class="buttons">
+								<li><input type="submit" class="special" value="Edit Question" /></li>
+							</ul>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+	</article>
+	
+	<footer id="footer">
+		<ul class="icons">
+			<li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
+			<li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
+			<li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
+			<li><a href="#" class="icon circle fa-github"><span class="label">Github</span></a></li>
+			<li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li>
+		</ul>
+	
+		<ul class="copyright">
+			<li>&copy; Tusiri</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+	
+	</footer>
+	</div>
 </body>
 </html>
 

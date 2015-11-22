@@ -32,7 +32,8 @@ QuestionService qservice = new QuestionService();
 Question q = qservice.getQuestionPort();
 int result = q.createQuestion(access_token, request.getParameter("topic"), request.getParameter("content"));
 if(result>0){//success
-	String site = new String("question?id="+result);
+	//String site = new String("question?id="+result);
+	String site = new String("index.jsp");
 	response.setStatus(response.SC_MOVED_TEMPORARILY);
 	response.setHeader("Location", site); 
 }
