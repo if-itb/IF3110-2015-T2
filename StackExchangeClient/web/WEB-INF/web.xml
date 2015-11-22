@@ -5,9 +5,18 @@
         <servlet-class>Question.indexServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>viewpostServlet</servlet-name>
+        <servlet-class>Question.viewpostServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
     <servlet-mapping>
         <servlet-name>indexServlet</servlet-name>
         <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>viewpostServlet</servlet-name>
+        <url-pattern>/viewpostServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
