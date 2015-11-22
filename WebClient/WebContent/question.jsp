@@ -24,6 +24,7 @@
 		Cookie cookie = null;
 		Cookie[] cookies = null;
 		String access_token = null;
+		
 		// Get an array of Cookies associated with this domain
 		cookies = request.getCookies();
 		if( cookies != null ){
@@ -34,9 +35,7 @@
 					break;
 				}
 			}
-		} else {
-			//Redirect to signin
-		}
+		} 
 	
 		int q_id = Integer.parseInt(request.getParameter("q_id"));
 		QuestionService qservice = new QuestionService();
@@ -62,9 +61,9 @@
 					<div class = 'only_q'>
 						<div class = 'a_left'>
 							<div class = 'vote_buttons'>
-								<div class='up_button' onclick='VoteUp(true,<%=q_id%>)'><img id='q_up' src='assets/img/up<%=q.getStatus() %>.png' width='30' height='30'></div>
+								<div hidden class='up_button user' onclick='VoteUp(true,<%=q_id%>)'><img id='q_up' src='assets/img/up<%=q.getStatus() %>.png' width='30' height='30'></div>
 									<div class = 'vote' id='q_vote<%=q_id%>'><%= q.getNumVote() %></div>
-								<div class='down_button' onclick='VoteDown(true,<%=q_id%>)'><img id='q_down' src='assets/img/down<%=q.getStatus() %>.png' width='30' height='30'></div>
+								<div hidden class='down_button user' onclick='VoteDown(true,<%=q_id%>)'><img id='q_down' src='assets/img/down<%=q.getStatus() %>.png' width='30' height='30'></div>
 							</div>
 						</div>
 						<div class = 'a_mid'>
@@ -85,9 +84,9 @@
 					<div class = 'row q_or_a'>
 						<div class = 'a_left'>
 							<div class = 'vote_buttons'>
-								<div class='up_button' onclick='VoteUp(false,<%=a.get(i).getNumAnswer()%>)'><img id='a_up<%=a.get(i).getNumAnswer() %>' src='assets/img/up<%=a.get(i).getStatus()%>.png' width='30' height='30'></div>
+								<div hidden class='up_button user' onclick='VoteUp(false,<%=a.get(i).getNumAnswer()%>)'><img id='a_up<%=a.get(i).getNumAnswer() %>' src='assets/img/up<%=a.get(i).getStatus()%>.png' width='30' height='30'></div>
 									<div class = 'vote' id='vote<%=a.get(i).getNumAnswer()%>'><%= a.get(i).getNumVotes() %></div>
-								<div class='down_button' onclick='VoteDown(false,<%=a.get(i).getNumAnswer()%>)'><img id='a_down<%=a.get(i).getNumAnswer() %>' src='assets/img/down<%=a.get(i).getStatus()%>.png' width='30' height='30'></div>
+								<div hidden class='down_button user' onclick='VoteDown(false,<%=a.get(i).getNumAnswer()%>)'><img id='a_down<%=a.get(i).getNumAnswer() %>' src='assets/img/down<%=a.get(i).getStatus()%>.png' width='30' height='30'></div>
 							</div>
 						</div>
 						<div class = 'a_mid'>

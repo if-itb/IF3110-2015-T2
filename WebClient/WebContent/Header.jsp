@@ -51,6 +51,8 @@
 
 <script>
 function checkToken(){
+	var user_buttons = document.getElementsByClassName("user");
+	console.log(user_buttons.length);
 	var tokenData = {access_token:"<%= access_token %>"}
 	
 	<%
@@ -69,6 +71,9 @@ function checkToken(){
                   var valid = data.valid;
                   var id = data.id_user;
                   if(valid){
+                	   for (var i = 0; i < user_buttons.length; i ++) {
+                		   user_buttons[i].style.display='block';
+                		}
 	               	   var element = document.getElementById('signin');
 	               	   element.setAttribute('href','signout.jsp');
 	               	   var str = $('a#signin').text('Sign Out');
