@@ -220,7 +220,7 @@ public class QuestionWS {
             sql = "UPDATE questions SET Votes=Votes+1 WHERE QuestionID = ?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, qid);
-            int rs = dbStatement.executeUpdate();
+            dbStatement.executeUpdate();
            
             stmt.close();
         } catch (SQLException ex) {
@@ -248,7 +248,7 @@ public class QuestionWS {
             sql = "UPDATE questions SET Votes=Votes-1 WHERE QuestionID = ?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, qid);
-            int rs = dbStatement.executeUpdate();
+            dbStatement.executeUpdate();
            
             stmt.close();
         } catch (SQLException ex) {
@@ -259,4 +259,6 @@ public class QuestionWS {
         }
         return 1;
     }
+
+   
 }

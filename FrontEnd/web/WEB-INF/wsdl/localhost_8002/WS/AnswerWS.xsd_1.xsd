@@ -2,9 +2,21 @@
 
 <xs:element name="Answer" type="tns:answer"/>
 
+<xs:element name="InsertAnswer" type="tns:InsertAnswer"/>
+
+<xs:element name="InsertAnswerResponse" type="tns:InsertAnswerResponse"/>
+
+<xs:element name="downAnswer" type="tns:downAnswer"/>
+
+<xs:element name="downAnswerResponse" type="tns:downAnswerResponse"/>
+
 <xs:element name="getAnswerbyQID" type="tns:getAnswerbyQID"/>
 
 <xs:element name="getAnswerbyQIDResponse" type="tns:getAnswerbyQIDResponse"/>
+
+<xs:element name="upAnswer" type="tns:upAnswer"/>
+
+<xs:element name="upAnswerResponse" type="tns:upAnswerResponse"/>
 
 <xs:complexType name="getAnswerbyQID">
 <xs:sequence>
@@ -27,6 +39,45 @@
 <xs:element name="Name" type="xs:string"/>
 <xs:element name="Email" type="xs:string"/>
 <xs:element name="Datetime" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InsertAnswer">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+<xs:element name="content" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InsertAnswerResponse">
+<xs:sequence>
+<xs:element name="Answer" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="downAnswer">
+<xs:sequence>
+<xs:element name="AnsId" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="downAnswerResponse">
+<xs:sequence>
+<xs:element name="Answer" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="upAnswer">
+<xs:sequence>
+<xs:element name="AnsId" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="upAnswerResponse">
+<xs:sequence>
+<xs:element name="Answer" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

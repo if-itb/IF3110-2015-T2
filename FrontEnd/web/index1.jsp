@@ -15,7 +15,7 @@
     <body>
         <div class="header">
             <div class="container">
-                <p><a href="index.php">Simple StackExchange</a></p> 
+                <p><a href="index1.jsp">Simple StackExchange</a></p> 
             </div>
         </div>
 
