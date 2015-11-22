@@ -16,7 +16,8 @@
 <% for (int i = 0; i < n; i++) { 
 	int id = questionList.get(i).getIdUser(); 
 %>
-	<div class = 'content'>
+	
+	<div class = 'content' id='question_item_<%= questionList.get(i).getIdQuestion() %>'>
 		<div class = 'row q_or_a'>
 			<div class = 'left'>
 				<span class = 'vote'>
@@ -51,7 +52,7 @@
 			<span hidden class = 'modify_<%=id%>'>
 				|
               		<a href = 'question_edit.jsp?id=<%= questionList.get(i).getIdQuestion() %>' class = 'y_link'> edit </a>|
-              		<a href='#' class = 'r_link'>delete</a><br>
+              		<a href='#' onclick='delQuestion(<%= questionList.get(i).getIdQuestion() %>,true)' class = 'r_link'>delete</a><br>
               	</span>
               </div>
 	</div>

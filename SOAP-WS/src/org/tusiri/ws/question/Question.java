@@ -126,7 +126,9 @@ public class Question {
 	
 	@WebMethod
 	public int deleteQuestion(String access_token,int id_question) throws ClientProtocolException, IOException, ParseException{
-		int q_id = 0;
+		
+		System.out.println("call deleteQuestion");
+		int status = 0;
 		
 		System.out.println(access_token);
 		System.out.println(id_question);
@@ -157,10 +159,8 @@ public class Question {
 								stmt.setInt(2, id_question);
 								stmt.executeUpdate();
 								ResultSet rs = stmt.getGeneratedKeys();
-					            while (rs.next()) {
-					               q_id = rs.getInt(1);
-					            } 	
-								System.out.println("q_id = " + q_id);
+								status = 1;
+								System.out.println("status = " + status);
 								//res = 1;
 							} catch(Exception e){
 								//Handle errors for Class.forName
@@ -179,7 +179,7 @@ public class Question {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return q_id;
+		return status;
 	}
 	
 	@WebMethod
