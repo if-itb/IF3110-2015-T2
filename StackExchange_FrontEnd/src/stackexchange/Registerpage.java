@@ -33,7 +33,7 @@ public class Registerpage extends HttpServlet {
         // Get soap response
         boolean isSuccess = XmlParser.isSuccessResponse(requestResponse);
 
-        if (isSuccess){
+        if (isSuccess == true){
             response.sendRedirect("/");
             return;
         }
