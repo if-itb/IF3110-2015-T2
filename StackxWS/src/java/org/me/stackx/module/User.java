@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -74,6 +75,8 @@ public class User {
             this.email = usr.getString("email");
             this.valid = true;
             this.createDate = "";
+        } catch (JSONException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MalformedURLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

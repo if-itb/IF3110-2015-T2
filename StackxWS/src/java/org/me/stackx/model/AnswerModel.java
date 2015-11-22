@@ -276,7 +276,15 @@ public class AnswerModel {
            //STEP 4: Execute a query
            stmt = (Statement) conn.createStatement();
            String sql;
-           sql = "SELECT answer_id, question_id, user_id, content, vote, create_date FROM answer WHERE answer_id=" + id;
+           sql = "SELECT answer_id, question_id, user_id, content, create_date, SUM( vote ) AS vote" +
+                " FROM (" +
+                    " SELECT q.answer_id AS answer_id, q.question_id AS question_id, q.user_id AS user_id, content, create_date, IFNULL( vq.value, 0 ) AS vote" +
+                    " FROM answer AS q" +
+                    " LEFT OUTER JOIN vote_answer AS vq ON q.answer_id = vq.answer_id" +
+                    " ) AS a" +
+                " WHERE answer_id = " + id +
+                " GROUP BY answer_id" +
+                " ORDER BY vote, create_date DESC";
             //STEP 5: Extract data from result set
             try (ResultSet rs = stmt.executeQuery(sql)) {
                 //STEP 5: Extract data from result set
@@ -334,7 +342,15 @@ public class AnswerModel {
            //STEP 4: Execute a query
            stmt = (Statement) conn.createStatement();
            String sql;
-           sql = "SELECT answer_id, user_id, content, vote, create_date FROM answer WHERE question_id=" + questionId;
+           sql = "SELECT answer_id, question_id, user_id, content, create_date, SUM( vote ) AS vote" +
+                " FROM (" +
+                    " SELECT q.answer_id AS answer_id, q.question_id AS question_id, q.user_id AS user_id, content, create_date, IFNULL( vq.value, 0 ) AS vote" +
+                    " FROM answer AS q" +
+                    " LEFT OUTER JOIN vote_answer AS vq ON q.answer_id = vq.answer_id" +
+                    " ) AS a" +
+                " WHERE question_id = " + questionId +
+                " GROUP BY answer_id" +
+                " ORDER BY vote, create_date DESC";
             //STEP 5: Extract data from result set
             try (ResultSet rs = stmt.executeQuery(sql)) {
                 //STEP 5: Extract data from result set

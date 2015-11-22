@@ -274,7 +274,15 @@ public class QuestionModel {
            //STEP 4: Execute a query
            stmt = (Statement) conn.createStatement();
            String sql;
-           sql = "SELECT question_id, user_id, title, content, vote, create_date FROM question WHERE question_id=" + id;
+           sql = "SELECT question_id, user_id, title, content, create_date, SUM( vote ) AS vote" +
+                " FROM (" +
+                    " SELECT q.question_id AS question_id, q.user_id AS user_id, title, content, create_date, IFNULL( vq.value, 0 ) AS vote" +
+                    " FROM question AS q" +
+                    " LEFT OUTER JOIN vote_question AS vq ON q.question_id = vq.question_id" +
+                    " ) AS a" +
+                " WHERE question_id = " + id +
+                " GROUP BY question_id" +
+                " ORDER BY create_date DESC";
             //STEP 5: Extract data from result set
             try (ResultSet rs = stmt.executeQuery(sql)) {
                 //STEP 5: Extract data from result set
@@ -332,7 +340,14 @@ public class QuestionModel {
            //STEP 4: Execute a query
            stmt = (Statement) conn.createStatement();
            String sql;
-           sql = "SELECT question_id, user_id, title, content, vote, create_date FROM question";
+           sql = "SELECT question_id, user_id, title, content, create_date, SUM( vote ) AS vote" +
+                " FROM (" +
+                    " SELECT q.question_id AS question_id, q.user_id AS user_id, title, content, create_date, IFNULL( vq.value, 0 ) AS vote" +
+                    " FROM question AS q" +
+                    " LEFT OUTER JOIN vote_question AS vq ON q.question_id = vq.question_id" +
+                    " ) AS a" +
+                " GROUP BY question_id" +
+                " ORDER BY create_date DESC";
             //STEP 5: Extract data from result set
             try (ResultSet rs = stmt.executeQuery(sql)) {
                 //STEP 5: Extract data from result set
