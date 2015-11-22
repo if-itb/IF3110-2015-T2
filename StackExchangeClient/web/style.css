@@ -7,11 +7,19 @@
 
 
 .login {
-    width: 200px;
-    height: 85px;
+    width:50%;
+    margin:auto;
+    padding:1% 5% 5% 5%; 
 }
 form.login-form > input[type="text"]{
-    display:block;
+    margin: auto;
+    display: block;
+    width: 99%;
+}
+form.login-form > input[type="password"]{
+    margin: auto;
+    display: block;
+    width: 99%;
 }
 form.login-form > input[type="checkbox"]{
     width: 13px;
