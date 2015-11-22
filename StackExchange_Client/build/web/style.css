@@ -7,7 +7,7 @@ body{
 .container{
     margin-left: 15%;
     margin-right: 15%;
-    width: 100%;
+    width: 75%;
     height: auto;
 }
 
@@ -192,6 +192,7 @@ body{
     border-right: 1px solid black;
     padding-right: 3px;
 }
+/*
 .edit{
     font-family: 'Dosis',sans-serif;
     background: none;
@@ -204,7 +205,7 @@ body{
 }
 .edit:hover{
     cursor: pointer;
-}
+}*/
 .delete{
     color: red;
     display: inline-block;
@@ -312,36 +313,23 @@ a{
     height: 100%;
 }
 
-/*Nilta*/
-.question-block {
-    position: relative;
-    height: 85px;
-    vertical-align: middle;
-}
-.q-votes, .q-answers, .q-topic-content {
-    display: inline-block;
-}
-.q-votes, .q-answers {
-    text-align: center;
-    margin-top: 15px;
-    width: 10%;
-}
-.q-topic-content {
-    width: 75%;
-    vertical-align: top;
-    margin-left: 10px;
-}
-.q-content {
-    font-size: 13px;
-}
-.q-topic {
-    font-weight: 700;
-    font-size: 17px;
-}
 .details {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    font-size: 13px;
-    color: rgb(75,75,75);
+	right: 0;
+	bottom: 5px;
+}
+
+.edit {
+    border-right: 1px solid black;
+    padding: 0 5px;
+    color: darkorange;
+}
+.delete {
+    padding: 0 5px;
+}
+
+.question-block {
+	position: relative;
+	height: 85px;
+	vertical-align: middle;
 }

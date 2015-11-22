@@ -129,8 +129,8 @@ public class AnswerWS {
     public void addAnswer (@WebParam(name = "a") Answer a) {
         try{
             Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO answer (question_id,user_id,content) VALUES("+
-                    a.getQuestionID() + "," + a.getUserID() + "," + a.getContent() + ")";
+            String sql = "INSERT INTO answer (question_id,user_id,content) VALUES ("+
+                    a.getQuestionID() + "," + a.getUserID() + ",'" + a.getContent() + "')";
             stmt.executeUpdate(sql);
             stmt.close();
         } catch (SQLException ex) {

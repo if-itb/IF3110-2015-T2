@@ -82,8 +82,8 @@ public class QuestionWS {
         try {
                 
             Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO question(topic,content,user_id) VALUES("+
-                    q.getTopic() + "," + q.getContent() + "," + q.getUserID() + ")";
+            String sql = "INSERT INTO question(topic,content,user_id) VALUES ('"+
+                    q.getTopic() + "','" + q.getContent() + "'," + q.getUserID() + ")";
             stmt.executeUpdate(sql);
             stmt.close();
         } catch (SQLException ex) {
@@ -100,8 +100,8 @@ public class QuestionWS {
         try {
                 
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE question SET topic = "+
-                    q.getTopic() + ", content = " + q.getContent() + " WHERE question_id = " + q.getQuestionID();
+            String sql = "UPDATE question SET topic = '"+
+                    q.getTopic() + "', content = '" + q.getContent() + "' WHERE question_id = " + q.getQuestionID();
             stmt.executeUpdate(sql);
             stmt.close();
         } catch (SQLException ex) {

@@ -4,15 +4,17 @@
 
 <xs:element name="addQuestion" type="tns:addQuestion"/>
 
+<xs:element name="editQuestion" type="tns:editQuestion"/>
+
 <xs:element name="getAllQuestions" type="tns:getAllQuestions"/>
 
 <xs:element name="getAllQuestionsResponse" type="tns:getAllQuestionsResponse"/>
 
-<xs:element name="getQuestion" type="tns:getQuestion"/>
+<xs:element name="getQuestionByID" type="tns:getQuestionByID"/>
 
-<xs:element name="getQuestionResponse" type="tns:getQuestionResponse"/>
+<xs:element name="getQuestionByIDResponse" type="tns:getQuestionByIDResponse"/>
 
-<xs:complexType name="addQuestion">
+<xs:complexType name="editQuestion">
 <xs:sequence>
 <xs:element name="q" type="tns:question" minOccurs="0"/>
 </xs:sequence>
@@ -20,12 +22,18 @@
 
 <xs:complexType name="question">
 <xs:sequence>
+<xs:element name="content" type="xs:string"/>
+<xs:element name="create_time" type="xs:string"/>
 <xs:element name="question_id" type="xs:int"/>
 <xs:element name="topic" type="xs:string"/>
-<xs:element name="content" type="xs:string"/>
 <xs:element name="user_id" type="xs:int"/>
-<xs:element name="create_time" type="xs:string"/>
 <xs:element name="vote" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addQuestion">
+<xs:sequence>
+<xs:element name="q" type="tns:question" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -39,13 +47,13 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getQuestion">
+<xs:complexType name="getQuestionByID">
 <xs:sequence>
 <xs:element name="question_id" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getQuestionResponse">
+<xs:complexType name="getQuestionByIDResponse">
 <xs:sequence>
 <xs:element name="Question" type="tns:question" minOccurs="0"/>
 </xs:sequence>

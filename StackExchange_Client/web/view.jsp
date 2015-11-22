@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:useBean id="question" type="QuestionWS.Question" scope="request"/>
+<jsp:useBean id="question" type="model.question.Question" scope="request"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +16,7 @@
     </head>
     <body>
         <div class="container">
-            <a href="home.php"><h1>Simple StackExchange</h1></a>
+            <a href="index"><h1>Simple StackExchange</h1></a>
             <div class="content">
                 <h2><%= question.getTopic() %></h2>
                 <div class="voting">
@@ -52,10 +52,10 @@
 
             <div class="content" style="margin-top:30px;">
 		<div class="grey-title">Your Answer</div>
-                <form method="post" name="saveanswer" action="question.php">
-                    <input type="text" class="input-group" placeholder="Name" name="name_ans">
-                    <input type="text" class="input-group" placeholder="Email" name="email_ans">
-                    <textarea placeholder="Content" rows="5" name="content_ans"></textarea>
+                <form method="post" name="saveanswer" action="addAnswer">
+                    <input type="hidden" name="question_id" value="<%= question.getQuestionId() %>">
+                    <input type="hidden" name="user_id" value="1">
+                    <textarea placeholder="Content" rows="5" name="content"></textarea>
                     <div class="button-bottom">
                         <button type="submit" name="saveanswer" value="Submit">Post</button>
                     </div>
