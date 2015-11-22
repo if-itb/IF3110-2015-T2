@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -99,27 +100,46 @@ public class StackExchange {
      * @return Boolean true if success, false otherwise     
      */
     @WebMethod(operationName = "addQuestion")
-    public boolean addQuestion(
+    public Question addQuestion(
             @WebParam(name = "idUser") final int idUser,
             @WebParam(name = "topic") final String topic,
             @WebParam(name = "content") final String content) {
-        boolean success = false;        
+        Question question = null;
         try {
-            String sql = "INSERT INTO"
+            String query = "INSERT INTO "
                     + "question (id_user, topic, content)"
                     + "VALUES (?, ?, ?)";                        
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setInt(1, idUser);
                 statement.setString(2, topic);
-                statement.setString(3, content);
-                
-                success = statement.executeUpdate() > 0;
+                statement.setString(3, content);                
+                if (statement.executeUpdate() > 0) {
+                    ResultSet result = statement.getGeneratedKeys();
+                    if (result.next()) {
+                        int id = result.getInt(1);
+                        query = "SELECT * FROM question WHERE id = ?";
+                        try (PreparedStatement selectStatement = connection.prepareStatement(query)) {
+                            selectStatement.setInt(1, id);
+                            ResultSet questionSet = selectStatement.executeQuery();
+                            if (questionSet.next()) {
+                                question = new Question(
+                                questionSet.getInt("id"),
+                                questionSet.getInt("id_user"),
+                                questionSet.getString("topic"),
+                                questionSet.getString("content"),
+                                questionSet.getInt("votes"),
+                                questionSet.getString("timestamp")
+                                );
+                            }
+                        }
+                    }
+                }
             }
         }
         catch (SQLException ex) {
             Logger.getLogger(StackExchange.class.getName()).log(Level.SEVERE, null, ex);            
         }        
-        return success;
+        return question;
     }
 
     /**

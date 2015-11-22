@@ -10,11 +10,9 @@
     <div class="container">
         <h2>What's your question?</h2>
         <hr class="heading">
-        <form onsubmit="return validate()" action="" method="post">
-            <input type="text" name="name" placeholder="Name" autofocus value="${empty asker? "" : asker.name}"></input>
-            <input type="text" name="email" placeholder="Email" value="${empty asker? "" : asker.email}"></input>
-            <input type="text" name="topic" placeholder="Question Topic" value="${empty question? "" : question.topic}"></input>
-            <textarea  name="content" placeholder="Content" rows="7">${empty question? "" : question.content}</textarea>
+        <form method="post">
+            <input type="text" name="topic" placeholder="Question Topic" value="${empty question? "" : question.topic}" required autofocus></input>
+            <textarea  name="content" placeholder="Content" rows="7" required>${empty question? "" : question.content}</textarea>
             <input type="submit" class="btn-default btn-right" value="Post"></input>
             <c:if test="${not empty edit_question}">
             <input type="hidden" name="id" value="${question.id}"></input>
