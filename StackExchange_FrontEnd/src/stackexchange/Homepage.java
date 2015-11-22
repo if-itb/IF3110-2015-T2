@@ -30,7 +30,7 @@ public class Homepage extends HttpServlet {
         String requestResponse = HttpRequest.executeMethod("getAllQuestions", requestParams);
 
         // Add method parameters
-        Collections.addAll(params, "content", "createDate", "title", "userId", "vote");
+        Collections.addAll(params, "content", "createDate", "title", "userId", "questionId", "vote");
 
         // Get soap response
         ArrayList< HashMap<String, String> > responseParams = XmlParser.parse(requestResponse, params);
@@ -45,6 +45,7 @@ public class Homepage extends HttpServlet {
 
         if (request.getParameter("token") != null && !request.getParameter("token").isEmpty()){
             request.setAttribute("login", "true");
+            request.setAttribute("token", request.getParameter("token"));
         }
 
         response.setContentType("text/html;charset=UTF-8");
