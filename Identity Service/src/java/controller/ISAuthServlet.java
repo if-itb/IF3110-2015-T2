@@ -28,7 +28,7 @@ import org.json.simple.JSONObject;
  * @author Acer
  */
 @WebServlet(name = "AuthServlet", urlPatterns = {"/auth"})
-public class AuthServlet extends HttpServlet {
+public class ISAuthServlet extends HttpServlet {
 
     private final Connection conn = DB.connect();
     /**

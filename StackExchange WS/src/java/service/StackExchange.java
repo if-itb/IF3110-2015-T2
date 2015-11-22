@@ -428,6 +428,7 @@ public class StackExchange {
      * @return 
      */
     @WebMethod(operationName = "addUser")
+    @WebResult(name = "User")
     public boolean addUser(
             @WebParam(name = "name") String name,
             @WebParam(name = "email") String email,

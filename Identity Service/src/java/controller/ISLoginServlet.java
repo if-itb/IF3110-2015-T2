@@ -28,7 +28,7 @@ import org.json.simple.JSONObject;
  *
  * @author Adz
  */
-public class LoginServlet extends HttpServlet {
+public class ISLoginServlet extends HttpServlet {
 
     Connection conn = DB.connect();
 
@@ -86,7 +86,7 @@ public class LoginServlet extends HttpServlet {
             out.println(object.toString());
         }
         catch(SQLException ex){
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ISLoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }       
     }
 
@@ -105,7 +105,7 @@ public class LoginServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ISLoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -123,7 +123,7 @@ public class LoginServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ISLoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
