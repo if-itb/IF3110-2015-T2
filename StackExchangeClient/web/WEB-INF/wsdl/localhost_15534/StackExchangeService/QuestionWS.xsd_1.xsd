@@ -26,6 +26,10 @@
 
 <xs:element name="getVoteByIdResponse" type="tns:getVoteByIdResponse"/>
 
+<xs:element name="isVoted" type="tns:isVoted"/>
+
+<xs:element name="isVotedResponse" type="tns:isVotedResponse"/>
+
 <xs:element name="voteDown" type="tns:voteDown"/>
 
 <xs:element name="voteDownResponse" type="tns:voteDownResponse"/>
@@ -52,6 +56,7 @@
 <xs:element name="date" type="xs:string"/>
 <xs:element name="username" type="xs:string"/>
 <xs:element name="vote" type="xs:int"/>
+<xs:element name="answer" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -77,6 +82,19 @@
 <xs:complexType name="voteUpResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="isVoted">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+<xs:element name="username" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="isVotedResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

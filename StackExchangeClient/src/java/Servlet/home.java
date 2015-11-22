@@ -1,9 +1,7 @@
-package Question;
+package Servlet;
 
-import AnswerWS.AnswerWS_Service;
 import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,22 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
 
-public class viewpostServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_15534/StackExchangeService/AnswerWS.wsdl")
-    private AnswerWS_Service service_1;
+public class home extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_15534/StackExchangeService/QuestionWS.wsdl")
     private QuestionWS_Service service;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        
-        java.util.List<QuestionWS.Question> result = getQuestionByQID(id);
+        java.util.List<QuestionWS.Question> result = getQuestions();
         request.setAttribute("result", result);
-        
-        java.util.List<AnswerWS.Answer> answers = getAnswerByQID(id);
-        request.setAttribute("answers", answers);
-        
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/viewpost.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -69,18 +59,18 @@ public class viewpostServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private java.util.List<QuestionWS.Question> getQuestionByQID(int qid) {
+    private java.util.List<QuestionWS.Question> getQuestions() {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.getQuestionByQID(qid);
+        return port.getQuestions();
     }
 
-    private java.util.List<AnswerWS.Answer> getAnswerByQID(int qid) {
+    private int getAnswerById(int qid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
-        return port.getAnswerByQID(qid);
+        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        return port.getAnswerById(qid);
     }
 
 }

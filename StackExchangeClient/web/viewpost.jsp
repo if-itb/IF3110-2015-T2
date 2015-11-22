@@ -13,7 +13,7 @@
         <div class="container">
             <h1>Simple StackExchange</h1><br>
             <c:forEach items="${result}" var="question">
-            <h2>${question.topic}</h2><br>    
+            <h2>${question.topic}</h2><br>  
             <table>
 		<tr>
                     <td style="width:15%; text-align:center">
@@ -27,9 +27,9 @@
 		</tr>
             </table>
             <p style="text-align:right">asked by ${question.username} at ${question.date} | edit | delete</p>
-            <h2>? Answer</h2><br>
+            <h2>${count} Answer</h2><br>
             </c:forEach>
-              
+
             <table>
                 <c:forEach items="${answers}" var="answer">
                     <tr style="border-bottom:2px solid #000">
@@ -46,7 +46,7 @@
             </table>
             
             <br><p style="font-size:30px; margin:0; color:grey"> Your Answer </p>
-            <form name="AnswerForm" method="POST">
+            <form name="AnswerForm" action="addanswer" method="POST">
 		<input type="text" name="name" id="inputtext1" placeholder="Name"><br>
 		<input type="text" name="email" id="inputtext1" placeholder="Email"><br>
 		<textarea name="content" id="content" placeholder="Content"></textarea><br><br>
