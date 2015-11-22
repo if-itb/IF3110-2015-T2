@@ -91,7 +91,9 @@ public class Identity extends HttpServlet {
         JSONObject json = new JSONObject();
         String token = request.getParameter("token");
         HttpSession session = request.getSession(true);
-        if(session.getAttribute("token").equals(token)){
+        Object tokenSession = session.getAttribute("token");
+        
+        if((tokenSession != null) && (tokenSession.equals(token))){
             int id_user = (int) session.getAttribute("id_user");
             json.put("status", "ok");
             json.put("id_user", id_user);
@@ -145,7 +147,7 @@ public class Identity extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet for serving identity service";
     }// </editor-fold>
 
 }
