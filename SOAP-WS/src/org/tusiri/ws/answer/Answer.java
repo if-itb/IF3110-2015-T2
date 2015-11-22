@@ -27,9 +27,7 @@ public class Answer {
 		PreparedStatement stmt = dbc.getDBStmt();
 		Connection conn = dbc.getConn();
 		try{
-			String sql = "SELECT *,user.username as username FROM answer "
-					+ "INNER JOIN user ON answer.id_user = user.id_user "
-					+ "WHERE id_question = ?";
+			String sql = "SELECT * FROM answer NATURAL JOIN user WHERE id_question = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id_question);
 			System.out.println(stmt);
@@ -43,7 +41,7 @@ public class Answer {
 				int id_user = rs.getInt("id_user");
 				String content = rs.getString("content");
 				String answer_date = rs.getString("answer_date");
-				int num_votes = rs.getInt("num_votes");
+				int num_votes = rs.getInt("num_vote");
 				String username = rs.getString("username");
 				
 				AnswerItem a = new AnswerItem(num_answer,id_question,id_user,content,answer_date,num_votes,username);

@@ -242,8 +242,8 @@ public class Question {
 				String content = rs.getString("content");
 				String question_date = rs.getDate("question_date").toString();
 				String topic = rs.getString("topic");
-				int num_vote = rs.getInt("num_vote");
 				String username = rs.getString("username");
+				int num_vote = rs.getInt("num_vote");
 				int num_answer = rs.getInt("num_answer");
 				
 				q.setIDQuestion(id_question);
@@ -251,9 +251,10 @@ public class Question {
 				q.setContent(content);
 				q.setQuestionDate(question_date);
 				q.setTopic(topic);
-				q.setNumVote(num_vote);
 				q.setUsername(username);
+				q.setNumVote(num_vote);
 				q.setNumAnswer(num_answer);
+				System.out.println(q.getNumVote());
 			}
 		} catch(Exception e){
 			//Handle errors for Class.forName

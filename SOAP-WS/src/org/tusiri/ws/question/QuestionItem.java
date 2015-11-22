@@ -78,8 +78,8 @@ public class QuestionItem {
 		return num_vote;
 	}
 
-	public void setNumVote(int num_vote) {
-		this.num_vote = num_vote;
+	public void setNumVote(int vote) {
+		this.num_vote = vote;
 	}
 	
 	@XmlElement(name = "num_answer")
@@ -87,7 +87,7 @@ public class QuestionItem {
 		return num_answer;
 	}
 
-	public void setNumAnswer(int num_answer) {
-		this.num_vote = num_answer;
+	public void setNumAnswer(int n_answer) {
+		this.num_answer = n_answer;
 	}
 } 
