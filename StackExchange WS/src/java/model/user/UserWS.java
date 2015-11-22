@@ -37,9 +37,11 @@ public class UserWS {
     @Oneway
     public void addUser(@WebParam(name = "u") User u) {
         try{
-            Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO user(name,email,password) VALUES("+
-                    u.getName() + "," + u.getEmail() + "," + u.getPassword() +")";
+            String sql = "INSERT INTO user(name,email,password) VALUES(?,?,?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1,u.getName());
+            stmt.setString(2,u.getEmail());
+            stmt.setString(3,u.getPassword());
             stmt.executeUpdate(sql);
             stmt.close();
         } catch (SQLException ex) {
@@ -56,10 +58,11 @@ public class UserWS {
     public User getUserByID (@WebParam(name = "user_id") int user_id) {
         ArrayList<User> user = new ArrayList<User>();
         try{
-            Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM user WHERE user_id = "+user_id;
-            ResultSet rs = stmt.executeQuery(sql);
+            sql = "SELECT * FROM user WHERE user_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1,user_id);
+            ResultSet rs = stmt.executeQuery();
             
             /* Get every data returned by SQL query */
             while(rs.next()){
