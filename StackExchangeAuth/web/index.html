@@ -11,6 +11,20 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <h1>Create token</h1>
+        <form action="/StackExchageAuth/Call" method="POST">
+            <input name="uname" type="text" placeholder="username" />
+            <input name="pass" type="password" placeholder="password" />
+            <input name="submit" type="submit" value="submit" />
+        </form>
+        
+        <hr>
+        <br>
+        <h1>Check token</h1>
+        <form action="/StackExchangeAuth/Call" method="POST">
+            <input name="token_string" type="text" placeholder="token_string" />
+            <input name="submit" type="submit" value="check" />
+        </form>
+        
     </body>
 </html>
