@@ -7,12 +7,35 @@ function prepare(){
     }
 };
 
+function changeUp(status){
+	if(status==1){
+		return 0;
+	}
+	else{
+		return 1;
+	}
+}
+
+function changeDown(status){
+	if(status==-1){
+		return 0;
+	}
+	else{
+		return -1;
+	}
+}
+
 function VoteUp(bool,id){
     prepare();
     xmlhttp.onreadystatechange=function() {
         if (xmlhttp.readyState==4 && xmlhttp.status==200) {
             if(bool) {
+            	var up = document.getElementById("q_up").src;
+            	var res = up.substr(45);
+            	var changed = changeUp(res.slice(0,-4));
                 document.getElementById("q_vote"+id).innerHTML = xmlhttp.responseText;
+                document.getElementById("q_up").src = "assets/img/up"+changed+".png";
+                document.getElementById("q_down").src = "assets/img/down"+changed+".png";
             }
             else{
                 document.getElementById("vote"+id).innerHTML = xmlhttp.responseText;
@@ -33,7 +56,13 @@ function VoteDown(bool,id){
     xmlhttp.onreadystatechange=function() {
         if (xmlhttp.readyState==4 && xmlhttp.status==200) {
             if(bool) {
+            	var down = document.getElementById("q_down").src;
+            	var res = down.substr(45);
+            	var changed = changeDown(res.slice(0,-4));
+            	
                 document.getElementById("q_vote"+id).innerHTML = xmlhttp.responseText;
+                document.getElementById("q_up").src = "assets/img/up"+changeDown(status)+".png";
+                document.getElementById("q_down").src = "assets/img/down"+changeDown(status)+".png";
             }
             else{
                 document.getElementById("vote"+id).innerHTML = xmlhttp.responseText;

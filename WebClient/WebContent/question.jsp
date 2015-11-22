@@ -16,23 +16,37 @@
     <jsp:include page="Header.jsp" flush="true">
 		<jsp:param name="pageTitle" value="Question" />
 	</jsp:include>
+	<script src="assets/js/vote.js"></script>
 	
+</head>
+<body class="contact">
 	<% 
+		Cookie cookie = null;
+		Cookie[] cookies = null;
+		String access_token = null;
+		// Get an array of Cookies associated with this domain
+		cookies = request.getCookies();
+		if( cookies != null ){
+			for (int i = 0; i < cookies.length; i++){
+				cookie = cookies[i];
+				if(cookie.getName().equals("access_token")){
+					access_token = cookie.getValue();
+					break;
+				}
+			}
+		} else {
+			//Redirect to signin
+		}
+	
 		int q_id = Integer.parseInt(request.getParameter("q_id"));
 		QuestionService qservice = new QuestionService();
 		Question qs = qservice.getQuestionPort();
-		QuestionItem q = qs.getQuestionInfo(q_id);
+		QuestionItem q = qs.getQuestionInfo(access_token,q_id);
 		
 		AnswerService aservice = new AnswerService();
 		Answer as = aservice.getAnswerPort();
 		List<AnswerItem> a = as.getAnswerList(q_id);
 	%>
-	
-	<script src="assets/js/vote.js"></script>
-	
-</head>
-<body class="contact">
-	
 	
 	<div id="page-wrapper">
 		<!-- Header -->
@@ -48,9 +62,9 @@
 					<div class = 'only_q'>
 						<div class = 'a_left'>
 							<div class = 'vote_buttons'>
-								<div class='up_button' onclick='VoteUp(true,<%=q_id%>)'><img src='assets/img/up.png' width='30' height='30'></div>
+								<div class='up_button' onclick='VoteUp(true,<%=q_id%>)'><img id='q_up' src='assets/img/up<%=q.getStatus() %>.png' width='30' height='30'></div>
 									<div class = 'vote' id='q_vote<%=q_id%>'><%= q.getNumVote() %></div>
-								<div class='down_button' onclick='VoteDown(true,<%=q_id%>)'><img src='assets/img/down.png' width='30' height='30'></div>
+								<div class='down_button' onclick='VoteDown(true,<%=q_id%>)'><img id='q_down' src='assets/img/down<%=q.getStatus() %>.png' width='30' height='30'></div>
 							</div>
 						</div>
 						<div class = 'a_mid'>
@@ -71,16 +85,16 @@
 					<div class = 'row q_or_a'>
 						<div class = 'a_left'>
 							<div class = 'vote_buttons'>
-								<div class='up_button' onclick='VoteUp(false,<%=a.get(i).getNumAnswer()%>)'><img src='assets/img/up.png' width='30' height='30'></div>
+								<div class='up_button' onclick='VoteUp(false,<%=a.get(i).getNumAnswer()%>)'><img src='assets/img/up0.png' width='30' height='30'></div>
 									<div class = 'vote' id='vote<%=a.get(i).getNumAnswer()%>'><%= a.get(i).getNumVotes() %></div>
-								<div class='down_button' onclick='VoteUp(false,<%=a.get(i).getNumAnswer()%>)'><img src='assets/img/down.png' width='30' height='30'></div>
+								<div class='down_button' onclick='VoteUp(false,<%=a.get(i).getNumAnswer()%>)'><img src='assets/img/down0.png' width='30' height='30'></div>
 							</div>
 						</div>
 						<div class = 'a_mid'>
 							<div class = 'a_content'><%= a.get(i).getContent() %></div>
 						</div>
 						<div class = 'details'>Answered by 
-							<span class = 'b_link'><%= q.getUsername() %> </span>
+							<span class = 'b_link'><%= a.get(i).getUsername() %> </span>
 						</div>
 					</div>
 				<%} %>

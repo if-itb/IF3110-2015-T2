@@ -17,6 +17,7 @@ public class QuestionItem {
 	private int num_vote;
 	private String username;
 	private int num_answer;
+	private int status;
 	
 	
 	@XmlElement(name = "id_question")
@@ -89,5 +90,14 @@ public class QuestionItem {
 
 	public void setNumAnswer(int n_answer) {
 		this.num_answer = n_answer;
+	}
+	
+	@XmlElement(name = "status")
+	public int getStatus() {
+		return status;
+	}
+	
+	public void setStatus(int s){
+		this.status = s;
 	}
 } 

@@ -225,39 +225,55 @@ public class Question {
 	}
 
 	@WebMethod
-	public QuestionItem getQuestionInfo(int id_question) {
-		
+	public QuestionItem getQuestionInfo(String access_token, int id_question)throws ClientProtocolException, IOException, ParseException {
 		QuestionItem q = new QuestionItem();
-		DBConnection dbc = new DBConnection();
-		PreparedStatement stmt = dbc.getDBStmt();
-		Connection conn = dbc.getConn();
 		
-		try{
-			String sql = "SELECT * FROM question NATURAL JOIN user WHERE id_question = ?";
-			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, id_question);
-			ResultSet rs = stmt.executeQuery();
-			if(rs.next()){
-				int id_user  = rs.getInt("id_user");
-				String content = rs.getString("content");
-				String question_date = rs.getDate("question_date").toString();
-				String topic = rs.getString("topic");
-				String username = rs.getString("username");
-				int num_vote = rs.getInt("num_vote");
-				int num_answer = rs.getInt("num_answer");
+		try {
+			CheckTokenValidity checker = new CheckTokenValidity(access_token);
+			TokenValidity validity = checker.check();
+		
+			if(validity.getIsValid()){
 				
-				q.setIDQuestion(id_question);
-				q.setIDUser(id_user);
-				q.setContent(content);
-				q.setQuestionDate(question_date);
-				q.setTopic(topic);
-				q.setUsername(username);
-				q.setNumVote(num_vote);
-				q.setNumAnswer(num_answer);
-				System.out.println(q.getNumVote());
+				DBConnection dbc = new DBConnection();
+				PreparedStatement stmt = dbc.getDBStmt();
+				Connection conn = dbc.getConn();
+		
+				try{
+					String sql = "SELECT * FROM question NATURAL JOIN user INNER JOIN (SELECT status FROM question_vote WHERE id_user=? AND id_question=?) as GOO ON id_question=?";
+					stmt = conn.prepareStatement(sql);
+					stmt.setInt(1, validity.getIdUser());
+					stmt.setInt(2, id_question);
+					stmt.setInt(3, id_question);
+					ResultSet rs = stmt.executeQuery();
+					if(rs.next()){
+						int id_user  = rs.getInt("id_user");
+						String content = rs.getString("content");
+						String question_date = rs.getDate("question_date").toString();
+						String topic = rs.getString("topic");
+						String username = rs.getString("username");
+						int num_vote = rs.getInt("num_vote");
+						int num_answer = rs.getInt("num_answer");
+						int status = rs.getInt("status");
+						
+						q.setIDQuestion(id_question);
+						q.setIDUser(id_user);
+						q.setContent(content);
+						q.setQuestionDate(question_date);
+						q.setTopic(topic);
+						q.setUsername(username);
+						q.setNumVote(num_vote);
+						q.setNumAnswer(num_answer);
+						q.setStatus(status);
+						System.out.println(q.getStatus());
+					}
+				} catch(Exception e){
+					//Handle errors for Class.forName
+					e.printStackTrace();
+				}
 			}
-		} catch(Exception e){
-			//Handle errors for Class.forName
+		}catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return q;
