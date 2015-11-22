@@ -2,8 +2,8 @@
 	<title><%= request.getParameter("pageTitle") %></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<base href="http://localhost:8080/WebClient/index.jsp"/>
-	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="assets/js/jquery-1.11.3.min.js"></script>
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
     
     <!-- js -->
     <script src="assets/js/jquery.js"></script>
@@ -51,6 +51,8 @@
 
 <script>
 function checkToken(){
+	var user_buttons = document.getElementsByClassName("user");
+	console.log(user_buttons.length);
 	var tokenData = {access_token:"<%= access_token %>"}
 	
 	<%
@@ -69,6 +71,9 @@ function checkToken(){
                   var valid = data.valid;
                   var id = data.id_user;
                   if(valid){
+                	   for (var i = 0; i < user_buttons.length; i ++) {
+                		   user_buttons[i].style.display='block';
+                		}
 	               	   var element = document.getElementById('signin');
 	               	   element.setAttribute('href','signout.jsp');
 	               	   var str = $('a#signin').text('Sign Out');
