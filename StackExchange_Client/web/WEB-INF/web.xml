@@ -8,6 +8,10 @@
         <servlet-name>AddAnswer</servlet-name>
         <servlet-class>Answer.AddAnswerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VoteServlet</servlet-name>
+        <servlet-class>Vote.VoteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>QuestionListServlet</servlet-name>
         <url-pattern>/index</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>AddAnswer</servlet-name>
         <url-pattern>/addAnswer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VoteServlet</servlet-name>
+        <url-pattern>/vote</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

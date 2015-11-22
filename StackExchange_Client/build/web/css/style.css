@@ -154,3 +154,63 @@ textarea {
   margin-top: 10px;
   float: right;
 }
+
+.voting {
+	display: inline-block;
+	width: 15%;
+	height: 75px;
+	position: relative;
+}
+.arrow-up {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 10px 10px 10px;
+	border-color: transparent transparent #d4d4d4 transparent;
+	position: absolute;
+	vertical-align: top;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
+.arrow-down {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 10px 10px 0 10px;
+	border-color: #d4d4d4 transparent transparent transparent;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	vertical-align: bottom;
+}
+.arrow-up:hover, .arrow-up:focus {
+	border-color: transparent transparent #a5a5a5 transparent;
+}
+.arrow-down:hover, .arrow-down:focus {
+	border-color: #a5a5a5 transparent transparent transparent;
+}
+.vote-number {
+    font-size: 25px;
+    color: #a5a5a5;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.arrow-up, .arrow-down {
+    cursor: pointer;
+}
+
+.question-content {
+	vertical-align: top;
+	display: inline-block;
+	width: 80%;
+	margin-bottom: 40px;
+}

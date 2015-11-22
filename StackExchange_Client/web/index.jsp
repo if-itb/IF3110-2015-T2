@@ -43,8 +43,10 @@
                         <div class=answertext">Answers</div>
                     </div>
                     <div class="questionpart">
-                        <div class="qtopic"><a href="view?id=<%= question.getQuestionId() %>"><%= question.getTopic() %></a></div>
-                        <div class="qcontent"><%= question.getContent() %></div>
+                        <% String topic = question.getTopic(); if (topic.length() > 153) topic = topic.substring(0,150)+ "..."; %>
+                        <div class="qtopic"><a href="view?id=<%= question.getQuestionId() %>"><%= topic %></a></div>
+                        <% String content = question.getContent();if (content.length() > 503) content = content.substring(0,500)+"..."; %>
+                        <div class="qcontent"><%= content %></div>
                     </div>
                     <% model.user.User user = users.get(question.getUserId()); %>
                     <div class="details">

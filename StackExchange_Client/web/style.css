@@ -167,7 +167,7 @@ body{
 }
 .questionpart{
     display: inline-block;
-    width: 600px;
+    width: 75%;
 }
 .qtopic{
     font-size: 12pt;
@@ -175,7 +175,7 @@ body{
 }
 .qcontent{
     font-size: 10pt;
-    text-align: justify;
+    text-align: left;
 }
 .labelunder{
     right: 15%;

@@ -20,11 +20,11 @@
             <div class="content">
                 <h2><%= question.getTopic() %></h2>
                 <div class="voting">
-                    <div class="arrow-up"></div>
-                    <div id="vote-q"><p><%= question.getVote() %></p></div>
-                    <div class="arrow-down"></div>
+                    <div class="arrow-up" onclick="return vote(<%= question.getQuestionId() %>,1,1,'question')"></div>
+                    <div class="vote-number" id="vote-q<%= question.getQuestionId() %>"><%= question.getVote() %></div>
+                    <div class="arrow-down" onclick="return vote(<%= question.getQuestionId() %>,2,-1,'question')"></div>
 		</div>
-		<div class="answer-content">
+		<div class="question-content">
                     <p><%= question.getContent() %></p>
 		</div>
 		<div class="question-sign">
@@ -62,5 +62,7 @@
                 </form>
             </div>
 	</div>
+                    
+    <script src="js/functions.js"></script>
     </body>
 </html>
