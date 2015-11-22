@@ -4,7 +4,7 @@ body{
 
 @font-face {
     font-family: "LakkyReddy";
-    src: url('LakkiReddy-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
+    src: url('/assets/font/LakkiReddy-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 
 #logo-container{
@@ -27,7 +27,7 @@ body{
 }
 
 .question-close {
-    opacity: 0;
+    /*opacity: 0;*/
     line-height: 2rem;
     width: 2rem;
     height: 2rem;
@@ -88,21 +88,21 @@ section#answer .card .fixed-action-btn > .btn-floating{
 }
 
 .thumbs-num{
-    position:absolute;
-    top:-1.1em;
-    left:1.6em;
+    /*position:absolute;*/
+    /*top:-1.1em;*/
+    /*left:1.6em;*/
     border-radius: 0;
-    padding:4px 6px;
+    padding:7px 9px;
     overflow: visible;
     width: auto;
     height: auto;
     line-height: 1;
 }
 
-section#question .card .fixed-action-btn.horizontal ul li:not(:last-child),
-section#answer .card .fixed-action-btn.horizontal ul li{
-    margin: 15px 45px 0 0;
-}
+/*section#question .card .fixed-action-btn.horizontal ul li:not(:last-child),*/
+/*section#answer .card .fixed-action-btn.horizontal ul li{*/
+    /*margin: 15px 45px 0 0;*/
+/*}*/
 
 #question-title{
     width:90%;
@@ -111,4 +111,9 @@ section#answer .card .fixed-action-btn.horizontal ul li{
 #answer-title{
     width:90%;
     margin:0 auto;
+}
+#answer-btn{
+    position:relative;
+    top:-2em;
+    right:2em;
 }

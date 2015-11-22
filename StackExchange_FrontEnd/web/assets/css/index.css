@@ -11,7 +11,7 @@ body{
 }
 @font-face {
     font-family: "LakkyReddy";
-    src: url('LakkiReddy-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
+    src: url('/assets/font/LakkiReddy-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 
 .btn,
@@ -73,9 +73,9 @@ input[type=text]:focus:not([readonly]) + label, input[type=password]:focus:not([
     font-style: italic;
 }
 
-section#recent-post .card .fixed-action-btn.horizontal ul li{
-    margin: 15px 45px 0 0;
-}
+/*section#recent-post .card .fixed-action-btn.horizontal ul li{*/
+    /*margin: 15px 45px 0 0;*/
+/*}*/
 section#recent-post .card:hover .question-close{
     opacity: 1;
 }
@@ -103,11 +103,11 @@ section#recent-post .fixed-action-btn ul {
 }
 
 .thumbs-num{
-    position:absolute;
-    top:-1.1em;
-    left:1.6em;
+    /*position:absolute;*/
+    /*top:-1.1em;*/
+    /*left:1.6em;*/
     border-radius: 0;
-    padding:4px 6px;
+    padding:7px 9px;
     overflow: visible;
     width: auto;
     height: auto;
