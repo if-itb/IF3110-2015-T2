@@ -35,12 +35,8 @@
 	
 	<script>
 	function checkToken(){
-		var tokenData = {access_token:"<%= access_token %>"}
 		<%
 			String checkTokenUrl = "http://localhost:8080/REST-WS/rest/token-validity/getQuestionAccessValidity";
-			if(request.getParameter("validityUrl")!=null){
-				checkTokenUrl += request.getParameter("validityUrl");
-			}
 		%>
 		var validityData = {access_token:"<%= access_token %>",id_question:<%= id_question %>}
 		var checkTokenUrl = "<%= checkTokenUrl %>";

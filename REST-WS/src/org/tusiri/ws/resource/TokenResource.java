@@ -31,6 +31,8 @@ import java.util.Random;
 
 import org.tusiri.ws.db.DBConnection;
 import org.tusiri.ws.model.Token;
+import org.tusiri.ws.resource.TokenValidity.AccessValidity;
+import org.tusiri.ws.resource.TokenValidity.Identity;
 
 
 
@@ -136,5 +138,31 @@ public class TokenResource {
 		Token token = generateToken(email,password);
 		System.out.println(token.access_token);
 		return token;
+	}
+	
+	
+	@POST
+	@Path("/signout")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public void signOut(@FormParam("access_token") String access_token) {
+		DBConnection dbc = new DBConnection();
+		PreparedStatement stmt = dbc.getDBStmt();
+		Connection conn = dbc.getConn();
+		
+		try{
+			String sql = "DELETE FROM token WHERE access_token = ? ";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, access_token);
+			stmt.executeUpdate();
+		} catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		} catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}	
+		
+		
 	}
 } 

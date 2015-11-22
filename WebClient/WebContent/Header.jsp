@@ -1,5 +1,5 @@
 
-	<title><%= request.getParameter("pageTitle") %></title>
+	<title><%= request.getParameter("pageTitle") %> | StackExchange</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<base href="http://localhost:8080/WebClient/index.jsp"/>
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
@@ -24,7 +24,7 @@
 	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     <%
     if((request.getParameter("isNeedCookieCheck") == null) ||  ((request.getParameter("isNeedCookieCheck") != null) && (request.getParameter("isNeedCookieCheck") == "true"))){
-		Cookie cookie = null;
+    	Cookie cookie = null;
 		Cookie[] cookies = null;
 		String access_token = null;
 		// Get an array of Cookies associated with this domain

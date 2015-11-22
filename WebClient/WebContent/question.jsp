@@ -17,8 +17,6 @@
 					break;
 				}
 			}
-		} else {
-			//Redirect to signin
 		}
 		String q_id_string = request.getParameter("q_id");
 		if((q_id_string!=null) && (q_id_string.matches("\\d+"))){
