@@ -29,16 +29,12 @@
                 <ul class="nav navbar-nav navbar-right">
                     <c:choose>
                         <c:when test="${empty user}">
-                            <li><a href="register">Register</a></li>
-                            <li><a href="login">Login</a></li>
+                            <li><a href="register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                            <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${user.name} <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="logout">Logout</a></li>
-                                </ul>
-                            </li>
+                        <li><p class="navbar-text">Hi, ${user.name}</p></li>
+                        <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                         </c:otherwise>
                     </c:choose>
                 </ul>
