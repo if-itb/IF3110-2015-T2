@@ -8,8 +8,9 @@
 <%
     StackExchangeImplService stackExchangeService = new StackExchangeImplService();
     org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
-    String token = stackExchange.login(request.getParameter("username"), request.getParameter("password"));
-    if(!token.equals("fail")){
+    String token = stackExchange.login(request.getParameter("email"), request.getParameter("password"));
+    //out.println(token);
+    if(!token.equals("fail") && token != null){
         request.setAttribute("token", token);
         response.setStatus(response.SC_MOVED_TEMPORARILY);
         response.setHeader("Location", "index.jsp");

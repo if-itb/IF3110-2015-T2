@@ -12,7 +12,6 @@
         <title>Registration</title>
     </head>
     <body>
-        <form method="post" action="registration.jsp">
             <center>
                 <form name="new" method="post" action="register.jsp">
                     <input class="inputform" type="text" name="username" placeholder="User Name"><br>
@@ -21,6 +20,5 @@
                     <input type="submit" class="button" value="Register">
                 </form>
             </center>
-        </form>
     </body>
 </html>

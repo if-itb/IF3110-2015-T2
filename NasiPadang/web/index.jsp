@@ -19,13 +19,12 @@
         org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
         QuestionArray allQuestion = stackExchange.getAllQuestion();
         List<Question> items = allQuestion.getItem();
-        String token = request.getParameter("token");
+        String name = (String) session.getAttribute("name");
     %>
 </head>
 <body>
     <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
-    <%=token%>
-    <%=request.getParameter("username")%>
+    <%=request.getParameter("token")%>
     <div class="search">
         <form method="post" action="search.jsp">
             <input class="search_form" type="text" name="keyword">

@@ -10,6 +10,6 @@
     org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
     if(stackExchange.register(request.getParameter("username"), request.getParameter("email"), request.getParameter("password"))){
         response.setStatus(response.SC_MOVED_TEMPORARILY);
-        response.setHeader("Location", "login.jsp");
+        response.setHeader("Location", "login_form.jsp");
     }
 %>

@@ -56,7 +56,7 @@ public class Identity extends HttpServlet {
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT email FROM user WHERE email = '" + email + "' AND password = '" + password + "'");
+            String sql = ("SELECT * FROM user WHERE email = '" + email + "' AND password = '" + password + "'");
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()){
                 user = new User();
@@ -122,7 +122,8 @@ public class Identity extends HttpServlet {
             HttpSession session = request.getSession(true);
             
             String token = generateToken();
-            session.setAttribute("id_user", user.id_user);
+            session.setAttribute("name", user.name);
+            System.out.println("token : " + token);
             session.setAttribute("token", token);
             session.setMaxInactiveInterval(600);
             json.put("status", "ok");

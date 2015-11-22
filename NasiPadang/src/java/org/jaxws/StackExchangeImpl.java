@@ -5,23 +5,29 @@
  */
 package org.jaxws;
 
-import java.io.DataOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.jws.WebService;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
 import org.data.Answer;
 import org.data.Question;
-import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -50,23 +56,28 @@ public class StackExchangeImpl implements StackExchange {
         connection.close();
     }
     private int whoIs(String token){
-        URL url = null;
+        String url = ("http://localhost:8080/NasiPadang/rest/identity?token=" + token);
         int id_user = 0;
-        try {
-            url = new URL("http://localhost:8002/ws/stackexchange/rest/identity?token=" + token);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            InputStream in = conn.getInputStream();
-            String encoding = conn.getContentEncoding();
-            encoding = encoding == null ? "UTF-8" : encoding;
-            byte[] body = null;
-            int length = in.read(body);
-            JSONObject json = new JSONObject(body);
-            if(json.getString("status").equals("ok")) id_user = json.getInt("id_user");
-            System.out.println(Arrays.toString(body));
-        } catch (MalformedURLException ex) {
+        try{
+            HttpClient c = new DefaultHttpClient();        
+            HttpGet p = new HttpGet(url);        
+ 
+            HttpResponse r = c.execute(p);
+ 
+            BufferedReader rd = new BufferedReader(new InputStreamReader(r.getEntity().getContent()));
+            String line = "";
+            JSONObject o = null;
+            while ((line = rd.readLine()) != null) {
+               //Parse our JSON response        
+               JSONParser j = new JSONParser();
+               o = (JSONObject)j.parse(line);
+            }
+            if(o.get("status").equals("ok")){
+                id_user = (int) o.get("id_user");
+            }
+        } catch (IOException ex) {
             ex.printStackTrace();
-        }catch (IOException ex) {
+        } catch (ParseException ex) {
             ex.printStackTrace();
         }
         return id_user;
@@ -79,8 +90,8 @@ public class StackExchangeImpl implements StackExchange {
             Statement st = connection.createStatement();
             String sql = ("SELECT email FROM user WHERE email = '" + email + "'");
             ResultSet rs = st.executeQuery(sql);
-            closeDB();
             if(!rs.next()){
+                closeDB();
                 connectDB();
                 st = connection.createStatement();
                 sql = ("INSERT INTO user (name, email, password) VALUES ('"+ username +"', '"+ email +"', '"+ password +"')");
@@ -88,6 +99,7 @@ public class StackExchangeImpl implements StackExchange {
                 closeDB();
                 success = true;
             }
+            else closeDB();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -95,26 +107,34 @@ public class StackExchangeImpl implements StackExchange {
     }
     @Override
     public String login(String email, String password){
-        String token = null;
-        URL url = null;
-        try {
-            url = new URL("http://localhost:8002/ws/stackexchange/rest/identity/");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-            String urlParameters = "email="+ email + "&password=" + password;
-            try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
-                wr.writeBytes(urlParameters);
-                wr.flush();
+        String token = "fail";
+        String url = ("http://localhost:8080/NasiPadang/rest/identity");
+        try{
+            HttpClient c = new DefaultHttpClient();        
+            HttpPost p = new HttpPost(url);        
+            ArrayList<NameValuePair> postParameters = new ArrayList<>();
+            postParameters.add(new BasicNameValuePair("email", email));
+            postParameters.add(new BasicNameValuePair("password", password));
+
+            p.setEntity(new UrlEncodedFormEntity(postParameters));
+            HttpResponse r = c.execute(p);
+ 
+            BufferedReader rd = new BufferedReader(new InputStreamReader(r.getEntity().getContent()));
+            String line = "";
+            JSONObject o = null;
+            while ((line = rd.readLine()) != null) {
+               //Parse our JSON response        
+               JSONParser j = new JSONParser();
+               o = (JSONObject)j.parse(line);
             }
-            byte[] body = null;
-            InputStream in = conn.getInputStream();
-            int length = in.read(body);
-            JSONObject json = new JSONObject(body);
-            if(json.getString("status").equals("ok")) token = json.getString("token");
-        } catch (MalformedURLException ex) {
+            if(o.get("status").equals("ok")){
+                token = (String) o.get("token");
+                
+                System.out.println("token : " + token);
+            }
+        } catch (IOException ex) {
             ex.printStackTrace();
-        }catch (IOException ex) {
+        } catch (ParseException ex) {
             ex.printStackTrace();
         }
         return token;
