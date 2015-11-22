@@ -22,7 +22,10 @@
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
 </head>
-<body ng-app="StackExchangeApp">
+<body>
+${response2}
+${questions}
+${answers}
 <nav class="blue" role="navigation" ng-controller="LoginController">
     <div class="nav-wrapper"><a id="logo-container" href="/" class="brand-logo">Stack Exchange</a>
         <ul class="right hide-on-med-and-down" ng-if="!isLogin">
@@ -42,7 +45,7 @@
 </nav>
 
 <section id="topic-title">
-    <h4 class="blue-text center-align">Question Topic</h4>
+    <h4 class="blue-text center-align">${question.title}</h4>
     <br/>
 </section>
 
@@ -51,10 +54,10 @@
     <div class="divider"></div>
 </section>
 
-<section id="question" ng-controller="QuestionController">
+<section id="question">
     <div class="row">
         <div class="col s10 offset-s1">
-            <div class="card">
+            <div class="card" data-id="${question.id}">
                 <a class="btn-floating waves-effect red question-close"><i class="material-icons">cancel</i></a>
                 <div class="card-content blue-text clearfix">
                     <span class="card-name left"><b>${question.userId}</b></span>
@@ -70,19 +73,18 @@
                     </a>
                     <ul>
                         <li class="thumb-btn-wrapper">
-                            <a class="btn-floating waves-effect green">
-                                <i class="material-icons">thumb_up</i>
-                            </a>
-                            <a class="btn-floating green thumbs-num">
+                            <a class="btn-floating orange thumbs-num">
                                 ${question.vote}
                             </a>
                         </li>
                         <li class="thumb-btn-wrapper">
-                            <a class="btn-floating waves-effect red">
-                                <i class="material-icons">thumb_down</i>
+                            <a class="btn-floating waves-effect green question-upvote-btn">
+                                <i class="material-icons">thumb_up</i>
                             </a>
-                            <a class="btn-floating red thumbs-num">
-                                ${question.vote}
+                        </li>
+                        <li class="thumb-btn-wrapper">
+                            <a class="btn-floating waves-effect red question-downvote-btn">
+                                <i class="material-icons">thumb_down</i>
                             </a>
                         </li>
                         <li><a class="btn-floating waves-effect blue edit-btn"><i class="material-icons">mode_edit</i></a></li>
@@ -119,19 +121,18 @@
                         </a>
                         <ul>
                             <li class="thumb-btn-wrapper">
-                                <a class="btn-floating waves-effect green">
-                                    <i class="material-icons">thumb_up</i>
-                                </a>
-                                <a class="btn-floating green thumbs-num">
-                                    ${answer.vote}
+                                <a class="btn-floating orange thumbs-num">
+                                        ${answer.vote}
                                 </a>
                             </li>
                             <li class="thumb-btn-wrapper">
-                                <a class="btn-floating waves-effect red">
-                                    <i class="material-icons">thumb_down</i>
+                                <a class="btn-floating waves-effect green answer-upvote-btn">
+                                    <i class="material-icons">thumb_up</i>
                                 </a>
-                                <a class="btn-floating red thumbs-num">
-                                    ${answer.vote}
+                            </li>
+                            <li class="thumb-btn-wrapper">
+                                <a class="btn-floating waves-effect red answer-downvote-btn">
+                                    <i class="material-icons">thumb_down</i>
                                 </a>
                             </li>
                         </ul>
@@ -142,11 +143,42 @@
     </c:forEach>
 </section>
 
+<section id="answer-title">
+    <h5 class="blue-text">My Answer</h5>
+    <div class="divider"></div>
+    <br/>
+</section>
+
+<section>
+    <form method="POST" id="add-answer-form">
+        <div class="row">
+            <div class="col s10 offset-s1">
+                <div class="card blue lighten-5 blue-text">
+                    <div class="card-content blue-text">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="textarea1" class="blue-text materialize-textarea" name="content"></textarea>
+                                        <label for="textarea1" class="blue-text">My Answer</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-align">
+                        <button type="submit" id="answer-btn" class="btn-floating waves-effect blue"><i class="material-icons">mode_edit</i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
 <!--  Scripts-->
 <script>
     <%@ include file="/assets/js/jquery.min.js"%>
     <%@ include file="/assets/js/materialize.min.js"%>
-    <%@ include file="/assets/js/init.js"%>
     <%@ include file="/assets/js/answer.js"%>
 </script>
 
