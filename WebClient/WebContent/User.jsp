@@ -32,6 +32,7 @@
 	
 	<jsp:include page="Header.jsp" flush="true">
 		<jsp:param name="pageTitle" value="<%= D.getUsername() %>" />
+		<jsp:param name="includeMainCss" value="false" />
 	</jsp:include>
 	
 	<!-- CSS -->
@@ -105,7 +106,12 @@
 	                        </div>
 	                        <div class="bottom">
 	                        	<a href="signin.jsp">
+			                       <% String show_signin_str = request.getParameter("s");
+									if(show_signin_str != null){ 
+										if(show_signin_str.equals("1")){%>
 			                       <button id="submitBtn" type="submit" class=btn-success>Get Started!</button>
+			                       <% 	} 
+			                       	}%>
 			                    </a>
 			                </div>
 	                    </div>   

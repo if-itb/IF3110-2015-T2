@@ -15,8 +15,8 @@
 
 		int result = u.createUser(request.getParameter("username"), request.getParameter("password"),request.getParameter("email"),request.getParameter("fullname"));
 		if(result>0){//success
-			String site = new String("User.jsp?id="+result);
-			response.setStatus(response.SC_MOVED_TEMPORARILY);
+			String site = new String("User.jsp?id="+result+"&s=1");
+			response.setStatus(response.SC_MOVED_TEMPORARILY);			
 			response.setHeader("Location", site); 
 		}
 		else if(result==-1){//exist redirect into sorry page
