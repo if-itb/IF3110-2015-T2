@@ -16,6 +16,21 @@
 
     <servlet-mapping>
         <servlet-name>default</servlet-name>
+        <url-pattern>*.ttf</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.woff2</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.woff</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
         <url-pattern>*.png</url-pattern>
     </servlet-mapping>
 
@@ -47,6 +62,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>Answers-Add</servlet-name>
+        <servlet-class>stackexchange.AnswerCreate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Answers-Add</servlet-name>
+        <url-pattern>/answer/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>stackexchange.Loginpage</servlet-class>
     </servlet>
@@ -63,6 +87,30 @@
         <servlet-name>Register</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
+
+
+
+
+    <servlet>
+        <servlet-name>Answer-UpVote</servlet-name>
+        <servlet-class>stackexchange.AnswerUpVote</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Answer-UpVote</servlet-name>
+        <url-pattern>/answer/upvote</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Answer-DownVote</servlet-name>
+        <servlet-class>stackexchange.AnswerDownVote</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Answer-DownVote</servlet-name>
+        <url-pattern>/answer/downvote</url-pattern>
+    </servlet-mapping>
+
+
+
 
     <servlet>
         <servlet-name>Question-UpVote</servlet-name>
@@ -89,6 +137,24 @@
     <servlet-mapping>
         <servlet-name>Question-Edit</servlet-name>
         <url-pattern>/question/edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Question-Delete</servlet-name>
+        <servlet-class>stackexchange.QuestionDelete</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Question-Delete</servlet-name>
+        <url-pattern>/question/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Question-Add</servlet-name>
+        <servlet-class>stackexchange.QuestionCreate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Question-Add</servlet-name>
+        <url-pattern>/question/add</url-pattern>
     </servlet-mapping>
 
 </web-app>
