@@ -455,13 +455,13 @@ public class StackExchange {
             @WebParam(name = "password") String password) {        
         boolean success = false;
         try {         
-          String sql = "SELECT email FROM users WHERE email = ?";
+          String sql = "SELECT email FROM user WHERE email = ?";
           PreparedStatement statement = connection.prepareStatement(sql);
           statement.setString(1, email);
           
           ResultSet temp = statement.executeQuery();
           if(!temp.next()){
-              sql = "INSERT INTO users (name, email, password) VALUES (MD5(?), ?, ?)";
+              sql = "INSERT INTO user (name, email, password) VALUES (MD5(?), ?, ?)";
               statement = connection.prepareStatement(sql);                            
               statement.setString(1, name);
               statement.setString(2, email);
