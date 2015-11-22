@@ -4,7 +4,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="style.css" rel="stylesheet" type="text/css">
+        <style>
+            <%@ include file="style.css"%>
+        </style>
         <title>Stack Exchange</title>
     </head>
     <body>
@@ -24,21 +26,23 @@
 		    </td>
 		</tr>
             </table>
-            <p style="text-align:right">asked by ${question.username} at date | edit | delete</p>
-            <h2>1 Answer</h2><br>
+            <p style="text-align:right">asked by ${question.username} at ${question.date} | edit | delete</p>
+            <h2>? Answer</h2><br>
             </c:forEach>
-                
+              
             <table>
-		<tr style="border-bottom:2px solid #000">
-                    <td style="width:15%; text-align:center; padding:20px">
-                        <img src="images/up.png"><br>
-			<p style="font-size:40px; margin:0; color:lightgrey">1</p>
-			<img src="images/down.png">
-                    </td>
-                    <td style="vertical-align:top; padding:20px">Content<br>
-			<p style="text-align:right">answered by username at date</p>
-                    </td>
-		</tr>
+                <c:forEach items="${answers}" var="answer">
+                    <tr style="border-bottom:2px solid #000">
+                        <td style="width:15%; text-align:center; padding:20px">
+                            <img src="images/up.png"><br>
+                            <p style="font-size:40px; margin:0; color:lightgrey">${answer.vote}</p>
+                            <img src="images/down.png">
+                        </td>
+                        <td style="vertical-align:top; padding:20px">${answer.content}<br>
+                            <p style="text-align:right">answered by ${answer.username} at ${answer.date}</p>
+                        </td>
+                    </tr>
+                </c:forEach>
             </table>
             
             <br><p style="font-size:30px; margin:0; color:grey"> Your Answer </p>

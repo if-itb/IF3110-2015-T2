@@ -3,6 +3,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+            <%@ include file="style.css"%>
+        </style>
         <title>Stack Exchange</title>
     </head>
     <body>

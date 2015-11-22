@@ -1,39 +1,53 @@
-h1{
-    
-}
 .container {
     width:50%;
     margin:auto;
     padding:1% 5% 5% 5%; 
     border: 1px solid #000000;
 }
-.login-form {
-  top: 0;
-  right: 5%;
-  width: 25%;
-  background-color: lightcyan;
-  position: fixed;
-}
+
 
 .login {
-  //position: relative;
-  margin: auto;
-  padding: 20px 20px 20px;
-  width: 310px;
+    width: 200px;
+    height: 85px;
 }
-form.search-box{
-	width:80%;
-	margin:auto;
-	text-align:center;
+form.login-form > input[type="text"]{
+    display:block;
 }
+form.login-form > input[type="checkbox"]{
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+}
+form.login-form > input[type="label"] {
+    display: block;
+    padding-left: 15px;
+    text-indent: -15px;
+}
+
+
 form.search-box > input[type="text"]{
-	width:70%;
-	float:none;
+    width:82%;
+    display:block;
+    border: 2px solid;
+    height: 25px;
+    padding-left:1%;
+    float: left;
 }
 form.search-box > input[type="submit"]{
-	width:15%;
-	float:none;
+    width:15%;
+    height: 30px;
+    border: 2px solid;
+    float: right;
 }
+
+
+
+
 .center{
 	text-align:center;
 }

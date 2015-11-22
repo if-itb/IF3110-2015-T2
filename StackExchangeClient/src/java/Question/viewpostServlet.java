@@ -1,5 +1,6 @@
 package Question;
 
+import AnswerWS.AnswerWS_Service;
 import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,18 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
 
 public class viewpostServlet extends HttpServlet {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_15534/StackExchangeService/AnswerWS.wsdl")
+    private AnswerWS_Service service_1;
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_15534/StackExchangeService/QuestionWS.wsdl")
     private QuestionWS_Service service;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        
         java.util.List<QuestionWS.Question> result = getQuestionByQID(id);
         request.setAttribute("result", result);
+        
+        java.util.List<AnswerWS.Answer> answers = getAnswerByQID(id);
+        request.setAttribute("answers", answers);
+        
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/viewpost.jsp");
         dispatcher.forward(request, response);
-        //request.getRequestDispatcher(request.getContextPath() + "/viewpost.jsp").forward(request, response);
-        //this.getServletContext().getRequestDispatcher("/jsp/welcome.jsp").
-        //include(request, response
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -69,6 +74,13 @@ public class viewpostServlet extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
         return port.getQuestionByQID(qid);
+    }
+
+    private java.util.List<AnswerWS.Answer> getAnswerByQID(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
+        return port.getAnswerByQID(qid);
     }
 
 }
