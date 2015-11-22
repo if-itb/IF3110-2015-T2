@@ -130,7 +130,9 @@ public class QuestionWS {
             rs = dbStatement.executeQuery();            
             /* Get every data returned by SQLquery */
             while(rs.next()) {
+             int temp = getAnswerById(rs.getInt("id_question"));
                 questions.add( new Question(
+                    temp,
                     rs.getInt("id_question"),
                     rs.getInt("vote"),
                     rs.getString("topic"),    
@@ -352,4 +354,6 @@ public class QuestionWS {
         }
         return status;
     }
+    
 }
+

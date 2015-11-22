@@ -26,6 +26,8 @@ public class Question {
     private String username;
     @XmlElement(name="vote", required=true)
     private int vote;
+    @XmlElement(name="answer", required=true)
+    private int answer;
     
     public Question() {
         id_question = 0;
@@ -43,5 +45,15 @@ public class Question {
     
     public String getContent() {
         return content;
+    }
+    
+    public Question(int Ans, int id_question, int vote, String topic, String content, String date, String username) {
+        this.id_question = id_question;
+        this.vote = vote;
+        this.content = content;
+        this.date = date;
+        this.username = username;
+        this.topic=topic;
+        this.answer=Ans;
     }
 }
