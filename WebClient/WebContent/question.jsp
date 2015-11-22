@@ -45,7 +45,7 @@
 		
 		AnswerService aservice = new AnswerService();
 		Answer as = aservice.getAnswerPort();
-		List<AnswerItem> a = as.getAnswerList(q_id);
+		List<AnswerItem> a = as.getAnswerList(access_token,q_id);
 	%>
 	
 	<div id="page-wrapper">
@@ -85,9 +85,9 @@
 					<div class = 'row q_or_a'>
 						<div class = 'a_left'>
 							<div class = 'vote_buttons'>
-								<div class='up_button' onclick='VoteUp(false,<%=a.get(i).getNumAnswer()%>)'><img src='assets/img/up0.png' width='30' height='30'></div>
+								<div class='up_button' onclick='VoteUp(false,<%=a.get(i).getNumAnswer()%>)'><img id='a_up<%=a.get(i).getNumAnswer() %>' src='assets/img/up<%=a.get(i).getStatus()%>.png' width='30' height='30'></div>
 									<div class = 'vote' id='vote<%=a.get(i).getNumAnswer()%>'><%= a.get(i).getNumVotes() %></div>
-								<div class='down_button' onclick='VoteUp(false,<%=a.get(i).getNumAnswer()%>)'><img src='assets/img/down0.png' width='30' height='30'></div>
+								<div class='down_button' onclick='VoteDown(false,<%=a.get(i).getNumAnswer()%>)'><img id='a_down<%=a.get(i).getNumAnswer() %>' src='assets/img/down<%=a.get(i).getStatus()%>.png' width='30' height='30'></div>
 							</div>
 						</div>
 						<div class = 'a_mid'>

@@ -8,7 +8,7 @@ function prepare(){
 };
 
 function changeUp(status){
-	if(status==1){
+	if(status=="1"){
 		return 0;
 	}
 	else{
@@ -17,7 +17,7 @@ function changeUp(status){
 }
 
 function changeDown(status){
-	if(status==-1){
+	if(status=="-1"){
 		return 0;
 	}
 	else{
@@ -38,7 +38,12 @@ function VoteUp(bool,id){
                 document.getElementById("q_down").src = "assets/img/down"+changed+".png";
             }
             else{
+            	var up = document.getElementById("a_up"+id).src;
+            	var res = up.substr(45);
+            	var changed = changeUp(res.slice(0,-4));
                 document.getElementById("vote"+id).innerHTML = xmlhttp.responseText;
+                document.getElementById("a_up"+id).src = "assets/img/up"+changed+".png";
+                document.getElementById("a_down"+id).src = "assets/img/down"+changed+".png";
             }
         }
     }
@@ -57,15 +62,21 @@ function VoteDown(bool,id){
         if (xmlhttp.readyState==4 && xmlhttp.status==200) {
             if(bool) {
             	var down = document.getElementById("q_down").src;
-            	var res = down.substr(45);
+            	var res = down.substr(47);
+            	console.log(res.slice(0,-4));
             	var changed = changeDown(res.slice(0,-4));
-            	
                 document.getElementById("q_vote"+id).innerHTML = xmlhttp.responseText;
-                document.getElementById("q_up").src = "assets/img/up"+changeDown(status)+".png";
-                document.getElementById("q_down").src = "assets/img/down"+changeDown(status)+".png";
+                document.getElementById("q_up").src = "assets/img/up"+changed+".png";
+                document.getElementById("q_down").src = "assets/img/down"+changed+".png";
             }
             else{
+            	var down = document.getElementById("a_down"+id).src;
+            	var res = down.substr(47);
+            	console.log(res.slice(0,-4));
+            	var changed = changeDown(res.slice(0,-4));
                 document.getElementById("vote"+id).innerHTML = xmlhttp.responseText;
+                document.getElementById("a_up"+id).src = "assets/img/up"+changed+".png";
+                document.getElementById("a_down"+id).src = "assets/img/down"+changed+".png";
             }
         }
     }
@@ -75,6 +86,5 @@ function VoteDown(bool,id){
     else{
     	xmlhttp.open("GET","vote/answervotedown.jsp?id="+id,true);
     }
-    console.log(id);
     xmlhttp.send();
 };

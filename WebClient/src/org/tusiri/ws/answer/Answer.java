@@ -25,20 +25,33 @@ import javax.xml.ws.ResponseWrapper;
 })
 public interface Answer {
 
+
     /**
      * 
+     * @param arg1
      * @param arg0
      * @return
      *     returns java.util.List<org.tusiri.ws.answer.AnswerItem>
+     * @throws IOException_Exception
+     * @throws ClientProtocolException_Exception
+     * @throws ParseException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getAnswerList", targetNamespace = "http://answer.ws.tusiri.org/", className = "org.tusiri.ws.answer.GetAnswerList")
     @ResponseWrapper(localName = "getAnswerListResponse", targetNamespace = "http://answer.ws.tusiri.org/", className = "org.tusiri.ws.answer.GetAnswerListResponse")
-    @Action(input = "http://answer.ws.tusiri.org/Answer/getAnswerListRequest", output = "http://answer.ws.tusiri.org/Answer/getAnswerListResponse")
+    @Action(input = "http://answer.ws.tusiri.org/Answer/getAnswerListRequest", output = "http://answer.ws.tusiri.org/Answer/getAnswerListResponse", fault = {
+        @FaultAction(className = ClientProtocolException_Exception.class, value = "http://answer.ws.tusiri.org/Answer/getAnswerList/Fault/ClientProtocolException"),
+        @FaultAction(className = IOException_Exception.class, value = "http://answer.ws.tusiri.org/Answer/getAnswerList/Fault/IOException"),
+        @FaultAction(className = ParseException_Exception.class, value = "http://answer.ws.tusiri.org/Answer/getAnswerList/Fault/ParseException")
+    })
     public List<AnswerItem> getAnswerList(
         @WebParam(name = "arg0", targetNamespace = "")
-        int arg0);
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        int arg1)
+        throws ClientProtocolException_Exception, IOException_Exception, ParseException_Exception
+    ;
 
     /**
      * 
@@ -47,9 +60,9 @@ public interface Answer {
      * @param arg0
      * @return
      *     returns int
-     * @throws ParseException_Exception
      * @throws IOException_Exception
      * @throws ClientProtocolException_Exception
+     * @throws ParseException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
@@ -76,9 +89,9 @@ public interface Answer {
      * @param arg0
      * @return
      *     returns int
-     * @throws ParseException_Exception
      * @throws IOException_Exception
      * @throws ClientProtocolException_Exception
+     * @throws ParseException_Exception
      */
     @WebMethod(operationName = "AnswerVoteUp")
     @WebResult(targetNamespace = "")
@@ -103,9 +116,9 @@ public interface Answer {
      * @param arg0
      * @return
      *     returns int
-     * @throws ParseException_Exception
      * @throws IOException_Exception
      * @throws ClientProtocolException_Exception
+     * @throws ParseException_Exception
      */
     @WebMethod(operationName = "AnswerVoteDown")
     @WebResult(targetNamespace = "")

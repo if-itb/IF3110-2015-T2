@@ -11,8 +11,9 @@ public class AnswerItem {
 	private String answer_date;
 	private int num_votes;
 	private String username;
+	private int status;
 	
-	public AnswerItem(int num_answer,int id_question,int id_user,String content,String answer_date,int num_votes,String username){
+	public AnswerItem(int num_answer,int id_question,int id_user,String content,String answer_date,int num_votes,String username,int stat){
 		this.num_answer = num_answer;
 		this.id_question = id_question;
 		this.id_user = id_user;
@@ -20,6 +21,7 @@ public class AnswerItem {
 		this.answer_date = answer_date;
 		this.num_votes = num_votes;
 		this.username = username;
+		this.status = stat;
 	}
 	
 	@XmlElement(name = "num_answer")
@@ -83,6 +85,15 @@ public class AnswerItem {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	
+	@XmlElement(name = "status")
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int s) {
+		this.status = s;
 	}
 	
 }

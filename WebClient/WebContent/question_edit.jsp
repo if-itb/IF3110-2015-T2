@@ -75,9 +75,10 @@
 <body class="contact">
 	
 <%
-    QuestionService qservice = new QuestionService();
+
+	QuestionService qservice = new QuestionService();
     Question q = qservice.getQuestionPort();
-    QuestionItem qi = q.getQuestionInfo(id_question);
+    QuestionItem qi = q.getQuestionInfo(access_token,id_question);
     
     String judul = qi.getTopic();
     String content = qi.getContent();

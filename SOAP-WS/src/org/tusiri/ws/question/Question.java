@@ -239,11 +239,12 @@ public class Question {
 				Connection conn = dbc.getConn();
 		
 				try{
-					String sql = "SELECT * FROM question NATURAL JOIN user INNER JOIN (SELECT status FROM question_vote WHERE id_user=? AND id_question=?) as GOO ON id_question=?";
+					String sql = "SELECT * FROM (SELECT * FROM question LEFT OUTER JOIN (SELECT status FROM question_vote WHERE id_user=? AND id_question=?) as GOO ON id_question=?) as GOO2 NATURAL JOIN user WHERE id_question = ?";
 					stmt = conn.prepareStatement(sql);
 					stmt.setInt(1, validity.getIdUser());
 					stmt.setInt(2, id_question);
 					stmt.setInt(3, id_question);
+					stmt.setInt(4, id_question);
 					ResultSet rs = stmt.executeQuery();
 					if(rs.next()){
 						int id_user  = rs.getInt("id_user");
@@ -254,6 +255,7 @@ public class Question {
 						int num_vote = rs.getInt("num_vote");
 						int num_answer = rs.getInt("num_answer");
 						int status = rs.getInt("status");
+						System.out.println("Status = " + status);
 						
 						q.setIDQuestion(id_question);
 						q.setIDUser(id_user);
@@ -424,7 +426,6 @@ public class Question {
 						//System.out.println("Halo3");	
 						vote = rs2.getInt("num_vote");
 						status = rs2.getInt("status");
-						//System.out.println("Halo4");
 						//System.out.println("Sebelum tambah : "+vote + "Status = "+status);
 						
 						if(status == 0){
