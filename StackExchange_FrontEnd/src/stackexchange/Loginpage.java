@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 /**
  * Created by elvan_owen on 11/17/15.
@@ -21,22 +22,27 @@ import org.json.JSONObject;
 public class Loginpage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HashMap<String, String> requestParams = new HashMap<>();
-        ArrayList<String> params = new ArrayList<>();
 
         requestParams.put("email", request.getParameter("email"));
         requestParams.put("password", request.getParameter("password"));
 
         String requestResponse = HttpRequest.executePOST("http://localhost:9000/Identity_Service/Request", requestParams);
-
-        JSONObject obj = new JSONObject(response);
+        String token = "";
 
         try {
-            String token = obj.getString("token");
+            JSONObject responseObject = new JSONObject(requestResponse);
+            JSONArray array = responseObject.getJSONArray("new_token");
 
-            if (token != ""){
-                response.sendRedirect("/?token=" + obj.getString("token"));
-                return;
+            JSONObject obj = (JSONObject)array.get(0);
+            token = obj.getString("token");
+
+            if (token != null && !token.isEmpty()){
+                response.sendRedirect("/?token=" + token);
+            }else{
+                response.sendRedirect("/");
             }
+
+            return;
         } catch(Exception e){}
 
         response.setContentType("text/html;charset=UTF-8");
