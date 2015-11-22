@@ -64,7 +64,7 @@
     <c:forEach items="${questions}" var="question">
         <div class="row">
             <div class="col s10 offset-s1">
-                <div class="card blue" data-id="22">
+                <div class="card blue" data-id="${question.id}">
                     <div class="card-content white-text">
                         <span class="clearfix">
                             <span class="card-title">${question.title}</span>
@@ -81,19 +81,18 @@
                         </a>
                         <ul>
                             <li class="thumb-btn-wrapper">
-                                <a class="btn-floating waves-effect green">
-                                    <i class="material-icons">thumb_up</i>
-                                </a>
-                                <a class="btn-floating green thumbs-num">
+                                <a class="btn-floating orange thumbs-num">
                                         ${question.vote}
                                 </a>
                             </li>
                             <li class="thumb-btn-wrapper">
-                                <a class="btn-floating waves-effect red">
-                                    <i class="material-icons">thumb_down</i>
+                                <a class="btn-floating waves-effect green question-upvote-btn">
+                                    <i class="material-icons">thumb_up</i>
                                 </a>
-                                <a class="btn-floating red thumbs-num">
-                                        ${question.vote}
+                            </li>
+                            <li class="thumb-btn-wrapper">
+                                <a class="btn-floating waves-effect red question-downvote-btn">
+                                    <i class="material-icons">thumb_down</i>
                                 </a>
                             </li>
                         </ul>
@@ -106,7 +105,7 @@
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
-    <form action="/ask" method="POST">
+    <form method="POST" id="add-question-form">
         <div class="modal-content">
             <h4>Ask Your Question</h4>
 
@@ -128,7 +127,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="waves-effect blue white-text btn-flat" type="submit" value="Send">Send</button>
+            <button id="add-question-btn" class="waves-effect blue white-text btn-flat" type="submit" value="Send">Send</button>
         </div>
     </form>
 </div>
@@ -136,7 +135,6 @@
 <!--  Scripts-->
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/materialize.min.js"></script>
-<script src="/assets/js/init.js"></script>
 <script src="/assets/js/index.js"></script>
 
 </body>
