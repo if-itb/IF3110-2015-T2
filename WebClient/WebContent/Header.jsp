@@ -76,7 +76,7 @@ function checkToken(){
 	               	   $('.modify_'+id).show();
                   }
                   else{
-                	  alert('halo');
+                	  alert('Welcome to StackExchange');
                   }
                   <% if((request.getParameter("needRedirectWhenNotValid") != null) && (request.getParameter("needRedirectWhenNotValid").equals("true"))){%>
         	  			if(!valid){

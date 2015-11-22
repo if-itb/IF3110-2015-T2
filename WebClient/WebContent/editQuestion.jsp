@@ -32,6 +32,7 @@
 						<div class="controls">
 							<strong><label class="questionmenu">Topic:</label></strong>
                             <input type="text" class="form-control" name="topic" required data-validation-required-message="Please enter your topic">
+                           
                             <p class="help-block"></p>
 						</div>
 					</div>
