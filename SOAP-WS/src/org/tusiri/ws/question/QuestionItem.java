@@ -9,13 +9,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "questionitem")
 public class QuestionItem {
 	
-	private int id_question;
+	private int id_question=-1;
 	private int id_user;
-	private String content;
-	private String question_date;
-	private String topic;
+	private String content="";
+	private String question_date="";
+	private String topic="";
 	private int num_vote;
-	private String username;
+	private String username="";
 	private int num_answer;
 	private int status;
 	

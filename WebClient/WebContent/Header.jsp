@@ -74,6 +74,9 @@ function checkToken(){
 	               	   var str = $('a#signin').text('Sign Out');
 	               	   $('a#register').remove();
 	               	   $('.modify_'+id).show();
+					   $('#navPanel nav a:nth-child(2)').remove();
+					   $('#navPanel nav a:nth-child(2)').text('Sign Out');
+					   $('#navPanel nav a:nth-child(2)').attr("href", "signout.jsp");
                   }
                   else{
                 	  alert('Welcome to StackExchange');

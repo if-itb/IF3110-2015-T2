@@ -14,7 +14,7 @@
 <%
 AnswerService aService = new AnswerService();
 Answer a = aService.getAnswerPort();
-List<AnswerItem> answerList = a.getAnswerList(49);
+List<AnswerItem> answerList = a.getAnswerList("",49);
 int n = answerList.size();
 %>
 Total jumlah pertanyaan: <%= n %></br>

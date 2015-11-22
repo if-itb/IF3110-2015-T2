@@ -1,25 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<%@ page import="java.util.*, java.io.*"%>
-	<%@ page import = "org.tusiri.ws.question.QuestionService" %>
-	<%@ page import = "org.tusiri.ws.question.Question" %>
-	<%@ page import = "org.tusiri.ws.question.QuestionItem" %>
-	<%@ page import = "org.tusiri.ws.question.GetQuestionInfo" %>
-	<%@ page import = "org.tusiri.ws.answer.AnswerService" %>
-	<%@ page import = "org.tusiri.ws.answer.Answer" %>
-	<%@ page import = "org.tusiri.ws.answer.AnswerItem" %>
-	<%@ page import = "org.tusiri.ws.answer.GetAnswerList" %>
-	
-	<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    	pageEncoding="ISO-8859-1"%>
-    <jsp:include page="Header.jsp" flush="true">
-		<jsp:param name="pageTitle" value="Question" />
-	</jsp:include>
-	<script src="assets/js/vote.js"></script>
-	
-</head>
-<body class="contact">
+
 	<% 
 		Cookie cookie = null;
 		Cookie[] cookies = null;
@@ -37,8 +19,11 @@
 		} else {
 			//Redirect to signin
 		}
-	
-		int q_id = Integer.parseInt(request.getParameter("q_id"));
+		String q_id_string = request.getParameter("q_id");
+		if((q_id_string!=null) && (q_id_string.matches("\\d+"))){
+			
+		
+		int q_id = Integer.parseInt(q_id_string);
 		QuestionService qservice = new QuestionService();
 		Question qs = qservice.getQuestionPort();
 		QuestionItem q = qs.getQuestionInfo(access_token,q_id);
@@ -46,7 +31,30 @@
 		AnswerService aservice = new AnswerService();
 		Answer as = aservice.getAnswerPort();
 		List<AnswerItem> a = as.getAnswerList(access_token,q_id);
+		
 	%>
+	<% if (q.getIdQuestion() != -1){ %>
+	<%@ page import="java.util.*, java.io.*"%>
+	<%@ page import = "org.tusiri.ws.question.QuestionService" %>
+	<%@ page import = "org.tusiri.ws.question.Question" %>
+	<%@ page import = "org.tusiri.ws.question.QuestionItem" %>
+	<%@ page import = "org.tusiri.ws.question.GetQuestionInfo" %>
+	<%@ page import = "org.tusiri.ws.answer.AnswerService" %>
+	<%@ page import = "org.tusiri.ws.answer.Answer" %>
+	<%@ page import = "org.tusiri.ws.answer.AnswerItem" %>
+	<%@ page import = "org.tusiri.ws.answer.GetAnswerList" %>
+	
+	<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    	pageEncoding="ISO-8859-1"%>
+    <jsp:include page="Header.jsp" flush="true">
+		<jsp:param name="pageTitle" value="<%= q.getTopic() %>" />
+	</jsp:include>
+	<script src="assets/js/vote.js"></script>
+	<% } %>
+</head>
+<% if (q.getIdQuestion() != -1){ %>
+<body class="contact">
+	
 	
 	<div id="page-wrapper">
 		<!-- Header -->
@@ -115,20 +123,20 @@
 				
 			</div>
 		</article>
-		<footer id="footer">
-		<ul class="icons">
-			<li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
-			<li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
-			<li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
-			<li><a href="#" class="icon circle fa-github"><span class="label">Github</span></a></li>
-			<li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li>
-		</ul>
-	
-		<ul class="copyright">
-			<li>&copy; Tusiri</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-		</ul>
-	
-	</footer>
+		<%@include file="footer.jsp" %>
 	</div>
 </body>
+	<% 	} else {
+			%>
+			<jsp:include page="notfound.jsp" flush="true">
+				<jsp:param name="onlyBody" value="true" />
+			</jsp:include>
+		<%}
+	} else {
+		%>
+		<jsp:include page="notfound.jsp" flush="true">
+			<jsp:param name="onlyBody" value="true" />
+		</jsp:include>
+	<%
+	} %>
 </html>
