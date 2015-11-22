@@ -231,47 +231,53 @@ public class Question {
 		try {
 			CheckTokenValidity checker = new CheckTokenValidity(access_token);
 			TokenValidity validity = checker.check();
-		
+			
+			int user;
+			
 			if(validity.getIsValid()){
+				user = validity.getIdUser();
+			}
+			else{
+				user = 0;
+			}
 				
-				DBConnection dbc = new DBConnection();
-				PreparedStatement stmt = dbc.getDBStmt();
-				Connection conn = dbc.getConn();
-		
-				try{
-					String sql = "SELECT * FROM (SELECT * FROM question LEFT OUTER JOIN (SELECT status FROM question_vote WHERE id_user=? AND id_question=?) as GOO ON id_question=?) as GOO2 NATURAL JOIN user WHERE id_question = ?";
-					stmt = conn.prepareStatement(sql);
-					stmt.setInt(1, validity.getIdUser());
-					stmt.setInt(2, id_question);
-					stmt.setInt(3, id_question);
-					stmt.setInt(4, id_question);
-					ResultSet rs = stmt.executeQuery();
-					if(rs.next()){
-						int id_user  = rs.getInt("id_user");
-						String content = rs.getString("content");
-						String question_date = rs.getDate("question_date").toString();
-						String topic = rs.getString("topic");
-						String username = rs.getString("username");
-						int num_vote = rs.getInt("num_vote");
-						int num_answer = rs.getInt("num_answer");
-						int status = rs.getInt("status");
-						System.out.println("Status = " + status);
-						
-						q.setIDQuestion(id_question);
-						q.setIDUser(id_user);
-						q.setContent(content);
-						q.setQuestionDate(question_date);
-						q.setTopic(topic);
-						q.setUsername(username);
-						q.setNumVote(num_vote);
-						q.setNumAnswer(num_answer);
-						q.setStatus(status);
-						System.out.println(q.getStatus());
-					}
-				} catch(Exception e){
-					//Handle errors for Class.forName
-					e.printStackTrace();
+			DBConnection dbc = new DBConnection();
+			PreparedStatement stmt = dbc.getDBStmt();
+			Connection conn = dbc.getConn();
+	
+			try{
+				String sql = "SELECT * FROM (SELECT * FROM question LEFT OUTER JOIN (SELECT status FROM question_vote WHERE id_user=? AND id_question=?) as GOO ON id_question=?) as GOO2 NATURAL JOIN user WHERE id_question = ?";
+				stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, validity.getIdUser());
+				stmt.setInt(2, id_question);
+				stmt.setInt(3, id_question);
+				stmt.setInt(4, id_question);
+				ResultSet rs = stmt.executeQuery();
+				if(rs.next()){
+					int id_user  = rs.getInt("id_user");
+					String content = rs.getString("content");
+					String question_date = rs.getDate("question_date").toString();
+					String topic = rs.getString("topic");
+					String username = rs.getString("username");
+					int num_vote = rs.getInt("num_vote");
+					int num_answer = rs.getInt("num_answer");
+					int status = rs.getInt("status");
+					System.out.println("Status = " + status);
+					
+					q.setIDQuestion(id_question);
+					q.setIDUser(id_user);
+					q.setContent(content);
+					q.setQuestionDate(question_date);
+					q.setTopic(topic);
+					q.setUsername(username);
+					q.setNumVote(num_vote);
+					q.setNumAnswer(num_answer);
+					q.setStatus(status);
+					System.out.println(q.getStatus());
 				}
+			} catch(Exception e){
+				//Handle errors for Class.forName
+				e.printStackTrace();
 			}
 		}catch (MalformedURLException e) {
 			e.printStackTrace();

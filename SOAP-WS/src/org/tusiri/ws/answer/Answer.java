@@ -28,40 +28,44 @@ public class Answer {
 			CheckTokenValidity checker = new CheckTokenValidity(access_token);
 			TokenValidity validity = checker.check();
 			
+			int user = 0;
 			if(validity.getIsValid()){
-				DBConnection dbc = new DBConnection();
-				PreparedStatement stmt = dbc.getDBStmt();
-				Connection conn = dbc.getConn();
-				try{
-					String sql = "SELECT * FROM user NATURAL JOIN(SELECT * FROM answer LEFT OUTER JOIN (SELECT id_answer,status FROM answer_vote WHERE id_user=?) AS GOO ON num_answer=id_answer WHERE id_question = ?) AS GOO2";
-					stmt = conn.prepareStatement(sql);
-					stmt.setInt(1, validity.getIdUser());
-					stmt.setInt(2, id_question);
-					System.out.println(stmt);
-					ResultSet rs = stmt.executeQuery();
-				
-					// Extract data from result set
-					while(rs.next()){
-						//Retrieve by column name
-						
-						int num_answer = rs.getInt("num_answer");
-						int id_user = rs.getInt("id_user");
-						String content = rs.getString("content");
-						String answer_date = rs.getString("answer_date");
-						int num_votes = rs.getInt("num_vote");
-						String username = rs.getString("username");
-						int status = rs.getInt("status");
-						
-						AnswerItem a = new AnswerItem(num_answer,id_question,id_user,content,answer_date,num_votes,username,status);
-						questionItemList.add(a);
-					}
-				} catch(SQLException se){
-					//Handle errors for JDBC
-					se.printStackTrace();
-				} catch(Exception e){
-					//Handle errors for Class.forName
-					e.printStackTrace();
+				user = validity.getIdUser();
+			}
+			else{
+				user= 0;
+			}
+			DBConnection dbc = new DBConnection();
+			PreparedStatement stmt = dbc.getDBStmt();
+			Connection conn = dbc.getConn();
+			try{
+				String sql = "SELECT * FROM user NATURAL JOIN(SELECT * FROM answer LEFT OUTER JOIN (SELECT id_answer,status FROM answer_vote WHERE id_user=?) AS GOO ON num_answer=id_answer WHERE id_question = ?) AS GOO2";
+				stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, user);
+				stmt.setInt(2, id_question);
+				ResultSet rs = stmt.executeQuery();
+			
+				// Extract data from result set
+				while(rs.next()){
+					//Retrieve by column name
+					
+					int num_answer = rs.getInt("num_answer");
+					int id_user = rs.getInt("id_user");
+					String content = rs.getString("content");
+					String answer_date = rs.getString("answer_date");
+					int num_votes = rs.getInt("num_vote");
+					String username = rs.getString("username");
+					int status = rs.getInt("status");
+					
+					AnswerItem a = new AnswerItem(num_answer,id_question,id_user,content,answer_date,num_votes,username,status);
+					questionItemList.add(a);
 				}
+			} catch(SQLException se){
+				//Handle errors for JDBC
+				se.printStackTrace();
+			} catch(Exception e){
+				//Handle errors for Class.forName
+				e.printStackTrace();
 			}
 		}catch (MalformedURLException e) {
 			e.printStackTrace();
