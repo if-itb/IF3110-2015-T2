@@ -74,13 +74,10 @@ public class AnswerWS {
         try{
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM answer WHERE answer_id = ?";
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1, answer_id);
-            ResultSet rs = dbStatement.executeQuery();
+            sql = "SELECT * FROM answer WHERE answer_id = "+answer_id;
+            ResultSet rs = stmt.executeQuery(sql);
             
             /* Get every data returned by SQL query */
-            int i = 0;
             while(rs.next()){
                 answers.add(new Answer( rs.getInt("answer_id"),
                 rs.getInt("question_id"),
@@ -89,7 +86,6 @@ public class AnswerWS {
                 rs.getInt("vote"),
                 rs.getString("create_time")
                 ));
-                ++i;
             }
             rs.close();
             stmt.close();
@@ -110,14 +106,11 @@ public class AnswerWS {
         try{
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM answer WHERE question_id = ?";
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1, question_id);
-            ResultSet rs = dbStatement.executeQuery();
+            sql = "SELECT COUNT(*) as answercount FROM answer WHERE question_id ="+question_id;
+            ResultSet rs = stmt.executeQuery(sql);
             
-            /* Get every data returned by SQL query */
             while(rs.next()){
-                ++i;
+                i=rs.getInt("answercount");
             }
             rs.close();
             stmt.close();

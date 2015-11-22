@@ -38,8 +38,8 @@ public class UserWS {
     public void addUser(@WebParam(name = "u") User u) {
         try{
             Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO user(name,email,password,content) VALUES("+
-                    u.getName() + "," + u.getEmail() + "," + u.getPassword() + "," + u.getToken() +")";
+            String sql = "INSERT INTO user(name,email,password) VALUES("+
+                    u.getName() + "," + u.getEmail() + "," + u.getPassword() +")";
             stmt.executeUpdate(sql);
             stmt.close();
         } catch (SQLException ex) {
@@ -58,21 +58,16 @@ public class UserWS {
         try{
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM user WHERE user_id = ?";
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1,user_id);
-            ResultSet rs = dbStatement.executeQuery();
+            sql = "SELECT * FROM user WHERE user_id = "+user_id;
+            ResultSet rs = stmt.executeQuery(sql);
             
             /* Get every data returned by SQL query */
-            int i = 0;
             while(rs.next()){
                 user.add(new User( rs.getInt("user_id"),
                 rs.getString("name"),
                 rs.getString("email"),
-                rs.getString("password"),
-                rs.getString("token")
+                rs.getString("password")
                 ));
-                ++i;
             }
             rs.close();
             stmt.close();
