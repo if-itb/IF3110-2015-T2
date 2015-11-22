@@ -21,7 +21,9 @@ public class Askpage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HashMap<String, String> data = new HashMap<>();
 
-        data.put("access_token", request.getParameter("token"));
+        String token = request.getParameter("token");
+
+        data.put("access_token", token);
         data.put("title", request.getParameter("title"));
         data.put("content", request.getParameter("content"));
 
@@ -30,12 +32,18 @@ public class Askpage extends HttpServlet {
         // Get soap response
         boolean isSuccess = XmlParser.isSuccessResponse(requestResponse);
 
-        if (isSuccess){
-            response.sendRedirect("/");
+        if (isSuccess == true){
+            if (token != null && !token.isEmpty()){
+                response.sendRedirect("/?token=" + token);
+            }else{
+                response.sendRedirect("/");
+            }
             return;
         }
 
         request.setAttribute("error", "Internal Server Error");
+
+        request.setAttribute("token", request.getParameter("token"));
 
         response.setContentType("text/html;charset=UTF-8");
         request.getRequestDispatcher("views/error.jsp").forward(request, response);
