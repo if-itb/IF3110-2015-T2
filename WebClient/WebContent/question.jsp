@@ -86,6 +86,7 @@
 				<h3>Your Answer</h3>
 				<form action="answer_create_post.jsp" METHOD="POST">
 					<div class="controls">
+						<input type = 'hidden' name = 'q_id' value = '<%=q_id%>'/>
                     	<textarea rows="10" cols="100" class="form-control" name="content" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"> </textarea>
 					</div>
 					<div class="row">
