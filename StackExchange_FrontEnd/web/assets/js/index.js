@@ -1,28 +1,58 @@
-(function(){
+(function($){
+    $(function(){
 
-    var topics = document.getElementsByClassName('topic');
-    var del = document.getElementsByClassName('delete');
-    var edit = document.getElementsByClassName('edit');
+        setTimeout(function(){
+            $('#recent-post .card .fixed-action-btn > .btn-floating').click()
+        }, 500)
 
-    for (var i=0;i<topics.length;i++){
-        topics[i].onclick = function(event){
-            console.log("tuuhhu");
-            window.location = "/answer?id=" + event.target.parentNode.parentNode.parentNode.getAttribute("data-id");
+        $('#recent-post .card .fixed-action-btn > .btn-floating').click(function(e){
+            e.stopPropagation()
+        })
+
+        $('#recent-post .card').hover(function(){
+            $(this).find('.fixed-action-btn > .btn-floating').click();
+        }, function(){
+            $(this).find('.fixed-action-btn > .btn-floating').click();
+        })
+
+        $('.modal-trigger').leanModal();
+
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
-    }
 
-    for (var i=0;i<edit.length;i++){
-        edit[i].onclick = function(event){
-            window.location = "/question/edit.php?id=" + event.target.parentNode.parentNode.parentNode.parentNode.getAttribute("data-id");
-        }
-    }
-
-    for (var i=0;i<del.length;i++){
-        del[i].onclick = function(event){
-            if (confirm("Are you sure you want to delete this question ?")){
-                window.location = "ajax/question/delete.php?id=" + event.target.parentNode.parentNode.parentNode.parentNode.getAttribute("data-id");
+        $('#recent-post .card').click(function(){
+            if (getParameterByName('token')){
+                window.location.href="/answer?token=" + getParameterByName('token') + "&id=" + $(this).attr('data-id')
+            } else{
+                window.location.href="/answer?id=" + $(this).attr('data-id')
             }
-        }
-    }
 
-})();
+        })
+
+        if (getParameterByName('token')){
+            $('#add-question-form').attr('action', '/ask?token=' + getParameterByName('token'));
+        } else {
+            $('#add-question-form').attr('action', '/ask');
+        }
+
+        $('.question-upvote-btn').click(function(e){
+            e.stopPropagation()
+            var id = $(this).closest('.card').attr('data-id')
+            $('<form action="/question/upvote?token=' + getParameterByName('token') + '" method="POST">' +
+            '<input type="hidden" name="id" value="' + id + '"/></form>').appendTo('body').submit();
+        })
+
+        $('.question-downvote-btn').click(function(e){
+            e.stopPropagation()
+            var id = $(this).closest('.card').attr('data-id')
+            $('<form action="/question/downvote?token=' + getParameterByName('token') + '" method="POST">' +
+            '<input type="hidden" name="id" value="' + id + '"/></form>').appendTo('body').submit();
+        })
+
+
+    }); // end of document ready
+})(jQuery); // end of jQuery name space
