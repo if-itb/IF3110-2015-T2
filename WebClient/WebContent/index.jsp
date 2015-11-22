@@ -5,6 +5,7 @@
 	    pageEncoding="ISO-8859-1"%>
 	<jsp:include page="Header.jsp" flush="true">
 		<jsp:param name="pageTitle" value="Simple StackExchange" />
+		<jsp:param name="needDeleteQuestion" value="true" />
 	</jsp:include>
 </head>
 

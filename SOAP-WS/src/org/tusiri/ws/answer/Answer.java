@@ -43,7 +43,7 @@ public class Answer {
 				int id_user = rs.getInt("id_user");
 				String content = rs.getString("content");
 				String answer_date = rs.getString("answer_date");
-				int num_votes = rs.getInt("num_votes");
+				int num_votes = rs.getInt("num_vote");
 				String username = rs.getString("username");
 				
 				AnswerItem a = new AnswerItem(num_answer,id_question,id_user,content,answer_date,num_votes,username);

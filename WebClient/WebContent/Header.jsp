@@ -40,6 +40,13 @@
 			
 			if((access_token != null) && (access_token.length()>0)){
 				//check access_token validity to server
+				if((request.getParameter("needDeleteQuestion") != null) && (request.getParameter("needDeleteQuestion").equals("true"))){
+					%>
+					<jsp:include page="question_delete.jsp" flush="true">
+						<jsp:param name="pageTitle" value="Simple StackExchange" />
+						<jsp:param name="access_token" value="<%= access_token %>" />
+					</jsp:include><%
+				}
 %>
 
 <script>
