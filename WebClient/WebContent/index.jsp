@@ -59,7 +59,7 @@
 					</div>
 				</div>
 			</form>
-	        <p>Cannot find what you are looking for? <a href = "question_create.jsp">Ask here</a></p>
+	        <p>Cannot find what you are looking for? <a href = "question/create">Ask here</a></p>
 		</div>
 	</header>
 	

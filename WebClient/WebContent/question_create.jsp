@@ -13,7 +13,7 @@
 	<div id="page-wrapper">
 	<!-- Header -->
 	<header id="header">
-		<h1 id="logo"><a href="index.jsp">Stack Exchange <span>| by Tusiri</span></a></h1>
+		<h1 id="logo"><a href="index">Stack Exchange <span>| by Tusiri</span></a></h1>
 		<jsp:include page="navigationbar.jsp" flush ="true"/>
 	</header>
 	
@@ -27,7 +27,7 @@
 		<section class="wrapper style4 special container 75%">
 		<!-- Content -->
 			<div class="content">
-				<form name="sentMessage" id="contactForm" action="question_create_post.jsp" METHOD="POST" novalidate>
+				<form name="sentMessage" id="contactForm" action="question/create_post" METHOD="POST" novalidate>
 					<div class="control-group form-group">
 						<div class="controls">
 							<strong><label class="questionmenu">Topic:</label></strong>

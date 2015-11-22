@@ -66,7 +66,7 @@ public class Question {
 	
 	@WebMethod
 	public int editQuestion(String access_token,String title,String content, int id_question) throws ClientProtocolException, IOException, ParseException{
-		int q_id = 0;
+		int status = 0;
 		
 		System.out.println(access_token);
 		System.out.println(title);
@@ -99,11 +99,7 @@ public class Question {
 								stmt.setInt(3, id_question);
 								stmt.executeUpdate();
 								ResultSet rs = stmt.getGeneratedKeys();
-					            while (rs.next()) {
-					               q_id = rs.getInt(1);
-					            } 	
-								System.out.println("q_id = " + q_id);
-								//res = 1;
+								status = 1;
 							} catch(Exception e){
 								//Handle errors for Class.forName
 								e.printStackTrace();
@@ -121,7 +117,7 @@ public class Question {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return q_id;
+		return status;
 	}
 	
 	@WebMethod

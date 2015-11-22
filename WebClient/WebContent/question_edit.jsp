@@ -96,7 +96,7 @@
 		<section class="wrapper style4 special container 75%">
 		<!-- Content -->
 			<div class="content">
-				<form name="sentMessage" id="contactForm" action="question_create_post.jsp" METHOD="POST" novalidate>
+				<form name="sentMessage" id="contactForm" action="question/edit_post" METHOD="POST" novalidate>
 					<div class="control-group form-group">
 						<div class="controls">
 							<strong><label class="questionmenu">Topic:</label></strong>
@@ -110,7 +110,7 @@
                            	<textarea rows="10" cols="100" class="form-control" name="content" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none" ><%= content %></textarea>
 						</div>
 					</div>
-					
+					<input type='hidden' name='id_question' id='id_question' value=<%= id_question %> />
 					<div class="row">
 						<div class="12u">
 							<ul class="buttons">

@@ -30,9 +30,15 @@ if( cookies != null ){
 
 QuestionService qservice = new QuestionService();
 Question q = qservice.getQuestionPort();
-int result = q.editQuestion(access_token, request.getParameter("content"),  request.getParameter("topic"),50);
+int result = q.editQuestion(access_token, request.getParameter("topic"), request.getParameter("content"), Integer.parseInt(request.getParameter("id_question")));
 if(result>0){//success
-	String site = new String("question?id="+result);
+	//String site = new String("question?id="+result);
+	String site;
+	if(request.getRequestURL().lastIndexOf(".") == request.getRequestURL().length()-4){
+		site = new String("index.jsp");
+	} else {
+		site = new String("../index.jsp");
+	}
 	response.setStatus(response.SC_MOVED_TEMPORARILY);
 	response.setHeader("Location", site); 
 }
@@ -42,10 +48,10 @@ if(result>0){//success
 <%= result %>
 <center>
 <ul>
-<li><p><b>Topic:</b>
+<li><p><b>First Name:</b>
    <%= request.getParameter("topic")%>
 </p></li>
-<li><p><b>Content:</b>
+<li><p><b>Last  Name:</b>
    <%= request.getParameter("content")%>
 </p></li>
 </ul>

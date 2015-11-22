@@ -50,7 +50,7 @@
                         		</div>
                             </div>
                             <div class="form-bottom">
-			                    <form id="registerForm" action = "register_post.jsp" METHOD = "POST">
+			                    <form id="registerForm" action = "register_post" METHOD = "POST">
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-username">Fullname</label>
 			                        	<input type="text" name="fullname" placeholder="Fullname..." class="form-username form-control" id="form-username">
