@@ -8,7 +8,7 @@ html,body{
 
 @font-face {
     font-family: "LakkyReddy";
-    src: url('LakkiReddy-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
+    src: url('/assets/font/LakkiReddy-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 
 #logo-container {
