@@ -25,7 +25,6 @@ import javax.xml.ws.ResponseWrapper;
 })
 public interface Answer {
 
-
     /**
      * 
      * @param arg0

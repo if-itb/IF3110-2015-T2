@@ -16,8 +16,9 @@
 <% for (int i = 0; i < n; i++) { 
 	int id = questionList.get(i).getIdUser(); 
 %>
+	
 	<div class = 'content' id='question_item_<%= questionList.get(i).getIdQuestion() %>'>
-		<div class = 'q_or_a'>
+		<div class = 'row q_or_a'>
 			<div class = 'left'>
 				<span class = 'vote'>
 					<% int tmp = questionList.get(i).getNumVote(); 
@@ -33,7 +34,7 @@
 				</span>
 			</div>
 			<div class = 'mid'>
-				<a class = 'topic' href='#'><%= questionList.get(i).getTopic() %><br></a>
+				<a class = 'topic' href='question.jsp?q_id=<%= questionList.get(i).getIdQuestion() %>'><%= questionList.get(i).getTopic() %><br></a>
 				<div class = 'q_content'>
 				<%
   					String str = questionList.get(i).getContent();

@@ -12,7 +12,11 @@
 		<span class="error"></span>
 	    <form id="createAnswerForm" action="answer_create_post.jsp" METHOD="POST">
 	        Content: <input type="textarea" name="content" cols="10"/><br/>
-	        <button id="submitBtn">Submit</button>
+	        <div class="12u">
+				<ul class="buttons">
+					<li><input type="submit" class="special" value="Submit Answer" /></li>
+				</ul>
+			</div>
 	    </form>
 	</div>
 </body>

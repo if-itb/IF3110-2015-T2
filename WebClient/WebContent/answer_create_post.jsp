@@ -6,7 +6,7 @@
 <%@ page import = "org.tusiri.ws.answer.AnswerItem" %>
 <html>
 <head>
-<title>Inser Title Here</title>
+<title>Insert Title Here</title>
 </head>
 <body>
 
@@ -30,9 +30,10 @@ if( cookies != null ){
 
 AnswerService qservice = new AnswerService();
 Answer a = qservice.getAnswerPort();
-int result = a.createAnswer(access_token, 50, request.getParameter("content"));
+int q_id = Integer.parseInt(request.getParameter("q_id"));
+int result = a.createAnswer(access_token, q_id, request.getParameter("content"));
 if(result>0){//success
-	String site = new String("question.jsp?id="+50);
+	String site = new String("question.jsp?q_id="+q_id);
 	response.setStatus(response.SC_MOVED_TEMPORARILY);
 	response.setHeader("Location", site); 
 }
@@ -40,7 +41,6 @@ if(result>0){//success
 
 %>
 <%= result %>
-PADA TES INI, QUESTION ID 50
 <center>
 <ul>
 <li><p><b>First Name:</b>

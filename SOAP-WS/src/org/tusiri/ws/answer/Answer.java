@@ -27,9 +27,7 @@ public class Answer {
 		PreparedStatement stmt = dbc.getDBStmt();
 		Connection conn = dbc.getConn();
 		try{
-			String sql = "SELECT *,user.username as username FROM answer "
-					+ "INNER JOIN user ON answer.id_user = user.id_user "
-					+ "WHERE id_question = ?";
+			String sql = "SELECT * FROM answer NATURAL JOIN user WHERE id_question = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id_question);
 			System.out.println(stmt);
