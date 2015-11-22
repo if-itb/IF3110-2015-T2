@@ -28,6 +28,7 @@
 		List<AnswerItem> a = as.getAnswerList(q_id);
 	%>
 	
+	<script src="assets/js/vote.js"></script>
 	
 </head>
 <body class="contact">
@@ -47,9 +48,9 @@
 					<div class = 'only_q'>
 						<div class = 'a_left'>
 							<div class = 'vote_buttons'>
-								<div class='up_button'><img src='assets/img/up.png' width='30' height='30'></div>
-									<div class = 'vote' id='q_vote'><%= q.getNumVote() %></div>
-								<div class='down_button'><img src='assets/img/down.png' width='30' height='30'></div>
+								<div class='up_button' onclick='VoteUp(true,<%=q_id%>)'><img src='assets/img/up.png' width='30' height='30'></div>
+									<div class = 'vote' id='q_vote<%=q_id%>'><%= q.getNumVote() %></div>
+								<div class='down_button' onclick='VoteDown(true,<%=q_id%>)'><img src='assets/img/down.png' width='30' height='30'></div>
 							</div>
 						</div>
 						<div class = 'a_mid'>
@@ -70,9 +71,9 @@
 					<div class = 'row q_or_a'>
 						<div class = 'a_left'>
 							<div class = 'vote_buttons'>
-								<div class='up_button'><img src='assets/img/up.png' width='30' height='30'></div>
-									<div class = 'vote' id='q_vote'><%= a.get(i).getNumVotes() %></div>
-								<div class='down_button'><img src='assets/img/down.png' width='30' height='30'></div>
+								<div class='up_button' onclick='VoteUp(false,<%=a.get(i).getNumAnswer()%>)'><img src='assets/img/up.png' width='30' height='30'></div>
+									<div class = 'vote' id='vote<%=a.get(i).getNumAnswer()%>'><%= a.get(i).getNumVotes() %></div>
+								<div class='down_button' onclick='VoteUp(false,<%=a.get(i).getNumAnswer()%>)'><img src='assets/img/down.png' width='30' height='30'></div>
 							</div>
 						</div>
 						<div class = 'a_mid'>

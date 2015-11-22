@@ -37,6 +37,6 @@
 	int id = Integer.parseInt(request.getParameter("id"));
 	int vote_now = q.questionVoteUp(id,access_token);
 %>
-	<b>Hasilnya adalah : <% out.println(vote_now); %></b>
+	<% out.println(vote_now); %>
 </body>
 </html>
