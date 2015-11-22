@@ -1,3 +1,22 @@
+<%@ page import="java.util.*, java.io.*"%>
+	<%@ page import = "org.tusiri.ws.user.UserService" %>
+	<%@ page import = "org.tusiri.ws.user.User" %>
+	<%@ page import = "org.tusiri.ws.user.UserDetail" %>
+
+<%
+	UserService uservice = new UserService();
+	User u = uservice.getUserPort();
+	
+	String id_string = request.getParameter("id");
+	
+	if((id_string!=null) && (id_string.matches("\\d+"))){
+		
+		UserDetail D = u.getUser(Integer.parseInt(request.getParameter("id")));
+		if(D.getIdUser() != -1){
+			
+		
+	%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,11 +28,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-	<title>New User Profile</title>
-	<%@ page import="java.util.*, java.io.*"%>
-	<%@ page import = "org.tusiri.ws.user.UserService" %>
-	<%@ page import = "org.tusiri.ws.user.User" %>
-	<%@ page import = "org.tusiri.ws.user.UserDetail" %>
+    
+	
+	<jsp:include page="Header.jsp" flush="true">
+		<jsp:param name="pageTitle" value="<%= D.getUsername() %>" />
+	</jsp:include>
 	
 	<!-- CSS -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
@@ -34,13 +53,11 @@
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.backstretch.min.js"></script>
     <script src="assets/js/scripts.js"></script>
+    
+    
 </head>
 <body>
-	<%
-		UserService uservice = new UserService();
-		User u = uservice.getUserPort();
-		UserDetail D = u.getUser(Integer.parseInt(request.getParameter("id")));
-	%>
+	
 	<!-- Top content -->
     <div class="top-content">
 	    <div class="inner-bg">
@@ -101,3 +118,16 @@
 	</div>
 </body>
 </html>
+<% 		} else {
+		%>
+		<jsp:include page="notfound.jsp" flush="true">
+			<jsp:param name="onlyBody" value="true" />
+		</jsp:include>
+	<%	}
+	
+	} else {
+		%>
+		<jsp:include page="notfound.jsp" flush="true">
+			<jsp:param name="onlyBody" value="true" />
+		</jsp:include>
+<%	} %>

@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import org.tusiri.ws.db.DBConnection;
 
 public class UserDetail {
-	private int id_user;
+	private int id_user=-1;
 	private String username;
 	private String email;
 	private String fullname;
