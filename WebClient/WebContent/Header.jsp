@@ -2,8 +2,8 @@
 	<title><%= request.getParameter("pageTitle") %></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<base href="http://localhost:8080/WebClient/index.jsp"/>
-	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="assets/js/jquery-1.11.3.min.js"></script>
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
     
     <!-- js -->
     <script src="assets/js/jquery.js"></script>
