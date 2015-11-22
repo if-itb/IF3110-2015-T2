@@ -80,7 +80,7 @@ public class Login extends HttpServlet {
                     pst.setString(2, token);
                     pst.setString(3, tst.toString());
                     
-                    int result = pst.executeUpdate();
+                    pst.executeUpdate();
                     
                     // send the response containing token contents as JSON
                     object.put("token_str", token);
