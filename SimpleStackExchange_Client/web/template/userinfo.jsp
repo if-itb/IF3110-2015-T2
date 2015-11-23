@@ -10,7 +10,7 @@
             <% if (!isLogin) { %>
             Guest!
             <% }else{%>
-            <%=request.getParameter("userEmail")%>
+            <%=request.getParameter("name")%>
             <%}%>
         </h2>
         <div class="row">

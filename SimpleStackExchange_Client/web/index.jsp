@@ -20,21 +20,8 @@
         //allow access only if session exists
         String email = null;
         Boolean isLogin= false;
-        if(session.getAttribute("email") != null){
+        if(session.getAttribute("access_token") != null){
            isLogin= true;
-           email = (String) session.getAttribute("email");
-        }
-        
-        String userEmail = null;
-        String sessionID = null;
-        Cookie[] cookies = request.getCookies();
-        if(cookies !=null){
-        for(Cookie cookie : cookies){
-            if(cookie.getName().equals("email")) userEmail = cookie.getValue();
-            if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
-        }
-        }else{
-            sessionID = session.getId();
         }
       %>
     <jsp:include page="template/navbar.jsp">
@@ -43,7 +30,7 @@
     
     <jsp:include page="template/userinfo.jsp">
         <jsp:param name="isLogin" value="<%=isLogin%>"/>
-        <jsp:param name="userEmail" value="<%=userEmail%>"/>
+        <jsp:param name="name" value="<%=session.getAttribute("name")%>"/>
     </jsp:include>
     
     <div class="container">

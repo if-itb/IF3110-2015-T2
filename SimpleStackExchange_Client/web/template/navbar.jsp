@@ -17,7 +17,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
             <% if(!isLogin){ %>
-            <form class="navbar-form navbar-right" action="${pageContext.request.contextPath}/Login" method="POST">
+            <form class="navbar-form navbar-right" action="${pageContext.request.contextPath}/UserLogin" method="POST">
             <div class="form-group">
               <input type="text" name="email" placeholder="Email" class="form-control">
             </div>
@@ -27,7 +27,7 @@
             <button type="submit" class="btn btn-success">Sign in</button>
           </form>
             <% } else{%>
-            <form class="navbar-form navbar-right" action="<%=response.encodeURL("Logout") %>" method="post">
+            <form class="navbar-form navbar-right" action="<%=response.encodeURL("UserLogout") %>" method="post">
                 <button type="submit" class="btn btn-danger">Logout</button>
             </form>
             <% } %>

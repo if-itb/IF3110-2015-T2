@@ -32,7 +32,7 @@
         
       <div class="container">
 
-          <form class="form-signin" action="Login" method="POST">
+          <form class="form-signin" action="${pageContext.request.contextPath}/UserLogin" method="POST">
           <h2 class="form-signin-heading">Login now!<br/>
               <small></small></h2>
           <hr/>
