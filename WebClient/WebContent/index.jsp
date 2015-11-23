@@ -27,12 +27,12 @@
 			</header>
 			<p>This is <strong>STACK EXCHANGE</strong>, a place
 			<br />
-			where Ivan is
+			where Wilhelmus is
 			<br />
 			better than Google</a>.</p>
 			<footer>
 				<ul class="buttons vertical">
-					<li><a href="question_create.jsp" class="button fit scrolly">Ask a Question</a></li>
+					<li><a href="question/create" class="button fit scrolly">Ask a Question</a></li>
 				</ul>
 			</footer>
 		</div>
@@ -47,7 +47,7 @@
 		Feel Free to Use Our Web</h2>
 		<p>Because it is <strong>Free</strong>
 		<br />
-		<h3>- Ivan Imba -</h3>
+		<h3>- Wilehlmus Imba -</h3>
 		<div class="search">
 			<form action = "#" method="get">
 				<div class="row">
