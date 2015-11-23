@@ -43,7 +43,8 @@ public class VoteServlet extends HttpServlet {
                 voteQuestion(id,uid,vote);
                 out.print(getQuestionVotes(id)+"");
             } else if ("answer".equals(db)) {
-                //voteAnswer(id,uid,vote);
+                voteAnswer(id,uid,vote);
+                out.print(getAnswerVotes(id)+"");
             }
         }
     }
@@ -83,6 +84,20 @@ public class VoteServlet extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         model.vote.VoteWS port = service.getVoteWSPort();
         return port.getQuestionVotes(questionId);
+    }
+
+    private void voteAnswer(int answerId, int userId, int vote) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        model.vote.VoteWS port = service.getVoteWSPort();
+        port.voteAnswer(answerId, userId, vote);
+    }
+
+    private int getAnswerVotes(int answerId) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        model.vote.VoteWS port = service.getVoteWSPort();
+        return port.getAnswerVotes(answerId);
     }
 
 }

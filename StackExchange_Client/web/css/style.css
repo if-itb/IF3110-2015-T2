@@ -205,6 +205,9 @@ textarea {
   display: inline-block;
 }
 
+.arrow-up, .arrow-down {
+    cursor: pointer;
+}
 .arrow-up {
   width: 0; 
   height: 0; 
