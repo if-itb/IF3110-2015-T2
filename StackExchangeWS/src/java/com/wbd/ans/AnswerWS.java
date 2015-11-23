@@ -44,7 +44,7 @@ public class AnswerWS {
             
             int i = 0;
             while (rs.next()){
-                answers.add(new Answer(rs.getInt("IDAns"),rs.getInt("IDQ"),rs.getString("Nama"),rs.getString("Email"),rs.getString("Answer"),rs.getInt("Vote")));
+                answers.add(new Answer(rs.getInt("IDAns"),rs.getInt("IDQ"),rs.getInt("IDUser"),rs.getString("Answer"),rs.getInt("Vote")));
                 ++i;
             }
             

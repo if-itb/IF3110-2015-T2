@@ -43,7 +43,7 @@ public class QuestionWS {
             
             int i = 0;
             while (rs.next()){
-                questions.add(new Question(rs.getInt("IDQ"),rs.getString("access_token"),rs.getString("QuestionTopic"),rs.getString("Content"),rs.getInt("Vote")));
+                questions.add(new Question(rs.getInt("IDQ"),rs.getInt("IDUser"),rs.getString("QuestionTopic"),rs.getString("Content"),rs.getInt("Vote")));
                 ++i;
             }
             
@@ -73,7 +73,7 @@ public class QuestionWS {
             
             int i = 0;
             while (rs.next()){
-                questions.add(new Question(rs.getInt("IDQ"),rs.getString("access_token"),rs.getString("QuestionTopic"),rs.getString("Content"),rs.getInt("Vote")));
+                questions.add(new Question(rs.getInt("IDQ"),rs.getInt("IDUser"),rs.getString("QuestionTopic"),rs.getString("Content"),rs.getInt("Vote")));
                 ++i;
             }
             
@@ -93,9 +93,9 @@ public class QuestionWS {
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
             Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO question(access_token, QuestionTopic, Content, Vote) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO question(IDUser, QuestionTopic, Content, Vote) VALUES (?,?,?,?)";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setString(1, access_token);
+            dbStatement.setInt(1, 0);
             dbStatement.setString(2, title);
             dbStatement.setString(3, content);
             dbStatement.setInt(4, 0);
@@ -233,5 +233,33 @@ public class QuestionWS {
                 System.out.println("Order failed. Please contact technical support.");
                   return 0;
        }
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getNama")
+    public String getNama(@WebParam(name = "qid") int qid) {
+        String result = "";
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+            Statement stmt = conn.createStatement();
+            
+            String sql;
+            //sql = "SELECT Nama FROM user WHERE IDUser = (SELECT IDUser FROM question WHERE IDQ = ?)";
+            sql = "SELECT user.Nama FROM user NATURAL JOIN question WHERE IDQ = ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1,qid);
+            
+            ResultSet rs = dbStatement.executeQuery();
+            if (rs.next()){
+                result = rs.getString("Nama");
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex){
+            
+        }
+        return result;
     }
 }
