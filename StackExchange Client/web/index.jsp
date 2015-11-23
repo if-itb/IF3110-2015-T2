@@ -78,7 +78,7 @@
 		    	+"answer"
 		    +"</div>"
 		    +"<div class='bquestion-content'>" 
-                        +"<a id='color-black' href= question.jsp?id=" + result.get(i).getIDQ() + "&token=" + request.getParameter("token") + ">" + result.get(i).getQuestionTopic() + "</a>"
+                        +"<a id='color-black' href=question.jsp?id=" + result.get(i).getIDQ() + "&token=" + request.getParameter("token") + ">" + result.get(i).getQuestionTopic() + "</a>"
                         +"<br>"
                         +result.get(i).getContent()
                         +"<br><br>"

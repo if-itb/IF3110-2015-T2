@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
-<<<<<<< HEAD
     <service name="AnswerWS">
       <implementation-class>com.wbd.ans.AnswerWS</implementation-class>
-=======
-    <service name="CreateQuestionWS">
-      <implementation-class>com.wbd.crt.CreateQuestionWS</implementation-class>
->>>>>>> 73a838e658124ff229c6233c7b6a7385e5e98d53
+    </service>
+    <service name="QuestionWS">
+      <implementation-class>com.wbd.qst.QuestionWS</implementation-class>
     </service>
     <service name="RegisterWS">
       <implementation-class>com.wbd.rgs.RegisterWS</implementation-class>
-    </service>
-<<<<<<< HEAD
-    <service name="QuestionWS">
-      <implementation-class>com.wbd.qst.QuestionWS</implementation-class>
-=======
-    <service name="AnswerWS">
-      <implementation-class>com.wbd.ans.AnswerWS</implementation-class>
->>>>>>> 73a838e658124ff229c6233c7b6a7385e5e98d53
     </service>
   </services>
   <clients/>

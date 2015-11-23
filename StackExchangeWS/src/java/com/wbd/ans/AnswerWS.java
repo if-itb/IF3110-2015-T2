@@ -56,5 +56,96 @@ public class AnswerWS {
         return answers;
     }
 
-    
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "voteUp")
+    public int voteUp(@WebParam(name = "access_token") String access_token, @WebParam(name = "ansid") String ansid) {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+
+            // Turn on transactions
+            conn.setAutoCommit(false);
+
+            Statement stmt = conn.createStatement();
+            String sql = "UPDATE answer SET Vote = Vote + 1 WHERE IDAns = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, ansid);
+            pstmt.executeUpdate();
+            conn.commit();
+
+
+            System.out.println("Order successful!  Thanks for your business!");
+            return 1;
+        }
+       catch (Exception e) {
+            // Any error is grounds for rollback
+            try {
+                conn.rollback();
+            }
+            catch (SQLException ignored) { }
+                System.out.println("Order failed. Please contact technical support.");
+                  return 0;
+       }
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "voteDown")
+    public int voteDown(@WebParam(name = "access_token") String access_token, @WebParam(name = "ansid") String ansid) {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+
+            // Turn on transactions
+            conn.setAutoCommit(false);
+
+            Statement stmt = conn.createStatement();
+            String sql = "UPDATE answer SET Vote = Vote - 1 WHERE IDAns = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, ansid);
+            pstmt.executeUpdate();
+            conn.commit();
+
+
+            System.out.println("Order successful!  Thanks for your business!");
+            return 1;
+        }
+       catch (Exception e) {
+            // Any error is grounds for rollback
+            try {
+                conn.rollback();
+            }
+            catch (SQLException ignored) { }
+                System.out.println("Order failed. Please contact technical support.");
+                  return 0;
+       }
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "createQ")
+    public int createAns(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") String qid, @WebParam(name = "content") String content) {
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+            Statement stmt = conn.createStatement();
+            String sql = "INSERT INTO answer(IDQ, IDUser, Answer, Vote) VALUES (?,?,?,?)";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1, qid);
+            dbStatement.setInt(2, 0);  //belum
+            dbStatement.setString(3, content);
+            dbStatement.setInt(4, 0);
+            dbStatement.executeUpdate();
+            stmt.close();
+            return 1;
+        } catch (SQLException ex){
+            //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            return 0;
+        }
+    }
+
 }

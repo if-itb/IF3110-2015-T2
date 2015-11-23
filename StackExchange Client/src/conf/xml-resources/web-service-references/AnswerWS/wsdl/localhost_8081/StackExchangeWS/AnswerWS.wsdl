@@ -10,15 +10,53 @@
 <message name="getAnswerByQIDResponse">
 <part name="parameters" element="tns:getAnswerByQIDResponse"/>
 </message>
+<message name="voteUp">
+<part name="parameters" element="tns:voteUp"/>
+</message>
+<message name="voteUpResponse">
+<part name="parameters" element="tns:voteUpResponse"/>
+</message>
+<message name="voteDown">
+<part name="parameters" element="tns:voteDown"/>
+</message>
+<message name="voteDownResponse">
+<part name="parameters" element="tns:voteDownResponse"/>
+</message>
 <portType name="AnswerWS">
 <operation name="getAnswerByQID">
 <input wsam:Action="http://ans.wbd.com/AnswerWS/getAnswerByQIDRequest" message="tns:getAnswerByQID"/>
 <output wsam:Action="http://ans.wbd.com/AnswerWS/getAnswerByQIDResponse" message="tns:getAnswerByQIDResponse"/>
 </operation>
+<operation name="voteUp">
+<input wsam:Action="http://ans.wbd.com/AnswerWS/voteUpRequest" message="tns:voteUp"/>
+<output wsam:Action="http://ans.wbd.com/AnswerWS/voteUpResponse" message="tns:voteUpResponse"/>
+</operation>
+<operation name="voteDown">
+<input wsam:Action="http://ans.wbd.com/AnswerWS/voteDownRequest" message="tns:voteDown"/>
+<output wsam:Action="http://ans.wbd.com/AnswerWS/voteDownResponse" message="tns:voteDownResponse"/>
+</operation>
 </portType>
 <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
 <operation name="getAnswerByQID">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="voteUp">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="voteDown">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

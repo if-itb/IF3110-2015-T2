@@ -6,6 +6,27 @@
 
 <xs:element name="getAnswerByQIDResponse" type="tns:getAnswerByQIDResponse"/>
 
+<xs:element name="voteDown" type="tns:voteDown"/>
+
+<xs:element name="voteDownResponse" type="tns:voteDownResponse"/>
+
+<xs:element name="voteUp" type="tns:voteUp"/>
+
+<xs:element name="voteUpResponse" type="tns:voteUpResponse"/>
+
+<xs:complexType name="voteUp">
+<xs:sequence>
+<xs:element name="access_token" type="xs:string" minOccurs="0"/>
+<xs:element name="ansid" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="voteUpResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getAnswerByQID">
 <xs:sequence>
 <xs:element name="qid" type="xs:int"/>
@@ -26,6 +47,19 @@
 <xs:element name="Email" type="xs:string"/>
 <xs:element name="Answer" type="xs:string"/>
 <xs:element name="Vote" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="voteDown">
+<xs:sequence>
+<xs:element name="access_token" type="xs:string" minOccurs="0"/>
+<xs:element name="ansid" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="voteDownResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

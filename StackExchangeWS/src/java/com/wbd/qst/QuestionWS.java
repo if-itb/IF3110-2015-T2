@@ -114,35 +114,35 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "updateQ")
     public int updateQ(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") int qid, @WebParam(name = "title") String title, @WebParam(name = "content") String content) {
-       Connection conn = null;
+        Connection conn = null;
         try {
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
 
-        // Turn on transactions
-        conn.setAutoCommit(false);
+            // Turn on transactions
+            conn.setAutoCommit(false);
 
-        Statement stmt = conn.createStatement();
-        String sql = "UPDATE question SET QuestionTopic = ?, Content = ? WHERE IDQ = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, title);
-        pstmt.setString(2, content);
-        pstmt.setInt(3, qid);
-        pstmt.executeUpdate();
-        conn.commit();
+            Statement stmt = conn.createStatement();
+            String sql = "UPDATE question SET QuestionTopic = ?, Content = ? WHERE IDQ = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, title);
+            pstmt.setString(2, content);
+            pstmt.setInt(3, qid);
+            pstmt.executeUpdate();
+            conn.commit();
 
-       
-        System.out.println("Order successful!  Thanks for your business!");
-        return 1;
-      }
-      catch (Exception e) {
-        // Any error is grounds for rollback
-        try {
-            conn.rollback();
+
+            System.out.println("Order successful!  Thanks for your business!");
+            return 1;
         }
-        catch (SQLException ignored) { }
-            System.out.println("Order failed. Please contact technical support.");
-              return 0;
-      }
+       catch (Exception e) {
+            // Any error is grounds for rollback
+            try {
+                conn.rollback();
+            }
+            catch (SQLException ignored) { }
+                System.out.println("Order failed. Please contact technical support.");
+                  return 0;
+       }
     }
 
     /**
@@ -165,5 +165,73 @@ public class QuestionWS {
             System.out.println(ex);
             return 0;
         }
+    }    
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "voteUp")
+    public int voteUp(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") String qid) {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+
+            // Turn on transactions
+            conn.setAutoCommit(false);
+
+            Statement stmt = conn.createStatement();
+            String sql = "UPDATE question SET Vote = Vote + 1 WHERE IDQ = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, qid);
+            pstmt.executeUpdate();
+            conn.commit();
+
+
+            System.out.println("Order successful!  Thanks for your business!");
+            return 1;
+        }
+       catch (Exception e) {
+            // Any error is grounds for rollback
+            try {
+                conn.rollback();
+            }
+            catch (SQLException ignored) { }
+                System.out.println("Order failed. Please contact technical support.");
+                  return 0;
+       }
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "voteDown")
+    public int voteDown(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") String qid) {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+
+            // Turn on transactions
+            conn.setAutoCommit(false);
+
+            Statement stmt = conn.createStatement();
+            String sql = "UPDATE question SET Vote = Vote - 1 WHERE IDQ = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, qid);
+            pstmt.executeUpdate();
+            conn.commit();
+
+
+            System.out.println("Order successful!  Thanks for your business!");
+            return 1;
+        }
+       catch (Exception e) {
+            // Any error is grounds for rollback
+            try {
+                conn.rollback();
+            }
+            catch (SQLException ignored) { }
+                System.out.println("Order failed. Please contact technical support.");
+                  return 0;
+       }
     }
 }
