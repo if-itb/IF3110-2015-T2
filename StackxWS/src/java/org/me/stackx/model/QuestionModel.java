@@ -216,8 +216,8 @@ public class QuestionModel {
     public static String delete(User user, int questionId) {
         String r = "ERROR";
         switch (user.isValid()) {
-            case -1: r = "INVALID TOKEN";
-            case -2: r = "EXPIRED TOKEN";
+            case -2: r = "INVALID TOKEN";
+            case -1: r = "EXPIRED TOKEN";
         }
         if (user.isValid() >= 0) {
             Connection conn = null;
