@@ -94,9 +94,11 @@ public class getToken extends HttpServlet {
         TokenModel token;
         
         if (password.equals(pass)) {
+            
             try {
                 
                 token = new TokenModel();
+                String tkn = token.getToken();
                 
                 Connection conn = db.connect();
                 
@@ -107,7 +109,7 @@ public class getToken extends HttpServlet {
                 sql = "INSERT INTO token(token_string, date_create)" + " VALUES (?, ?)";
             
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setString(1, token.getToken()); 
+                dbStatement.setString(1, tkn); 
                 dbStatement.setString(2, getCurrentTimeStamp());
             
                 dbStatement.execute();
@@ -115,7 +117,9 @@ public class getToken extends HttpServlet {
                 stmt.close();
                 conn.close();
                 
-                tw.println(token.toXML()); 
+                tw.println("<tokenModel>" 
+                    +   "<token>"+ tkn +"</token>"        
+                    +  "</tokenModel>");
                 tw.close();
             }
             catch(SQLException ex) {
