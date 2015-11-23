@@ -173,13 +173,13 @@ public class QuestionModel {
                     stmt.executeUpdate();
                 }
                
-                sql = "SELECT SUM(value) FROM vote_question WHERE question_id=?";
-                stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, questionId);
-                rs = stmt.executeQuery();
-                rs.next();
-                r = rs.getInt(1);
-               
+//                sql = "SELECT SUM(value) FROM vote_question WHERE question_id=?";
+//                stmt = conn.prepareStatement(sql);
+//                stmt.setInt(1, questionId);
+//                rs = stmt.executeQuery();
+//                rs.next();
+//                r = rs.getInt(1);
+                r = 1;
                 rs.close();
                 stmt.close();
                 conn.close();
