@@ -44,11 +44,20 @@ public class ViewQuestionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        model.question.Question q = getQuestionByID(Integer.parseInt(request.getParameter("id")));
-        java.util.List<model.answer.Answer> answerList = getAnswersByQID(Integer.parseInt(request.getParameter("id")));
+        Question q = getQuestionByID(Integer.parseInt(request.getParameter("id")));
+        model.user.User q_user = getUserByID(q.getUserId());
+        java.util.List<Answer> answerList = getAnswersByQID(Integer.parseInt(request.getParameter("id")));
+        java.util.Map<Integer, User> userMap = new java.util.HashMap<>();
+        
+        for (Answer a: answerList){
+            userMap.put(a.getAnswerId(), getUserByID(a.getUserId()));
+        }
         
         request.setAttribute("question",q);
         request.setAttribute("answers",answerList);
+        request.setAttribute("q_user", q_user);
+        request.setAttribute("a_user", userMap);
+                
         RequestDispatcher dispatcher = request.getRequestDispatcher("/view.jsp");
         dispatcher.forward(request,response);
     }
@@ -64,5 +73,10 @@ public class ViewQuestionServlet extends HttpServlet {
     private java.util.List<Answer> getAnswersByQID(int i) {
         model.answer.AnswerWS port = a_service.getAnswerWSPort();
         return port.getAnswersByQID(i);
+    }
+
+    private User getUserByID(int userId) {
+        model.user.UserWS port = u_service.getUserWSPort();
+        return port.getUserByID(userId);
     }
 }

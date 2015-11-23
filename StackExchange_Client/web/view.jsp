@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="question" type="model.question.Question" scope="request"/>
 <jsp:useBean id="answers" type="java.util.List<model.answer.Answer>" scope="request"/>
+<jsp:useBean id="q_user" type="model.user.User" scope="request"/>
+<jsp:useBean id="a_user" type="java.util.Map<Integer, model.user.User>" scope="request"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,14 +24,14 @@
                 <h2><%= question.getTopic() %></h2>
                 <div class="voting">
                     <div class="arrow-up" onclick="return vote(<%= question.getQuestionId() %>,1,1,'question')"></div>
-                    <div class="vote-number" id="vote-q<%= question.getQuestionId() %>"><p><%= question.getVote() %></p></div>
+                    <div class="votenumber" id="vote-q<%= question.getQuestionId() %>"><%= question.getVote() %></div>
                     <div class="arrow-down" onclick="return vote(<%= question.getQuestionId() %>,2,-1,'question')"></div>
 		</div>
 		<div class="question-content">
                     <p><%= question.getContent() %></p>
 		</div>
 		<div class="question-sign">
-                    <p>asked by <font color="#008080">Name</font> at <%= question.getCreateTime() %> <a class="edit">edit</a> |
+                    <p>asked by <font color="#008080"><%= q_user.getName() %> (<%= q_user.getEmail() %>)</font> at <%= question.getCreateTime() %> <a class="edit">edit</a> |
 			<a class="delete">delete</a></p>
 		</div>
             </div>
@@ -40,14 +42,14 @@
                 <div class="answer-list">
                     <div class="voting">
 			<div class="arrow-up"></div>
-			<div id="vote-number"><p><%= answer.getVote() %></p></div>
+			<div class="votenumber"><%= answer.getVote() %></div>
 			<div class="arrow-down"></div>
                     </div>
                     <div class="answer-content">
 			<p><%= answer.getContent() %></p>
                     </div>
                     <div class="question-sign">
-			<p>answered by <font color="#008080">Name</font> at <%= answer.getCreateTime() %></p>
+                        <p>answered by <font color="#008080"><%= a_user.get(answer.getUserId()).getName() %> (<%= a_user.get(answer.getUserId()).getEmail() %>)</font> at <%= answer.getCreateTime() %></p>
                     </div>
 		</div>
                 <% } %>
