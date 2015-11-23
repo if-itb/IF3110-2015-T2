@@ -33,7 +33,7 @@
             
             if (cookies != null){
                 for (int i=0; i< cookies.length; i++){
-                   if (cookies[i].getName().equals("access_token"){
+                   if (cookies[i].getName().equals("access_token")){
                         access_token = cookie.getValue();
                         break;
                     }
@@ -48,8 +48,8 @@
 
             //Java script, JQuery, and AJAX Initialization
             function checkTokenValidity(){
-                var token = {access_token: "<% access_token %>" }
-                var url = "http://localhost:8080/REST-WS/rest/token-validity"
+                var token = {access_token: "<%= access_token %>" };
+                var url = "http://localhost:8080/REST-WS/rest/token-validity";
 
                 $.ajax({
                     url: url,
@@ -59,7 +59,7 @@
                     success: function(data){
                         var valid = data.valid;
                         if (valid == 1){
-                            window.location.href = "index.jsp"
+                            window.location.href = "index.jsp";
                         }
                         else if (valid == 0){
                             //regenerate Token and move to index.jsp

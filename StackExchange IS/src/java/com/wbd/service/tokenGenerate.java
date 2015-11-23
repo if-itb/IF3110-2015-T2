@@ -4,7 +4,6 @@
 package com.wbd.service;
 
 import com.wbd.rest.Token;
-import com.wbd.db.DBConnection;
 import MD5Hashing.MD5Hashing;
 
 import com.wbd.db.DBConnection;
@@ -12,10 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static javax.swing.text.html.FormSubmitEvent.MethodType.POST;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
-import static javax.ws.rs.HttpMethod.POST;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
