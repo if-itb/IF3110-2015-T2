@@ -64,7 +64,6 @@ public class AnswerWS {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
-
             // Turn on transactions
             conn.setAutoCommit(false);
 
@@ -127,7 +126,7 @@ public class AnswerWS {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "createQ")
+    @WebMethod(operationName = "createAns")
     public int createAns(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") String qid, @WebParam(name = "content") String content) {
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
