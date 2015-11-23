@@ -1,5 +1,5 @@
 
-	<title><%= request.getParameter("pageTitle") %> | StackExchange</title>
+	<title><%= request.getParameter("pageTitle") %> | StackExchanges</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<base href="http://localhost:8080/WebClient/index.jsp"/>
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
@@ -53,6 +53,7 @@
 
 <script>
 function checkToken(){
+	alert("ct");
 	var user_buttons = document.getElementsByClassName("user");
 	console.log(user_buttons.length);
 	var tokenData = {access_token:"<%= access_token %>"}
