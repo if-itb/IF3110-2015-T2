@@ -60,6 +60,8 @@ public class HttpRequest {
                 "    </S:Body>\n" +
                 "</S:Envelope>";
 
+        System.out.println(content);
+
         cgiInput.writeBytes(content);
         cgiInput.flush();
         cgiInput.close();
@@ -76,7 +78,7 @@ public class HttpRequest {
         return res;
     }
 
-    public static String executePOST(String targetURL, HashMap<String, String> data) throws IOException{
+    public static String createJsonPost(String targetURL, HashMap<String, String> data) throws IOException{
         URL url;
         URLConnection urlConn;
         DataOutputStream cgiInput;
@@ -88,33 +90,26 @@ public class HttpRequest {
         urlConn.setDoInput(true);
         urlConn.setDoOutput(true);
         urlConn.setUseCaches(false);
-        urlConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        urlConn.setRequestProperty("Content-Type", "application/json");
 
         // Send POST output.
         cgiInput = new DataOutputStream(urlConn.getOutputStream());
 
         Iterator it = data.entrySet().iterator();
 
-        ArrayList<String> bodyList = new ArrayList<>();
+//        ArrayList<String> bodyList = new ArrayList<>();
+        JSONObject requestObject = new JSONObject();
 
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
 
             try{
-                bodyList.add(pair.getKey().toString() + '=' + URLEncoder.encode(pair.getValue().toString()));
+                requestObject.put(pair.getKey().toString(), pair.getValue().toString());
+//                bodyList.add(pair.getKey().toString() + '=' + URLEncoder.encode(pair.getValue().toString()));
             }catch(Exception e){}
         }
 
-        String content = "";
-
-        for (String s : bodyList)
-        {
-            content += s + "&";
-        }
-
-//        return content;
-
-//        String content = "email=" + URLEncoder.encode(param1) + "&param2=" + URLEncoder.encode(param2);
+        String content = requestObject.toString();
 
         cgiInput.writeBytes(content);
         cgiInput.flush();
