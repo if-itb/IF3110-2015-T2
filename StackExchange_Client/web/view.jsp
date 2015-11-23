@@ -24,7 +24,7 @@
                 <h2><%= question.getTopic() %></h2>
                 <div class="voting">
                     <div class="arrow-up" onclick="return vote(<%= question.getQuestionId() %>,1,1,'question')"></div>
-                    <div class="votenumber" id="vote-q<%= question.getQuestionId() %>"><%= question.getVote() %></div>
+                    <div class="votenumber" id="vote-q"><%= question.getVote() %></div>
                     <div class="arrow-down" onclick="return vote(<%= question.getQuestionId() %>,2,-1,'question')"></div>
 		</div>
 		<div class="question-content">
@@ -38,21 +38,23 @@
 			
             <div class="content">
                 <h2>Answers</h2>
-		<% for (model.answer.Answer answer : answers) { %>
-                <div class="answer-list">
-                    <div class="voting">
-			<div class="arrow-up"></div>
-			<div class="votenumber"><%= answer.getVote() %></div>
-			<div class="arrow-down"></div>
+                <% if (!answers.isEmpty()) { %>
+                    <% for (model.answer.Answer answer : answers) { %>
+                    <div class="answer-list">
+                        <div class="voting">
+                            <div class="arrow-up" onclick="return vote(<%= answer.getAnswerId() %>,1,1,'answer')"></div>
+                            <div class="votenumber" id="vote-a<%= answer.getAnswerId() %>"><%= answer.getVote() %></div>
+                            <div class="arrow-down" onclick="return vote(<%= answer.getAnswerId() %>,2,-1,'answer')"></div>
+                        </div>
+                        <div class="answer-content">
+                            <p><%= answer.getContent() %></p>
+                        </div>
+                        <div class="question-sign">
+                            <p>answered by <font color="#008080"><%= a_user.get(answer.getUserId()).getName() %> (<%= a_user.get(answer.getUserId()).getEmail() %>)</font> at <%= answer.getCreateTime() %></p>
+                        </div>
                     </div>
-                    <div class="answer-content">
-			<p><%= answer.getContent() %></p>
-                    </div>
-                    <div class="question-sign">
-                        <p>answered by <font color="#008080"><%= a_user.get(answer.getUserId()).getName() %> (<%= a_user.get(answer.getUserId()).getEmail() %>)</font> at <%= answer.getCreateTime() %></p>
-                    </div>
-		</div>
-                <% } %>
+                    <% } %>
+                <% }%>
             </div>
 
             <div class="content" style="margin-top:30px;">

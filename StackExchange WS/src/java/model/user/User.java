@@ -23,9 +23,6 @@ public class User {
     
     public User(){
         user_id=0;
-        name="";
-        email="";
-        password="";
     }
     
     public User(int user_id, String name, String email, String password){

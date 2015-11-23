@@ -105,7 +105,7 @@ public class QuestionWS {
             stmt.setString(1, q.getTopic());
             stmt.setString(2, q.getContent());
             stmt.setInt(3, q.getQuestionID());
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);

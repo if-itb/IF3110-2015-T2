@@ -31,7 +31,7 @@ function vote(id, uid, change, db) {
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState === 4 && xhttp.status === 200) {
             if (db=="question") { //question
-                document.getElementById("vote-q"+id).innerHTML = xhttp.responseText;
+                document.getElementById("vote-q").innerHTML = xhttp.responseText;
             } else { //answer
                 document.getElementById("vote-a"+id).innerHTML = xhttp.responseText;
             }
