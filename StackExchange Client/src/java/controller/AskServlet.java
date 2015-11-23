@@ -5,6 +5,7 @@
  */
 package controller;
 
+import connector.ISConnector;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -72,70 +73,24 @@ public class AskServlet extends HttpServlet {
         }
             
         // check access token
-        // redirect to login page if access token is not set
-        String loginPage = request.getContextPath() + "/login";
-        Cookie[] cookies = request.getCookies();
-        if (cookies == null) {
-            response.sendRedirect(loginPage);
-            return;
+        // forward to login page if access token is not set
+        User user = (User) request.getAttribute("user");
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
         }
-        String auth = null;
-        for (Cookie cookie: cookies) {
-            if (cookie.getName().equals("auth")) {
-                auth = cookie.getValue();
-                break;
+        else {
+            StackExchange port = service.getStackExchangePort();
+            Question question = port.addQuestion(user.getId(), topic, content);
+            // redirect to question page if success
+            if (question != null) {
+                response.sendRedirect(request.getContextPath() + "/question?id=" + question.getId());
             }
-        }
-        if (auth == null) {
-            response.sendRedirect(loginPage);
-            return;
-        }
-
-        // check validity of access token and get the user via identity service
-        // redirect to login page if access token is invalid/expired
-        URLConnection connection = new URL("http://localhost:8080/Identity_Service/auth").openConnection();
-        connection.setDoOutput(true);
-        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        try (OutputStream output = connection.getOutputStream()) {
-            String charset = java.nio.charset.StandardCharsets.UTF_8.name();
-            String query = String.format(
-                    "auth=%s",
-                    URLEncoder.encode(auth, charset));
-            output.write(query.getBytes(charset));
-        }
-        StringBuilder builder = new StringBuilder();
-        BufferedReader buf = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String read;
-        while ((read = buf.readLine()) != null)
-            builder.append(read);
-        try {
-            JSONObject jsonResponse = (JSONObject)new JSONParser().parse(builder.toString());
-            // auth error, redirect to login page
-            if (jsonResponse.containsKey("error")) {
-                response.sendRedirect(loginPage);
-                return;
+            // if failed let the get method handles it
+            else {
+                request.setAttribute("error", "Failed to create question");
+                doGet(request, response);
             }
-            // auth valid, create the question
-            else if (jsonResponse.containsKey("id")) {
-                StackExchange port = service.getStackExchangePort();
-                long id = (long) jsonResponse.get("id");                
-                Question question = port.addQuestion((int)id, topic, content);
-                // redirect to question page if success
-                if (question != null) {
-                    response.sendRedirect(request.getContextPath() + "/question?id=" + question.getId());
-                    return;
-                }
-                // if failed let the get method handles it
-                else {
-                    request.setAttribute("error", "Failed to create question");
-                    doGet(request, response);
-                    return;
-                }
-            }
-        } catch (ParseException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        response.sendRedirect(request.getRequestURI());
+        }        
     }
 
     /**
