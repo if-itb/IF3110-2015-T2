@@ -54,9 +54,12 @@ input[type=text]:focus:not([readonly]) + label, input[type=password]:focus:not([
 section#question{
     margin: 20px auto;
 }
-section#question .card:hover,
-section#answer .card:hover{
+.card{
+    transition: all .1s ease-out;
+}
+.card:hover{
     cursor: pointer;
+    transform: scale(1.02);
 }
 section#question .card:hover .question-close{
     opacity: 1;

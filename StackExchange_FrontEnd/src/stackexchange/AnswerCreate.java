@@ -24,7 +24,7 @@ public class AnswerCreate extends HttpServlet {
         ArrayList<Question> questions = new ArrayList<>();
 
         requestParams.put("access_token", request.getParameter("token"));
-        requestParams.put("title", request.getParameter("title"));
+        requestParams.put("question_id", request.getParameter("question_id"));
         requestParams.put("content", request.getParameter("content"));
 
         // Set target method
@@ -33,9 +33,12 @@ public class AnswerCreate extends HttpServlet {
         // Get soap response
         boolean isSuccess = XmlParser.isSuccessResponse(requestResponse);
 
+        System.out.println(isSuccess);
+
         if (isSuccess == true){
             response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
+            response.sendRedirect("/?token=" + request.getParameter("token"));
+//            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
             return;
         }
 

@@ -71,6 +71,8 @@ public class XmlParser {
 
         }
 
+        System.out.println(requestResponse);
+
         if (returns.equals("-1") || returns.equalsIgnoreCase("error")) {
             return false;
         } else {

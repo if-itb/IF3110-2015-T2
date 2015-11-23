@@ -27,14 +27,15 @@ public class QuestionUpVote extends HttpServlet {
         requestParams.put("id", request.getParameter("id"));
 
         // Set target method
-        String requestResponse = HttpRequest.executeMethod("voteUp", requestParams);
+        String requestResponse = HttpRequest.executeMethod("voteUpQuestion", requestParams);
 
         // Get soap response
         boolean isSuccess = XmlParser.isSuccessResponse(requestResponse);
 
         if (isSuccess == true){
             response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
+            response.sendRedirect("/?token=" + request.getParameter("token"));
+//            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
             return;
         }
 

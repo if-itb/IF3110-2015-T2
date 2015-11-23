@@ -34,7 +34,8 @@ public class AnswerDownVote extends HttpServlet {
 
         if (isSuccess == true){
             response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/views/answer.jsp").forward(request, response);
+            response.sendRedirect("/?token=" + request.getParameter("token"));
+//            request.getRequestDispatcher("/views/answer.jsp").forward(request, response);
             return;
         }
 

@@ -52,9 +52,9 @@
         })
 
         if (getParameterByName('token')){
-            $('#add-answer-form').attr('action', '/question/add?token=' + getParameterByName('token'));
+            $('#add-answer-form').attr('action', '/answer/add?token=' + getParameterByName('token'));
         } else {
-            $('#add-answer-form').attr('action', '/question/add');
+            $('#add-answer-form').attr('action', '/answer/add');
         }
 
         $('.question-upvote-btn').click(function(){

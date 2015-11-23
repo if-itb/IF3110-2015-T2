@@ -26,20 +26,22 @@ public class Loginpage extends HttpServlet {
         requestParams.put("email", request.getParameter("email"));
         requestParams.put("password", request.getParameter("password"));
 
-        String requestResponse = HttpRequest.executePOST("http://localhost:9000/Identity_Service/Request", requestParams);
+        String requestResponse = HttpRequest.createJsonPost("http://localhost:9000/Identity_Service/Request", requestParams);
         String token = "";
+
+
 
         try {
             JSONObject responseObject = new JSONObject(requestResponse);
-            JSONArray array = responseObject.getJSONArray("new_token");
+            token = responseObject.getString("token");
 
-            JSONObject obj = (JSONObject)array.get(0);
-            token = obj.getString("token");
+            System.out.println(requestResponse);
+            System.out.println(token);
 
-            if (token != null && !token.isEmpty()){
+            if (!token.isEmpty()){
                 response.sendRedirect("/?token=" + token);
             }else{
-                response.sendRedirect("/");
+                response.sendRedirect("/login");
             }
 
             return;

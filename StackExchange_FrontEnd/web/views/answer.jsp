@@ -105,7 +105,7 @@ ${answers}
     <c:forEach items="${answers}" var="answer">
         <div class="row">
             <div class="col s10 offset-s1">
-                <div class="card">
+                <div class="card" data-id="${answer.id}">
                     <div class="card-content blue-text clearfix">
                         <span class="card-name left"><b>${answer.userId}</b></span>
                         <span class="card-date right"><i>${answer.createDate}</i></span>
@@ -161,6 +161,7 @@ ${answers}
                                     <div class="input-field col s12">
                                         <textarea id="textarea1" class="blue-text materialize-textarea" name="content"></textarea>
                                         <label for="textarea1" class="blue-text">My Answer</label>
+                                        <input type="hidden" name="question_id" value="${question.id}"/>
                                     </div>
                                 </div>
                             </div>
