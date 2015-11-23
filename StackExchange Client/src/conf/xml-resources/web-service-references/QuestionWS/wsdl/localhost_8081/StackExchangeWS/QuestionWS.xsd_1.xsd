@@ -10,6 +10,10 @@
 
 <xs:element name="deleteQResponse" type="tns:deleteQResponse"/>
 
+<xs:element name="getNama" type="tns:getNama"/>
+
+<xs:element name="getNamaResponse" type="tns:getNamaResponse"/>
+
 <xs:element name="getQuestionbyID" type="tns:getQuestionbyID"/>
 
 <xs:element name="getQuestionbyIDResponse" type="tns:getQuestionbyIDResponse"/>
@@ -71,6 +75,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getNama">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getNamaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getQuestionbyID">
 <xs:sequence>
 <xs:element name="qid" type="xs:int"/>
@@ -86,7 +102,7 @@
 <xs:complexType name="question">
 <xs:sequence>
 <xs:element name="IDQ" type="xs:int"/>
-<xs:element name="access_token" type="xs:string"/>
+<xs:element name="iduser" type="xs:int"/>
 <xs:element name="QuestionTopic" type="xs:string"/>
 <xs:element name="Content" type="xs:string"/>
 <xs:element name="Vote" type="xs:int"/>

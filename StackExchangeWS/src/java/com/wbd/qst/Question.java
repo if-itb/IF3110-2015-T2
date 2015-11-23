@@ -15,8 +15,8 @@ import javax.xml.bind.annotation.*;
 public class Question {
     @XmlElement(name = "IDQ", required = true)
     private int idq;
-    @XmlElement(name = "access_token", required = true)
-    private String access_token;
+    @XmlElement(name = "iduser", required = true)
+    private int iduser;
     @XmlElement(name = "QuestionTopic", required = true)
     private String question_topic;
     @XmlElement(name = "Content", required = true)
@@ -28,9 +28,9 @@ public class Question {
         idq = 0;
     }
     
-    public Question(int qid, String acs_token, String q_topic, String konten, int Vote){
+    public Question(int qid, int iduser, String q_topic, String konten, int Vote){
         idq = qid;
-        access_token = acs_token;
+        this.iduser = iduser;
         question_topic = q_topic;
         content = konten;
         vote = Vote;
@@ -40,8 +40,8 @@ public class Question {
         return idq;
     }
     
-    public String getAccessToken(){
-        return access_token;
+    public int getIDUser(){
+        return iduser;
     }
     
     public String getQuestionTopic(){

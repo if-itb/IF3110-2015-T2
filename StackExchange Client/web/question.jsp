@@ -18,16 +18,20 @@
         <br>
         <br>
         <br>
-        <br>
+        <br>    
+
         <%
         try {
             com.wbd.qst.QuestionWS_Service service = new com.wbd.qst.QuestionWS_Service();
             com.wbd.qst.QuestionWS port = service.getQuestionWSPort();
+            com.wbd.qst.QuestionWS_Service service2 = new com.wbd.qst.QuestionWS_Service();
+            com.wbd.qst.QuestionWS port2 = service2.getQuestionWSPort();
              // TODO initialize WS operation arguments here
             int qid = Integer.parseInt(request.getParameter("id"));
             // TODO process result here
             //out.println("QID : " + qid);
             java.util.List<com.wbd.qst.Question> result = port.getQuestionbyID(qid);
+            java.lang.String result2 = port2.getNama(qid);
             for (int i = 0; i < result.size(); i++){
                 String question = 
                     "<div class='subtitle'>"
@@ -50,17 +54,17 @@
                             +result.get(i).getContent()
                             +"<br><br>"
                         +"</div>"
-                        +"<div class='bQA-identity'>"
+                        +"<div class='bquestion-identity'>"
                             +"asked by "
-                            +"$row['email']"
-                            +" at "
-                            +"$row['time']" 
+                            +"<a id='color-blue'>"
+                            +result2
+                            +"</a>"
                             +" | "
-                            +"<a id='color-orange' href=# onclick='editconfirm(" +"$row['question_id']"+")'" +"'>"
+                            +"<a id='color-orange' href=edit.jsp?id=" + result.get(i).getIDQ() + "&token=" + request.getParameter("token") + ">"
                                 +"edit"
                             +"</a>"
                             +" | "
-                            +"<a id='color-red' href=# onclick='deleteconfirm("+"$row['question_id']"+")'"+"'>"
+                            +"<a id='color-red' href=delete.jsp?id=" + result.get(i).getIDQ() + ">"
                                 +"delete"
                             +"</a>"
 	    		+"</div>"

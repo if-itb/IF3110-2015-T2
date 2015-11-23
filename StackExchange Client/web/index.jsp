@@ -46,18 +46,21 @@
     }
     %>
    
-        
+
     <%
     try {
 	com.wbd.qst.QuestionWS_Service service = new com.wbd.qst.QuestionWS_Service();
 	com.wbd.qst.QuestionWS port = service.getQuestionWSPort();
         com.wbd.ans.AnswerWS_Service service2 = new com.wbd.ans.AnswerWS_Service();
 	com.wbd.ans.AnswerWS port2 = service2.getAnswerWSPort();
+        com.wbd.qst.QuestionWS_Service service3 = new com.wbd.qst.QuestionWS_Service();
+	com.wbd.qst.QuestionWS port3 = service3.getQuestionWSPort();
 	// TODO process result here
 	java.util.List<com.wbd.qst.Question> result = port.retrieveQ();        
 	for(int i = 0; i < result.size() ; i++){
             String vote;
             java.util.List<com.wbd.ans.Answer> result2 = port2.getAnswerByQID(result.get(i).getIDQ());
+            java.lang.String result3 = port3.getNama(result.get(i).getIDQ());
             int count = result2.size();
             if(result.get(i).getVote() > 1 || result.get(i).getVote() < -1){
                 vote = "Votes";
@@ -75,7 +78,7 @@
                     +"<div class='bquestion-answer'>" 
 		    	+ count
 		    	+"<br>"
-		    	+"answer"
+		    	+"Answer"
 		    +"</div>"
 		    +"<div class='bquestion-content'>" 
                         +"<a id='color-black' href=question.jsp?id=" + result.get(i).getIDQ() + "&token=" + request.getParameter("token") + ">" + result.get(i).getQuestionTopic() + "</a>"
@@ -86,7 +89,7 @@
                     +"<div class='bquestion-identity'>" 
                         +"asked by "
                         +"<a id='color-blue'>"
-                            +"$row['name']"
+                            +result3
                         +"</a>"
                         +" | "
                         +"<a id='color-orange' href=edit.jsp?id=" + result.get(i).getIDQ() +"&token=" + request.getParameter("token")

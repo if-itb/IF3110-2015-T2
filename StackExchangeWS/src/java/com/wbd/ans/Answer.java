@@ -18,10 +18,8 @@ public class Answer {
     private int idans;
     @XmlElement(name = "IDQ", required = true)
     private int idq;
-    @XmlElement(name = "Nama", required = true)
-    private String nama;
-    @XmlElement(name = "Email", required = true)
-    private String email;
+    @XmlElement(name = "IDUser", required = true)
+    private int iduser;
     @XmlElement(name = "Answer", required = true)
     private String answer;
     @XmlElement(name = "Vote", required = true)
@@ -32,11 +30,10 @@ public class Answer {
         idq = 0;
     }
     
-    public Answer(int idA, int qid, String name, String alamatemail, String isi, int vote){
+    public Answer(int idA, int qid, int iduser, String isi, int vote){
         idans = idA;
         idq = qid;
-        nama = name;
-        email = alamatemail;
+        this.iduser = iduser;
         answer = isi;
         Vote = vote;
     }
@@ -49,12 +46,8 @@ public class Answer {
         return idq;
     }
     
-    public String getNama(){
-        return nama;
-    }
-    
-    public String getEmail(){
-        return email;
+    public int getIDUser(){
+        return iduser;
     }
     
     public String getAnswer(){
