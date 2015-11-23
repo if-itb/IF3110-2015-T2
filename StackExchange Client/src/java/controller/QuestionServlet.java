@@ -24,21 +24,7 @@ import service.*;
 public class QuestionServlet extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
     private StackExchange_Service service;
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -86,7 +72,40 @@ public class QuestionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        // get the content from parameter
+        String content = request.getParameter("content");
+        String paramId = request.getParameter("id");
+        boolean paramError = true;
+        int id = -1;
+        try {
+            if (content != null && paramId != null && !content.isEmpty() && !paramId.isEmpty()) {
+                paramError = false;
+                id = Integer.valueOf(paramId);
+            }
+        } catch (NumberFormatException ex) {
+
+        }
+        if (paramError) {
+            response.sendRedirect(request.getRequestURI());
+            return;
+        }
+
+        // get current signed in user
+        User user = (User) request.getAttribute("user");
+        if (user == null) {
+            // redirect to sign in page
+            response.sendRedirect(request.getContextPath() + "/signin");
+            return;
+        }
+
+        // add answer via web service
+        StackExchange port = service.getStackExchangePort();
+        Answer answer = port.addAnswer(id, user.getId(), content);
+        if (answer == null)
+            request.setAttribute("error", "Failed to post answer");
+
+        // get the page
+        doGet(request, response);
     }
 
     /**
@@ -96,7 +115,7 @@ public class QuestionServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+        return "Handle question and answer request";
+    }
 
 }

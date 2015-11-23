@@ -117,21 +117,7 @@ public class StackExchange {
                     ResultSet result = statement.getGeneratedKeys();
                     if (result.next()) {
                         int id = result.getInt(1);
-                        query = "SELECT * FROM question WHERE id = ?";
-                        try (PreparedStatement selectStatement = connection.prepareStatement(query)) {
-                            selectStatement.setInt(1, id);
-                            ResultSet questionSet = selectStatement.executeQuery();
-                            if (questionSet.next()) {
-                                question = new Question(
-                                questionSet.getInt("id"),
-                                questionSet.getInt("id_user"),
-                                questionSet.getString("topic"),
-                                questionSet.getString("content"),
-                                questionSet.getInt("votes"),
-                                questionSet.getString("timestamp")
-                                );
-                            }
-                        }
+                        question = getQuestion(id);
                     }
                 }
             }
@@ -286,6 +272,7 @@ public class StackExchange {
                         result.getInt("id_question"),
                         result.getInt("id_user"),
                         result.getString("content"),
+                        result.getInt("votes"),
                         result.getString("timestamp"));
                 }
             }
@@ -304,7 +291,7 @@ public class StackExchange {
     @WebMethod(operationName = "getAnswers")
     @WebResult(name = "Answer")
     public List<Answer> getAnswers(@WebParam(name = "idQuestion") int idQuestion) {
-        List<Answer> answeresult = new ArrayList<>();
+        List<Answer> answers = new ArrayList<>();
         
         try{
             String sql = "SELECT * FROM answer WHERE id_question = ?";
@@ -314,10 +301,11 @@ public class StackExchange {
             
             try (ResultSet result = statement.executeQuery()) {
                 while(result.next()){
-                    answeresult.add(new Answer(result.getInt("id"),
+                    answers.add(new Answer(result.getInt("id"),
                             result.getInt("id_question"),
                             result.getInt("id_user"),
                             result.getString("content"),
+                            result.getInt("votes"),
                             result.getString("timestamp")
                     ));
                 }
@@ -326,7 +314,7 @@ public class StackExchange {
         catch(SQLException ex){
             Logger.getLogger(StackExchange.class.getName()).log(Level.SEVERE, null, ex);
         }                        
-        return answeresult;
+        return answers;
     }
 
     /**
@@ -338,24 +326,30 @@ public class StackExchange {
      */
     @WebMethod(operationName = "addAnswer")
     @WebResult(name = "Answer")
-    public boolean addAnswer(@WebParam(name = "idQuestion") int idQuestion,
+    public Answer addAnswer(@WebParam(name = "idQuestion") int idQuestion,
                             @WebParam(name = "idUser") int idUser, 
                             @WebParam(name = "content") String content) {
-        boolean success = false;                
+        Answer answer = null;
         try{
-            String sql = "INSERT INTO answer(id_question, id_user, content) VALUES (?,?,?)";
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            String query = "INSERT INTO answer (id_question, id_user, content) VALUES (?,?,?)";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setInt(1, idQuestion);
                 statement.setInt(2, idUser);
                 statement.setString(3, content);
-                
-                success = statement.executeUpdate() > 0;
+
+                if (statement.executeUpdate() > 0) {
+                    ResultSet result = statement.getGeneratedKeys();
+                    if (result.next()) {
+                        int id = result.getInt(1);
+                        answer = getAnswer(id);
+                    }
+                }
             }
         }
         catch(SQLException ex){
             Logger.getLogger(StackExchange.class.getName()).log(Level.SEVERE, null, ex);
         }        
-        return success;
+        return answer;
     }
 
     private boolean voteAnswer(int idUser, int idAnswer, boolean voteUp) {

@@ -10,7 +10,6 @@ package model;
  * @author Adz
  */
 
-import javax.xml.bind.*;
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "Answer")
@@ -23,20 +22,21 @@ public class Answer {
     private int idUser;
     @XmlElement(name = "content", required = true)
     private String content;
-    @XmlElement(name = "date", required = true)
-    private String date;
+    @XmlElement(name = "votes", required = true)
+    private int votes;
+    @XmlElement(name = "timestamp", required = true)
+    private String timestamp;
     
-    public Answer(){
-        id = 0;
-        idQuestion = 0;
-        idUser = 0;
+    private Answer() {
+        
     }
 
-    public Answer(int id, int qid, int uid, String content, String date){
+    public Answer(int id, int id_question, int id_user, String content,
+            int votes, String timestamp) {
         this.id = id;
-        idQuestion = qid;
-        idUser = uid;
+        this.idQuestion = id_question;
+        this.idUser = id_user;
         this.content = content;
-        this.date = date;
+        this.timestamp = timestamp;
     }
 }
