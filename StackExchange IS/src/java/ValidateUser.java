@@ -26,21 +26,6 @@ import javax.servlet.http.HttpSession;
  */
 public class ValidateUser extends HttpServlet {
 
-    //Declare Connection
-    private Connection conn;
-    
-    //Declare Database Name
-    static final String DB_NAME = "wbd";
-    
-    //Declare JDBC Driver Name and Database URL
-    static final String JDBC_DRIVER="com.mysql.jdbc.Driver";  
-    static final String DB_URL="jdbc:mysql://localhost:3306/" + DB_NAME +"?zeroDateTimeBehavior=convertToNull";
-    
-    //Declare Database Credentials
-    static final String USER = "root";
-    static final String PASS = "";
-    
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -55,7 +40,7 @@ public class ValidateUser extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
+            /*out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet ValidateUser</title>");            
@@ -63,8 +48,42 @@ public class ValidateUser extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet ValidateUser at " + request.getContextPath() + "</h1>");
             out.println("</body>");
-            out.println("</html>");
-        }
+            out.println("</html>");*/
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            
+            //Declare Token Object
+            Token token = new Token();
+            token = tokenGenerate.generateToken(email,password);
+
+            //Declare JSON Reponse
+            JSONObject userToken = new JSONObject();
+
+            //Filling the JSON userToken response
+            userToken.put("access_token",token.access_token);
+            userToken.put("lifetime", token.lifetime);             
+             
+            if (!token.access_token.equals("")){
+                 response.sendRedirect("http://localhost:8080/StackExchange_Client/index.jsp?token=" + access_token);
+            }  
+                       
+            out.println(userToken.toString());
+            stmt.close();
+            conn.close();
+            
+        }catch(ClassNotFoundException e1){
+            //JDBC driver class not found
+            System.out.println(e1.toString());
+        }catch(SQLException se){
+            //Exception when executing java.sql related commands
+            se.printStackTrace();
+            //System.out.println(e2.toString());
+        }catch(Exception e3){
+            //Other exceptions
+            System.out.println(e3.toString());
+        }        
+
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -93,85 +112,7 @@ public class ValidateUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // processRequest(request, response);
-       PrintWriter out = response.getWriter();
-       try{
-            String user_email = request.getParameter("email");
-            String user_password = request.getParameter("password");
-            //User Token = access token and life time 
-            JSONObject userToken = new JSONObject();
-
-            //Register JDBC Driver
-            Class.forName(JDBC_DRIVER);
-            
-            //Open a connection
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);   
-            
-            //Execute SQL Query
-            Statement stmt = conn.createStatement();
-            
-            String sql = "SELECT Email,Password FROM user";
-            
-            ResultSet rs = stmt.executeQuery(sql);
-             
-            ArrayList<String> userEmailList =new ArrayList<String>();//creating arraylist
-            ArrayList<String> userPasswordList =new ArrayList<String>();//creating arraylist
-
-             // Extract data from result set
-             while(rs.next()){
-                String email = rs.getString("email");
-                String password = rs.getString("password");
-                
-                userEmailList.add(email);
-                userPasswordList.add(password);
-             }
-             
-             boolean found = false;
-             int i = 0;
-             while  (i < userEmailList.size() && !found){
-                 if (user_email.equals(userEmailList.get(i))){
-                     found = true;
-                 }
-                 i++;
-             }
-             
-             MD5Hashing md5 = new MD5Hashing();
-             
-             String access_token=""; 
-             int lifetime;
-             
-             if (found){
-                //Login Successful and send the token response
-                access_token = md5.Hash(user_password);
-                //access_token = user_password;
-                lifetime = 5;
-
-                //Format the response to JSON
-                userToken.put("access_token",access_token);
-                userToken.put("lifetime", lifetime);             
-            
-             }
-             
-             if (!access_token.equals("")){
-                 response.sendRedirect("http://localhost:8080/StackExchange_Client/index.jsp?token=" + access_token);
-                 
-             }  
-                       
-            out.println(userToken.toString());
-            stmt.close();
-            conn.close();
-            
-        }catch(ClassNotFoundException e1){
-            //JDBC driver class not found
-            System.out.println(e1.toString());
-        }catch(SQLException se){
-            //Exception when executing java.sql related commands
-            se.printStackTrace();
-            //System.out.println(e2.toString());
-        }catch(Exception e3){
-            //Other exceptions
-            System.out.println(e3.toString());
-        }        
+       processRequest(request, response);
     }
 
     /**
