@@ -12,7 +12,11 @@ import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,12 +28,11 @@ import javax.servlet.http.HttpServletResponse;
  * @author Fitra Rahmamuliani
  */
 
-@WebServlet(urlPatterns = "/login")
+@WebServlet(name="login", urlPatterns = "/login")
 public class login extends HttpServlet {
     private static final long serialVersionUID = 1;
     /* Connect to database */
     Connection conn = DB.connect();
-    
     /* Make JSON object */
     JSONObject jo = new JSONObject();
     
@@ -44,42 +47,52 @@ public class login extends HttpServlet {
     
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
    { 
+       String sql, time;
+       ResultSet r;
+       Statement stmt;
+       response.setContentType("application/json");
        String email = request.getParameter("email"); 
-       String pass = request.getParameter("password"); 
-       response.setContentType("text/html"); 
+       String pass = request.getParameter("password");
        PrintWriter out = response.getWriter(); 
        RequestDispatcher rd = null; 
        request.setAttribute(email, "name"); 
               
        /*LOGIN AUTHENTICATION*/
        int user_id = -1;
-       try{
-            Statement stmt = conn.createStatement();
-            String sql = "SELECT user_id FROM user WHERE email="+ email + " AND password=" + pass + ";";
-            ResultSet r = stmt.executeQuery(sql);
-            user_id = r.getInt("user_id");
-       }
-       catch (SQLException ex){
+       try {
+            stmt = conn.createStatement();
+            sql = "SELECT user_id FROM user WHERE email="+ email + " AND password=" + pass + ";";
+            r = stmt.executeQuery(sql);
+            user_id = r.getInt("user_id");     
+            if (user_id != -1)
+            {
+                UUID generateToken = UUID.randomUUID();
+                String token = generateToken.toString();
+                Date date= new Date();
+                time = new SimpleDateFormat("MM/dd/yy HH:mm:ss").format(date);
+                sql = "SELECT user_id FROM token WHERE user_id=" + user_id;
+                r = stmt.executeQuery(sql);
+                if (!r.next()){
+                    sql = "INSERT INTO token (token_id,user_id,token_expired) VALUES (" + token + "," + user_id + "," + time + ");"; 
+                    r = stmt.executeQuery(sql);
+                    out.println(r);
+                }
+                else
+                {
+                    sql = "UPDATE token SET token_id='" + token + "', token_expired='" + time + "' WHERE user_id=" + user_id + ";" ;
+                }
+                rd = request.getRequestDispatcher("/WelcomeServlet"); 
+                rd.forward(request, response);
+            } 
+            else
+            { 
+                out.println("<b>Invalid Login Info.</b><br>"); 
+                rd = request.getRequestDispatcher("/login.jsp"); 
+                rd.include(request, response); 
+            } 
+            out.close(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-       if (user_id != -1)
-       {
-           UUID generateToken = UUID.randomUUID();
-           String token = generateToken.toString();
-           try{
-               Statement stmt = conn.createStatement();
-               String sql = "INSERT INTO token (token_id,user_id,token_expired) VALUES (" + token + "," + user_id + ","; 
-               /* query di atas belum selesai karena token expirednya belum diatur lagi*/
-           }
-           catch (SQLException ex){
-           }
-           String query = "UPDATE user SET token="+ token +" WHERE name=" + email +";";
-           rd = request.getRequestDispatcher("/WelcomeServlet"); 
-           rd.forward(request, response);
-       }
-       else{ 
-            out.println("<b>Invalid Login Info.</b><br>"); 
-            rd = request.getRequestDispatcher("/login.jsp"); 
-            rd.include(request, response); } out.close(); 
-   }
+    }
 }

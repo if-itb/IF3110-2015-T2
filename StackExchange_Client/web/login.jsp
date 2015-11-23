@@ -19,7 +19,7 @@
             <h1>Simple StackExchange</h1>
             <div class="login">
                 <h5>Do not have an account? <a href="register.jsp">Register here</a></h5>
-                <form method="post" action="" name="login">
+                <form method="post" action="login" name="login">
                     <input type="text" class="input-group" placeholder="Email" name="email">
                     <input type="password" class="input-group" placeholder="Password" name="password">
                     <div class="button-bottom">
