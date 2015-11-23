@@ -1,12 +1,13 @@
 package StackExchange;
 
-import java.sql.timestamp;
+import java.sql.Timestamp;
+
 
 public class Question {
     public int id;
     public int id_user;
     public String topic;
-	public String content;
+    public String content;
     public Timestamp timepost;
   
     public Question(){
@@ -17,12 +18,12 @@ public class Question {
 		timepost=null;
     }
     
-    public Question(int _id, int _id_user, String _topic, String content, Timestamp _timepost){
+    public Question(int _id, int _id_user, String _topic, String _content, Timestamp _timepost){
         id=_id;
         id_user=_id_user;
         topic=_topic;
-		content=_content;
-        timestamp=_timepost;
+	content =_content;
+        timepost =_timepost;
     }
     
     public void setQuestion(int _id, int _id_user, String _topic, String _content, Timestamp _timepost){
@@ -30,6 +31,6 @@ public class Question {
         id_user=_id_user;
         topic=_topic;
         content=_content;
-		timepost=_timepost;
+	timepost=_timepost;
     }
 }
