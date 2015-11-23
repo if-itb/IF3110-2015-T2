@@ -33,7 +33,7 @@ public class AnswerWS {
     @WebMethod(operationName = "getAnswersByQID")
     @WebResult(name="Answer")
     public ArrayList<Answer> getAnswersByQID (@WebParam(name = "question_id") int question_id) {
-        ArrayList<Answer> answers = new ArrayList<Answer>();
+        ArrayList<Answer> answers = new ArrayList<>();
         try{
             String sql;
             sql = "SELECT * FROM answer WHERE question_id = ?";

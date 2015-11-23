@@ -37,12 +37,12 @@ public class UserWS {
     @Oneway
     public void addUser(@WebParam(name = "u") User u) {
         try{
-            String sql = "INSERT INTO user(name,email,password) VALUES(?,?,?)";
+            String sql = "INSERT INTO user (name,email,password) VALUES (?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1,u.getName());
             stmt.setString(2,u.getEmail());
             stmt.setString(3,u.getPassword());
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(UserWS.class.getName()).log
