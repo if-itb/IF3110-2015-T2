@@ -56,12 +56,12 @@ public class Authentication extends HttpServlet {
             sql = "SELECT user.user_id, name, email, create_time FROM user_token INNER JOIN user ON user.user_id=user_token.user_id WHERE access_token ='" + token + "'";
             ResultSet rs = stmt.executeQuery(sql);
            
-            if(!rs.next()){
+            if(!rs.next()){ // not found, invalid email / passsword
                 name = "";
                 email = "";
                 user_id = "";
                 create_time= "";
-                is_valid ="0";
+                is_valid ="0"; // token rejected, invalid email / password
             }
             else{
                
@@ -79,7 +79,7 @@ public class Authentication extends HttpServlet {
                     name = rs.getString("name");
                     email = rs.getString("email");
                     user_id = rs.getInt("user_id") + "";
-                    is_valid = "1";
+                    is_valid = "1"; // token accepted
                     
                     //update create_time
                     java.util.Date temp = new java.util.Date(); 
@@ -91,7 +91,7 @@ public class Authentication extends HttpServlet {
                     name = "";
                     email = "";
                     user_id = "";
-                    is_valid ="0";
+                    is_valid ="-1"; // token expired
                 }
            }
            
