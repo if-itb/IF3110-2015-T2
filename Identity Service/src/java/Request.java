@@ -14,10 +14,14 @@ import java.text.SimpleDateFormat;
 import java.util.Random;
 import java.util.UUID;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.*;
+import org.json.simple.parser.*;
 
 /**
  *
@@ -27,7 +31,8 @@ public class Request extends HttpServlet {
     
      //attr
     private String token;
-    private String create_time; 
+    private String create_time;
+    private String is_valid;
     
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
@@ -70,6 +75,8 @@ public class Request extends HttpServlet {
                 Date temp = new Date(); 
                 create_time = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(temp);
                 
+                is_valid ="1";
+                
                 //check if current user_id has invalid token
                 sql = "SELECT user_id FROM user_token WHERE user_id=" + user_id;
                 rs = stmt.executeQuery(sql);
@@ -91,6 +98,7 @@ public class Request extends HttpServlet {
            else{ //INVALID email or password
                token = "";
                create_time ="";
+               is_valid = "0";
            }
            
            //closing database
@@ -122,18 +130,35 @@ public class Request extends HttpServlet {
     
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        createNewToken(email, password);
+        String jsoninput = request.getParameter("input_login");
+        //parsing json input format
+        JSONParser parser = new JSONParser();
+        String email, password;
+        try {
+            Object obj = parser.parse(jsoninput);
+            JSONObject input = (JSONObject) obj;
+            email = (String) input.get("email");
+            password = (String) input.get("password");
+            createNewToken(email, password);
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(Authentication.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            //JSON format
-            out.println("{\"new_token\":[");
-            out.println("{\"token\":\"" + token +  "\", \"create_time\":\"" + create_time + "\"}");
-            out.println("]}");
+//            //JSON format
+//            out.println("{\"new_token\":[");
+//            out.println("{\"token\":\"" + token +  "\", \"create_time\":\"" + create_time + "\"}");
+//            out.println("]}");
             
+            //JSON format          
+            JSONObject output = new JSONObject();
+            output.put("token", token);
+            output.put("create_time", create_time);
+            output.put("is_valid", is_valid);
+            out.println(output);
         }
         
     }

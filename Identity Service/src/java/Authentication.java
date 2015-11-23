@@ -10,6 +10,10 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServlet;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.*;
+import org.json.simple.parser.*;
 /**
  *
  * @author Edwin
@@ -21,6 +25,8 @@ public class Authentication extends HttpServlet {
     private String name; 
     private String email;
     private String create_time;
+    private String is_valid;
+    Date date;
     
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
@@ -51,12 +57,19 @@ public class Authentication extends HttpServlet {
                email = "";
                user_id = "";
                create_time= "";
+               is_valid ="0";
            }
            else{
                name = rs.getString("name");
                email = rs.getString("email");
                user_id = rs.getInt("user_id") + "";
                create_time = rs.getString("create_time");
+               is_valid= "1";
+               
+               SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+               date = (Date) formatter.parse("create_time");
+               
+               
            }
            
            //closing database
@@ -87,16 +100,31 @@ public class Authentication extends HttpServlet {
     }
     
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-        String token = request.getParameter("token");
-        getUser(token);
+        String jsoninput = request.getParameter("input_token");
+        //parsing json input format
+        JSONParser parser = new JSONParser();
+        String token;
+        try {
+            Object obj = parser.parse(jsoninput);
+            JSONObject input = (JSONObject) obj;
+            token = (String) input.get("token");
+            getUser(token);
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(Authentication.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-            //JSON format
-            out.println("{\"user\":[");
-            out.println("{\"user_id\":\"" + user_id + "\", \"name\":\"" + name + "\", \"email\":\"" + email + "\", \"create_time\":\"" + create_time + "\"}");
-            out.println("]}");
+            //out.println(date);
+            //JSON output format          
+            JSONObject output = new JSONObject();
+            output.put("user_id", user_id);
+            output.put("name", name);
+            output.put("email", email);
+            output.put("create_time", create_time);
+            output.put("is_valid", is_valid);
+            out.println(output);
             
         }
         
