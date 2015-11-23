@@ -1,6 +1,10 @@
-/Frontend WebApp/nbproject/private/
-/Stackexchange WS/nbproject/private/
-/Identity Service/nbproject/private/
-/Frontend WebApp/build/
-/Stackexchange WS/build/
-/Identity Service/build/
+Frontend WebApp/nbproject/private/*
+Frontend WebApp/build/*
+Frontend WebApp/dist/*
+Stackexchange WS/nbproject/private/*
+Stackexchange WS/build/*
+Stackexchange WS/dist/*
+Identity Service/nbproject/private/*
+Identity Service/build/*
+Identity Service/dist/*
+
