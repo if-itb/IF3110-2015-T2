@@ -45,8 +45,22 @@ public class QuestionEdit extends HttpServlet {
         question.setTopic(request.getParameter("title"));
         question.setContent(request.getParameter("content"));
         
-        updateQuestion(access_token, question);
-        response.sendRedirect(request.getContextPath() + "/question?id=" + Integer.parseInt(request.getParameter("id_question")));
+        int ret = updateQuestion(access_token, question);
+                        
+        switch (ret) {
+          case 1:
+          response.sendRedirect(request.getContextPath() + "/question?id=" + Integer.parseInt(request.getParameter("id_question")));
+            break;
+          case 0:
+            response.sendRedirect(request.getContextPath() + "/login?alert=0");            
+            break;
+          case -1:    
+            response.sendRedirect(request.getContextPath() + "/login?alert=-1");        
+            break;
+          default:
+            response.sendRedirect(request.getContextPath() + "/login?alert=-1");
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,11 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page = "layout/header.jsp" flush = "true"/>
+<jsp:useBean id="alert" type="String" scope="request" /> 
 
     <div class="inner-container">
 
         <div class="row">
             <div class="col-12">
-
+                <% if (alert != null) { %>
+                    <%= alert %>
+                <% } %>
                 <div class="login-form-wrapper">
                     <form id="askForm" action="${pageContext.request.contextPath}/auth" method="POST">
                         <div class="form-field">

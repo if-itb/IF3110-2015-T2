@@ -44,9 +44,23 @@ public class QuestionDelete extends HttpServlet {
         
         int id_question = Integer.parseInt(request.getParameter("id_question"));
         int id_user = Integer.parseInt(request.getParameter("id_user"));
-        deleteQuestion(access_token, id_question, id_user);
+        
+        int ret = deleteQuestion(access_token, id_question, id_user);
                 
-        response.sendRedirect(request.getContextPath() + "/home");
+        switch (ret) {
+          case 1:
+            response.sendRedirect(request.getContextPath() + "/home");
+            break;
+          case 0:
+            response.sendRedirect(request.getContextPath() + "/login?alert=0");            
+            break;
+          case -1:    
+            response.sendRedirect(request.getContextPath() + "/login?alert=-1");        
+            break;
+          default:
+            response.sendRedirect(request.getContextPath() + "/login?alert=-1");
+        }
+        
         
     }
 

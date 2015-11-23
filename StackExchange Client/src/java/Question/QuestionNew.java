@@ -45,9 +45,21 @@ public class QuestionNew extends HttpServlet {
         question.setTopic(request.getParameter("title"));
         question.setContent(request.getParameter("content"));
         
-        insertQuestion(access_token, question);
-        
-        response.sendRedirect(request.getContextPath() + "/home");
+        int ret = insertQuestion(access_token, question);
+                        
+        switch (ret) {
+          case 1:
+            response.sendRedirect(request.getContextPath() + "/home");
+            break;
+          case 0:
+            response.sendRedirect(request.getContextPath() + "/login?alert=0");            
+            break;
+          case -1:    
+            response.sendRedirect(request.getContextPath() + "/login?alert=-1");        
+            break;
+          default:
+            response.sendRedirect(request.getContextPath() + "/login?alert=-1");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -89,11 +101,11 @@ public class QuestionNew extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void insertQuestion(java.lang.String token, QuestionWS.Question question) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        port.insertQuestion(token, question);
+    private int insertQuestion(java.lang.String token, QuestionWS.Question question) {
+      // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+      // If the calling of port operations may lead to race condition some synchronization is required.
+      QuestionWS.QuestionWS port = service.getQuestionWSPort();
+      return port.insertQuestion(token, question);
     }
 
 }

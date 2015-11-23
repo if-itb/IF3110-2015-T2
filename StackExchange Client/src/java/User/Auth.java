@@ -95,6 +95,7 @@ public class Auth extends HttpServlet {
       Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);
     }
     
+    
     response.sendRedirect(request.getContextPath() + "/home");
     
   }
