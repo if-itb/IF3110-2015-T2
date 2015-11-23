@@ -27,19 +27,24 @@ public class QuestionDownVote extends HttpServlet {
         requestParams.put("access_token", request.getParameter("token"));
         requestParams.put("id", request.getParameter("id"));
 
+        System.out.println("-- DOWNVOTE QUESTION");
+
         // Set target method
         String requestResponse = HttpRequest.executeMethod("voteDownQuestion", requestParams);
 
         // Get soap response
         boolean isSuccess = XmlParser.isSuccessResponse(requestResponse);
 
+        System.out.println(requestResponse);
+
         if (isSuccess == true){
             response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
+            response.sendRedirect("/?token=" + request.getParameter("token"));
+//            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
             return;
         }
 
-        if (request.getParameter("token") != null && !request.getParameter("token").isEmpty()){
+        if (!request.getParameter("token").isEmpty()){
             response.setContentType("text/html;charset=UTF-8");
 
             request.setAttribute("error", "Internal Server Error");

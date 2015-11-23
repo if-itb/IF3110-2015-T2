@@ -36,7 +36,8 @@ public class QuestionEdit extends HttpServlet {
 
         if (isSuccess == true){
             response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
+            response.sendRedirect("/?token=" + request.getParameter("token"));
+//            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
             return;
         }
 
