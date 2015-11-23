@@ -4,6 +4,7 @@
     Author     : vanyadeasysafrina
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <jsp:include page="/views/header.jsp" flush="true"/>
@@ -38,8 +39,38 @@
                     </a><br></span></span>
 		</span>
                 <br><br><br>
-		<h2><%= question.getAnswer() %> Answers</h2><hr>
+		<h2><%= question.getCountAnswer() %> Answers</h2><hr>
 		<br><br>
+                <%
+		if (question.getCountAnswer()==0) { %>
+			No answer.
+                        <br><br><br><hr><br>
+                <%
+                }
+		for(int i = 0; i < question.getCountAnswer(); i++) { %>
+                    <span id="question-vote"><br>
+                        <div onclick="vote(<%= answers.get(i).getaId() %>,'answer','up')" class="arrow-up">
+                        </div><br>
+			<span id="ansvote-<%= answers.get(i).getaId() %>" class="question-number">
+                            <%= answers.get(i).getVote() %>
+                        </span>
+                        <br><br>
+                        <div onclick="vote(<%= answers.get(i).getaId() %>,'answer','down')" class="arrow-down"></div>
+                        <br>
+                    </span>
+                    <span id="question-content">
+                        <%= answers.get(i).getContent().replace("\n", "<br>") %>
+			<br><br><br>
+			<span class="question-info">answered by
+                            <span class="author">
+                                <%= answers.get(i).getEmail() %>
+                            </span>
+                            at <%= answers.get(i).getDateCreated() %>
+                        </span>
+                    </span>
+                    <br><br><hr>
+                <% } %>
+                
                 
 		<div class="center">
 			<form class="basic-grey" name= "answer" action="controllers/answer.controller.php" onsubmit="return validateAnswerForm()" method="post">
