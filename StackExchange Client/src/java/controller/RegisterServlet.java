@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
 import service.StackExchange;
 import service.StackExchange_Service;
+import service.User;
 
 /**
  *
@@ -47,7 +48,11 @@ public class RegisterServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/view/register.jsp").forward(request, response);
+        User user = (User) request.getAttribute("user");
+        if(user != null) // user already login
+            response.sendRedirect(request.getContextPath());
+        else
+            request.getRequestDispatcher("WEB-INF/view/register.jsp").forward(request, response);
     }
 
     /**
@@ -67,8 +72,17 @@ public class RegisterServlet extends HttpServlet {
                 email = request.getParameter("email"),
                 password = request.getParameter("password");
         
+        // get the result message
         String message = port.addUser(name, email, password);
-        request.setAttribute("message", message);
+        
+        // message handling by get method
+        if(message.contains("Success")){ // SUCCESS
+            request.setAttribute("success", message);
+        }
+        else{
+            request.setAttribute("error", message);
+        }
+        doGet(request, response);
     }
 
     /**
