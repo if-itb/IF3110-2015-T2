@@ -24,7 +24,7 @@
                 <h2><%= question.getTopic() %></h2>
                 <div class="voting">
                     <div class="arrow-up" onclick="return vote(<%= question.getQuestionId() %>,1,1,'question')"></div>
-                    <div class="vote-number" id="vote-q<%= question.getQuestionId() %>"><p><%= question.getVote() %></p></div>
+                    <div class="votenumber" id="vote-q<%= question.getQuestionId() %>"><%= question.getVote() %></div>
                     <div class="arrow-down" onclick="return vote(<%= question.getQuestionId() %>,2,-1,'question')"></div>
 		</div>
 		<div class="question-content">
@@ -42,7 +42,7 @@
                 <div class="answer-list">
                     <div class="voting">
 			<div class="arrow-up"></div>
-			<div id="vote-number"><p><%= answer.getVote() %></p></div>
+			<div class="votenumber"><%= answer.getVote() %></div>
 			<div class="arrow-down"></div>
                     </div>
                     <div class="answer-content">
