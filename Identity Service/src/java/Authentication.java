@@ -104,37 +104,43 @@ public class Authentication extends HttpServlet {
         StringBuffer jb = new StringBuffer();
         String line = null;
         try {
-          BufferedReader reader = request.getReader();
-          while ((line = reader.readLine()) != null)
-            jb.append(line);
+            BufferedReader reader = request.getReader();
+            while ((line = reader.readLine()) != null)
+                jb.append(line);
+          
+            //parsing json input format
+            JSONParser parser = new JSONParser();
+            String token;
+            try {
+                Object obj = parser.parse(jb.toString());
+                JSONObject input = (JSONObject) obj;
+                token = (String) input.get("token");
+                getUser(token);
+
+                response.setContentType("application/json;charset=UTF-8");
+                try (PrintWriter out = response.getWriter()) {
+                    //out.println(date);
+                    //JSON output format          
+                    JSONObject output = new JSONObject();
+                    output.put("user_id", user_id);
+                    output.put("name", name);
+                    output.put("email", email);
+                    output.put("create_time", create_time);
+                    output.put("is_valid", is_valid);
+                    out.println(output);
+
+                }
+            
+            } catch (ParseException ex) {
+                Logger.getLogger(Authentication.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          
+          
         } catch (Exception e) { /*report an error*/ }
         
-        //parsing json input format
-        JSONParser parser = new JSONParser();
-        String token;
-        try {
-            Object obj = parser.parse(jb.toString());
-            JSONObject input = (JSONObject) obj;
-            token = (String) input.get("token");
-            getUser(token);
-            
-        } catch (ParseException ex) {
-            Logger.getLogger(Authentication.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        response.setContentType("application/json;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            //out.println(date);
-            //JSON output format          
-            JSONObject output = new JSONObject();
-            output.put("user_id", user_id);
-            output.put("name", name);
-            output.put("email", email);
-            output.put("create_time", create_time);
-            output.put("is_valid", is_valid);
-            out.println(output);
-            
-        }
+        
+        
         
     }
     
