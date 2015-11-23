@@ -59,8 +59,7 @@
 %>
 
 <script>
-function checkToken(){
-	alert("ct");
+function checkToken(){	
 	var user_buttons = document.getElementsByClassName("user");
 	console.log(user_buttons.length);
 	var tokenData = {access_token:"<%= access_token %>"}

@@ -12,7 +12,7 @@
 		<div class="middleNotFound">
 			<center>
 				<font size="10pt">404 Not Found</font><br>
-				<font size="5pt">Go to <a href="">Home</a></font>
+				<font size="5pt">Go to <a href="index">Home</a></font>
 			</center>
 		</div>
 	</div>
