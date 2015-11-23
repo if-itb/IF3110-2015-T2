@@ -6,18 +6,14 @@
 package WSModule;
 
 
-
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.*;
 /**
  *
  * @author Jessica
  */
-
-
-@XmlRootElement(name = "questionitem")
+ @XmlRootElement(name = "questionitem")
 public class QuestionClass {
-    
     private int questionId;
     private String title;
     private String content;
@@ -25,10 +21,12 @@ public class QuestionClass {
     private String date;
     private int userID;
 
-    public QuestionClass(){
+	
+	public QuestionClass(){
     
     }
-    public QuestionClass(int questionId, String title, String content, int vote, String date, int userID) {
+	
+    public QuestionClass (int questionId, String title, String content, int vote, String date, int userID ) {
         this.questionId = questionId;
         this.title = title;
         this.content = content;
@@ -36,37 +34,42 @@ public class QuestionClass {
         this.date = date;
         this.userID = userID;
     }
-
-         @XmlElement(name = "questionId")
+	
+	
+	@XmlElement(name = "questionId")
     public int getQuestionId() {
         return questionId;
     }
 
-    @XmlElement(name = "questionTitle")
+	
+	@XmlElement(name = "questionTitle")
     public String getTitle() {
+
         return title;
     }
 
-     @XmlElement(name = "questionContent")
+	@XmlElement(name = "questionContent")
     public String getContent() {
+
         return content;
     }
 
-         @XmlElement(name = "questionVote")
+	@XmlElement(name = "questionVote")
     public int getVote() {
+
         return vote;
     }
 
-         @XmlElement(name = "questionDate")
+	@XmlElement(name = "questionDate")
     public String getDate() {
+
         return date;
     }
 
-    @XmlElement(name = "questionUserId")
+	 @XmlElement(name = "questionUserId")
     public int getUserID() {
+
         return userID;
     }
-    
-    
-    
 }
+
