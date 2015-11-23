@@ -28,6 +28,10 @@
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>controller.RegisterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SignOutServlet</servlet-name>
+        <servlet-class>controller.SignOutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RootServlet</servlet-name>
         <url-pattern/>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignOutServlet</servlet-name>
+        <url-pattern>/signout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
