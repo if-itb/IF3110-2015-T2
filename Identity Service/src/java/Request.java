@@ -5,6 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
@@ -130,12 +131,20 @@ public class Request extends HttpServlet {
     
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         
-        String jsoninput = request.getParameter("input_login");
+        StringBuffer jb = new StringBuffer();
+        String line = null;
+        try {
+          BufferedReader reader = request.getReader();
+          while ((line = reader.readLine()) != null)
+            jb.append(line);
+        } catch (Exception e) { /*report an error*/ }
+        
+
         //parsing json input format
         JSONParser parser = new JSONParser();
         String email, password;
         try {
-            Object obj = parser.parse(jsoninput);
+            Object obj = parser.parse(jb.toString());
             JSONObject input = (JSONObject) obj;
             email = (String) input.get("email");
             password = (String) input.get("password");
