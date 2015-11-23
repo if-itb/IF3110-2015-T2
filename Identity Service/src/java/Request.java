@@ -5,6 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
@@ -130,36 +131,39 @@ public class Request extends HttpServlet {
     
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         
-        String jsoninput = request.getParameter("input_login");
-        //parsing json input format
-        JSONParser parser = new JSONParser();
-        String email, password;
+        StringBuffer jb = new StringBuffer();
+        String line = null;
         try {
-            Object obj = parser.parse(jsoninput);
-            JSONObject input = (JSONObject) obj;
-            email = (String) input.get("email");
-            password = (String) input.get("password");
-            createNewToken(email, password);
-            
-        } catch (ParseException ex) {
-            Logger.getLogger(Authentication.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        response.setContentType("application/json;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            
-//            //JSON format
-//            out.println("{\"new_token\":[");
-//            out.println("{\"token\":\"" + token +  "\", \"create_time\":\"" + create_time + "\"}");
-//            out.println("]}");
-            
-            //JSON format          
-            JSONObject output = new JSONObject();
-            output.put("token", token);
-            output.put("create_time", create_time);
-            output.put("is_valid", is_valid);
-            out.println(output);
-        }
+            BufferedReader reader = request.getReader();
+            while ((line = reader.readLine()) != null)
+              jb.append(line);
+
+              //parsing json input format
+            JSONParser parser = new JSONParser();
+            String email, password;
+            try {
+                Object obj = parser.parse(jb.toString());
+                JSONObject input = (JSONObject) obj;
+                email = (String) input.get("email");
+                password = (String) input.get("password");
+                createNewToken(email, password);
+                
+                response.setContentType("application/json;charset=UTF-8");
+                try (PrintWriter out = response.getWriter()) {
+
+                    //JSON format          
+                    JSONObject output = new JSONObject();
+                    output.put("token", token);
+                    output.put("create_time", create_time);
+                    output.put("is_valid", is_valid);
+                    out.println(output);
+                }
+                
+            } catch (ParseException ex) {
+                Logger.getLogger(Authentication.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } catch (Exception e) { /*report an error*/ }
         
     }
     
