@@ -73,7 +73,7 @@ public class Request extends HttpServlet {
                 }
                 token = new_token;
                 
-                Date temp = new Date(); 
+                java.util.Date temp = new Date(); 
                 create_time = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(temp);
                 
                 is_valid ="1";

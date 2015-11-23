@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServlet;
 import java.sql.*;
+import java.text.DateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.*;
@@ -27,7 +28,9 @@ public class Authentication extends HttpServlet {
     private String email;
     private String create_time;
     private String is_valid;
-    Date date;
+    
+   //timeout constant
+    static final int timeout = 30; // timeout in seconds
     
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
@@ -41,36 +44,55 @@ public class Authentication extends HttpServlet {
         Connection conn = null;
         Statement stmt = null;
         try{
-           //STEP 2: Register JDBC driver
-           Class.forName("com.mysql.jdbc.Driver");
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
 
-           //STEP 3: Open a connection
-           conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            //STEP 3: Open a connection
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-           //STEP 4: Execute a query
-           stmt = conn.createStatement();
-           String sql;
-           sql = "SELECT user.user_id, name, email, create_time FROM user_token INNER JOIN user ON user.user_id=user_token.user_id WHERE access_token ='" + token + "'";
-           ResultSet rs = stmt.executeQuery(sql);
+            //STEP 4: Execute a query
+            stmt = conn.createStatement();
+            String sql;
+            sql = "SELECT user.user_id, name, email, create_time FROM user_token INNER JOIN user ON user.user_id=user_token.user_id WHERE access_token ='" + token + "'";
+            ResultSet rs = stmt.executeQuery(sql);
            
-           if(!rs.next()){
-               name = "";
-               email = "";
-               user_id = "";
-               create_time= "";
-               is_valid ="0";
-           }
-           else{
-               name = rs.getString("name");
-               email = rs.getString("email");
-               user_id = rs.getInt("user_id") + "";
-               create_time = rs.getString("create_time");
-               is_valid= "1";
+            if(!rs.next()){
+                name = "";
+                email = "";
+                user_id = "";
+                create_time= "";
+                is_valid ="0";
+            }
+            else{
                
-               SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-               date = (Date) formatter.parse("create_time");
+                create_time = rs.getString("create_time");
+                is_valid= "1";
+
+                DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                java.util.Date last_active = formatter.parse(create_time);
+                java.util.Date now = new java.util.Date();
+
+                //count duration in seconds
+                long duration = (now.getTime() - last_active.getTime())/1000;
                
-               
+                if(duration < timeout){
+                    name = rs.getString("name");
+                    email = rs.getString("email");
+                    user_id = rs.getInt("user_id") + "";
+                    is_valid = "1";
+                    
+                    //update create_time
+                    java.util.Date temp = new java.util.Date(); 
+                    create_time = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(temp);
+                    sql = "UPDATE user_token SET create_time='" + create_time + "' WHERE user_id=" + Integer.parseInt(user_id);
+                    int res = stmt.executeUpdate(sql);
+                }
+                else{ // token expired, new login required
+                    name = "";
+                    email = "";
+                    user_id = "";
+                    is_valid ="0";
+                }
            }
            
            //closing database
@@ -125,7 +147,7 @@ public class Authentication extends HttpServlet {
                     output.put("user_id", user_id);
                     output.put("name", name);
                     output.put("email", email);
-                    output.put("create_time", create_time);
+                    //output.put("create_time", create_time);
                     output.put("is_valid", is_valid);
                     out.println(output);
 
@@ -137,10 +159,6 @@ public class Authentication extends HttpServlet {
           
           
         } catch (Exception e) { /*report an error*/ }
-        
-        
-        
-        
         
     }
     
