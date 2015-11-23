@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2015 at 03:27 AM
+-- Generation Time: Nov 23, 2015 at 07:35 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
   `id_user` int(4) NOT NULL,
   `id_question` int(11) NOT NULL,
   PRIMARY KEY (`id_answer`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
 
 --
 -- Dumping data for table `answer`
@@ -77,6 +77,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `name` varchar(535) NOT NULL,
   `email` varchar(535) NOT NULL,
   `password` varchar(128) NOT NULL,
+  `token` varchar(36) NOT NULL,
+  `lifetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_user`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
@@ -84,24 +86,12 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `name`, `email`, `password`) VALUES
-(2, 'Irene Wiliudarsan', 'irene@gmail.com', 'rahasia1'),
-(3, 'Jen Teda', 'jenteda@hotmail.com', 'jenteda11'),
-(4, 'Abraham Lincoln', 'abraham.lincoln@live.com', 'lincolnkece'),
-(5, 'Lingga', 'lingga@yahoo.com', 'okelahkalobegitu9002'),
-(6, 'Jen Teda', 'jenteda@gmail.com', 'localhost8080');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_log_in`
---
-
-CREATE TABLE IF NOT EXISTS `user_log_in` (
-  `id_user` int(4) NOT NULL,
-  `token` varchar(36) NOT NULL,
-  `lifetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `user` (`id_user`, `name`, `email`, `password`, `token`, `lifetime`) VALUES
+(2, 'Irene Wiliudarsan', 'irene@gmail.com', 'rahasia1', '', '2015-11-23 04:37:15'),
+(3, 'Jen Teda', 'jenteda@hotmail.com', 'jenteda11', '', '2015-11-23 04:50:15'),
+(4, 'Abraham Lincoln', 'abraham.lincoln@live.com', 'lincolnkece', '', '2015-11-21 04:37:15'),
+(5, 'Lingga', 'lingga@yahoo.com', 'okelahkalobegitu9002', '', '2015-11-17 08:37:15'),
+(6, 'Jen Teda', 'jenteda@gmail.com', 'localhost8080', '', '2015-11-19 04:30:15');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

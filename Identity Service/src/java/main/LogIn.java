@@ -29,10 +29,11 @@ public class LogIn {
       // Connect database
       Database database = new Database();
       connection = database.connectDatabase();
-      if (getIdUser() != -999999) {
+      int idUser = getIdUser();
+      if (idUser != -999999) {
         Token token = new Token(email, password);
         // Masukkan token ke basis data
-        insertToken(token);
+        addToken(idUser, token);
       } else {
         // Kirim pesan error
       }
@@ -60,14 +61,15 @@ public class LogIn {
     statement.close();
     return idUser;
   }
-  private void insertToken(Token token) throws SQLException {
+  private void addToken(int idUser, Token token) throws SQLException {
     Statement statement = connection.createStatement();
 
     // Menjalankan query
-    String query = "INSERT INTO user_log_in VALUES (?, ?, ?)";
+    String query = "UPDATE user SET token = ? AND lifetime = ? WHERE id_user = ?";
     PreparedStatement databaseStatement = connection.prepareStatement(query);
     databaseStatement.setString(1, token.getAccessToken());
     databaseStatement.setTimestamp(2, token.getLifetime());
+    databaseStatement.setInt(3, idUser);
     databaseStatement.executeUpdate(query);
     statement.close();
   }
