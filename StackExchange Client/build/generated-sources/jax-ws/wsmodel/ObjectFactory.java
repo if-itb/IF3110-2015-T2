@@ -240,22 +240,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Question }
-     * 
-     */
-    public Question createQuestion() {
-        return new Question();
-    }
-
-    /**
-     * Create an instance of {@link Date }
-     * 
-     */
-    public Date createDate() {
-        return new Date();
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AddAnswer }{@code >}}
      * 
      */
