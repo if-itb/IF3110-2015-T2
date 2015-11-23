@@ -23,7 +23,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="assets/css/font-awesome.min.4.3.0.css" rel="stylesheet">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,7 +36,7 @@
 	</jsp:include>
 	
 	<!-- CSS -->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="assets/fonts/Roboto">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="assets/css/form-elements.css">
@@ -82,7 +82,7 @@
 	                        </div>
 	                        <div class="info">
 	                            <div class="title">
-	                                <a target="_blank" href="http://scripteden.com/"><%= D.getUsername()%></a>
+	                                <a target="_blank" href="#"><%= D.getUsername()%></a>
 	                            </div>
 	                            <div class="desc"><%= D.getFullname()%></div>
 	                            <div class="desc"><%= D.getEmail()%></div>

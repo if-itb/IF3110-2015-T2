@@ -5,6 +5,13 @@
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
     <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
     
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+    
     <!-- js -->
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/jquery.min.js"></script>
@@ -87,7 +94,6 @@ function checkToken(){
 					   $('#navPanel nav a:nth-child(2)').attr("href", "signout.jsp");
                   }
                   else{
-                	  alert('Welcome to StackExchange');
                   }
                   <% if((request.getParameter("needRedirectWhenNotValid") != null) && (request.getParameter("needRedirectWhenNotValid").equals("true"))){%>
         	  			if(!valid){

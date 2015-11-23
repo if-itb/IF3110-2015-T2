@@ -47,8 +47,10 @@
     	pageEncoding="ISO-8859-1"%>
     <jsp:include page="Header.jsp" flush="true">
 		<jsp:param name="pageTitle" value="<%= q.getTopic() %>" />
+		<jsp:param name="needDeleteQuestion" value="true" />
 	</jsp:include>
 	<script src="assets/js/vote.js"></script>
+	<script src="assets/js/validator.js"></script>
 	<% } %>
 </head>
 <% if (q.getIdQuestion() != -1){ %>
@@ -57,7 +59,7 @@
 	
 	<div id="page-wrapper">
 		<!-- Header -->
-		<header id="header" class="alt">
+		<header id="header">
 			<h1 id="logo"><a href="index.jsp">Stack Exchange <span>| by Tusiri</span></a></h1>
 			<jsp:include page="navigationbar.jsp" flush ="true"/>
 		</header>
@@ -81,7 +83,7 @@
 							<span class = 'b_link'><%= q.getUsername() %> </span>
 							<span hidden class = 'modify_<%=q.getIdUser()%>'>
 				              		<a href = 'question_edit.jsp?id=<%= q.getIdQuestion() %>' class = 'y_link'> edit </a>|
-				              		<a href='#' class = 'r_link'>delete</a><br>
+				              		<a onclick='delQuestion(<%= q.getIdQuestion() %>,true)' class = 'r_link'>delete</a><br>
 			              	</span>
 		              	</div>
 					</div>
@@ -106,7 +108,7 @@
 					</div>
 				<%} %>
 				<h3>Your Answer</h3>
-				<form action="answer/create_post" METHOD="POST">
+				<form name ='q_form' action="answer/create_post"  onsubmit='return validate_AForm()' METHOD="POST" >
 					<div class="controls">
 						<input type = 'hidden' name = 'q_id' value = '<%=q_id%>'/>
                     	<textarea rows="10" cols="100" class="form-control" name="content" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"> </textarea>

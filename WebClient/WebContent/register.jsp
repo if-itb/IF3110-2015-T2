@@ -21,6 +21,9 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+		
+		<script src="assets/js/validator.js"></script>
+	
 	</head>
     <body>
     <!-- Top content -->
@@ -50,24 +53,24 @@
                         		</div>
                             </div>
                             <div class="form-bottom">
-			                    <form id="registerForm" action = "register_post" METHOD = "POST">
+			                    <form id="registerForm" onsubmit='validate_Register()' action = "register_post"  METHOD = "POST">
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-username">Fullname</label>
-			                        	<input type="text" name="fullname" placeholder="Fullname..." class="form-username form-control" id="form-username">
+			                        	<input type="text" name="fullname" placeholder="Fullname..." class="form-username form-control" id="form-username" required ="true">
 			                        </div>
 			                        <div class="form-group">
 			                    		<label class="sr-only" for="form-username">Username</label>
-			                        	<input type="text" name="username" placeholder="Username..." class="form-username form-control" id="form-username">
+			                        	<input type="text" name="username" placeholder="Username..." class="form-username form-control" id="form-username" required ="true">
 			                        </div>
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-username">Email</label>
-			                        	<input type="text" name="email" placeholder="Email..." class="form-username form-control" id="form-username">
+			                        	<input type="email" name="email" placeholder="Email..." class="form-username form-control" id="form-username" required ="true">
 			                        </div>
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="form-password">Password</label>
-			                        	<input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password">
+			                        	<input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password" required ="true">
 			                        </div>
-			                        <button id="submitBtn" type="submit" class="btn">Sign in!</button>
+			                        <button id="submitBtn" type="submit" class="btn">Sign up!</button>
 			                    </form>
 		                    </div>
                         </div>

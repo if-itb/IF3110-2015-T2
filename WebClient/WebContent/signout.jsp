@@ -31,7 +31,6 @@
 	
 	<script>
 		function deleteToken(){
-			alert("zzz");
 			var signOutUrl = "http://localhost:8080/REST-WS/rest/token/signout";
 			var tokenData = {access_token:"<%= access_token %>"};
 			
@@ -49,7 +48,6 @@
 			
 		}
 	    $(document).ready(function(){
-	    	alert("sign");
 	    	deleteToken();
 	    	//document.cookie = "access_token =;expires=Thu, 01 Jan 1970 00:00:00 UTC";
 	    	window.location.href = "index.jsp";
