@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseConnect {
 	// JDBC driver name dan database URL
 	final String JDBC_DRIVER="com.mysql.jdbc.Driver";  
-	final String DB_URL="jdbc:mysql://localhost/stackexchange";
+	final String DB_URL="jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull";
 		
 	//  Username dan password
 	final String USER = "root";
@@ -15,10 +15,10 @@ public class DatabaseConnect {
 	
 	public Connection conn;
 	public PreparedStatement stmt;
-	
+
 	public DatabaseConnect(){
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			
 		} catch (SQLException se){
