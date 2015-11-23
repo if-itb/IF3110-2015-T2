@@ -27,7 +27,7 @@
 		<section class="wrapper style4 special container 75%">
 		<!-- Content -->
 			<div class="content">
-				<form name="sentMessage" id="contactForm" action="question/create_post" METHOD="POST" novalidate>
+				<form name="sentMessage" id="contactForm" action="question/create_post" METHOD="POST">
 					<div class="control-group form-group">
 						<div class="controls">
 							<strong><label class="questionmenu">Topic:</label></strong>
