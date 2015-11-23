@@ -9,13 +9,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.UUID;
-import java.util.Calendar;
-import java.util.Date;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +25,7 @@ import org.json.simple.JSONObject;
  *
  * @author jessica
  */
-public class ISLogin extends HttpServlet {
+public class ISAuth extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,70 +36,53 @@ public class ISLogin extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     Connection conn = DatabaseController.connect();
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
+            String token = request.getParameter("auth");
+            String sql = "SELECT * FROM token WHERE token = ?";
+            
             JSONObject object = new JSONObject();
             
-            if (email != null && password != null){
-                String sql = "SELECT * FROM user WHERE email = ? AND password = SHA1(?)";
-                try (PreparedStatement statement = conn.prepareStatement(sql)){
-                    statement.setString(1, email);
-                    statement.setString(2, password);
-                    ResultSet result = statement.executeQuery();
-                    
-                    if(result.next()){
-                        int u_id = result.getInt("u_id");
-                        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-                        
-                        Calendar time = Calendar.getInstance();
-                        time.setTime(new Date());
-                        time.add(Calendar.HOUR, 2);
-                        
-                        conn.setAutoCommit(false);
-                        
-                        String delete = "DELETE from token WHERE u_id = ?";
-                        String insert = "INSERT INTO token (token, u_id, expiry_date) VALUES (?, ?, ?)";
-                        
-                        
-                        try (
-                            PreparedStatement deleteStatement = conn.prepareStatement(delete);
-                            PreparedStatement insertStatement = conn.prepareStatement(insert);){
-                            deleteStatement.setInt(1, u_id);
-                            
-                            insertStatement.setString(1, uuid);
-                            insertStatement.setInt(2, u_id);
-                            insertStatement.setString(3, time.getTime().toString());
-                            
-                            deleteStatement.execute();
-                            insertStatement.execute();
-                            
-                            object.put("auth", uuid);
-                            conn.commit();
-                        }   
-                        finally {
-                            conn.setAutoCommit(true);
-                        }
-                    }
-                    
-                    else {
-                        object.put("error", "Invalid email or password");
-                    }
-                }
-                catch (SQLException e) {
-                    e.printStackTrace();
-                }
+            try (PreparedStatement statement = conn.prepareStatement(sql)){
+               statement.setString(1, token);
+               
+               ResultSet result = statement.executeQuery();
+               
+               if(result.next()){
+                   Date now = new Date();
+                   DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                   
+                   try {
+                       Date expiry_date = format.parse(result.getString("expiry_date"));
+                       if (now.after(expiry_date)){
+                           object.put("error", "Expired Token");
+                           String deleteQuery = "DELETE FROM token WHERE token = ?";
+                           try (PreparedStatement deleteStatement = conn.prepareStatement(deleteQuery)){
+                               deleteStatement.setString(1, token);
+                               deleteStatement.execute();
+                           }
+                       }
+                       else {
+                           object.put("id", result.getInt("u_id"));
+                           
+                       }
+                   }
+                   catch(SQLException | ParseException e){
+                       
+                   }
+                   
+               }
             }
-            
+            catch (SQLException e){
+            }
             out.println(object.toString());
-            
         }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
