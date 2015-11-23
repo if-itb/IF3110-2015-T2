@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="question" type="model.question.Question" scope="request"/>
+<jsp:useBean id="answers" type="java.util.List<model.answer.Answer>" scope="request"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +22,7 @@
                 <h2><%= question.getTopic() %></h2>
                 <div class="voting">
                     <div class="arrow-up" onclick="return vote(<%= question.getQuestionId() %>,1,1,'question')"></div>
-                    <div class="vote-number" id="vote-q<%= question.getQuestionId() %>"><%= question.getVote() %></div>
+                    <div class="vote-number" id="vote-q<%= question.getQuestionId() %>"><p><%= question.getVote() %></p></div>
                     <div class="arrow-down" onclick="return vote(<%= question.getQuestionId() %>,2,-1,'question')"></div>
 		</div>
 		<div class="question-content">
@@ -35,19 +36,21 @@
 			
             <div class="content">
                 <h2>Answers</h2>
-		<div class="answer-list">
+		<% for (model.answer.Answer answer : answers) { %>
+                <div class="answer-list">
                     <div class="voting">
 			<div class="arrow-up"></div>
-			<div id="voteid"><p>?</p></div>
+			<div id="vote-number"><p><%= answer.getVote() %></p></div>
 			<div class="arrow-down"></div>
                     </div>
                     <div class="answer-content">
-			<p>Answer Content</p>
+			<p><%= answer.getContent() %></p>
                     </div>
                     <div class="question-sign">
-			<p>answered by <font color="#008080">Name</font> at datetime</p>
+			<p>answered by <font color="#008080">Name</font> at <%= answer.getCreateTime() %></p>
                     </div>
 		</div>
+                <% } %>
             </div>
 
             <div class="content" style="margin-top:30px;">

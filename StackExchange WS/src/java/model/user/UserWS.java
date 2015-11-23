@@ -80,4 +80,37 @@ public class UserWS {
            }
         return user.get(0);
     }
+    
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUserNameByID")
+    @WebResult(name="String")
+    public String getUserNameByID (@WebParam(name = "user_id") int user_id) {
+        ArrayList<User> user = new ArrayList<User>();
+        try{
+            Statement stmt = conn.createStatement();
+            String sql;
+            sql = "SELECT * FROM user WHERE user_id = ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1,user_id);
+            ResultSet rs = dbStatement.executeQuery();
+            
+            /* Get every data returned by SQL query */
+            int i = 0;
+            while(rs.next()){
+                user.add(new User( rs.getInt("user_id"),
+                rs.getString("name"),
+                rs.getString("email"),
+                rs.getString("password")));
+                ++i;
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserWS.class.getName()).log
+            (Level.SEVERE, null, ex);
+           }
+        return user.get(0).getName();
+    }
 }
