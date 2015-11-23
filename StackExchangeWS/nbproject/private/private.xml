@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/tomcat/webapps/ROOT/IF3110-2015-T2/StackExchangeWS/src/java/Questions/Question.java</file>
-            <file>file:/C:/xampp/tomcat/webapps/ROOT/IF3110-2015-T2/StackExchangeWS/src/java/Questions/QuestionsWS.java</file>
+            <file>file:/D:/Others/NetBeansProjects/WSSE/src/java/Question/QuestionsWS.java</file>
+            <file>file:/D:/Others/NetBeansProjects/WSSE/src/java/User/UserWS.java</file>
+            <file>file:/D:/Others/NetBeansProjects/WSSE/src/java/Question/Question.java</file>
+            <file>file:/D:/Others/NetBeansProjects/WSSE/src/java/Answer/Answer.java</file>
+            <file>file:/D:/Others/NetBeansProjects/WSSE/src/java/User/User.java</file>
+            <file>file:/D:/Others/NetBeansProjects/WSSE/src/java/Answer/AnswersWS.java</file>
+            <file>file:/D:/Others/NetBeansProjects/WSSE/src/java/database/DB.java</file>
         </group>
     </open-files>
 </project-private>

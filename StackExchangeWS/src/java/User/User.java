@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Users;
+package User;
 
-import javax.xml.bind.annotation.*;
-//import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author mochamadtry
+ * @author Ahmad Naufal Farhan
  */
 @XmlRootElement(name="User")
 public class User {
@@ -40,16 +40,29 @@ public class User {
     /**
      * @return the uid
      */
-    public int getId() {
+    public int getUid() {
         return uid;
     }
 
- 
+    /**
+     * @param uid the uid to set
+     */
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
     /**
      * @return the name
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -59,6 +72,12 @@ public class User {
         return email;
     }
 
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     /**
      * @return the password
@@ -66,5 +85,11 @@ public class User {
     public String getPassword() {
         return password;
     }
-    
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

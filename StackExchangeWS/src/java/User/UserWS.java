@@ -3,37 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Users;
+package User;
 
 import database.DB;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.jws.*;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
 /**
  *
- * @author mochamadtry
+ * @author Ahmad Naufal Farhan
  */
-@WebService(serviceName = "Register")
+@WebService(serviceName = "UserWS")
 public class UserWS {
     Connection conn = DB.getConnection();
 
     /**
      * Web service operation
-     * @param name
-     * @param email
-     * @param password
-     * @return 
      */
-    @WebMethod(operationName = "addRegister")
-    @WebResult(name = "success")
-    public int addRegister(@WebParam(name = "name") String name,
-                            @WebParam(name = "email") String email,
-                            @WebParam(name = "password") String password) {
+    @WebMethod(operationName = "addUser")
+    public int addUser(@WebParam(name = "name") String name,
+                        @WebParam(name = "email") String email,
+                        @WebParam(name = "password") String password) {
+        
         int res = 0;
         try {
             // check if the user with the email is already registered
@@ -60,11 +59,10 @@ public class UserWS {
                 }
             }
             
-            return res;
         } catch (SQLException ex) {
             Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
         }
-    }
-    
+        
+        return res;
+    }    
 }
