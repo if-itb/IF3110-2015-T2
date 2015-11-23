@@ -53,7 +53,7 @@ public class QuestionWS {
                 questions.add(new Question (
                     rs.getInt("q_id"),
                     rs.getInt("u_id"),
-                    rs.getString("username"),
+                    rs.getString("email"),
                     rs.getString("name"),
                     rs.getString("topic"),
                     rs.getString("content"),
@@ -65,7 +65,6 @@ public class QuestionWS {
             rs.close();
             stmt.close();
         } catch (SQLException e) {
-            //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
         return questions;
@@ -76,26 +75,21 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "getQuestionById")
     @WebResult(name="Question")
-    public Question getQuestionById(@WebParam(name = "q_id") int q_id) {
+    public Question getQuestion(@WebParam(name = "q_id") int q_id) {
         Question question = new Question();
-        
         try {
             Statement stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT * FROM question natural join user WHERE q_id = ?";
-            
+            String sql = "SELECT * FROM question natural join user WHERE q_id = ?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, q_id);
-            
             ResultSet rs = dbStatement.executeQuery();
-            
             /* Get data */
             while (rs.next()) {
-                //int qId, int uId, String username, String name, String topic, String content, int vote, int answer, String dateCreated, String dateEdited
+                //int qId, int uId, String email, String name, String topic, String content, int vote, int answer, String dateCreated, String dateEdited
                 question = new Question (
                     rs.getInt("q_id"),
                     rs.getInt("u_id"),
-                    rs.getString("username"),
+                    rs.getString("email"),
                     rs.getString("name"),
                     rs.getString("topic"),
                     rs.getString("content"),
@@ -128,7 +122,6 @@ public class QuestionWS {
                 }
             }
         } catch (SQLException e) {
-            //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
             return -1;
         }
@@ -169,7 +162,6 @@ public class QuestionWS {
             }
             stmt.close();
         } catch (SQLException e) {
-            //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
             return "null";
         }
@@ -208,7 +200,6 @@ public class QuestionWS {
             }
             stmt.close();
         } catch (SQLException e) {
-            //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
             return "null";
         }
@@ -225,7 +216,6 @@ public class QuestionWS {
                 stmt.executeUpdate(sql);
             }
         } catch (SQLException e) {
-            //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
             return 0;
         }
@@ -247,7 +237,6 @@ public class QuestionWS {
             }
             stmt.close();
         } catch (SQLException e) {
-            //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
         return count;
@@ -264,7 +253,6 @@ public class QuestionWS {
             stmt.executeUpdate(sql);
             stmt.close();
         } catch (SQLException e) {
-            //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
             return 0;
         }

@@ -18,8 +18,8 @@ public class Question {
     private int qId;
     @XmlElement(name="u_id", required=true)
     private int uId;
-    @XmlElement(name="username", required=true)
-    private String username;
+    @XmlElement(name="email", required=true)
+    private String email;
     @XmlElement(name="name", required=true)
     private String name;
     @XmlElement(name="topic", required=true)
@@ -39,10 +39,10 @@ public class Question {
         
     }
     
-    public Question(int qId, int uId, String username, String name, String topic, String content, int vote, int answer, String dateCreated, String dateEdited) {
+    public Question(int qId, int uId, String email, String name, String topic, String content, int vote, int answer, String dateCreated, String dateEdited) {
         this.qId = qId;
         this.uId = uId;
-        this.username = username;
+        this.email = email;
         this.name = name;
         this.topic = topic;
         this.content = content;
@@ -76,8 +76,8 @@ public class Question {
         return dateCreated;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
     public String getName() {

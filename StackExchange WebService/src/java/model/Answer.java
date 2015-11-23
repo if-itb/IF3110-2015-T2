@@ -17,6 +17,8 @@ public class Answer {
     private int aId;
     @XmlElement(name="u_id", required=true)
     private int uId;
+    @XmlElement(name="email", required=true)
+    private String email;
     @XmlElement(name="content", required=true)
     private String content;
     @XmlElement(name="vote", required=true)
@@ -30,9 +32,10 @@ public class Answer {
         
     }
 
-    public Answer(int a_id, int u_id, String content, int vote, String date_created, int q_id) {
+    public Answer(int a_id, int u_id, String email, String content, int vote, String date_created, int q_id) {
         this.aId = a_id;
         this.uId = u_id;
+        this.email = email;
         this.content = content;
         this.vote = vote;
         this.dateCreated = date_created;
@@ -61,6 +64,10 @@ public class Answer {
 
     public int getqId() {
         return qId;
+    }
+
+    public String getEmail() {
+        return email;
     }
     
 }
