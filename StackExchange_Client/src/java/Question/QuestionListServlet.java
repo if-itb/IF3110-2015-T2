@@ -5,7 +5,6 @@
  */
 package Question;
 
-import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
 import javax.servlet.RequestDispatcher;
+import model.answer.AnswerWS_Service;
+import model.question.QuestionWS_Service;
+import model.user.User;
+import model.user.UserWS_Service;
 
 /**
  *
@@ -21,6 +24,10 @@ import javax.servlet.RequestDispatcher;
 public class QuestionListServlet extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/QuestionWS.wsdl")
     private QuestionWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/AnswerWS.wsdl")
+    private AnswerWS_Service service_2;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/UserWS.wsdl")
+    private UserWS_Service service_1;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,8 +40,16 @@ public class QuestionListServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        java.util.List<QuestionWS.Question> questionList = getAllQuestions();
+        java.util.List<model.question.Question> questionList = getAllQuestions();
+        java.util.Map<Integer,User> userMap = new java.util.HashMap<>();
+        java.util.Map<Integer,Integer> answerMap = new java.util.HashMap<>();
+        for (model.question.Question q : questionList) {
+            userMap.put(q.getQuestionId(),getUserByID(q.getUserId()));
+            answerMap.put(q.getQuestionId(),getAnswerCount(q.getQuestionId()));
+        }
         request.setAttribute("questions",questionList);
+        request.setAttribute("users",userMap);
+        request.setAttribute("answers",answerMap);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
         dispatcher.forward(request,response);
     }
@@ -78,12 +93,31 @@ public class QuestionListServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private java.util.List<QuestionWS.Question> getAllQuestions() {
+
+
+    private User getUserByID(int userId) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        model.user.UserWS port = service_1.getUserWSPort();
+        return port.getUserByID(userId);
+    }
+
+    private int getAnswerCount(int questionId) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        model.answer.AnswerWS port = service_2.getAnswerWSPort();
+        return port.getAnswerCount(questionId);
+    }
+
+    private java.util.List<model.question.Question> getAllQuestions() {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        model.question.QuestionWS port = service.getQuestionWSPort();
         return port.getAllQuestions();
     }
+
+    
+    
 
  
 

@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,15 +35,13 @@ public class AnswerWS {
     public ArrayList<Answer> getAnswersByQID (@WebParam(name = "question_id") int question_id) {
         ArrayList<Answer> answers = new ArrayList<Answer>();
         try{
-            Statement stmt = conn.createStatement();
             String sql;
             sql = "SELECT * FROM answer WHERE question_id = ?";
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1, question_id);
-            ResultSet rs = dbStatement.executeQuery();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, question_id);
+            ResultSet rs = stmt.executeQuery();
             
             /* Get every data returned by SQL query */
-            int i = 0;
             while(rs.next()){
                 answers.add(new Answer( rs.getInt("answer_id"),
                 rs.getInt("question_id"),
@@ -53,7 +50,6 @@ public class AnswerWS {
                 rs.getInt("vote"),
                 rs.getString("create_time")
                 ));
-                ++i;
             }
             rs.close();
             stmt.close();
@@ -72,15 +68,13 @@ public class AnswerWS {
     public Answer getAnswerByID (@WebParam(name = "answer_id") int answer_id) {
         ArrayList<Answer> answers = new ArrayList<Answer>();
         try{
-            Statement stmt = conn.createStatement();
             String sql;
             sql = "SELECT * FROM answer WHERE answer_id = ?";
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1, answer_id);
-            ResultSet rs = dbStatement.executeQuery();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, answer_id);
+            ResultSet rs = stmt.executeQuery();
             
             /* Get every data returned by SQL query */
-            int i = 0;
             while(rs.next()){
                 answers.add(new Answer( rs.getInt("answer_id"),
                 rs.getInt("question_id"),
@@ -89,7 +83,6 @@ public class AnswerWS {
                 rs.getInt("vote"),
                 rs.getString("create_time")
                 ));
-                ++i;
             }
             rs.close();
             stmt.close();
@@ -108,16 +101,14 @@ public class AnswerWS {
     public int getAnswerCount (@WebParam(name = "question_id") int question_id) {
         int i = 0;
         try{
-            Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM answer WHERE question_id = ?";
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1, question_id);
-            ResultSet rs = dbStatement.executeQuery();
+            sql = "SELECT COUNT(*) as answercount FROM answer WHERE question_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1,question_id);
+            ResultSet rs = stmt.executeQuery();
             
-            /* Get every data returned by SQL query */
             while(rs.next()){
-                ++i;
+                i=rs.getInt("answercount");
             }
             rs.close();
             stmt.close();
@@ -135,10 +126,12 @@ public class AnswerWS {
     @Oneway
     public void addAnswer (@WebParam(name = "a") Answer a) {
         try{
-            Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO answer (question_id,user_id,content) VALUES("+
-                    a.getQuestionID() + "," + a.getUserID() + "," + a.getContent() + ")";
-            stmt.executeUpdate(sql);
+            String sql = "INSERT INTO answer (question_id,user_id,content) VALUES (?,?,?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1,a.getQuestionID());
+            stmt.setInt(2,a.getUserID());
+            stmt.setString(3, a.getContent());
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(AnswerWS.class.getName()).log

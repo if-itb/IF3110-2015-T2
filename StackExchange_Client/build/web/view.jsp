@@ -5,9 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:useBean id="question" type="QuestionWS.Question" scope="request"/>
-<jsp:useBean id="answers" type="java.util.List<AnswerWS.Answer>" scope="request"/>
-<jsp:useBean id="q_name" type="String" scope="request"/>
+<jsp:useBean id="question" type="model.question.Question" scope="request"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,49 +20,49 @@
             <div class="content">
                 <h2><%= question.getTopic() %></h2>
                 <div class="voting">
-                    <div class="arrow-up"></div>
-                    <div id="vote-q"><p><%= question.getVote() %></p></div>
-                    <div class="arrow-down"></div>
+                    <div class="arrow-up" onclick="return vote(<%= question.getQuestionId() %>,1,1,'question')"></div>
+                    <div class="vote-number" id="vote-q<%= question.getQuestionId() %>"><%= question.getVote() %></div>
+                    <div class="arrow-down" onclick="return vote(<%= question.getQuestionId() %>,2,-1,'question')"></div>
 		</div>
-		<div class="answer-content">
+		<div class="question-content">
                     <p><%= question.getContent() %></p>
 		</div>
 		<div class="question-sign">
-                    <p>asked by <font color="#008080"><%= q_name %></font> at <%= question.getCreateTime() %> <a class="edit">edit</a> |
+                    <p>asked by <font color="#008080">Name</font> at <%= question.getCreateTime() %> <a class="edit">edit</a> |
 			<a class="delete">delete</a></p>
 		</div>
             </div>
 			
             <div class="content">
                 <h2>Answers</h2>
-                <% for (AnswerWS.Answer answer : answers) { %>
 		<div class="answer-list">
                     <div class="voting">
 			<div class="arrow-up"></div>
-			<div id="voteid"><p><%= answer.getVote() %></p></div>
+			<div id="voteid"><p>?</p></div>
 			<div class="arrow-down"></div>
                     </div>
                     <div class="answer-content">
-			<p><%= answer.getContent() %></p>
+			<p>Answer Content</p>
                     </div>
                     <div class="question-sign">
-			<p>answered by <font color="#008080">Name</font> at <%= answer.getCreateTime() %></p>
+			<p>answered by <font color="#008080">Name</font> at datetime</p>
                     </div>
 		</div>
-                <% } %>
             </div>
 
             <div class="content" style="margin-top:30px;">
 		<div class="grey-title">Your Answer</div>
-                <form method="post" name="saveanswer" action="question.php">
-                    <input type="text" class="input-group" placeholder="Name" name="name_ans">
-                    <input type="text" class="input-group" placeholder="Email" name="email_ans">
-                    <textarea placeholder="Content" rows="5" name="content_ans"></textarea>
+                <form method="post" name="saveanswer" action="addAnswer">
+                    <input type="hidden" name="question_id" value="<%= question.getQuestionId() %>">
+                    <input type="hidden" name="user_id" value="1">
+                    <textarea placeholder="Content" rows="5" name="content"></textarea>
                     <div class="button-bottom">
                         <button type="submit" name="saveanswer" value="Submit">Post</button>
                     </div>
                 </form>
             </div>
 	</div>
+                    
+    <script src="js/functions.js"></script>
     </body>
 </html>

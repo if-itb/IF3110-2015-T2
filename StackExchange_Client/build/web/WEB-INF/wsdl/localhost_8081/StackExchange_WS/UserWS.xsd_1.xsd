@@ -8,10 +8,6 @@
 
 <xs:element name="getUserByIDResponse" type="tns:getUserByIDResponse"/>
 
-<xs:element name="getUserNameByID" type="tns:getUserNameByID"/>
-
-<xs:element name="getUserNameByIDResponse" type="tns:getUserNameByIDResponse"/>
-
 <xs:complexType name="addUser">
 <xs:sequence>
 <xs:element name="u" type="tns:user" minOccurs="0"/>
@@ -25,18 +21,6 @@
 <xs:element name="password" type="xs:string"/>
 <xs:element name="token" type="xs:string"/>
 <xs:element name="user_id" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getUserNameByID">
-<xs:sequence>
-<xs:element name="user_id" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getUserNameByIDResponse">
-<xs:sequence>
-<xs:element name="String" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

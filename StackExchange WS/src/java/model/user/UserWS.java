@@ -37,9 +37,11 @@ public class UserWS {
     @Oneway
     public void addUser(@WebParam(name = "u") User u) {
         try{
-            Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO user(name,email,password,content) VALUES("+
-                    u.getName() + "," + u.getEmail() + "," + u.getPassword() + "," + u.getToken() +")";
+            String sql = "INSERT INTO user(name,email,password) VALUES(?,?,?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1,u.getName());
+            stmt.setString(2,u.getEmail());
+            stmt.setString(3,u.getPassword());
             stmt.executeUpdate(sql);
             stmt.close();
         } catch (SQLException ex) {
@@ -56,23 +58,19 @@ public class UserWS {
     public User getUserByID (@WebParam(name = "user_id") int user_id) {
         ArrayList<User> user = new ArrayList<User>();
         try{
-            Statement stmt = conn.createStatement();
             String sql;
             sql = "SELECT * FROM user WHERE user_id = ?";
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1,user_id);
-            ResultSet rs = dbStatement.executeQuery();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1,user_id);
+            ResultSet rs = stmt.executeQuery();
             
             /* Get every data returned by SQL query */
-            int i = 0;
             while(rs.next()){
                 user.add(new User( rs.getInt("user_id"),
                 rs.getString("name"),
                 rs.getString("email"),
-                rs.getString("password"),
-                rs.getString("token")
+                rs.getString("password")
                 ));
-                ++i;
             }
             rs.close();
             stmt.close();
@@ -81,40 +79,5 @@ public class UserWS {
             (Level.SEVERE, null, ex);
            }
         return user.get(0);
-    }
-    
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "getUserNameByID")
-    @WebResult(name="String")
-    public String getUserNameByID (@WebParam(name = "user_id") int user_id) {
-        ArrayList<User> user = new ArrayList<User>();
-        try{
-            Statement stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT * FROM user WHERE user_id = ?";
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1,user_id);
-            ResultSet rs = dbStatement.executeQuery();
-            
-            /* Get every data returned by SQL query */
-            int i = 0;
-            while(rs.next()){
-                user.add(new User( rs.getInt("user_id"),
-                rs.getString("name"),
-                rs.getString("email"),
-                rs.getString("password"),
-                rs.getString("token")
-                ));
-                ++i;
-            }
-            rs.close();
-            stmt.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserWS.class.getName()).log
-            (Level.SEVERE, null, ex);
-           }
-        return user.get(0).getName();
     }
 }

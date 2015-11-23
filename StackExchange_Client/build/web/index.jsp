@@ -5,8 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:useBean id="questions" type="java.util.List<QuestionWS.Question>" scope="request"/>
-
+<jsp:useBean id="questions" type="java.util.List<model.question.Question>" scope="request"/>
+<jsp:useBean id="users" type="java.util.Map<Integer,model.user.User>" scope="request"/>
+<jsp:useBean id="answers" type="java.util.Map<Integer,Integer>" scope="request"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,19 +31,28 @@
             </p>
             <div class="raqtitle left"><h3>Recently Asked Question</h3></div>
         
-        <hr>
-        
-        <% for (QuestionWS.Question question : questions) { %>
-                <div class="question-block">
-                    <div class="q-votes"><%= question.getVote() %><br>Votes</div>
-                    <div class="q-answers">0<br>Answers</div>
-                    <div class="q-topic-content">
-                        <div class="q-topic"><a href="view"><%= question.getTopic() %></a></div>
-                        <div class="q-content"><%= question.getContent() %></div>
+        <% for (model.question.Question question : questions) { %>
+                <div class="raq question-block">
+                    <div class="votepart">
+                        <div class="votenumber"><%= question.getVote() %></div>
+                        <div class="votetext">Votes</div>
                     </div>
-                    <div class="details">asked by <span class="name">name (email)</span> | <a class="edit" href="edit.jsp?id=<%= question.getQuestionId() %>">edit</a> | <a class="delete" href="delete.php?id=<%= question.getQuestionId() %>" onclick="return confirm('Are you sure you want delete this question?')">delete</a></span></div>    
+                    <% int answerCount = answers.get(question.getUserId()); %>
+                    <div class="answerpart">
+                        <div class="answernumber"><%= answerCount %></div>
+                        <div class=answertext">Answers</div>
+                    </div>
+                    <div class="questionpart">
+                        <% String topic = question.getTopic(); if (topic.length() > 153) topic = topic.substring(0,150)+ "..."; %>
+                        <div class="qtopic"><a href="view?id=<%= question.getQuestionId() %>"><%= topic %></a></div>
+                        <% String content = question.getContent();if (content.length() > 503) content = content.substring(0,500)+"..."; %>
+                        <div class="qcontent"><%= content %></div>
+                    </div>
+                    <% model.user.User user = users.get(question.getUserId()); %>
+                    <div class="details">
+                        asked by
+                        <span class="name"><%= user.getName() %> (<%= user.getEmail() %>)</span><a class="edit" href="edit?id=<%= question.getQuestionId() %>">edit</a><a class="delete" href="delete?id=<%= question.getQuestionId() %>" onclick="return confirm('Are you sure you want delete this question?')">delete</a></span></div>    
                 </div>
-                <hr>
         <% } %>
     </div>
 </body>

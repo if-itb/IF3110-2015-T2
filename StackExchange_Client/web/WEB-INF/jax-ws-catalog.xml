@@ -6,4 +6,6 @@
     <system systemId="http://localhost:8081/StackExchange_WS/UserWS?xsd=1" uri="wsdl/localhost_8081/StackExchange_WS/UserWS.xsd_1.xsd"/>
     <system systemId="http://localhost:8081/StackExchange_WS/AnswerWS?wsdl" uri="wsdl/localhost_8081/StackExchange_WS/AnswerWS.wsdl"/>
     <system systemId="http://localhost:8081/StackExchange_WS/AnswerWS?xsd=1" uri="wsdl/localhost_8081/StackExchange_WS/AnswerWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8081/StackExchange_WS/VoteWS?wsdl" uri="wsdl/localhost_8081/StackExchange_WS/VoteWS.wsdl"/>
+    <system systemId="http://localhost:8081/StackExchange_WS/VoteWS?xsd=1" uri="wsdl/localhost_8081/StackExchange_WS/VoteWS.xsd_1.xsd"/>
 </catalog>
