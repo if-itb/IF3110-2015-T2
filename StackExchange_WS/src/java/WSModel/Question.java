@@ -39,7 +39,7 @@ public class Question {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(localhost, USER, PASS);
             statement = conn.createStatement();
-            String query = "INSERT INTO questions(`title`, `content`, `userID`, `date`) VALUES ('" + questionTitle + "','" + questionContent + "'," + userID + ",now())";
+            String query = "INSERT INTO questions(`title`, `content`, `userID`, `date`)" + "VALUES(?,?,?,NOW())";
             statement.executeUpdate(query);
             System.out.println(query);
             success = true;
@@ -64,11 +64,11 @@ public class Question {
         return success;
     }
      
-    public static ArrayList<QuestionClass> getQuestionByID(int questionId) {
+    public static WSModule.QuestionClass getQuestionByID(int questionId) {
         Connection conn = null;
         Statement statement = null;
         ArrayList<QuestionClass> questionList = new ArrayList<QuestionClass>();
-        QuestionClass[] questionArray = null;
+
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(localhost, USER, PASS);
@@ -107,7 +107,7 @@ public class Question {
                 e.printStackTrace();
             }
         }
-        return questionList;
+        return questionList.get(0);
     }
             
     public static ArrayList<QuestionClass> getAllQuestion(){

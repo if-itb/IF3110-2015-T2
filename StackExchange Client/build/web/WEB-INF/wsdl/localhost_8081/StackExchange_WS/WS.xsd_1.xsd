@@ -87,12 +87,8 @@
 
 <xs:complexType name="getQuestionByIDResponse">
 <xs:sequence>
-<xs:element name="return" type="tns:question" minOccurs="0"/>
+<xs:element name="return" type="tns:questionClass" minOccurs="0"/>
 </xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="question">
-<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="updateQuestion">
@@ -189,14 +185,8 @@
 <xs:sequence>
 <xs:element name="questionTitle" type="xs:string" minOccurs="0"/>
 <xs:element name="questionContent" type="xs:string" minOccurs="0"/>
-<xs:element name="voteQuestion" type="xs:int"/>
-<xs:element name="questionDate" type="tns:date" minOccurs="0"/>
 <xs:element name="userID" type="xs:int"/>
 </xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="date">
-<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="addQuestionResponse">

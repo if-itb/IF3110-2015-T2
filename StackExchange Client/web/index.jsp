@@ -21,7 +21,7 @@
         <input name = 'search' id="bar" type="text"/>
         <input id="submitButton" type="submit" value="Search"/>
     </div>
-    <%--<p align="center">Cannot find what you are looking for? <a style="color:red" href="addQuestion.php">Ask here</a> --%>
+    <p align="center">Cannot find what you are looking for? <a style="color:red" href="addQuestion.jsp">Ask here</a>
     <div id ="body">
       <h3>Recently Asked Questions</h3>
     <%-- start web service invocation --%><hr/>
@@ -57,7 +57,7 @@
                         </div>
 
                         <div class= questionRight>
-                            asked by <font color='blue'> <% out.println(allQuestionList.get(i).getQuestionUserId()); %> </font> |<a class='editQuestion' href=#><font color='green'>edit</font> </a>|<a class='deleteQuestion' href = #><font color='red'>delete</font> </a>
+                            asked by <font color='blue'> <% out.println(allQuestionList.get(i).getQuestionUserId()); %> </font> |<a class='editQuestion' href='editQuestion.jsp?id=<%= allQuestionList.get(i).getQuestionId() %>'><font color='green'>edit</font> </a>|<a class='deleteQuestion' href = 'deleteQuestion.jsp?id=<%= allQuestionList.get(i).getQuestionId() %>'><font color='red'>delete</font> </a>
                         </div>
 
                 </div>
