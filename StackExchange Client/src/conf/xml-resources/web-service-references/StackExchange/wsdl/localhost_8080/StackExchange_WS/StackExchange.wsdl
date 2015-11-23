@@ -34,6 +34,12 @@
 <message name="updateQuestionResponse">
 <part name="parameters" element="tns:updateQuestionResponse"/>
 </message>
+<message name="isVoteQuestionAvailable">
+<part name="parameters" element="tns:isVoteQuestionAvailable"/>
+</message>
+<message name="isVoteQuestionAvailableResponse">
+<part name="parameters" element="tns:isVoteQuestionAvailableResponse"/>
+</message>
 <message name="voteQuestionUp">
 <part name="parameters" element="tns:voteQuestionUp"/>
 </message>
@@ -76,6 +82,12 @@
 <message name="voteAnswerDownResponse">
 <part name="parameters" element="tns:voteAnswerDownResponse"/>
 </message>
+<message name="isVoteAnswerAvailable">
+<part name="parameters" element="tns:isVoteAnswerAvailable"/>
+</message>
+<message name="isVoteAnswerAvailableResponse">
+<part name="parameters" element="tns:isVoteAnswerAvailableResponse"/>
+</message>
 <message name="getUser">
 <part name="parameters" element="tns:getUser"/>
 </message>
@@ -87,18 +99,6 @@
 </message>
 <message name="addUserResponse">
 <part name="parameters" element="tns:addUserResponse"/>
-</message>
-<message name="isVoteQuestionAvailable">
-<part name="parameters" element="tns:isVoteQuestionAvailable"/>
-</message>
-<message name="isVoteQuestionAvailableResponse">
-<part name="parameters" element="tns:isVoteQuestionAvailableResponse"/>
-</message>
-<message name="isVoteAnswerAvailable">
-<part name="parameters" element="tns:isVoteAnswerAvailable"/>
-</message>
-<message name="isVoteAnswerAvailableResponse">
-<part name="parameters" element="tns:isVoteAnswerAvailableResponse"/>
 </message>
 <portType name="StackExchange">
 <operation name="getQuestion">
@@ -120,6 +120,10 @@
 <operation name="updateQuestion">
 <input wsam:Action="http://service/StackExchange/updateQuestionRequest" message="tns:updateQuestion"/>
 <output wsam:Action="http://service/StackExchange/updateQuestionResponse" message="tns:updateQuestionResponse"/>
+</operation>
+<operation name="isVoteQuestionAvailable">
+<input wsam:Action="http://service/StackExchange/isVoteQuestionAvailableRequest" message="tns:isVoteQuestionAvailable"/>
+<output wsam:Action="http://service/StackExchange/isVoteQuestionAvailableResponse" message="tns:isVoteQuestionAvailableResponse"/>
 </operation>
 <operation name="voteQuestionUp">
 <input wsam:Action="http://service/StackExchange/voteQuestionUpRequest" message="tns:voteQuestionUp"/>
@@ -149,6 +153,10 @@
 <input wsam:Action="http://service/StackExchange/voteAnswerDownRequest" message="tns:voteAnswerDown"/>
 <output wsam:Action="http://service/StackExchange/voteAnswerDownResponse" message="tns:voteAnswerDownResponse"/>
 </operation>
+<operation name="isVoteAnswerAvailable">
+<input wsam:Action="http://service/StackExchange/isVoteAnswerAvailableRequest" message="tns:isVoteAnswerAvailable"/>
+<output wsam:Action="http://service/StackExchange/isVoteAnswerAvailableResponse" message="tns:isVoteAnswerAvailableResponse"/>
+</operation>
 <operation name="getUser">
 <input wsam:Action="http://service/StackExchange/getUserRequest" message="tns:getUser"/>
 <output wsam:Action="http://service/StackExchange/getUserResponse" message="tns:getUserResponse"/>
@@ -156,14 +164,6 @@
 <operation name="addUser">
 <input wsam:Action="http://service/StackExchange/addUserRequest" message="tns:addUser"/>
 <output wsam:Action="http://service/StackExchange/addUserResponse" message="tns:addUserResponse"/>
-</operation>
-<operation name="isVoteQuestionAvailable">
-<input wsam:Action="http://service/StackExchange/isVoteQuestionAvailableRequest" message="tns:isVoteQuestionAvailable"/>
-<output wsam:Action="http://service/StackExchange/isVoteQuestionAvailableResponse" message="tns:isVoteQuestionAvailableResponse"/>
-</operation>
-<operation name="isVoteAnswerAvailable">
-<input wsam:Action="http://service/StackExchange/isVoteAnswerAvailableRequest" message="tns:isVoteAnswerAvailable"/>
-<output wsam:Action="http://service/StackExchange/isVoteAnswerAvailableResponse" message="tns:isVoteAnswerAvailableResponse"/>
 </operation>
 </portType>
 <binding name="StackExchangePortBinding" type="tns:StackExchange">
@@ -213,6 +213,15 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="isVoteQuestionAvailable">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="voteQuestionUp">
 <soap:operation soapAction=""/>
 <input>
@@ -276,6 +285,15 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="isVoteAnswerAvailable">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="getUser">
 <soap:operation soapAction=""/>
 <input>
@@ -286,24 +304,6 @@
 </output>
 </operation>
 <operation name="addUser">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="isVoteQuestionAvailable">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="isVoteAnswerAvailable">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
