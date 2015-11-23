@@ -83,13 +83,16 @@
                     <div class="question-meta">
                         <span>
                             Asked by
-                            <%= question_asker.get(question.getId()) %> |
+                            <%= question_asker.get(question.getId()) %> 
+                            <% if ( ( user != null ) && (user.getName()).equals(question_asker.get(question.getId())) ) { %>
+                            |
                             <a href="${pageContext.request.contextPath}/questioneditor?id=<%= question.getId() %>" class="question-edit">Edit</a> |
                             <form method="POST" action="deletequestion" id="deleteForm_question<%= question.getId() %>" class="delete-form">
                                 <input type="hidden" value="<%= question.getId() %>" name="id_question">
                                 <input type="hidden" value="<%= user != null ? user.getId() : 0 %>" name="id_user">
                                 <input type="submit" value="Delete" class="form-delete">
                             </form>
+                            <% } %>
                         </span>
                     </div>
                 </div> <!-- .row -->
