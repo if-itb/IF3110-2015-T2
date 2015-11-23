@@ -35,8 +35,13 @@ public class User {
     public User(String accessToken) {
         this.valid = false;
         
-        String urlParameters  = "token=" + accessToken;
-        byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
+        JSONObject requestObj = new JSONObject();
+        try {
+            requestObj.put("token", accessToken);
+        } catch (JSONException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        byte[] postData       = requestObj.toString().getBytes( StandardCharsets.UTF_8 );
         int    postDataLength = postData.length;
         String request        = "http://localhost:8080/Identity_Service/Authentication";
         URL    url;
@@ -50,7 +55,7 @@ public class User {
             } catch (ProtocolException ex) {
                 Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
             }
-            conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded"); 
+            conn.setRequestProperty( "Content-Type", "application/json"); 
             conn.setRequestProperty( "charset", "utf-8");
             conn.setRequestProperty( "Content-Length", Integer.toString( postDataLength ));
             conn.setUseCaches( false );
@@ -67,13 +72,11 @@ public class User {
             while ((line = reader.readLine()) != null) {
                 response += line;
             }
-            JSONObject obj = new JSONObject(response);
-            JSONArray arr = obj.getJSONArray("user");
-            JSONObject usr = arr.getJSONObject(0);
+            JSONObject usr = new JSONObject(response);
             this.userId = usr.getInt("user_id");
             this.name = usr.getString("name");
             this.email = usr.getString("email");
-            this.valid = true;
+            this.valid = (usr.getInt("is_valid") != 0);
             this.createDate = "";
         } catch (JSONException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
