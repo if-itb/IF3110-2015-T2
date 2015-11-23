@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="return" type="{http://WSModel/}question" minOccurs="0"/&gt;
+ *         &lt;element name="return" type="{http://WSModel/}questionClass" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -33,17 +33,17 @@ import javax.xml.bind.annotation.XmlType;
 public class GetQuestionByIDResponse {
 
     @XmlElement(name = "return")
-    protected Question _return;
+    protected QuestionClass _return;
 
     /**
      * Gets the value of the return property.
      * 
      * @return
      *     possible object is
-     *     {@link Question }
+     *     {@link QuestionClass }
      *     
      */
-    public Question getReturn() {
+    public QuestionClass getReturn() {
         return _return;
     }
 
@@ -52,10 +52,10 @@ public class GetQuestionByIDResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link Question }
+     *     {@link QuestionClass }
      *     
      */
-    public void setReturn(Question value) {
+    public void setReturn(QuestionClass value) {
         this._return = value;
     }
 

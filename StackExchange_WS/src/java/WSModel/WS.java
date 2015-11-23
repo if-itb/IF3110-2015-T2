@@ -47,7 +47,7 @@ public class WS {
      * Web service operation
      */
     @WebMethod(operationName = "getQuestionByID")
-    public Question getQuestionByID(@WebParam(name = "questionId") int questionId) {
+    public WSModule.QuestionClass getQuestionByID(@WebParam(name = "questionId") int questionId) {
         //TODO write your implementation code here:
         return null;
     }
@@ -110,7 +110,7 @@ public class WS {
      * Web service operation
      */
     @WebMethod(operationName = "addQuestion")
-    public Boolean addQuestion(@WebParam(name = "questionTitle") String questionTitle, @WebParam(name = "questionContent") String questionContent, @WebParam(name = "voteQuestion") int voteQuestion, @WebParam(name = "questionDate") Date questionDate, @WebParam(name = "userID") int userID) {
+    public Boolean addQuestion(@WebParam(name = "questionTitle") String questionTitle, @WebParam(name = "questionContent") String questionContent, @WebParam(name = "userID") int userID) {
         //TODO write your implementation code here:
         return null;
     }

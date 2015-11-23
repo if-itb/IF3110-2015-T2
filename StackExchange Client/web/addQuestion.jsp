@@ -23,9 +23,7 @@
 
 
   <div id="body">
-    <form name="myForm" action="servletadd" method="post">
-      <input type="text" name="name" placeholder="Name"><br>
-      <input type="text" name="email" placeholder="Email"><br>
+    <form name="myForm" action="addQuestionProcess.jsp" method="post">
       <input type="text" name="questionTopic" placeholder="Question Topic"><br>
       <textarea name="questionContent" placeholder="Content"></textarea><br>
       <div id="submitter">
