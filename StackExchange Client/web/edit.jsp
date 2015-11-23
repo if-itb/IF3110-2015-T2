@@ -20,35 +20,16 @@
 	<br>
 	<div class="subtitle">What's your question?</div>
 	<hr class='line'>
-      <%-- start web service invocation --%><hr/>
-    <%
-    try {
-	com.wbd.qst.QuestionWS_Service service = new com.wbd.qst.QuestionWS_Service();
-	com.wbd.qst.QuestionWS port = service.getQuestionWSPort();
-	 // TODO initialize WS operation arguments here
-	int qid = 51;
-	// TODO process result here
-	java.util.List<com.wbd.qst.Question> result = port.getQuestionbyID(qid);
-	out.println("Result = "+result);
-    } catch (Exception ex) {
-	// TODO handle custom exceptions here
-    }
-    %>
-    <%-- end web service invocation --%><hr/>
 
     <%
     try {
-        out.println("Caher");
 	com.wbd.qst.QuestionWS_Service service = new com.wbd.qst.QuestionWS_Service();
 	com.wbd.qst.QuestionWS port = service.getQuestionWSPort();
 	 // TODO initialize WS operation arguments here
-        out.println("QID " + request.getParameter("id"));
         int qid = Integer.parseInt(request.getParameter("id"));
-        out.println("QID " + qid);
         String question_idLama = "";
         String topicLama = "";
         String contentLama = "";
-        out.println("Luminto");
         if(request.getParameter("id") != null){
             java.util.List<com.wbd.qst.Question> result = port.getQuestionbyID(qid);
             question_idLama = String.valueOf(result.get(0).getIDQ());
@@ -64,7 +45,6 @@
             +"</form>"
         ;
         out.write(askForm);
-        out.print("askForm");
     } catch (Exception ex) {
         out.write("exception");
 	// TODO handle custom exceptions here
