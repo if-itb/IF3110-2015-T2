@@ -5,9 +5,10 @@
 <%@ page import = "org.tusiri.ws.user.User" %>
 <html>
 	<head>
-		<title>Using GET and POST Method to Read Form Data</title>
+		<title>Registration Post</title>
+		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
 	</head>
-	<body>
+	<body class="contact notFoundBody">
 	<%
 		UserService uservice = new UserService();
 		User u = uservice.getUserPort();
@@ -21,22 +22,20 @@
 		}
 		else if(result==-1){//exist redirect into sorry page
 			message  = "Email has been registered. Please choose another email";
+			
 		}
 		else{
 			message = "Ooops.. Something went wrong. Please retry in a few moment";
 		}
 	%>
-	<center>
-		<ul>
-		<li><p><b>First Name:</b>
-   			<%= request.getParameter("username")%>
-		</p></li>
-		<li><p><b>Email:</b>
-   			<%= request.getParameter("email")%>
-		</p></li>
-		<li><p>
-   			<%= message %>
-		</p></li>
-		</ul>
-	</body>
+	
+	<div class="outerNotFound">
+		<div class="middleNotFound">
+			<center>
+				<strong><font size="5pt"><%=message %></font><br></strong>
+				<font size="5pt">Back to <a href="register.jsp">Register</a></font>
+			</center>
+		</div>
+	</div>
+</body>
 </html>

@@ -12,7 +12,11 @@
 		<div class="middleNotFound">
 			<center>
 				<font size="10pt">404 Not Found</font><br>
+<<<<<<< HEAD
 				<font size="5pt">Go to <a href="index">Home</a></font>
+=======
+				<font size="5pt">Go to <a href="index.jsp">Home</a></font>
+>>>>>>> 6415c66d9fdb95fd60a9ec7de11fd645c995a18a
 			</center>
 		</div>
 	</div>
