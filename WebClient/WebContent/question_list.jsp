@@ -52,7 +52,7 @@
 			<span hidden class = 'modify_<%=id%>'>
 				|
               		<a href = 'question/edit?id=<%= questionList.get(i).getIdQuestion() %>' class = 'y_link'> edit </a>|
-              		<a href='#' onclick='delQuestion(<%= questionList.get(i).getIdQuestion() %>,true)' class = 'r_link'>delete</a><br>
+              		<a onclick='delQuestion(<%= questionList.get(i).getIdQuestion() %>,true)' class = 'r_link'>delete</a><br>
               	</span>
               </div>
 	</div>

@@ -23,6 +23,7 @@ function delQuestion(id,isList) {
 		    }
 		});
     }
+    return r;
 	
 }
 </script>

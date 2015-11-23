@@ -3293,6 +3293,9 @@
 .up_button , .down_button:hover{
     cursor: pointer;
 }
+a{
+	cursor:pointer;
+}
 
 label.questionmenu {
 	text-align:left;
