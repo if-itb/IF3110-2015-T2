@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2015 at 05:06 AM
+-- Generation Time: Nov 23, 2015 at 09:27 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -19,6 +19,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `stackexchange`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `answers`
+--
+
+CREATE TABLE IF NOT EXISTS `answers` (
+`id` int(10) NOT NULL,
+  `uid` int(10) NOT NULL,
+  `qid` int(10) NOT NULL,
+  `content` text NOT NULL,
+  `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -70,9 +84,91 @@ INSERT INTO `questions` (`id`, `uid`, `topic`, `content`, `timestamp`) VALUES
 (29, 15, 'nulla pede ullamcorper augue a suscipit nulla elit ac nulla', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', '2015-11-23 11:04:50'),
 (30, 20, 'curabitur gravida nisi at nibh in hac habitasse platea', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.\n\nDuis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.\n\nMauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', '2015-11-23 11:04:50');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tokens`
+--
+
+CREATE TABLE IF NOT EXISTS `tokens` (
+  `uid` int(10) NOT NULL,
+  `token_str` varchar(10) NOT NULL,
+  `expired` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+`uid` int(10) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`uid`, `name`, `email`, `password`) VALUES
+(1, 'Jonathan', 'jonathan@gmail.com', 'donorkasinor'),
+(2, 'Virginia', 'vmartinez1@va.gov', 'a'),
+(3, 'Jonathan', 'jmorgan2@yahoo.com', 'pede'),
+(4, 'Christine', 'cpatterson3@devhub.com', 'suscipit'),
+(5, 'Sara', 'smoore4@ed.gov', 'vel'),
+(6, 'Andrea', 'agonzalez5@usda.gov', 'morbi'),
+(7, 'Jessica', 'jdean6@simplemachines.org', 'ut'),
+(8, 'Eric', 'eberry7@nhs.uk', 'nunc'),
+(9, 'Dennis', 'dlynch8@adobe.com', 'vel'),
+(10, 'Heather', 'hwilliamson9@bloglovin.com', 'id'),
+(11, 'Roger', 'rmeyera@wordpress.com', 'lacinia'),
+(12, 'Antonio', 'awoodsb@simplemachines.org', 'cum'),
+(13, 'Paula', 'prosec@vk.com', 'morbi'),
+(14, 'Richard', 'rjacksond@myspace.com', 'quam'),
+(15, 'Matthew', 'mrichardsone@mapy.cz', 'morbi'),
+(16, 'Beverly', 'bsanchezf@google.co.jp', 'mi'),
+(17, 'Theresa', 'tstanleyg@blog.com', 'etiam'),
+(18, 'Christina', 'cwhiteh@sfgate.com', 'sapien'),
+(19, 'Ronald', 'rthompsoni@howstuffworks.com', 'sit'),
+(20, 'Kevin', 'kfisherj@howstuffworks.com', 'gravida'),
+(21, 'Pamel', 'set@an.com', 'setancom');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vote_answers`
+--
+
+CREATE TABLE IF NOT EXISTS `vote_answers` (
+  `uid` int(10) NOT NULL,
+  `aid` int(10) NOT NULL,
+  `value` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vote_questions`
+--
+
+CREATE TABLE IF NOT EXISTS `vote_questions` (
+  `uid` int(10) NOT NULL,
+  `qid` int(10) NOT NULL,
+  `value` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `answers`
+--
+ALTER TABLE `answers`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `questions`
@@ -81,14 +177,30 @@ ALTER TABLE `questions`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+ ADD PRIMARY KEY (`uid`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `answers`
+--
+ALTER TABLE `answers`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
 MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+MODIFY `uid` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
