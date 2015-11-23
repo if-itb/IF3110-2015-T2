@@ -53,21 +53,24 @@ public class DeleteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        StackExchange port = service.getStackExchangePort();
-        int id = Integer.parseInt(request.getParameter("id"));
-        User user = (User) request.getAttribute("user");
-        
-        Question question = port.getQuestion(id);
-        // get id user from question
-        int idUser = question.getIdUser();
-        if(idUser == user.getId()){ // user is the owner of the question
-            // delete question
-            port.deleteQuestion(id);
+        StackExchange port = service.getStackExchangePort();        
+        try{
+            int id = Integer.parseInt(request.getParameter("id"));
+            User user = (User) request.getAttribute("user");
+            Question question = port.getQuestion(id);
+            if(user != null && question != null){
+                // get id user from question
+                int idUser = question.getIdUser();
+                if(idUser == user.getId()){ // user is the owner of the question
+                    // delete question
+                    port.deleteQuestion(id);
+                }
+            }
         }
-        else{
-            // user is not the owner of the question
-            response.sendRedirect(request.getContextPath());
+        catch(Exception ex){
+            
         }
+        response.sendRedirect(request.getContextPath());
     }
 
     /**

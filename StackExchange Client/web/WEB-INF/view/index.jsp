@@ -29,22 +29,26 @@
             <div class="stat">
                 <div class="vote">
                     <div class="vote-count-mini">
-                        <span><c:out value="${question.votes}"/></span>
+                        <span>${question.votes}</span>
                     </div>
                     <div>votes</div>
                 </div>
                 <div class="answer">
                     <div class="answer-count-mini">
-                        <span><c:out value="${answers[question.id]}"/></span>
+                        <span>${answers[question.id]}</span>
                     </div>
                     <div>answers</div>
                 </div>
             </div>
             <div class="question-summary">
-                <h4 class="topic"><a class="topic" href="question?id=<c:out value="${question.id}"/>" title="<c:out value="${question.topic}"/>"><c:out value="${question.topic}"/></a></h4>
+                <h4 class="topic"><a class="topic" href="question?id=${question.id}" title="<c:out value="${question.topic}"/>"><c:out value="${question.topic}"/></a></h4>
                 <p title="<c:out value="${question.content}"/>"><c:out value="${question.content}"/></p><br>
                 <div class="timestamp">
-                    asked by <a href="mailto:<c:out value="${askers[question.id].email}"/>" target="_blank"><c:out value="${askers[question.id].name}"/></a> at <c:out value="${question.timestamp}"/><c:if test="${not empty user && user.id==question.idUser}"> | <a class="edit" href="ask?id=<c:out value="${question.id}"/>">edit</a> | <a class="delete" href="#" onclick="deleteQuestion(<c:out value="${question.id}"/>)">delete</a></c:if>
+                    asked by <c:out value="${askers[question.id].name}"/></a> at ${question.timestamp}
+                    <c:if test="${not empty user && user.id==question.idUser}">
+                        <a class="edit" href="ask?id=${question.id}"><span class="glyphicon glyphicon-edit"></span> edit</a>
+                        <a class="delete" href="delete?id=${question.id}" onclick="return confirm('Are you sure you want to delete this question?');"><span class="glyphicon glyphicon-remove"></span> delete</a>
+                    </c:if>
                 </div>
             </div>
         </div>
