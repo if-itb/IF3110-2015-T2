@@ -47,7 +47,7 @@
 		
 		<script>
 		function regenerateToken(){
-			var regenerateTokenUrl = "http://localhost:8080/REST-WS/rest/token/regenerateToken";
+			var regenerateTokenUrl = "http://localhost:8081/REST-WS/rest/token/regenerateToken";
 			var tokenData = {access_token:'<%= access_token %>'}
 			$.ajax({
 		        url: regenerateTokenUrl,
@@ -67,7 +67,7 @@
 		}
 		function checkToken(){
 			var tokenData = {access_token:"<%= access_token %>"}
-			var checkTokenUrl = "http://localhost:8080/REST-WS/rest/token-validity";
+			var checkTokenUrl = "http://localhost:8081/REST-WS/rest/token-validity";
 			$.ajax({
                 url: checkTokenUrl,
                 data: tokenData,

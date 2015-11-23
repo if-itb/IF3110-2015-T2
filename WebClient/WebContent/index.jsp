@@ -28,7 +28,7 @@
 			</header>
 			<p>This is <strong>STACK EXCHANGE</strong>, a place
 			<br />
-			where Ivan is
+			where Tusiri is
 			<br />
 			better than Google</a>.</p>
 			<footer>
@@ -48,7 +48,7 @@
 		Feel Free to Use Our Web</h2>
 		<p>Because it is <strong>Free</strong>
 		<br />
-		<h3>- Ivan Imba -</h3>
+		<h3>- Tusiri -</h3>
 		<div class="search">
 			<form action = "#" method="get">
 				<div class="row">

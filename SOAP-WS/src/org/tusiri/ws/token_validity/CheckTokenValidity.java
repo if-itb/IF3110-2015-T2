@@ -25,7 +25,7 @@ public class CheckTokenValidity {
 		try{
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			HttpPost postRequest = new HttpPost(
-				"http://localhost:8080/REST-WS/rest/token-validity/getUserID");
+				"http://localhost:8081/REST-WS/rest/token-validity/getUserID");
 			StringEntity input = new StringEntity("{\"access_token\":\""+access_token+"\"}");
 			input.setContentType("application/json");
 			postRequest.setEntity(input);
