@@ -87,11 +87,10 @@ public class LoginServlet extends HttpServlet {
         out.println(user.getUserIDFromEmail(email));
         try {
             if(!(user.emailExist(email)) || !(user.passwordValid(email, password))){
-                //request.setAttribute("notif","Incorrect email or password");
+                request.setAttribute("notif","Incorrect email or password");
                 response.sendRedirect("http://localhost:8080/front-end/login.jsp");
                 
             }else{
-                    String token = null;
                     /*Cookie[] cookies = request.getCookies();
                     if (cookies != null) {
                         for (int i=0;i<cookies.length;i++) {
@@ -101,12 +100,13 @@ public class LoginServlet extends HttpServlet {
                             }
                         }
                     }*/
-                    //if (token == null){
+                    String token = user.getTokenFromUserID(user.getUserIDFromEmail(email));
+                    if (token == null){
                         UUID tokenGenerator = UUID.randomUUID();
                         token = tokenGenerator.toString();
                         String query = "INSERT INTO token (value,user_id) VALUES ('"+token+"','"+user.getUserIDFromEmail(email)+"')";
                         user.executeQuery(query);
-                    //}
+                    }
                     response.sendRedirect("http://localhost:8080/front-end/index.jsp?token="+token+"&valid=1");
                 }
     } catch (SQLException ex) {
