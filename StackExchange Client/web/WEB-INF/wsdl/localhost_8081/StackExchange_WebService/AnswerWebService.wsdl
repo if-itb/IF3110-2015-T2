@@ -4,12 +4,6 @@
 <xsd:import namespace="http://answer/" schemaLocation="http://localhost:8081/StackExchange_WebService/AnswerWebService?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getCountAnswerByQid">
-<part name="parameters" element="tns:getCountAnswerByQid"/>
-</message>
-<message name="getCountAnswerByQidResponse">
-<part name="parameters" element="tns:getCountAnswerByQidResponse"/>
-</message>
 <message name="decrVote">
 <part name="parameters" element="tns:decrVote"/>
 </message>
@@ -21,6 +15,12 @@
 </message>
 <message name="addAnswerResponse">
 <part name="parameters" element="tns:addAnswerResponse"/>
+</message>
+<message name="incrVote">
+<part name="parameters" element="tns:incrVote"/>
+</message>
+<message name="incrVoteResponse">
+<part name="parameters" element="tns:incrVoteResponse"/>
 </message>
 <message name="getAnswerByQid">
 <part name="parameters" element="tns:getAnswerByQid"/>
@@ -37,17 +37,13 @@
 <message name="getQuestionByIdResponse">
 <part name="parameters" element="tns:getQuestionByIdResponse"/>
 </message>
-<message name="incrVote">
-<part name="parameters" element="tns:incrVote"/>
+<message name="getCountAnswerByQid">
+<part name="parameters" element="tns:getCountAnswerByQid"/>
 </message>
-<message name="incrVoteResponse">
-<part name="parameters" element="tns:incrVoteResponse"/>
+<message name="getCountAnswerByQidResponse">
+<part name="parameters" element="tns:getCountAnswerByQidResponse"/>
 </message>
 <portType name="AnswerWebService">
-<operation name="getCountAnswerByQid">
-<input wsam:Action="http://answer/AnswerWebService/getCountAnswerByQidRequest" message="tns:getCountAnswerByQid"/>
-<output wsam:Action="http://answer/AnswerWebService/getCountAnswerByQidResponse" message="tns:getCountAnswerByQidResponse"/>
-</operation>
 <operation name="decrVote">
 <input wsam:Action="http://answer/AnswerWebService/decrVoteRequest" message="tns:decrVote"/>
 <output wsam:Action="http://answer/AnswerWebService/decrVoteResponse" message="tns:decrVoteResponse"/>
@@ -55,6 +51,10 @@
 <operation name="addAnswer">
 <input wsam:Action="http://answer/AnswerWebService/addAnswerRequest" message="tns:addAnswer"/>
 <output wsam:Action="http://answer/AnswerWebService/addAnswerResponse" message="tns:addAnswerResponse"/>
+</operation>
+<operation name="incrVote">
+<input wsam:Action="http://answer/AnswerWebService/incrVoteRequest" message="tns:incrVote"/>
+<output wsam:Action="http://answer/AnswerWebService/incrVoteResponse" message="tns:incrVoteResponse"/>
 </operation>
 <operation name="getAnswerByQid">
 <input wsam:Action="http://answer/AnswerWebService/getAnswerByQidRequest" message="tns:getAnswerByQid"/>
@@ -65,22 +65,13 @@
 <input wsam:Action="http://answer/AnswerWebService/getQuestionByIdRequest" message="tns:getQuestionById"/>
 <output wsam:Action="http://answer/AnswerWebService/getQuestionByIdResponse" message="tns:getQuestionByIdResponse"/>
 </operation>
-<operation name="incrVote">
-<input wsam:Action="http://answer/AnswerWebService/incrVoteRequest" message="tns:incrVote"/>
-<output wsam:Action="http://answer/AnswerWebService/incrVoteResponse" message="tns:incrVoteResponse"/>
+<operation name="getCountAnswerByQid">
+<input wsam:Action="http://answer/AnswerWebService/getCountAnswerByQidRequest" message="tns:getCountAnswerByQid"/>
+<output wsam:Action="http://answer/AnswerWebService/getCountAnswerByQidResponse" message="tns:getCountAnswerByQidResponse"/>
 </operation>
 </portType>
 <binding name="AnswerWebServicePortBinding" type="tns:AnswerWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getCountAnswerByQid">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="decrVote">
 <soap:operation soapAction=""/>
 <input>
@@ -91,6 +82,15 @@
 </output>
 </operation>
 <operation name="addAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="incrVote">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -120,7 +120,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="incrVote">
+<operation name="getCountAnswerByQid">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

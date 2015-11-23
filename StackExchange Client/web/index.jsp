@@ -14,32 +14,49 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>    
-       
-        
+        <h1>Hello World!</h1>     <%-- start web service invocation --%><hr/>
+    
         <%-- start web service invocation --%><hr/>
     <%
-    java.util.List<Answer> result = new ArrayList<Answer>();
-    int i = 10;
     try {
 	answerWebService.AnswerWebService_Service service = new answerWebService.AnswerWebService_Service();
 	answerWebService.AnswerWebService port = service.getAnswerWebServicePort();
 	 // TODO initialize WS operation arguments here
 	int qid = 9;
 	// TODO process result here
-	result = port.getAnswerByQid(9);
-        out.println("Halo");
-        out.println(result);
+	java.util.List<answerWebService.Answer> result = port.getAnswerByQid(qid);
+	out.println("Result = "+result);
     } catch (Exception ex) {
 	// TODO handle custom exceptions here
     }
     %>
+    <%-- end web service invocation --%><hr/>
     
-    <% for(Answer answer : result) { %>
-        <p><%= answer.getContent() %></p>
-    <% } %>
-    
-    <%= i %>
+        <%-- start web service invocation --%><hr/>
+    <%
+    try {
+	questionWebService.QuestionWebService_Service service = new questionWebService.QuestionWebService_Service();
+	questionWebService.QuestionWebService port = service.getQuestionWebServicePort();
+	// TODO process result here
+	java.util.List<questionWebService.Question> result = port.getAllQuestion();
+	out.println("Result = "+result);
+    } catch (Exception ex) {
+	// TODO handle custom exceptions here
+    }
+    %>
+    <%-- end web service invocation --%><hr/>
+        <%-- start web service invocation --%><hr/>
+    <%
+    try {
+	userWebService.UserWebService_Service service = new userWebService.UserWebService_Service();
+	userWebService.UserWebService port = service.getUserWebServicePort();
+	// TODO process result here
+	java.util.List<userWebService.User> result = port.getAllUser();
+	out.println("Result = "+result);
+    } catch (Exception ex) {
+	// TODO handle custom exceptions here
+    }
+    %>
     <%-- end web service invocation --%><hr/>
 
     </body>   
