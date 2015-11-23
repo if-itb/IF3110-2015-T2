@@ -56,14 +56,14 @@ public interface WS {
      * 
      * @param questionId
      * @return
-     *     returns wsmodel.Question
+     *     returns wsmodel.QuestionClass
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getQuestionByID", targetNamespace = "http://WSModel/", className = "wsmodel.GetQuestionByID")
     @ResponseWrapper(localName = "getQuestionByIDResponse", targetNamespace = "http://WSModel/", className = "wsmodel.GetQuestionByIDResponse")
     @Action(input = "http://WSModel/WS/getQuestionByIDRequest", output = "http://WSModel/WS/getQuestionByIDResponse")
-    public Question getQuestionByID(
+    public QuestionClass getQuestionByID(
         @WebParam(name = "questionId", targetNamespace = "")
         int questionId);
 
@@ -172,10 +172,8 @@ public interface WS {
     /**
      * 
      * @param questionContent
-     * @param questionDate
      * @param questionTitle
      * @param userID
-     * @param voteQuestion
      * @return
      *     returns java.lang.Boolean
      */
@@ -189,10 +187,6 @@ public interface WS {
         String questionTitle,
         @WebParam(name = "questionContent", targetNamespace = "")
         String questionContent,
-        @WebParam(name = "voteQuestion", targetNamespace = "")
-        int voteQuestion,
-        @WebParam(name = "questionDate", targetNamespace = "")
-        Date questionDate,
         @WebParam(name = "userID", targetNamespace = "")
         int userID);
 

@@ -18,8 +18,6 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="questionTitle" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="questionContent" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="voteQuestion" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="questionDate" type="{http://WSModel/}date" minOccurs="0"/&gt;
  *         &lt;element name="userID" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -33,16 +31,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "addQuestion", propOrder = {
     "questionTitle",
     "questionContent",
-    "voteQuestion",
-    "questionDate",
     "userID"
 })
 public class AddQuestion {
 
     protected String questionTitle;
     protected String questionContent;
-    protected int voteQuestion;
-    protected Date questionDate;
     protected int userID;
 
     /**
@@ -91,46 +85,6 @@ public class AddQuestion {
      */
     public void setQuestionContent(String value) {
         this.questionContent = value;
-    }
-
-    /**
-     * Gets the value of the voteQuestion property.
-     * 
-     */
-    public int getVoteQuestion() {
-        return voteQuestion;
-    }
-
-    /**
-     * Sets the value of the voteQuestion property.
-     * 
-     */
-    public void setVoteQuestion(int value) {
-        this.voteQuestion = value;
-    }
-
-    /**
-     * Gets the value of the questionDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Date }
-     *     
-     */
-    public Date getQuestionDate() {
-        return questionDate;
-    }
-
-    /**
-     * Sets the value of the questionDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Date }
-     *     
-     */
-    public void setQuestionDate(Date value) {
-        this.questionDate = value;
     }
 
     /**
