@@ -30,7 +30,7 @@ public class SignOutServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // remove auth cookie by set max age to 0        
+        // remove auth cookie by set max age to 0
         Cookie cookie = new Cookie("auth", null);
         cookie.setMaxAge(0);
         cookie.setPath("/");
