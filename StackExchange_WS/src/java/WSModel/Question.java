@@ -5,91 +5,289 @@
  */
 package WSModel;
 
-import com.google.gson.Gson;
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import static java.lang.System.out;
+import java.sql.Timestamp;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
+
+import WSModule.QuestionClass;
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  *
  * @author Jessica
  */
 public class Question {
-     public static ArrayList<WSModule.QuestionClass> getAllQuestion(){
+    final static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    final static String localhost = "jdbc:mysql://localhost:3306/wbd2";
+    final static String USER = "root";
+    final static String PASS = "";
+    
+    public static Boolean addQuestion(String questionTitle, String questionContent, int userID ) {
+        boolean success;
         Connection conn = null;
-        PreparedStatement stmt = null;
-        ArrayList<WSModule.QuestionClass> questionList = new ArrayList<WSModule.QuestionClass>();
-        WSModule.QuestionClass [] questionArray = null;
-
-        try{
-            //STEP 2: Register JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
-            final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-            final String localhost = "jdbc:mysql://localhost:3306/wbd2";
-            final String USER = "root";
-            final String PASS = "";
-
-            //STEP 3: Open a connection
-            conn = (Connection) DriverManager.getConnection(localhost,USER,PASS);
-
-
-
-            //STEP 4: Execute a query
-             String sql = "SELECT questionId, title, content, vote, `date`, userID FROM questions";
-            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
+        Statement statement = null;
+        
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(localhost, USER, PASS);
+            statement = conn.createStatement();
+            String query = "INSERT INTO questions(`title`, `content`, `userID`, `date`) VALUES ('" + questionTitle + "','" + questionContent + "'," + userID + ",now())";
+            statement.executeUpdate(query);
+            System.out.println(query);
+            success = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            success = false;
+        }               
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (conn != null) {
+            try {
+                conn.close();    
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return success;
+    }
+     
+    public static ArrayList<QuestionClass> getQuestionByID(int questionId) {
+        Connection conn = null;
+        Statement statement = null;
+        ArrayList<QuestionClass> questionList = new ArrayList<QuestionClass>();
+        QuestionClass[] questionArray = null;
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(localhost, USER, PASS);
+            String query = "SELECT * FROM questions WHERE questionId=" + questionId;
+            statement = conn.prepareStatement(query, statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                //Retrieve by column name
+                int question_Id  = rs.getInt("questionId");
+                String title = rs.getString("title");
+                String content = rs.getString("content");
+                int vote  = rs.getInt("vote");
+                String date = rs.getDate("date").toString();
+                int userID  = rs.getInt("userID");
+                
+                QuestionClass questionRecord = new QuestionClass(question_Id,title,content,vote,date,userID);
+                questionList.add(questionRecord);
+            }
+            rs.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }               
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (conn != null) {
+            try {
+                conn.close();    
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return questionList;
+    }
             
-            ResultSet rs = stmt.executeQuery();
-            //STEP 5: Extract data from result set
-            while(rs.next()){
+    public static ArrayList<QuestionClass> getAllQuestion(){
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ArrayList<QuestionClass> questionList = new ArrayList<QuestionClass>();
+        QuestionClass[] questionArray = null;
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(localhost, USER, PASS);
+            String query = "SELECT questionId, title, content, vote, `date`, userID FROM questions";
+            statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
                 //Retrieve by column name
                 int questionId  = rs.getInt("questionId");
                 String title = rs.getString("title");
-                String content = rs.getString("title");
+                String content = rs.getString("content");
                 int vote  = rs.getInt("vote");
                 String date = rs.getDate("date").toString();
-                int userID  = rs.getInt("questionId");
-                System.out.println(questionId);
+                int userID  = rs.getInt("userID");
 
-                //construct Question
-                WSModule.QuestionClass questionRecord = new WSModule.QuestionClass(questionId,title,content,vote,date,userID);
-
-                //Adding Question to QuestionQueue
+                QuestionClass questionRecord = new QuestionClass(questionId,title,content,vote,date,userID);
                 questionList.add(questionRecord);
-
             }
             rs.close();
-            stmt.close();
+            statement.close();
             conn.close();
-      
-            
-        }catch(SQLException se){
-            //Handle errors for JDBC
+        } catch(SQLException se){
             se.printStackTrace();
         }catch(Exception e){
-            //Handle errors for Class.forName
             e.printStackTrace();
         }finally{
-            //finally block used to close resources
             try{
-                if(stmt!=null)
+                if(statement != null)
                     conn.close();
             }catch(SQLException se){
-            }// do nothing
+                
+            }
             try{
                 if(conn!=null)
                     conn.close();
             }catch(SQLException se){
                 se.printStackTrace();
-            }//end finally try
-        }//end try
-        System.out.println("Goodbye!");
-       
+            }
+        }
         return questionList;
-    }//end main
-}//end JDBCExample
+    }
+    
+    public static Boolean updateQuestion(int questionId, String questionTitle, String questionContent) {
+        boolean success;
+        Connection conn = null;
+        Statement statement = null;
+        
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(localhost, USER, PASS);
+            statement = conn.createStatement();
+            String query = "UPDATE questions SET `title`='" + questionTitle + "',`content` ='" + questionContent + "', `date` = now()  WHERE questionId =" + questionId;
+            statement.executeUpdate(query);
+            success = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            success = false;
+        }               
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (conn != null) {
+            try {
+                conn.close();    
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return success;
+    }
+    
+        public static Boolean deleteQuestion(int questionId) {
+        boolean success;
+        Connection conn = null;
+        Statement statement = null;
+        
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(localhost, USER, PASS);
+            statement = conn.createStatement();
+            String query = "DELETE FROM questions where questionId=" + questionId;
+            statement.executeUpdate(query);
+            //System.out.println(query);
+            success = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            success = false;
+        }               
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (conn != null) {
+            try {
+                conn.close();    
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return success;
+    }
+    
+    public static Boolean voteUpQuestion(int questionId) {
+        boolean success;
+        Connection conn = null;
+        Statement statement = null;
+        
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(localhost, USER, PASS);
+            statement = conn.createStatement();
+            String query = "UPDATE questions SET `vote` = `vote`+1 WHERE questionId =" + questionId;
+            statement.executeUpdate(query);
+            success = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            success = false;
+        }               
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (conn != null) {
+            try {
+                conn.close();    
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return success;
+    }
+    
+    public static Boolean voteDownQuestion(int questionId) {
+        boolean success;
+        Connection conn = null;
+        Statement statement = null;
+        
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(localhost, USER, PASS);
+            statement = conn.createStatement();
+            String query = "UPDATE questions SET `vote` = `vote`-1 WHERE questionId =" + questionId;
+            statement.executeUpdate(query);
+            success = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            success = false;
+        }               
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (conn != null) {
+            try {
+                conn.close();    
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return success;
+    }
+}
