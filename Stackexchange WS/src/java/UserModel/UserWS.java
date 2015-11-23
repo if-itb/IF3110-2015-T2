@@ -25,28 +25,37 @@ public class UserWS {
    */
   @WebMethod(operationName = "addUser")
   @WebResult(name="User")
-  public boolean addUser(@WebParam(name = "id_user") int idUser, @WebParam(name = "name") String name, @WebParam(name = "email") String email) {
+  public boolean addUser(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
     //TODO write your implementation code here:
-    boolean userAdded;
-    
+    boolean userAdded = false;
+    int count = 0;
     try {
       // Connect database
       Connection connection = database.connectDatabase();
       Statement statement = connection.createStatement();
       
       // Menjalankan query
-      String query = "INSERT INTO user (id_user, name, email) VALUES (?, ?, ?)";
-      PreparedStatement databaseStatement = connection.prepareStatement(query);
-      databaseStatement.setInt(1, idUser);
-      databaseStatement.setString(2, name);
-      databaseStatement.setString(3, email);
-      databaseStatement.executeUpdate();
-      
-      statement.close();
-      userAdded = true;
+      String query = "select count(*) from user where email = ?";
+      PreparedStatement databaseStatement1 = connection.prepareStatement(query);
+      databaseStatement1.setString(1, email);
+      ResultSet rs = databaseStatement1.executeQuery();
+      if (rs.next()) {
+        count = rs.getInt("count(*)");
+      }
+      // Jika email tidak ada, tambahkan user baru
+      if (count == 0) {
+        query = "INSERT INTO user (name, email, password) VALUES (?, ?, ?)";
+        PreparedStatement databaseStatement2 = connection.prepareStatement(query);
+        databaseStatement2.setString(1, name);
+        databaseStatement2.setString(2, email);
+        databaseStatement2.setString(3, password);
+        databaseStatement2.executeUpdate();
+
+        statement.close();
+        userAdded = true;
+      }
     } catch (SQLException ex) {
       Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
-      userAdded = false;
     }
     
     return userAdded;

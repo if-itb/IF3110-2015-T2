@@ -12,8 +12,8 @@
         <servlet-class>controller.QuestionDetailController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LogInController</servlet-name>
-        <servlet-class>controller.LogInController</servlet-class>
+        <servlet-name>RegistrationController</servlet-name>
+        <servlet-class>controller.RegistrationController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>IndexController</servlet-name>
@@ -24,8 +24,8 @@
         <url-pattern>/QuestionDetailController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LogInController</servlet-name>
-        <url-pattern>/LogInController</url-pattern>
+        <servlet-name>RegistrationController</servlet-name>
+        <url-pattern>/RegistrationController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

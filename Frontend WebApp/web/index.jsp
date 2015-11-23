@@ -18,9 +18,15 @@ Author:
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
   </head>
   <body>
+    <!-- Navigation Bar -->
+    <ul class="nav-bar">
+      <li><a href="log-in.html">Log in</a></li>
+      <li><a href="register.html">Register</a></li>
+    </ul>
+    
     <!-- Title -->
     <div class="title">
-      <a href="Controller">
+      <a href="IndexController">
         Simple StackExchange
       </a>
     </div>

@@ -93,7 +93,7 @@ public class AnswerWS {
       dbStatement.setInt(1, qid);
       ResultSet rs = dbStatement.executeQuery();
       
-      while (rs.next()) {
+      if (rs.next()) {
         count = rs.getInt("count(*)");
       }
       
