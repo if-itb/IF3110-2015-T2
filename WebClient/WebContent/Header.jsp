@@ -113,7 +113,7 @@ function checkToken(check,allow){
               type: "POST",
               success: function(data) {
                   var valid = data.valid;
-                  console.log(valid);
+                  console.log("valid = "+valid);
                   var id = data.id_user;
                   if (valid == 0){
               	  	alert("Token Expired");

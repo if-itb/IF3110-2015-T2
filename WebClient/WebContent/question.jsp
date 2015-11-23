@@ -112,7 +112,7 @@
 				<form name ='q_form' action="answer_create_post.jsp"  onsubmit='return validate_AForm()' METHOD="POST" >
 					<div class="controls">
 						<input type = 'hidden' name = 'q_id' value = '<%=q_id%>'/>
-                    	<textarea rows="10" cols="100" class="form-control" name="content" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"> </textarea>
+                    	<textarea rows="10" cols="100" class="form-control" name="content" required maxlength="999" style="resize:none"></textarea>
 					</div>
 					<div class="row">
 						<div class="12u">

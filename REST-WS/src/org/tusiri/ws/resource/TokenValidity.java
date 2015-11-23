@@ -133,16 +133,18 @@ public class TokenValidity {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public AccessValidity isHasRightForThisQuestion(@FormParam("access_token") String access_token,
 		@FormParam("id_question") int id_question) {
-		System.out.println("WOOIIII MASUK WOIIII");
 		AccessValidity a = new AccessValidity();
-		a.valid = -1;
 		Identity identity = getIdentity(access_token);
 		if (identity.valid == 1){
 			if(getQuestionUserId(id_question) == identity.id_user){
 				a.valid = 1;
-				System.out.println("sesuai");
 			}
 		}
+		else if(identity.valid ==0){
+			a.valid = 0;
+			System.out.println("Masuk 0");
+		}
+		else a.valid = -1;
 		return a;
 	}
 	

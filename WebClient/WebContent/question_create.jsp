@@ -5,7 +5,6 @@
     	pageEncoding="ISO-8859-1"%>
     <jsp:include page="Header.jsp" flush="true">
 		<jsp:param name="pageTitle" value="Ask A Question" />
-		<jsp:param name="needRedirectWhenNotValid" value="true" />
 		<jsp:param name="check" value="3" />
 	</jsp:include>
 </head>
@@ -39,7 +38,7 @@
 					<div class="control-group form-group">
 						<div class="controls">
 							<strong><label class="questionmenu">Question:</label></strong>
-                           	<textarea rows="10" cols="100" class="form-control" name="content" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"> </textarea>
+                           	<textarea rows="10" cols="100" class="form-control" name="content" required maxlength="999" style="resize:none"></textarea>
 						</div>
 					</div>
 					

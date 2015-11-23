@@ -5,6 +5,7 @@ function validateEmail(email) {
 
 function validate_AForm(){
     var a = document.forms["q_form"]["content"].value;
+    console.log(a);
     if(a==null || a==''){
         alert("Content must be filled");
         return false;

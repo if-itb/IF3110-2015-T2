@@ -87,14 +87,10 @@ public class TokenResource {
 		try{
 			String sql = "SELECT * FROM user "
 					+ "WHERE email = ? AND password = MD5(?)";
-			System.out.println(email);
-			System.out.println(password);
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, email);
 			stmt.setString(2, password);
-			System.out.println(stmt);
 			ResultSet rs = stmt.executeQuery();
-			System.out.println(sql);
 			if(rs.next()){
 				int user_id = rs.getInt("id_user");
 				token.access_token=getRandomToken();
@@ -112,15 +108,16 @@ public class TokenResource {
 				
 				String cookieExpire = "expires=" + dt.toGMTString();
 				token.expire = cookieExpire;
-				System.out.println(token.expire);
+				System.out.println("expired on: "+token.expire);
 				while(!(isTokenUnique(token))){
 					token.access_token=getRandomToken();
 				}
+				sql = "DELETE FROM token WHERE id_user = "+user_id;
+				stmt.executeUpdate(sql);
+				
 				sql = "INSERT INTO token(access_token,id_user,timestamp) " +
 						"VALUES('"+token.access_token+"',"+user_id+",'"+currentTime+"');";
 				stmt.executeUpdate(sql);
-				
-				System.out.println("OK");
 				
 			}
 		} catch(SQLException se){
