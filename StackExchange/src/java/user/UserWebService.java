@@ -47,7 +47,8 @@ public class UserWebService {
         ResultSet rs = database.fetchData(query);
         try {
             while (rs.next()) {
-                User user = new User(rs.getString("email"), 
+                User user = new User(rs.getInt("user_id"),
+                    rs.getString("email"), 
                     rs.getString("nama"), 
                     rs.getString("password")
                 );
@@ -109,14 +110,14 @@ public class UserWebService {
     
     @WebMethod(operationName = "getUser")
     @WebResult(name="User")
-    public User getUser(String email) {
-        String query = "SELECT * FROM user WHERE email = '" + email + "';";
+    public User getUser(int id) {
+        String query = "SELECT * FROM user WHERE user_id = '" + id + "';";
         Database database = new Database();
         database.connect(path);
         ResultSet rs = database.fetchData(query);
         try {
             rs.next();
-            User user = new User(rs.getString("email"), rs.getString("nama"), rs.getString("password"));
+            User user = new User(rs.getInt("user_id"), rs.getString("email"), rs.getString("nama"), rs.getString("password"));
             rs.close();
             database.closeDatabase();
             return user;

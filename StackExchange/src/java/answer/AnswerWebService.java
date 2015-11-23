@@ -23,9 +23,9 @@ public class AnswerWebService {
     
     @WebMethod(operationName = "addAnswer")
     @WebResult(name="String")
-    public String addAnswer(int qid, String name, String email, String content) {
-        String query = "INSERT INTO answer (answer_id, answerer_name, answerer_email, answer_content, answer_vote, question_id)"
-                + "VALUES (NULL, '" + name + "', '" + email + "', '"+ content + "', 0, " + qid + ")";
+    public String addAnswer(String token, int qid, String name, String email, String content, int userId) {
+        String query = "INSERT INTO answer (answer_id, answerer_name, answerer_email, answer_content, answer_vote, question_id, user_id)"
+                + "VALUES (NULL, '" + name + "', '" + email + "', '"+ content + "', 0, " + qid + ", " + userId + ")";
         Database database = new Database();
         database.connect(path);
         database.changeData(query);
@@ -35,7 +35,7 @@ public class AnswerWebService {
     
     @WebMethod(operationName = "incrVote")
     @WebResult(name="String")
-    public String incrVote(int id) {
+    public String incrVote(String token, int id) {
         String result;
         String query = "UPDATE answer SET answer_vote = answer_vote + 1 WHERE answer_id = " + id;
         Database database = new Database();
@@ -47,7 +47,7 @@ public class AnswerWebService {
     
     @WebMethod(operationName = "decrVote")
     @WebResult(name="String")
-    public String decrVote(int id) {
+    public String decrVote(String token, int id) {
         String result = new String();
         String query = "UPDATE answer SET answer_vote = answer_vote - 1 WHERE answer_id = " + id;
         Database database = new Database();
@@ -72,7 +72,8 @@ public class AnswerWebService {
                     rs.getString("answerer_email"), 
                     rs.getString("answer_content"), 
                     rs.getInt("answer_vote"),
-                    rs.getInt("question_id")
+                    rs.getInt("question_id"),
+                    rs.getInt("user_id")
                 );
                 tab.add(answer);
             }
@@ -98,7 +99,8 @@ public class AnswerWebService {
                 rs.getString("answerer_email"), 
                 rs.getString("answer_content"), 
                 rs.getInt("answer_vote"),
-                rs.getInt("question_id")
+                rs.getInt("question_id"),
+                rs.getInt("user_id")
             );
             rs.close();
             return answer;

@@ -26,6 +26,8 @@ public class Answer {
     private int vote;
     @XmlElement(name="question_id", required=true)
     private int questionId;
+    @XmlElement(name="user_id", required=true)
+    private int userId;
     
     public Answer() {
         id = 0;
@@ -36,13 +38,14 @@ public class Answer {
         questionId = 0;
     }
     
-    public Answer(int id, String answererName, String email, String content, int vote, int questionId) {
+    public Answer(int id, String answererName, String email, String content, int vote, int questionId, int userId) {
         this.id = id;
         this.answererName = answererName;
         this.email = email;
         this.content = content;
         this.vote = vote;
         this.questionId = questionId;
+        this.userId = userId;
     }
     
     public int getId() {
@@ -68,5 +71,9 @@ public class Answer {
     public int getQuestionId() {
         return questionId;
     }
-
+    
+    public int getUserId() {
+        return userId;
+    }
+    
 }

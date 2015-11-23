@@ -83,7 +83,7 @@ public class QuestionWebService {
     
     @WebMethod(operationName = "addQuestion")
     @WebResult(name="String")
-    public String addQuestion(String name, String email, String topic, String content, int userId) {
+    public String addQuestion(String token, String name, String email, String topic, String content, int userId) {
         String query = "INSERT INTO question (question_id, asker_name, asker_email, question_topic, question_content, user_id) "
                 + "VALUES (NULL, '" + name + "', '" + email + "', '" + topic + "', '" + content + "', " + userId + ")";
         Database database = new Database();
@@ -95,9 +95,8 @@ public class QuestionWebService {
     
     @WebMethod(operationName = "editQuestion")
     @WebResult(name="String")
-    public String editQuestion(int id, String name, String email, String topic, String content) {
-        String query = "UPDATE question SET asker_name='" + name + "', "
-                + "asker_email='" + email + "', question_topic='" + topic + "', question_content='"
+    public String editQuestion(String token, int id, String topic, String content) {
+        String query = "UPDATE question SET question_topic='" + topic + "', question_content='"
                 + content + "' WHERE question_id = " + id;
         Database database = new Database();
         database.connect(path);
@@ -108,7 +107,7 @@ public class QuestionWebService {
     
     @WebMethod(operationName = "deleteQuestion")
     @WebResult(name="String")
-    public String deleteQuestion(int id) {
+    public String deleteQuestion(String token, int id) {
         String query = "DELETE FROM question WHERE question_id = " + id;
         Database database = new Database();
         database.connect(path);

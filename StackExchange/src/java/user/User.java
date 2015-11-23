@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "User")
 public class User {
+    @XmlElement(name="user_id", required=true)
+    public int id;
     @XmlElement(name="email", required=true)
     private String email;
     @XmlElement(name="name", required=true)
@@ -27,12 +29,17 @@ public class User {
         password = null;
     }
     
-    public User(String email, String name, String password) {
+    public User(int id, String email, String name, String password) {
+        this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
     }
      
+    public int getId() {
+        return id;
+    }
+    
     public String getEmail() {
         return email;
     }
