@@ -14,16 +14,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.crypto.spec.DESedeKeySpec;
+import javax.json.Json;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONObject;
 
 /**
- * auth class
  * 
- * @author ical
+ * @author Afrizal
  */
 public class auth extends HttpServlet 
 {
@@ -34,15 +36,18 @@ public class auth extends HttpServlet
   protected static final String PASS = "";
   private Connection conn;
   private Statement stmt;
+  private JsonBuilderFactory factory;
 
   /**
    * Initialize
    * @throws ServletException 
    */
   @Override
+  @SuppressWarnings("CallToPrintStackTrace")
   public void init() throws ServletException 
   {
     super.init(); 
+    factory = Json.createBuilderFactory(null);
     
     try {
       // Register JDBC driver
@@ -71,14 +76,14 @@ public class auth extends HttpServlet
    * @throws IOException if an I/O error occurs 
    */
   @Override
-  @SuppressWarnings("CallToPrintStackTrace")
+  @SuppressWarnings({"CallToPrintStackTrace", "null"})
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException 
   {
     PrintWriter out = response.getWriter();
-    JSONObject json = new JSONObject();
     ResultSet rs = null;
     Long time = System.currentTimeMillis() / 1000;
+    JsonObject json;
 
     if (request.getParameter("token") != null)        // token verification
     {
@@ -96,8 +101,10 @@ public class auth extends HttpServlet
       else if (expires < time)      // token expired
         json = generateError("token invalid", 4040);
       else {
-        json.put("num", 1200);
-        json.put("detail", "OK");
+        json = factory.createObjectBuilder()
+          .add("num", 1200)
+          .add("detail", "OK")
+          .build();
       }
     } 
     else {        // handle login authentication
@@ -130,14 +137,20 @@ public class auth extends HttpServlet
           ex.printStackTrace();
         }
         
-        json.put("token", bytes);
-        json.put("user", user);
+        json = factory.createObjectBuilder()
+          .add("user", user)
+          .add("token", new String(bytes))
+          .build();
       }
       else
         json = generateError("authentication failed", 1403);
     }
     
-    out.print(json);
+    JsonWriter x;
+    x = Json.createWriter(out);
+    x.writeObject(json);
+    x.close();
+    
     out.flush();
     
     // Clean-up environment
@@ -151,11 +164,11 @@ public class auth extends HttpServlet
   }
 
   /**
-   * [queryExecutor description]
+   * Query executor
    * 
-   * @param  sql          [description]
-   * @return              [description]
-   * @throws SQLException [description]
+   * @param  sql          
+   * @return result set
+   * @throws SQLException 
    */
   public ResultSet queryExecutor(String sql) throws SQLException {
     ResultSet rs;    
@@ -165,11 +178,11 @@ public class auth extends HttpServlet
   }
 
   /**
-   * [updateExecutor description]
+   * Update executor
    * 
-   * @param  sql          [description]
-   * @return              [description]
-   * @throws SQLException [description]
+   * @param  sql          
+   * @return error status (0 if run well)             
+   * @throws SQLException 
    */
   public int updateExecutor(String sql) throws SQLException {
     return stmt.executeUpdate(sql);
@@ -182,14 +195,13 @@ public class auth extends HttpServlet
    * @param errorNum
    * @return 
    */
-  private JSONObject generateError(String detail, int errorNum) {
-    JSONObject error = new JSONObject();
-    error.put("num", errorNum);
-    error.put("detail", detail);
-    
-    JSONObject res = new JSONObject();
-    res.put("error", error);
-    return res;
+  private JsonObject generateError(String detail, int errorNum) 
+  {    
+    return factory.createObjectBuilder()
+      .add("error", factory.createObjectBuilder()
+        .add("num", errorNum)
+        .add("detail", detail))
+      .build();
   }
   
 }
