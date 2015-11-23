@@ -29,7 +29,7 @@ public class Answer {
 			TokenValidity validity = checker.check();
 			
 			int user = 0;
-			if(validity.getIsValid()){
+			if(validity.getIsValid() == 1){
 				user = validity.getIdUser();
 			}
 			else{
@@ -87,7 +87,7 @@ public class Answer {
 			CheckTokenValidity checker = new CheckTokenValidity(access_token);
 			TokenValidity validity = checker.check();
 			
-			if(validity.getIsValid()){
+			if(validity.getIsValid() == 1){
 				//Masukkan ke database
 				DBConnection dbc = new DBConnection();
 				PreparedStatement stmt = dbc.getDBStmt();
@@ -137,7 +137,7 @@ public class Answer {
 			PreparedStatement stmt = dbc.getDBStmt();
 			Connection conn = dbc.getConn();
 			
-			if(validity.getIsValid()){
+			if(validity.getIsValid() == 1){
 				//mendapatkan id_user dari REST
 				int id_user = validity.getIdUser();
 				try{
@@ -236,7 +236,7 @@ public class Answer {
 			PreparedStatement stmt = dbc.getDBStmt();
 			Connection conn = dbc.getConn();
 			
-			if(validity.getIsValid()){
+			if(validity.getIsValid() == 1){
 				//mendapatkan id_user dari REST
 				int id_user = validity.getIdUser();
 				try{

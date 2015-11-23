@@ -9,7 +9,7 @@
 	</jsp:include>
 </head>
 
-<body class="contact">
+<body class="contact noscript">
 	<div id="page-wrapper">
 	<!-- Header -->
 	<header id="header">

@@ -46,6 +46,25 @@
 %>
 		
 		<script>
+		function regenerateToken(){
+			var regenerateTokenUrl = "http://localhost:8080/REST-WS/rest/token/regenerateToken";
+			var tokenData = {access_token:'<%= access_token %>'}
+			$.ajax({
+		        url: regenerateTokenUrl,
+		        data: tokenData,
+		        dataType: "json",
+		        type: "POST",
+		        success: function(data) {
+		        	var token = data.access_token;
+		            document.cookie="access_token="+token+"; expires=null";
+		            if(token == null){
+		            	
+		            } else {
+		            	alert ("Token berhasil di regenerate");
+		            }
+		        }
+		    });
+		}
 		function checkToken(){
 			var tokenData = {access_token:"<%= access_token %>"}
 			var checkTokenUrl = "http://localhost:8080/REST-WS/rest/token-validity";
@@ -56,8 +75,13 @@
                 type: "POST",
                 success: function(data) {
                     var valid = data.valid;
-                    if(valid)
+                    if(valid == 1){
                     	window.location.href = "index.jsp";
+                    } else if (valid == 0){
+                    	alert("Token Expired");
+                	  	regenerateToken();
+                	  	window.location.href = "index.jsp";
+                    }
                 },
                 error: function(jqxhr, status, errorMsg) {
                     alert(status + ": " + errorMsg);
@@ -90,7 +114,7 @@
                         type: "POST",
                         success: function(data) {
                             var token = data.access_token;
-                            document.cookie="access_token="+token+"; expires="+data.expire;
+                            document.cookie="access_token="+token+"; expires=null";
                             if(token == null)
                             	$(".error").replaceWith( "Username and password not match" );
                             else {

@@ -10,7 +10,7 @@
 	
     <jsp:include page="Header.jsp" flush="true">
 		<jsp:param name="pageTitle" value="Edit Question" />
-		<jsp:param name="isNeedCookieCheck" value="false" />
+		<jsp:param name="isNeedCookieCheck" value="true" />
 	</jsp:include>
 	
 <%
@@ -47,13 +47,13 @@
 	              type: "POST",
 	              success: function(data) {
 	                  var valid = data.valid;
-	                  if(valid){
+	                  if((valid == 1) || (valid == 0)){
 	               	   var element = document.getElementById('signin');
 	               	   element.setAttribute('href','signout.jsp');
 	               	   var str = $('a#signin').text('Sign Out');
 	               	   $('a#register').remove();
 	                  }
-	                  if(!valid){
+	                  if(valid == -1){
 	        	  		window.location.href = "index.jsp";
 	        	  		$('body').remove();
 						alert("Anda tidak berhak mengakses");
@@ -62,7 +62,7 @@
 	          });
 	}
 	$(document).ready(function(){
-	    checkToken();
+	    //checkToken();
 	});
 	</script>
 	

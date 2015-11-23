@@ -1,14 +1,14 @@
 package org.tusiri.ws.token_validity;
 
 public class TokenValidity {
-	private boolean isValid;
+	private int isValid;
 	private int idUser;
 	
-	public boolean getIsValid(){
+	public int getIsValid(){
 		return isValid;	
 	}
 	
-	public void setIsValid(boolean isValid){
+	public void setIsValid(int isValid){
 		this.isValid = isValid;
 	}
 	
