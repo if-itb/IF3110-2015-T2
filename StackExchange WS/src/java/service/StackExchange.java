@@ -449,32 +449,40 @@ public class StackExchange {
      */
     @WebMethod(operationName = "addUser")
     @WebResult(name = "User")
-    public boolean addUser(
-            @WebParam(name = "name") String name,
-            @WebParam(name = "email") String email,
-            @WebParam(name = "password") String password) {        
-        boolean success = false;
-        try {         
-          String sql = "SELECT email FROM user WHERE email = ?";
-          PreparedStatement statement = connection.prepareStatement(sql);
-          statement.setString(1, email);
-          
-          ResultSet temp = statement.executeQuery();
-          if(!temp.next()){
-              sql = "INSERT INTO user (name, email, password) VALUES (MD5(?), ?, ?)";
-              statement = connection.prepareStatement(sql);                            
-              statement.setString(1, name);
-              statement.setString(2, email);
-              statement.setString(3, password);
+    public String addUser(
+            @WebParam(name = "name")
+                    String name, @WebParam(name = "email")
+                            String email, @WebParam(name = "password")        
+                                    String password) {        
+        String message = "";
+        try {
+            // validate user's email, same email can't register
+            String sql = "SELECT email FROM user WHERE email = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
 
-              success = statement.executeUpdate() > 0;              
-          }
-          statement.close();
+            ResultSet temp = statement.executeQuery();
+            if(!temp.next()){
+                sql = "INSERT INTO user (name, email, password) VALUES (?, ?, MD5(?))";
+                statement = connection.prepareStatement(sql);                            
+                statement.setString(1, name);
+                statement.setString(2, email);
+                statement.setString(3, password);
+
+                if(statement.executeUpdate() > 0)
+                    message = "Register Success";
+                else
+                    message = "Register Failed";
+            }
+            else{
+                message = "Email already registered";
+            }
+            statement.close();
         } catch (SQLException ex) {
-          Logger.getLogger(StackExchange.class.getName()).log(Level.SEVERE, null, ex);          
+            Logger.getLogger(StackExchange.class.getName()).log(Level.SEVERE, null, ex);          
         }
         
-        return success;
+        return message;
     }
 
     /**

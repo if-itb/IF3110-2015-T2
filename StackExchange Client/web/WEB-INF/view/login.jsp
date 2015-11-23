@@ -7,29 +7,30 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp" flush="true"/>
     <div class="container">
-        <h2 style="text-indent: 1em;">Login</h2>
+        <h3>Sign in</h3>
         <hr class="heading">  
         
         <div class="inner-container">
-            
-            <div class=""> 
 
-                <div class="login-wrapper">
-                    <form id="askForm" action="" method="POST">
-                        <div class="form-field">
-                            <label for="email">Email</label>
-                            <input name="email" id="email-login" class="login" type="text" placeholder="13513000@std.stei.itb.ac.id" autofocus required>
-                        </div>
-
-                        <div class="form-field">
-                            <label for="password">Password</label>
-                            <input name="password" id="password-login" class="login" type="password" placeholder="password" autofocus required>
-                        </div>
-                        
-                        <input type="submit" class="login-btn" value="Login"></input>   
-                       
-                    </form>
+            <form class="login-wrapper form-horizontal" method="POST">
+                <div class="form-group">
+                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email" required>
+                    </div>
                 </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Sign in</button>
+                    </div>
+                </div>
+            </form>
         
         </div>
         

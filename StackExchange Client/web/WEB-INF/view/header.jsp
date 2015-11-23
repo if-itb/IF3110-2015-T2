@@ -30,11 +30,11 @@
                     <c:choose>
                         <c:when test="${empty user}">
                             <li><a href="register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
-                            <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                            <li><a href="signin"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
                         </c:when>
                         <c:otherwise>
                         <li><p class="navbar-text">Hi, ${user.name}</p></li>
-                        <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                        <li><a href="signout"><span class="glyphicon glyphicon-log-out"></span> Sign out</a></li>
                         </c:otherwise>
                     </c:choose>
                 </ul>

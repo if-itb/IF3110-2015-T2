@@ -44,10 +44,13 @@ public class ISLoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {                                
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
+            // get parameter from client
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             JSONObject object = new JSONObject();
             if (email != null && password != null) {
+                
+                // is user exists in database
                 String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
                 try (PreparedStatement statement = conn.prepareStatement(sql)) {
                     statement.setString(1, email);
@@ -60,6 +63,8 @@ public class ISLoginServlet extends HttpServlet {
                         calendar.add(Calendar.DATE, 1);
                         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
                         conn.setAutoCommit(false);
+                        
+                        // only 1 token from 1 user is allowed
                         String deleteQuery = "DELETE from token WHERE user_id = ?";
                         String insertQuery = "INSERT INTO token (access_token, user_id, expire_date) VALUES (?, ?, ?)";
                         try (

@@ -6,24 +6,19 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.WebServiceRef;
-import service.StackExchange;
-import service.StackExchange_Service;
-import service.User;
 
 /**
  *
- * @author Adz
+ * @author visat
  */
-public class RegisterServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
-    private StackExchange_Service service;
-    
+@WebServlet(name = "SignOutServlet", urlPatterns = {"/signout"})
+public class SignOutServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,6 +30,14 @@ public class RegisterServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // remove auth cookie by set max age to 0        
+        Cookie cookie = new Cookie("auth", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        // redirect to home page
+        response.sendRedirect(request.getContextPath());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -47,12 +50,9 @@ public class RegisterServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getAttribute("user");
-        if(user != null) // user already login
-            response.sendRedirect(request.getContextPath());
-        else
-            request.getRequestDispatcher("WEB-INF/view/register.jsp").forward(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -64,25 +64,9 @@ public class RegisterServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        StackExchange port = service.getStackExchangePort();
-        
-        String
-                name = request.getParameter("name"),
-                email = request.getParameter("email"),
-                password = request.getParameter("password");
-        
-        // get the result message
-        String message = port.addUser(name, email, password);
-        
-        // message handling by get method
-        if(message.contains("Success")){ // SUCCESS
-            request.setAttribute("success", message);
-        }
-        else{
-            request.setAttribute("error", message);
-        }
-        doGet(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {        
+        processRequest(request, response);
     }
 
     /**
@@ -92,7 +76,7 @@ public class RegisterServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Handle signout";
     }// </editor-fold>
 
 }

@@ -87,7 +87,9 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath());
         }
         else { //user == null  
-            JSONObject object = ISConnector.requestLogin("user");
+            String email = user.getEmail();
+            String password = user.getPassword();
+            JSONObject object = ISConnector.requestLogin(email, password);
             if (object != null) {
                 if (object.containsKey("auth")){
                     Cookie cookie = new Cookie("auth", (String)object.get("auth"));
