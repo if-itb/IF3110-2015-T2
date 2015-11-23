@@ -20,7 +20,7 @@ public class DBConnect {
     Connection conn;
     
     public DBConnect() {
-        host= "jdbc:mysql://localhost:3307/dazzlesquad";
+        host= "jdbc:mysql://localhost:3306/dazzlesquad";
         username="root";
         pass = "password";
              
