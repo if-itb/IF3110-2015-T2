@@ -163,7 +163,7 @@ public class AnswerModel {
                 stmt.setInt(1, answerId);
                 stmt.setInt(2, user.getUserId());
                 ResultSet rs = stmt.executeQuery(); 
-               rs.next();
+                rs.next();
                 if (rs.getInt(1) == 0) {
                     sql = "INSERT INTO vote_answer (user_id, answer_id, value) VALUES (?, ?, ?)";
                     stmt = conn.prepareStatement(sql);
@@ -173,13 +173,13 @@ public class AnswerModel {
                     stmt.executeUpdate();
                 }
                
-                sql = "SELECT SUM(value) FROM vote_answer WHERE answer_id=?";
-                stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, answerId);
-                rs = stmt.executeQuery();
-                rs.next();
-                r = rs.getInt(1);
-               
+//                sql = "SELECT SUM(value) FROM vote_answer WHERE answer_id=?";
+//                stmt = conn.prepareStatement(sql);
+//                stmt.setInt(1, answerId);
+//                rs = stmt.executeQuery();
+//                rs.next();
+//                r = rs.getInt(1);
+                r = 1;
                 rs.close();
                 stmt.close();
                 conn.close();
