@@ -76,4 +76,37 @@ public class AnswerWS {
     }  
     return isAdded;
   }
+
+  /**
+   * Web service operation
+   */
+  @WebMethod(operationName = "getCountAnswerByQId")
+  public int getCountAnswerByQId(@WebParam(name = "qid") int qid) {
+    int count = 0;
+    try {
+      
+      Connection conn = db.connectDatabase();
+      Statement stmt = conn.createStatement();
+      String sql;
+      sql = "SELECT count(*) FROM answer WHERE id_question = ?";
+      PreparedStatement dbStatement = conn.prepareStatement(sql);
+      dbStatement.setInt(1, qid);
+      ResultSet rs = dbStatement.executeQuery();
+      
+      while (rs.next()) {
+        count = rs.getInt("count(*)");
+      }
+      
+      rs.close();
+      stmt.close();
+      
+    } catch (SQLException ex) {
+      Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return count;
+  }
+
+  
+  
+  
 }
