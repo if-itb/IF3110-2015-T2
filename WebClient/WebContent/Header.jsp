@@ -59,6 +59,29 @@
 %>
 
 <script>
+function regenerateToken(){
+	var regenerateTokenUrl = "http://localhost:8080/REST-WS/rest/token/regenerateToken";
+	var tokenData = {access_token:'<%= access_token %>'}
+	$.ajax({
+        url: regenerateTokenUrl,
+        data: tokenData,
+        dataType: "json",
+        type: "POST",
+        success: function(data) {
+        	var token = data.access_token;
+            document.cookie="access_token="+token+"; expires=null";
+            console.log(token);
+            if(token == null){
+            	console.log("null");
+            } else {
+            	alert ("Token berhasil di regenerate");
+            }
+        }
+    });
+}
+
+
+
 function checkToken(){	
 	var user_buttons = document.getElementsByClassName("user");
 	console.log(user_buttons.length);
@@ -79,7 +102,7 @@ function checkToken(){
               success: function(data) {
                   var valid = data.valid;
                   var id = data.id_user;
-                  if(valid){
+                  if((valid == 1) || (valid == 0)){
                 	   for (var i = 0; i < user_buttons.length; i ++) {
                 		   user_buttons[i].style.display='block';
                 		}
@@ -92,9 +115,12 @@ function checkToken(){
 					   $('#navPanel nav a:nth-child(2)').text('Sign Out');
 					   $('#navPanel nav a:nth-child(2)').attr("href", "signout.jsp");
                   }
-                  else{
+                  if (valid == 0){
+                	  	alert("Token Expired");
+                	  	regenerateToken();
                   }
-                  <% if((request.getParameter("needRedirectWhenNotValid") != null) && (request.getParameter("needRedirectWhenNotValid").equals("true"))){%>
+                  
+                  <% if((request.getParameter("needRedirectWhenNotValid") != null) && (request.getParameter("needRedirectWhenNotValid").equals("true"))){ %>
         	  			if(!valid){
         	  				window.location.href = "index.jsp";
 	        	  			<% if((request.getParameter("messagetWhenNotValid") != null)){ %>

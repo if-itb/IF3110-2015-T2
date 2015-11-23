@@ -39,7 +39,7 @@ public class CheckTokenValidity {
 				new InputStreamReader((response.getEntity().getContent())));
 			String output;
 			System.out.println("Output from REST ..... \n");
-			boolean isTokenValid=false;
+			int isTokenValid;
 			int id_user;
 			
 			if ((output = br.readLine()) != null) {
@@ -47,10 +47,11 @@ public class CheckTokenValidity {
 				JSONParser jsonParser = new JSONParser();
 				JSONObject jsonObject = (JSONObject) jsonParser.parse(output);
 				System.out.println("after JSON Parse");
-				isTokenValid = (boolean) jsonObject.get("valid");
-				if(isTokenValid){
-					tv.setIsValid(true);
-				}
+				long isTokenValid_long = (long) jsonObject.get("valid");
+				isTokenValid = (int) isTokenValid_long;
+				
+				tv.setIsValid(1);
+				
 				System.out.println("after JSON Parse 2");
 				long id_user_long = (long) jsonObject.get("id_user");
 				id_user = (int) id_user_long; //bahaya, tapi asumsi ga ada angka yang besar

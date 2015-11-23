@@ -26,7 +26,7 @@ import org.tusiri.ws.model.Token;
 public class TokenValidity {
 	
 	public static class Identity{
-		public boolean valid=false;
+		public int valid=-1;
 		public int id_user=0;
 	}
 	
@@ -52,14 +52,16 @@ public class TokenValidity {
 			if(rs.next()){
 				//cek tanngal expire
 				java.util.Date date = rs.getTimestamp("timestamp");
-				Date expire = new Date(date.getTime() + TimeUnit.DAYS.toMillis( 2 ));//2 days validity
+				Date expire = new Date(date.getTime() + TimeUnit.MINUTES.toMillis( 1 ));//2 minutes validity
 				long expire_ms = expire.getTime();
 				Date cur_date = new Date();
 				long cur_date_ms = cur_date.getTime();
 				if(expire_ms>cur_date_ms){
-					identity.valid = true;
-					identity.id_user = rs.getInt("id_user");
+					identity.valid = 1;
+				} else {
+					identity.valid = 0;
 				}
+				identity.id_user = rs.getInt("id_user");
 			}
 		} catch(SQLException se){
 			//Handle errors for JDBC
@@ -104,6 +106,7 @@ public class TokenValidity {
 		//Input: FORM
 		//Output: JSON
 		Identity identity = getIdentity(access_token);
+		System.out.println("REST - " + identity.valid);
 		return identity;
 	}
 	
@@ -133,7 +136,7 @@ public class TokenValidity {
 		AccessValidity a = new AccessValidity();
 		a.valid = false;
 		Identity identity = getIdentity(access_token);
-		if (identity.valid){
+		if (identity.valid == 1){
 			System.out.println(getQuestionUserId(id_question));
 			if(getQuestionUserId(id_question) == identity.id_user){
 				a.valid = true;
