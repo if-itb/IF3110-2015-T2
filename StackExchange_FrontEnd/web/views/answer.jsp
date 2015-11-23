@@ -161,6 +161,7 @@ ${answers}
                                     <div class="input-field col s12">
                                         <textarea id="textarea1" class="blue-text materialize-textarea" name="content"></textarea>
                                         <label for="textarea1" class="blue-text">My Answer</label>
+                                        <input type="hidden" name="question_id" value="${question.id}"/>
                                     </div>
                                 </div>
                             </div>
