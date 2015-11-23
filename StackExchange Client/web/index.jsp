@@ -15,10 +15,17 @@
     </head>
 
     <body>
+        <form name="loginForm" action="registerresult.jsp" onsubmit="" method="POST">
+            <input type="hidden" name="question_id">
+            <input type="text" class='form-text-small' name="email" placeholder="Email" required><br>
+            <input type="password" class='form-text-small' name="password" placeholder="Password" required><br>
+            <button class='button-small' type='submit'> Login </button>
+        </form>
+        
         <div class="link-normalizer"><a class='title' href="index.jsp">Simple StackExchange</a></div>
-
+        
         <br><br><br><br>
-
+        
         <form name='searchForm' action='search.php' method='post'>
             <input class='form-search' type="text" name="search_key" size='120%'>
             <button class='button-search' type='submit'> Search </button>
