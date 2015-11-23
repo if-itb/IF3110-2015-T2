@@ -32,20 +32,21 @@
     %>
     <%-- end web service invocation --%><hr/>
     
-        <%-- start web service invocation --%><hr/>
+    <%-- start web service invocation --%><hr/>
     <%
     try {
-	questionWebService.QuestionWebService_Service service = new questionWebService.QuestionWebService_Service();
-	questionWebService.QuestionWebService port = service.getQuestionWebServicePort();
+	questionWS.QuestionWebService_Service service = new questionWS.QuestionWebService_Service();
+	questionWS.QuestionWebService port = service.getQuestionWebServicePort();
 	// TODO process result here
-	java.util.List<questionWebService.Question> result = port.getAllQuestion();
+	java.util.List<questionWS.Question> result = port.getAllQuestion();
 	out.println("Result = "+result);
     } catch (Exception ex) {
 	// TODO handle custom exceptions here
     }
     %>
     <%-- end web service invocation --%><hr/>
-        <%-- start web service invocation --%><hr/>
+
+    <%-- start web service invocation --%><hr/>
     <%
     try {
 	userWebService.UserWebService_Service service = new userWebService.UserWebService_Service();
@@ -58,6 +59,7 @@
     }
     %>
     <%-- end web service invocation --%><hr/>
+
 
     </body>   
     
