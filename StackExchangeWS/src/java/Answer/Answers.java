@@ -10,94 +10,102 @@ import javax.xml.bind.annotation.*;
  *
  * @author mochamadtry
  */
-@XmlRootElement(name="Answer")
+@XmlRootElement(name="Answers")
 public class Answers {
-    @XmlElement(name="a_id", required=true)
-    private int a_id;
-    @XmlElement(name="a_name", required=true)
-    private String a_name;
-    @XmlElement(name="a_email", required=true)
-    private String a_email;
-    @XmlElement(name="a_qid", required=true)
-    private int a_qid;
-    @XmlElement(name="a_content", required=true)
-    private String a_content;
-    @XmlElement(name="a_datetime", required=true)
-    private String a_datetime;
-    @XmlElement(name="a_vote", required=true)
-    private int a_vote;
+    @XmlElement(name="answer-id", required=true)
+    private int answer_id;
+    @XmlElement(name="answer-uid", required=true)
+    private int answer_uid;
+    @XmlElement(name="answer-qid", required=true)
+    private int answer_qid;
+    @XmlElement(name="answer-content", required=true)
+    private String answer_content;
+    @XmlElement(name="answer-timestamp", required=true)
+    private String answer_timestamp;
     
     /**
      * Constructor for Answer
      */
     public Answers() {
-       a_id = 0;
+       answer_id = 0;
     }
     
-    public Answers(int _id, int _qid, String _content, String _name, String _email, String _timestamp, int _votes) {
-        a_id = _id;
-        a_content = _content;
-        a_name = _name;
-        a_email = _email;
-        a_datetime = _timestamp;
-        a_vote = _votes;
-        a_qid = _qid; 
+    public Answers(int _id, int _uid, int _qid, String _content, String _timestamp) {
+        answer_id = _id;
+        answer_uid = _uid;
+        answer_qid = _qid;
+        answer_content = _content;
+        answer_timestamp = _timestamp;
     }
 
     /**
-     * @return the q_id
+     * @return the id
      */
-    public int getId() {
-        return a_id;
+    public int getAnswerId() {
+        return answer_id;
     }
 
     /**
-     * @return the q_topic
+     * @param id the id to set
      */
-    /*public String getTopic() {
-        return a_topic;
-    }*/
-
-    /**
-     * @return the q_content
-     */
-    public String getContent() {
-        return a_content;
+    public void setAnswerId(int id) {
+        this.answer_id = id;
     }
 
     /**
-     * @return the q_name
+     * @return the uid
      */
-    public String getName() {
-        return a_name;
+    public int getAnswerUid() {
+        return answer_uid;
     }
 
     /**
-     * @return the q_email
+     * @param uid the uid to set
      */
-    public String getEmail() {
-        return a_email;
-    }
-    
-     /**
-     * @return the q_datetime
-     */
-    public String getDatetime() {
-        return a_datetime;
+    public void setAnswerUid(int uid) {
+        this.answer_uid = uid;
     }
 
     /**
-     * @return the q_datetime
+     * @return the qid
      */
-    public int getQid() {
-        return a_qid;
+    public int getAnswerQid() {
+        return answer_qid;
     }
 
     /**
-     * @return the q_vote
+     * @param qid the qid to set
      */
-    public int getVote() {
-        return a_vote;
+    public void setAnswerQid(int qid) {
+        this.answer_qid = qid;
     }
-    
+
+    /**
+     * @return the content
+     */
+    public String getAnswerContent() {
+        return answer_content;
+    }
+
+    /**
+     * @param content the content to set
+     */
+    public void setAnswerContent(String content) {
+        this.answer_content = content;
+    }
+
+    /**
+     * @return the timestamp
+     */
+    public String getAnswerTimestamp() {
+        return answer_timestamp;
+    }
+
+    /**
+     * @param timestamp the timestamp to set
+     */
+    public void setAnswerTimestamp(String timestamp) {
+        this.answer_timestamp = timestamp;
+    }
+
 }

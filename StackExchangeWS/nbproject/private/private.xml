@@ -3,15 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/mochamadtry/Documents/GitHub/IF3110-2015-T2/StackExchangeWS/web/WEB-INF/glassfish-resources.xml</file>
-            <file>file:/C:/Users/mochamadtry/Documents/GitHub/IF3110-2015-T2/StackExchangeWS/src/java/database/DB.java</file>
-            <file>file:/C:/Users/mochamadtry/Documents/GitHub/IF3110-2015-T2/StackExchangeWS/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/mochamadtry/Documents/GitHub/IF3110-2015-T2/StackExchangeWS/src/java/Questions/Question.java</file>
-            <file>file:/C:/Users/mochamadtry/Documents/GitHub/IF3110-2015-T2/StackExchangeWS/src/java/Registers/Register.java</file>
-            <file>file:/C:/Users/mochamadtry/Documents/GitHub/IF3110-2015-T2/StackExchangeWS/src/java/Registers/Registers.java</file>
-            <file>file:/C:/Users/mochamadtry/Documents/GitHub/IF3110-2015-T2/StackExchangeWS/src/java/Questions/QuestionsWS.java</file>
-            <file>file:/C:/Users/mochamadtry/Documents/GitHub/IF3110-2015-T2/StackExchangeWS/src/java/Answer/Answers.java</file>
-            <file>file:/C:/Users/mochamadtry/Documents/GitHub/IF3110-2015-T2/StackExchangeWS/src/java/Answer/AnswersWS.java</file>
+            <file>file:/C:/xampp/tomcat/webapps/ROOT/IF3110-2015-T2/StackExchangeWS/src/java/Questions/Question.java</file>
+            <file>file:/C:/xampp/tomcat/webapps/ROOT/IF3110-2015-T2/StackExchangeWS/src/java/Questions/QuestionsWS.java</file>
         </group>
     </open-files>
 </project-private>

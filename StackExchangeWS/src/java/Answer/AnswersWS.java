@@ -22,33 +22,74 @@ import javax.jws.WebParam;
  */
 @WebService(serviceName = "AnswersWS")
 public class AnswersWS {
+    // database connection
     Connection conn = DB.getConnection();
+    
     /**
      * Web service operation
+     * @param qid
+     * @return 
+     */
+    @WebMethod(operationName = "getAnswersByQid")
+    @WebResult(name = "Answers")
+    public List<Answers> getAnswersByQid(@WebParam(name = "qid") int qid) {
+        //TODO write your implementation code here:
+        List<Answers> answers = new ArrayList<>();
+        
+        try (Statement st = conn.createStatement()) {
+            
+            String query = "SELECT * FROM `answers` WHERE qid = ?";
+                
+            // set the prepared statement by the query and enter the value of where clause
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setInt(1, qid);
+               
+            try (ResultSet res = pst.executeQuery()) {
+                // get the questions
+                while (res.next()) {
+                    answers.add(new Answers(res.getInt("id"),
+                                            res.getInt("uid"),
+                                            res.getInt("qid"),
+                                            res.getString("content"),
+                                            res.getString("timestamp")));
+                }
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AnswersWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return answers;
+    }
+    
+    /**
+     * Create a new answer to the question id
+     * @param token
+     * @param qid
+     * @param content
+     * @return 
      */
     @WebMethod(operationName = "createAnswer")
     //@WebResult
-    public int createAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "q_id") String q_id, @WebParam(name = "content") String content) {
-         try {
-            Statement st = conn.createStatement();
-            String query = "INSERT INTO answers(a_name, a_email, a_qid, a_content, a_vote) VALUES (?, ?, ?, ?, ?)";
+    public int createAnswer(@WebParam(name = "token") String token,
+                            @WebParam(name = "qid") int qid,
+                            @WebParam(name = "content") String content) {
+        
+        /* INCOMPLETE: Validate token */
+        
+        int uid = 1; /* STUB: Get ID by token */
+        
+         try (Statement st = conn.createStatement()) {
+            String query = "INSERT INTO answers(uid, qid, content) VALUES (?, ?, ?)";
             
-            // set the prepared statement by the query and enter the value of where clause
-            PreparedStatement pst = conn.prepareStatement(query);
-            pst.setString(1, "null");
-            pst.setString(2, "null");
-            pst.setString(3, q_id);
-            pst.setString(4, content);
-            
-            pst.setInt(5, 0);
-            
-            //pst.setString(3, name);
-            //pst.setString(4, email);
-            
-            pst.executeUpdate();
-     
-            pst.close();
-            st.close();
+             // set the prepared statement by the query and enter the value of where clause
+            try (PreparedStatement pst = conn.prepareStatement(query)) {
+                pst.setInt(1, uid);
+                pst.setInt(2, qid);
+                pst.setString(3, content);
+
+                pst.executeUpdate();
+            }
             
             return 1;
         } catch (SQLException ex) {
@@ -56,4 +97,5 @@ public class AnswersWS {
             return 0;
         }
     }
+
 }

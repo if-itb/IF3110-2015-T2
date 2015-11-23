@@ -14,84 +14,102 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name="Question")
 public class Question {
     
-    @XmlElement(name="q_id", required=true)
-    private int q_id;
-    @XmlElement(name="q_topic", required=true)
-    private String q_topic;
-    @XmlElement(name="q_content", required=true)
-    private String q_content;
-    @XmlElement(name="q_name", required=true)
-    private String q_name;
-    @XmlElement(name="q_email", required=true)
-    private String q_email;
-    @XmlElement(name="q_datetime", required=true)
-    private String q_datetime;
-    @XmlElement(name="q_vote", required=true)
-    private int q_vote;
+    @XmlElement(name="question-id", required=true)
+    private int question_id;
+    @XmlElement(name="question-uid", required=true)
+    private int question_uid;
+    @XmlElement(name="question-topic", required=true)
+    private String question_topic;
+    @XmlElement(name="question-content", required=true)
+    private String question_content;
+    @XmlElement(name="question-timestamp", required=true)
+    private String question_timestamp;
+    
     
     /**
      * Constructor for Answer
      */
     public Question() {
-       q_id = 0;
+       question_id = 0;
     }
     
-    public Question(int _id, String _topic, String _content, String _name, String _email, String _timestamp, int _votes) {
-        q_id = _id;
-        q_topic = _topic;
-        q_content = _content;
-        q_name = _name;
-        q_email = _email;
-        q_datetime = _timestamp;
-        q_vote = _votes;
+    public Question(int _id, int _uid, String _topic, String _content, String _timestamp) {
+        question_id = _id;
+        question_uid = _uid;
+        question_topic = _topic;
+        question_content = _content;
+        question_timestamp = _timestamp;
     }
 
     /**
-     * @return the q_id
+     * @return the id
      */
-    public int getId() {
-        return q_id;
+    public int getQuestionId() {
+        return question_id;
     }
 
     /**
-     * @return the q_topic
+     * @param id the id to set
      */
-    public String getTopic() {
-        return q_topic;
+    public void setQuestionId(int id) {
+        this.question_id = id;
     }
 
     /**
-     * @return the q_content
+     * @return the uid
      */
-    public String getContent() {
-        return q_content;
+    public int getQuestionUid() {
+        return question_uid;
     }
 
     /**
-     * @return the q_name
+     * @param uid the uid to set
      */
-    public String getName() {
-        return q_name;
+    public void setQuestionUid(int uid) {
+        this.question_uid = uid;
     }
 
     /**
-     * @return the q_email
+     * @return the topic
      */
-    public String getEmail() {
-        return q_email;
+    public String getQuestionTopic() {
+        return question_topic;
     }
 
     /**
-     * @return the q_datetime
+     * @param topic the topic to set
      */
-    public String getDatetime() {
-        return q_datetime;
+    public void setQuestionTopic(String topic) {
+        this.question_topic = topic;
     }
 
     /**
-     * @return the q_vote
+     * @return the content
      */
-    public int getVote() {
-        return q_vote;
+    public String getQuestionContent() {
+        return question_content;
     }
+
+    /**
+     * @param content the content to set
+     */
+    public void setQuestionContent(String content) {
+        this.question_content = content;
+    }
+
+    /**
+     * @return the timestamp
+     */
+    public String getQuestionTimestamp() {
+        return question_timestamp;
+    }
+
+    /**
+     * @param timestamp the timestamp to set
+     */
+    public void setQuestionTimestamp(String timestamp) {
+        this.question_timestamp = timestamp;
+    }
+
+    
 }

@@ -23,7 +23,7 @@ public class User {
     @XmlElement(name="password", required=true)
     private String password;
     
-        /**
+    /**
      * Constructor for Register
      */
     public User() {
@@ -34,8 +34,7 @@ public class User {
         uid = _id;
         name = _name;
         email = _email;
-        password = _password;
-        
+        password = _password; 
     }
 
     /**

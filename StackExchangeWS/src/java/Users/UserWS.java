@@ -7,8 +7,6 @@ package Users;
 
 import database.DB;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.*;
@@ -26,10 +24,16 @@ public class UserWS {
 
     /**
      * Web service operation
+     * @param name
+     * @param email
+     * @param password
+     * @return 
      */
     @WebMethod(operationName = "addRegister")
     @WebResult(name = "success")
-    public int addRegister(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
+    public int addRegister(@WebParam(name = "name") String name,
+                            @WebParam(name = "email") String email,
+                            @WebParam(name = "password") String password) {
         int res = 0;
         try {
             // check if the user with the email is already registered
@@ -39,21 +43,21 @@ public class UserWS {
             ResultSet rs = pstat.executeQuery(); 
             
             // if email not existed, insert the user
-            if (!rs.isBeforeFirst()&& (email != null || email != ""))
-            {
-                //Statement st = conn.createStatement();
-                String query = "INSERT INTO users(name, email, password) VALUES (?, ?, ?)";
-                Statement st = conn.createStatement();
+            if (!rs.isBeforeFirst() && (email != null || email.equals(""))) {
+                
                 // set the prepared statement by the query and enter the value of where clause
-                PreparedStatement pst = conn.prepareStatement(query);
-                pst.setString(1, name);
-                pst.setString(2, email);
-                pst.setString(3, password);
-
-                res = pst.executeUpdate();
-
-                pst.close();
-                st.close();
+                try (Statement st = conn.createStatement()) {
+                   
+                    String query = "INSERT INTO users(name, email, password) VALUES (?, ?, ?)";
+                    
+                    try (PreparedStatement pst = conn.prepareStatement(query)) {
+                        pst.setString(1, name);
+                        pst.setString(2, email);
+                        pst.setString(3, password);
+                        
+                        res = pst.executeUpdate();
+                    }
+                }
             }
             
             return res;
