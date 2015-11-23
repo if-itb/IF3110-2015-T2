@@ -48,19 +48,19 @@ public class ISLoginServlet extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             JSONObject object = new JSONObject();
-            if (email != null && password != null) {
-                
+            if (email != null && password != null) {                
                 // is user exists in database
-                String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
+                String sql = "SELECT * FROM user WHERE email = ? AND password = MD5(?)";
                 try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                    statement.setString(1, email);
+                    statement.setString(1, email);  
                     statement.setString(2, password); 
-                    ResultSet result = statement.executeQuery();
+                    ResultSet result = statement.executeQuery();                    
                     if (result.next()) {                                
-                        int user_id = result.getInt("id");
+                        int user_id = result.getInt("id");                                                
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(new Date());
                         calendar.add(Calendar.DATE, 1);
+                        Timestamp expire_date = new Timestamp(calendar.getTime().getTime());
                         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
                         conn.setAutoCommit(false);
                         
@@ -69,15 +69,16 @@ public class ISLoginServlet extends HttpServlet {
                         String insertQuery = "INSERT INTO token (access_token, user_id, expire_date) VALUES (?, ?, ?)";
                         try (
                             PreparedStatement deleteStatement = conn.prepareStatement(deleteQuery);
-                            PreparedStatement insertStatement = conn.prepareStatement(insertQuery)) {                            
+                            PreparedStatement insertStatement = conn.prepareStatement(insertQuery)) {                                                        
                             deleteStatement.setInt(1, user_id);
                             insertStatement.setString(1, uuid);
                             insertStatement.setInt(2, user_id);
-                            insertStatement.setString(3, calendar.getTime().toString());
+                            insertStatement.setTimestamp(3, expire_date);                            
                             deleteStatement.execute();
-                            insertStatement.execute();
+                            insertStatement.execute();                                                                                
                             object.put("auth", uuid);
-                            conn.commit();
+                            object.put("expire_date", expire_date.getTime());
+                            conn.commit();                            
                         }
                         finally {
                             conn.setAutoCommit(true);
@@ -87,7 +88,7 @@ public class ISLoginServlet extends HttpServlet {
                         object.put("error", "Invalid username or password");
                     }
                 }                        
-            }                                       
+            }                                         
             out.println(object.toString());
         }
         catch(SQLException ex){

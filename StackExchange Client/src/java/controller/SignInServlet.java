@@ -13,6 +13,8 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,8 +35,8 @@ import service.*;
  * @author visat
  */
 
-@WebServlet(name = "AskServlet", urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "SignInServlet", urlPatterns = {"/signin"})
+public class SignInServlet extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
     private StackExchange_Service service;
     /**
@@ -66,7 +68,7 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
             response.sendRedirect(request.getContextPath());
         } else {
-             request.getRequestDispatcher("WEB-INF/view/login.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/view/signin.jsp").forward(request, response);
         }
     }
 
@@ -83,22 +85,34 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
  
         User user = (User) request.getAttribute("user");
-        if (user != null) {
+        if (user != null) { // user already login
             response.sendRedirect(request.getContextPath());
+            return;
         }
-        else { //user == null  
-            String email = user.getEmail();
-            String password = user.getPassword();
-            JSONObject object = ISConnector.requestLogin(email, password);
+        else { // user can login
+            String  email = request.getParameter("email"),
+                    password = request.getParameter("password");
+            
+            JSONObject object = ISConnector.requestLogin(email, password);                        
             if (object != null) {
                 if (object.containsKey("auth")){
                     Cookie cookie = new Cookie("auth", (String)object.get("auth"));
+                    cookie.setPath("/");
+                    long age = -1;
+                    if (object.containsKey("expire_date")) {                        
+                        age = new Timestamp(new Date().getTime()).getTime()-(long)object.get("expire_date");
+                        age /= 1000;                                                
+                    }                    
+                    cookie.setMaxAge((int)age);
                     response.addCookie(cookie);
+                    response.sendRedirect(request.getContextPath());
+                    return;
                 } else if (object.containsKey("error")) {
                     request.setAttribute("error", (String)object.get("error"));
                 }
-            }
+            }           
         }
+        doGet(request, response);
 }
 
     /**

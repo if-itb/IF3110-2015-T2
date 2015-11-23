@@ -41,12 +41,12 @@ public class ISConnector {
             BufferedReader buf = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String read;
             while ((read = buf.readLine()) != null)
-                builder.append(read);
-            object = (JSONObject)new JSONParser().parse(builder.toString());
+                builder.append(read);            
+            object = (JSONObject)new JSONParser().parse(builder.toString());            
         }
         catch (IOException | ParseException ex) {
             System.err.println(ex.getMessage());
-        }
+        }        
         return object;
     }
 
@@ -58,7 +58,7 @@ public class ISConnector {
                     "email=%s&password=%s",
                     URLEncoder.encode(email, charset),
                     URLEncoder.encode(password, charset));
-            object = request("/auth", query.getBytes());
+            object = request("/login", query.getBytes());
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
@@ -77,10 +77,6 @@ public class ISConnector {
             System.err.println(ex.getMessage());
         }
         return object;
-    }
-
-    public static JSONObject requestLogin(String auth) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

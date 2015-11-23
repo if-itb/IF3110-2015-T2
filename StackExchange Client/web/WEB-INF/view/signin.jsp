@@ -1,16 +1,29 @@
-<%-- 
-    Document   : login
+lo<%-- 
+    Document   : signin
     Created on : Nov 18, 2015, 12:04:59 PM
-    Author     : visat
+    Author     : acer
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <jsp:include page="header.jsp" flush="true"/>
     <div class="container">
         <h3>Sign in</h3>
         <hr class="heading">  
         
         <div class="inner-container">
+                <c:choose>
+                    <c:when test="${not empty error}"> <!-- error message -->
+                        <div class="alert alert-danger" role="alert">
+                            <c:out value="${error}" />
+                        </div>
+                    </c:when>
+                    <c:when test="${not empty success}"> <!-- success message -->
+                        <div class="alert alert-success" role="alert">
+                            <c:out value="${success}" />
+                        </div>
+                    </c:when>
+                </c:choose>
 
             <form class="login-wrapper form-horizontal" method="POST">
                 <div class="form-group">
