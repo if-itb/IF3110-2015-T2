@@ -61,13 +61,12 @@ public class Authentication extends HttpServlet {
                 email = "";
                 user_id = "";
                 create_time= "";
-                is_valid ="0"; // token rejected, invalid email / password
+                is_valid ="-2"; // token rejected, invalid token
             }
             else{
                
                 create_time = rs.getString("create_time");
-                is_valid= "1";
-
+                
                 DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
                 java.util.Date last_active = formatter.parse(create_time);
                 java.util.Date now = new java.util.Date();
@@ -79,7 +78,7 @@ public class Authentication extends HttpServlet {
                     name = rs.getString("name");
                     email = rs.getString("email");
                     user_id = rs.getInt("user_id") + "";
-                    is_valid = "1"; // token accepted
+                    is_valid = "0"; // token accepted
                     
                     //update create_time
                     java.util.Date temp = new java.util.Date(); 
