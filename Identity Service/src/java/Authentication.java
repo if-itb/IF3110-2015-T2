@@ -5,6 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -30,7 +31,7 @@ public class Authentication extends HttpServlet {
     
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-   static final String DB_URL = "jdbc:mysql://localhost:3306/stackx";
+   static final String DB_URL = "jdbc:mysql://localhost/stackx";
 
    //  Database credentials
    static final String USER = "root";
@@ -100,12 +101,19 @@ public class Authentication extends HttpServlet {
     }
     
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-        String jsoninput = request.getParameter("input_token");
+        StringBuffer jb = new StringBuffer();
+        String line = null;
+        try {
+          BufferedReader reader = request.getReader();
+          while ((line = reader.readLine()) != null)
+            jb.append(line);
+        } catch (Exception e) { /*report an error*/ }
+        
         //parsing json input format
         JSONParser parser = new JSONParser();
         String token;
         try {
-            Object obj = parser.parse(jsoninput);
+            Object obj = parser.parse(jb.toString());
             JSONObject input = (JSONObject) obj;
             token = (String) input.get("token");
             getUser(token);
