@@ -16,8 +16,8 @@
 		<input type="text" name="name" id="inputtext1" placeholder="Name"><br>
 		<input type="text" name="username" id="inputtext1" placeholder="Username"><br>
 		<input type="text" name="email" id="inputtext1" placeholder="Email"><br>
-		<input type="text" name="password" id="inputtext1" placeholder="Password"><br>
-		<input type="text" name="confirmpassword" id="inputtext1" placeholder="Confirm Password"><br><br>
+		<input type="password" name="password" id="inputtext1" placeholder="Password"><br>
+		<input type="password" name="confirmpassword" id="inputtext1" placeholder="Confirm Password"><br><br>
 		<input type="submit" value="Sign Up">
             </form>
         </div>

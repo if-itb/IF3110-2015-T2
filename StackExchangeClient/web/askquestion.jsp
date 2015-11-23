@@ -10,11 +10,10 @@
     </head>
     <body>
         <div class="container">
+            <p style="text-align:right">You're log in as ica <button onclick="window.location.href='index.jsp';">Log out</button></p>
             <h1>Simple StackExchange</h1><br>
             <h2>What's your question? </h2><br>
-            <form class="QuestionForm" method="POST">
-		<input type="text" name="name" id="inputtext1" placeholder="Name"><br>
-		<input type="text" name="email" id="inputtext1" placeholder="Email"><br>
+            <form class="QuestionForm" action="askquestion" method="POST">
 		<input type="text" name="topic" id="inputtext1" placeholder="Question Topic"><br>
 		<textarea name="content" placeholder="Content"></textarea><br><br>
 		<input type="submit" value="Post">

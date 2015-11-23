@@ -1,23 +1,26 @@
 package Servlet;
 
-import answermodel.AnswerWS_Service;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
+import questionmodel.QuestionWS_Service;
 
-public class addanswer extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_15534/StackExchangeService/AnswerWS.wsdl")
-    private AnswerWS_Service service;
+@WebServlet(name = "askquestion", urlPatterns = {"/askquestion"})
+public class askquestion extends HttpServlet {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_15534/StackExchangeService/QuestionWS.wsdl")
+    private QuestionWS_Service service;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idQuestion = Integer.parseInt(request.getParameter("idQuestion"));
         String username = "ica";
+        String topic = request.getParameter("topic");
         String content = request.getParameter("content");
-        createAnswer(idQuestion,username,content);
-        response.sendRedirect("viewpost?id="+idQuestion);
+        createQuestion(username,topic,content);
+        response.sendRedirect("home");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,11 +62,11 @@ public class addanswer extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private Boolean createAnswer(int idQuestion, java.lang.String username, java.lang.String content) {
+    private Boolean createQuestion(java.lang.String username, java.lang.String topic, java.lang.String content) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        answermodel.AnswerWS port = service.getAnswerWSPort();
-        return port.createAnswer(idQuestion, username, content);
+        questionmodel.QuestionWS port = service.getQuestionWSPort();
+        return port.createQuestion(username, topic, content);
     }
 
 }

@@ -21,7 +21,6 @@ public class register extends HttpServlet {
         String confirmpassword = request.getParameter("confirmpassword");
         createAccount(username,password,email,name);
         response.sendRedirect("index.jsp");
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

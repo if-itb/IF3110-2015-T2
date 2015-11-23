@@ -1,6 +1,6 @@
 package Servlet;
 
-import QuestionWS.QuestionWS_Service;
+import questionmodel.QuestionWS_Service;
 import answermodel.Answer;
 import answermodel.AnswerWS_Service;
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class viewpost extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         
-        java.util.List<QuestionWS.Question> result = getQuestionByQID(id);
+        java.util.List<questionmodel.Question> result = getQuestionByQID(id);
         request.setAttribute("result", result);
         
         List<Answer> answers = getAnswerByQID(id);
@@ -73,10 +73,10 @@ public class viewpost extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private java.util.List<QuestionWS.Question> getQuestionByQID(int qid) {
+    private java.util.List<questionmodel.Question> getQuestionByQID(int qid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        questionmodel.QuestionWS port = service.getQuestionWSPort();
         return port.getQuestionByQID(qid);
     }
 
@@ -90,7 +90,7 @@ public class viewpost extends HttpServlet {
     private int getAnswerById(int qid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        questionmodel.QuestionWS port = service.getQuestionWSPort();
         return port.getAnswerById(qid);
     }
 

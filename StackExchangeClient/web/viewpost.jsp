@@ -11,6 +11,7 @@
     </head>
     <body>
         <div class="container">
+            <p style="text-align:right">You're log in as ica <button onclick="window.location.href='index.jsp';">Log out</button></p>
             <h1>Simple StackExchange</h1><br>
             <c:forEach items="${result}" var="question">
             <h2>${question.topic}</h2><br>  
@@ -47,9 +48,8 @@
             
             <br><p style="font-size:30px; margin:0; color:grey"> Your Answer </p>
             <form name="AnswerForm" action="addanswer" method="POST">
-		<input type="text" name="name" id="inputtext1" placeholder="Name"><br>
-		<input type="text" name="email" id="inputtext1" placeholder="Email"><br>
 		<textarea name="content" id="content" placeholder="Content"></textarea><br><br>
+                <input type="hidden" name="idQuestion" value="${result.get(0).idQuestion}" />
 		<input type="submit" value="Post">
             </form>
             

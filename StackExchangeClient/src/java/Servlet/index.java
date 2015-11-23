@@ -1,6 +1,6 @@
 package Servlet;
 
-import QuestionWS.QuestionWS_Service;
+import questionmodel.QuestionWS_Service;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
 
-public class home extends HttpServlet {
+public class index extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_15534/StackExchangeService/QuestionWS.wsdl")
     private QuestionWS_Service service;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        java.util.List<QuestionWS.Question> result = getQuestions();
+        java.util.List<questionmodel.Question> result = getQuestions();
         request.setAttribute("result", result);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -59,17 +59,17 @@ public class home extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private java.util.List<QuestionWS.Question> getQuestions() {
+    private java.util.List<questionmodel.Question> getQuestions() {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        questionmodel.QuestionWS port = service.getQuestionWSPort();
         return port.getQuestions();
     }
 
     private int getAnswerById(int qid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        questionmodel.QuestionWS port = service.getQuestionWSPort();
         return port.getAnswerById(qid);
     }
 
