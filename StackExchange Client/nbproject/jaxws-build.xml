@@ -42,21 +42,5 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/wsmodel"/>
         <delete dir="${build.generated.dir}/jax-wsCache/WS"/>
     </target>
-    <target name="wsimport-client-WS_1" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/WS_1"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/WS_1" destdir="${build.generated.dir}/jax-wsCache/WS_1" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/WS_1/wsdl/localhost_8081/StackExchange_WS/WS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8081/StackExchange_WS/WS?wsdl" xnocompile="true" xendorsed="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/WS_1/wsdl/localhost_8081/StackExchange_WS/WS.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/WS_1"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/WS_1">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="wsimport-client-clean-WS_1" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/wsmodel"/>
-        <delete dir="${build.generated.dir}/jax-wsCache/WS_1"/>
-    </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-WS, wsimport-client-WS_1"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-WS"/>
 </project>

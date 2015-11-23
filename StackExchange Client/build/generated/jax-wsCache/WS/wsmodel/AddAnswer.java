@@ -19,7 +19,6 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="question_id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="answerContent" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="answerVote" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="userID" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -33,7 +32,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "addAnswer", propOrder = {
     "questionId",
     "answerContent",
-    "answerVote",
     "userID"
 })
 public class AddAnswer {
@@ -41,7 +39,6 @@ public class AddAnswer {
     @XmlElement(name = "question_id")
     protected int questionId;
     protected String answerContent;
-    protected int answerVote;
     protected int userID;
 
     /**
@@ -82,22 +79,6 @@ public class AddAnswer {
      */
     public void setAnswerContent(String value) {
         this.answerContent = value;
-    }
-
-    /**
-     * Gets the value of the answerVote property.
-     * 
-     */
-    public int getAnswerVote() {
-        return answerVote;
-    }
-
-    /**
-     * Sets the value of the answerVote property.
-     * 
-     */
-    public void setAnswerVote(int value) {
-        this.answerVote = value;
     }
 
     /**

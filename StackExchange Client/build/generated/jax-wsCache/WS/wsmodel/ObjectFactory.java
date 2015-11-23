@@ -36,6 +36,7 @@ public class ObjectFactory {
     private final static QName _GetAnswerByQIDResponse_QNAME = new QName("http://WSModel/", "getAnswerByQIDResponse");
     private final static QName _GetQuestionByID_QNAME = new QName("http://WSModel/", "getQuestionByID");
     private final static QName _GetQuestionByIDResponse_QNAME = new QName("http://WSModel/", "getQuestionByIDResponse");
+    private final static QName _Questionitem_QNAME = new QName("http://WSModel/", "questionitem");
     private final static QName _UpdateQuestion_QNAME = new QName("http://WSModel/", "updateQuestion");
     private final static QName _UpdateQuestionResponse_QNAME = new QName("http://WSModel/", "updateQuestionResponse");
     private final static QName _VoteDownAnswer_QNAME = new QName("http://WSModel/", "voteDownAnswer");
@@ -151,6 +152,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link QuestionClass }
+     * 
+     */
+    public QuestionClass createQuestionClass() {
+        return new QuestionClass();
+    }
+
+    /**
      * Create an instance of {@link UpdateQuestion }
      * 
      */
@@ -228,14 +237,6 @@ public class ObjectFactory {
      */
     public VoteUpQuestionResponse createVoteUpQuestionResponse() {
         return new VoteUpQuestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link QuestionClass }
-     * 
-     */
-    public QuestionClass createQuestionClass() {
-        return new QuestionClass();
     }
 
     /**
@@ -360,6 +361,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://WSModel/", name = "getQuestionByIDResponse")
     public JAXBElement<GetQuestionByIDResponse> createGetQuestionByIDResponse(GetQuestionByIDResponse value) {
         return new JAXBElement<GetQuestionByIDResponse>(_GetQuestionByIDResponse_QNAME, GetQuestionByIDResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link QuestionClass }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WSModel/", name = "questionitem")
+    public JAXBElement<QuestionClass> createQuestionitem(QuestionClass value) {
+        return new JAXBElement<QuestionClass>(_Questionitem_QNAME, QuestionClass.class, null, value);
     }
 
     /**

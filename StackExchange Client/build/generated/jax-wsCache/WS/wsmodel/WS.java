@@ -200,7 +200,6 @@ public interface WS {
      * 
      * @param questionId
      * @param answerContent
-     * @param answerVote
      * @param userID
      * @return
      *     returns java.lang.Boolean
@@ -215,8 +214,6 @@ public interface WS {
         int questionId,
         @WebParam(name = "answerContent", targetNamespace = "")
         String answerContent,
-        @WebParam(name = "answerVote", targetNamespace = "")
-        int answerVote,
         @WebParam(name = "userID", targetNamespace = "")
         int userID);
 

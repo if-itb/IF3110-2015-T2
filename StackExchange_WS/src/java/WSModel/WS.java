@@ -119,8 +119,8 @@ public class WS {
      * Web service operation
      */
     @WebMethod(operationName = "addAnswer")
-    public Boolean addAnswer(@WebParam(name = "question_id") int question_id, @WebParam(name = "answerContent") String answerContent, @WebParam(name = "answerVote") int answerVote, @WebParam(name = "userID") int userID) {
+    public Boolean addAnswer(@WebParam(name = "question_id") int question_id, @WebParam(name = "answerContent") String answerContent, @WebParam(name = "userID") int userID) {
         //TODO write your implementation code here:
-        return Answer.addAnswer(question_id, answerContent, answerVote,userID);
+        return null;
     }
 }
