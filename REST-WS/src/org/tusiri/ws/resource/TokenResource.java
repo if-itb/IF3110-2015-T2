@@ -54,12 +54,27 @@ public class TokenResource {
 			if(rs.next()){
 				unique = false;
 			}
+			stmt.close();
+			conn.close();
 		} catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
 		} catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
+		} finally {
+	    	try{
+	    		if(stmt!=null)
+		            stmt.close();
+			} catch(SQLException se2){
+		      
+			}
+			try {
+				if(conn!=null)
+		            conn.close();
+			} catch(SQLException se){
+		    	se.printStackTrace();
+			}
 		}
 		return unique;
 	}
@@ -120,13 +135,28 @@ public class TokenResource {
 				stmt.executeUpdate(sql);
 				
 			}
+			stmt.close();
+			conn.close();
 		} catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
 		} catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
-		}		
+		} finally {
+	    	try{
+	    		if(stmt!=null)
+		            stmt.close();
+			} catch(SQLException se2){
+		      
+			}
+			try {
+				if(conn!=null)
+		            conn.close();
+			} catch(SQLException se){
+		    	se.printStackTrace();
+			}
+		}
 		return token;
 	}
 	
@@ -175,13 +205,28 @@ public class TokenResource {
 				System.out.println("OK");
 				
 			}
+			stmt.close();
+			conn.close();
 		} catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
 		} catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
-		}		
+		} finally {
+	    	try{
+	    		if(stmt!=null)
+		            stmt.close();
+			} catch(SQLException se2){
+		      
+			}
+			try {
+				if(conn!=null)
+		            conn.close();
+			} catch(SQLException se){
+		    	se.printStackTrace();
+			}
+		}
 		return token;
 	}
 
@@ -210,15 +255,28 @@ public class TokenResource {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, access_token);
 			stmt.executeUpdate();
+			stmt.close();
+			conn.close();
 		} catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
 		} catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
-		}	
-		
-		
+		} finally {
+	    	try{
+	    		if(stmt!=null)
+		            stmt.close();
+			} catch(SQLException se2){
+		      
+			}
+			try {
+				if(conn!=null)
+		            conn.close();
+			} catch(SQLException se){
+		    	se.printStackTrace();
+			}
+		}
 	}
 	
 	@POST
