@@ -2,3 +2,4 @@
 /Identity Service/build/
 /StackExchange Client/build/
 /StackExchange Client/dist/
+StackExchange Client/src/java/META-INF/AnswerWebService.xml
