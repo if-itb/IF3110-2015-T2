@@ -5,6 +5,8 @@
  */
 package Question;
 
+import QuestionWS.Question;
+import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -12,12 +14,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.WebServiceRef;
 
 /**
  *
  * @author User
  */
 public class QuestionEditor extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/QuestionWS.wsdl")
+    private QuestionWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,6 +36,10 @@ public class QuestionEditor extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+        Question question = getQuestionById(Integer.parseInt(request.getParameter("id")));
+        
+        request.setAttribute("topic", question.getTopic());
+        request.setAttribute("content", question.getContent());
         request.setAttribute("id", Integer.parseInt(request.getParameter("id")));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/edit.jsp"); 
         dispatcher.forward(request, response); 
@@ -73,5 +83,12 @@ public class QuestionEditor extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private Question getQuestionById(int id) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        return port.getQuestionById(id);
+    }
 
 }

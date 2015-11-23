@@ -77,7 +77,7 @@
                 </div> <!-- .question-status -->
 
                 <div class="question-content col-10">
-                    <p><%= question.getContent() %></p> 
+                    <p><%= question.getContent().replaceAll("(\r\n|\n\r|\r|\n)", "<br />") %></p> 
                 </div>
 
                 <div class="question-meta">

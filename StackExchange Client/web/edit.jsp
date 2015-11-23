@@ -6,7 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="layout/header.jsp" flush="true"/>
-<jsp:useBean id="id" type="Integer" scope="request" /> 
+<jsp:useBean id="id" type="Integer" scope="request" />
+<jsp:useBean id="topic" type="String" scope="request" />
+<jsp:useBean id="content" type="String" scope="request" />
 
     
 
@@ -32,12 +34,12 @@
                         <input type="hidden" value="<%= id %>" name="id_question">
                         <div class="form-field">
                             <label for="title">Question Topic</label>
-                            <input id="title" name="title" type="text" placeholder="Question Topic">
+                            <input id="title" name="title" type="text" placeholder="Question Topic" value="<%= topic %>">
                         </div>
 
                         <div class="form-field">
                             <label for="content">Content</label>
-                            <textarea name="content" placeholder="Your question content goes here"></textarea>
+                            <textarea name="content" placeholder="Your question content goes here"><%= content %></textarea>
                         </div>
                         
                         <input type="submit" value="Ask"/>

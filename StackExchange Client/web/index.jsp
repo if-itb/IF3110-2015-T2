@@ -79,6 +79,7 @@
                         <h2 class="question-title">
                             <a href="question?id=<%= question.getId() %>"><%= question.getTopic() %></a>
                         </h2>
+                        <p><%= question.getContent().replaceAll("(\r\n|\n\r|\r|\n)", "<br />") %></p>
                     </div>
                     <div class="question-meta">
                         <span>
