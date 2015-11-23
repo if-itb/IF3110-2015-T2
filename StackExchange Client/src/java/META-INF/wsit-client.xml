@@ -5,9 +5,6 @@
  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig" 
  >
-<<<<<<< HEAD
     <import location="UserWS.xml" namespace="http://controllers/"/>
-=======
     <import location="QuestionWS.xml" namespace="http://controllers/"/>
->>>>>>> 2a0cc9bae5b7da70f5563585b96ace37a4568ed7
 </definitions>

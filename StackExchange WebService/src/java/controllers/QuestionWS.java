@@ -73,7 +73,7 @@ public class QuestionWS {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "getQuestionById")
+    @WebMethod(operationName = "getQuestion")
     @WebResult(name="Question")
     public Question getQuestion(@WebParam(name = "q_id") int q_id) {
         Question question = new Question();
@@ -256,7 +256,7 @@ public class QuestionWS {
             e.printStackTrace();
             return 0;
         }
-        return 1;
+        return q_id;
     }
     
     

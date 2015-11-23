@@ -52,11 +52,11 @@ public class Question {
         this.dateEdited = dateEdited;
     }
 
-    public int getqId() {
+    public int getQId() {
         return qId;
     }
 
-    public int getuId() {
+    public int getUId() {
         return uId;
     }
 

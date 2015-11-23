@@ -47,7 +47,7 @@
                 <br><br>
                 <span class="question-info">
                     asked by <span class="author"><%= q.getName() %></span> | 
-                    <a href="edit.php?q_id=<%= q.getName() %>" class="edit-question">edit</a> | 
+                    <a href="edit?q_id=<%= q.getQId() %>" class="edit-question">edit</a> | 
                     <a href="controllers/delete-question.controller.php/?q_id=<%= q.getQId() %>" class="delete-question"
                     onclick="return deleteConfirmation(<%= q.getQId() %>)">delete</a>
                    <br>

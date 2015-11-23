@@ -40,14 +40,14 @@ public class User {
     /**
      * @return the uId
      */
-    public int getuId() {
+    public int getUId() {
         return uId;
     }
 
     /**
      * @param uId the uId to set
      */
-    public void setuId(int uId) {
+    public void setUId(int uId) {
         this.uId = uId;
     }
 

@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import QuestionWS.Question;
 import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,11 +20,21 @@ import javax.xml.ws.WebServiceRef;
  *
  * @author Tifani
  */
-public class AskController extends HttpServlet {
+public class EditController extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WebService/QuestionWS.wsdl")
     private QuestionWS_Service service;
-  
-   /**
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+
+     /**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -34,8 +45,10 @@ public class AskController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // New location to be redirected
-        RequestDispatcher rd = request.getRequestDispatcher("ask.jsp");
+        int qId = Integer.parseInt(request.getParameter("q_id"));
+        QuestionWS.Question question = getQuestion(qId);
+        request.setAttribute("question", question);
+        RequestDispatcher rd = request.getRequestDispatcher("edit.jsp");
         rd.forward(request, response);
     }
 
@@ -50,13 +63,15 @@ public class AskController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int q_id = Integer.parseInt(request.getParameter("q_id"));
         String topic = request.getParameter("topic");
         String content = request.getParameter("content");
         //TODO: Username dan q id
-        int qId = addNewQuestion(1, topic, content);
+        int qId = updateQuestion(q_id, topic, content);
         if (qId != -1 ) {
             response.sendRedirect("question?q_id=" + qId);
         }
+        
     }
 
     /**
@@ -69,11 +84,19 @@ public class AskController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int addNewQuestion(int uId, java.lang.String topic, java.lang.String content) {
+    private Question getQuestion(int qId) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.addNewQuestion(uId, topic, content);
+        return port.getQuestion(qId);
     }
+
+    private int updateQuestion(int qId, java.lang.String topic, java.lang.String content) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        return port.updateQuestion(qId, topic, content);
+    }
+    
 
 }

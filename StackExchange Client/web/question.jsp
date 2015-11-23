@@ -19,15 +19,15 @@
             <span id="question-vote"><br>
                 <div onclick="vote(<%= question.getQId() %>,'question','up')" class="arrow-up">
                 </div><br>
-                <span id="questvote" class="question-number"><%= question.getVote()%></span>
-                <br><br>
+                <span id="questvote" class="question-number"><%= question.getVote()%></span><br>
+                <br>
 		<div onclick="vote(<%= question.getQId() %>,'question','down')" class="arrow-down">
                 </div><br></span>
 		<span id="question-content">
                     <%= question.getContent().replace("\n", "<br>") %>
                     <br><br><br>
                     <span class="question-info">asked by <span class="author">
-                            <%= question.getUsername() %>
+                            <%= question.getEmail() %>
                     </span> at <%= question.getDateCreated()%> |
                     <% if (question.getDateEdited()!=null) { %>
                             <%= " edited at " + question.getDateEdited() + " " %>
@@ -39,23 +39,22 @@
                     </a><br></span></span>
 		</span>
                 <br><br><br>
-		<h2><%= question.getCountAnswer() %> Answers</h2><hr>
+		<h2><%= question.getAnswer() %> Answers</h2><hr>
 		<br><br>
                 <%
-		if (question.getCountAnswer()==0) { %>
+		if (question.getAnswer()==0) { %>
 			No answer.
                         <br><br><br><hr><br>
                 <%
                 }
-		for(int i = 0; i < question.getCountAnswer(); i++) { %>
+		for(int i = 0; i < question.getAnswer(); i++) { %>
                     <span id="question-vote"><br>
-                        <div onclick="vote(<%= answers.get(i).getaId() %>,'answer','up')" class="arrow-up">
+                        <div onclick="vote(<%= answers.get(i).getAId() %>,'answer','up')" class="arrow-up">
                         </div><br>
-			<span id="ansvote-<%= answers.get(i).getaId() %>" class="question-number">
-                            <%= answers.get(i).getVote() %>
-                        </span>
-                        <br><br>
-                        <div onclick="vote(<%= answers.get(i).getaId() %>,'answer','down')" class="arrow-down"></div>
+			<span id="ansvote-<%= answers.get(i).getAId() %>" class="question-number">
+                            <%= answers.get(i).getVote() %></span><br>
+                        <br>
+                        <div onclick="vote(<%= answers.get(i).getAId() %>,'answer','down')" class="arrow-down"></div>
                         <br>
                     </span>
                     <span id="question-content">

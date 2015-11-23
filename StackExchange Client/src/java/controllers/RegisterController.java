@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UserWS;
+package controllers;
 
-import controllers.UserWS_Service;
+import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -91,7 +91,7 @@ public class RegisterController extends HttpServlet {
     private Integer register(java.lang.String username, java.lang.String name, java.lang.String email, java.lang.String password) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        controllers.UserWS port = service.getUserWSPort();
+        UserWS.UserWS port = service.getUserWSPort();
         return port.register(username, name, email, password);
     }
 

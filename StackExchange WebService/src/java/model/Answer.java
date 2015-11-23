@@ -42,11 +42,11 @@ public class Answer {
         this.qId = q_id;
     }
 
-    public int getaId() {
+    public int getAId() {
         return aId;
     }
 
-    public int getuId() {
+    public int getUId() {
         return uId;
     }
 

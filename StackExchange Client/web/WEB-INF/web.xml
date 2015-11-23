@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>controllers.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>QuestionController</servlet-name>
         <servlet-class>controllers.QuestionController</servlet-class>
@@ -9,17 +17,20 @@
         <servlet-class>controllers.IndexController</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>RegisterController</servlet-name>
-        <servlet-class>UserWS.RegisterController</servlet-class>
-=======
+        <servlet-class>controllers.RegisterController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>QuestionDetailController</servlet-name>
         <servlet-class>controllers.QuestionDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AskController</servlet-name>
         <servlet-class>controllers.AskController</servlet-class>
->>>>>>> 2a0cc9bae5b7da70f5563585b96ace37a4568ed7
+    </servlet>
+    <servlet>
+        <servlet-name>EditController</servlet-name>
+        <servlet-class>controllers.EditController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>QuestionController</servlet-name>
@@ -30,17 +41,20 @@
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>RegisterController</servlet-name>
-        <url-pattern>/Register</url-pattern>
-=======
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>QuestionDetailController</servlet-name>
         <url-pattern>/question</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AskController</servlet-name>
         <url-pattern>/ask</url-pattern>
->>>>>>> 2a0cc9bae5b7da70f5563585b96ace37a4568ed7
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditController</servlet-name>
+        <url-pattern>/edit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

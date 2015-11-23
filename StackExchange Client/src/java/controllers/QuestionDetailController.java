@@ -40,11 +40,11 @@ public class QuestionDetailController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         int qId = Integer.parseInt(request.getParameter("q_id"));
-        QuestionWS.Question question = getQuestionById(qId);
+        QuestionWS.Question question = getQuestion(qId);
         java.util.List<AnswerWS.Answer> answers = getAnswerByQId(qId);
         request.setAttribute("question", question);
         request.setAttribute("answers", answers);
-        RequestDispatcher rd = request.getRequestDispatcher("viewQuestion.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("question.jsp");
         rd.forward(request, response);
     }
 
@@ -87,18 +87,20 @@ public class QuestionDetailController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
     
-    private Question getQuestionById(int qId) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
-        return port.getQuestionById(qId);
-    }
+   
 
     private java.util.List<AnswerWS.Answer> getAnswerByQId(int qId) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         AnswerWS.AnswerWS port = service.getAnswerWSPort();
         return port.getAnswerByQId(qId);
+    }
+
+    private Question getQuestion(int qId) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
+        return port.getQuestion(qId);
     }
 
 }

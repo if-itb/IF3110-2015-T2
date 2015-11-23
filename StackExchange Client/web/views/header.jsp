@@ -25,9 +25,13 @@
 <body>
 	<div class="title-section">
 		<header>
-			<strong><base href="${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/" style="text-decoration: none;"><h1 id="title">Simple StackExchange</h1></a></strong>
+			<strong><a href="${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/" style="text-decoration: none;"><h1 id="title">Simple StackExchange</h1></a></strong>
 			<i id="tagline">A question and answer site for professionals</i>
 			<br>
 		</header>
 	</div>
 	<br>
+        <div style="text-align: right; margin-right: 20px">
+            <a href="login">Login</a> |
+            <a href="register">Register</a>
+        </div>
