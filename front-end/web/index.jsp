@@ -104,7 +104,7 @@
     <footer class="page-footer deep-purple darken-2">
       <div class="footer-copyright">
         <div class="container">
-          © 2015 Created by 3xcelsi
+          © 2015 Created by 3xcelsi0r
         </div>
       </div>
     </footer>

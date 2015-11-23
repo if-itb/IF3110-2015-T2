@@ -6,11 +6,14 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author user
  */
+@WebServlet(name="LoginServlet", urlPatterns={"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
     /**
@@ -77,16 +81,18 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        //String user_id = request.getParameter("user_id");
-        //String token_value = request.getParameter("token");
+        PrintWriter out = response.getWriter();
         UserService user = new UserService();
+        out.println(email);
+        out.println(user.getUserIDFromEmail(email));
         try {
-            if(!user.emailExist(email) || !user.passwordValid(email, password)){
-                request.setAttribute("notif","Incorrect email or password");
-                response.sendRedirect("http://localhost:8000/login.jsp?valid=0");
+            if(!(user.emailExist(email)) || !(user.passwordValid(email, password))){
+                //request.setAttribute("notif","Incorrect email or password");
+                response.sendRedirect("http://localhost:8080/front-end/login.jsp");
+                
             }else{
                     String token = null;
-                    Cookie[] cookies = request.getCookies();
+                    /*Cookie[] cookies = request.getCookies();
                     if (cookies != null) {
                         for (int i=0;i<cookies.length;i++) {
                             if (cookies[i].getName().equals("access_token")) {
@@ -94,13 +100,14 @@ public class LoginServlet extends HttpServlet {
                                 break;
                             }
                         }
-                    }
-                    if (token == null){
+                    }*/
+                    //if (token == null){
                         UUID tokenGenerator = UUID.randomUUID();
                         token = tokenGenerator.toString();
-                        String query = "INSERT INTO token(value,user_id) values("+ token + ","+ user.getUserIDFromEmail(email) +")";
-                    }
-                    response.sendRedirect("http://localhost:8000/login.jsp?token="+token+"&valid=1");
+                        String query = "INSERT INTO token (value,user_id) VALUES ('"+token+"','"+user.getUserIDFromEmail(email)+"')";
+                        user.executeQuery(query);
+                    //}
+                    response.sendRedirect("http://localhost:8080/front-end/index.jsp?token="+token+"&valid=1");
                 }
     } catch (SQLException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);

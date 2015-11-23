@@ -38,25 +38,24 @@
     <br><br>
 
     <div class="row container">
-      <form class="col s12 m8" action="Login">
+      <form class="col s12 m8">
         <div class="row">
           <div class="input-field">
-            <input id="email" type="text" class="validate">
+            <input id="email" type="text" name="email" class="validate">
             <label for="email">Email</label>
           </div>
           <div class="input-field">
-            <input id="password" type="password" class="validate">
+            <input id="password" type="password" name="password" class="validate">
             <label for="password">Password</label>
           </div>
         </div>
+        <div class="container center">
+            <button class="btn waves-effect waves-light deep-purple darken-2" type="submit" formmethod="POST" formaction="http://localhost:8080/IdentityService/LoginServlet">Login
+              <i class="material-icons right">send</i>
+            </button>
+        </div>
       </form>
     </div>
-    
-    <div class="container center">
-    <button class="btn waves-effect waves-light deep-purple darken-2" type="submit" name="action" value="Login">Login
-      <i class="material-icons right">send</i>
-    </button>
-      </div>
         
     <footer class="page-footer deep-purple darken-2">
       <div class="footer-copyright">
