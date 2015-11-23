@@ -5,18 +5,15 @@
  */
 package controller;
 
+import connector.ISConnector;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -65,7 +62,12 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/view/login.jsp").forward(request, response);
+        User user = (User) request.getAttribute("user");
+        if (user != null) {
+            response.sendRedirect(request.getContextPath());
+        } else {
+             request.getRequestDispatcher("WEB-INF/view/login.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -79,40 +81,22 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        StackExchange port = service.getStackExchangePort();
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        if (email == null || password == null) {
+ 
+        User user = (User) request.getAttribute("user");
+        if (user != null) {
             response.sendRedirect(request.getContextPath());
-            return;
-        }                
-        URLConnection connection = new URL("http://localhost:8080/Identity_Service/login").openConnection();                
-        connection.setDoOutput(true);
-        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");        
-        try (OutputStream output = connection.getOutputStream()) {
-            String charset = java.nio.charset.StandardCharsets.UTF_8.name();
-            String query = String.format(
-                    "email=%s&password=%s",
-                    URLEncoder.encode(email, charset),
-                    URLEncoder.encode(password, charset));
-            output.write(query.getBytes(charset));
-        }                
-        StringBuilder builder = new StringBuilder();
-        BufferedReader buf = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String read;
-        while ((read = buf.readLine()) != null)
-            builder.append(read);
-        try {
-            JSONObject jsonResponse = (JSONObject)new JSONParser().parse(builder.toString());                        
-            for (Iterator iterator = jsonResponse.keySet().iterator(); iterator.hasNext();) {
-                String key = (String)iterator.next();
-                Cookie cookie = new Cookie(key, (String)jsonResponse.get(key));
-                response.addCookie(cookie);
-            }                        
-        } catch (ParseException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }       
-        response.sendRedirect(request.getContextPath());
+        }
+        else { //user == null  
+            JSONObject object = ISConnector.requestLogin("user");
+            if (object != null) {
+                if (object.containsKey("auth")){
+                    Cookie cookie = new Cookie("auth", (String)object.get("auth"));
+                    response.addCookie(cookie);
+                } else if (object.containsKey("error")) {
+                    request.setAttribute("error", (String)object.get("error"));
+                }
+            }
+        }
 }
 
     /**

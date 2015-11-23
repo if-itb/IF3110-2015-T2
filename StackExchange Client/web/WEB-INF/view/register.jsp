@@ -17,13 +17,13 @@
                     <form id="askForm" action="" method="POST">
                         <div class="form-field">
                             <label for="name">Name</label>
-                            <input id="name-register" class="login" type="text" name="nama" placeholder="name" required autofocus>
+                            <input id="name-register" class="login" type="text" name="nama" placeholder="name" autofocus required>
 
                             <label for="email-register">Email</label>
-                            <input id="email-register" class="login" type="text" name="email" placeholder="13513000@sts.stei.itb.ac.id" requiredautofocus>
+                            <input id="email-register" class="login" type="text" name="email" placeholder="13513000@std.stei.itb.ac.id" autofocus required>
 
                             <label for="password-regsiter">Password</label>
-                            <input id="password-register" class="login" type="password" name="password" placeholder="password" required autofocus>
+                            <input id="password-register" class="login" type="password" name="password" placeholder="password" autofocus required>
 
                             <input type="submit" id="" class="rgstr-btn" value="Sign up">
                     </form>

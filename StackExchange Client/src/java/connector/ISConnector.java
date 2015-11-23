@@ -79,4 +79,8 @@ public class ISConnector {
         return object;
     }
 
+    public static JSONObject requestLogin(String auth) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

@@ -11,17 +11,19 @@
         <hr class="heading">  
         
         <div class="inner-container">
+            
+            <div class=""> 
 
                 <div class="login-wrapper">
                     <form id="askForm" action="" method="POST">
                         <div class="form-field">
                             <label for="email">Email</label>
-                            <input name="email" id="email-login" class="login" type="text" placeholder="13513000@std.stei.itb.ac.id" required autofocus>
+                            <input name="email" id="email-login" class="login" type="text" placeholder="13513000@std.stei.itb.ac.id" autofocus required>
                         </div>
 
                         <div class="form-field">
                             <label for="password">Password</label>
-                            <input name="password" id="password-login" class="login" type="password" placeholder="password" required>
+                            <input name="password" id="password-login" class="login" type="password" placeholder="password" autofocus required>
                         </div>
                         
                         <input type="submit" class="login-btn" value="Login"></input>   
