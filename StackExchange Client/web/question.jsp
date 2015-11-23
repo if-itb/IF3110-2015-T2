@@ -48,13 +48,14 @@
                             +"</a>"
                             +"<br><br>"
                             +"<a href = voteDown.jsp?id=" + request.getParameter("id") + "&token=" + request.getParameter("token") + "><div class='vote-down'>"
-                            +"</div>"
+                        +"</div>"
+                        +"</a>"
 			+"</div>"
 			+"<div class='bQA-content'>"
                             +result.get(i).getContent()
                             +"<br><br>"
                         +"</div>"
-                        +"<div class='bquestion-identity'>"
+                        +"<div class='bQA-identity'>"
                             +"asked by "
                             +"<a id='color-blue'>"
                             +result2

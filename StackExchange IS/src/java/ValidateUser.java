@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import MD5Hashing.MD5Hashing;
+import com.wbd.rest.Token;
+import com.wbd.service.tokenGenerate;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -39,16 +41,7 @@ public class ValidateUser extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            /*out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ValidateUser</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ValidateUser at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");*/
+
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             
@@ -62,22 +55,14 @@ public class ValidateUser extends HttpServlet {
             //Filling the JSON userToken response
             userToken.put("access_token",token.access_token);
             userToken.put("lifetime", token.lifetime);             
-             
+            
             if (!token.access_token.equals("")){
-                 response.sendRedirect("http://localhost:8080/StackExchange_Client/index.jsp?token=" + access_token);
+                 response.sendRedirect("http://localhost:8080/StackExchange_Client/index.jsp?token=" + token.access_token);
             }  
                        
             out.println(userToken.toString());
-            stmt.close();
-            conn.close();
+  
             
-        }catch(ClassNotFoundException e1){
-            //JDBC driver class not found
-            System.out.println(e1.toString());
-        }catch(SQLException se){
-            //Exception when executing java.sql related commands
-            se.printStackTrace();
-            //System.out.println(e2.toString());
         }catch(Exception e3){
             //Other exceptions
             System.out.println(e3.toString());

@@ -5,5 +5,5 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Token{
 	public String access_token;
-	public String expire;
+	public int lifetime;
 }

@@ -15,7 +15,7 @@ public class DBConnection{
     
     //Declare Database Credentials
     final String USER = "root";
-    final String PASS = "alberttriadrian";
+    final String PASS = "";
     
     //Declare Connection
 	public Connection connection;
@@ -27,7 +27,7 @@ public class DBConnection{
             Class.forName(JDBC_DRIVER);
 			
 			//Open a connection
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);   
+            connection = DriverManager.getConnection(DB_URL,USER,PASS);   
         } catch(SQLException e1){
         	e1.printStackTrace();
         } catch(Exception e2){
@@ -42,5 +42,7 @@ public class DBConnection{
     public PreparedStatement getStatement(){
         return statement;
     }
+
+  
 
 }

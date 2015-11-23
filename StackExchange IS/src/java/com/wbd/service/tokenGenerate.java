@@ -5,6 +5,21 @@ package com.wbd.service;
 
 import com.wbd.rest.Token;
 import com.wbd.db.DBConnection;
+import MD5Hashing.MD5Hashing;
+
+import com.wbd.db.DBConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import static javax.swing.text.html.FormSubmitEvent.MethodType.POST;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import static javax.ws.rs.HttpMethod.POST;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 @Path("/token")
 public class tokenGenerate{
@@ -37,8 +52,8 @@ public class tokenGenerate{
 		Token token = new Token();
 
 		DBConnection dbc = new DBConnection();
-		PreparedStatement stmt = dbc.getDBStmt();
-		Connection conn = dbc.getConn();
+		PreparedStatement stmt = dbc.getStatement();
+		Connection conn = dbc.getConnection();
 		try{
 			String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
 			
@@ -53,14 +68,14 @@ public class tokenGenerate{
 			//System.out.println(sql);
 			
 			if(rs.next()){
-				//User is not unique
-	            MD5Hashing md5 = new MD5Hashing();
+                            //User is not unique
+                            MD5Hashing md5 = new MD5Hashing();
 
- 	            token.access_token = md5.Hash(password); 
-        		token.lifetime = 5;
+                            token.access_token = md5.Hash(password); 
+                            token.lifetime = 5;
 				
-				sql = "INSERT INTO user(access_token) VALUES(" + token.access_token + ")";
-				stmt.executeUpdate(sql);
+                            sql = "INSERT INTO user(access_token) VALUES(" + token.access_token + ")";
+                            stmt.executeUpdate(sql);
 
                 //Format the response to JSON
                 //userToken.put("access_token",access_token);
@@ -76,7 +91,6 @@ public class tokenGenerate{
 		}		
 		return token;
 	}
-
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
