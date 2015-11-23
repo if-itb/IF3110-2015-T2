@@ -105,7 +105,7 @@ ${answers}
     <c:forEach items="${answers}" var="answer">
         <div class="row">
             <div class="col s10 offset-s1">
-                <div class="card">
+                <div class="card" data-id="${answer.id}">
                     <div class="card-content blue-text clearfix">
                         <span class="card-name left"><b>${answer.userId}</b></span>
                         <span class="card-date right"><i>${answer.createDate}</i></span>
