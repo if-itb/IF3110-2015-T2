@@ -11,6 +11,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
+    <!--
+    <a href="login.jsp">log in</a>
+    <button class="button">register!</button>
+    -->
+
     <title>Simple StackExchange</title>
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/delete_question.js"></script>
@@ -21,6 +26,7 @@
         List<Question> items = allQuestion.getItem();
         String name = (String) session.getAttribute("name");
     %>
+    
 </head>
 <body>
     <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
