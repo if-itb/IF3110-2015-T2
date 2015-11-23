@@ -31,7 +31,7 @@ public class TokenValidity {
 	}
 	
 	public static class AccessValidity{
-		public boolean valid=false;
+		public int valid = -1;
 	}
 	
 	public static Identity getIdentity(String access_token){
@@ -133,13 +133,13 @@ public class TokenValidity {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public AccessValidity isHasRightForThisQuestion(@FormParam("access_token") String access_token,
 		@FormParam("id_question") int id_question) {
+		System.out.println("WOOIIII MASUK WOIIII");
 		AccessValidity a = new AccessValidity();
-		a.valid = false;
+		a.valid = -1;
 		Identity identity = getIdentity(access_token);
 		if (identity.valid == 1){
-			System.out.println(getQuestionUserId(id_question));
 			if(getQuestionUserId(id_question) == identity.id_user){
-				a.valid = true;
+				a.valid = 1;
 				System.out.println("sesuai");
 			}
 		}

@@ -80,20 +80,32 @@ function regenerateToken(){
     });
 }
 
-
-
-function checkToken(){	
+function checkToken(check,allow){	
+	var checkTokenUrl;
 	var user_buttons = document.getElementsByClassName("user");
-	console.log(user_buttons.length);
-	var tokenData = {access_token:"<%= access_token %>"}
+	var tokenData;
+	if(check){
+		console.log("masuk");
+		checkTokenUrl= "http://localhost:8080/REST-WS/rest/token-validity/getQuestionAccessValidity"
+		tokenData = {access_token:"<%= access_token %>",id_question: <%= request.getParameter("q_id") %>}
+	}else{
+		console.log("keluar");
+		checkTokenUrl = "http://localhost:8080/REST-WS/rest/token-validity";
+		tokenData = {access_token:"<%= access_token %>"}
+	}
 	
+	//special case
+	if(check && !allow){
+		console.log("keluar");
+		checkTokenUrl = "http://localhost:8080/REST-WS/rest/token-validity";
+		tokenData = {access_token:"<%= access_token %>"}
+		allow = true;
+	}
 	<%
-		String checkTokenUrl = "http://localhost:8080/REST-WS/rest/token-validity";
-		if(request.getParameter("validityUrl")!=null){
-			checkTokenUrl += request.getParameter("validityUrl");
-		}
+	if(request.getParameter("validityUrl")!=null){%>
+		checkTokenUrl += request.getParameter("validityUrl");
+	<%}
 	%>
-	var checkTokenUrl = "<%= checkTokenUrl %>";
 	$.ajax({
               url: checkTokenUrl,
               data: tokenData,
@@ -101,7 +113,12 @@ function checkToken(){
               type: "POST",
               success: function(data) {
                   var valid = data.valid;
+                  console.log(valid);
                   var id = data.id_user;
+                  if (valid == 0){
+              	  	alert("Token Expired");
+              	  	regenerateToken();
+                  }
                   if((valid == 1) || (valid == 0)){
                 	   for (var i = 0; i < user_buttons.length; i ++) {
                 		   user_buttons[i].style.display='block';
@@ -115,9 +132,11 @@ function checkToken(){
 					   $('#navPanel nav a:nth-child(2)').text('Sign Out');
 					   $('#navPanel nav a:nth-child(2)').attr("href", "signout.jsp");
                   }
-                  if (valid == 0){
-                	  	alert("Token Expired");
-                	  	regenerateToken();
+                  
+                  if(valid == -1 && allow){
+        	  		window.location.href = "index.jsp";
+        	  		$('body').remove();
+					alert("Anda tidak berhak mengakses");
                   }
                   
                   <% if((request.getParameter("needRedirectWhenNotValid") != null) && (request.getParameter("needRedirectWhenNotValid").equals("true"))){ %>
@@ -132,7 +151,30 @@ function checkToken(){
           });
 }
 $(document).ready(function(){
-    checkToken();
+    var check = '<%= request.getParameter("check") %>';
+    console.log(check);
+    var a = false;
+    var c = false;
+    if(check==1){
+    	console.log("tipe 1");
+    	a = false;
+    	c = false;
+    }
+    else if(check==2){
+    	console.log("tipe 2");
+    	a = true;
+    	c = true;
+    }
+    else if(check==3){
+    	console.log("tipe 3");
+    	a = true;
+    	c = false;
+    }
+    else if(check==4){
+    	a = false;
+    	c = true;
+    }
+	checkToken(c,a);
 });
 </script>
 	<%	} else {

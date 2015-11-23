@@ -6,6 +6,7 @@
     <jsp:include page="Header.jsp" flush="true">
 		<jsp:param name="pageTitle" value="Ask A Question" />
 		<jsp:param name="needRedirectWhenNotValid" value="true" />
+		<jsp:param name="check" value="3" />
 	</jsp:include>
 </head>
 
@@ -27,7 +28,7 @@
 		<section class="wrapper style4 special container 75%">
 		<!-- Content -->
 			<div class="content">
-				<form name="sentMessage" id="contactForm" action="question/create_post" METHOD="POST">
+				<form name="sentMessage" id="contactForm" action="question_create_post.jsp" METHOD="POST">
 					<div class="control-group form-group">
 						<div class="controls">
 							<strong><label class="questionmenu">Topic:</label></strong>

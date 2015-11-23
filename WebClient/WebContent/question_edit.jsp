@@ -11,6 +11,8 @@
     <jsp:include page="Header.jsp" flush="true">
 		<jsp:param name="pageTitle" value="Edit Question" />
 		<jsp:param name="isNeedCookieCheck" value="true" />
+		<jsp:param name="check" value="2" />
+		<jsp:param name="q_id" value='<%= request.getParameter("id") %>' />
 	</jsp:include>
 	
 <%
@@ -32,39 +34,6 @@
 		if((access_token != null) && (access_token.length()>0)){
 			//check access_token validity to server
 %>
-	
-	<script>
-	function checkToken(){
-		<%
-			String checkTokenUrl = "http://localhost:8080/REST-WS/rest/token-validity/getQuestionAccessValidity";
-		%>
-		var validityData = {access_token:"<%= access_token %>",id_question:<%= id_question %>}
-		var checkTokenUrl = "<%= checkTokenUrl %>";
-		$.ajax({
-	              url: checkTokenUrl,
-	              data: validityData,
-	              dataType: "json",
-	              type: "POST",
-	              success: function(data) {
-	                  var valid = data.valid;
-	                  if((valid == 1) || (valid == 0)){
-	               	   var element = document.getElementById('signin');
-	               	   element.setAttribute('href','signout.jsp');
-	               	   var str = $('a#signin').text('Sign Out');
-	               	   $('a#register').remove();
-	                  }
-	                  if(valid == -1){
-	        	  		window.location.href = "index.jsp";
-	        	  		$('body').remove();
-						alert("Anda tidak berhak mengakses");
-	                  }
-	              }
-	          });
-	}
-	$(document).ready(function(){
-	    //checkToken();
-	});
-	</script>
 	
 </head>
 
@@ -96,7 +65,7 @@
 		<section class="wrapper style4 special container 75%">
 		<!-- Content -->
 			<div class="content">
-				<form name="sentMessage" id="contactForm" action="question/edit_post" METHOD="POST" novalidate>
+				<form name="sentMessage" id="contactForm" action="question_edit_post.jsp" METHOD="POST">
 					<div class="control-group form-group">
 						<div class="controls">
 							<strong><label class="questionmenu">Topic:</label></strong>

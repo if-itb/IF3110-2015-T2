@@ -7,6 +7,7 @@
 <html>
 <head>
 <title>Insert Title Here</title>
+<link rel="stylesheet" type="text/css" href="assets/css/main.css">
 </head>
 <body>
 
@@ -40,15 +41,13 @@ if(result>0){//success
 
 
 %>
-<%= result %>
-<center>
-<ul>
-<li><p><b>First Name:</b>
-   <%= request.getParameter("topic")%>
-</p></li>
-<li><p><b>Last  Name:</b>
-   <%= request.getParameter("content")%>
-</p></li>
-</ul>
+	<div class="outerNotFound">
+		<div class="middleNotFound">
+			<center>
+				<strong><font size="5pt">Please Sign in First</font><br></strong>
+				<font size="5pt">Go to <a href="signin.jsp">Sign In</a></font>
+			</center>
+		</div>
+	</div>
 </body>
 </html>

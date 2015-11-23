@@ -34,7 +34,7 @@
 				</span>
 			</div>
 			<div class = 'mid'>
-				<a class = 'topic' href='question?q_id=<%= questionList.get(i).getIdQuestion() %>'><%= questionList.get(i).getTopic() %><br></a>
+				<a class = 'topic' href='question.jsp?q_id=<%= questionList.get(i).getIdQuestion() %>'><%= questionList.get(i).getTopic() %><br></a>
 				<div class = 'q_content'>
 				<%
   					String str = questionList.get(i).getContent();
@@ -51,7 +51,7 @@
 			<span class = 'b_link'><%= questionList.get(i).getUsername() %> </span>
 			<span hidden class = 'modify_<%=id%>'>
 				|
-              		<a href = 'question/edit?id=<%= questionList.get(i).getIdQuestion() %>' class = 'y_link'> edit </a>|
+              		<a href = 'question_edit.jsp?id=<%= questionList.get(i).getIdQuestion() %>' class = 'y_link'> edit </a>|
               		<a onclick='delQuestion(<%= questionList.get(i).getIdQuestion() %>,true)' class = 'r_link'>delete</a><br>
               	</span>
               </div>

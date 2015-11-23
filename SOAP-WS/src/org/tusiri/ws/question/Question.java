@@ -148,11 +148,16 @@ public class Question {
 						if(rsCheck.getInt("id_user") == validity.getIdUser()){//jika id sesuai
 							//Delete question dan answer dari database
 							try{
-								String sql = "DELETE FROM question WHERE id_question = ?; "
-										+ "DELETE FROM answer WHERE id_question = ?";
+								String sql ="DELETE FROM answer_vote WHERE id_answer IN (SELECT num_answer as id_answer FROM answer WHERE id_question = ?);"
+										+ "DELETE FROM answer WHERE id_question = ?;" 
+										+"DELETE FROM question_vote WHERE id_question = ?;"
+										+ "DELETE FROM question WHERE id_question = ?";
 								stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 								stmt.setInt(1, id_question);
 								stmt.setInt(2, id_question);
+								stmt.setInt(3, id_question);
+								stmt.setInt(4, id_question);
+								System.out.println(stmt);
 								stmt.executeUpdate();
 								ResultSet rs = stmt.getGeneratedKeys();
 								status = 1;

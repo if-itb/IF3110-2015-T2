@@ -48,6 +48,7 @@
     <jsp:include page="Header.jsp" flush="true">
 		<jsp:param name="pageTitle" value="<%= q.getTopic() %>" />
 		<jsp:param name="needDeleteQuestion" value="true" />
+		<jsp:param name="check" value="1" />
 	</jsp:include>
 	<script src="assets/js/vote.js"></script>
 	<script src="assets/js/validator.js"></script>
@@ -83,7 +84,7 @@
 							<span class = 'b_link'><%= q.getUsername() %> </span>
 							<span hidden class = 'modify_<%=q.getIdUser()%>'>
 				              		<a href = 'question_edit.jsp?id=<%= q.getIdQuestion() %>' class = 'y_link'> edit </a>|
-				              		<a onclick='delQuestion(<%= q.getIdQuestion() %>,true)' class = 'r_link'>delete</a><br>
+				              		<a onclick='delQuestion(<%= q.getIdQuestion() %>,false)' class = 'r_link'>delete</a><br>
 			              	</span>
 		              	</div>
 					</div>
@@ -108,7 +109,7 @@
 					</div>
 				<%} %>
 				<h3>Your Answer</h3>
-				<form name ='q_form' action="answer/create_post"  onsubmit='return validate_AForm()' METHOD="POST" >
+				<form name ='q_form' action="answer_create_post.jsp"  onsubmit='return validate_AForm()' METHOD="POST" >
 					<div class="controls">
 						<input type = 'hidden' name = 'q_id' value = '<%=q_id%>'/>
                     	<textarea rows="10" cols="100" class="form-control" name="content" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"> </textarea>

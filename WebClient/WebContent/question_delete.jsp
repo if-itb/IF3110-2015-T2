@@ -11,10 +11,13 @@ function delQuestion(id,isList) {
 		    dataType: "json",
 		    type: "POST",
 		    success: function(data) {
-				if(data=1){
+				if(data==1){
 					alert("Question berhasil dihapus");
 					if(isList){
 						$("#question_item_"+id).hide();
+					}
+					else{
+						window.location.href = "index.jsp";
 					}
 				} else if (data ==0){
 					alert("Tidak bisa menghapus pertanyaan");

@@ -6,6 +6,7 @@
 	<jsp:include page="Header.jsp" flush="true">
 		<jsp:param name="pageTitle" value="Simple StackExchange" />
 		<jsp:param name="needDeleteQuestion" value="true" />
+		<jsp:param name="check" value='1' />
 	</jsp:include>
 </head>
 
@@ -27,12 +28,12 @@
 			</header>
 			<p>This is <strong>STACK EXCHANGE</strong>, a place
 			<br />
-			where Wilhelmus is
+			where Ivan is
 			<br />
 			better than Google</a>.</p>
 			<footer>
 				<ul class="buttons vertical">
-					<li><a href="question/create" class="button fit scrolly">Ask a Question</a></li>
+					<li><a href="question_create.jsp" class="button fit scrolly">Ask a Question</a></li>
 				</ul>
 			</footer>
 		</div>
@@ -47,7 +48,7 @@
 		Feel Free to Use Our Web</h2>
 		<p>Because it is <strong>Free</strong>
 		<br />
-		<h3>- Wilehlmus Imba -</h3>
+		<h3>- Ivan Imba -</h3>
 		<div class="search">
 			<form action = "#" method="get">
 				<div class="row">
@@ -59,7 +60,7 @@
 					</div>
 				</div>
 			</form>
-	        <p>Cannot find what you are looking for? <a href = "question/create">Ask here</a></p>
+	        <p>Cannot find what you are looking for? <a href = "question_create.jsp">Ask here</a></p>
 		</div>
 	</header>
 	

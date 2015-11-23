@@ -48,10 +48,10 @@ if(result>0){//success
 <%= result %>
 <center>
 <ul>
-<li><p><b>First Name:</b>
+<li><p><b>Topic:</b>
    <%= request.getParameter("topic")%>
 </p></li>
-<li><p><b>Last  Name:</b>
+<li><p><b>Content:</b>
    <%= request.getParameter("content")%>
 </p></li>
 </ul>

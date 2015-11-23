@@ -33,6 +33,7 @@
 	<jsp:include page="Header.jsp" flush="true">
 		<jsp:param name="pageTitle" value="<%= D.getUsername() %>" />
 		<jsp:param name="includeMainCss" value="false" />
+		<jsp:param name="check" value="1" />
 	</jsp:include>
 	
 	<!-- CSS -->
