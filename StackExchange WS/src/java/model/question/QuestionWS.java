@@ -111,4 +111,21 @@ public class QuestionWS {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /**
+     * Web service operation
+     * @param q
+     */
+    @WebMethod(operationName = "deleteQuestion")
+    @Oneway
+    public void deleteQuestion(@WebParam(name = "q") Question q) {
+        try {
+            String sql = "DELETE FROM question WHERE question_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, q.getQuestionID());
+            stmt.executeUpdate(sql);
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

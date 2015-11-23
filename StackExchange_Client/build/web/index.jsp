@@ -40,7 +40,7 @@
                     <% int answerCount = answers.get(question.getUserId()); %>
                     <div class="answerpart">
                         <div class="answernumber"><%= answerCount %></div>
-                        <div class=answertext">Answers</div>
+                        <div class="answertext">Answers</div>
                     </div>
                     <div class="questionpart">
                         <% String topic = question.getTopic(); if (topic.length() > 153) topic = topic.substring(0,150)+ "..."; %>
@@ -51,7 +51,7 @@
                     <% model.user.User user = users.get(question.getUserId()); %>
                     <div class="details">
                         asked by
-                        <span class="name"><%= user.getName() %> (<%= user.getEmail() %>)</span><a class="edit" href="edit?id=<%= question.getQuestionId() %>">edit</a><a class="delete" href="delete?id=<%= question.getQuestionId() %>" onclick="return confirm('Are you sure you want delete this question?')">delete</a></span></div>    
+                        <span class="name"><%= user.getName() %> (<%= user.getEmail() %>)</span><a class="edit" href="edit?id=<%= question.getQuestionId() %>">edit</a><a class="delete" href="delete?id=<%= question.getQuestionId() %>" onclick="return confirm('Are you sure you want delete this question?')">delete</a></div>    
                 </div>
         <% } %>
     </div>
