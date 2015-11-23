@@ -29,12 +29,12 @@ public class User {
     private String name;
     private String email;
     private String createDate;
-    private boolean valid;
+    private int valid;
     
     
     public User(String accessToken) {
         try {
-            this.valid = false;
+            this.valid = -1;
             JSONObject requestObj = new JSONObject();
             requestObj.put("token", accessToken);
             byte[] postData       = requestObj.toString().getBytes( StandardCharsets.UTF_8 );
@@ -71,7 +71,7 @@ public class User {
                 this.userId = usr.getInt("user_id");
                 this.name = usr.getString("name");
                 this.email = usr.getString("email");
-                this.valid = (usr.getInt("is_valid") != 0);
+                this.valid = (usr.getInt("is_valid"));
                 this.createDate = "";
             } catch (JSONException ex) {
                 Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,7 +91,7 @@ public class User {
         this.name = name;
         this.email = email;
         this.createDate = "";
-        this.valid = true;
+        this.valid = 0;
     }
 
     public User(int userId, String name, String email, String password, String createDate) {
@@ -99,7 +99,7 @@ public class User {
         this.name = name;
         this.email = email;
         this.createDate = createDate;
-        this.valid = true;
+        this.valid = 0;
     }
 
     public int getUserId() {
@@ -134,11 +134,11 @@ public class User {
         this.createDate = createDate;
     }
 
-    public boolean isValid() {
+    public int isValid() {
         return valid;
     }
 
-    public void setValid(boolean valid) {
+    public void setValid(int valid) {
         this.valid = valid;
     }
     
