@@ -59,12 +59,27 @@ public class User {
 	               u_id = rs.getInt(1);
 	            } 	
 				System.out.println("u_id = " + u_id);
+				stmt.close();
+				conn.close();
 			} catch(SQLException se){
 				//Handle errors for JDBC
 				se.printStackTrace();
 			} catch(Exception e){
 				//Handle errors for Class.forName
 				e.printStackTrace();
+			} finally {
+			      try{
+				         if(stmt!=null)
+				            stmt.close();
+				      } catch(SQLException se2){
+				      
+				      }
+				      try {
+				         if(conn!=null)
+				            conn.close();
+				      } catch(SQLException se){
+				         se.printStackTrace();
+				      }
 			}
 		}
 		return u_id;
