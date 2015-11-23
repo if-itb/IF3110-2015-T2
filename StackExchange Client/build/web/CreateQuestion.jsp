@@ -1,3 +1,4 @@
+<%@page import="org.json.simple.JSONObject"%>
 <%@page import="com.mysql.jdbc.Statement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
@@ -14,7 +15,7 @@
 	 <div id="big">Simple StackExchange</div>
 	 <div class="mediumbaru">
 	 <div id="m1">What's your question?</div>
-	 <form name="makequestion" method="post" action="checkToken" >
+	 <form name="makequestion" method="post" action="CreateQuestion.jsp" >
 		<input type="text" name="name" placeholder="Name" class="medium">
 		<input type="email" name="email" placeholder="Email" class="medium">
 		<input type="text" name="question" placeholder="Question Topic" class="medium">
@@ -24,28 +25,34 @@
          <%
             String email = request.getParameter("email");
             String title = request.getParameter("question");
-            String content = request.getParameter("content");
-            try {
-                if(email!=null && email!="") {
+            String content = request.getParameter("content");            
+            if(email!=null && email!="") {
+                String token = "";
+                Cookie[] cookies = request.getCookies();
+                if(cookies==null) {      
+                    System.out.println("COOKIES NULL");
+                }
+                else {                
+                    for(Cookie cookie : cookies) {
+                        if("token".equals(cookie.getName())) { 
+                            token = cookie.getValue();
+                            System.out.println(token);
+                            break;
+                        }   
+                    }
+                }
+                try {
                     questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();
                     questionmodel.QuestionWS port = service.getQuestionWSPort();
-                    Class.forName("com.mysql.jdbc.Driver");
-                    java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
-                    String sql = "SELECT token FROM tokens JOIN users WHERE email='" + email + "'";
-                    java.sql.PreparedStatement dbs = conn.prepareStatement(sql);
-                    ResultSet rs = dbs.executeQuery();
-                    String token = "";
-                    while(rs.next())
-                        token = rs.getString("token");
                     int result = port.createQuestion(token, title, content);
-                    if(result>0) 
-                        out.println("success!! token valid!!");
-                    else if(result<0)
-                        out.println("TOKEN INVALID!!");
-                    else 
-                        out.println("success!! BUT token expired!!");
-                }
-            } catch (Exception ex) {}
+                    if(result==1) 
+                        response.sendRedirect(request.getContextPath() + "/CreateQuestion.jsp");
+                    else if(result==0)
+                        response.sendRedirect(request.getContextPath() + "/LogInPage.jsp");
+                    else
+                        response.sendRedirect(request.getContextPath() + "/SignUpPage.jsp");                         
+                } catch (Exception ex) {}                
+            }
          %>
     </body>
 </html>

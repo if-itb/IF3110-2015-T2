@@ -7,8 +7,11 @@ package com.client.login;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.Form;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +19,9 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class CheckLogin extends HttpServlet {
 
@@ -30,7 +36,7 @@ public class CheckLogin extends HttpServlet {
      */
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -39,10 +45,25 @@ public class CheckLogin extends HttpServlet {
         form.param("password",password);
         Client client = ClientBuilder.newClient();
         String url = "http://localhost:8082/Identity_Service/NewToken"; 
+        String result = "";
         try (PrintWriter out = response.getWriter()) {
-          String result = client.target(url).request(MediaType.APPLICATION_JSON).
+            result = client.target(url).request(MediaType.APPLICATION_JSON).
                   post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED), String.class);
-          System.out.println(result);
+            System.out.println(result);
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(result);
+            JSONObject jobj = (JSONObject) obj;
+            String message = (String) jobj.get("message");
+            if(message.equals("valid")) {
+                //create cookie
+                String token = (String) jobj.get("token");
+                Cookie cookie = new Cookie("token",token);
+                cookie.setMaxAge(5*60);
+                response.addCookie(cookie);
+                response.sendRedirect(request.getContextPath() + "/CreateQuestion.jsp");
+            } else if(message.equals("invalid")) {
+                response.sendRedirect(request.getContextPath() + "/LoginPage.jsp");
+            }
         }
     }
 
@@ -58,7 +79,11 @@ public class CheckLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(CheckLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -72,7 +97,11 @@ public class CheckLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(CheckLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -44,18 +44,20 @@ public final class LogInPage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
-      out.write("        <title>StackExchange Sign Up</title>\n");
+      out.write("        <title>StackExchange Login</title>\n");
       out.write("        <meta charset=\"UTF-8\">\n");
       out.write("        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n");
       out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
-      out.write("        <h1>StackExchange Login</h1>\n");
+      out.write("        <div id=\"big\">StackExchange Login</div>\n");
+      out.write("        <div class=\"mediumbaru\">\n");
       out.write("        <form action=\"CheckLogin\" name=\"user\" method=\"post\">\n");
       out.write("\t\t<input type=\"email\" name=\"email\" placeholder=\"Email\" class=\"medium\">\n");
       out.write("\t\t<input type=\"password\" name=\"password\" placeholder=\"Password\" class=\"medium\">\n");
-      out.write("\t\t<input type=\"submit\" value=\"login\" id=\"button\">\n");
+      out.write("\t\t<input type=\"submit\" value=\"Login\" id=\"button\">\n");
       out.write("        </form> \n");
+      out.write("        </div>\n");
       out.write("    </body>\n");
       out.write("</html>");
     } catch (Throwable t) {

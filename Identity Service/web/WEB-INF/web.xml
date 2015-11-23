@@ -8,6 +8,10 @@
         <servlet-name>CheckToken</servlet-name>
         <servlet-class>com.token.validation.CheckToken</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PrintCookies</servlet-name>
+        <servlet-class>com.token.validation.PrintCookies</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NewToken</servlet-name>
         <url-pattern>/NewToken</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>CheckToken</servlet-name>
         <url-pattern>/CheckToken</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintCookies</servlet-name>
+        <url-pattern>/PrintCookies</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

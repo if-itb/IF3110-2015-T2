@@ -7,15 +7,22 @@ package com.token.validation;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javafx.application.Platform.exit;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
 
-/**
- *
- * @author adek
- */
 public class CheckToken extends HttpServlet {
 
     /**
@@ -26,12 +33,36 @@ public class CheckToken extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+        String token = request.getParameter("token");
+        
+        String tokenFlag = ""; //initiate tokenFlag with invalid
         try (PrintWriter out = response.getWriter()) {
-            String token = request.getParameter("token");
+            //create connection
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
+            String sql = "SELECT produced FROM tokens WHERE token='" + token + "'";
+            java.sql.PreparedStatement dbs = conn.prepareStatement(sql);
+            ResultSet rs = dbs.executeQuery();
+            if(rs.next()) {
+                //check lifetime
+                Calendar calobj = Calendar.getInstance();
+                long time = calobj.getTimeInMillis()/1000;
+                if(time>rs.getLong("produced"))
+                    tokenFlag = "expired"; //token expired
+                else 
+                    tokenFlag = "valid"; //token valid
+            }
+            else 
+                tokenFlag = "invalid";
+            JSONObject jobj = new JSONObject();
+            jobj.put("message", tokenFlag);
+            out.println(jobj.toString());
         }
     }
 
@@ -47,7 +78,11 @@ public class CheckToken extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(CheckToken.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -61,7 +96,11 @@ public class CheckToken extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(CheckToken.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

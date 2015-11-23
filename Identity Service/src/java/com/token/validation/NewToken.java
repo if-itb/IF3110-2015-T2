@@ -8,12 +8,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,26 +30,50 @@ public class NewToken extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
-    public Cookie cookie;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String obj = "";
-        JSONObject jobj = null;
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+        String obj = "", token = ""; 
+        JSONObject jobj = new JSONObject();
         response.setContentType("text/html;charset=UTF-8");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        if(exist(email,password)) {
+            //create connection
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
+            //get id and name from table users
+            String sql = "SELECT * FROM users WHERE email='" + email + "'";
+            PreparedStatement dbs = conn.prepareStatement(sql);
+            ResultSet rs = dbs.executeQuery();
+            int userid = 0;
+            String username = "";
+            while(rs.next()) {
+                userid = rs.getInt("id");
+                username = rs.getString("name");
+            }
+            //create token
+            Random rn = new Random(); 
+            String elf = "" + rn.nextInt(100);
+            token = username + elf;
+            //create lifetime
+            Calendar calobj = Calendar.getInstance();
+            long time = calobj.getTimeInMillis()/1000+1200;
+            //add token to table tokens in database
+            sql = "INSERT INTO tokens(userid,token,produced) VALUES ('"+userid+"','"+token+"','"+time+"')";
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+            //create json
+            jobj.put("message","valid");
+            jobj.put("token",token);
+            jobj.put("produced",time);
+        }
+        else 
+            jobj.put("message","error");
         try (PrintWriter out = response.getWriter()) {
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            if(exist(email,password)) {
-                jobj = tokenize(email,cookie);
-                response.addCookie(cookie);
-                response.setContentType("text/html");
-            }
-            else {
-                jobj = new JSONObject();
-                jobj.put("message","error");
-            }
-            out.println(jobj.toString());
+            out.println(jobj.toString());   
             out.close();
         }
         catch(Exception e) {}
@@ -67,7 +91,11 @@ public class NewToken extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(NewToken.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -81,7 +109,11 @@ public class NewToken extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(NewToken.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -105,42 +137,7 @@ public class NewToken extends HttpServlet {
             PreparedStatement dbs = conn.prepareStatement(sql);
             ResultSet rs = dbs.executeQuery();
             return rs.next();
-        } catch (Exception e) {} 
+        } catch (ClassNotFoundException | SQLException e) {} 
         return false;
-    }
-    
-    private JSONObject tokenize(String email, Cookie cookie) {
-        JSONObject jobj = new JSONObject();
-        Connection conn = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
-            String sql = "SELECT * FROM users WHERE email='" + email + "'";
-            PreparedStatement dbs = conn.prepareStatement(sql);
-            ResultSet rs = dbs.executeQuery();
-            int userid = 0;
-            String username = "";
-            while(rs.next()) {
-                userid = rs.getInt("id");
-                username = rs.getString("name");
-            }
-            Random rn = new Random(); 
-            String elf = "" + rn.nextInt(100);
-            String token = username + elf;
-            cookie = new Cookie("token",token);
-            Calendar calobj = Calendar.getInstance();
-            long time = calobj.getTimeInMillis()/1000+300;
-            sql = "INSERT INTO tokens(userid,token,produced) VALUES ('"+userid+"','"+token+"','"+time+"')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(sql);
-            //make json
-            jobj.put("message","valid");
-            jobj.put("token",token);
-            jobj.put("produced",time);
-            return jobj;
-        }
-        catch(Exception e) {}
-        jobj.put("message","error");
-        return jobj;
     }
 }

@@ -50,13 +50,15 @@ public final class SignUpPage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
-      out.write("        <h1>Register</h1>\n");
+      out.write("        <div id=\"big\">Register</div>\n");
+      out.write("\t <div class=\"mediumbaru\">\n");
       out.write("        <form action=\"SignUpPage.jsp\" name=\"newuser\" method=\"post\">\n");
       out.write("\t\t<input type=\"text\" name=\"name\" placeholder=\"Name\" class=\"medium\">\n");
       out.write("\t\t<input type=\"email\" name=\"email\" placeholder=\"Email\" class=\"medium\">\n");
       out.write("\t\t<input type=\"password\" name=\"password\" placeholder=\"Password\" class=\"medium\">\n");
-      out.write("\t\t<input type=\"submit\" value=\"submit\" id=\"button\">\n");
+      out.write("\t\t<input type=\"submit\" value=\"submit\">\n");
       out.write("        </form> \n");
+      out.write("        </div>\n");
       out.write("    </body>\n");
       out.write("    ");
 

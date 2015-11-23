@@ -1,3 +1,4 @@
+<%@page import="java.io.PrintWriter"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,13 +8,15 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <h1>Register</h1>
+        <div id="big">StackExchange Register</div>
+	 <div class="mediumbaru">
         <form action="SignUpPage.jsp" name="newuser" method="post">
 		<input type="text" name="name" placeholder="Name" class="medium">
 		<input type="email" name="email" placeholder="Email" class="medium">
 		<input type="password" name="password" placeholder="Password" class="medium">
-		<input type="submit" value="submit" id="button">
+		<input type="submit" value="Post" id="button">
         </form> 
+        </div>
     </body>
     <%
         // TODO initialize WS operation arguments here
@@ -25,10 +28,10 @@
                 registration.RegistrationWS_Service service = new registration.RegistrationWS_Service();
                 registration.RegistrationWS port = service.getRegistrationWSPort();
                 boolean result = port.register(name, email, password);
-                if(result)
-                    out.println("Success!!");
+                if(result) 
+                    response.sendRedirect(request.getContextPath() + "/LogInPage.jsp");
                 else 
-                    out.println("Failed!!");
+                    response.sendRedirect(request.getContextPath() + "/SignUpPage.jsp");
             } catch (Exception ex) {}
         }
     %>

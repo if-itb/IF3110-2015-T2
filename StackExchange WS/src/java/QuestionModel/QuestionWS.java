@@ -6,7 +6,6 @@
 package QuestionModel;
 
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -19,10 +18,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-/**
- *
- * @author adek
- */
 @WebService(serviceName = "QuestionWS")
 public class QuestionWS {
 
@@ -41,19 +36,27 @@ public class QuestionWS {
         Object obj = parser.parse(result);
         JSONObject jobj = (JSONObject) obj;
         String message = (String) jobj.get("message");
+        System.out.println(message);
+        int ret = 1;
         if(message.equals("valid")) {
-            try {                
+            try {         
+                System.out.println("success!!");
                 Class.forName("com.mysql.jdbc.Driver");
                 java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
-                String sql = "INSERT INTO questions(id_user,title,content) VALUES ((select id_user from tokens where token='"+token+"'),'"+title+"','"+content+"')";
+                String sql = "INSERT INTO questions(id_user,title,content) VALUES ((select userid from tokens where token='"+token+"'),'"+title+"','"+content+"')";
                 java.sql.Statement stmt = conn.createStatement();
                 stmt.executeUpdate(sql);
-                return 1;
+                ret = 1;
             } catch(Exception e) {}   
         }
         else if(message.equals("expired")) {
-            return 0;
+                System.out.println("expred!");
+            ret = 0;
         }
-        return -1;
+        else if(message.equals("invalid")) {
+                System.out.println("invalid!");
+            ret = -1;
+        }
+        return ret;
     }
 }
