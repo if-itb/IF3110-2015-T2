@@ -41,9 +41,9 @@ public class RegistrationController extends HttpServlet {
     boolean valid = addUser(name, email, password);
     
     if (valid) {
-      response.sendRedirect("log-in.html");
+      response.sendRedirect("log-in.jsp");
     } else {
-      response.sendRedirect("register.html");
+      response.sendRedirect("register.jsp?valid="+valid);
     }
   }
 

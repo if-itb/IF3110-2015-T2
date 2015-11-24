@@ -9,7 +9,7 @@ Author:
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Log in</title>
+    <title>Register</title>
     <meta charset="utf-8"/>
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
@@ -17,7 +17,7 @@ Author:
   <body>
     <!-- Title -->
     <div class="title">
-      <a href="index.jsp">
+      <a href="IndexController">
         StackExchange
       </a>
     </div>
@@ -27,10 +27,17 @@ Author:
       <div class="subtitle">
         Register
       </div>
-      <form class="right" id="register-form" action="index.jsp" method="post">
+      <%
+        if ("false".equals(request.getParameter("valid"))) {
+      %>
+          Please register again
+      <%
+        }
+      %>
+      <form class="right" id="register-form" action="RegistrationController" method="post">
         <input class="full-length" id="register-name" name="register-name" type="text" placeholder="Name">
         <input class="full-length" id="register-email" name="register-email" type="email" placeholder="Email">
-        <input class="full-length" id="register-password" name="register-topic" type="password" placeholder="Password">
+        <input class="full-length" id="register-password" name="register-password" type="password" placeholder="Password">
         <input class="button" name="register-submit" type="submit" value="Register">
       </form>
     </div>

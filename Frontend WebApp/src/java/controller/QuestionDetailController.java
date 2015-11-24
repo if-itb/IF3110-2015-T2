@@ -5,8 +5,11 @@
  */
 package controller;
 
+import AnswerWS.Answer;
 import AnswerWS.AnswerWS_Service;
 import QuestionWS.QuestionWS_Service;
+import UserWS.User;
+import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,12 +17,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
+import java.util.*;
 
 /**
  *
  * @author Devina
  */
 public class QuestionDetailController extends HttpServlet {
+  @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/UserWS.wsdl")
+  private UserWS_Service service_2;
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/AnswerWS.wsdl")
     private AnswerWS_Service service_1;
@@ -42,9 +48,18 @@ public class QuestionDetailController extends HttpServlet {
       String temp = request.getParameter("qid");
       int id = Integer.parseInt(temp);
       java.util.List<QuestionWS.Question> questions = getQuestion(id);
+      UserWS.User u1 = getUserByIdQuestion(id);
       java.util.List<AnswerWS.Answer> answers = getAnswerByQId(id);
+      java.util.List<UserWS.User> u2 = new ArrayList<UserWS.User>();
+      for (Answer answer : answers) {
+        u2.add(getUserByIdAnswer(answer.getIdAnswer()));
+      }
+      int count = getCountAnswerByQId(id);
       request.setAttribute("questions", questions);
+      request.setAttribute("u1", u1);
+      request.setAttribute("count", count);
       request.setAttribute("answers", answers);
+      request.setAttribute("u2", u2);
       request.getServletContext().getRequestDispatcher("/question-detail.jsp").forward(request, response);
     }
   }
@@ -101,4 +116,27 @@ public class QuestionDetailController extends HttpServlet {
         AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
         return port.getAnswerByQId(qid);
     }
+
+  private int getCountAnswerByQId(int qid) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
+    return port.getCountAnswerByQId(qid);
+  }
+
+  private User getUserByIdAnswer(int answerId) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    UserWS.UserWS port = service_2.getUserWSPort();
+    return port.getUserByIdAnswer(answerId);
+  }
+
+  private User getUserByIdQuestion(int qid) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    UserWS.UserWS port = service_2.getUserWSPort();
+    return port.getUserByIdQuestion(qid);
+  }
+    
+    
 }

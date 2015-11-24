@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <!-- Tugas 2 IF3110 Pengembangan Aplikasi Berbasis Web
 Membuat website tanya jawab seperti Stack Exchange dengan REST dan SOAP dan arsitektur berorientasi servis.
 Author: 
@@ -53,10 +54,15 @@ Author:
               <%= questions.get(i).getContent() %>
             </div>
             <!-- Asked by -->
+            <%
+            UserWS.User u1 = new UserWS.User();
+            if (request.getAttribute("u1") != null) {
+              u1 = (UserWS.User)request.getAttribute("u1");
+            %>
             asked by
-            Jen Hammington
+            <%= u1.getName() %>
             at
-            jen.hammington@gmail.com
+            <%= questions.get(i).getDatetime() %>
             |
             <a class="yellow" href="ask-question.jsp">
               edit
@@ -65,6 +71,10 @@ Author:
             <a class="red" href="index.jsp" onclick="return confirm('Do you want to delete this post?')">
               delete
             </a>
+            <%
+            }
+            %>
+            
           </div>
             <%
               }
@@ -76,7 +86,14 @@ Author:
       <!-- Answers List -->
       <div class="stacked">
         <div class="subtitle">
-          1 Answer
+            <%
+                if (request.getAttribute("count") != null) {
+                  int count = (Integer)request.getAttribute("count");
+            %>
+            <%= count %> Answer
+            <%
+                }
+            %>
         </div>
 
         <!-- Answers -->
@@ -93,23 +110,25 @@ Author:
             <div class="answer-question-detail">
             <%
             List<AnswerWS.Answer> answers = new ArrayList<AnswerWS.Answer>();
-            if (request.getAttribute("answers") != null) {
+            List<UserWS.User> u2 = new ArrayList<UserWS.User>();
+            if ((request.getAttribute("answers") != null) && (request.getAttribute("u2") != null)) {
               answers = (ArrayList<AnswerWS.Answer>)request.getAttribute("answers");
+              u2 = (ArrayList<UserWS.User>)request.getAttribute("u2");
               if (answers.size() > 0) {
                 for (int i = 0; i < answers.size(); i++) {
             %>
             <%= answers.get(i).getContent() %>
-            <%
-                }
-            %>
             </div>
             answered by
-            John Kennedy
+            <%= u2.get(i).getName() %>
             at
-            2015-10-25 11:24:29
+            <%= answers.get(i).getDatetime() %>
           </div>
         </div>
-        <% } else { %>
+        <%      
+            }
+          } else { 
+        %>
         <!-- If no answers: -->
         <div class="same-height-row border-bottom">
           Sorry, there are no answers available yet. Know someone who can answer?
