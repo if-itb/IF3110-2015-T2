@@ -8,9 +8,13 @@ package Login;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +34,7 @@ import org.json.simple.parser.ParseException;
  */
 public class Login extends HttpServlet {
     
-    private static final String URL_LOGIN = "http://localhost:8081/IdentityService/Login";
+    private static final String URL_LOGIN = "http://localhost:8082/IdentityService/Login";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -55,18 +59,22 @@ public class Login extends HttpServlet {
         conn.setDoOutput(true);
         conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded"); 
         conn.setRequestProperty( "charset", "utf-8");
-        conn.setRequestMethod("POST");
-        conn.setConnectTimeout(5000);
-        conn.setReadTimeout(5000);
         
         // send the object
-        String params = "email=" + email + "&password=" + password;
-        try (DataOutputStream out = new DataOutputStream(conn.getOutputStream())) {
-            out.write(params.getBytes(StandardCharsets.UTF_8));
+        String params = String.format("email=%s&password=%s",
+                URLEncoder.encode(email, StandardCharsets.UTF_8.name()),
+                URLEncoder.encode(password, StandardCharsets.UTF_8.name()));
+        
+        try (OutputStream out = conn.getOutputStream()) {
+            out.write(params.getBytes("UTF-8"));
         }
         
+        System.out.println(conn.getResponseCode());
+        System.out.println(conn.getErrorStream());
+        InputStream is = conn.getInputStream();
+        
         // read response json from the identity service servlet
-        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        BufferedReader in = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
         
         String temp;
@@ -85,11 +93,10 @@ public class Login extends HttpServlet {
                 response.addCookie(cookie);
             }
             
+            response.sendRedirect("/register.jsp");
         } catch (ParseException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // connection complete, disconnect
-        conn.disconnect();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

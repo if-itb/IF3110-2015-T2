@@ -8,10 +8,6 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Login.Login</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>register</servlet-name>
-        <servlet-class>Container.register</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -19,10 +15,6 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>register</servlet-name>
-        <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

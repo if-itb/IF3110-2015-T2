@@ -88,12 +88,11 @@ public class Login extends HttpServlet {
                 } else
                     object.put("error", "Invalid login credentials!");
                 
+                // output to response
+                out.print(object.toString());
             } catch (SQLException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-                object.put("error", ex);
             }
-            // output to response
-            out.print(object);
      
         }
     }

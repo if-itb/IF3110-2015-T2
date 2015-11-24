@@ -160,7 +160,7 @@ public class AnswersWS {
                 }
                 
         } catch (SQLException ex) {
-            Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AnswersWS.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return res;

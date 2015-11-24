@@ -1,6 +1,6 @@
 <%-- 
     Document   : register
-    Created on : Nov 24, 2015, 12:02:31 PM
+    Created on : Nov 18, 2015, 8:50:14 AM
     Author     : mochamadtry
 --%>
 
@@ -9,38 +9,25 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <style> 
-            <%@ include file="style.css"%>
-        </style>
-        <title>Register</title>
+        <title>JSP Page</title>
     </head>
     <body>
-        <div class="container">
-                <h1> Stack Exchange </h1>
-		<h2> Register Form </h2> 
-		<div id="searchbox">
-		<form name = "RegisterForm" action = "register" method="POST"> 
-                    <input type="text" name="name" placeholder="Name"> <br>
-                    <input type="text" name="email" placeholder="Email"> <br>
-                    <input type="password" name="password" placeholder="Password"> <br>
-                    <input type="submit" value="Sign Up">
-			<!--table> 
-				<tr> 
-					<td class = "container"> Username : </td> <td> <input name = "username" size = "12" type = "text" /> </td> 
-				</tr>
+        <%
+        try {
+            registers.Register_Service service = new registers.Register_Service();
+            registers.Register port = service.getRegisterPort();
+             // TODO initialize WS operation arguments here
+            java.lang.String name = request.getParameter("name"); //getParameter("username");
+            java.lang.String email = request.getParameter("email");
+            java.lang.String password = request.getParameter("password");
+            // TODO process result here
+            int result = port.addRegister(name, email, password);
+            out.println("Result = "+result);
+            } catch (Exception ex) {
+                out.println(ex);
+        }
+    %>
+    <%-- end web service invocation --%><hr/>
 
-				<tr> 
-					<td class = "container"> Email  : </td> <td> <input name = "email" size = "12" type = "text" /> </td> 
-				</tr>
-
-				<tr> 
-					<td class = "container"> Password  : </td> <td> <input name = "password" size = "12" type = "text" /> </td> 
-				</tr>
-			</table>-->
-		</form>
-		</div>
-
-
-	</div>
     </body>
 </html>
