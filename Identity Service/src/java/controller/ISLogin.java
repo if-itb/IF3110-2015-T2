@@ -65,7 +65,7 @@ public class ISLogin extends HttpServlet {
                         conn.setAutoCommit(false);
                         
                         String delete = "DELETE from token WHERE u_id = ?";
-                        String insert = "INSERT INTO token (token, u_id, expiry_date) VALUES (?, ?, ?)";
+                        String insert = "INSERT INTO token (access_token, u_id, expiry_date) VALUES (?, ?, ?)";
                         
                         
                         try (

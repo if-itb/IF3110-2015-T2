@@ -88,11 +88,11 @@ public class RegisterController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private Integer register(java.lang.String username, java.lang.String name, java.lang.String email, java.lang.String password) {
+    private Integer register(java.lang.String email, java.lang.String name, java.lang.String password) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         UserWS.UserWS port = service.getUserWSPort();
-        return port.register(username, name, email, password);
+        return port.register(name, email, password);
     }
 
 }

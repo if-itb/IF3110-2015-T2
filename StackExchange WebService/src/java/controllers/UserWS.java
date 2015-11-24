@@ -28,11 +28,16 @@ public class UserWS {
      * Web service operation
      */
     @WebMethod(operationName = "register")
-    public Integer register(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
+    public Integer register(@WebParam(name = "email") String email, @WebParam(name = "name") String name, @WebParam(name = "password") String password) {
         try {
-            try (Statement statement = conn.createStatement()) {
-                String sql = "INSERT INTO user(name, password, email) VALUE ('"+name+"',SHA1('"+password+"'),'"+email+"')";
-                statement.executeUpdate(sql);
+            
+            String sql = "INSERT INTO user(email, name, password) VALUE (?, ?, SHA1(?))";
+            try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                statement.setString(1, email);
+                statement.setString(2, name);
+                statement.setString(3, password);
+                
+                statement.executeQuery();
                 
             }
         } catch (SQLException e) {

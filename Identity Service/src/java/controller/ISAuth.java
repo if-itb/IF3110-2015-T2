@@ -43,7 +43,7 @@ public class ISAuth extends HttpServlet {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             String token = request.getParameter("auth");
-            String sql = "SELECT * FROM token WHERE token = ?";
+            String sql = "SELECT * FROM token WHERE access_token = ?";
             
             JSONObject object = new JSONObject();
             
@@ -60,7 +60,7 @@ public class ISAuth extends HttpServlet {
                        Date expiry_date = format.parse(result.getString("expiry_date"));
                        if (now.after(expiry_date)){
                            object.put("error", "Expired Token");
-                           String deleteQuery = "DELETE FROM token WHERE token = ?";
+                           String deleteQuery = "DELETE FROM token WHERE access_token = ?";
                            try (PreparedStatement deleteStatement = conn.prepareStatement(deleteQuery)){
                                deleteStatement.setString(1, token);
                                deleteStatement.execute();
