@@ -16,7 +16,7 @@
         <h3>What's your question?</h3>
         <hr class="heading">        
         <form method="post">
-            <input type="text" class="form-control" name="topic" placeholder="Question Topic" value="${empty question? "" : question.topic}" required autofocus></input>
+            <input type="text" class="form-control" name="topic" placeholder="Question Topic" value="<c:out value="${empty question? "" : question.topic}"/>" required autofocus></input>
             <textarea class="form-control" name="content" placeholder="Content" rows="10" required>${empty question? "" : question.content}</textarea>
             <input type="submit" class="btn-default btn-right" value="Post"></input>
             <c:if test="${not empty edit_question}">

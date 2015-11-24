@@ -33,7 +33,7 @@
                 <div class="timestamp">
                     asked by <c:out value="${asker.name}"/></a> at ${question.timestamp}
                     <c:if test="${not empty user && user.id==question.idUser}">
-                        <a class="edit" href="ask?id=${question.id}"><span class="glyphicon glyphicon-edit"></span> edit</a>
+                        <a class="edit" href="edit?id=${question.id}"><span class="glyphicon glyphicon-edit"></span> edit</a>
                         <a class="delete" href="delete?id=${question.id}" onclick="return confirm('Are you sure you want to delete this question?');"><span class="glyphicon glyphicon-remove"></span> delete</a>
                     </c:if>
                 </div>

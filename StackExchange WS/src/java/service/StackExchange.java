@@ -512,4 +512,35 @@ public class StackExchange {
         }                                
         return user;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "search")
+    public Question search(@WebParam(name = "query")
+            String key) {
+        //TODO write your implementation code here:
+        Question question = null;
+        try{
+            String query = "SELECT * FROM question WHERE topic like %?% OR content LIKE %?%";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, key);
+            
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                question = new Question(
+                    result.getInt("id"),
+                    result.getInt("id_user"),
+                    result.getString("topic"),
+                    result.getString("content"),
+                    result.getInt("votes"),
+                    result.getString("timestamp")
+                );
+            }
+        }
+        catch(SQLException ex){
+            Logger.getLogger(StackExchange.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return question;
+    }
 }
