@@ -31,11 +31,17 @@ and open the template in the editor.
 	    font-size: 100%;
 	    font-family:calibri;
 	}
-	.smalltitle-left {
+	.smalltitle-left{
 		text-align: left;
 		font-size: 150%;
 		font-family:calibri;
 		margin-left: 17.5%;
+	}
+        .smalltitle-right{
+		text-align: right;
+		font-size: 100%;
+		font-family:calibri;
+		margin-right: 17.5%;
 	}
 	form{
 		text-align: center;
@@ -75,7 +81,7 @@ and open the template in the editor.
 	.button-search{
 		margin-left: 0.5%;
 	  	border: 2px solid black;
-	  	background-color: red;
+	  	background-color: grey;
 	  	cursor: pointer;
 	  	margin-top: 10px;
 	   	height: 30px;

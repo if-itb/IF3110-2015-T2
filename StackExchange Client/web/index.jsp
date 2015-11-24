@@ -15,13 +15,7 @@
     </head>
 
     <body>
-        <form name="loginForm" action="registerresult.jsp" onsubmit="" method="POST">
-            <input type="hidden" name="question_id">
-            <input type="text" class='form-text-small' name="email" placeholder="Email" required><br>
-            <input type="password" class='form-text-small' name="password" placeholder="Password" required><br>
-            <button class='button-small' type='submit'> Login </button>
-        </form>
-        
+        <div class="smalltitle-right"><a id = "color-black" href="login.jsp" >login</a> | <a id = "color-black" href="register.jsp" >register</a></div>
         <div class="link-normalizer"><a class='title' href="index.jsp">Simple StackExchange</a></div>
         
         <br><br><br><br>
@@ -35,10 +29,6 @@
                      + "<a id = 'color-orange' href='ask.jsp?token=" + 
                         request.getParameter("token") + "'>Ask here</a></div>");
         %>
-        <br>
-        <div class="smalltitle-center">Not registered yet? <a id = "color-orange" href="register.jsp" >Register here</a></div>
-        <br>
-
         <div class="smalltitle-left"> Recently Asked Questions </div>
         <hr class='line'>
     <%
