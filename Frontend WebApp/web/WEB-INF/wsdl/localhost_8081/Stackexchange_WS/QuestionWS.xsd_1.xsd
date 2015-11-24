@@ -44,16 +44,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getQuestions">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="getQuestionsResponse">
-<xs:sequence>
-<xs:element name="Question" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="deleteQuestion">
 <xs:sequence>
 <xs:element name="id_question" type="xs:int"/>
@@ -63,6 +53,16 @@
 <xs:complexType name="deleteQuestionResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getQuestions">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getQuestionsResponse">
+<xs:sequence>
+<xs:element name="Question" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 

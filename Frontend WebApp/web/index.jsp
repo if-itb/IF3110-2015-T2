@@ -18,10 +18,16 @@ Author:
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
   </head>
   <body>
+    <!-- Navigation Bar -->
+    <ul class="nav-bar">
+      <li><a href="log-in.jsp">Log in</a></li>
+      <li><a href="register.jsp">Register</a></li>
+    </ul>
+      
     <!-- Title -->
     <div class="title">
       <a href="IndexController">
-        Simple StackExchange
+        StackExchange
       </a>
     </div>
 
@@ -34,7 +40,7 @@ Author:
         </form>
         <br>
         Cannot find what you are looking for? 
-        <a class="yellow" href="ask-question.html">
+        <a class="yellow" href="ask-question.jsp">
           Ask here
         </a>
       </div>
@@ -81,11 +87,11 @@ Author:
                 Jen Hammington
               </span>
               |
-              <a class="yellow" href="ask-question.html">
+              <a class="yellow" href="ask-question.jsp">
                 edit
               </a>
               |
-              <a class="red" href="index.html" onclick="return confirm('Do you want to delete this post?')">
+              <a class="red" href="index.jsp" onclick="return confirm('Do you want to delete this post?')">
                 delete
               </a>
             </div>

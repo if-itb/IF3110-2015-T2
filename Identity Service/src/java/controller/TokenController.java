@@ -23,8 +23,9 @@ import org.json.simple.*;
 import org.json.simple.parser.*;
 
 /**
- *
- * @author User
+ * @author Irene Wiliudarsan - 13513002
+ * @author Angela Lynn - 13513032
+ * @author Devina Ekawati - 13513088
  */
 public class TokenController extends HttpServlet {
 

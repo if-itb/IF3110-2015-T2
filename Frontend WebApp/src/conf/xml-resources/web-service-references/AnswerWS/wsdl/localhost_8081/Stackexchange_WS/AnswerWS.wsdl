@@ -4,17 +4,17 @@
 <xsd:import namespace="http://AnswerModel/" schemaLocation="http://localhost:8081/Stackexchange_WS/AnswerWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="addAnswer">
-<part name="parameters" element="tns:addAnswer"/>
-</message>
-<message name="addAnswerResponse">
-<part name="parameters" element="tns:addAnswerResponse"/>
-</message>
 <message name="getAnswerByQId">
 <part name="parameters" element="tns:getAnswerByQId"/>
 </message>
 <message name="getAnswerByQIdResponse">
 <part name="parameters" element="tns:getAnswerByQIdResponse"/>
+</message>
+<message name="addAnswer">
+<part name="parameters" element="tns:addAnswer"/>
+</message>
+<message name="addAnswerResponse">
+<part name="parameters" element="tns:addAnswerResponse"/>
 </message>
 <message name="getCountAnswerByQId">
 <part name="parameters" element="tns:getCountAnswerByQId"/>
@@ -23,13 +23,13 @@
 <part name="parameters" element="tns:getCountAnswerByQIdResponse"/>
 </message>
 <portType name="AnswerWS">
-<operation name="addAnswer">
-<input wsam:Action="http://AnswerModel/AnswerWS/addAnswerRequest" message="tns:addAnswer"/>
-<output wsam:Action="http://AnswerModel/AnswerWS/addAnswerResponse" message="tns:addAnswerResponse"/>
-</operation>
 <operation name="getAnswerByQId">
 <input wsam:Action="http://AnswerModel/AnswerWS/getAnswerByQIdRequest" message="tns:getAnswerByQId"/>
 <output wsam:Action="http://AnswerModel/AnswerWS/getAnswerByQIdResponse" message="tns:getAnswerByQIdResponse"/>
+</operation>
+<operation name="addAnswer">
+<input wsam:Action="http://AnswerModel/AnswerWS/addAnswerRequest" message="tns:addAnswer"/>
+<output wsam:Action="http://AnswerModel/AnswerWS/addAnswerResponse" message="tns:addAnswerResponse"/>
 </operation>
 <operation name="getCountAnswerByQId">
 <input wsam:Action="http://AnswerModel/AnswerWS/getCountAnswerByQIdRequest" message="tns:getCountAnswerByQId"/>
@@ -38,7 +38,7 @@
 </portType>
 <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="addAnswer">
+<operation name="getAnswerByQId">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -47,7 +47,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getAnswerByQId">
+<operation name="addAnswer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

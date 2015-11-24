@@ -19,6 +19,10 @@ public class Token {
   private Timestamp lifetime;
   
   // Konstruktor
+  public Token() {
+    accessToken = "Not valid";
+    lifetime = Timestamp.valueOf("0001-01-01 01:01:01");
+  }
   public Token(String email, String password) {
     // Generate lifetime
     Date datetime = new Date(System.currentTimeMillis()+10*60*1000); // expired setelah 10 menit
@@ -28,8 +32,8 @@ public class Token {
     String tokenSource = email + password + lifetime.toString();
     accessToken = UUID.nameUUIDFromBytes(tokenSource.getBytes()).toString();
   }
-  public Token(String _token, Timestamp _lifetime) {
-    accessToken = _token;
+  public Token(String _accessToken, Timestamp _lifetime) {
+    accessToken = _accessToken;
     lifetime = _lifetime;
   }
   
@@ -39,6 +43,14 @@ public class Token {
   }
   public Timestamp getLifetime() {
     return lifetime;
+  }
+  
+  // Setter
+  public void setAccessToken(String _accessToken) {
+    accessToken = _accessToken;
+  }
+  public void setLifetime(Timestamp _lifetime) {
+    lifetime = _lifetime;
   }
 
   // Method

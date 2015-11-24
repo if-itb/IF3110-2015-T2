@@ -4,7 +4,7 @@ Author:
 - Irene Wiliudarsan (13513002)
 - Angela Lynn       (13513002)
 - Devina Ekawati    (13513002) -->
-<!-- File: question-detail.html  -->
+<!-- File: question-detail.jsp  -->
 
 <%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -21,8 +21,8 @@ Author:
   <body>
     <!-- Title -->
     <div class="title">
-      <a href="index.html">
-        Simple StackExchange
+      <a href="index.jsp">
+        StackExchange
       </a>
     </div>
 
@@ -58,11 +58,11 @@ Author:
             at
             jen.hammington@gmail.com
             |
-            <a class="yellow" href="ask-question.html">
+            <a class="yellow" href="ask-question.jsp">
               edit
             </a>
             |
-            <a class="red" href="index.html" onclick="return confirm('Do you want to delete this post?')">
+            <a class="red" href="index.jsp" onclick="return confirm('Do you want to delete this post?')">
               delete
             </a>
           </div>
@@ -126,7 +126,7 @@ Author:
         <div id="answer-form-title">
           Your Answer
         </div>
-        <form class="right" id="answer-form" name="answer-form" action="question-detail.html" method="post" onsubmit="return questionFormValidation()">
+        <form class="right" id="answer-form" name="answer-form" action="question-detail.jsp" method="post" onsubmit="return questionFormValidation()">
           <input class="full-length" id="answer-name" name="answer-name" type="text" placeholder="Name">
           <input class="full-length" id="answer-email" name="answer-email" type="text" placeholder="Email">
           <textarea class="full-length" id="answer-content" name="answer-content" placeholder="Content" rows="10" cols="50"></textarea>
