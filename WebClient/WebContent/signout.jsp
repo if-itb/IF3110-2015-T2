@@ -31,7 +31,7 @@
 	
 	<script>
 		function deleteToken(){
-			var signOutUrl = "http://localhost:8080/REST-WS/rest/token/signout";
+			var signOutUrl = "http://localhost:8081/REST-WS/rest/token/signout";
 			var tokenData = {access_token:"<%= access_token %>"};
 			
 			
