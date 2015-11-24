@@ -10,19 +10,19 @@
 
 <xs:element name="getAnswerByQIdResponse" type="tns:getAnswerByQIdResponse"/>
 
-<xs:element name="getCountAnswerByQId" type="tns:getCountAnswerByQId"/>
+<xs:element name="sayHello" type="tns:sayHello"/>
 
-<xs:element name="getCountAnswerByQIdResponse" type="tns:getCountAnswerByQIdResponse"/>
+<xs:element name="sayHelloResponse" type="tns:sayHelloResponse"/>
 
-<xs:complexType name="getCountAnswerByQId">
+<xs:complexType name="sayHello">
 <xs:sequence>
-<xs:element name="qid" type="xs:int"/>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getCountAnswerByQIdResponse">
+<xs:complexType name="sayHelloResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:int"/>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
