@@ -42,7 +42,7 @@
             </div>
             <div class="question-summary">
                 <h4 class="topic"><a class="topic" href="question?id=${question.id}" title="<c:out value="${question.topic}"/>"><c:out value="${question.topic}"/></a></h4>
-                <p title="<c:out value="${question.content}"/>"><c:out value="${question.content}"/></p><br>
+                <p title="<c:out value="${question.content}"/>"><c:out value="${question.content}"/></p>
                 <div class="timestamp">
                     asked by <c:out value="${askers[question.id].name}"/></a> at ${question.timestamp}
                     <c:if test="${not empty user && user.id==question.idUser}">

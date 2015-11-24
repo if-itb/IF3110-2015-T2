@@ -9,27 +9,25 @@
 <jsp:include page="header.jsp" flush="true"/>
     <div class="container">
         <h3>Sign in</h3>
-        <hr class="heading">  
-        
+        <hr class="heading">          
         <div class="inner-container">
-                <c:choose>
-                    <c:when test="${not empty error}"> <!-- error message -->
-                        <div class="alert alert-danger" role="alert">
-                            <c:out value="${error}" />
-                        </div>
-                    </c:when>
-                    <c:when test="${not empty success}"> <!-- success message -->
-                        <div class="alert alert-success" role="alert">
-                            <c:out value="${success}" />
-                        </div>
-                    </c:when>
-                </c:choose>
-
+            <c:choose>
+                <c:when test="${not empty error}"> <!-- error message -->
+                    <div class="alert alert-danger" role="alert">
+                        <c:out value="${error}" />
+                    </div>
+                </c:when>
+                <c:when test="${not empty success}"> <!-- success message -->
+                    <div class="alert alert-success" role="alert">
+                        <c:out value="${success}" />
+                    </div>
+                </c:when>
+            </c:choose>
             <form class="login-wrapper form-horizontal" method="POST">
                 <div class="form-group">
                     <label for="inputEmail" class="col-sm-2 control-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email" required>
+                        <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email" required autofocus>
                     </div>
                 </div>
                 <div class="form-group">
@@ -43,10 +41,7 @@
                         <button type="submit" class="btn btn-default">Sign in</button>
                     </div>
                 </div>
-            </form>
-        
-        </div>
-        
+            </form>        
+        </div>        
     </div>
-
 <jsp:include page="footer.jsp" flush="true"/>

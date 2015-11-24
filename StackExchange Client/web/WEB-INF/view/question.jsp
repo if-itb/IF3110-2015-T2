@@ -29,7 +29,7 @@
                 <span id="question-${question.id}-down" class="vote-button${question_class} glyphicon glyphicon-chevron-down" data-id="${question.id}" data-type="question" data-action="down"></span>
             </div>
             <div class="question-content">
-                <p><c:out value="${question.content}"/></p><br>
+                <p><c:out value="${question.content}"/></p>
                 <div class="timestamp">
                     asked by <c:out value="${asker.name}"/></a> at ${question.timestamp}
                     <c:if test="${not empty user && user.id==question.idUser}">
@@ -74,12 +74,13 @@
                 </div>
                 <hr>
             </c:forEach>
+            </div>
         </c:if>
         <br>        
         <h3>Your Answer</h3>
         <hr class="heading">
         <form method="post">
-            <textarea name="content" placeholder="Content" rows="7"></textarea>
+            <textarea name="content" class="form-control" placeholder="Content" rows="7"></textarea>
             <input type="submit" class="btn-default btn-right" value="Post"></input>
             <input type="hidden" name="id" value="${question.id}"></input>
         </form>        

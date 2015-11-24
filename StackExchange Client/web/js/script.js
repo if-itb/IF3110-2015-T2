@@ -10,14 +10,13 @@ $(document).ready(function() {
         })
         .done(function(result) {
             if (result.hasOwnProperty("votes")) {
-                $('#'+type+'-'+id+'-'+action).removeClass("vote-button").addClass("vote-button-yes");
-                if (action === "up")
-                    $('#'+type+'-'+id+'-down').removeClass("vote-button").addClass("vote-button-no");
-                else
-                    $('#'+type+'-'+id+'-up').removeClass("vote-button").addClass("vote-button-no");
+                var thisVote = $('#'+type+'-'+id+'-'+action);
+                var otherVote = action === "up"? $('#'+type+'-'+id+'-down') : $('#'+type+'-'+id+'-up');
+                thisVote.removeClass("vote-button").addClass("vote-button-yes");
+                otherVote.removeClass("vote-button").addClass("vote-button-no");
                 $('#'+type+'-'+id).html(result.votes);
-                $('#'+type+'-up').off("click");
-                $('#'+type+'-down').off("click");
+                thisVote.off("click");
+                otherVote.off("click");
             }
         });
     });
