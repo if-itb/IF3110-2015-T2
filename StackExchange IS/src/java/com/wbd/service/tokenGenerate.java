@@ -4,7 +4,6 @@
 package com.wbd.service;
 
 import com.wbd.rest.Token;
-import com.wbd.db.DBConnection;
 import MD5Hashing.MD5Hashing;
 
 import com.wbd.db.DBConnection;
@@ -12,10 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static javax.swing.text.html.FormSubmitEvent.MethodType.POST;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
-import static javax.ws.rs.HttpMethod.POST;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -35,7 +32,7 @@ public class tokenGenerate{
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, token.access_token);
     
-            ResultSet rs = stmt.executeQuery(sql);
+                        ResultSet rs = stmt.executeQuery(sql);
 			if (rs.next()){
 				found = true;
 			}             
@@ -68,18 +65,14 @@ public class tokenGenerate{
 			//System.out.println(sql);
 			
 			if(rs.next()){
-                            //User is not unique
-                            MD5Hashing md5 = new MD5Hashing();
+                //User is not unique
+                MD5Hashing md5 = new MD5Hashing();
 
-                            token.access_token = md5.Hash(password); 
-                            token.lifetime = 5;
-				
-                            sql = "INSERT INTO user(access_token) VALUES(" + token.access_token + ")";
-                            stmt.executeUpdate(sql);
-
-                //Format the response to JSON
-                //userToken.put("access_token",access_token);
-                //userToken.put("lifetime", lifetime);             								
+                token.access_token = md5.Hash(password); 
+                token.lifetime = 5;
+	
+                sql = "INSERT INTO user(access_token) VALUES(" + token.access_token + ")";
+                stmt.executeUpdate(sql);
 			}
 
 		} catch(SQLException se){
@@ -100,6 +93,29 @@ public class tokenGenerate{
 		Token token = generateToken(email,password);
 		System.out.println(token.access_token);
 		return token;
+	}
+
+	@POST
+	@Path("/signout")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public void signOut(@FormParam("access_token") String access_token) {
+		DBConnection dbc = new DBConnection();
+		PreparedStatement stmt = dbc.getStatement();
+		Connection conn = dbc.getConnection();
+		
+		try{
+			String sql = "DELETE FROM token WHERE access_token = ? ";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, access_token);
+			stmt.executeUpdate();
+		} catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		} catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}					
 	}
 
 

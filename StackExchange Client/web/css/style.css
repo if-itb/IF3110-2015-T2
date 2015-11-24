@@ -61,10 +61,21 @@ and open the template in the editor.
 	   	width: 80px;
 	   	clear:both;
 	}
+        .button-small{
+		margin-left: 60%;
+	  	border: 2px solid black;
+	  	background-color: grey;
+	  	cursor: pointer;
+	  	margin-top: 10px;
+	   	height: 20px;
+	   	width: 5%;
+	   	clear:both;
+                text-align: center;
+	}
 	.button-search{
 		margin-left: 0.5%;
 	  	border: 2px solid black;
-	  	background-color: grey;
+	  	background-color: red;
 	  	cursor: pointer;
 	  	margin-top: 10px;
 	   	height: 30px;
@@ -182,6 +193,14 @@ and open the template in the editor.
 	  	background-color: white;
 	  	height: 25px;
 	}
+        .form-text-small{
+	  	width: 15%;
+	  	border: 2px solid black;
+	  	margin-top: 0.5%;
+                margin-left: 50%;
+	  	background-color: white;
+	  	height: 15px;
+	}
 	.form-textarea{
 	  	width: 65%;
 	  	margin-top: 0.5%;
@@ -205,6 +224,3 @@ and open the template in the editor.
 		text-align: center;
 		float:center;
 	}
-
-
-
