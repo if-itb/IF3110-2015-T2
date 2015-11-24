@@ -29,9 +29,10 @@ public class User {
     idUser = 0;
   }
   
-  public User (int _idUser, String _name, String _email) {
+  public User (int _idUser, String _name, String _email, String _password) {
     idUser = _idUser;
     name = _name;
     email = _email;
+    password = _password;
   }
 }
