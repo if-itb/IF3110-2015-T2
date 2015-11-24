@@ -5,6 +5,7 @@
  */
 package answer;
 
+import Auth.Auth;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.jws.*;
@@ -19,30 +20,41 @@ import java.util.logging.Logger;
 @WebService(serviceName = "AnswerWebService")
 public class AnswerWebService {
     /* Atribut */
+    private final String url = "http://localhost:8082/IdentityServices/IdentityChecker"; 
     private final String path = "jdbc:mysql://localhost:3306/stack_exchange";
     
     @WebMethod(operationName = "addAnswer")
     @WebResult(name="String")
     public String addAnswer(String token, int qid, String name, String email, String content, int userId) {
-        String query = "INSERT INTO answer (answer_id, answerer_name, answerer_email, answer_content, answer_vote, question_id, user_id)"
-                + "VALUES (NULL, '" + name + "', '" + email + "', '"+ content + "', 0, " + qid + ", " + userId + ")";
-        Database database = new Database();
-        database.connect(path);
-        database.changeData(query);
-        database.closeDatabase();
-        return "executed";
+        Auth auth = new Auth(token);
+        if(auth.getResponse(url)){
+            String query = "INSERT INTO answer (answer_id, answerer_name, answerer_email, answer_content, answer_vote, question_id, user_id)"
+                    + "VALUES (NULL, '" + name + "', '" + email + "', '"+ content + "', 0, " + qid + ", " + userId + ")";
+            Database database = new Database();
+            database.connect(path);
+            database.changeData(query);
+            database.closeDatabase();
+            return "executed";
+        } else {
+            return "not executed";
+        }
     }
     
     @WebMethod(operationName = "incrVote")
     @WebResult(name="String")
     public String incrVote(String token, int id) {
-        String result;
-        String query = "UPDATE answer SET answer_vote = answer_vote + 1 WHERE answer_id = " + id;
-        Database database = new Database();
-        database.connect(path);
-        result = database.changeData(query);
-        database.closeDatabase();
-        return result;
+        Auth auth = new Auth(token);
+        if(auth.getResponse(url)){
+            String result;
+            String query = "UPDATE answer SET answer_vote = answer_vote + 1 WHERE answer_id = " + id;
+            Database database = new Database();
+            database.connect(path);
+            result = database.changeData(query);
+            database.closeDatabase();
+            return result;
+        } else {
+            return "not executed";
+        }
     }
     
     @WebMethod(operationName = "decrVote")

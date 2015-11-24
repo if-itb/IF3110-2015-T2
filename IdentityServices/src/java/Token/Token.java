@@ -9,7 +9,6 @@ import database.Database;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Base64;
@@ -28,13 +27,10 @@ import org.json.simple.JSONObject;
  */
 @WebServlet(name = "Token", urlPatterns = {"/Token"})
 public class Token extends HttpServlet {
-    private final int lifetime = 30; //seconds
     private String token = "";
     
-    public long generateLifetime(){
-        long currentTime = System.currentTimeMillis()/1000;
-        currentTime += lifetime;
-        return currentTime;
+    public long generateTime(){
+        return System.currentTimeMillis();
     }
     
     public boolean isInDB(String username, String password){
@@ -63,17 +59,11 @@ public class Token extends HttpServlet {
     
     public void generateToken(String username){
         try {
-            token = username + ";" + generateLifetime();
+            token = username + ";" + generateTime();
             token = Base64.getEncoder().encodeToString(token.getBytes("utf-8"));
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Token.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    public String decodeToken(){
-        byte[] byteDecoded = Base64.getDecoder().decode(token);
-        String decoded = new String(byteDecoded, StandardCharsets.UTF_8);
-        return decoded;        
     }
     
     public String toJSON(){
@@ -94,16 +84,17 @@ public class Token extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             //Variable
-            response.setContentType("application/json");
             String username = request.getParameter("uname");
             String password = request.getParameter("pword");
             
             if(isInDB(username,password)){
                 generateToken(username);
                 out.write(toJSON());
+                //response.setHeader("token", token);
+                response.sendRedirect("http://localhost:8080/StackExchange_Client/index.jsp?token=" + token);
             } else {
                 token = "";
                 out.write(toJSON());

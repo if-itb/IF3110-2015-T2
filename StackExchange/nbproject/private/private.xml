@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/KEVIN/Documents/Semester%205/WBD/IF3110-2015-T2/StackExchange/src/java/question/QuestionWebService.java</file>
-            <file>file:/C:/Users/KEVIN/Documents/Semester%205/WBD/IF3110-2015-T2/StackExchange/src/java/question/Question.java</file>
+            <file>file:/D:/Doc/Documents/NetBeansProjects/StackExchange/src/java/answer/AnswerWebService.java</file>
+            <file>file:/D:/Doc/Documents/NetBeansProjects/StackExchange/src/java/question/Question.java</file>
+            <file>file:/D:/Doc/Documents/NetBeansProjects/StackExchange/src/java/Auth/Auth.java</file>
         </group>
     </open-files>
 </project-private>
