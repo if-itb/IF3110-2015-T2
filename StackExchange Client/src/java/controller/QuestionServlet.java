@@ -47,14 +47,20 @@ public class QuestionServlet extends HttpServlet {
             }
         }                
         if (question != null) {
+            User user = (User) request.getAttribute("user");
             request.setAttribute("question", question);
             request.setAttribute("asker", port.getUser(question.getIdUser()));
             List<Answer> answers = port.getAnswers(question.getId());
             Map<Integer, User> answerers = new HashMap<>();
-            for (Answer answer: answers)
-                answerers.put(answer.getId(), port.getUser(answer.getIdUser()));
+            Map<Integer, Integer> answerStates = new HashMap<>();
+            for (Answer answer: answers) {
+                answerers.put(answer.getId(), port.getUser(answer.getIdUser()));                
+                answerStates.put(answer.getId(), user == null? 0: port.getAnswerVoteState(user.getId(), answer.getId()));
+            }
             request.setAttribute("answers", answers);
-            request.setAttribute("answerers", answerers);            
+            request.setAttribute("answerers", answerers);
+            request.setAttribute("question_state", user == null? 0: port.getQuestionVoteState(user.getId(), question.getId()));
+            request.setAttribute("answer_states", answerStates);
             request.getRequestDispatcher("WEB-INF/view/question.jsp").forward(request, response);
         }
         else

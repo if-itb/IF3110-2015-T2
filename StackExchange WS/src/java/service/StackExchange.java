@@ -182,42 +182,44 @@ public class StackExchange {
      * Web service operation
      * @param idQuestion
      * @param idUser
-     * @return 
+     * @return Return 0 if user hasn't vote, 1 if vote up, -1 if vote down
      */
-    @WebMethod(operationName = "isVoteQuestionAvailable")    
-    public boolean isVoteQuestionAvailable (
+    @WebMethod(operationName = "getQuestionVoteState")
+    public int getQuestionVoteState (
             @WebParam(name = "idUser") int idUser,
             @WebParam(name = "idQuestion") int idQuestion) {
-        boolean available = false;                        
+        int state = 0;
         try {
-            String sql = "SELECT * FROM vote_question WHERE id_user = ? AND id_question = ?";
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            String query = "SELECT vote_up FROM vote_question WHERE id_user = ? AND id_question = ?";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setInt(1, idUser);
                 statement.setInt(2, idQuestion);                
                 try (ResultSet result = statement.executeQuery()) {
-                    available = result.next();
+                    if (result.next())
+                        state = result.getBoolean(1) ? 1 : -1;
                 }
             }
         }
         catch(SQLException ex){
             Logger.getLogger(StackExchange.class.getName()).log(Level.SEVERE, null, ex);
         }                        
-        return available;
+        return state;
     }
         
     private boolean voteQuestion(int idUser, int idQuestion, boolean voteUp) {
         boolean success = false;                
         try {
-            if (getQuestion(idQuestion) != null && !isVoteQuestionAvailable(idUser, idQuestion)) {                
+            if (getQuestion(idQuestion) != null && getQuestionVoteState(idUser, idQuestion) == 0) {
                 String updateQuery = "UPDATE question SET votes = votes " + (voteUp? "+" : "-")  + " 1 WHERE id = ?";
-                String insertQuery = "INSERT INTO vote_question (id_user, id_question) VALUES (?, ?)";                    
+                String insertQuery = "INSERT INTO vote_question (id_user, id_question, vote_up) VALUES (?, ?, ?)";
                 connection.setAutoCommit(false);
                 try (
                     PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
                     PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
                     updateStatement.setInt(1, idQuestion);
                     insertStatement.setInt(1, idUser);
-                    insertStatement.setInt(2, idQuestion);                        
+                    insertStatement.setInt(2, idQuestion);
+                    insertStatement.setBoolean(3, voteUp);
                     success = updateStatement.executeUpdate() > 0 && insertStatement.executeUpdate() > 0;
                     connection.commit();
                 }
@@ -332,7 +334,7 @@ public class StackExchange {
         Answer answer = null;
         try{
             String query = "INSERT INTO answer (id_question, id_user, content) VALUES (?,?,?)";
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
+            try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setInt(1, idQuestion);
                 statement.setInt(2, idUser);
                 statement.setString(3, content);
@@ -355,16 +357,17 @@ public class StackExchange {
     private boolean voteAnswer(int idUser, int idAnswer, boolean voteUp) {
         boolean success = false;                
         try {
-            if (getAnswer(idAnswer) != null && !isVoteAnswerAvailable(idUser, idAnswer)) {                                            
+            if (getAnswer(idAnswer) != null && getAnswerVoteState(idUser, idAnswer) == 0) {
                 String updateQuery = "UPDATE answer SET votes = votes " + (voteUp? "+" : "-")  + " 1 WHERE id = ?";
-                String insertQuery = "INSERT INTO vote_answer (id_user, id_answer) VALUES (?, ?)";                    
+                String insertQuery = "INSERT INTO vote_answer (id_user, id_answer, vote_up) VALUES (?, ?, ?)";
                 connection.setAutoCommit(false);
                 try (
                     PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
                     PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
                     updateStatement.setInt(1, idAnswer);
                     insertStatement.setInt(1, idUser);
-                    insertStatement.setInt(2, idAnswer);                        
+                    insertStatement.setInt(2, idAnswer);
+                    insertStatement.setBoolean(3, voteUp);
                     success = updateStatement.executeUpdate() > 0 && insertStatement.executeUpdate() > 0;
                     connection.commit();
                 }
@@ -408,30 +411,33 @@ public class StackExchange {
     }
     
     /**
-     * Web service operation
+     * Get answer vote state from a user
      * @param idUser
      * @param idAnswer
-     * @return 
+     * @return Return 0 if user hasn't vote, 1 if vote up, -1 if vote down
      */
-    @WebMethod(operationName = "isVoteAnswerAvailable")
+    @WebMethod(operationName = "getAnswerVoteState")
     @WebResult(name = "Answer")
-    public boolean isVoteAnswerAvailable(
+    public int getAnswerVoteState(
             @WebParam(name = "idUser") int idUser,
             @WebParam(name = "idAnswer") int idAnswer) {
-        boolean available = false;                        
+        int state = 0;
         try{
-            String sql = "SELECT * FROM vote_answer WHERE id_user = ? AND id_answer = ?";
+            String sql = "SELECT vote_up FROM vote_answer WHERE id_user = ? AND id_answer = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, idUser);
                 statement.setInt(2, idAnswer);
-                
-                available = statement.execute();
+
+                try (ResultSet result = statement.executeQuery()) {
+                    if (result.next())
+                        state = result.getBoolean(1) ? 1 : -1;
+                }
             }
         }
         catch(SQLException ex){
             Logger.getLogger(StackExchange.class.getName()).log(Level.SEVERE, null, ex);
         }                        
-        return available;
+        return state;
     }
     
     /**
