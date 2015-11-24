@@ -37,6 +37,7 @@ public class Answer {
         this.idQuestion = id_question;
         this.idUser = id_user;
         this.content = content;
+        this.votes = votes;
         this.timestamp = timestamp;
     }
 }
