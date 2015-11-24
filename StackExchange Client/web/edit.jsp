@@ -40,7 +40,7 @@
             "<form name='editForm' action='editpost.php' onsubmit='return validateQuestion()' method='post'>"
                 +"<input value='"+question_idLama+"' type='hidden' name='question_id'>"
                 +"<input value='"+topicLama+"' type='text' class='form-text' name='topic' placeholder='Question Topic'><br>"
-                +"<textarea value='"+contentLama+"'  name='content' class='form-textarea' placeholder='Content'></textarea><br>"
+                +"<textarea name='content' class='form-textarea' placeholder='Content'>" + contentLama +"</textarea><br>"
                 +"<button class='button-post' type='submit'> Submit </button>"
             +"</form>"
         ;
