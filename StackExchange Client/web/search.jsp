@@ -1,6 +1,6 @@
 <%-- 
     Document   : index
-    Created on : Nov 12, 2015, 12:00:30 PM
+    Created on : Nov 24, 2015, 17:32:10 PM
     Author     : User
 --%>
 
@@ -19,17 +19,9 @@
         <div class="link-normalizer"><a class='title' href="index.jsp">Simple StackExchange</a></div>
         
         <br><br><br><br>
-        
-        <form name='searchForm' action='search.jsp' method='post'>
-            <input class='form-search' type="text" name="search_key" size='120%'>
-            <button class='button-search' type='submit'> Search </button>
-        </form>
-        <%
-            out.println("<div class='smalltitle-center'>Cannot find what you are looking for? ");
-            out.println("<a id = 'color-orange' href='ask.jsp?token=" + request.getParameter("token") + "'>Ask here</a></div>");
-        %>
-        <div class="smalltitle-left"> Recently Asked Questions </div>
+        <div class="smalltitle-left">Search Result</div>
         <hr class='line'>
+        
     <%
     try {
 	com.wbd.qst.QuestionWS_Service service = new com.wbd.qst.QuestionWS_Service();
@@ -39,7 +31,7 @@
         com.wbd.qst.QuestionWS_Service service3 = new com.wbd.qst.QuestionWS_Service();
 	com.wbd.qst.QuestionWS port3 = service3.getQuestionWSPort();
 	// TODO process result here
-	java.util.List<com.wbd.qst.Question> result = port.retrieveQ();        
+	java.util.List<com.wbd.qst.Question> result = port.searchQ(request.getParameter("search_key"), request.getParameter("search_key"));       
 	for(int i = 0; i < result.size() ; i++){
             String vote;
             java.util.List<com.wbd.ans.Answer> result2 = port2.getAnswerByQID(result.get(i).getIDQ());
@@ -79,7 +71,7 @@
                             + ">edit"
                         +"</a>"
 			+" | "
-                        +"<a id='color-red' href=delete.jsp?id=" + result.get(i).getIDQ() +"'>"
+                        +"<a id='color-red' href=delete.jsp?id=" + result.get(i).getIDQ() +" onclick='deleteconfirm(" + "$row['question_id']" + ")' " + "'>"
                             +"delete"
 			+"</a>"
                     +"</div>"

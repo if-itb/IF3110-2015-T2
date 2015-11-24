@@ -79,11 +79,15 @@
         %>
         
         <% out.write("<br><br><br><br><br>");%>
+
+
         
         <%
         try {
             com.wbd.ans.AnswerWS_Service service = new com.wbd.ans.AnswerWS_Service();
             com.wbd.ans.AnswerWS port = service.getAnswerWSPort();
+            com.wbd.ans.AnswerWS_Service service2 = new com.wbd.ans.AnswerWS_Service();
+            com.wbd.ans.AnswerWS port2 = service2.getAnswerWSPort();
              // TODO initialize WS operation arguments here
             int qid = Integer.parseInt(request.getParameter("id"));
             // TODO process result here
@@ -101,7 +105,7 @@
             ;
             out.write(answerTitle);
             for(int i = 0; i < result.size() ; i++){
-                
+                java.lang.String result2 = port2.getNamaAns(result.get(i).getIDAns());
                 String answer = 
                     "<div class='block-QA'>"
                         +"<div class='bQA-vote'>"
@@ -120,9 +124,9 @@
                         +"</div>"
                         +"<div class='bQA-identity'>" 
                             +"answered by "
-                            +result.get(i).getNama()
-                            +" at "
-                            +"$row['time']"
+                            +"<a id='color-blue'>"
+                            +result2
+                            +"</a>"
                         +"</div>"
                     +"</div>"
 		    +"<hr class='line'>"

@@ -22,6 +22,10 @@
 
 <xs:element name="retrieveQResponse" type="tns:retrieveQResponse"/>
 
+<xs:element name="searchQ" type="tns:searchQ"/>
+
+<xs:element name="searchQResponse" type="tns:searchQResponse"/>
+
 <xs:element name="updateQ" type="tns:updateQ"/>
 
 <xs:element name="updateQResponse" type="tns:updateQResponse"/>
@@ -34,19 +38,6 @@
 
 <xs:element name="voteUpResponse" type="tns:voteUpResponse"/>
 
-<xs:complexType name="deleteQ">
-<xs:sequence>
-<xs:element name="access_token" type="xs:string" minOccurs="0"/>
-<xs:element name="qid" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="deleteQResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="voteDown">
 <xs:sequence>
 <xs:element name="access_token" type="xs:string" minOccurs="0"/>
@@ -55,6 +46,19 @@
 </xs:complexType>
 
 <xs:complexType name="voteDownResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteQ">
+<xs:sequence>
+<xs:element name="access_token" type="xs:string" minOccurs="0"/>
+<xs:element name="qid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteQResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
 </xs:sequence>
@@ -109,6 +113,19 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="voteUp">
+<xs:sequence>
+<xs:element name="access_token" type="xs:string" minOccurs="0"/>
+<xs:element name="qid" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="voteUpResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="createQ">
 <xs:sequence>
 <xs:element name="access_token" type="xs:string" minOccurs="0"/>
@@ -123,16 +140,16 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="voteUp">
+<xs:complexType name="searchQ">
 <xs:sequence>
-<xs:element name="access_token" type="xs:string" minOccurs="0"/>
-<xs:element name="qid" type="xs:string" minOccurs="0"/>
+<xs:element name="QuestionTopic" type="xs:string" minOccurs="0"/>
+<xs:element name="Content" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="voteUpResponse">
+<xs:complexType name="searchQResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:int"/>
+<xs:element name="return" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 

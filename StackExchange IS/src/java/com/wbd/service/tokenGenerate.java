@@ -83,14 +83,17 @@ public class tokenGenerate implements ContainerResponseFilter {
 			//System.out.println(sql);
 			System.out.println("Luminto homo");
 			if(rs.next()){
-                //User is not unique
-                MD5Hashing md5 = new MD5Hashing();
-                
-                token.access_token = md5.Hash(password);
-                token.lifetime = 5;
-	
-                sql = "INSERT INTO user(access_token) VALUES(" + token.access_token + ")";
-                stmt.executeUpdate(sql);
+                                //User is not unique
+                                MD5Hashing md5 = new MD5Hashing();
+
+                                token.access_token = md5.Hash(password);
+                                token.lifetime = 5;
+
+                                sql = "INSERT INTO token(access_token,IDUser) VALUES (?,?)";
+                                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                                dbStatement.setString(1, token.access_token);
+                                dbStatement.setInt(2, rs.getInt("IDUser"));
+                                dbStatement.executeUpdate();
 			}
 
 		} catch(SQLException se){
@@ -109,8 +112,6 @@ public class tokenGenerate implements ContainerResponseFilter {
 	public Token post(@FormParam("email") String email,
 	@FormParam("password") String password) {
 		Token token = generateToken(email,password);
-                System.out.println("Ivan Weteng");
-		System.out.println(token.access_token);
 		return token;
 	}
             

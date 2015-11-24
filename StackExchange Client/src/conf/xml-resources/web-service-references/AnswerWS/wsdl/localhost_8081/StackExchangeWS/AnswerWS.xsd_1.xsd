@@ -2,9 +2,17 @@
 
 <xs:element name="Answer" type="tns:answer"/>
 
+<xs:element name="createAns" type="tns:createAns"/>
+
+<xs:element name="createAnsResponse" type="tns:createAnsResponse"/>
+
 <xs:element name="getAnswerByQID" type="tns:getAnswerByQID"/>
 
 <xs:element name="getAnswerByQIDResponse" type="tns:getAnswerByQIDResponse"/>
+
+<xs:element name="getNamaAns" type="tns:getNamaAns"/>
+
+<xs:element name="getNamaAnsResponse" type="tns:getNamaAnsResponse"/>
 
 <xs:element name="voteDown" type="tns:voteDown"/>
 
@@ -13,6 +21,32 @@
 <xs:element name="voteUp" type="tns:voteUp"/>
 
 <xs:element name="voteUpResponse" type="tns:voteUpResponse"/>
+
+<xs:complexType name="createAns">
+<xs:sequence>
+<xs:element name="access_token" type="xs:string" minOccurs="0"/>
+<xs:element name="qid" type="xs:string" minOccurs="0"/>
+<xs:element name="content" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createAnsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getNamaAns">
+<xs:sequence>
+<xs:element name="idans" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getNamaAnsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
 
 <xs:complexType name="voteUp">
 <xs:sequence>
@@ -43,8 +77,7 @@
 <xs:sequence>
 <xs:element name="IDAns" type="xs:int"/>
 <xs:element name="IDQ" type="xs:int"/>
-<xs:element name="Nama" type="xs:string"/>
-<xs:element name="Email" type="xs:string"/>
+<xs:element name="IDUser" type="xs:int"/>
 <xs:element name="Answer" type="xs:string"/>
 <xs:element name="Vote" type="xs:int"/>
 </xs:sequence>

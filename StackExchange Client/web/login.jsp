@@ -88,7 +88,7 @@
             }
         }
         else{
-            out.println("Tidak ada cookies");
+            //out.println("Tidak ada cookies");
         }
         %>
 

@@ -120,7 +120,6 @@ public class QuestionWS {
 
             // Turn on transactions
             conn.setAutoCommit(false);
-
             Statement stmt = conn.createStatement();
             String sql = "UPDATE question SET QuestionTopic = ?, Content = ? WHERE IDQ = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -261,5 +260,34 @@ public class QuestionWS {
             
         }
         return result;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "searchQ")
+    public ArrayList<Question> searchQ(@WebParam(name = "QuestionTopic") String QuestionTopic, @WebParam(name = "Content") String Content) {
+        ArrayList<Question> questions = new ArrayList<Question>();
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd?zeroDateTimeBehavior=convertToNull","root","");
+            Statement stmt = conn.createStatement();
+            String sql;
+            sql = "SELECT * FROM question WHERE QuestionTopic LIKE '%" + QuestionTopic + "%' OR (Content LIKE '%" + Content + "%')";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            ResultSet rs = dbStatement.executeQuery();
+            
+            int i = 0;
+            while (rs.next()){
+                questions.add(new Question(rs.getInt("IDQ"),rs.getInt("IDUser"),rs.getString("QuestionTopic"),rs.getString("Content"),rs.getInt("Vote")));
+                ++i;
+            }
+            
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex){
+            //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return questions;
     }
 }

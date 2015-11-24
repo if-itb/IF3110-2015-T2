@@ -4,11 +4,23 @@
 <xsd:import namespace="http://qst.wbd.com/" schemaLocation="http://localhost:8081/StackExchangeWS/QuestionWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getNama">
-<part name="parameters" element="tns:getNama"/>
+<message name="getQuestionbyID">
+<part name="parameters" element="tns:getQuestionbyID"/>
 </message>
-<message name="getNamaResponse">
-<part name="parameters" element="tns:getNamaResponse"/>
+<message name="getQuestionbyIDResponse">
+<part name="parameters" element="tns:getQuestionbyIDResponse"/>
+</message>
+<message name="voteDown">
+<part name="parameters" element="tns:voteDown"/>
+</message>
+<message name="voteDownResponse">
+<part name="parameters" element="tns:voteDownResponse"/>
+</message>
+<message name="voteUp">
+<part name="parameters" element="tns:voteUp"/>
+</message>
+<message name="voteUpResponse">
+<part name="parameters" element="tns:voteUpResponse"/>
 </message>
 <message name="retrieveQ">
 <part name="parameters" element="tns:retrieveQ"/>
@@ -28,34 +40,36 @@
 <message name="deleteQResponse">
 <part name="parameters" element="tns:deleteQResponse"/>
 </message>
+<message name="getNama">
+<part name="parameters" element="tns:getNama"/>
+</message>
+<message name="getNamaResponse">
+<part name="parameters" element="tns:getNamaResponse"/>
+</message>
 <message name="updateQ">
 <part name="parameters" element="tns:updateQ"/>
 </message>
 <message name="updateQResponse">
 <part name="parameters" element="tns:updateQResponse"/>
 </message>
-<message name="getQuestionbyID">
-<part name="parameters" element="tns:getQuestionbyID"/>
+<message name="searchQ">
+<part name="parameters" element="tns:searchQ"/>
 </message>
-<message name="getQuestionbyIDResponse">
-<part name="parameters" element="tns:getQuestionbyIDResponse"/>
-</message>
-<message name="voteUp">
-<part name="parameters" element="tns:voteUp"/>
-</message>
-<message name="voteUpResponse">
-<part name="parameters" element="tns:voteUpResponse"/>
-</message>
-<message name="voteDown">
-<part name="parameters" element="tns:voteDown"/>
-</message>
-<message name="voteDownResponse">
-<part name="parameters" element="tns:voteDownResponse"/>
+<message name="searchQResponse">
+<part name="parameters" element="tns:searchQResponse"/>
 </message>
 <portType name="QuestionWS">
-<operation name="getNama">
-<input wsam:Action="http://qst.wbd.com/QuestionWS/getNamaRequest" message="tns:getNama"/>
-<output wsam:Action="http://qst.wbd.com/QuestionWS/getNamaResponse" message="tns:getNamaResponse"/>
+<operation name="getQuestionbyID">
+<input wsam:Action="http://qst.wbd.com/QuestionWS/getQuestionbyIDRequest" message="tns:getQuestionbyID"/>
+<output wsam:Action="http://qst.wbd.com/QuestionWS/getQuestionbyIDResponse" message="tns:getQuestionbyIDResponse"/>
+</operation>
+<operation name="voteDown">
+<input wsam:Action="http://qst.wbd.com/QuestionWS/voteDownRequest" message="tns:voteDown"/>
+<output wsam:Action="http://qst.wbd.com/QuestionWS/voteDownResponse" message="tns:voteDownResponse"/>
+</operation>
+<operation name="voteUp">
+<input wsam:Action="http://qst.wbd.com/QuestionWS/voteUpRequest" message="tns:voteUp"/>
+<output wsam:Action="http://qst.wbd.com/QuestionWS/voteUpResponse" message="tns:voteUpResponse"/>
 </operation>
 <operation name="retrieveQ">
 <input wsam:Action="http://qst.wbd.com/QuestionWS/retrieveQRequest" message="tns:retrieveQ"/>
@@ -69,26 +83,40 @@
 <input wsam:Action="http://qst.wbd.com/QuestionWS/deleteQRequest" message="tns:deleteQ"/>
 <output wsam:Action="http://qst.wbd.com/QuestionWS/deleteQResponse" message="tns:deleteQResponse"/>
 </operation>
+<operation name="getNama">
+<input wsam:Action="http://qst.wbd.com/QuestionWS/getNamaRequest" message="tns:getNama"/>
+<output wsam:Action="http://qst.wbd.com/QuestionWS/getNamaResponse" message="tns:getNamaResponse"/>
+</operation>
 <operation name="updateQ">
 <input wsam:Action="http://qst.wbd.com/QuestionWS/updateQRequest" message="tns:updateQ"/>
 <output wsam:Action="http://qst.wbd.com/QuestionWS/updateQResponse" message="tns:updateQResponse"/>
 </operation>
-<operation name="getQuestionbyID">
-<input wsam:Action="http://qst.wbd.com/QuestionWS/getQuestionbyIDRequest" message="tns:getQuestionbyID"/>
-<output wsam:Action="http://qst.wbd.com/QuestionWS/getQuestionbyIDResponse" message="tns:getQuestionbyIDResponse"/>
-</operation>
-<operation name="voteUp">
-<input wsam:Action="http://qst.wbd.com/QuestionWS/voteUpRequest" message="tns:voteUp"/>
-<output wsam:Action="http://qst.wbd.com/QuestionWS/voteUpResponse" message="tns:voteUpResponse"/>
-</operation>
-<operation name="voteDown">
-<input wsam:Action="http://qst.wbd.com/QuestionWS/voteDownRequest" message="tns:voteDown"/>
-<output wsam:Action="http://qst.wbd.com/QuestionWS/voteDownResponse" message="tns:voteDownResponse"/>
+<operation name="searchQ">
+<input wsam:Action="http://qst.wbd.com/QuestionWS/searchQRequest" message="tns:searchQ"/>
+<output wsam:Action="http://qst.wbd.com/QuestionWS/searchQResponse" message="tns:searchQResponse"/>
 </operation>
 </portType>
 <binding name="QuestionWSPortBinding" type="tns:QuestionWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getNama">
+<operation name="getQuestionbyID">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="voteDown">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="voteUp">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -124,6 +152,15 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="getNama">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="updateQ">
 <soap:operation soapAction=""/>
 <input>
@@ -133,25 +170,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getQuestionbyID">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="voteUp">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="voteDown">
+<operation name="searchQ">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
