@@ -48,38 +48,6 @@ public class QuestionWS {
       Connection connection = database.connectDatabase();
       Statement statement = connection.createStatement();
       
-      // Mengatur koneksi
-//      String urlString = "localhost:8082/TokenController";
-//      URL url;
-//      try {
-//        url = new URL(urlString);
-//        HttpURLConnection con;
-//        try {
-//          con = (HttpURLConnection) url.openConnection();
-//          con.setRequestMethod("GET");
-//          
-//          // Mengirim request
-//          OutputStreamWriter request = new OutputStreamWriter(con.getOutputStream());
-//          request.write("token=123abc");
-//          request.close();
-//          
-//          if (con.getResponseCode() == HttpURLConnection.HTTP_OK) {
-//            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-//            String inputLine;
-//            StringBuffer response = new StringBuffer();
-//            
-//            while ((inputLine = in.readLine()) != null) {
-//              response.append(inputLine);
-//            }
-//            in.close();
-//          }
-//        } catch (IOException ex) {
-//          Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//      } catch (MalformedURLException ex) {
-//        Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
-//      }
-      
       // Menjalankan query
       String query = "SELECT * FROM question ORDER BY datetime DESC";
       PreparedStatement databaseStatement = connection.prepareStatement(query);
