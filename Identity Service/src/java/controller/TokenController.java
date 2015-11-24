@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.*;
 import org.json.simple.parser.*;
+import main.*;
 
 /**
  * @author Irene Wiliudarsan - 13513002
@@ -39,9 +40,7 @@ public class TokenController extends HttpServlet {
    * @throws IOException if an I/O error occurs
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-    response.setContentType("text/xml;charset=UTF-8");
-    
+          throws ServletException, IOException {   
     BufferedReader in = request.getReader();
     String inputLine;
     StringBuffer stringBuffer = new StringBuffer();
@@ -54,13 +53,14 @@ public class TokenController extends HttpServlet {
     try {
       Object object = parser.parse(stringBuffer.toString());
       JSONObject req = (JSONObject) object;
-      
       String token = (String)req.get("token");
       
       response.setContentType("application/json; charset=UTF-8");
       PrintWriter writer = response.getWriter();
       JSONObject resp = new JSONObject();
-      resp.put("token", "123abc");
+      TokenExecutor executor = new TokenExecutor(token);
+      resp.put("is_valid", executor.getIsValid());
+      resp.put("id_user", executor.getIdUser());
       writer.println(resp);
     } catch (ParseException ex) {
       Logger.getLogger(TokenController.class.getName()).log(Level.SEVERE, null, ex);

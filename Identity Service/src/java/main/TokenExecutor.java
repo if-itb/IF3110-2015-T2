@@ -56,7 +56,7 @@ public class TokenExecutor {
         // Connect database
         Database database = new Database();
         connection = database.connectDatabase();
-        checkTokenExisted();
+        checkTokenValid();
         connection.close();
       } catch (SQLException ex) {
         System.out.println(ex.getMessage());
@@ -123,7 +123,7 @@ public class TokenExecutor {
       result.close();
     }
   }
-  private void checkTokenExisted() throws SQLException {
+  private void checkTokenValid() throws SQLException {
     // Menjalankan query
     try (Statement statement = connection.createStatement()) {
       // Menjalankan query
