@@ -50,6 +50,10 @@
 
 <xs:element name="getUserResponse" type="tns:getUserResponse"/>
 
+<xs:element name="search" type="tns:search"/>
+
+<xs:element name="searchResponse" type="tns:searchResponse"/>
+
 <xs:element name="updateQuestion" type="tns:updateQuestion"/>
 
 <xs:element name="updateQuestionResponse" type="tns:updateQuestionResponse"/>
@@ -140,6 +144,29 @@
 <xs:complexType name="getAnswersResponse">
 <xs:sequence>
 <xs:element name="Answer" type="tns:answer" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="search">
+<xs:sequence>
+<xs:element name="query" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="searchResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="question">
+<xs:sequence>
+<xs:element name="id" type="xs:int"/>
+<xs:element name="id_user" type="xs:int"/>
+<xs:element name="topic" type="xs:string"/>
+<xs:element name="content" type="xs:string"/>
+<xs:element name="votes" type="xs:int"/>
+<xs:element name="timestamp" type="xs:string"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -239,17 +266,6 @@
 <xs:complexType name="getQuestionsResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="question">
-<xs:sequence>
-<xs:element name="id" type="xs:int"/>
-<xs:element name="id_user" type="xs:int"/>
-<xs:element name="topic" type="xs:string"/>
-<xs:element name="content" type="xs:string"/>
-<xs:element name="votes" type="xs:int"/>
-<xs:element name="timestamp" type="xs:string"/>
 </xs:sequence>
 </xs:complexType>
 

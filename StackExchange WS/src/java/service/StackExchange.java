@@ -517,25 +517,26 @@ public class StackExchange {
      * Web service operation
      */
     @WebMethod(operationName = "search")
-    public Question search(@WebParam(name = "query")
+    public List<Question> search(@WebParam(name = "query")
             String key) {
         //TODO write your implementation code here:
-        Question question = null;
+        List<Question> question = new ArrayList<>();
         try{
-            String query = "SELECT * FROM question WHERE topic like %?% OR content LIKE %?%";
+            String query = "SELECT * FROM question WHERE topic LIKE ? OR content LIKE ?";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, key);
+            statement.setString(1, "%"+key+"%");
+            statement.setString(2, "%"+key+"%");
             
             ResultSet result = statement.executeQuery();
             if(result.next()){
-                question = new Question(
+                question.add(new Question(
                     result.getInt("id"),
                     result.getInt("id_user"),
                     result.getString("topic"),
                     result.getString("content"),
                     result.getInt("votes"),
                     result.getString("timestamp")
-                );
+                ));
             }
         }
         catch(SQLException ex){

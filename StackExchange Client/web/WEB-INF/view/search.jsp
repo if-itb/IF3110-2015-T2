@@ -1,8 +1,9 @@
 <%-- 
-    Document   : index
-    Created on : Nov 16, 2015, 8:00:36 PM
-    Author     : visat
+    Document   : search
+    Created on : Nov 24, 2015, 3:11:17 PM
+    Author     : Adz
 --%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="header.jsp" flush="true"/>
     <div class="div-search">
@@ -10,7 +11,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="input-group">
-                        <input type="search" class="form-control" placeholder="Search for..." name="key" autofocus required>
+                        <input type="search" class="form-control" placeholder="Search for..." name="q" autofocus required>
                         <span class="input-group-btn">
                             <button class="btn btn-search" type="submit">Search</button>
                         </span>
@@ -22,7 +23,7 @@
     </div>
     <br>
     <div class="container">
-        <h3>Recently Asked Questions</h3>
+        <h3>Search Result</h3>
         <hr class="heading">        
         <c:forEach items="${questions}" var="question">
             <div class=question-item>

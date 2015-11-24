@@ -4,11 +4,29 @@
 <xsd:import namespace="http://service/" schemaLocation="http://localhost:8080/StackExchange_WS/StackExchange?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="search">
+<part name="parameters" element="tns:search"/>
+</message>
+<message name="searchResponse">
+<part name="parameters" element="tns:searchResponse"/>
+</message>
+<message name="getQuestions">
+<part name="parameters" element="tns:getQuestions"/>
+</message>
+<message name="getQuestionsResponse">
+<part name="parameters" element="tns:getQuestionsResponse"/>
+</message>
 <message name="addUser">
 <part name="parameters" element="tns:addUser"/>
 </message>
 <message name="addUserResponse">
 <part name="parameters" element="tns:addUserResponse"/>
+</message>
+<message name="getUser">
+<part name="parameters" element="tns:getUser"/>
+</message>
+<message name="getUserResponse">
+<part name="parameters" element="tns:getUserResponse"/>
 </message>
 <message name="addQuestion">
 <part name="parameters" element="tns:addQuestion"/>
@@ -27,12 +45,6 @@
 </message>
 <message name="updateQuestionResponse">
 <part name="parameters" element="tns:updateQuestionResponse"/>
-</message>
-<message name="getQuestionVoteState">
-<part name="parameters" element="tns:getQuestionVoteState"/>
-</message>
-<message name="getQuestionVoteStateResponse">
-<part name="parameters" element="tns:getQuestionVoteStateResponse"/>
 </message>
 <message name="voteQuestionUp">
 <part name="parameters" element="tns:voteQuestionUp"/>
@@ -76,34 +88,40 @@
 <message name="voteAnswerDownResponse">
 <part name="parameters" element="tns:voteAnswerDownResponse"/>
 </message>
-<message name="getAnswerVoteState">
-<part name="parameters" element="tns:getAnswerVoteState"/>
-</message>
-<message name="getAnswerVoteStateResponse">
-<part name="parameters" element="tns:getAnswerVoteStateResponse"/>
-</message>
 <message name="getQuestion">
 <part name="parameters" element="tns:getQuestion"/>
 </message>
 <message name="getQuestionResponse">
 <part name="parameters" element="tns:getQuestionResponse"/>
 </message>
-<message name="getQuestions">
-<part name="parameters" element="tns:getQuestions"/>
+<message name="getQuestionVoteState">
+<part name="parameters" element="tns:getQuestionVoteState"/>
 </message>
-<message name="getQuestionsResponse">
-<part name="parameters" element="tns:getQuestionsResponse"/>
+<message name="getQuestionVoteStateResponse">
+<part name="parameters" element="tns:getQuestionVoteStateResponse"/>
 </message>
-<message name="getUser">
-<part name="parameters" element="tns:getUser"/>
+<message name="getAnswerVoteState">
+<part name="parameters" element="tns:getAnswerVoteState"/>
 </message>
-<message name="getUserResponse">
-<part name="parameters" element="tns:getUserResponse"/>
+<message name="getAnswerVoteStateResponse">
+<part name="parameters" element="tns:getAnswerVoteStateResponse"/>
 </message>
 <portType name="StackExchange">
+<operation name="search">
+<input wsam:Action="http://service/StackExchange/searchRequest" message="tns:search"/>
+<output wsam:Action="http://service/StackExchange/searchResponse" message="tns:searchResponse"/>
+</operation>
+<operation name="getQuestions">
+<input wsam:Action="http://service/StackExchange/getQuestionsRequest" message="tns:getQuestions"/>
+<output wsam:Action="http://service/StackExchange/getQuestionsResponse" message="tns:getQuestionsResponse"/>
+</operation>
 <operation name="addUser">
 <input wsam:Action="http://service/StackExchange/addUserRequest" message="tns:addUser"/>
 <output wsam:Action="http://service/StackExchange/addUserResponse" message="tns:addUserResponse"/>
+</operation>
+<operation name="getUser">
+<input wsam:Action="http://service/StackExchange/getUserRequest" message="tns:getUser"/>
+<output wsam:Action="http://service/StackExchange/getUserResponse" message="tns:getUserResponse"/>
 </operation>
 <operation name="addQuestion">
 <input wsam:Action="http://service/StackExchange/addQuestionRequest" message="tns:addQuestion"/>
@@ -116,10 +134,6 @@
 <operation name="updateQuestion">
 <input wsam:Action="http://service/StackExchange/updateQuestionRequest" message="tns:updateQuestion"/>
 <output wsam:Action="http://service/StackExchange/updateQuestionResponse" message="tns:updateQuestionResponse"/>
-</operation>
-<operation name="getQuestionVoteState">
-<input wsam:Action="http://service/StackExchange/getQuestionVoteStateRequest" message="tns:getQuestionVoteState"/>
-<output wsam:Action="http://service/StackExchange/getQuestionVoteStateResponse" message="tns:getQuestionVoteStateResponse"/>
 </operation>
 <operation name="voteQuestionUp">
 <input wsam:Action="http://service/StackExchange/voteQuestionUpRequest" message="tns:voteQuestionUp"/>
@@ -149,26 +163,49 @@
 <input wsam:Action="http://service/StackExchange/voteAnswerDownRequest" message="tns:voteAnswerDown"/>
 <output wsam:Action="http://service/StackExchange/voteAnswerDownResponse" message="tns:voteAnswerDownResponse"/>
 </operation>
-<operation name="getAnswerVoteState">
-<input wsam:Action="http://service/StackExchange/getAnswerVoteStateRequest" message="tns:getAnswerVoteState"/>
-<output wsam:Action="http://service/StackExchange/getAnswerVoteStateResponse" message="tns:getAnswerVoteStateResponse"/>
-</operation>
 <operation name="getQuestion">
 <input wsam:Action="http://service/StackExchange/getQuestionRequest" message="tns:getQuestion"/>
 <output wsam:Action="http://service/StackExchange/getQuestionResponse" message="tns:getQuestionResponse"/>
 </operation>
-<operation name="getQuestions">
-<input wsam:Action="http://service/StackExchange/getQuestionsRequest" message="tns:getQuestions"/>
-<output wsam:Action="http://service/StackExchange/getQuestionsResponse" message="tns:getQuestionsResponse"/>
+<operation name="getQuestionVoteState">
+<input wsam:Action="http://service/StackExchange/getQuestionVoteStateRequest" message="tns:getQuestionVoteState"/>
+<output wsam:Action="http://service/StackExchange/getQuestionVoteStateResponse" message="tns:getQuestionVoteStateResponse"/>
 </operation>
-<operation name="getUser">
-<input wsam:Action="http://service/StackExchange/getUserRequest" message="tns:getUser"/>
-<output wsam:Action="http://service/StackExchange/getUserResponse" message="tns:getUserResponse"/>
+<operation name="getAnswerVoteState">
+<input wsam:Action="http://service/StackExchange/getAnswerVoteStateRequest" message="tns:getAnswerVoteState"/>
+<output wsam:Action="http://service/StackExchange/getAnswerVoteStateResponse" message="tns:getAnswerVoteStateResponse"/>
 </operation>
 </portType>
 <binding name="StackExchangePortBinding" type="tns:StackExchange">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="search">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getQuestions">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="addUser">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getUser">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -196,15 +233,6 @@
 </output>
 </operation>
 <operation name="updateQuestion">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getQuestionVoteState">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -276,15 +304,6 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getAnswerVoteState">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="getQuestion">
 <soap:operation soapAction=""/>
 <input>
@@ -294,7 +313,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getQuestions">
+<operation name="getQuestionVoteState">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -303,7 +322,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getUser">
+<operation name="getAnswerVoteState">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
