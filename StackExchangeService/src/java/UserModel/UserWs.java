@@ -18,10 +18,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 
-/**
- *
- * @author FiqieUlya
- */
+
 @WebService(serviceName = "UserWs")
 public class UserWs {
 
@@ -62,7 +59,7 @@ public class UserWs {
         return password;
     }
     @WebMethod(operationName = "createAccount")
-     public boolean createAccount(@WebParam(name = "username") String uname, @WebParam(name = "password") String pwd,
+     public Boolean createAccount(@WebParam(name = "username") String uname, @WebParam(name = "password") String pwd,
              @WebParam(name = "email") String email, @WebParam(name = "nama") String name){
          conn = db.connect();
          Boolean status = true;
@@ -90,6 +87,6 @@ public class UserWs {
         }
         return status;
      }
-        
     
+
 }

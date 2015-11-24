@@ -1,5 +1,6 @@
 package AnswerModel;
 
+import Authentication.Auth;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,8 +81,9 @@ public class AnswerWS {
     @WebMethod(operationName = "createAnswer")
     public Boolean createAnswer(@WebParam(name = "id_question") int id_question, 
             @WebParam(name = "username") String username, 
-            @WebParam(name = "content") String content) {
-        
+            @WebParam(name = "content") String content,
+            @WebParam(name = "token") String token ) {
+        Auth auth= new Auth();
         conn = db.connect();
         Boolean status = true;
         
