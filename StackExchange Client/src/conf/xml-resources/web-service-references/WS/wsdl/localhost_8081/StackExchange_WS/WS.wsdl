@@ -4,17 +4,47 @@
 <xsd:import namespace="http://WSModel/" schemaLocation="http://localhost:8081/StackExchange_WS/WS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getAnswerByQID">
-<part name="parameters" element="tns:getAnswerByQID"/>
+<message name="getQuestionUserName">
+<part name="parameters" element="tns:getQuestionUserName"/>
 </message>
-<message name="getAnswerByQIDResponse">
-<part name="parameters" element="tns:getAnswerByQIDResponse"/>
+<message name="getQuestionUserNameResponse">
+<part name="parameters" element="tns:getQuestionUserNameResponse"/>
+</message>
+<message name="getAnswerUserName">
+<part name="parameters" element="tns:getAnswerUserName"/>
+</message>
+<message name="getAnswerUserNameResponse">
+<part name="parameters" element="tns:getAnswerUserNameResponse"/>
+</message>
+<message name="addUser">
+<part name="parameters" element="tns:addUser"/>
+</message>
+<message name="addUserResponse">
+<part name="parameters" element="tns:addUserResponse"/>
+</message>
+<message name="getAnswerByID">
+<part name="parameters" element="tns:getAnswerByID"/>
+</message>
+<message name="getAnswerByIDResponse">
+<part name="parameters" element="tns:getAnswerByIDResponse"/>
+</message>
+<message name="getSumAnswer">
+<part name="parameters" element="tns:getSumAnswer"/>
+</message>
+<message name="getSumAnswerResponse">
+<part name="parameters" element="tns:getSumAnswerResponse"/>
 </message>
 <message name="getAllQuestion">
 <part name="parameters" element="tns:getAllQuestion"/>
 </message>
 <message name="getAllQuestionResponse">
 <part name="parameters" element="tns:getAllQuestionResponse"/>
+</message>
+<message name="getAnswerByQID">
+<part name="parameters" element="tns:getAnswerByQID"/>
+</message>
+<message name="getAnswerByQIDResponse">
+<part name="parameters" element="tns:getAnswerByQIDResponse"/>
 </message>
 <message name="getQuestionByID">
 <part name="parameters" element="tns:getQuestionByID"/>
@@ -71,13 +101,33 @@
 <part name="parameters" element="tns:addAnswerResponse"/>
 </message>
 <portType name="WS">
-<operation name="getAnswerByQID">
-<input wsam:Action="http://WSModel/WS/getAnswerByQIDRequest" message="tns:getAnswerByQID"/>
-<output wsam:Action="http://WSModel/WS/getAnswerByQIDResponse" message="tns:getAnswerByQIDResponse"/>
+<operation name="getQuestionUserName">
+<input wsam:Action="http://WSModel/WS/getQuestionUserNameRequest" message="tns:getQuestionUserName"/>
+<output wsam:Action="http://WSModel/WS/getQuestionUserNameResponse" message="tns:getQuestionUserNameResponse"/>
+</operation>
+<operation name="getAnswerUserName">
+<input wsam:Action="http://WSModel/WS/getAnswerUserNameRequest" message="tns:getAnswerUserName"/>
+<output wsam:Action="http://WSModel/WS/getAnswerUserNameResponse" message="tns:getAnswerUserNameResponse"/>
+</operation>
+<operation name="addUser">
+<input wsam:Action="http://WSModel/WS/addUserRequest" message="tns:addUser"/>
+<output wsam:Action="http://WSModel/WS/addUserResponse" message="tns:addUserResponse"/>
+</operation>
+<operation name="getAnswerByID">
+<input wsam:Action="http://WSModel/WS/getAnswerByIDRequest" message="tns:getAnswerByID"/>
+<output wsam:Action="http://WSModel/WS/getAnswerByIDResponse" message="tns:getAnswerByIDResponse"/>
+</operation>
+<operation name="getSumAnswer">
+<input wsam:Action="http://WSModel/WS/getSumAnswerRequest" message="tns:getSumAnswer"/>
+<output wsam:Action="http://WSModel/WS/getSumAnswerResponse" message="tns:getSumAnswerResponse"/>
 </operation>
 <operation name="getAllQuestion">
 <input wsam:Action="http://WSModel/WS/getAllQuestionRequest" message="tns:getAllQuestion"/>
 <output wsam:Action="http://WSModel/WS/getAllQuestionResponse" message="tns:getAllQuestionResponse"/>
+</operation>
+<operation name="getAnswerByQID">
+<input wsam:Action="http://WSModel/WS/getAnswerByQIDRequest" message="tns:getAnswerByQID"/>
+<output wsam:Action="http://WSModel/WS/getAnswerByQIDResponse" message="tns:getAnswerByQIDResponse"/>
 </operation>
 <operation name="getQuestionByID">
 <input wsam:Action="http://WSModel/WS/getQuestionByIDRequest" message="tns:getQuestionByID"/>
@@ -118,7 +168,43 @@
 </portType>
 <binding name="WSPortBinding" type="tns:WS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getAnswerByQID">
+<operation name="getQuestionUserName">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getAnswerUserName">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="addUser">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getAnswerByID">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getSumAnswer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -128,6 +214,15 @@
 </output>
 </operation>
 <operation name="getAllQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getAnswerByQID">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

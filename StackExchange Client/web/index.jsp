@@ -43,7 +43,7 @@
                         </div>
 
                         <div class= questionMid>
-                            <a class ='questionTitle' href=#><% out.println(allQuestionList.get(i).getQuestionTitle()); %> <br></a>
+                            <a class ='questionTitle' href='questionAnswerPage.jsp?q_id=<%= allQuestionList.get(i).getQuestionId()%>'><% out.println(allQuestionList.get(i).getQuestionTitle()); %> <br></a>
                             <div class =questionContent>
                                 <%
                                         String str = allQuestionList.get(i).getQuestionContent();
@@ -57,7 +57,7 @@
                         </div>
 
                         <div class= questionRight>
-                            asked by <font color='blue'> <% out.println(allQuestionList.get(i).getQuestionUserId()); %> </font> |<a class='editQuestion' href='editQuestion.jsp?id=<%= allQuestionList.get(i).getQuestionId() %>'><font color='green'>edit</font> </a>|<a class='deleteQuestion' href = 'deleteQuestion.jsp?id=<%= allQuestionList.get(i).getQuestionId() %>'><font color='red'>delete</font> </a>
+                            asked by <font color='blue'> <% out.println(allQuestionList.get(i).getQuestionUserId()); %> </font> |<a class='editQuestion' href='editQuestion.jsp?id=<%= allQuestionList.get(i).getQuestionId() %>'><font color='green'>edit</font> </a>|<a class='deleteQuestion' href = 'deleteQuestionProcess.jsp?id=<%= allQuestionList.get(i).getQuestionId() %> onclick= \"return confirm('Confirm Delete?');\'><font color='red'>delete</font> </a>
                         </div>
 
                 </div>

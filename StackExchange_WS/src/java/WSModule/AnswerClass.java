@@ -6,7 +6,6 @@
 package WSModule;
 
 
-
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.*;
 /**
@@ -54,8 +53,9 @@ public class AnswerClass {
     public String getContent() {
         return content;
     }
-
-	@XmlElement(name = "answerVote")
+    
+    
+    @XmlElement(name = "answerVote")
     public int getVote() {
 
         return vote;

@@ -20,14 +20,16 @@ import java.util.ArrayList;
 /**
  *
  * @author Jessica
- */
+ */    
+
+
 public class Answer {
     final static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     final static String localhost = "jdbc:mysql://localhost:3306/wbd2";
     final static String USER = "root";
     final static String PASS = "";
     
-     public static Boolean addAnswer(int question_id, String answerContent, int userID ) {
+    public static Boolean addAnswer(int question_id, String answerContent, int userID ) {
         boolean success;
         Connection conn = null;
         Statement statement = null;
@@ -61,7 +63,7 @@ public class Answer {
         return success;
     }
      
-    public static ArrayList<AnswerClass> getAnswerByID(int answer_id) {
+    public static AnswerClass getAnswerByID(int answer_id) {
         Connection conn = null;
         Statement statement = null;
         ArrayList<AnswerClass> answerList = new ArrayList<AnswerClass>();
@@ -102,7 +104,7 @@ public class Answer {
                 e.printStackTrace();
             }
         }
-        return answerList;
+        return answerList.get(0);
     }
     
     public static ArrayList<AnswerClass> getAnswerByQID(int question_id) {
@@ -149,18 +151,62 @@ public class Answer {
         return answerList;
     }
     
-    public static Boolean voteUpAnswer(int answer_id) {
-        boolean success;
+    public static String getAnswerUserName(int userID) {
         Connection conn = null;
         Statement statement = null;
+        String userName = null;
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(localhost, USER, PASS);
+            String query = "SELECT userName FROM account WHERE userID=" + userID;
+            statement = conn.prepareStatement(query, statement.RETURN_GENERATED_KEYS);
+            userName = (statement.executeQuery(query)).toString();
+            System.out.println(userName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }               
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (conn != null) {
+            try {
+                conn.close();    
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return userName;
+    }
+  
+    public static Boolean voteUpAnswer(int answer_id, int userID) {
+        boolean success = false;
+        Connection conn = null;
+        Statement statement = null;
+        int value = 0;
         
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(localhost, USER, PASS);
             statement = conn.createStatement();
-            String query = "UPDATE answers SET vote = vote+1 WHERE answer_id = " + answer_id;
-            statement.executeUpdate(query);
-            success = true;
+            String insertVote = "INSERT INTO vote(`userID`, `answerID`) VALUES (" + userID + "," + answer_id + ")";
+            statement.executeUpdate(insertVote);
+            String checkVote = "SELECT `value` FROM vote WHERE answerID=" + answer_id + " AND userID=" + userID;
+            ResultSet rs = statement.executeQuery(checkVote);
+            if(rs.next()) {
+                value = rs.getInt("value");
+            }
+            // cek value dari vote
+            if (value > -1 && value <= 1) {
+                String query = "UPDATE answers SET vote = vote+1 WHERE answer_id = " + answer_id;
+                statement.executeUpdate(query);
+                String query2 = "UPDATE vote SET `value` = `value`+1 WHERE answerID =" + answer_id + "AND userID=" + userID;
+                statement.executeUpdate(query2);
+                success = true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             success = false;
@@ -182,18 +228,31 @@ public class Answer {
         return success;
     }
     
-    public static Boolean voteDownAnswer(int answer_id) {
-        boolean success;
+    public static Boolean voteDownAnswer(int answer_id, int userID) {
+        boolean success = false;
         Connection conn = null;
         Statement statement = null;
+        int value = 0;
         
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(localhost, USER, PASS);
             statement = conn.createStatement();
-            String query = "UPDATE answers SET vote = vote-1 WHERE answer_id = " + answer_id;
-            statement.executeUpdate(query);
-            success = true;
+            String insertVote = "INSERT INTO vote(`userID`, `answerID`) VALUES (" + userID + "," + answer_id + ")";
+            statement.executeUpdate(insertVote);
+            String checkVote = "SELECT `value` FROM vote WHERE answerID=" + answer_id + " AND userID=" + userID;
+            ResultSet rs = statement.executeQuery(checkVote);
+            if(rs.next()) {
+                value = rs.getInt("value");
+            }
+            // cek value dari vote
+            if (value > -1 && value <= 1) {
+                String query = "UPDATE answers SET vote = vote-1 WHERE answer_id = " + answer_id;
+                statement.executeUpdate(query);
+                String query2 = "UPDATE vote SET `value` = `value`-1 WHERE answerID =" + answer_id + "AND userID=" + userID;
+                statement.executeUpdate(query2);
+                success = true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             success = false;
@@ -213,6 +272,41 @@ public class Answer {
             }
         }
         return success;
+    }
+    
+    public static int getSumAnswer(int questionId) {
+        Connection conn = null;
+        Statement statement = null;
+        int countAnswer = 0;
+        
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(localhost, USER, PASS);
+            statement = conn.createStatement();
+            int rowAnswer = statement.getMaxRows();
+            String query = "SELECT count(*) FROM answers WHERE question_id=" + questionId;
+            ResultSet rs = statement.executeQuery(query);
+            if(rs.next()) {
+                countAnswer = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }               
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (conn != null) {
+            try {
+                conn.close();    
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return countAnswer;
     }
 
 }   
