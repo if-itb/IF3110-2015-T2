@@ -6,13 +6,13 @@
 package AnswerModel;
 
 import UserModel.User;
+import UserModel.UserWS;
 import database.Database;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.*;
-import service.TokenHandler;
 
 /**
  *
@@ -24,7 +24,6 @@ import service.TokenHandler;
 public class AnswerWS {
   
   private Database db = new Database();
-  private TokenHandler _tokenHandler = new TokenHandler();
   /**
    * Web service operation
    */
@@ -60,19 +59,21 @@ public class AnswerWS {
   public boolean addAnswer(@WebParam(name = "qid") int qid, @WebParam(name = "token") String token, @WebParam(name = "content") String content) {
     //TODO write your implementation code here:
     boolean isAdded = false;
-    User u;
+    int userId = 0;
+    UserWS u = new UserWS();
+    
     try {
       Connection conn = db.connectDatabase();
       
       // Request User ke Identity Service
       String urlString = "http://localhost:8082/Identity_Service/TokenController";
-      u = _tokenHandler.getUser(token,urlString);
+      userId = u.getUserIdByToken(token,urlString);
       if (u != null) {
         String sql;
         sql = "INSERT INTO answer (id_question, id_user, content) VALUES (?,?,?)";
         PreparedStatement dbStatement = conn.prepareStatement(sql);
         dbStatement.setInt(1, qid);
-        dbStatement.setInt(2, u.getIdUser());
+        dbStatement.setInt(2, userId);
         dbStatement.setString(3, content);
         dbStatement.executeUpdate();
         isAdded = true;

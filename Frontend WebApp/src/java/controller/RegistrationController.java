@@ -20,8 +20,8 @@ import javax.xml.ws.WebServiceRef;
  * @author Devina
  */
 public class RegistrationController extends HttpServlet {
-  @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8082/Stackexchange_WS/UserWS.wsdl")
-  private UserWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/UserWS.wsdl")
+    private UserWS_Service service;
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -86,11 +86,11 @@ public class RegistrationController extends HttpServlet {
     return "Short description";
   }// </editor-fold>
 
-  private boolean addUser(java.lang.String name, java.lang.String email, java.lang.String password) {
-    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-    // If the calling of port operations may lead to race condition some synchronization is required.
-    UserWS.UserWS port = service.getUserWSPort();
-    return port.addUser(name, email, password);
-  }
+    private boolean addUser(java.lang.String name, java.lang.String email, java.lang.String password) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        UserWS.UserWS port = service.getUserWSPort();
+        return port.addUser(name, email, password);
+    }
 
 }

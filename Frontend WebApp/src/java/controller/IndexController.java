@@ -25,10 +25,8 @@ import javax.xml.ws.WebServiceRef;
  * @author Devina Ekawati - 13513088
  */
 public class IndexController extends HttpServlet {
-  @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8082/Stackexchange_WS/QuestionWS.wsdl")
-  private QuestionWS_Service service_1;
-  @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8082/Stackexchange_WS/AnswerWS.wsdl")
-  private AnswerWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/QuestionWS.wsdl")
+    private QuestionWS_Service service;
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -86,10 +84,10 @@ public class IndexController extends HttpServlet {
     return "Short description";
   }// </editor-fold>
 
-  private java.util.List<QuestionWS.Question> getQuestions() {
-    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-    // If the calling of port operations may lead to race condition some synchronization is required.
-    QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
-    return port.getQuestions();
-  }
+    private java.util.List<QuestionWS.Question> getQuestions() {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        return port.getQuestions();
+    }
 }

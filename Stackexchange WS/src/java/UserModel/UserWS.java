@@ -5,12 +5,23 @@
  */
 package UserModel;
 
+import QuestionModel.QuestionWS;
 import database.Database;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -19,6 +30,11 @@ import javax.jws.*;
 @WebService(serviceName = "UserWS")
 public class UserWS {
   Database database = new Database();
+  
+  // Konstruktor
+  public UserWS() {
+      
+  }
   
   /**
    * Web service operation
@@ -122,5 +138,72 @@ public class UserWS {
       Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
     }
     return u;
+  }
+  
+  /**
+   * Web service operation
+   */
+  @WebMethod(operationName = "getUserByToken")
+  public int getUserIdByToken(@WebParam(name = "token") String token, @WebParam(name = "urlString") String urlString) {
+    //TODO write your implementation code here:
+    boolean valid = false;
+    int userId = 0;
+    
+    try {
+      URL url = new URL(urlString);
+      HttpURLConnection connection;
+      
+      try {
+        // Mengubah token ke dalam bentuk JSON
+        JSONObject request = new JSONObject();
+        try {
+          request.put("token", token);
+        } catch (JSONException ex) {
+          Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // Setting koneksi
+        connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setInstanceFollowRedirects(false);
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Content-Length", Integer.toString(request.toString().getBytes(StandardCharsets.UTF_8).length));
+        connection.setUseCaches(false);
+        
+        // Mengirim token ke Identity Service
+        DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
+        writer.write(request.toString().getBytes(StandardCharsets.UTF_8));
+        
+        // Menerima response dari Identity Service
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        String response = "";
+        
+        while ((inputLine = in.readLine()) != null) {
+          response += inputLine;
+        }
+        
+        try {
+          JSONObject tokenResponse = new JSONObject(response);
+          //result = tokenResponse.getString("token");
+          valid = tokenResponse.getBoolean("validity");
+          if (valid) {
+            userId = tokenResponse.getInt("idUser");
+          }
+        } catch (JSONException ex) {
+          Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+      } catch (IOException ex) {
+        Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      
+    } catch (MalformedURLException ex) {
+      Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    return userId;
   }
 }

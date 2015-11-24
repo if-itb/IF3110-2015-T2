@@ -6,6 +6,7 @@
 package QuestionModel;
 
 import UserModel.User;
+import UserModel.UserWS;
 import database.Database;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -23,7 +24,6 @@ import java.util.logging.Logger;
 import javax.jws.*;
 import org.json.JSONException;
 import org.json.JSONObject;
-import service.TokenHandler;
 
 /**
  *
@@ -35,7 +35,6 @@ import service.TokenHandler;
 public class QuestionWS {
   // Atribut
   private Database database = new Database();
-  private TokenHandler tokenHandler = new TokenHandler();
 
   /**
    * Web service operation
@@ -77,8 +76,9 @@ public class QuestionWS {
   @WebMethod(operationName = "addQuestion")
   public boolean addQuestion(@WebParam(name = "topic") String topic, @WebParam(name = "content") String content, @WebParam(name = "token") String token) {
     //TODO write your implementation code here:
-    boolean questionAdded;
-    User user;
+    boolean questionAdded = false;
+    int userId = 0;
+    UserWS user = new UserWS();
     
     try {
       // Connect database
@@ -86,15 +86,15 @@ public class QuestionWS {
       Statement statement = connection.createStatement();
       
       // Request User ke Identity Service dengan token
-      user = tokenHandler.getUser(token, "http://localhost:8082/Identity_Service/TokenController");
+      userId = user.getUserIdByToken(token, "http://localhost:8082/Identity_Service/TokenController");
       
-      if (user != null) {
+      if (userId > 0) {
         // Menjalankan query
         String query = "INSERT INTO question (topic, content, id_user) VALUES (?, ?, ?)";
         PreparedStatement databaseStatement = connection.prepareStatement(query);
         databaseStatement.setString(1, topic);
         databaseStatement.setString(2, content);
-        databaseStatement.setInt(3, 1);
+        databaseStatement.setInt(3, userId);
         databaseStatement.executeUpdate();
 
         statement.close();
@@ -107,64 +107,6 @@ public class QuestionWS {
     
     return questionAdded;
   }
-  
-  
-  @WebMethod(operationName = "testURL")
-  public String testURL(@WebParam(name = "token") String token) {
-    String result = "a";
-    
-    try {
-      //TODO write your implementation code here:
-      String urlString = "http://localhost:8082/Identity_Service/TokenController";
-      URL url = new URL(urlString);
-      HttpURLConnection connection;
-      
-      try {
-        JSONObject request = new JSONObject();
-        try {
-          request.put("token", "123abc");
-        } catch (JSONException ex) {
-          Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        connection = (HttpURLConnection) url.openConnection();
-        connection.setDoOutput(true);
-        connection.setInstanceFollowRedirects(false);
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Content-Length", Integer.toString(request.toString().getBytes(StandardCharsets.UTF_8).length));
-        connection.setUseCaches(false);
-        
-        DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
-        writer.write(request.toString().getBytes(StandardCharsets.UTF_8));
-        
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        String response = "";
-        
-        while ((inputLine = in.readLine()) != null) {
-          response += inputLine;
-        }
-        
-        try {
-          JSONObject tokenResponse = new JSONObject(response);
-          result = tokenResponse.getString("token");
-        } catch (JSONException ex) {
-          Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-      } catch (IOException ex) {
-        Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
-      }
-      
-    } catch (MalformedURLException ex) {
-      Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    
-    return result;
-  }
-  
   
   @WebMethod(operationName = "editQuestion")
   public boolean editQuestion(@WebParam(name = "id_question") int idQuestion, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
