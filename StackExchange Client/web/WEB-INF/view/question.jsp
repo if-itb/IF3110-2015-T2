@@ -10,11 +10,23 @@
     <hr class="heading">
         <div class="question-item">
             <div class="vote-panel">
-                <span class="vote-button vote-up glyphicon glyphicon-chevron-up"></span>
+                <c:choose>
+                    <c:when test="${empty user}"><c:set var="question_class" value="-guest"></c:set></c:when>
+                    <c:when test="${question_state > 0}"><c:set var="question_class" value="-yes"></c:set></c:when>
+                    <c:when test="${question_state < 0}"><c:set var="question_class" value="-no"></c:set></c:when>
+                    <c:otherwise><c:set var="question_class" value=""></c:set></c:otherwise>
+                </c:choose>
+                <span id="question-${question.id}-up" class="vote-button${question_class} glyphicon glyphicon-chevron-up" data-id="${question.id}" data-type="question" data-action="up"></span>
                 <div class="vote-count">
                     <span id="question-${question.id}">${question.votes}</span>
                 </div>
-                <span class="vote-button vote-down glyphicon glyphicon-chevron-down"></span>
+                <c:choose>
+                    <c:when test="${empty user}"><c:set var="question_class" value="-guest"></c:set></c:when>
+                    <c:when test="${question_state < 0}"><c:set var="question_class" value="-yes"></c:set></c:when>
+                    <c:when test="${question_state > 0}"><c:set var="question_class" value="-no"></c:set></c:when>
+                    <c:otherwise><c:set var="question_class" value=""></c:set></c:otherwise>
+                </c:choose>
+                <span id="question-${question.id}-down" class="vote-button${question_class} glyphicon glyphicon-chevron-down" data-id="${question.id}" data-type="question" data-action="down"></span>
             </div>
             <div class="question-content">
                 <p><c:out value="${question.content}"/></p><br>
@@ -35,11 +47,23 @@
             <c:forEach items="${answers}" var="answer">                
                 <div class="answer-item">
                     <div class="vote-panel">
-                        <span class="vote-button vote-up glyphicon glyphicon-chevron-up"></span>
+                        <c:choose>
+                            <c:when test="${empty user}"><c:set var="answer_class" value="-guest"></c:set></c:when>
+                            <c:when test="${answer_states[answer.id] > 0}"><c:set var="answer_class" value="-yes"></c:set></c:when>
+                            <c:when test="${answer_states[answer.id] < 0}"><c:set var="answer_class" value="-no"></c:set></c:when>
+                            <c:otherwise><c:set var="answer_class" value=""></c:set></c:otherwise>
+                        </c:choose>
+                        <span id="answer-${answer.id}-up" class="vote-button${answer_class} glyphicon glyphicon-chevron-up" data-id="${answer.id}" data-type="answer" data-action="up"></span>
                         <div class="vote-count">
                             <span id="answer-${answer.id}">${answer.votes}</span>
                         </div>
-                        <span class="vote-button vote-down glyphicon glyphicon-chevron-down"></span>
+                        <c:choose>
+                            <c:when test="${empty user}"><c:set var="answer_class" value="-guest"></c:set></c:when>
+                            <c:when test="${answer_states[answer.id] < 0}"><c:set var="answer_class" value="-yes"></c:set></c:when>
+                            <c:when test="${answer_states[answer.id] > 0}"><c:set var="answer_class" value="-no"></c:set></c:when>
+                            <c:otherwise><c:set var="answer_class" value=""></c:set></c:otherwise>
+                        </c:choose>
+                        <span id="answer-${answer.id}-down" class="vote-button${answer_class} glyphicon glyphicon-chevron-down" data-id="${answer.id}" data-type="answer" data-action="down"></span>
                     </div>
                     <div class="answer-content">
                         <p><c:out value="${answer.content}"/></p>

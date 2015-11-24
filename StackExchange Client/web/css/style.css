@@ -36,10 +36,24 @@ body {
     min-height: 71px;
 }
 
-.vote-up,
-.vote-down {
-    cursor: pointer;
+.vote-button,
+.vote-button-yes,
+.vote-button-no,
+.vote-button-guest {
     font-size: 20px;
+    color: #ff9090;
+}
+
+.vote-button {
+    cursor: pointer;
+}
+
+.vote-button-yes {
+    color: #ff3030;
+}
+
+.vote-button-no {
+    opacity: 0.5;
 }
 
 .vote-count,

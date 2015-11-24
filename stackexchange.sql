@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `question` (
 CREATE TABLE IF NOT EXISTS `token` (
   `user_id` int(11) NOT NULL,
   `access_token` varchar(255) NOT NULL,
-  `expire_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `expire_date` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -83,7 +83,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 CREATE TABLE IF NOT EXISTS `vote_answer` (
   `id_user` int(11) NOT NULL,
-  `id_answer` int(11) NOT NULL
+  `id_answer` int(11) NOT NULL,
+  `vote_up` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -94,7 +95,8 @@ CREATE TABLE IF NOT EXISTS `vote_answer` (
 
 CREATE TABLE IF NOT EXISTS `vote_question` (
   `id_user` int(11) NOT NULL,
-  `id_question` int(11) NOT NULL
+  `id_question` int(11) NOT NULL,
+  `vote_up` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
