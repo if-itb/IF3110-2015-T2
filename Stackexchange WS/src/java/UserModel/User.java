@@ -21,18 +21,18 @@ public class User {
   private String name;
   @XmlElement(name="email", required=true)
   private String email;
-  @XmlElement(name="password", required=true)
-  private String password;
+  @XmlElement(name="token", required=true)
+  private String token;
   
   // Konstruktor
   public User () {
     idUser = 0;
   }
   
-  public User (int _idUser, String _name, String _email, String _password) {
+  public User (int _idUser, String _name, String _email, String _token) {
     idUser = _idUser;
     name = _name;
     email = _email;
-    password = _password;
+    token = _token;
   }
 }

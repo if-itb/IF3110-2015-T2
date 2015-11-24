@@ -6,11 +6,22 @@
 package QuestionModel;
 
 import database.Database;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -36,6 +47,38 @@ public class QuestionWS {
       // Connect database
       Connection connection = database.connectDatabase();
       Statement statement = connection.createStatement();
+      
+      // Mengatur koneksi
+//      String urlString = "localhost:8082/TokenController";
+//      URL url;
+//      try {
+//        url = new URL(urlString);
+//        HttpURLConnection con;
+//        try {
+//          con = (HttpURLConnection) url.openConnection();
+//          con.setRequestMethod("GET");
+//          
+//          // Mengirim request
+//          OutputStreamWriter request = new OutputStreamWriter(con.getOutputStream());
+//          request.write("token=123abc");
+//          request.close();
+//          
+//          if (con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+//            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+//            String inputLine;
+//            StringBuffer response = new StringBuffer();
+//            
+//            while ((inputLine = in.readLine()) != null) {
+//              response.append(inputLine);
+//            }
+//            in.close();
+//          }
+//        } catch (IOException ex) {
+//          Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//      } catch (MalformedURLException ex) {
+//        Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+//      }
       
       // Menjalankan query
       String query = "SELECT * FROM question ORDER BY datetime DESC";
@@ -87,6 +130,64 @@ public class QuestionWS {
     
     return questionAdded;
   }
+  
+  
+  @WebMethod(operationName = "testURL")
+  public String testURL(@WebParam(name = "token") String token) {
+    String result = "a";
+    
+    try {
+      //TODO write your implementation code here:
+      String urlString = "http://localhost:8082/Identity_Service/TokenController";
+      URL url = new URL(urlString);
+      HttpURLConnection connection;
+      
+      try {
+        JSONObject request = new JSONObject();
+        try {
+          request.put("token", "123abc");
+        } catch (JSONException ex) {
+          Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setInstanceFollowRedirects(false);
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Content-Length", Integer.toString(request.toString().getBytes(StandardCharsets.UTF_8).length));
+        connection.setUseCaches(false);
+        
+        DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
+        writer.write(request.toString().getBytes(StandardCharsets.UTF_8));
+        
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        String response = "";
+        
+        while ((inputLine = in.readLine()) != null) {
+          response += inputLine;
+        }
+        
+        try {
+          JSONObject tokenResponse = new JSONObject(response);
+          result = tokenResponse.getString("token");
+        } catch (JSONException ex) {
+          Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+      } catch (IOException ex) {
+        Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      
+    } catch (MalformedURLException ex) {
+      Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    return result;
+  }
+  
   
   @WebMethod(operationName = "editQuestion")
   public boolean editQuestion(@WebParam(name = "id_question") int idQuestion, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
