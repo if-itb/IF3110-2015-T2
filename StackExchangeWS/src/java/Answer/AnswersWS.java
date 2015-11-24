@@ -13,11 +13,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebResult;
 
 /**
  *
@@ -26,22 +28,58 @@ import javax.jws.WebParam;
 @WebService(serviceName = "AnswersWS")
 public class AnswersWS {
 
-    Connection conn = DB.getConnection();
+    Connection connAns = DB.getConnection();
+    
+    
 
     /**
      * Web service operation
+     * @return 
      */
-    @WebMethod(operationName = "getAnswersByQid")
-    public List getAnswersByQid(@WebParam(name = "qid") int qid) {
+    @WebMethod(operationName = "insertAnswer")
+    public int insertAnswer(@WebParam(name = "token") String token, @WebParam(name = "q_id") int q_id, @WebParam(name = "content") String content) {
+        int res = 0;
+        
+        /* TOKEN VALIDATION: Incomplete */
+        int user_id = 7; /* get user by token: incomplete */
+        
+        try (Statement st = connAns.createStatement()) {
+            
+            String query = "INSERT INTO `answers` (uid, qid, content) VALUES (?, ?, ?)";
+            
+            // set the prepared statement by the query and enter the value of where clause
+            try (PreparedStatement pst = connAns.prepareStatement(query)) {
+                pst.setInt(1, user_id);
+                pst.setInt(2, q_id);
+                pst.setString(3, content);
+                // execute update
+                res = pst.executeUpdate();
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AnswersWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return res;
+    }
+
+    /**
+     * Web service operation
+     * @param qid
+     * @return 
+     */
+    @WebMethod(operationName = "getQuestionByQid")
+    @WebResult(name = "Answers")
+    public List getQuestionByQid(@WebParam(name = "qid") int qid) {
         //TODO write your implementation code here:
         List<Answer> answers = new ArrayList<>();
         
-        try (Statement st = conn.createStatement()) {
+        try (Statement st = connAns.createStatement()) {
             
             String query = "SELECT * FROM `answers` WHERE qid = ?";
                 
             // set the prepared statement by the query and enter the value of where clause
-            PreparedStatement pst = conn.prepareStatement(query);
+            PreparedStatement pst = connAns.prepareStatement(query);
             pst.setInt(1, qid);
                
             try (ResultSet res = pst.executeQuery()) {
