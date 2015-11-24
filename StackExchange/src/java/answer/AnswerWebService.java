@@ -60,13 +60,18 @@ public class AnswerWebService {
     @WebMethod(operationName = "decrVote")
     @WebResult(name="String")
     public String decrVote(String token, int id) {
-        String result = new String();
-        String query = "UPDATE answer SET answer_vote = answer_vote - 1 WHERE answer_id = " + id;
-        Database database = new Database();
-        database.connect(path);
-        result = database.changeData(query);
-        database.closeDatabase();
-        return result;
+        Auth auth = new Auth(token);
+        if(auth.getResponse(url)){
+            String result = new String();
+            String query = "UPDATE answer SET answer_vote = answer_vote - 1 WHERE answer_id = " + id;
+            Database database = new Database();
+            database.connect(path);
+            result = database.changeData(query);
+            database.closeDatabase();
+            return result;
+        } else {
+            return "not executed";
+        }
     }
     
     @WebMethod(operationName = "getAnswerByQid")
