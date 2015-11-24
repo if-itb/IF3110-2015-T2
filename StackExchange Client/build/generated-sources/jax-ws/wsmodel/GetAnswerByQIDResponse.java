@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}anyType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="return" type="{http://WSModel/}answerClass" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetAnswerByQIDResponse {
 
     @XmlElement(name = "return")
-    protected List<Object> _return;
+    protected List<AnswerClass> _return;
 
     /**
      * Gets the value of the return property.
@@ -55,13 +55,13 @@ public class GetAnswerByQIDResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Object }
+     * {@link AnswerClass }
      * 
      * 
      */
-    public List<Object> getReturn() {
+    public List<AnswerClass> getReturn() {
         if (_return == null) {
-            _return = new ArrayList<Object>();
+            _return = new ArrayList<AnswerClass>();
         }
         return this._return;
     }

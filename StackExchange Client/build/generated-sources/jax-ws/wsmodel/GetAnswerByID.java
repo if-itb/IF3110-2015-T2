@@ -8,16 +8,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for getAnswerByQID complex type.
+ * <p>Java class for getAnswerByID complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="getAnswerByQID"&gt;
+ * &lt;complexType name="getAnswerByID"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="question_id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="answer_id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -27,28 +27,28 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getAnswerByQID", propOrder = {
-    "questionId"
+@XmlType(name = "getAnswerByID", propOrder = {
+    "answerId"
 })
-public class GetAnswerByQID {
+public class GetAnswerByID {
 
-    @XmlElement(name = "question_id")
-    protected int questionId;
+    @XmlElement(name = "answer_id")
+    protected int answerId;
 
     /**
-     * Gets the value of the questionId property.
+     * Gets the value of the answerId property.
      * 
      */
-    public int getQuestionId() {
-        return questionId;
+    public int getAnswerId() {
+        return answerId;
     }
 
     /**
-     * Sets the value of the questionId property.
+     * Sets the value of the answerId property.
      * 
      */
-    public void setQuestionId(int value) {
-        this.questionId = value;
+    public void setAnswerId(int value) {
+        this.answerId = value;
     }
 
 }

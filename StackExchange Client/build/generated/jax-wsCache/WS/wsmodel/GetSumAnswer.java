@@ -8,12 +8,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for getAnswerByQID complex type.
+ * <p>Java class for getSumAnswer complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="getAnswerByQID"&gt;
+ * &lt;complexType name="getSumAnswer"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
@@ -27,10 +27,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getAnswerByQID", propOrder = {
+@XmlType(name = "getSumAnswer", propOrder = {
     "questionId"
 })
-public class GetAnswerByQID {
+public class GetSumAnswer {
 
     @XmlElement(name = "question_id")
     protected int questionId;

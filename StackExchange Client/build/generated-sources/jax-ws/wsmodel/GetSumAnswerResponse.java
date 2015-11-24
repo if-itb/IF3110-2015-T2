@@ -8,16 +8,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for getAnswerByQID complex type.
+ * <p>Java class for getSumAnswerResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="getAnswerByQID"&gt;
+ * &lt;complexType name="getSumAnswerResponse"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="question_id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -27,28 +27,28 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getAnswerByQID", propOrder = {
-    "questionId"
+@XmlType(name = "getSumAnswerResponse", propOrder = {
+    "_return"
 })
-public class GetAnswerByQID {
+public class GetSumAnswerResponse {
 
-    @XmlElement(name = "question_id")
-    protected int questionId;
+    @XmlElement(name = "return")
+    protected int _return;
 
     /**
-     * Gets the value of the questionId property.
+     * Gets the value of the return property.
      * 
      */
-    public int getQuestionId() {
-        return questionId;
+    public int getReturn() {
+        return _return;
     }
 
     /**
-     * Sets the value of the questionId property.
+     * Sets the value of the return property.
      * 
      */
-    public void setQuestionId(int value) {
-        this.questionId = value;
+    public void setReturn(int value) {
+        this._return = value;
     }
 
 }

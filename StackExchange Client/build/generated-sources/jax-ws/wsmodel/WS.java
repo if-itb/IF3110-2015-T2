@@ -27,17 +27,83 @@ public interface WS {
 
     /**
      * 
-     * @param questionId
+     * @param userID
      * @return
-     *     returns java.util.List<java.lang.Object>
+     *     returns java.lang.String
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getAnswerByQID", targetNamespace = "http://WSModel/", className = "wsmodel.GetAnswerByQID")
-    @ResponseWrapper(localName = "getAnswerByQIDResponse", targetNamespace = "http://WSModel/", className = "wsmodel.GetAnswerByQIDResponse")
-    @Action(input = "http://WSModel/WS/getAnswerByQIDRequest", output = "http://WSModel/WS/getAnswerByQIDResponse")
-    public List<Object> getAnswerByQID(
-        @WebParam(name = "questionId", targetNamespace = "")
+    @RequestWrapper(localName = "getQuestionUserName", targetNamespace = "http://WSModel/", className = "wsmodel.GetQuestionUserName")
+    @ResponseWrapper(localName = "getQuestionUserNameResponse", targetNamespace = "http://WSModel/", className = "wsmodel.GetQuestionUserNameResponse")
+    @Action(input = "http://WSModel/WS/getQuestionUserNameRequest", output = "http://WSModel/WS/getQuestionUserNameResponse")
+    public String getQuestionUserName(
+        @WebParam(name = "userID", targetNamespace = "")
+        int userID);
+
+    /**
+     * 
+     * @param userID
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAnswerUserName", targetNamespace = "http://WSModel/", className = "wsmodel.GetAnswerUserName")
+    @ResponseWrapper(localName = "getAnswerUserNameResponse", targetNamespace = "http://WSModel/", className = "wsmodel.GetAnswerUserNameResponse")
+    @Action(input = "http://WSModel/WS/getAnswerUserNameRequest", output = "http://WSModel/WS/getAnswerUserNameResponse")
+    public String getAnswerUserName(
+        @WebParam(name = "userID", targetNamespace = "")
+        int userID);
+
+    /**
+     * 
+     * @param password
+     * @param userName
+     * @param email
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "addUser", targetNamespace = "http://WSModel/", className = "wsmodel.AddUser")
+    @ResponseWrapper(localName = "addUserResponse", targetNamespace = "http://WSModel/", className = "wsmodel.AddUserResponse")
+    @Action(input = "http://WSModel/WS/addUserRequest", output = "http://WSModel/WS/addUserResponse")
+    public Boolean addUser(
+        @WebParam(name = "userName", targetNamespace = "")
+        String userName,
+        @WebParam(name = "password", targetNamespace = "")
+        String password,
+        @WebParam(name = "email", targetNamespace = "")
+        String email);
+
+    /**
+     * 
+     * @param answerId
+     * @return
+     *     returns wsmodel.AnswerClass
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAnswerByID", targetNamespace = "http://WSModel/", className = "wsmodel.GetAnswerByID")
+    @ResponseWrapper(localName = "getAnswerByIDResponse", targetNamespace = "http://WSModel/", className = "wsmodel.GetAnswerByIDResponse")
+    @Action(input = "http://WSModel/WS/getAnswerByIDRequest", output = "http://WSModel/WS/getAnswerByIDResponse")
+    public AnswerClass getAnswerByID(
+        @WebParam(name = "answer_id", targetNamespace = "")
+        int answerId);
+
+    /**
+     * 
+     * @param questionId
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getSumAnswer", targetNamespace = "http://WSModel/", className = "wsmodel.GetSumAnswer")
+    @ResponseWrapper(localName = "getSumAnswerResponse", targetNamespace = "http://WSModel/", className = "wsmodel.GetSumAnswerResponse")
+    @Action(input = "http://WSModel/WS/getSumAnswerRequest", output = "http://WSModel/WS/getSumAnswerResponse")
+    public int getSumAnswer(
+        @WebParam(name = "question_id", targetNamespace = "")
         int questionId);
 
     /**
@@ -51,6 +117,21 @@ public interface WS {
     @ResponseWrapper(localName = "getAllQuestionResponse", targetNamespace = "http://WSModel/", className = "wsmodel.GetAllQuestionResponse")
     @Action(input = "http://WSModel/WS/getAllQuestionRequest", output = "http://WSModel/WS/getAllQuestionResponse")
     public List<QuestionClass> getAllQuestion();
+
+    /**
+     * 
+     * @param questionId
+     * @return
+     *     returns java.util.List<wsmodel.AnswerClass>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAnswerByQID", targetNamespace = "http://WSModel/", className = "wsmodel.GetAnswerByQID")
+    @ResponseWrapper(localName = "getAnswerByQIDResponse", targetNamespace = "http://WSModel/", className = "wsmodel.GetAnswerByQIDResponse")
+    @Action(input = "http://WSModel/WS/getAnswerByQIDRequest", output = "http://WSModel/WS/getAnswerByQIDResponse")
+    public List<AnswerClass> getAnswerByQID(
+        @WebParam(name = "question_id", targetNamespace = "")
+        int questionId);
 
     /**
      * 
@@ -106,6 +187,7 @@ public interface WS {
     /**
      * 
      * @param questionId
+     * @param userID
      * @return
      *     returns java.lang.Boolean
      */
@@ -116,11 +198,14 @@ public interface WS {
     @Action(input = "http://WSModel/WS/voteUpQuestionRequest", output = "http://WSModel/WS/voteUpQuestionResponse")
     public Boolean voteUpQuestion(
         @WebParam(name = "questionId", targetNamespace = "")
-        int questionId);
+        int questionId,
+        @WebParam(name = "userID", targetNamespace = "")
+        int userID);
 
     /**
      * 
      * @param questionId
+     * @param userID
      * @return
      *     returns java.lang.Boolean
      */
@@ -131,12 +216,14 @@ public interface WS {
     @Action(input = "http://WSModel/WS/voteDownQuestionRequest", output = "http://WSModel/WS/voteDownQuestionResponse")
     public Boolean voteDownQuestion(
         @WebParam(name = "questionId", targetNamespace = "")
-        int questionId);
+        int questionId,
+        @WebParam(name = "userID", targetNamespace = "")
+        int userID);
 
     /**
      * 
      * @param answerId
-     * @param questionId
+     * @param userID
      * @return
      *     returns java.lang.Boolean
      */
@@ -146,15 +233,15 @@ public interface WS {
     @ResponseWrapper(localName = "voteUpAnswerResponse", targetNamespace = "http://WSModel/", className = "wsmodel.VoteUpAnswerResponse")
     @Action(input = "http://WSModel/WS/voteUpAnswerRequest", output = "http://WSModel/WS/voteUpAnswerResponse")
     public Boolean voteUpAnswer(
-        @WebParam(name = "answerId", targetNamespace = "")
+        @WebParam(name = "answer_id", targetNamespace = "")
         int answerId,
-        @WebParam(name = "questionId", targetNamespace = "")
-        String questionId);
+        @WebParam(name = "userID", targetNamespace = "")
+        int userID);
 
     /**
      * 
      * @param answerId
-     * @param questionId
+     * @param userID
      * @return
      *     returns java.lang.Boolean
      */
@@ -164,10 +251,10 @@ public interface WS {
     @ResponseWrapper(localName = "voteDownAnswerResponse", targetNamespace = "http://WSModel/", className = "wsmodel.VoteDownAnswerResponse")
     @Action(input = "http://WSModel/WS/voteDownAnswerRequest", output = "http://WSModel/WS/voteDownAnswerResponse")
     public Boolean voteDownAnswer(
-        @WebParam(name = "answerId", targetNamespace = "")
+        @WebParam(name = "answer_id", targetNamespace = "")
         int answerId,
-        @WebParam(name = "questionId", targetNamespace = "")
-        int questionId);
+        @WebParam(name = "userID", targetNamespace = "")
+        int userID);
 
     /**
      * 

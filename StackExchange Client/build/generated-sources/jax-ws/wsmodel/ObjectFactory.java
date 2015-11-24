@@ -28,14 +28,25 @@ public class ObjectFactory {
     private final static QName _AddAnswerResponse_QNAME = new QName("http://WSModel/", "addAnswerResponse");
     private final static QName _AddQuestion_QNAME = new QName("http://WSModel/", "addQuestion");
     private final static QName _AddQuestionResponse_QNAME = new QName("http://WSModel/", "addQuestionResponse");
+    private final static QName _AddUser_QNAME = new QName("http://WSModel/", "addUser");
+    private final static QName _AddUserResponse_QNAME = new QName("http://WSModel/", "addUserResponse");
+    private final static QName _Answeritem_QNAME = new QName("http://WSModel/", "answeritem");
     private final static QName _DeleteQuestion_QNAME = new QName("http://WSModel/", "deleteQuestion");
     private final static QName _DeleteQuestionResponse_QNAME = new QName("http://WSModel/", "deleteQuestionResponse");
     private final static QName _GetAllQuestion_QNAME = new QName("http://WSModel/", "getAllQuestion");
     private final static QName _GetAllQuestionResponse_QNAME = new QName("http://WSModel/", "getAllQuestionResponse");
+    private final static QName _GetAnswerByID_QNAME = new QName("http://WSModel/", "getAnswerByID");
+    private final static QName _GetAnswerByIDResponse_QNAME = new QName("http://WSModel/", "getAnswerByIDResponse");
     private final static QName _GetAnswerByQID_QNAME = new QName("http://WSModel/", "getAnswerByQID");
     private final static QName _GetAnswerByQIDResponse_QNAME = new QName("http://WSModel/", "getAnswerByQIDResponse");
+    private final static QName _GetAnswerUserName_QNAME = new QName("http://WSModel/", "getAnswerUserName");
+    private final static QName _GetAnswerUserNameResponse_QNAME = new QName("http://WSModel/", "getAnswerUserNameResponse");
     private final static QName _GetQuestionByID_QNAME = new QName("http://WSModel/", "getQuestionByID");
     private final static QName _GetQuestionByIDResponse_QNAME = new QName("http://WSModel/", "getQuestionByIDResponse");
+    private final static QName _GetQuestionUserName_QNAME = new QName("http://WSModel/", "getQuestionUserName");
+    private final static QName _GetQuestionUserNameResponse_QNAME = new QName("http://WSModel/", "getQuestionUserNameResponse");
+    private final static QName _GetSumAnswer_QNAME = new QName("http://WSModel/", "getSumAnswer");
+    private final static QName _GetSumAnswerResponse_QNAME = new QName("http://WSModel/", "getSumAnswerResponse");
     private final static QName _Questionitem_QNAME = new QName("http://WSModel/", "questionitem");
     private final static QName _UpdateQuestion_QNAME = new QName("http://WSModel/", "updateQuestion");
     private final static QName _UpdateQuestionResponse_QNAME = new QName("http://WSModel/", "updateQuestionResponse");
@@ -88,6 +99,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AddUser }
+     * 
+     */
+    public AddUser createAddUser() {
+        return new AddUser();
+    }
+
+    /**
+     * Create an instance of {@link AddUserResponse }
+     * 
+     */
+    public AddUserResponse createAddUserResponse() {
+        return new AddUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link AnswerClass }
+     * 
+     */
+    public AnswerClass createAnswerClass() {
+        return new AnswerClass();
+    }
+
+    /**
      * Create an instance of {@link DeleteQuestion }
      * 
      */
@@ -120,6 +155,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetAnswerByID }
+     * 
+     */
+    public GetAnswerByID createGetAnswerByID() {
+        return new GetAnswerByID();
+    }
+
+    /**
+     * Create an instance of {@link GetAnswerByIDResponse }
+     * 
+     */
+    public GetAnswerByIDResponse createGetAnswerByIDResponse() {
+        return new GetAnswerByIDResponse();
+    }
+
+    /**
      * Create an instance of {@link GetAnswerByQID }
      * 
      */
@@ -136,6 +187,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetAnswerUserName }
+     * 
+     */
+    public GetAnswerUserName createGetAnswerUserName() {
+        return new GetAnswerUserName();
+    }
+
+    /**
+     * Create an instance of {@link GetAnswerUserNameResponse }
+     * 
+     */
+    public GetAnswerUserNameResponse createGetAnswerUserNameResponse() {
+        return new GetAnswerUserNameResponse();
+    }
+
+    /**
      * Create an instance of {@link GetQuestionByID }
      * 
      */
@@ -149,6 +216,38 @@ public class ObjectFactory {
      */
     public GetQuestionByIDResponse createGetQuestionByIDResponse() {
         return new GetQuestionByIDResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetQuestionUserName }
+     * 
+     */
+    public GetQuestionUserName createGetQuestionUserName() {
+        return new GetQuestionUserName();
+    }
+
+    /**
+     * Create an instance of {@link GetQuestionUserNameResponse }
+     * 
+     */
+    public GetQuestionUserNameResponse createGetQuestionUserNameResponse() {
+        return new GetQuestionUserNameResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetSumAnswer }
+     * 
+     */
+    public GetSumAnswer createGetSumAnswer() {
+        return new GetSumAnswer();
+    }
+
+    /**
+     * Create an instance of {@link GetSumAnswerResponse }
+     * 
+     */
+    public GetSumAnswerResponse createGetSumAnswerResponse() {
+        return new GetSumAnswerResponse();
     }
 
     /**
@@ -276,6 +375,33 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AddUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WSModel/", name = "addUser")
+    public JAXBElement<AddUser> createAddUser(AddUser value) {
+        return new JAXBElement<AddUser>(_AddUser_QNAME, AddUser.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AddUserResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WSModel/", name = "addUserResponse")
+    public JAXBElement<AddUserResponse> createAddUserResponse(AddUserResponse value) {
+        return new JAXBElement<AddUserResponse>(_AddUserResponse_QNAME, AddUserResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AnswerClass }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WSModel/", name = "answeritem")
+    public JAXBElement<AnswerClass> createAnsweritem(AnswerClass value) {
+        return new JAXBElement<AnswerClass>(_Answeritem_QNAME, AnswerClass.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link DeleteQuestion }{@code >}}
      * 
      */
@@ -312,6 +438,24 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAnswerByID }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WSModel/", name = "getAnswerByID")
+    public JAXBElement<GetAnswerByID> createGetAnswerByID(GetAnswerByID value) {
+        return new JAXBElement<GetAnswerByID>(_GetAnswerByID_QNAME, GetAnswerByID.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAnswerByIDResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WSModel/", name = "getAnswerByIDResponse")
+    public JAXBElement<GetAnswerByIDResponse> createGetAnswerByIDResponse(GetAnswerByIDResponse value) {
+        return new JAXBElement<GetAnswerByIDResponse>(_GetAnswerByIDResponse_QNAME, GetAnswerByIDResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetAnswerByQID }{@code >}}
      * 
      */
@@ -330,6 +474,24 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAnswerUserName }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WSModel/", name = "getAnswerUserName")
+    public JAXBElement<GetAnswerUserName> createGetAnswerUserName(GetAnswerUserName value) {
+        return new JAXBElement<GetAnswerUserName>(_GetAnswerUserName_QNAME, GetAnswerUserName.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAnswerUserNameResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WSModel/", name = "getAnswerUserNameResponse")
+    public JAXBElement<GetAnswerUserNameResponse> createGetAnswerUserNameResponse(GetAnswerUserNameResponse value) {
+        return new JAXBElement<GetAnswerUserNameResponse>(_GetAnswerUserNameResponse_QNAME, GetAnswerUserNameResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionByID }{@code >}}
      * 
      */
@@ -345,6 +507,42 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://WSModel/", name = "getQuestionByIDResponse")
     public JAXBElement<GetQuestionByIDResponse> createGetQuestionByIDResponse(GetQuestionByIDResponse value) {
         return new JAXBElement<GetQuestionByIDResponse>(_GetQuestionByIDResponse_QNAME, GetQuestionByIDResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionUserName }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WSModel/", name = "getQuestionUserName")
+    public JAXBElement<GetQuestionUserName> createGetQuestionUserName(GetQuestionUserName value) {
+        return new JAXBElement<GetQuestionUserName>(_GetQuestionUserName_QNAME, GetQuestionUserName.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionUserNameResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WSModel/", name = "getQuestionUserNameResponse")
+    public JAXBElement<GetQuestionUserNameResponse> createGetQuestionUserNameResponse(GetQuestionUserNameResponse value) {
+        return new JAXBElement<GetQuestionUserNameResponse>(_GetQuestionUserNameResponse_QNAME, GetQuestionUserNameResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetSumAnswer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WSModel/", name = "getSumAnswer")
+    public JAXBElement<GetSumAnswer> createGetSumAnswer(GetSumAnswer value) {
+        return new JAXBElement<GetSumAnswer>(_GetSumAnswer_QNAME, GetSumAnswer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetSumAnswerResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WSModel/", name = "getSumAnswerResponse")
+    public JAXBElement<GetSumAnswerResponse> createGetSumAnswerResponse(GetSumAnswerResponse value) {
+        return new JAXBElement<GetSumAnswerResponse>(_GetSumAnswerResponse_QNAME, GetSumAnswerResponse.class, null, value);
     }
 
     /**
