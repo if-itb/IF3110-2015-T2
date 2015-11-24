@@ -5,6 +5,7 @@
  */
 package Answer;
 
+import Question.QuestionsWS;
 import database.DB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -98,5 +99,70 @@ public class AnswersWS {
         }
         
         return answers;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "voteanswers")
+    public int voteanswers(@WebParam(name = "uid") int uid, @WebParam(name = "aid") int aid, @WebParam(name = "value") int value) {
+        int res = 0;
+        
+        /* TOKEN VALIDATION: Incomplete */
+        
+        try (Statement st = connAns.createStatement()) {
+            String query = "SELECT * FROM `vote_answers` WHERE uid = ? AND aid = ?";
+            try (PreparedStatement pstselect = connAns.prepareStatement(query)) {
+                pstselect.setInt(1, uid);
+                pstselect.setInt(2, aid);
+                // execute select
+                ResultSet ret = pstselect.executeQuery();
+                if (ret.next() == false){
+                    query = "INSERT INTO `vote_answers` (uid, aid, value) VALUES (?, ?, ?)";
+            
+                    // set the prepared statement by the query and enter the value of where clause
+                    try (PreparedStatement pstins = connAns.prepareStatement(query)) {
+                        pstins.setInt(1, uid);
+                        pstins.setInt(2, aid);
+                        pstins.setInt(3, value);
+                        // execute update
+                        res = pstins.executeUpdate();
+                    }
+                }
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return res;       }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getanswervote")
+    public int getanswervote(@WebParam(name = "aid") int aid) {
+        int res = 0;
+        ResultSet ret;
+        
+        try (Statement st = connAns.createStatement()) { 
+                String query;
+                query = "SELECT SUM(value) FROM vote_answers WHERE aid = ?";
+                // set the prepared statement by the query and enter the value of where clause
+                try (PreparedStatement pst = connAns.prepareStatement(query)){
+                    pst.setInt(1, aid);
+                    // execuResultSette select
+                    ret = pst.executeQuery();
+                    while (ret.next()) {
+                        int temp = ret.getInt(1);
+                        res = res + temp;
+                    }
+                }
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return res;
     }
 }

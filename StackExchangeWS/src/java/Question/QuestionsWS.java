@@ -191,5 +191,73 @@ public class QuestionsWS {
         return res;
     }
 
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "votequestion")
+    public int votequestion(@WebParam(name = "uid") int uid, @WebParam(name = "qid") int qid, @WebParam(name = "value") int value) {
+        //TODO write your implementation code here:
+        int res = 0;
+        
+        /* TOKEN VALIDATION: Incomplete */
+        
+        try (Statement st = conn.createStatement()) {
+            String query = "SELECT * FROM `vote_questions` WHERE uid = ? AND qid = ?";
+            try (PreparedStatement pstselect = conn.prepareStatement(query)) {
+                pstselect.setInt(1, uid);
+                pstselect.setInt(2, qid);
+                // execute select
+                ResultSet ret = pstselect.executeQuery();
+                if (ret.next() == false){
+                    query = "INSERT INTO `vote_questions` (uid, qid, value) VALUES (?, ?, ?)";
+            
+                    // set the prepared statement by the query and enter the value of where clause
+                    try (PreparedStatement pst = conn.prepareStatement(query)) {
+                        pst.setInt(1, uid);
+                        pst.setInt(2, qid);
+                        pst.setInt(3, value);
+                        // execute update
+                        res = pst.executeUpdate();
+                    }
+            
+                } 
+            }
+            
+        }
+        catch (SQLException ex) {
+                    Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        return res;    
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getquestionvote")
+    public int getquestionvote(@WebParam(name = "qid") int qid) {
+        int res = 0;
+        ResultSet ret;
+        
+        try (Statement st = conn.createStatement()) { 
+                String query;
+                query = "SELECT SUM(value) FROM vote_questions WHERE qid = ?";
+                // set the prepared statement by the query and enter the value of where clause
+                try (PreparedStatement pst = conn.prepareStatement(query)){
+                    pst.setInt(1, qid);
+                    // execuResultSette select
+                    ret = pst.executeQuery();
+                    while (ret.next()) {
+                        int temp = ret.getInt(1);
+                        res = res + temp;
+                    }
+                }
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return res;
+    }
+
     
 }
