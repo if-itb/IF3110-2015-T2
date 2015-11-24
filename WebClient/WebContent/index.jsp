@@ -50,7 +50,7 @@
 		<br />
 		<h3>- Tusiri -</h3>
 		<div class="search">
-			<form action = "#" method="get">
+			<form action = "search.jsp" method="GET">
 				<div class="row">
 					<div class="8u 12u(mobile)">
 						<input id = 'searchbar' type="text" name="search" placeholder="Search" />

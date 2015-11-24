@@ -66,6 +66,10 @@
 		</header>
 		
 		<article id="main">
+			<header class="special container">
+				<span class="icon fa-github-alt"></span>
+				<strong><h2>Question</h2></strong>
+			</header>
 			<div class = 'container wrapper style1'>
 				<h2><%= q.getTopic() %></h2>
 				<div class = 'q_details'>
