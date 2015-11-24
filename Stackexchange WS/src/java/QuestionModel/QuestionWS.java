@@ -5,6 +5,7 @@
  */
 package QuestionModel;
 
+import UserModel.User;
 import database.Database;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -22,6 +23,7 @@ import java.util.logging.Logger;
 import javax.jws.*;
 import org.json.JSONException;
 import org.json.JSONObject;
+import service.TokenHandler;
 
 /**
  *
@@ -31,8 +33,9 @@ import org.json.JSONObject;
  */
 @WebService(serviceName = "QuestionWS")
 public class QuestionWS {
-  // Connect ke database
+  // Atribut
   private Database database = new Database();
+  private TokenHandler tokenHandler = new TokenHandler();
 
   /**
    * Web service operation
@@ -72,25 +75,31 @@ public class QuestionWS {
   }
   
   @WebMethod(operationName = "addQuestion")
-  public boolean addQuestion(@WebParam(name = "topic") String topic, @WebParam(name = "content") String content, @WebParam(name = "id_user") int idUser) {
+  public boolean addQuestion(@WebParam(name = "topic") String topic, @WebParam(name = "content") String content, @WebParam(name = "token") String token) {
     //TODO write your implementation code here:
     boolean questionAdded;
+    User user;
     
     try {
       // Connect database
       Connection connection = database.connectDatabase();
       Statement statement = connection.createStatement();
       
-      // Menjalankan query
-      String query = "INSERT INTO question (topic, content, id_user) VALUES (?, ?, ?)";
-      PreparedStatement databaseStatement = connection.prepareStatement(query);
-      databaseStatement.setString(1, topic);
-      databaseStatement.setString(2, content);
-      databaseStatement.setInt(3, idUser);
-      databaseStatement.executeUpdate();
+      // Request User ke Identity Service dengan token
+      user = tokenHandler.getUser(token, "http://localhost:8082/Identity_Service/TokenController");
       
-      statement.close();
-      questionAdded = true;
+      if (user != null) {
+        // Menjalankan query
+        String query = "INSERT INTO question (topic, content, id_user) VALUES (?, ?, ?)";
+        PreparedStatement databaseStatement = connection.prepareStatement(query);
+        databaseStatement.setString(1, topic);
+        databaseStatement.setString(2, content);
+        databaseStatement.setInt(3, 1);
+        databaseStatement.executeUpdate();
+
+        statement.close();
+        questionAdded = true;
+      }
     } catch (SQLException ex) {
       Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
       questionAdded = false;
