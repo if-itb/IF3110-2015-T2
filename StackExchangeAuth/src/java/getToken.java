@@ -106,11 +106,12 @@ public class getToken extends HttpServlet {
                 stmt = conn.createStatement();
             
                 String sql;
-                sql = "INSERT INTO token(token_string, date_create)" + " VALUES (?, ?)";
+                sql = "INSERT INTO token(token_string, date_create, username)" + " VALUES (?, ?, ?)";
             
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
                 dbStatement.setString(1, tkn); 
                 dbStatement.setString(2, getCurrentTimeStamp());
+                dbStatement.setString(3, uname);
             
                 dbStatement.execute();
             
@@ -123,7 +124,11 @@ public class getToken extends HttpServlet {
                 tw.close();
             }
             catch(SQLException ex) {
-            }   
+            }
+            
+            tw.println("<tokenModel>" 
+                    +   "<token>Failed</token>"        
+                    +  "</tokenModel>");
         }
         else {
             tw.println("<tokenModel>" 
