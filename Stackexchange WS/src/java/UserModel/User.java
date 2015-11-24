@@ -29,10 +29,9 @@ public class User {
     idUser = 0;
   }
   
-  public User (int _idUser, String _name, String _email, String _token) {
+  public User (int _idUser, String _name, String _email) {
     idUser = _idUser;
     name = _name;
     email = _email;
-    token = _token;
   }
 }
