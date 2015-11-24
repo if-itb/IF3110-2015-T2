@@ -28,6 +28,7 @@ import org.json.simple.JSONObject;
 @WebServlet(name = "Token", urlPatterns = {"/Token"})
 public class Token extends HttpServlet {
     private String token = "";
+    private int userID = 0;
     
     public long generateTime(){
         return System.currentTimeMillis();
@@ -37,7 +38,7 @@ public class Token extends HttpServlet {
         //path and port for the database
         final String path = "jdbc:mysql://localhost:3306/stack_exchange";
         //query for database
-        final String query = "SELECT COUNT(*) FROM user WHERE nama = '" + username + "' AND password = '" + password + "'";
+        final String query = "SELECT COUNT(*) FROM user WHERE email = '" + username + "' AND password = '" + password + "'";
         Database database = new Database();
         database.connect(path);
 
@@ -47,6 +48,7 @@ public class Token extends HttpServlet {
             rs.next();
             result = rs.getInt("COUNT(*)");
             rs.close();
+            getUserID(username, password);
         } catch (SQLException ex) {
         }
         database.closeDatabase();
@@ -55,6 +57,25 @@ public class Token extends HttpServlet {
         } else {
             return false;
         }
+    }
+    
+    public void getUserID(String username, String password){
+        //path and port for the database
+        final String path = "jdbc:mysql://localhost:3306/stack_exchange";
+        //query for database
+        final String query = "SELECT * FROM user WHERE email = '" + username + "' AND password = '" + password + "'";
+        Database database = new Database();
+        database.connect(path);
+
+        ResultSet rs = database.fetchData(query);
+        try {
+            rs.next();
+            userID = rs.getInt("user_id");
+            rs.close();
+        } catch (SQLException ex) {
+        }
+        database.closeDatabase();
+        
     }
     
     public void generateToken(String username){
@@ -94,7 +115,8 @@ public class Token extends HttpServlet {
                 generateToken(username);
                 out.write(toJSON());
                 //response.setHeader("token", token);
-                response.sendRedirect("http://localhost:8080/StackExchange_Client/index.jsp?token=" + token);
+                response.sendRedirect("http://localhost:8080/StackExchange_Client/index.jsp?token=" + token
+                                        + "&id=" + userID);
             } else {
                 token = "";
                 out.write(toJSON());
