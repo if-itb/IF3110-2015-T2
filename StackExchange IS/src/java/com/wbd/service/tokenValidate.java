@@ -1,4 +1,4 @@
-//tokenGenerate.java
+//tokenValidate.java
 
 
 package com.wbd.service;
@@ -30,11 +30,11 @@ import javax.ws.rs.core.Response;
 @Path("/tokenValidate")
 public class tokenValidate{
 	
-        ///lifeTim of tokenin minutes
-        public static int lifetimeToken = 2;
-        
+    ///lifeTim of tokenin minutes
+    public static int lifetimeToken = 2;
+    
 	public static class Identity{
-                //Checkig the user is valid or not
+        //Checkig the user is valid or not
 		public int valid = -999;
 		public int userID = 0;
 	}
@@ -88,16 +88,6 @@ public class tokenValidate{
 		Identity identity = getIdentity(access_token);
 		return identity;
 	}
-        
-        @OPTIONS
-        public Response options() {
-             return Response.ok()
-                   .header("Access-Control-Allow-Origin", "*")
-                   .header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept")
-                   .header("Access-Control-Allow-Methods", "*")
-                        .build();
-         }
-
 
 
 }
