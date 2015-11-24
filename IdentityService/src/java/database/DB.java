@@ -24,7 +24,7 @@ public class DB {
         try {
             // create a mysql database connection
             String driver = "com.mysql.jdbc.Driver";
-            String url = "jdbc:mysql://localhost/stackexchange2";
+            String url = "jdbc:mysql://localhost/stackexchange";
             String username = "root";
             String password = "";
             Class.forName(driver).newInstance();

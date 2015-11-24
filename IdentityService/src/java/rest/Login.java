@@ -48,10 +48,10 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
-        JSONObject object = new JSONObject();
         
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            JSONObject object = new JSONObject();
+        
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             
@@ -88,11 +88,12 @@ public class Login extends HttpServlet {
                 } else
                     object.put("error", "Invalid login credentials!");
                 
-                // output to response
                 out.print(object.toString());
             } catch (SQLException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
+            // output to response
+            
      
         }
     }
