@@ -73,6 +73,7 @@
                 data: tokenData,
                 dataType: "json",
                 type: "POST",
+                crossDomain: true,
                 success: function(data) {
                     var valid = data.valid;
                     if(valid == 1){
@@ -103,7 +104,7 @@
 %>
         <script>
             $(document).ready(function(){
-                var url = "http://localhost:8080/REST-WS/rest/token";
+                var url = "http://localhost:8081/REST-WS/rest/token";
                 $("#submitBtn").click(function(e) {
                     e.preventDefault();
                     var formData = $("#loginForm").serialize();
@@ -112,6 +113,7 @@
                         data: formData,
                         dataType: "json",
                         type: "POST",
+                        crossDomain: true,
                         success: function(data) {
                             var token = data.access_token;
                             document.cookie="access_token="+token+"; expires=null";
