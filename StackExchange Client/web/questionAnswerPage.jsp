@@ -11,7 +11,6 @@
 <head>
   <link rel="stylesheet" type="text/css" href="style.css">
   <title> Simple StackExchange</title>
-  <script type = "text/javascript" src="validatorInputQuestionAnswer.js"></script>
 </head>
 
 <body>
@@ -29,13 +28,12 @@
 
     <div id="yourAnswer">   
 
-
+    <% int questionId = Integer.parseInt(request.getParameter("q_id")); %>
       <span id="yourAnswerWord">Your Answer</span>
       <div id="answerForm">
-        <form name="myForm" action="" method="post">
-          <input type="text" name="name" placeholder="Name"><br>
-          <input type="text" name="email" placeholder="Email"><br>
-          <textarea name="questionContent" placeholder="Content"></textarea><br>
+        <form name="myForm" action="addAnswerProcess.jsp" method="post">
+          <textarea name="answerContent" placeholder="Your answer"></textarea><br>
+          <input type="hidden" name="questionId" value='<%= questionId %>'>
           <div id="submitter">
             <input type="submit" value="Post">
           </div>

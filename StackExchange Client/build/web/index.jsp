@@ -39,7 +39,19 @@
     		<div class = 'questionItem'>
                         <div class = questionLeft>
                             <span class = 'votes_number'> <% out.println(allQuestionList.get(i).getQuestionVote()); %> <br>Votes</span>
-                            <span class = 'Answers_number'>  <br>Answers</span>
+                                <%-- start web service invocation --%><hr/>
+                                <%
+                                    wsmodel.WS_Service service2 = new wsmodel.WS_Service();
+                                    wsmodel.WS port2 = service2.getWSPort();
+                                     // TODO initialize WS operation arguments here
+                                    int questionId = allQuestionList.get(i).getQuestionId();
+                                    // TODO process result here
+                                    int numOfAnswer = port2.getSumAnswer(questionId);
+                                %>
+                                <%-- end web service invocation --%><hr/>
+
+                            
+                            <span class = 'Answers_number'> <% out.println(numOfAnswer); %> <br>Answers</span>
                         </div>
 
                         <div class= questionMid>
@@ -55,9 +67,23 @@
                                 %>
                              </div>
                         </div>
+                             
+                            <%-- start web service invocation --%><hr/>
+                            <%
+                                wsmodel.WS_Service service3 = new wsmodel.WS_Service();
+                                wsmodel.WS port3 = service3.getWSPort();
+                                 // TODO initialize WS operation arguments here
+                                int userID = allQuestionList.get(i).getQuestionUserId();
+                                // TODO process result here
+                                java.lang.String q_UserName = port3.getQuestionUserName(userID);
+                            %>
+                            <%-- end web service invocation --%><hr/>
+     
+                             
+                             
 
                         <div class= questionRight>
-                            asked by <font color='blue'> <% out.println(allQuestionList.get(i).getQuestionUserId()); %> </font> |<a class='editQuestion' href='editQuestion.jsp?id=<%= allQuestionList.get(i).getQuestionId() %>'><font color='green'>edit</font> </a>|<a class='deleteQuestion' href = 'deleteQuestionProcess.jsp?id=<%= allQuestionList.get(i).getQuestionId() %> onclick= \"return confirm('Confirm Delete?');\'><font color='red'>delete</font> </a>
+                            asked by <font color='blue'> <% out.println(q_UserName);%> </font> |<a class='editQuestion' href='editQuestion.jsp?id=<%= allQuestionList.get(i).getQuestionId() %>'><font color='green'>edit</font> </a>|<a class='deleteQuestion' href = 'deleteQuestionProcess.jsp?id=<%= allQuestionList.get(i).getQuestionId() %> onclick= \"return confirm('Confirm Delete?');\'><font color='red'>delete</font> </a>
                         </div>
 
                 </div>

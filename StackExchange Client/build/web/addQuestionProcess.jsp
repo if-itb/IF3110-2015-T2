@@ -21,7 +21,7 @@
 	 // TODO initialize WS operation arguments here
 	java.lang.String questionTitle = request.getParameter("questionTopic");
 	java.lang.String questionContent = request.getParameter("questionContent");
-	int userID = 909;
+	int userID = 10;
 	// TODO process result here
 	java.lang.Boolean result = port.addQuestion(questionTitle, questionContent, userID);
 	if (result){
@@ -33,14 +33,14 @@
 	// TODO handle custom exceptions here
     }
     
-    String site = new String("index.jsp");
-    response.setStatus(response.SC_MOVED_TEMPORARILY);
-    response.setHeader("Location", site);
+    
     %>
     <%-- end web service invocation --%><hr/>
 
 
-
+    <%--String site = new String("index.jsp"); 
+    response.setStatus(response.SC_MOVED_TEMPORARILY);
+    response.setHeader("Location", site);--%>
 
        
         

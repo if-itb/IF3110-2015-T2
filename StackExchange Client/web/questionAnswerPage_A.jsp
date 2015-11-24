@@ -59,3 +59,5 @@
    
     <span class='questionAnswerFooter'>answered by <% out.println(userName) ;%> at <% out.println(answerList.get(i).getAnswerDate()) ;%> </span>
      </div>
+     
+     <% } %>

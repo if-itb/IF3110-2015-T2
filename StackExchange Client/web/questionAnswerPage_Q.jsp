@@ -39,6 +39,19 @@
             <% out.println(questionItem.getQuestionContent()); %>
         </div>
     </div>
-    <span class='questionAnswerFooter'>asked by <% out.println(questionItem.getQuestionUserId()); %> at <% out.println(questionItem.getQuestionDate()); %>|<a class='editQuestion' href='editQuestion.jsp?id=<%= questionItem.getQuestionId() %>'><font color='green'>edit</font> </a>|<a class='deleteQuestion' href = 'deleteQuestionProcess.jsp?id=<%= questionItem.getQuestionId() %> onclick= \"return confirm('Confirm Delete?');\'><font color='red'>delete</font> </a></span>
+        
+         <%-- start web service invocation --%><hr/>
+                            <%
+                                wsmodel.WS_Service service3 = new wsmodel.WS_Service();
+                                wsmodel.WS port3 = service3.getWSPort();
+                                 // TODO initialize WS operation arguments here
+                                int userID = questionItem.getQuestionUserId();
+                                // TODO process result here
+                                java.lang.String q_UserName = port3.getQuestionUserName(userID);
+                            %>
+                            <%-- end web service invocation --%><hr/>
+        
+        
+    <span class='questionAnswerFooter'>asked by <% out.println(q_UserName); %> at <% out.println(questionItem.getQuestionDate()); %>|<a class='editQuestion' href='editQuestion.jsp?id=<%= questionItem.getQuestionId() %>'><font color='green'>edit</font> </a>|<a class='deleteQuestion' href = 'deleteQuestionProcess.jsp?id=<%= questionItem.getQuestionId() %> onclick= \"return confirm('Confirm Delete?');\'><font color='red'>delete</font> </a></span>
  </div>
     
