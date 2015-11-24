@@ -38,8 +38,7 @@
 			
             <div class="content">
                 <h2>Answers</h2>
-                <% if (!answers.isEmpty()) { %>
-                    <% for (model.answer.Answer answer : answers) { %>
+                <% for (model.answer.Answer answer : answers) { %>
                     <div class="answer-list">
                         <div class="voting">
                             <div class="arrow-up" onclick="return vote(<%= answer.getAnswerId() %>,1,1,'answer')"></div>
@@ -50,11 +49,10 @@
                             <p><%= answer.getContent() %></p>
                         </div>
                         <div class="question-sign">
-                            <p>answered by <font color="#008080"><%= a_user.get(answer.getUserId()).getName() %> (<%= a_user.get(answer.getUserId()).getEmail() %>)</font> at <%= answer.getCreateTime() %></p>
+                            <p>answered by <font color="#008080"><%= a_user.get(answer.getAnswerId()).getName() %> (<%= a_user.get(answer.getAnswerId()).getEmail() %>)</font> at <%= answer.getCreateTime() %></p>
                         </div>
                     </div>
-                    <% } %>
-                <% }%>
+                <% } %>
             </div>
 
             <div class="content" style="margin-top:30px;">
