@@ -4,12 +4,16 @@
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
+    
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href='css/style.css'/>
-        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <base href="http://localhost:8082/StackExchange_IS/rest/">
+       
         <title>Simple StackExchange</title>
     </head>
 
@@ -50,12 +54,13 @@
             //Java script, JQuery, and AJAX Initialization
             function checkTokenValidity(){
                 var token = {access_token: "<%= access_token %>" };
-                var url = "http://localhost:8080/REST-WS/rest/token-validity";
+                var url = "http://localhost:8082/StackExchange_IS/rest/tokenValidate";
 
                 $.ajax({
                     url: url,
                     data: token,
-                    dataType: "json",
+                    dataType: "jsonp",
+                    crossDomain: true,
                     type: "POST",
                     success: function(data){
                         var valid = data.valid;
@@ -89,13 +94,14 @@
 
         <script>
             $(document).ready(function(){
-                var url = "http://localhost:8080/REST-WS/rest/token";
+                var url = "http://localhost:8082/StackExchange_IS/rest/token";
                 $('.button-post').click(function(e){
                     e.preventDefault();
                     var data = $('#loginForm').serialize();
                     $.ajax({
                         url: url,
                         data: data,
+                        crossDomain: true,
                         dataType: "json",
                         type: "POST",
                         success: function(data){
@@ -103,16 +109,18 @@
                             document.cookie = "access_token" + token;
                             //expired = null;
                             if (token = null){
+                                out.println("username dan password tidak ditemukan");
                                 //Username password gak sama
                             }
                             else{
                                 //Berhasil login
+                                out.println("Berhashil");
                                 window.location.href = "index.jsp";
                             }
 
                         },
                         error: function(jqxhr,status,errorMsg){
-                            //
+                            out.println("AJAX Error");
                         }
                     });
                 });

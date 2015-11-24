@@ -18,9 +18,27 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/token")
-public class tokenGenerate{
 
+import com.sun.jersey.spi.container.ContainerRequest;
+import com.sun.jersey.spi.container.ContainerResponse;
+import com.sun.jersey.spi.container.ContainerResponseFilter;
+
+
+@Path("/token")
+public class tokenGenerate implements ContainerResponseFilter {
+        
+    
+        @Override
+        public ContainerResponse filter(ContainerRequest creq, ContainerResponse cresp) {
+
+            cresp.getHttpHeaders().putSingle("Access-Control-Allow-Origin", "*");
+            cresp.getHttpHeaders().putSingle("Access-Control-Allow-Credentials", "true");
+            cresp.getHttpHeaders().putSingle("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
+            cresp.getHttpHeaders().putSingle("Access-Control-Allow-Headers", "Content-Type, Accept");
+
+            return cresp;
+        }
+    
 	public static boolean isTokenFound(Token token){
 		boolean found = false;
 
@@ -94,7 +112,7 @@ public class tokenGenerate{
 		System.out.println(token.access_token);
 		return token;
 	}
-
+            
 	@POST
 	@Path("/signout")
 	@Produces(MediaType.APPLICATION_JSON)

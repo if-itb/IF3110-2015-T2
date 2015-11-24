@@ -5,13 +5,24 @@
         <servlet-name>ValidateUser</servlet-name>
         <servlet-class>ValidateUser</servlet-class>
     </servlet>
+    
     <servlet>
-        <servlet-name>TokenGenerate</servlet-name>
+        <servlet-name>TokenService</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
             <param-value>com.wbd.service</param-value>
         </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>Gateway Servlet</servlet-name>
+        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+            <param-value>com.wbd.cors.CrossOriginResourceSharingFilter</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     
     <servlet-mapping>
@@ -19,7 +30,7 @@
         <url-pattern>/ValidateUser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TokenGenerate</servlet-name>
+        <servlet-name>TokenService</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
     
@@ -34,4 +45,33 @@
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
+    
+    <filter>
+    <filter-name>CORS</filter-name>
+    <filter-class>com.wbd.cors.CorsFilter</filter-class>
+    <init-param>
+        <param-name>cors.allowGenericHttpRequests</param-name>
+        <param-value>true</param-value>
+    </init-param>
+    <init-param>
+        <param-name>cors.allowOrigin</param-name>
+        <param-value>*</param-value>
+    </init-param>
+    <init-param>
+        <param-name>cors.allowSubdomains</param-name>
+        <param-value>true</param-value>
+    </init-param>
+    <init-param>
+        <param-name>cors.supportedMethods</param-name>
+        <param-value>GET, HEAD, POST, OPTIONS</param-value>
+    </init-param>
+    <init-param>
+        <param-name>cors.supportedHeaders</param-name>
+        <param-value>Content-Type, X-Requested-With</param-value>
+    </init-param>
+    <init-param>
+        <param-name>cors.maxAge</param-name>
+        <param-value>-1</param-value>
+    </init-param>
+    </filter>
 </web-app>
