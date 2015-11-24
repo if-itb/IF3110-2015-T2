@@ -87,13 +87,14 @@ public class QuestionWS {
     }
     
     @WebMethod(operationName = "createQuestion")
-    public  Boolean createQuestion(@WebParam(name = "username") String uname , 
+    public  Boolean createQuestion(
             @WebParam(name = "topic") String topic,
             @WebParam(name = "token") String token,
             @WebParam(name = "content") String content){
         conn = db.connect();
         Boolean status = true;
-        if(auth.checkToken(token)){
+        String uname = auth.checkToken(token);
+        if(!uname.equals("-999")){
             try {
                 Statement stmt;
                 stmt = conn.createStatement();
@@ -220,10 +221,11 @@ public class QuestionWS {
         return count;
     }
     @WebMethod(operationName = "voteUp")
-    public int voteUp(@WebParam(name = "qid") int qid,@WebParam(name = "username") String username,@WebParam(name = "token") String token ){
+    public int voteUp(@WebParam(name = "qid") int qid,@WebParam(name = "token") String token ){
         int count=0;
         conn = db.connect();
-        if(auth.checkToken(token)){
+        String username= auth.checkToken(token);
+        if((!username.equals("-999"))&&(!isVoted(qid, username))){
             try {
                 Statement stmt;
                 stmt = conn.createStatement();
@@ -263,10 +265,11 @@ public class QuestionWS {
         return count;
     }
     @WebMethod(operationName = "voteDown")
-    public int voteDown(@WebParam(name = "qid") int qid,@WebParam(name = "username") String username,@WebParam(name = "token") String token ){
+    public int voteDown(@WebParam(name = "qid") int qid,@WebParam(name = "token") String token ){
         int count=0;
         conn = db.connect();
-        if(auth.checkToken(token)){
+        String username= auth.checkToken(token);
+        if((!username.equals("-999"))&&(!isVoted(qid, username))){
             try {
                 Statement stmt;
                 stmt = conn.createStatement();
@@ -311,7 +314,8 @@ public class QuestionWS {
         int count=0;
         conn = db.connect();
         Boolean status= true;
-        if(auth.checkToken(token)){ 
+        String username= auth.checkToken(token);
+        if((!username.equals("-999"))&&(validateUsername(qid, username))){ 
             try {
                Statement stmt;
                stmt = conn.createStatement();
@@ -404,6 +408,80 @@ public class QuestionWS {
         }
         return questions;
     }
+    @WebMethod(operationName = "getUsernameByQid")
+     public String getUsernameByQid(@WebParam(name = "qid") int qid) {
+        conn = db.connect();
+        String uname="";
+        try {
+            Statement stmt;
+            stmt = conn.createStatement();
+            
+            String sql;
+            sql = "SELECT username FROM question where id_question = ?";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, qid);
+            
+            ResultSet rs;
+            rs = dbStatement.executeQuery();
+            
+            /* Get every data returned by SQLquery */
+            while(rs.next()) {
+                uname=rs.getString("username");
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        }
+        catch(SQLException ex) {
+           Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex); 
+        }
+        
+        return uname;
+    }
     
+     public Boolean validateUsername(@WebParam(name = "qid") int qid
+             ,@WebParam(name = "username") String uname){
+         Boolean status= false;
+         String username = getUsernameByQid(qid);
+         if(username.equals(uname)){
+             status= true;
+         }
+         return status;
+     }
+     
+    @WebMethod(operationName = "editQuestion")
+    public  Boolean editQuestion(
+            @WebParam(name = "qid") int qid,
+            @WebParam(name = "topic") String topic,
+            @WebParam(name = "token") String token,
+            @WebParam(name = "content") String content){
+        conn = db.connect();
+        Boolean status = true;
+        String username = auth.checkToken(token);
+        if((!username.equals("-999"))&&(validateUsername(qid, username))){
+            try {
+                Statement stmt;
+                stmt = conn.createStatement();
+                String sql;
+                sql = "UPDATE question SET topic = '?' , content= '?', date = '?' WHERE id_question = ?)";
+
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1, topic);
+                dbStatement.setString(2, content);
+                dbStatement.setString(3, getCurrentTimeStamp());
+                dbStatement.setInt(4, qid);
+
+                dbStatement.executeUpdate();
+
+                stmt.close();
+                conn.close();
+            }
+            catch(SQLException ex) {
+               Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex); 
+            }
+        }
+        return status;
+    }
 }
 

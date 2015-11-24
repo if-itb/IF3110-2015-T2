@@ -20,6 +20,7 @@ public class AnswerWS {
     
     private final DB db = new DB();
     private Connection conn;
+    private final Auth auth= new Auth();
     
     private static String getCurrentTimeStamp() {
         Calendar cal = Calendar.getInstance();  
@@ -80,150 +81,158 @@ public class AnswerWS {
      */
     @WebMethod(operationName = "createAnswer")
     public Boolean createAnswer(@WebParam(name = "id_question") int id_question, 
-            @WebParam(name = "username") String username, 
             @WebParam(name = "content") String content,
             @WebParam(name = "token") String token ) {
-        Auth auth= new Auth();
+        
         conn = db.connect();
         Boolean status = true;
-        
-        try {
-        Statement stmt;
-            stmt = conn.createStatement();
-            
-            String sql;
-            sql = "INSERT INTO answer(id_question, username, content, vote, date)"
-                    + " VALUES (?, ?, ?, 0, ?)";
-            
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1, id_question);
-            dbStatement.setString(2, username);
-            dbStatement.setString(3, content);
-            dbStatement.setString(4, getCurrentTimeStamp());
-            
-            status = dbStatement.execute();
-            stmt.close();
-            conn.close();
-        } 
-        catch(SQLException ex) {
-           Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex); 
+        String username = auth.checkToken(token);
+        if(!username.equals("-999")){
+            try {
+            Statement stmt;
+                stmt = conn.createStatement();
+
+                String sql;
+                sql = "INSERT INTO answer(id_question, username, content, vote, date)"
+                        + " VALUES (?, ?, ?, 0, ?)";
+
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, id_question);
+                dbStatement.setString(2, username);
+                dbStatement.setString(3, content);
+                dbStatement.setString(4, getCurrentTimeStamp());
+
+                status = dbStatement.execute();
+                stmt.close();
+                conn.close();
+            } 
+            catch(SQLException ex) {
+               Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex); 
+            }
         }
-        
         return status;
     }
     @WebMethod(operationName = "voteUp")
-    public int voteUp(@WebParam(name = "aid") int aid,@WebParam(name = "username") String username ){
+    public int voteUp(@WebParam(name = "aid") int aid,@WebParam(name = "token") String token ){
         int count=0;
         conn = db.connect();
-        try {
-            Statement stmt;
-            stmt = conn.createStatement();
-            
-            String sql, sql_select;
-            sql="UPDATE answer SET vote = vote+ 1 WHERE id_answer = ? ";
-            sql_select = "SELECT vote FROM answer where id_answer = ?";
-            
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1, aid);
-            dbStatement.execute();
-            
-            sql="INSERT INTO vote_answer (id_answer, username) VALUES (?,?)";
-            PreparedStatement dbStatement2 = conn.prepareStatement(sql);
-            dbStatement2.setInt(1, aid);
-            dbStatement2.setString(2, username);
-            dbStatement2.execute();
-            
-            PreparedStatement dbStatementSelect = conn.prepareStatement(sql_select);
-            dbStatementSelect.setInt(1, aid);
-            
-            ResultSet rs;
-            rs = dbStatementSelect.executeQuery();
-            
-            /* Get every data returned by SQLquery */
-            while(rs.next()) {
-                count = rs.getInt("vote");
+        String username = auth.checkToken(token);
+        if(!username.equals("-999")){
+            try {
+                Statement stmt;
+                stmt = conn.createStatement();
+
+                String sql, sql_select;
+                sql="UPDATE answer SET vote = vote+ 1 WHERE id_answer = ? ";
+                sql_select = "SELECT vote FROM answer where id_answer = ?";
+
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, aid);
+                dbStatement.execute();
+
+                sql="INSERT INTO vote_answer (id_answer, username) VALUES (?,?)";
+                PreparedStatement dbStatement2 = conn.prepareStatement(sql);
+                dbStatement2.setInt(1, aid);
+                dbStatement2.setString(2, username);
+                dbStatement2.execute();
+
+                PreparedStatement dbStatementSelect = conn.prepareStatement(sql_select);
+                dbStatementSelect.setInt(1, aid);
+
+                ResultSet rs;
+                rs = dbStatementSelect.executeQuery();
+
+                /* Get every data returned by SQLquery */
+                while(rs.next()) {
+                    count = rs.getInt("vote");
+                }
+                rs.close();
+                stmt.close();
+                conn.close();
             }
-            rs.close();
-            stmt.close();
-            conn.close();
-        }
-        catch(SQLException ex) {
-           Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex); 
+            catch(SQLException ex) {
+               Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex); 
+            }
         }
         return count;
     }
     @WebMethod(operationName = "voteDown")
-    public int voteDown(@WebParam(name = "aid") int aid,@WebParam(name = "username") String username ){
+    public int voteDown(@WebParam(name = "aid") int aid,@WebParam(name = "token") String token ){
         int count=0;
         conn = db.connect();
-        try {
-            Statement stmt;
-            stmt = conn.createStatement();
-            
-            String sql, sql_select;
-            sql="UPDATE answer SET vote = vote- 1 WHERE id_answer = ? ";
-            sql_select = "SELECT vote FROM answer where id_answer = ?";
-            
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1, aid);
-            dbStatement.execute();
-            
-            sql="INSERT INTO vote_answer (id_answer, username) VALUES (?,?)";
-            PreparedStatement dbStatement2 = conn.prepareStatement(sql);
-            dbStatement2.setInt(1, aid);
-            dbStatement2.setString(2, username);
-            dbStatement2.execute();
-            
-            PreparedStatement dbStatementSelect = conn.prepareStatement(sql_select);
-            dbStatementSelect.setInt(1, aid);
-            
-            ResultSet rs;
-            rs = dbStatementSelect.executeQuery();
-            
-            /* Get every data returned by SQLquery */
-            while(rs.next()) {
-                count = rs.getInt("vote");
+        String username= auth.checkToken(token);
+        if(!username.equals("-999")){
+            try {
+                Statement stmt;
+                stmt = conn.createStatement();
+
+                String sql, sql_select;
+                sql="UPDATE answer SET vote = vote- 1 WHERE id_answer = ? ";
+                sql_select = "SELECT vote FROM answer where id_answer = ?";
+
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, aid);
+                dbStatement.execute();
+
+                sql="INSERT INTO vote_answer (id_answer, username) VALUES (?,?)";
+                PreparedStatement dbStatement2 = conn.prepareStatement(sql);
+                dbStatement2.setInt(1, aid);
+                dbStatement2.setString(2, username);
+                dbStatement2.execute();
+
+                PreparedStatement dbStatementSelect = conn.prepareStatement(sql_select);
+                dbStatementSelect.setInt(1, aid);
+
+                ResultSet rs;
+                rs = dbStatementSelect.executeQuery();
+
+                /* Get every data returned by SQLquery */
+                while(rs.next()) {
+                    count = rs.getInt("vote");
+                }
+                rs.close();
+                stmt.close();
+                conn.close();
             }
-            rs.close();
-            stmt.close();
-            conn.close();
-        }
-        catch(SQLException ex) {
-           Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex); 
+            catch(SQLException ex) {
+               Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex); 
+            }
         }
         return count;
     }
     @WebMethod(operationName = "isVoted")
-    public Boolean isVoted(@WebParam(name = "aid") int aid,@WebParam(name = "username") String username){
+    public Boolean isVoted(@WebParam(name = "aid") int aid,@WebParam(name = "token") String token){
         Boolean status = false;
         conn = db.connect();
-        
-         try {
-            Statement stmt;
-            stmt = conn.createStatement();
-            
-            String sql;
-            sql="Select * from vote_answer where id_answer = ? and username = ?";
-            
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1, aid);
-            dbStatement.setString(2, username);
+        String username = auth.checkToken(token);
+        if(!username.equals("-999")){
+            try {
+               Statement stmt;
+               stmt = conn.createStatement();
 
-            ResultSet rs;
-            rs = dbStatement.executeQuery();
-            
-            /* Get every data returned by SQLquery */
-            while(rs.next()) {
-                status= true;
+               String sql;
+               sql="Select * from vote_answer where id_answer = ? and username = ?";
+
+               PreparedStatement dbStatement = conn.prepareStatement(sql);
+               dbStatement.setInt(1, aid);
+               dbStatement.setString(2, username);
+
+               ResultSet rs;
+               rs = dbStatement.executeQuery();
+
+               /* Get every data returned by SQLquery */
+               while(rs.next()) {
+                   status= true;
+               }
+
+               stmt.close();
+               conn.close();
             }
-            
-            stmt.close();
-            conn.close();
-        }
-        catch(SQLException ex) {
-           Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex); 
+            catch(SQLException ex) {
+               Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex); 
+            }
         }
         return status;
     }
-   
+    
 }
