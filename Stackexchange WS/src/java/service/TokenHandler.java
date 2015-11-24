@@ -37,7 +37,7 @@ public class TokenHandler {
     
     try {
       //TODO write your implementation code here:
-      urlString = "http://localhost:8082/Identity_Service/TokenController";
+      
       URL url = new URL(urlString);
       HttpURLConnection connection;
       

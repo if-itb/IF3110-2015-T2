@@ -5,12 +5,14 @@
  */
 package AnswerModel;
 
+import UserModel.User;
 import database.Database;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.*;
+import service.TokenHandler;
 
 /**
  *
@@ -21,10 +23,8 @@ import javax.jws.*;
 @WebService(serviceName = "AnswerWS")
 public class AnswerWS {
   
-  /* Connecting to DB */
-  /* DB is other java file where DB settings is there */
   private Database db = new Database();
-  
+  private TokenHandler _tokenHandler = new TokenHandler();
   /**
    * Web service operation
    */
@@ -57,22 +57,28 @@ public class AnswerWS {
   }
   
   @WebMethod(operationName = "addAnswer")
-  public boolean addAnswer(@WebParam(name = "qid") int qid, @WebParam(name = "uid") int uid, @WebParam(name = "content") String content) {
+  public boolean addAnswer(@WebParam(name = "qid") int qid, @WebParam(name = "token") String token, @WebParam(name = "content") String content) {
     //TODO write your implementation code here:
-    boolean isAdded;
+    boolean isAdded = false;
+    User u;
     try {
       Connection conn = db.connectDatabase();
-      String sql;
-      sql = "INSERT INTO answer (id_question, id_user, content) VALUES (?,?,?)";
-      PreparedStatement dbStatement = conn.prepareStatement(sql);
-      dbStatement.setInt(1, qid);
-      dbStatement.setInt(2, uid);
-      dbStatement.setString(3, content);
-      dbStatement.executeUpdate();
-      isAdded = true;
+      
+      // Request User ke Identity Service
+      String urlString = "http://localhost:8082/Identity_Service/TokenController";
+      u = _tokenHandler.getUser(token,urlString);
+      if (u != null) {
+        String sql;
+        sql = "INSERT INTO answer (id_question, id_user, content) VALUES (?,?,?)";
+        PreparedStatement dbStatement = conn.prepareStatement(sql);
+        dbStatement.setInt(1, qid);
+        dbStatement.setInt(2, u.getIdUser());
+        dbStatement.setString(3, content);
+        dbStatement.executeUpdate();
+        isAdded = true;
+      }
     } catch (SQLException ex) {
       Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
-      isAdded = false;
     }  
     return isAdded;
   }

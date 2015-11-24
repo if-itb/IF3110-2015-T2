@@ -34,4 +34,20 @@ public class User {
     name = _name;
     email = _email;
   }
+  
+  public int getIdUser() {
+    return idUser;
+  }
+  
+  public String getName() {
+    return name;
+  }
+  
+  public String getEmail() {
+    return email;
+  }
+  
+  public String token() {
+    return token;
+  }
 }
