@@ -19,7 +19,7 @@
 	
 	<article id="main">
 		<header class="special container">
-			<span class="icon fa-envelope"></span>
+			<span class="icon fa-question-circle"></span>
 			<strong><h2>Create Question</h2></strong>
 			<p>Fill the form below to ask your question.</p>
 		</header>

@@ -57,7 +57,7 @@
 		</header>
 	<article id="main">
 		<header class="special container">
-			<span class="icon fa-envelope"></span>
+			<span class="icon fa-edit"></span>
 			<strong><h2>Edit Question</h2></strong>
 			<p>Fill the form below to edit your question.</p>
 		</header>
