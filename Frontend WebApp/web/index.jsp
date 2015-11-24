@@ -20,7 +20,7 @@ Author:
   <body>
     <!-- Title -->
     <div class="title">
-      <a href="Controller">
+      <a href="IndexController">
         Simple StackExchange
       </a>
     </div>

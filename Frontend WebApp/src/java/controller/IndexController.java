@@ -25,6 +25,9 @@ import javax.xml.ws.WebServiceRef;
  * @author Devina Ekawati - 13513088
  */
 public class IndexController extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/AnswerWS.wsdl")
+    private AnswerWS_Service service_1;
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/QuestionWS.wsdl")
     private QuestionWS_Service service;
 
@@ -39,9 +42,17 @@ public class IndexController extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
+    // Untuk memperoleh list semua pertanyaan
     java.util.List<QuestionWS.Question> questions = getQuestions();
-
     request.setAttribute("questions", questions);
+    
+    // Untuk memperoleh list jumlah jawaban semua pertanyaan
+    int countAnswers[] = new int [questions.size()];
+    for (int i = 0; i < questions.size(); i++) {
+        countAnswers[i] = getCountAnswerByQId(questions.get(i).getIdQuestion());
+    }
+    request.setAttribute("countAnswers",countAnswers);
+    
     request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
   }
 
@@ -89,5 +100,12 @@ public class IndexController extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
         return port.getQuestions();
+    }
+
+    private int getCountAnswerByQId(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
+        return port.getCountAnswerByQId(qid);
     }
 }
