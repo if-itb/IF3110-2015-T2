@@ -101,6 +101,7 @@
             ;
             out.write(answerTitle);
             for(int i = 0; i < result.size() ; i++){
+                
                 String answer = 
                     "<div class='block-QA'>"
                         +"<div class='bQA-vote'>"
@@ -111,7 +112,7 @@
                             +"</a>"
                             +"<br><br>"
                             +"<a href = voteDownAns.jsp?id=" + request.getParameter("id") + "&token=" + request.getParameter("token") + "&ansid=" + result.get(i).getIDAns() + "><div class='vote-down'>"
-                            +"</div>"
+                            +"</div></a>"
 			+"</div>"
                         +"<div class='bQA-content'>"
                             +result.get(i).getAnswer()
