@@ -70,7 +70,7 @@ public class tokenGenerate implements ContainerResponseFilter {
 		PreparedStatement stmt = dbc.getStatement();
 		Connection conn = dbc.getConnection();
 		try{
-			String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
+			String sql = "SELECT * FROM user WHERE Email = ? AND Password = ?";
 			
 			//System.out.println(email);
 			//System.out.println(password);
@@ -79,14 +79,14 @@ public class tokenGenerate implements ContainerResponseFilter {
 			stmt.setString(2, password);
 			
 			//System.out.println(stmt);
-			ResultSet rs = stmt.executeQuery(sql);
+			ResultSet rs = stmt.executeQuery();
 			//System.out.println(sql);
-			
+			System.out.println("Luminto homo");
 			if(rs.next()){
                 //User is not unique
                 MD5Hashing md5 = new MD5Hashing();
-
-                token.access_token = md5.Hash(password); 
+                
+                token.access_token = md5.Hash(password);
                 token.lifetime = 5;
 	
                 sql = "INSERT INTO user(access_token) VALUES(" + token.access_token + ")";
@@ -109,6 +109,7 @@ public class tokenGenerate implements ContainerResponseFilter {
 	public Token post(@FormParam("email") String email,
 	@FormParam("password") String password) {
 		Token token = generateToken(email,password);
+                System.out.println("Ivan Weteng");
 		System.out.println(token.access_token);
 		return token;
 	}

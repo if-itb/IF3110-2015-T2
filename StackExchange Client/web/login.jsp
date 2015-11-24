@@ -98,6 +98,7 @@
                 $('.button-post').click(function(e){
                     e.preventDefault();
                     var data = $('#loginForm').serialize();
+                    console.log(data);
                     $.ajax({
                         url: url,
                         data: data,
@@ -108,14 +109,13 @@
                             var token = data.access_token;
                             document.cookie = "access_token" + token;
                             //expired = null;
-                            if (token = null){
-                                out.println("username dan password tidak ditemukan");
+                            if (token == null){
                                 //Username password gak sama
+                                //window.location.href = "IVanWeteng.jsp"
                             }
                             else{
                                 //Berhasil login
-                                out.println("Berhashil");
-                                window.location.href = "index.jsp";
+                                //window.location.href = "index.jsp";
                             }
 
                         },
