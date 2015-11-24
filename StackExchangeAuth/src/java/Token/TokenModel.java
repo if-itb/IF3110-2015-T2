@@ -37,19 +37,4 @@ public class TokenModel {
     public String getToken() {
         return this.token;
     }
-    
-    public String toXML() {
-        try {
-            JAXBContext context = JAXBContext.newInstance(TokenModel.class);
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            
-            StringWriter stringWriter = new StringWriter();
-            marshaller.marshal(this, stringWriter);
-            return stringWriter.toString();
-        }
-        catch (JAXBException exception) {
-        }
-        return null;
-    }
 }

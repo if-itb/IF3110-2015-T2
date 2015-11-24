@@ -78,6 +78,7 @@ public class validateToken extends HttpServlet {
         
         int valid_hour = 0;
         String date_create = null;
+        String username = null;
         
         try {
             Connection conn = db.connect();
@@ -86,7 +87,7 @@ public class validateToken extends HttpServlet {
             stmt = conn.createStatement();
             
             String sql;
-            sql = "SELECT date_create,valid_hour FROM token where token_string = ?";
+            sql = "SELECT date_create,valid_hour,username FROM token where token_string = ?";
             
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setString(1, token_string);
@@ -98,6 +99,7 @@ public class validateToken extends HttpServlet {
             while(rs.next()) {
                 valid_hour = rs.getInt("valid_hour");
                 date_create = rs.getString("date_create");
+                username = rs.getString("username");
             }
             rs.close();
             stmt.close();
@@ -111,6 +113,7 @@ public class validateToken extends HttpServlet {
             tw.println("<date_create>" + date_create + "</date_create>");
             tw.println("<valid_hour>" + valid_hour + "</valid_hour>");
             tw.println("<status>" + isValid(date_create, valid_hour) + "</status>");
+            tw.println("<username>" + username + "</username>");
             tw.println("</tokenModel>");
         }
         else {
