@@ -12,7 +12,7 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Create token</h1>
-        <form action="/StackExchangeAuth/Call" method="POST">
+        <form action="/StackExchangeAuth/getToken" method="POST">
             <input name="uname" type="text" placeholder="username" />
             <input name="pass" type="password" placeholder="password" />
             <input name="submit" type="submit" value="submit" />
@@ -21,9 +21,17 @@ and open the template in the editor.
         <hr>
         <br>
         <h1>Check token</h1>
-        <form action="/StackExchangeAuth/Call" method="POST">
+        <form action="/StackExchangeAuth/validateToken" method="POST">
             <input name="token_string" type="text" placeholder="token_string" />
             <input name="submit" type="submit" value="check" />
+        </form>
+        
+        <hr>
+        <br>
+        <h1>Delete Token by Username</h1>
+        <form action="/StackExchangeAuth/deleteToken" method="POST">
+            <input name="uname" type="text" placeholder="username" />
+            <input name="submit" type="submit" value="delete" />
         </form>
         
     </body>
