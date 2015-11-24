@@ -7,6 +7,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,7 +54,15 @@ public class EditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/view/ask.jsp").forward(request, response);
+        StackExchange port = service.getStackExchangePort();
+        int id = Integer.parseInt(request.getParameter("id"));
+        Question question = port.getQuestion(id);
+        if (question != null) {
+            request.setAttribute("question", question);
+            request.getRequestDispatcher("WEB-INF/view/ask.jsp").forward(request, response);
+        }
+        else
+            response.sendRedirect(request.getContextPath());
     }
 
     /**
