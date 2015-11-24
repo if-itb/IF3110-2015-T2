@@ -24,17 +24,17 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _AnswerVoteDownResponse_QNAME = new QName("http://answer.ws.tusiri.org/", "AnswerVoteDownResponse");
-    private final static QName _AnswerVoteUpResponse_QNAME = new QName("http://answer.ws.tusiri.org/", "AnswerVoteUpResponse");
-    private final static QName _GetAnswerListResponse_QNAME = new QName("http://answer.ws.tusiri.org/", "getAnswerListResponse");
-    private final static QName _IOException_QNAME = new QName("http://answer.ws.tusiri.org/", "IOException");
     private final static QName _ParseException_QNAME = new QName("http://answer.ws.tusiri.org/", "ParseException");
-    private final static QName _AnswerVoteDown_QNAME = new QName("http://answer.ws.tusiri.org/", "AnswerVoteDown");
-    private final static QName _AnswerVoteUp_QNAME = new QName("http://answer.ws.tusiri.org/", "AnswerVoteUp");
+    private final static QName _GetAnswerListResponse_QNAME = new QName("http://answer.ws.tusiri.org/", "getAnswerListResponse");
+    private final static QName _CreateAnswerResponse_QNAME = new QName("http://answer.ws.tusiri.org/", "createAnswerResponse");
     private final static QName _ClientProtocolException_QNAME = new QName("http://answer.ws.tusiri.org/", "ClientProtocolException");
     private final static QName _GetAnswerList_QNAME = new QName("http://answer.ws.tusiri.org/", "getAnswerList");
-    private final static QName _CreateAnswerResponse_QNAME = new QName("http://answer.ws.tusiri.org/", "createAnswerResponse");
     private final static QName _CreateAnswer_QNAME = new QName("http://answer.ws.tusiri.org/", "createAnswer");
+    private final static QName _IOException_QNAME = new QName("http://answer.ws.tusiri.org/", "IOException");
+    private final static QName _AnswerVoteUpResponse_QNAME = new QName("http://answer.ws.tusiri.org/", "AnswerVoteUpResponse");
+    private final static QName _AnswerVoteDown_QNAME = new QName("http://answer.ws.tusiri.org/", "AnswerVoteDown");
+    private final static QName _AnswerVoteDownResponse_QNAME = new QName("http://answer.ws.tusiri.org/", "AnswerVoteDownResponse");
+    private final static QName _AnswerVoteUp_QNAME = new QName("http://answer.ws.tusiri.org/", "AnswerVoteUp");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.tusiri.ws.answer
@@ -44,59 +44,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CreateAnswerResponse }
-     * 
-     */
-    public CreateAnswerResponse createCreateAnswerResponse() {
-        return new CreateAnswerResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateAnswer }
-     * 
-     */
-    public CreateAnswer createCreateAnswer() {
-        return new CreateAnswer();
-    }
-
-    /**
      * Create an instance of {@link AnswerVoteDownResponse }
      * 
      */
     public AnswerVoteDownResponse createAnswerVoteDownResponse() {
         return new AnswerVoteDownResponse();
-    }
-
-    /**
-     * Create an instance of {@link AnswerVoteUpResponse }
-     * 
-     */
-    public AnswerVoteUpResponse createAnswerVoteUpResponse() {
-        return new AnswerVoteUpResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAnswerListResponse }
-     * 
-     */
-    public GetAnswerListResponse createGetAnswerListResponse() {
-        return new GetAnswerListResponse();
-    }
-
-    /**
-     * Create an instance of {@link IOException }
-     * 
-     */
-    public IOException createIOException() {
-        return new IOException();
-    }
-
-    /**
-     * Create an instance of {@link ParseException }
-     * 
-     */
-    public ParseException createParseException() {
-        return new ParseException();
     }
 
     /**
@@ -116,11 +68,43 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IOException }
+     * 
+     */
+    public IOException createIOException() {
+        return new IOException();
+    }
+
+    /**
+     * Create an instance of {@link CreateAnswer }
+     * 
+     */
+    public CreateAnswer createCreateAnswer() {
+        return new CreateAnswer();
+    }
+
+    /**
+     * Create an instance of {@link AnswerVoteUpResponse }
+     * 
+     */
+    public AnswerVoteUpResponse createAnswerVoteUpResponse() {
+        return new AnswerVoteUpResponse();
+    }
+
+    /**
      * Create an instance of {@link ClientProtocolException }
      * 
      */
     public ClientProtocolException createClientProtocolException() {
         return new ClientProtocolException();
+    }
+
+    /**
+     * Create an instance of {@link CreateAnswerResponse }
+     * 
+     */
+    public CreateAnswerResponse createCreateAnswerResponse() {
+        return new CreateAnswerResponse();
     }
 
     /**
@@ -132,47 +116,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ParseException }
+     * 
+     */
+    public ParseException createParseException() {
+        return new ParseException();
+    }
+
+    /**
+     * Create an instance of {@link GetAnswerListResponse }
+     * 
+     */
+    public GetAnswerListResponse createGetAnswerListResponse() {
+        return new GetAnswerListResponse();
+    }
+
+    /**
      * Create an instance of {@link AnswerItem }
      * 
      */
     public AnswerItem createAnswerItem() {
         return new AnswerItem();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AnswerVoteDownResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "AnswerVoteDownResponse")
-    public JAXBElement<AnswerVoteDownResponse> createAnswerVoteDownResponse(AnswerVoteDownResponse value) {
-        return new JAXBElement<AnswerVoteDownResponse>(_AnswerVoteDownResponse_QNAME, AnswerVoteDownResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AnswerVoteUpResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "AnswerVoteUpResponse")
-    public JAXBElement<AnswerVoteUpResponse> createAnswerVoteUpResponse(AnswerVoteUpResponse value) {
-        return new JAXBElement<AnswerVoteUpResponse>(_AnswerVoteUpResponse_QNAME, AnswerVoteUpResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAnswerListResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "getAnswerListResponse")
-    public JAXBElement<GetAnswerListResponse> createGetAnswerListResponse(GetAnswerListResponse value) {
-        return new JAXBElement<GetAnswerListResponse>(_GetAnswerListResponse_QNAME, GetAnswerListResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IOException }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "IOException")
-    public JAXBElement<IOException> createIOException(IOException value) {
-        return new JAXBElement<IOException>(_IOException_QNAME, IOException.class, null, value);
     }
 
     /**
@@ -185,21 +149,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AnswerVoteDown }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAnswerListResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "AnswerVoteDown")
-    public JAXBElement<AnswerVoteDown> createAnswerVoteDown(AnswerVoteDown value) {
-        return new JAXBElement<AnswerVoteDown>(_AnswerVoteDown_QNAME, AnswerVoteDown.class, null, value);
+    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "getAnswerListResponse")
+    public JAXBElement<GetAnswerListResponse> createGetAnswerListResponse(GetAnswerListResponse value) {
+        return new JAXBElement<GetAnswerListResponse>(_GetAnswerListResponse_QNAME, GetAnswerListResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AnswerVoteUp }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateAnswerResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "AnswerVoteUp")
-    public JAXBElement<AnswerVoteUp> createAnswerVoteUp(AnswerVoteUp value) {
-        return new JAXBElement<AnswerVoteUp>(_AnswerVoteUp_QNAME, AnswerVoteUp.class, null, value);
+    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "createAnswerResponse")
+    public JAXBElement<CreateAnswerResponse> createCreateAnswerResponse(CreateAnswerResponse value) {
+        return new JAXBElement<CreateAnswerResponse>(_CreateAnswerResponse_QNAME, CreateAnswerResponse.class, null, value);
     }
 
     /**
@@ -221,21 +185,57 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreateAnswerResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "createAnswerResponse")
-    public JAXBElement<CreateAnswerResponse> createCreateAnswerResponse(CreateAnswerResponse value) {
-        return new JAXBElement<CreateAnswerResponse>(_CreateAnswerResponse_QNAME, CreateAnswerResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link CreateAnswer }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "createAnswer")
     public JAXBElement<CreateAnswer> createCreateAnswer(CreateAnswer value) {
         return new JAXBElement<CreateAnswer>(_CreateAnswer_QNAME, CreateAnswer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link IOException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "IOException")
+    public JAXBElement<IOException> createIOException(IOException value) {
+        return new JAXBElement<IOException>(_IOException_QNAME, IOException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AnswerVoteUpResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "AnswerVoteUpResponse")
+    public JAXBElement<AnswerVoteUpResponse> createAnswerVoteUpResponse(AnswerVoteUpResponse value) {
+        return new JAXBElement<AnswerVoteUpResponse>(_AnswerVoteUpResponse_QNAME, AnswerVoteUpResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AnswerVoteDown }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "AnswerVoteDown")
+    public JAXBElement<AnswerVoteDown> createAnswerVoteDown(AnswerVoteDown value) {
+        return new JAXBElement<AnswerVoteDown>(_AnswerVoteDown_QNAME, AnswerVoteDown.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AnswerVoteDownResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "AnswerVoteDownResponse")
+    public JAXBElement<AnswerVoteDownResponse> createAnswerVoteDownResponse(AnswerVoteDownResponse value) {
+        return new JAXBElement<AnswerVoteDownResponse>(_AnswerVoteDownResponse_QNAME, AnswerVoteDownResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AnswerVoteUp }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer.ws.tusiri.org/", name = "AnswerVoteUp")
+    public JAXBElement<AnswerVoteUp> createAnswerVoteUp(AnswerVoteUp value) {
+        return new JAXBElement<AnswerVoteUp>(_AnswerVoteUp_QNAME, AnswerVoteUp.class, null, value);
     }
 
 }

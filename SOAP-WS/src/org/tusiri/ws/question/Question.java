@@ -51,9 +51,27 @@ public class Question {
 		            } 	
 					System.out.println("q_id = " + q_id);
 					//res = 1;
+					stmt.close();
+					conn.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				} catch(Exception e){
 					//Handle errors for Class.forName
 					e.printStackTrace();
+				} finally {
+				      try{
+					         if(stmt!=null)
+					            stmt.close();
+					      } catch(SQLException se2){
+					      
+					      }
+					      try {
+					         if(conn!=null)
+					            conn.close();
+					      } catch(SQLException se){
+					         se.printStackTrace();
+					      }
 				}
 			}
 		} catch (MalformedURLException e) {
@@ -106,9 +124,27 @@ public class Question {
 							}
 						}
 					}
+					stmt.close();
+					conn.close();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch(Exception e){
+					//Handle errors for Class.forName
+					e.printStackTrace();
+				} finally {
+				      try{
+					         if(stmt!=null)
+					            stmt.close();
+					      } catch(SQLException se2){
+					      
+					      }
+					      try {
+					         if(conn!=null)
+					            conn.close();
+					      } catch(SQLException se){
+					         se.printStackTrace();
+					      }
 				}
 				
 			}
@@ -169,9 +205,27 @@ public class Question {
 							}
 						}
 					}
+					stmt.close();
+					conn.close();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch(Exception e){
+					//Handle errors for Class.forName
+					e.printStackTrace();
+				} finally {
+				      try{
+					         if(stmt!=null)
+					            stmt.close();
+					      } catch(SQLException se2){
+					      
+					      }
+					      try {
+					         if(conn!=null)
+					            conn.close();
+					      } catch(SQLException se){
+					         se.printStackTrace();
+					      }
 				}
 				
 			}
@@ -218,9 +272,27 @@ public class Question {
 				
 				questionItemList.add(q);
 			}
-		} catch(Exception e){
+			stmt.close();
+			conn.close();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}  catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
+		} finally {
+		      try{
+			         if(stmt!=null)
+			            stmt.close();
+			      } catch(SQLException se2){
+			      
+			      }
+			      try {
+			         if(conn!=null)
+			            conn.close();
+			      } catch(SQLException se){
+			         se.printStackTrace();
+			      }
 		}
 		return questionItemList;
 	}
@@ -276,11 +348,29 @@ public class Question {
 					q.setStatus(status);
 					System.out.println(q.getStatus());
 				}
+				stmt.close();
+				conn.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			} catch(Exception e){
 				//Handle errors for Class.forName
 				e.printStackTrace();
+			} finally {
+			      try{
+				         if(stmt!=null)
+				            stmt.close();
+				      } catch(SQLException se2){
+				      
+				      }
+				      try {
+				         if(conn!=null)
+				            conn.close();
+				      } catch(SQLException se){
+				         se.printStackTrace();
+				      }
 			}
-		}catch (MalformedURLException e) {
+		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -320,9 +410,13 @@ public class Question {
 							stmt.setInt(2,id_user);
 							stmt.executeUpdate();
 							ResultSet rs1 = stmt.getGeneratedKeys();
-						}catch(SQLException se){
+							
+						} catch(SQLException se){
 							//Handle errors for JDBC
 							se.printStackTrace();
+						} catch (Exception e) {
+							//Handle errors for Class.forName
+							e.printStackTrace();
 						}
 					}
 					
@@ -368,11 +462,29 @@ public class Question {
 						stmt.executeUpdate();
 						ResultSet rs3 = stmt.getGeneratedKeys();
 					}
+					stmt.close();
+					conn.close();
 					
-				}catch(SQLException se){
+				} catch(SQLException se){
 					//Handle errors for JDBC
 					se.printStackTrace();
-				} 
+				} catch (Exception e) {
+					//Handle errors for Class.forName
+					e.printStackTrace();
+				} finally {
+				      try{
+					         if(stmt!=null)
+					            stmt.close();
+					      } catch(SQLException se2){
+					      
+					      }
+					      try {
+					         if(conn!=null)
+					            conn.close();
+					      } catch(SQLException se){
+					         se.printStackTrace();
+					      }
+				}
 			}
 		}catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -416,9 +528,12 @@ public class Question {
 							stmt.setInt(2,id_user);
 							stmt.executeUpdate();
 							ResultSet rs1 = stmt.getGeneratedKeys();
-						}catch(SQLException se){
+						} catch(SQLException se){
 							//Handle errors for JDBC
 							se.printStackTrace();
+						} catch (Exception e) {
+							//Handle errors for Class.forName
+							e.printStackTrace();
 						}
 					}
 					
@@ -463,11 +578,29 @@ public class Question {
 						stmt.executeUpdate();
 						ResultSet rs3 = stmt.getGeneratedKeys();
 					}
+					stmt.close();
+					conn.close();
 					
-				}catch(SQLException se){
+				} catch(SQLException se){
 					//Handle errors for JDBC
 					se.printStackTrace();
-				} 
+				} catch (Exception e) {
+					//Handle errors for Class.forName
+					e.printStackTrace();
+				}  finally {
+				      try{
+					         if(stmt!=null)
+					            stmt.close();
+					      } catch(SQLException se2){
+					      
+					      }
+					      try {
+					         if(conn!=null)
+					            conn.close();
+					      } catch(SQLException se){
+					         se.printStackTrace();
+					      }
+				}
 			}
 		}catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -519,9 +652,27 @@ public class Question {
 				
 				questionItemList.add(q);
 			}
-		} catch(Exception e){
+			stmt.close();
+			conn.close();
+		} catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		} catch (Exception e) {
 			//Handle errors for Class.forName
 			e.printStackTrace();
+		} finally {
+		      try{
+			         if(stmt!=null)
+			            stmt.close();
+			      } catch(SQLException se2){
+			      
+			      }
+			      try {
+			         if(conn!=null)
+			            conn.close();
+			      } catch(SQLException se){
+			         se.printStackTrace();
+			      }
 		}
 		return questionItemList;
 	}

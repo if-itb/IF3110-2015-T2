@@ -60,14 +60,29 @@ public class Answer {
 					AnswerItem a = new AnswerItem(num_answer,id_question,id_user,content,answer_date,num_votes,username,status);
 					questionItemList.add(a);
 				}
+				stmt.close();
+			    conn.close();
 			} catch(SQLException se){
 				//Handle errors for JDBC
 				se.printStackTrace();
 			} catch(Exception e){
 				//Handle errors for Class.forName
 				e.printStackTrace();
+			} finally {
+			      try{
+				         if(stmt!=null)
+				            stmt.close();
+				      } catch(SQLException se2){
+				      
+				      }
+				      try {
+				         if(conn!=null)
+				            conn.close();
+				      } catch(SQLException se){
+				         se.printStackTrace();
+				      }
 			}
-		}catch (MalformedURLException e) {
+		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -107,12 +122,27 @@ public class Answer {
 		            while (rs.next()) {
 		            	status = 1;
 		            }
+		            stmt.close();
+				    conn.close();
 				} catch(SQLException se){
 					//Handle errors for JDBC
 					se.printStackTrace();
 				} catch(Exception e){
 					//Handle errors for Class.forName
 					e.printStackTrace();
+				} finally {
+				      try{
+					         if(stmt!=null)
+					            stmt.close();
+					      } catch(SQLException se2){
+					      
+					      }
+					      try {
+					         if(conn!=null)
+					            conn.close();
+					      } catch(SQLException se){
+					         se.printStackTrace();
+					      }
 				}
 			} else {
 				status = -1;
@@ -159,9 +189,12 @@ public class Answer {
 							stmt.executeUpdate();
 							System.out.println("Halo1");
 							ResultSet rs1 = stmt.getGeneratedKeys();
-						}catch(SQLException se){
+						} catch(SQLException se){
 							//Handle errors for JDBC
 							se.printStackTrace();
+						} catch(Exception e){
+							//Handle errors for Class.forName
+							e.printStackTrace();
 						}
 					}
 					
@@ -208,11 +241,28 @@ public class Answer {
 						stmt.executeUpdate();
 						ResultSet rs3 = stmt.getGeneratedKeys();
 					}
-					
-				}catch(SQLException se){
+					stmt.close();
+				    conn.close();
+				} catch(SQLException se){
 					//Handle errors for JDBC
 					se.printStackTrace();
-				} 
+				} catch(Exception e){
+					//Handle errors for Class.forName
+					e.printStackTrace();
+				} finally {
+				      try{
+					         if(stmt!=null)
+					            stmt.close();
+					      } catch(SQLException se2){
+					      
+					      }
+					      try {
+					         if(conn!=null)
+					            conn.close();
+					      } catch(SQLException se){
+					         se.printStackTrace();
+					      }
+				}
 			}
 		}catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -258,9 +308,12 @@ public class Answer {
 							stmt.executeUpdate();
 							System.out.println("Halo1");
 							ResultSet rs1 = stmt.getGeneratedKeys();
-						}catch(SQLException se){
+						} catch(SQLException se){
 							//Handle errors for JDBC
 							se.printStackTrace();
+						} catch(Exception e){
+							//Handle errors for Class.forName
+							e.printStackTrace();
 						}
 					}
 					
@@ -307,11 +360,28 @@ public class Answer {
 						stmt.executeUpdate();
 						ResultSet rs3 = stmt.getGeneratedKeys();
 					}
-					
-				}catch(SQLException se){
+					stmt.close();
+					conn.close();
+				} catch(SQLException se){
 					//Handle errors for JDBC
 					se.printStackTrace();
-				} 
+				} catch(Exception e){
+					//Handle errors for Class.forName
+					e.printStackTrace();
+				} finally {
+				      try{
+					         if(stmt!=null)
+					            stmt.close();
+					      } catch(SQLException se2){
+					      
+					      }
+					      try {
+					         if(conn!=null)
+					            conn.close();
+					      } catch(SQLException se){
+					         se.printStackTrace();
+					      }
+				}
 			}
 		}catch (MalformedURLException e) {
 			e.printStackTrace();

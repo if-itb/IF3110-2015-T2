@@ -1,7 +1,7 @@
 
 	<title><%= request.getParameter("pageTitle") %> | StackExchanges</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<base href="http://localhost:8080/WebClient/index.jsp"/>
+	<base href="http://localhost:8082/WebClient/index.jsp"/>
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
     <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
     
@@ -60,7 +60,7 @@
 
 <script>
 function regenerateToken(){
-	var regenerateTokenUrl = "http://localhost:8080/REST-WS/rest/token/regenerateToken";
+	var regenerateTokenUrl = "http://localhost:8081/REST-WS/rest/token/regenerateToken";
 	var tokenData = {access_token:'<%= access_token %>'}
 	$.ajax({
         url: regenerateTokenUrl,
@@ -86,18 +86,18 @@ function checkToken(check,allow){
 	var tokenData;
 	if(check){
 		console.log("masuk");
-		checkTokenUrl= "http://localhost:8080/REST-WS/rest/token-validity/getQuestionAccessValidity"
+		checkTokenUrl= "http://localhost:8081/REST-WS/rest/token-validity/getQuestionAccessValidity"
 		tokenData = {access_token:"<%= access_token %>",id_question: <%= request.getParameter("q_id") %>}
 	}else{
 		console.log("keluar");
-		checkTokenUrl = "http://localhost:8080/REST-WS/rest/token-validity";
+		checkTokenUrl = "http://localhost:8081/REST-WS/rest/token-validity";
 		tokenData = {access_token:"<%= access_token %>"}
 	}
 	
 	//special case
 	if(check && !allow){
 		console.log("keluar");
-		checkTokenUrl = "http://localhost:8080/REST-WS/rest/token-validity";
+		checkTokenUrl = "http://localhost:8081/REST-WS/rest/token-validity";
 		tokenData = {access_token:"<%= access_token %>"}
 		allow = true;
 	}
