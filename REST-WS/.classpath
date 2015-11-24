@@ -9,5 +9,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/xampp/tomcat/lib/java-property-utils-1.9.jar"/>
+	<classpathentry kind="lib" path="C:/xampp/tomcat/lib/cors-filter-1.7.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

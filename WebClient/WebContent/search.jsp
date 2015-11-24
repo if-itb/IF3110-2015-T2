@@ -22,7 +22,8 @@
 	<%
 	QuestionService qservice = new QuestionService();
 	Question q = qservice.getQuestionPort();
-	List<QuestionItem> questionList = q.searchQuestion("CherryBelle");
+	String keyword = request.getParameter("search");
+	List<QuestionItem> questionList = q.searchQuestion(keyword);
 	int n = questionList.size();
 	%>
 
