@@ -14,10 +14,24 @@
         <title>Simple StackExchange</title>
     </head>
 
-    <body>
+    <body>    
         <%
-            if(request.getParameter("token") != null){
-                out.println("<div class='smalltitle-right'>Hello" + "NAMA KAMU" + "</div>");
+            if(request.getParameter("token") != null ){
+                if(!request.getParameter("token").equals("null")){
+                    try {
+                        com.wbd.rgs.RegisterWS_Service service = new com.wbd.rgs.RegisterWS_Service();
+                        com.wbd.rgs.RegisterWS port = service.getRegisterWSPort();
+                         // TODO initialize WS operation arguments here
+                        java.lang.String accessToken = request.getParameter("token");
+                        // TODO process result here
+                        java.lang.String result = port.getUsername(accessToken);
+                        out.println("<div class='smalltitle-right'>Hello " + result + "</div>");
+                    } catch (Exception ex) {
+                        // TODO handle custom exceptions here
+                    }
+                }else{
+                    out.println("<div class='smalltitle-right'><a id = 'color-black' href='login.jsp' >login</a> | <a id = 'color-black' href='register.jsp' >register</a></div>");
+                }
             }
             else{   
                 out.println("<div class='smalltitle-right'><a id = 'color-black' href='login.jsp' >login</a> | <a id = 'color-black' href='register.jsp' >register</a></div>");
