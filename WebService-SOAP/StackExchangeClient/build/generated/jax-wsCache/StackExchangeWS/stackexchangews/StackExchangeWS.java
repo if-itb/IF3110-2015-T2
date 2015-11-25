@@ -70,57 +70,15 @@ public interface StackExchangeWS {
 
     /**
      * 
-     * @param id
-     * @param type
-     * @param userId
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(name = "voteResult", targetNamespace = "")
-    @RequestWrapper(localName = "voteDown", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteDown")
-    @ResponseWrapper(localName = "voteDownResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteDownResponse")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/voteDownRequest", output = "http://StackExchangeWS/StackExchangeWS/voteDownResponse")
-    public String voteDown(
-        @WebParam(name = "type", targetNamespace = "")
-        String type,
-        @WebParam(name = "userId", targetNamespace = "")
-        int userId,
-        @WebParam(name = "id", targetNamespace = "")
-        int id);
-
-    /**
-     * 
      * @param qid
-     * @return
-     *     returns stackexchangews.Question
-     */
-    @WebMethod
-    @WebResult(name = "Question", targetNamespace = "")
-    @RequestWrapper(localName = "getQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetQuestion")
-    @ResponseWrapper(localName = "getQuestionResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetQuestionResponse")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/getQuestionRequest", output = "http://StackExchangeWS/StackExchangeWS/getQuestionResponse")
-    public Question getQuestion(
-        @WebParam(name = "qid", targetNamespace = "")
-        int qid);
-
-    /**
-     * 
-     * @param topic
-     * @param userId
-     * @param content
      */
     @WebMethod
     @Oneway
-    @RequestWrapper(localName = "insertQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.InsertQuestion")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/insertQuestion")
-    public void insertQuestion(
-        @WebParam(name = "userId", targetNamespace = "")
-        int userId,
-        @WebParam(name = "topic", targetNamespace = "")
-        String topic,
-        @WebParam(name = "content", targetNamespace = "")
-        String content);
+    @RequestWrapper(localName = "deleteQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.DeleteQuestion")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/deleteQuestion")
+    public void deleteQuestion(
+        @WebParam(name = "qid", targetNamespace = "")
+        int qid);
 
     /**
      * 
@@ -144,14 +102,14 @@ public interface StackExchangeWS {
      * 
      * @param qid
      * @return
-     *     returns java.util.List<stackexchangews.Answer>
+     *     returns stackexchangews.Question
      */
     @WebMethod
-    @WebResult(name = "Answer", targetNamespace = "")
-    @RequestWrapper(localName = "getAnswer", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetAnswer")
-    @ResponseWrapper(localName = "getAnswerResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetAnswerResponse")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/getAnswerRequest", output = "http://StackExchangeWS/StackExchangeWS/getAnswerResponse")
-    public List<Answer> getAnswer(
+    @WebResult(name = "Question", targetNamespace = "")
+    @RequestWrapper(localName = "getQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetQuestion")
+    @ResponseWrapper(localName = "getQuestionResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetQuestionResponse")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/getQuestionRequest", output = "http://StackExchangeWS/StackExchangeWS/getQuestionResponse")
+    public Question getQuestion(
         @WebParam(name = "qid", targetNamespace = "")
         int qid);
 
@@ -176,13 +134,67 @@ public interface StackExchangeWS {
     /**
      * 
      * @param qid
+     * @return
+     *     returns java.util.List<stackexchangews.Answer>
+     */
+    @WebMethod
+    @WebResult(name = "Answer", targetNamespace = "")
+    @RequestWrapper(localName = "getAnswer", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetAnswer")
+    @ResponseWrapper(localName = "getAnswerResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetAnswerResponse")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/getAnswerRequest", output = "http://StackExchangeWS/StackExchangeWS/getAnswerResponse")
+    public List<Answer> getAnswer(
+        @WebParam(name = "qid", targetNamespace = "")
+        int qid);
+
+    /**
+     * 
+     * @param topic
+     * @param userId
+     * @param content
      */
     @WebMethod
     @Oneway
-    @RequestWrapper(localName = "deleteQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.DeleteQuestion")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/deleteQuestion")
-    public void deleteQuestion(
-        @WebParam(name = "qid", targetNamespace = "")
-        int qid);
+    @RequestWrapper(localName = "insertQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.InsertQuestion")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/insertQuestion")
+    public void insertQuestion(
+        @WebParam(name = "userId", targetNamespace = "")
+        int userId,
+        @WebParam(name = "topic", targetNamespace = "")
+        String topic,
+        @WebParam(name = "content", targetNamespace = "")
+        String content);
+
+    /**
+     * 
+     * @param id
+     * @param type
+     * @param userId
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(name = "voteResult", targetNamespace = "")
+    @RequestWrapper(localName = "voteDown", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteDown")
+    @ResponseWrapper(localName = "voteDownResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteDownResponse")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/voteDownRequest", output = "http://StackExchangeWS/StackExchangeWS/voteDownResponse")
+    public String voteDown(
+        @WebParam(name = "type", targetNamespace = "")
+        String type,
+        @WebParam(name = "userId", targetNamespace = "")
+        int userId,
+        @WebParam(name = "id", targetNamespace = "")
+        int id);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<stackexchangews.Question>
+     */
+    @WebMethod
+    @WebResult(name = "Questions", targetNamespace = "")
+    @RequestWrapper(localName = "getRecentQuestions", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetRecentQuestions")
+    @ResponseWrapper(localName = "getRecentQuestionsResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetRecentQuestionsResponse")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/getRecentQuestionsRequest", output = "http://StackExchangeWS/StackExchangeWS/getRecentQuestionsResponse")
+    public List<Question> getRecentQuestions();
 
 }

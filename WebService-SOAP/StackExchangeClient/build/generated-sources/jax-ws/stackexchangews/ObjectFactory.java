@@ -28,12 +28,14 @@ public class ObjectFactory {
     private final static QName _UpdateQuestion_QNAME = new QName("http://StackExchangeWS/", "updateQuestion");
     private final static QName _Answer_QNAME = new QName("http://StackExchangeWS/", "Answer");
     private final static QName _RegisterResponse_QNAME = new QName("http://StackExchangeWS/", "registerResponse");
+    private final static QName _GetRecentQuestionsResponse_QNAME = new QName("http://StackExchangeWS/", "getRecentQuestionsResponse");
     private final static QName _DeleteQuestion_QNAME = new QName("http://StackExchangeWS/", "deleteQuestion");
     private final static QName _GetAnswer_QNAME = new QName("http://StackExchangeWS/", "getAnswer");
     private final static QName _Question_QNAME = new QName("http://StackExchangeWS/", "Question");
     private final static QName _GetAnswerResponse_QNAME = new QName("http://StackExchangeWS/", "getAnswerResponse");
     private final static QName _Register_QNAME = new QName("http://StackExchangeWS/", "register");
     private final static QName _GetQuestion_QNAME = new QName("http://StackExchangeWS/", "getQuestion");
+    private final static QName _GetRecentQuestions_QNAME = new QName("http://StackExchangeWS/", "getRecentQuestions");
     private final static QName _InsertQuestion_QNAME = new QName("http://StackExchangeWS/", "insertQuestion");
     private final static QName _GetQuestionResponse_QNAME = new QName("http://StackExchangeWS/", "getQuestionResponse");
     private final static QName _VoteDownResponse_QNAME = new QName("http://StackExchangeWS/", "voteDownResponse");
@@ -54,6 +56,14 @@ public class ObjectFactory {
      */
     public GetQuestion createGetQuestion() {
         return new GetQuestion();
+    }
+
+    /**
+     * Create an instance of {@link GetRecentQuestions }
+     * 
+     */
+    public GetRecentQuestions createGetRecentQuestions() {
+        return new GetRecentQuestions();
     }
 
     /**
@@ -126,6 +136,14 @@ public class ObjectFactory {
      */
     public Answer createAnswer() {
         return new Answer();
+    }
+
+    /**
+     * Create an instance of {@link GetRecentQuestionsResponse }
+     * 
+     */
+    public GetRecentQuestionsResponse createGetRecentQuestionsResponse() {
+        return new GetRecentQuestionsResponse();
     }
 
     /**
@@ -213,6 +231,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetRecentQuestionsResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "getRecentQuestionsResponse")
+    public JAXBElement<GetRecentQuestionsResponse> createGetRecentQuestionsResponse(GetRecentQuestionsResponse value) {
+        return new JAXBElement<GetRecentQuestionsResponse>(_GetRecentQuestionsResponse_QNAME, GetRecentQuestionsResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link DeleteQuestion }{@code >}}
      * 
      */
@@ -264,6 +291,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "getQuestion")
     public JAXBElement<GetQuestion> createGetQuestion(GetQuestion value) {
         return new JAXBElement<GetQuestion>(_GetQuestion_QNAME, GetQuestion.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetRecentQuestions }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "getRecentQuestions")
+    public JAXBElement<GetRecentQuestions> createGetRecentQuestions(GetRecentQuestions value) {
+        return new JAXBElement<GetRecentQuestions>(_GetRecentQuestions_QNAME, GetRecentQuestions.class, null, value);
     }
 
     /**

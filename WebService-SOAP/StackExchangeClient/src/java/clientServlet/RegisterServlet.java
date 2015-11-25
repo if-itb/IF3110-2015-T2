@@ -20,7 +20,7 @@ import stackexchangews.StackExchangeWS_Service;
  *
  * @author Calvin
  */
-@WebServlet(name = "StackExchangeServlet", urlPatterns = {"/StackExchangeServlet"})
+@WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
 public class RegisterServlet extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchangeWS/StackExchangeWS.wsdl")
     private StackExchangeWS_Service service;
@@ -38,7 +38,7 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String name = request.getParameter("fullname");
+            String name = request.getParameter("name");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             register(name, email, password);

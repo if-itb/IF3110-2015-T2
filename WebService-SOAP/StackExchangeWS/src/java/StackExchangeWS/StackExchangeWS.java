@@ -79,6 +79,34 @@ public class StackExchangeWS {
         }
     }
     
+    @WebMethod(operationName = "getRecentQuestions")
+    @WebResult(name="Questions")
+    public ArrayList<Question> getRecentQuestions() {        
+        ArrayList<Question> questions = new ArrayList<Question>();
+        
+        try {
+            String sql = "SELECT * FROM question LIMIT 5";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql);            
+            ResultSet rs = dbStatement.executeQuery();
+            
+            while(rs.next()) {
+                Question q = new Question(
+                        rs.getInt("id"),
+                        rs.getInt("userId"),
+                        rs.getString("topic"),
+                        rs.getString("content"),
+                        rs.getInt("vote"));
+                questions.add(q);
+            }
+            
+            return questions;
+        }
+        catch (SQLException ex) {
+            return null;
+        }
+    }
+    
     @WebMethod(operationName = "getAnswer")
     @WebResult(name="Answer")
     public ArrayList<Answer> getAnswer(@WebParam(name = "qid") int qid) {

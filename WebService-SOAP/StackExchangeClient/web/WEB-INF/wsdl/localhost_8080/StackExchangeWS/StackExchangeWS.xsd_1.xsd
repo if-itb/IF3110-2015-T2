@@ -14,6 +14,10 @@
 
 <xs:element name="getQuestionResponse" type="tns:getQuestionResponse"/>
 
+<xs:element name="getRecentQuestions" type="tns:getRecentQuestions"/>
+
+<xs:element name="getRecentQuestionsResponse" type="tns:getRecentQuestionsResponse"/>
+
 <xs:element name="insertAnswer" type="tns:insertAnswer"/>
 
 <xs:element name="insertQuestion" type="tns:insertQuestion"/>
@@ -31,6 +35,12 @@
 <xs:element name="voteUp" type="tns:voteUp"/>
 
 <xs:element name="voteUpResponse" type="tns:voteUpResponse"/>
+
+<xs:complexType name="deleteQuestion">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
 
 <xs:complexType name="getAnswer">
 <xs:sequence>
@@ -54,9 +64,11 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="deleteQuestion">
+<xs:complexType name="updateQuestion">
 <xs:sequence>
 <xs:element name="qid" type="xs:int"/>
+<xs:element name="topic" type="xs:string" minOccurs="0"/>
+<xs:element name="content" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -82,6 +94,14 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="insertAnswer">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+<xs:element name="userId" type="xs:int"/>
+<xs:element name="content" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="insertQuestion">
 <xs:sequence>
 <xs:element name="userId" type="xs:int"/>
@@ -90,19 +110,13 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="updateQuestion">
-<xs:sequence>
-<xs:element name="qid" type="xs:int"/>
-<xs:element name="topic" type="xs:string" minOccurs="0"/>
-<xs:element name="content" type="xs:string" minOccurs="0"/>
-</xs:sequence>
+<xs:complexType name="getRecentQuestions">
+<xs:sequence/>
 </xs:complexType>
 
-<xs:complexType name="insertAnswer">
+<xs:complexType name="getRecentQuestionsResponse">
 <xs:sequence>
-<xs:element name="qid" type="xs:int"/>
-<xs:element name="userId" type="xs:int"/>
-<xs:element name="content" type="xs:string" minOccurs="0"/>
+<xs:element name="Questions" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 

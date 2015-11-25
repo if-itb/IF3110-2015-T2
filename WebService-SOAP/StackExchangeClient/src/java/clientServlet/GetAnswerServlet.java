@@ -36,11 +36,11 @@ public class GetAnswerServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         int qid = Integer.parseInt(request.getParameter("qid"));
         List<Answer> answers = getAnswer(qid);
         request.setAttribute("answers", answers);
-        request.getRequestDispatcher("/home.jsp").forward(request, response);
+        request.getRequestDispatcher("/answer.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
