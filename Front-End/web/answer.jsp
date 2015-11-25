@@ -4,7 +4,10 @@
     Author     : Vincent
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="QuestionWS.Question" %>
+<%@ page import="AnswerWS.Answer" %>
+<%@ page import="java.util.List" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,20 +45,20 @@
     <div class="parallax"><img src="images/background1.jpg" alt="Unsplashed background img 1"></div>
   </div>
 
+  <% Question question = (Question)request.getAttribute("question");%>
   <div class="container">
     <div class="section">
       <div class="row">
         <div class="col s12">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
-              <span class="card-title">Question Topic</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
+              <span class="card-title"><%= question.getTopic() %></span>
+              <p><%= question.getContent() %></p>
             </div>
             <div class="card-action">
-              <p class="orange-text text-lighten-1 right">Asked by Vincent Theophilus Ciputra</p>
+              <p class="orange-text text-lighten-1 right">Asked by <%= question.getUserid() %> at <%= question.getTimestamp() %></p>
               <a href="">Edit</a>
-              <a href="">Delete</a>
+              <a href="delete?qid=<%= question.getQuestionid() %>&uid=<%= question.getUserid() %>">Delete</a>
             </div>
           </div>
         </div>
@@ -63,43 +66,49 @@
     </div>
   </div>
 
+            
+  <% List<Answer> answers = (List<Answer>)request.getAttribute("answers");%>
+  <% int i = 0; %>
+  <% for (Answer answer : answers) { %>
   <div class="divider"></div>
-  
   <div class="container">
     <div class="section">
-      <h2 class="header center blue-text text-darken-4">Answer 1</h2>
+      <h2 class="header center blue-text text-darken-4">Answer <%= ++i %></h2>
       <div class="row">
         <div class="col s12">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
-              <p>Answer... I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
+              <p><%= answer.getContent() %></p>
             </div>
             <div class="card-action">
-              <p class="orange-text text-lighten-1 right">Answered by Vincent Theophilus Ciputra</p>
+              <p class="orange-text text-lighten-1 right">Answered by <%= answer.getUserid() %> at <%= answer.getTimestamp() %></p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <% } %>
   
   <div class="divider"></div>
-    
+ 
+  <form action="submitAnswer" method="post">
+  <input name="qid" type="hidden" value="<%= question.getQuestionid() %>">
+  <input name="uid" type="hidden" value="0">
   <div class="container">
     <div class="section">
         <h2 class="header center blue-text text-darken-4">Your Answer</h2>
           <div class="row">
-            <form class="col s12">
+            <div class="col s12">
                 <div class="row">
-                  <form class="col s12">
+                  <div class="col s12">
                       <div class="input-field col s12">
-                        <textarea id="content" class="materialize-textarea"></textarea>
+                        <textarea name="content" class="materialize-textarea"></textarea>
                         <label for="content">Content</label>
                       </div>
-                  </form>
+                  </div>
                 </div>
-            </form>
+            </div>
           </div>
         <br>
     </div>
@@ -114,6 +123,7 @@
         </div>
     </div>
   </div>
+  </form>
   <br><br><br><br>
 
   <footer class="page-footer black">

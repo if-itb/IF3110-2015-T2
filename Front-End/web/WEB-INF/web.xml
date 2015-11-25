@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>IndexServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.IndexServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.DeleteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateQuestionServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.CreateQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateAnswerServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.CreateAnswerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>IndexServlet</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteServlet</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateQuestionServlet</servlet-name>
+        <url-pattern>/submitQuestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateAnswerServlet</servlet-name>
+        <url-pattern>/submitAnswer</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>

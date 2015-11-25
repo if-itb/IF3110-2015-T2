@@ -3,8 +3,9 @@
     Created on : Nov 17, 2015, 12:51:04 PM
     Author     : Vincent
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="QuestionWS.Question" %>
+<%@ page import="java.util.List" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,48 +83,29 @@
   </div>
   <br><br>
   
-  <div class="container">
-    <div class="section">
-      <div class="row">
-        <div class="col s12">
-          <div class="card cardhome blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title"><a href="answer.jsp" class="white-text">Question Topic</a></span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
+  <% List<Question> questions = (List<Question>)request.getAttribute("questions");%>
+  <% for (Question question : questions) { %>
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col s12">
+                <div class="card cardhome blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title"><a href="answer?qid=<%= question.getQuestionid() %>" class="white-text"><%= question.getTopic() %></a></span>
+                        <p><%= question.getContent() %></p>
+                    </div>
+                    <div class="card-action">
+                        <p class="orange-text text-lighten-1 right">Asked by <%= question.getUserid() %> at <%= question.getTimestamp() %></p>
+                        <a href="">Edit</a>
+                        <a href="delete?qid=<%= question.getQuestionid() %>&uid=<%= question.getUserid() %>">Delete</a>
+                    </div>
+                </div>
             </div>
-            <div class="card-action">
-              <p class="orange-text text-lighten-1 right">Asked by Vincent Theophilus Ciputra</p>
-              <a href="">Edit</a>
-              <a href="">Delete</a>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="container">
-    <div class="section">
-      <div class="row">
-        <div class="col s12">
-          <div class="card cardhome blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title"><a href="answer.jsp" class="white-text">Question Topic</a></span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <p class="orange-text text-lighten-1 right">Asked by Vincent Theophilus Ciputra</p>
-              <a href="">Edit</a>
-              <a href="">Delete</a>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-  
+  <% } %>  
+              
   <footer class="page-footer black">
     <div class="container">
       <div class="row">

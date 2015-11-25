@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>web/index.jsp</url>
+            <bookmark id="1">
+                <name/>
+                <line>24</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/addQuestion.jsp</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/src/java/org/stackexchange/controller/DeleteServlet.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/src/java/org/stackexchange/controller/IndexServlet.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/src/java/org/stackexchange/controller/AnswerServlet.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/src/java/org/stackexchange/controller/CreateAnswerServlet.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/src/java/org/stackexchange/controller/CreateQuestionServlet.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/index.jsp</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/answer.jsp</file>
+        </group>
+    </open-files>
+</project-private>

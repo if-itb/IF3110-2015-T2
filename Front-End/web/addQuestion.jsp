@@ -42,28 +42,29 @@
     <div class="parallax"><img src="images/background1.jpg" alt="Unsplashed background img 1"></div>
   </div>
 
-
+  <form action="submitQuestion" method="post">  
+  <input name="uid" type="hidden" value="0">
   <div class="container">
     <div class="section">
-        <h2 class="header center blue-text text-darken-4">Question</h2>
+        <h2 class="header center blue-text text-darken-4">Question</h2>        
           <div class="row">
-            <form class="col s12">
+            <div class="col s12">
               <div class="row">
                 <div class="input-field col s12">
-                  <input id="topic" type="text" class="validate">
+                  <input name="topic" type="text" class="validate">
                   <label for="topic">Question Topic</label>
                 </div>
               </div>
                 <div class="row">
-                  <form class="col s12">
+                  <div class="col s12">
                       <div class="input-field col s12">
-                        <textarea id="content" class="materialize-textarea"></textarea>
+                        <textarea name="content" class="materialize-textarea"></textarea>
                         <label for="content">Content</label>
                       </div>
-                  </form>
+                  </div>
                 </div>
-            </form>
-          </div>
+            </div>
+          </div>              
         <br>
     </div>
   </div>
@@ -77,6 +78,7 @@
         </div>
     </div>
   </div>
+</form>
   <br><br><br><br>
 
   <footer class="page-footer black">

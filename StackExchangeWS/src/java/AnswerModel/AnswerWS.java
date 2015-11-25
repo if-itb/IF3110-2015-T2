@@ -101,7 +101,7 @@ public class AnswerWS {
         return aid;
     }
     
-    @WebMethod(operationName = "voteQuestion")    
+    @WebMethod(operationName = "voteAnswer")    
     @WebResult(name="AnswerID")
     public int voteAnswer(@WebParam(name = "aid") int aid, @WebParam(name = "vote") int vote) {            
         try {
