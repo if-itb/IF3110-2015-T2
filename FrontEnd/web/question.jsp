@@ -14,13 +14,13 @@
     <body>
         <div class="header">
             <div class="container">
-                <p><a href="index.php">Simple StackExchange</a></p> 
+                <p><a href="index1.jsp">Simple StackExchange</a></p> 
             </div>
         </div>
 
         <div class="main">
             <div class="container">
-                <h2>What's your question?</h2>
+                
                 <%-- start web service invocation --%><hr/>
                 <%
                     try {

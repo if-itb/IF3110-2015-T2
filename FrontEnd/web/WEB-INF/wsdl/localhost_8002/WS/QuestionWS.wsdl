@@ -16,17 +16,29 @@
 <message name="getallQuestionsResponse">
 <part name="parameters" element="tns:getallQuestionsResponse"/>
 </message>
-<message name="deleteQuestion">
-<part name="parameters" element="tns:deleteQuestion"/>
-</message>
-<message name="deleteQuestionResponse">
-<part name="parameters" element="tns:deleteQuestionResponse"/>
-</message>
 <message name="InsertQuestion">
 <part name="parameters" element="tns:InsertQuestion"/>
 </message>
 <message name="InsertQuestionResponse">
 <part name="parameters" element="tns:InsertQuestionResponse"/>
+</message>
+<message name="downQuestion">
+<part name="parameters" element="tns:downQuestion"/>
+</message>
+<message name="downQuestionResponse">
+<part name="parameters" element="tns:downQuestionResponse"/>
+</message>
+<message name="upQuestion">
+<part name="parameters" element="tns:upQuestion"/>
+</message>
+<message name="upQuestionResponse">
+<part name="parameters" element="tns:upQuestionResponse"/>
+</message>
+<message name="deleteQuestion">
+<part name="parameters" element="tns:deleteQuestion"/>
+</message>
+<message name="deleteQuestionResponse">
+<part name="parameters" element="tns:deleteQuestionResponse"/>
 </message>
 <message name="updateQuestion">
 <part name="parameters" element="tns:updateQuestion"/>
@@ -43,13 +55,21 @@
 <input wsam:Action="http://QuestionModel/QuestionWS/getallQuestionsRequest" message="tns:getallQuestions"/>
 <output wsam:Action="http://QuestionModel/QuestionWS/getallQuestionsResponse" message="tns:getallQuestionsResponse"/>
 </operation>
-<operation name="deleteQuestion">
-<input wsam:Action="http://QuestionModel/QuestionWS/deleteQuestionRequest" message="tns:deleteQuestion"/>
-<output wsam:Action="http://QuestionModel/QuestionWS/deleteQuestionResponse" message="tns:deleteQuestionResponse"/>
-</operation>
 <operation name="InsertQuestion">
 <input wsam:Action="http://QuestionModel/QuestionWS/InsertQuestionRequest" message="tns:InsertQuestion"/>
 <output wsam:Action="http://QuestionModel/QuestionWS/InsertQuestionResponse" message="tns:InsertQuestionResponse"/>
+</operation>
+<operation name="downQuestion">
+<input wsam:Action="http://QuestionModel/QuestionWS/downQuestionRequest" message="tns:downQuestion"/>
+<output wsam:Action="http://QuestionModel/QuestionWS/downQuestionResponse" message="tns:downQuestionResponse"/>
+</operation>
+<operation name="upQuestion">
+<input wsam:Action="http://QuestionModel/QuestionWS/upQuestionRequest" message="tns:upQuestion"/>
+<output wsam:Action="http://QuestionModel/QuestionWS/upQuestionResponse" message="tns:upQuestionResponse"/>
+</operation>
+<operation name="deleteQuestion">
+<input wsam:Action="http://QuestionModel/QuestionWS/deleteQuestionRequest" message="tns:deleteQuestion"/>
+<output wsam:Action="http://QuestionModel/QuestionWS/deleteQuestionResponse" message="tns:deleteQuestionResponse"/>
 </operation>
 <operation name="updateQuestion">
 <input wsam:Action="http://QuestionModel/QuestionWS/updateQuestionRequest" message="tns:updateQuestion"/>
@@ -76,7 +96,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="deleteQuestion">
+<operation name="InsertQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -85,7 +105,25 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="InsertQuestion">
+<operation name="downQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="upQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="deleteQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

@@ -14,12 +14,13 @@
     <body>
         <div class="header">
             <div class="container">
-                <p><a href="index.php">Simple StackExchange</a></p> 
+                <p><a href="index1.jsp">Simple StackExchange</a></p> 
             </div>
         </div>
 
         <div class="main">
             <div class="container">
+                
                 <form  name="question" action="insertquestion.jsp" method="post" class="form" >
                     <input type="text" name="name" placeholder="Name" maxlength="12"><br>
                     <input type="text" name="email" placeholder="Email" maxlength="30"><br>
