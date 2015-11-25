@@ -84,7 +84,9 @@ public class QuestionWS {
             Statement stmt = conn.createStatement();
             String sql;
             sql = "SELECT * FROM questions";
+
             PreparedStatement dbStatement = conn.prepareStatement(sql);
+
             ResultSet rs = dbStatement.executeQuery();
             /* Get every data returned by SQL query */
             int i = 0;
@@ -144,7 +146,7 @@ public class QuestionWS {
      * Web service operation
      */
     @WebMethod(operationName = "InsertQuestion")
-     @WebResult(name = "Question")
+    @WebResult(name = "Question")
     public int InsertQuestion(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -176,7 +178,7 @@ public class QuestionWS {
      * Web service operation
      */
     @WebMethod(operationName = "updateQuestion")
-    public int updateQuestion(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content,@WebParam(name = "id") int id) {
+    public int updateQuestion(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content, @WebParam(name = "id") int id) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
@@ -203,8 +205,8 @@ public class QuestionWS {
         }
         return 1;
     }
-    
-     /**
+
+    /**
      * Web service operation up vote an answer
      */
     @WebMethod(operationName = "upQuestion")
@@ -221,7 +223,7 @@ public class QuestionWS {
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, qid);
             dbStatement.executeUpdate();
-           
+
             stmt.close();
         } catch (SQLException ex) {
             //Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
@@ -231,7 +233,7 @@ public class QuestionWS {
         }
         return 1;
     }
-    
+
     /**
      * Web service operation down vote an answer
      */
@@ -249,7 +251,7 @@ public class QuestionWS {
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, qid);
             dbStatement.executeUpdate();
-           
+
             stmt.close();
         } catch (SQLException ex) {
             //Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
@@ -260,5 +262,45 @@ public class QuestionWS {
         return 1;
     }
 
-   
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getQuestionSearch")
+    public ArrayList<Question> getQuestionSearch(@WebParam(name = "search") String search) {
+        ArrayList<Question> questions = new ArrayList<Question>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
+            Statement stmt = conn.createStatement();
+            String sql;
+            sql = "SELECT * FROM questions WHERE  Topic LIKE '%"+search+"%' or Question LIKE '%"+search+"%'";
+
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+
+            ResultSet rs = dbStatement.executeQuery();
+            /* Get every data returned by SQL query */
+            int i = 0;
+            while (rs.next()) {
+                questions.add(new Question(rs.getInt("QuestionID"),
+                        rs.getInt("Votes"),
+                        rs.getInt("Answers"),
+                        rs.getString("Topic"),
+                        rs.getString("Question"),
+                        rs.getString("Name"),
+                        rs.getString("Email"),
+                        rs.getString("Datetime")
+                ));
+                ++i;
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            //Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return questions;
+    }
+
 }
