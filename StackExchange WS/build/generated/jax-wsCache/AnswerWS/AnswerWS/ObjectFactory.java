@@ -44,19 +44,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetAnswerByQIDResponse }
-     * 
-     */
-    public GetAnswerByQIDResponse createGetAnswerByQIDResponse() {
-        return new GetAnswerByQIDResponse();
-    }
-
-    /**
      * Create an instance of {@link GetAnswerByQID }
      * 
      */
     public GetAnswerByQID createGetAnswerByQID() {
         return new GetAnswerByQID();
+    }
+
+    /**
+     * Create an instance of {@link GetAnswerByQIDResponse }
+     * 
+     */
+    public GetAnswerByQIDResponse createGetAnswerByQIDResponse() {
+        return new GetAnswerByQIDResponse();
     }
 
     /**

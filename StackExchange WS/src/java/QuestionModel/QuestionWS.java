@@ -5,10 +5,19 @@
  */
 package QuestionModel;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebResult;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -58,5 +67,40 @@ public class QuestionWS {
             ret = -1;
         }
         return ret;
+    }
+    
+    @WebMethod(operationName = "GetAllQuestion")
+    @WebResult(name="Question")
+    public java.util.ArrayList<Question> GetAllQuestion() {
+        ArrayList<Question> Questions = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dadakandb?zeroDateTimeBehavior=convertToNull","root","");
+          
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM questions";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            ResultSet results = dbStatement.executeQuery();
+            /* Get every data returned by SQL query */
+            int i = 0;
+            while(results.next()){
+                Questions.add(new Question( results.getInt("id"),
+                    results.getInt("id_user"),
+                    results.getString("title"),
+                    results.getString("content"),
+                    results.getString("timestamp"),
+                    results.getInt("votes")
+                ));
+                ++i;
+            }
+            results.close();
+            stmt.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Questions;
     }
 }
