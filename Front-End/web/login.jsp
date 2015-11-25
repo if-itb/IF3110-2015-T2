@@ -50,32 +50,33 @@
             <form class="col s12">
               <div class="row">
                 <div class="input-field col s12">
-                  <input id="email" type="email" class="validate">
+                    <input id="email" name="email" type="email" class="validate">
                   <label for="email">Email</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <input id="password" type="password" class="validate">
+                  <input id="password" name="password" type="password" class="validate">
                   <label for="password">Password</label>
                 </div>
               </div>
               
+              <div class="container">
+                <div class="section">
+                    <div class="row right">
+                        <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action" formaction="http://localhost:8080/IdentityService/LoginServlet" formmethod="POST">Submit
+                        <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </div>
+              </div>
+                
             </form>
           </div>
         <br>
     </div>
   </div>
-
-  <div class="container">
-    <div class="section">
-        <div class="row right">
-          <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action">Submit
-            <i class="material-icons right">send</i>
-          </button>
-        </div>
-    </div>
-  </div>
+    
   <br><br><br><br>
 
   <footer class="page-footer black">
@@ -84,6 +85,7 @@
         <div class="col l6 s12">
           <h5 class="white-text">About Us</h5>
           <p class="grey-text text-lighten-4">We are a team of college students working on this project for fulfilling Web-Based Development task.</p>
+          <p> <c:out value="${report}"></c:out> </p>
         </div>
       </div>
     </div>

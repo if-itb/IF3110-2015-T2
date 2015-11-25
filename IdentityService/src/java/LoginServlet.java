@@ -8,9 +8,11 @@ import java.sql.*;
 import java.util.UUID;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Asus
  */
+
+@WebServlet(name="LoginServlet", urlPatterns={"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
     /**
@@ -59,7 +63,10 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        PrintWriter out = response.getWriter();
+        
+        out.println("Servlet");
+        response.sendRedirect("http://localhost:8081/Front-End/login.jsp");
     }
 
     /**
@@ -73,38 +80,66 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
         
-        String query1 = "SELECT * from user WHERE email = '" + request.getParameter("email") + "' AND password = '" + request.getParameter("password") + "'";
-        String query2 = "SELECT * from user WHERE email = '" + request.getParameter("email") + "'";
         Statement statement;
         
         DBConnection connection = new DBConnection();
         Connection conn = connection.getConn();
-        
-        try {
-            statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery(query1);
-            if (rs.next()) {
-                UUID tokenGenerator = UUID.randomUUID();
-                String token = tokenGenerator.toString();
-                String updateQuery = "INSERT INTO token(value, user_Email) values(" + token + ", " + request.getParameter("email") + ")";
-                statement.execute(updateQuery);
-            }
-            else {
-                rs = statement.executeQuery(query2);
-                if (rs.next()) {
-                    request.setAttribute("report", "Invalid Password");
-                }
-                else {
-                    request.setAttribute("report", "Invalid Email or Password");
-                }
-            }
-            rs.close();
-            statement.close();
+        if (request.getParameter("token") != null) {
+            String checkToken = "SELECT * from token WHERE value = '" + request.getParameter("token") + "'";
             
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                statement = conn.createStatement();
+                ResultSet rs = statement.executeQuery(checkToken);
+                if (rs.next()) {
+                    request.setAttribute("tokenStatus", 1);
+                }
+                
+                rs.close();
+                statement.close();
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        else {
+            if (request.getParameter("email") != null && request.getParameter("password") != null) {
+                
+                String query1 = "SELECT * from user WHERE email = '" + request.getParameter("email") + "' AND password = '" + request.getParameter("password") + "'";
+                String query2 = "SELECT * from user WHERE email = '" + request.getParameter("email") + "'";
+                
+                try {
+                    statement = conn.createStatement();
+                    ResultSet rs = statement.executeQuery(query1);
+                    if (rs.next()) {
+                        UUID tokenGenerator = UUID.randomUUID();
+                        String token = tokenGenerator.toString();
+                        String updateQuery = "INSERT INTO token(value, user_Email) values('" + token + "', '" + request.getParameter("email") + "')";
+                        statement.execute(updateQuery);
+                        response.sendRedirect("http://localhost:8081/Front-End/login.jsp?token=" + token);
+                    }
+                    else {
+                        rs = statement.executeQuery(query2);
+                        if (rs.next()) {
+                            response.sendRedirect("http://localhost:8081/Front-End/login.jsp?fail1");
+                        }
+                        else {
+                            response.sendRedirect("http://localhost:8081/Front-End/login.jsp?fail");
+                        }
+                    }
+                    
+                    rs.close();
+                    statement.close();
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            else {
+                response.sendRedirect("http://localhost:8081/Front-End/login.jsp");
+            }
         }
     }
 
