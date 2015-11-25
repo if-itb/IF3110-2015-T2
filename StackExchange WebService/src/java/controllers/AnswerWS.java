@@ -70,12 +70,12 @@ public class AnswerWS {
     @WebMethod(operationName = "addNewAnswer")
     public int addNewAnswer(@WebParam(name = "u_id") int u_id, @WebParam(name = "content") String content, @WebParam(name = "q_id") int q_id) {
         try {
-            try (Statement stmt = conn.createStatement()) {
-                String sql = "INSERT INTO answer(u_id,content,date_created,q_id) VALUE ("+u_id+",'?',now(),"+q_id+")";
-                PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setString(1,content);
-                dbStatement.executeUpdate();
-            }
+            String sql = "INSERT INTO answer(u_id,content,q_id,date_created) VALUE (?,?,?,now())";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, u_id);
+            dbStatement.setString(2,content);
+            dbStatement.setInt(3, q_id);
+            dbStatement.executeUpdate();
         } catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
@@ -92,7 +92,7 @@ public class AnswerWS {
         String vote = "null";
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT vote FROM vote_answer WHERE q_id="+a_id+" and u_id="+u_id;
+            String sql = "SELECT vote FROM vote_answer WHERE a_id="+a_id+" and u_id="+u_id;
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             ResultSet rs = dbStatement.executeQuery();
             boolean empty = true;
@@ -101,18 +101,21 @@ public class AnswerWS {
                 vote = Integer.toString(rs.getInt("vote"));
             }
             if(!empty && (vote.equals("1"))) return "null";
-            sql = "UPDATE answer SET vote = vote+1 WHERE q_id="+a_id;
+            sql = "UPDATE answer SET vote = vote+1 WHERE a_id=?";
             dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1,a_id);
             dbStatement.executeUpdate();
             if(!empty) {
-                sql = "UPDATE vote_answer SET vote = vote+1 WHERE q_id="+a_id+" and u_id="+u_id;
+                sql = "UPDATE vote_answer SET vote = vote+1 WHERE a_id=? and u_id=?";
             }
             else {
-                sql = "INSERT INTO vote_answer VALUE ("+a_id+","+u_id+",1)";
+                sql = "INSERT INTO vote_answer VALUE (?,?,1)";
             }
             dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1,a_id);
+            dbStatement.setInt(2, u_id);
             dbStatement.executeUpdate();
-            sql = "SELECT vote FROM answer WHERE q_id="+a_id;
+            sql = "SELECT vote FROM answer WHERE a_id="+a_id;
             dbStatement = conn.prepareStatement(sql);
             rs = dbStatement.executeQuery();
             while (rs.next()) {
@@ -135,7 +138,7 @@ public class AnswerWS {
         String vote = "null";
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT vote FROM vote_answer WHERE q_id="+a_id+" and u_id="+u_id;
+            String sql = "SELECT vote FROM vote_answer WHERE a_id="+a_id+" and u_id="+u_id;
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             ResultSet rs = dbStatement.executeQuery();
             boolean empty = true;
@@ -144,18 +147,21 @@ public class AnswerWS {
                 vote = Integer.toString(rs.getInt("vote"));
             }
             if(!empty && (vote.equals("-1"))) return "null";
-            sql = "UPDATE answer SET vote = vote-1 WHERE q_id="+a_id;
+            sql = "UPDATE answer SET vote = vote-1 WHERE a_id=?";
             dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, u_id);
             dbStatement.executeUpdate();
             if(!empty) {
-                sql = "UPDATE vote_answer SET vote = vote-1 WHERE q_id="+a_id+" and u_id="+u_id;
+                sql = "UPDATE vote_answer SET vote = vote-1 WHERE a_id=? and u_id=?";
             }
             else {
-                sql = "INSERT INTO vote_answer VALUE ("+a_id+","+u_id+",-1)";
+                sql = "INSERT INTO vote_answer VALUE (?,?,-1)";
             }
             dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1,a_id);
+            dbStatement.setInt(2,u_id);
             dbStatement.executeUpdate();
-            sql = "SELECT vote FROM answer WHERE q_id="+a_id;
+            sql = "SELECT vote FROM answer WHERE a_id="+a_id;
             dbStatement = conn.prepareStatement(sql);
             rs = dbStatement.executeQuery();
             while (rs.next()) {

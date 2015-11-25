@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
 `a_id` int(7) NOT NULL,
   `u_id` int(7) NOT NULL,
   `content` text NOT NULL,
-  `vote` int(10) NOT NULL,
+  `vote` int(10) NOT NULL DEFAULT '0',
   `date_created` datetime NOT NULL,
   `q_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -159,3 +159,59 @@ ADD CONSTRAINT `question_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `user` (`u_id`)
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+--
+-- Table structure for table `vote_answer`
+--
+
+DROP TABLE IF EXISTS `vote_answer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vote_answer` (
+  `a_id` int(7) NOT NULL,
+  `u_id` int(7) NOT NULL,
+  `vote` int(1) NOT NULL,
+  KEY `a_id` (`a_id`),
+  KEY `u_id` (`u_id`),
+  CONSTRAINT `vote_answer_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `user` (`u_id`) ON DELETE CASCADE,
+  CONSTRAINT `vote_answer_ibfk_2` FOREIGN KEY (`a_id`) REFERENCES `answer` (`a_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vote_answer`
+--
+
+LOCK TABLES `vote_answer` WRITE;
+/*!40000 ALTER TABLE `vote_answer` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vote_answer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vote_question`
+--
+
+DROP TABLE IF EXISTS `vote_question`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vote_question` (
+  `q_id` int(7) NOT NULL,
+  `u_id` int(7) NOT NULL,
+  `vote` int(1) NOT NULL,
+  KEY `u_id` (`u_id`),
+  KEY `q_id` (`q_id`),
+  CONSTRAINT `vote_question_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `user` (`u_id`) ON DELETE CASCADE,
+  CONSTRAINT `vote_question_ibfk_2` FOREIGN KEY (`q_id`) REFERENCES `question` (`q_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vote_question`
+--
+
+LOCK TABLES `vote_question` WRITE;
+/*!40000 ALTER TABLE `vote_question` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vote_question` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

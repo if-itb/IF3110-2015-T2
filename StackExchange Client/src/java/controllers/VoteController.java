@@ -59,6 +59,9 @@ public class VoteController extends HttpServlet {
         if(!q_id.equals("null")) {
             response.sendRedirect("question?q_id=" + id);
         }
+        else {
+            // message
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -44,7 +44,7 @@ public class QuestionWS {
         try {
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM question natural join user";
+            sql = "SELECT * FROM question natural join user GROUP BY date_created DESC";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             ResultSet rs = dbStatement.executeQuery();
             /* Get data */
@@ -112,18 +112,18 @@ public class QuestionWS {
     @WebMethod(operationName = "addNewQuestion")
     public int addNewQuestion(@WebParam(name = "u_id") int u_id, @WebParam(name = "topic") String topic,  @WebParam(name = "content") String content) {
         try {
-            try (Statement stmt = conn.createStatement()) {
-                String sql = "INSERT INTO question(u_id,topic,content,date_created) VALUE ("+u_id+",'?','?',now())";
+                String sql = "INSERT INTO question(u_id,topic,content,date_created) VALUE (?,?,?,now())";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setString(1,topic);
-                dbStatement.setString(2,content);
+                dbStatement.setInt(1,u_id);
+                dbStatement.setString(2,topic);
+                dbStatement.setString(3,content);
                 dbStatement.executeUpdate();
                 sql = "SELECT q_id FROM question WHERE u_id="+u_id+" ORDER BY date_created DESC LIMIT 1";
-                ResultSet rs = stmt.executeQuery(sql);
+                dbStatement = conn.prepareStatement(sql);
+                ResultSet rs = dbStatement.executeQuery();
                 while(rs.next()) {
                     return rs.getInt("q_id");
                 }
-            }
         } catch (SQLException e) {
             e.printStackTrace();
             return -1;
@@ -150,17 +150,23 @@ public class QuestionWS {
                 vote = Integer.toString(rs.getInt("vote"));
             }
             if(!empty && (vote.equals("1"))) return "null";
-            sql = "UPDATE question SET vote = vote+1 WHERE q_id="+q_id;
-            stmt.executeUpdate(sql);
+            sql = "UPDATE question SET vote = vote+1 WHERE q_id=?";
+            dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, q_id);
+            dbStatement.executeUpdate();
             if(!empty) {
-                sql = "UPDATE vote_question SET vote = vote+1 WHERE q_id="+q_id+" and u_id="+u_id;
+                sql = "UPDATE vote_question SET vote = vote+1 WHERE q_id=? and u_id=?";
             }
             else {
-                sql = "INSERT INTO vote_question VALUE ("+q_id+","+u_id+",1)";
+                sql = "INSERT INTO vote_question VALUE (?,?,1)";
             }
-            stmt.executeUpdate(sql);
+            dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, q_id);
+            dbStatement.setInt(2, u_id);
+            dbStatement.executeUpdate();
             sql = "SELECT vote FROM question WHERE q_id="+q_id;
-            rs = stmt.executeQuery(sql);
+            dbStatement = conn.prepareStatement(sql);
+            rs = dbStatement.executeQuery();
             while (rs.next()) {
                 vote = Integer.toString(rs.getInt("vote"));
             }
@@ -188,17 +194,20 @@ public class QuestionWS {
                 empty = false;
                 vote = Integer.toString(rs.getInt("vote"));
             }
-            if(!empty && (vote.equals("-1"))) return "null udah pernah";
-            sql = "UPDATE question SET vote = vote-1 WHERE q_id="+q_id;
+            if(!empty && (vote.equals("-1"))) return "null";
+            sql = "UPDATE question SET vote = vote-1 WHERE q_id=?";
             dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, q_id);
             dbStatement.executeUpdate();
             if(!empty) {
-                sql = "UPDATE vote_question SET vote = vote-1 WHERE q_id="+q_id+" and u_id="+u_id;
+                sql = "UPDATE vote_question SET vote = vote-1 WHERE q_id=? and u_id=?";
             }
             else {
-                sql = "INSERT INTO vote_question VALUE ("+q_id+","+u_id+",-1)";
+                sql = "INSERT INTO vote_question VALUE (?,?,-1)";
             }
             dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, q_id);
+            dbStatement.setInt(2, u_id);
             dbStatement.executeUpdate();
             sql = "SELECT vote FROM question WHERE q_id="+q_id;
             rs = stmt.executeQuery(sql);
@@ -208,7 +217,7 @@ public class QuestionWS {
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            return "null error";
+            return "null";
         }
         return vote;
     }
@@ -219,8 +228,10 @@ public class QuestionWS {
     public int deleteQuestion(@WebParam(name = "q_id") int q_id) {
         try {
             try (Statement stmt = conn.createStatement()) {
-                String sql = "DELETE FROM question WHERE q_id="+q_id;
-                stmt.executeUpdate(sql);
+                String sql = "DELETE FROM question WHERE q_id=?";
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, q_id);
+                dbStatement.executeUpdate();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -256,8 +267,11 @@ public class QuestionWS {
     public int updateQuestion(@WebParam(name = "q_id") int q_id, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE question SET topic = '"+topic+"', content = '"+content+"', date_edited=now() WHERE q_id="+q_id;
-            stmt.executeUpdate(sql);
+            String sql = "UPDATE question SET topic = ?, content = ?, date_edited=now() WHERE q_id="+q_id;
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1,topic);
+            dbStatement.setString(2,content);
+            dbStatement.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();

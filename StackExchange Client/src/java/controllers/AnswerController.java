@@ -81,6 +81,9 @@ public class AnswerController extends HttpServlet {
         if (qId != -1 ) {
             response.sendRedirect("question?q_id=" + qId);
         }
+        else {
+            processRequest(request,response);
+        }
     }
 
     /**

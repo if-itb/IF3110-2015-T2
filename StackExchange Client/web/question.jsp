@@ -48,12 +48,12 @@
                 }
 		for(int i = 0; i < question.getAnswer(); i++) { %>
                     <span id="question-vote"><br>
-                        <div onclick="location.href='vote?id=<%= question.getQId() %>&type=a&vote=1';" class="arrow-up">
+                        <div onclick="location.href='vote?id=<%= answers.get(i).getAId() %>&type=a&vote=1';" class="arrow-up">
                         </div><br>
 			<span id="ansvote-<%= answers.get(i).getAId() %>" class="question-number">
                             <%= answers.get(i).getVote() %></span><br>
                         <br>
-                        <div onclick="location.href='vote?id=<%= question.getQId() %>&type=a&vote=-1';" class="arrow-down"></div>
+                        <div onclick="location.href='vote?id=<%= answers.get(i).getAId() %>&type=a&vote=-1';" class="arrow-down"></div>
                         <br>
                     </span>
                     <span id="question-content">
