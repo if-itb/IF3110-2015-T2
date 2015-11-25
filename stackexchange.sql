@@ -29,7 +29,7 @@ CREATE TABLE `answer` (
   `Answer` text NOT NULL,
   `Vote` int(11) NOT NULL,
   PRIMARY KEY (`IDAns`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `answer` (
 
 LOCK TABLES `answer` WRITE;
 /*!40000 ALTER TABLE `answer` DISABLE KEYS */;
-INSERT INTO `answer` VALUES (13,47,1,'ifeoeoefew',0),(14,47,1,'ipefpoiweiofwoeijfpq',0),(15,48,10,'',0),(16,48,10,'asdsadasda',0),(22,51,12,'Bacot',12),(23,51,15,'dasdasdasda',4),(24,51,20,'bacot',8),(26,51,23,'sndandoa',2),(27,51,14,'sndandoa',3);
+INSERT INTO `answer` VALUES (28,54,5,'Real Madrid Cupu',3),(29,54,5,'Visca El Barca!',2),(30,55,1,'APA',1);
 /*!40000 ALTER TABLE `answer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,7 +56,7 @@ CREATE TABLE `question` (
   `Content` text NOT NULL,
   `Vote` int(6) NOT NULL,
   PRIMARY KEY (`IDQ`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `question` (
 
 LOCK TABLES `question` WRITE;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
-INSERT INTO `question` VALUES (51,6,'ijoiwqfowqo','oifewoifowefew',7),(53,8,'ijoiwqfowqo','oifewoifowefew',2),(54,7,'El Classico','Real Madrid 0-4 Barcelona',2);
+INSERT INTO `question` VALUES (54,7,'El Classico','Real Madrid 0-4 Barcelona',2),(55,1,'guuuu','oiiiooo',5),(56,7,'Cliff','Cliff Homo dan Bau',-1),(57,7,'Tri','Tri Chaer CIeee',1),(59,9,'Cewe Cakep IF','Susanti, Catherine Priscilla MUACHHH :*',1),(60,1,'Cowo Ganteng IF','Luminto dong',0),(61,1,'Cowo Jelek IF','Cliff',0);
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,7 +90,7 @@ CREATE TABLE `token` (
 
 LOCK TABLES `token` WRITE;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
-INSERT INTO `token` VALUES ('ac86a7346d7fd351a105b86aefde2d61',7,'2015-11-24 13:35:32'),('ad845a24a47deecbfa8396e90db75c6a',9,'2015-11-24 09:08:36'),('e15f849d84745e80106b74097a501059',1,'2015-11-24 09:02:26'),('f0a1bf404691edaed59e19908f0e89ca',5,'2015-11-24 09:04:15');
+INSERT INTO `token` VALUES ('04f2ed50ac1e42847636bacc4c723c58',6,'2015-11-25 11:31:37'),('1f0d7533eaa9e0ce2d09452824756ab5',5,'2015-11-25 15:13:18'),('c3a217b79fe6e611ba9d4c13fdcb0742',9,'2015-11-25 16:06:03'),('e15f849d84745e80106b74097a501059',1,'2015-11-25 15:33:34'),('f0a1bf404691edaed59e19908f0e89ca',5,'2015-11-25 15:19:15');
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,7 +107,7 @@ CREATE TABLE `user` (
   `Email` varchar(50) NOT NULL,
   `Password` varchar(30) NOT NULL,
   PRIMARY KEY (`IDUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +116,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'clif','jonathan','santoso'),(2,'mochammad','ginanjar','busiri'),(3,'muhammad','try','yulianto'),(4,'mohammad','aodyra','khaidir'),(5,'Bimo','Aryo','Tyasono'),(6,'lie','albert','tri adrian'),(7,'Chairuni','Aulia','Nusapati'),(8,'Chairuni','Aulia','Nusapati'),(9,'luminto','luhur','chandra'),(10,'asdsada','jonatthan','asdasda'),(11,'asdasggr','jonathan','uykmuju'),(12,'qweqwe','jonathan','hregertr'),(13,'asd','Jonathan','iejiweq'),(14,'yujryjury','Aryo','nbbgfgh'),(15,'dwqdqwijiodqwjoidj','ojoqwjodjewodjoi','ojoiewjfowejfoewf'),(16,'sadasdsadsa','asdadasdasdsa','ChairuniAuliaNusapati'),(17,'raymond','kusuma','kosasih'),(18,'sdjiwdiwj','ieoidoieijewo','iejofiwejoifew'),(19,'bimo','aryo','tyasono'),(20,'owqkeopqwkpewqp','okkqpowrkqpkp','pkpoqkeprkqrer'),(21,'wqdqwidji','iowiejfoiewjofio','jojfoiwefowefew'),(22,'Chaer','chairuni.citata@gmail.com','Syalala'),(23,'saioidsa','fdf','gfgf'),(24,'sadajioda','fdf','dds'),(25,'rioaefiooafo','ioroigierjgojo','irgoierigoirger'),(26,'Luminto Luhur','lumintoluhur@hotmail.com','812378');
+INSERT INTO `user` VALUES (1,'Cliff Jonathan','cliff@gmail.com','santoso'),(2,'Ginanjar','ginanjar@gmail.com','busiri'),(3,'Try Yulianto','try@if.itb.ac.id','yulianto'),(4,'Aodyra','aodyra@gmail.com','khaidir'),(5,'Bimo Aryo','bimo@gmail.com','Tyasono'),(6,'Albert Tri','liealbert@gmail.com','triadrian'),(7,'Chairuni Aulia','chaer@gmail.com','Nusapati'),(9,'Luminto Luhur','luminto_luhur@hotmail.com','susanti'),(17,'Raymond Kosasih','raymondkosasih@gmail.com','kosasih');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,8 +131,9 @@ CREATE TABLE `vote_answer` (
   `IDVoteAns` int(11) NOT NULL AUTO_INCREMENT,
   `IDUser` int(11) NOT NULL,
   `IDAns` int(11) NOT NULL,
+  `vote_direction` int(11) NOT NULL,
   PRIMARY KEY (`IDVoteAns`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,6 +142,7 @@ CREATE TABLE `vote_answer` (
 
 LOCK TABLES `vote_answer` WRITE;
 /*!40000 ALTER TABLE `vote_answer` DISABLE KEYS */;
+INSERT INTO `vote_answer` VALUES (3,1,29,0),(4,1,28,0),(5,1,30,1);
 /*!40000 ALTER TABLE `vote_answer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,8 +157,9 @@ CREATE TABLE `vote_question` (
   `IDVoteQ` int(11) NOT NULL AUTO_INCREMENT,
   `IDUser` int(11) NOT NULL,
   `IDQ` int(11) NOT NULL,
+  `vote_direction` int(11) NOT NULL,
   PRIMARY KEY (`IDVoteQ`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,6 +168,7 @@ CREATE TABLE `vote_question` (
 
 LOCK TABLES `vote_question` WRITE;
 /*!40000 ALTER TABLE `vote_question` DISABLE KEYS */;
+INSERT INTO `vote_question` VALUES (1,1,55,1),(4,5,55,1),(5,5,57,1),(6,5,58,1),(7,1,56,0),(8,5,54,1),(9,9,59,1);
 /*!40000 ALTER TABLE `vote_question` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -177,4 +181,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-25 11:51:57
+-- Dump completed on 2015-11-25 23:08:18

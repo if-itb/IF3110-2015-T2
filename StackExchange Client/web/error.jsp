@@ -14,7 +14,7 @@
     <body>
     <%
              if (request.getParameter("id").equals("-1")){
-                out.println("<h1>You have not registered yet! <a href='register.jsp?'>Register here</a></h1>");
+                out.println("<h1>You have not registered yet! <a href='register.jsp'>Register here</a> or <a href='login.jsp'>Login Here</a></h1>");
             } else if (request.getParameter("id").equals("-2")){
                 out.println("<h1>Login Expired. Please <a href='login.jsp'>Login</a> Again</h1>");
             } else if (request.getParameter("id").equals("3")){

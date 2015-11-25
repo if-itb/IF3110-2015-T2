@@ -212,6 +212,25 @@ public class QuestionWS {
                     PreparedStatement pstmt = conn.prepareStatement(sql);
                     pstmt.setInt(1, qid);
                     pstmt.executeUpdate();
+                    
+                    sql = "DELETE FROM vote_question WHERE IDQ = ?";
+                    pstmt = conn.prepareStatement(sql);
+                    pstmt.setInt(1, qid);
+                    pstmt.executeUpdate();
+                    sql = "SELECT IDAns FROM answer WHERE IDQ = ?";
+                    PreparedStatement dbStatement2 = conn.prepareStatement(sql);
+                    dbStatement2.setInt(1,qid);
+                    ResultSet rs2 = dbStatement2.executeQuery();
+                    while (rs2.next()){
+                        sql = "DELETE FROM vote_answer WHERE IDAns = ?";
+                        pstmt = conn.prepareStatement(sql);
+                        pstmt.setInt(1, rs2.getInt("IDAns"));
+                        pstmt.executeUpdate();
+                    }
+                    sql = "DELETE FROM answer WHERE IDQ = ?";
+                    pstmt = conn.prepareStatement(sql);
+                    pstmt.setInt(1, qid);
+                    pstmt.executeUpdate();
                     message = 1;
                 } else {
                     message = -3; //It's your not Question. Not authorize!
@@ -244,26 +263,40 @@ public class QuestionWS {
         try {
             if (token_check.getValid() == 1){
                 //Can Vote. Right Identity
-                String sql = "SELECT * FROM vote_question NATURAL JOIN token WHERE access_token = ?";
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+                String sql = "SELECT * FROM vote_question NATURAL JOIN token WHERE access_token = ? AND IDQ = ?";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
                 dbStatement.setString(1,access_token);
+                dbStatement.setString(2,qid);
                 ResultSet rs = dbStatement.executeQuery();
-
-                if (rs.getRow() == 0){
+                if (!rs.next()){
                     //Jika gak da vote di database, Bisa vote
                     String sql2 = "SELECT * FROM user NATURAL JOIN token WHERE access_token = ?";
-                    PreparedStatement dbStatement2 = conn.prepareStatement(sql2);
-                    dbStatement.setString(1,access_token);
-                    ResultSet rs2 = dbStatement2.executeQuery();
-                    int user_id = rs2.getInt("IDUser");
+                        PreparedStatement dbStatement2 = conn.prepareStatement(sql2);
+                        dbStatement2.setString(1,access_token);
+                        ResultSet rs2 = dbStatement2.executeQuery();
+                        int user_id = 0;
+                        if (rs2.next()){
+                            user_id = rs2.getInt("IDUser");
+                        }
 
-                    String sql3 = "INSERT INTO vote_question(IDUser,IDQ,vote_direction) VALUES(?,?,?)";
-                    PreparedStatement dbStatement3 = conn.prepareStatement(sql3);
-                    dbStatement.setInt(1,user_id);
-                    dbStatement.setString(2,qid);
-                    dbStatement.setInt(3,1);
-                    dbStatement3.executeUpdate();
-                
+                        String sql4 = "INSERT INTO vote_question(IDUser,IDQ,vote_direction) VALUES(?,?,?)";
+                        PreparedStatement dbStatement4 = conn.prepareStatement(sql4);
+                        dbStatement4.setInt(1,user_id);
+                        dbStatement4.setString(2,qid);
+                        dbStatement4.setInt(3,1);
+                         System.out.println("Checkpoint 3");
+                        dbStatement4.executeUpdate();
+
+                         conn.setAutoCommit(false);
+
+                        Statement stmt = conn.createStatement();
+                        String sql3 = "UPDATE question SET Vote = Vote + 1 WHERE IDQ = ?";
+                        PreparedStatement pstmt = conn.prepareStatement(sql3);
+                        pstmt.setString(1, qid);
+                        pstmt.executeUpdate();
+                        conn.commit();
+                        message = 1;
                 }
                 else{
                     //Jika ada vote di database, gak bisa vote lagi
@@ -273,40 +306,12 @@ public class QuestionWS {
                 //Wrong identity. Something wrong
                 message = -1;                
             } 
-        } catch (Exception ex){
-            ex.printStackTrace();
-
+        } catch (SQLException e){
+            e.printStackTrace();
+            message = 11;
         }
+        System.out.println("Message : " + message);
         return message;
-
-
-        /*Connection conn = null;
-        try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
-
-            // Turn on transactions
-            conn.setAutoCommit(false);
-
-            Statement stmt = conn.createStatement();
-            String sql = "UPDATE question SET Vote = Vote + 1 WHERE IDQ = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, qid);
-            pstmt.executeUpdate();
-            conn.commit();
-
-
-            System.out.println("Order successful!  Thanks for your business!");
-            return 1;
-        }
-       catch (Exception e) {
-            // Any error is grounds for rollback
-            try {
-                conn.rollback();
-            }
-            catch (SQLException ignored) { }
-                System.out.println("Order failed. Please contact technical support.");
-                  return 0;
-       }*/
     }
 
     /**
@@ -314,33 +319,72 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "voteDown")
     public int voteDown(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") String qid) {
+        //Check Token 
         Connection conn = null;
+        int message = 0;
+        TokenChecker token_check = new TokenChecker();
+        System.out.println("ACCESS TOKEN : " + access_token);
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
-
-            // Turn on transactions
-            conn.setAutoCommit(false);
-
-            Statement stmt = conn.createStatement();
-            String sql = "UPDATE question SET Vote = Vote - 1 WHERE IDQ = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, qid);
-            pstmt.executeUpdate();
-            conn.commit();
-
-
-            System.out.println("Order successful!  Thanks for your business!");
-            return 1;
+            token_check.check(access_token);
+        } catch (ParseException ex) {
+            java.util.logging.Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
-       catch (Exception e) {
-            // Any error is grounds for rollback
-            try {
-                conn.rollback();
-            }
-            catch (SQLException ignored) { }
-                System.out.println("Order failed. Please contact technical support.");
-                  return 0;
-       }
+        System.out.println("Validity : " + token_check.getValid());
+        if (token_check.getExpired() == 1){
+            return -2; //Expired
+        }
+        try {
+            if (token_check.getValid() == 1){
+                //Can Vote. Right Identity
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+                String sql = "SELECT * FROM vote_question NATURAL JOIN token WHERE access_token = ? AND IDQ = ?";
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1,access_token);
+                dbStatement.setString(2,qid);
+                ResultSet rs = dbStatement.executeQuery();
+                if (!rs.next()){
+                    //Jika gak da vote di database, Bisa vote
+                    String sql2 = "SELECT * FROM user NATURAL JOIN token WHERE access_token = ?";
+                    PreparedStatement dbStatement2 = conn.prepareStatement(sql2);
+                    dbStatement2.setString(1,access_token);
+                    ResultSet rs2 = dbStatement2.executeQuery();
+                    int user_id = 0;
+                    if (rs2.next()){
+                        user_id = rs2.getInt("IDUser");
+                    }
+                    
+                    String sql4 = "INSERT INTO vote_question(IDUser,IDQ,vote_direction) VALUES(?,?,?)";
+                    PreparedStatement dbStatement4 = conn.prepareStatement(sql4);
+                    dbStatement4.setInt(1,user_id);
+                    dbStatement4.setString(2,qid);
+                    dbStatement4.setInt(3,0);
+                     System.out.println("Checkpoint 3");
+                    dbStatement4.executeUpdate();
+                    
+                     conn.setAutoCommit(false);
+
+                    Statement stmt = conn.createStatement();
+                    String sql3 = "UPDATE question SET Vote = Vote - 1 WHERE IDQ = ?";
+                    PreparedStatement pstmt = conn.prepareStatement(sql3);
+                    pstmt.setString(1, qid);
+                    pstmt.executeUpdate();
+                    conn.commit();
+                    message = 1;
+                }
+                else{
+                    //Jika ada vote di database, gak bisa vote lagi
+                    message = -5;
+                }
+            }else{
+                //Wrong identity. Something wrong
+                message = -1;                
+            } 
+        } catch (SQLException e){
+            e.printStackTrace();
+            message = 11;
+        }
+        System.out.println("Message : " + message);
+        return message;
     }
 
     /**

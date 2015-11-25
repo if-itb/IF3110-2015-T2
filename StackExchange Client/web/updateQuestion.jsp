@@ -25,7 +25,7 @@
 	// TODO process result here
 	int result = port.updateQ(accessToken, qid, title, content);
 	if (result == 1){
-            String site = "index.jsp";
+            String site = "index.jsp?token=" + accessToken;
             response.setStatus(response.SC_MOVED_TEMPORARILY);
             response.setHeader("Location", site);
         } else if (result == -1){

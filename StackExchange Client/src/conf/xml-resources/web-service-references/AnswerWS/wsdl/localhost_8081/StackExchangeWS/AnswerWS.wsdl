@@ -4,23 +4,11 @@
 <xsd:import namespace="http://ans.wbd.com/" schemaLocation="http://localhost:8081/StackExchangeWS/AnswerWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="createAns">
-<part name="parameters" element="tns:createAns"/>
+<message name="getNamaAns">
+<part name="parameters" element="tns:getNamaAns"/>
 </message>
-<message name="createAnsResponse">
-<part name="parameters" element="tns:createAnsResponse"/>
-</message>
-<message name="voteDown">
-<part name="parameters" element="tns:voteDown"/>
-</message>
-<message name="voteDownResponse">
-<part name="parameters" element="tns:voteDownResponse"/>
-</message>
-<message name="voteUp">
-<part name="parameters" element="tns:voteUp"/>
-</message>
-<message name="voteUpResponse">
-<part name="parameters" element="tns:voteUpResponse"/>
+<message name="getNamaAnsResponse">
+<part name="parameters" element="tns:getNamaAnsResponse"/>
 </message>
 <message name="getAnswerByQID">
 <part name="parameters" element="tns:getAnswerByQID"/>
@@ -28,55 +16,49 @@
 <message name="getAnswerByQIDResponse">
 <part name="parameters" element="tns:getAnswerByQIDResponse"/>
 </message>
-<message name="getNamaAns">
-<part name="parameters" element="tns:getNamaAns"/>
+<message name="voteDown">
+<part name="parameters" element="tns:voteDown"/>
 </message>
-<message name="getNamaAnsResponse">
-<part name="parameters" element="tns:getNamaAnsResponse"/>
+<message name="voteDownResponse">
+<part name="parameters" element="tns:voteDownResponse"/>
+</message>
+<message name="createAns">
+<part name="parameters" element="tns:createAns"/>
+</message>
+<message name="createAnsResponse">
+<part name="parameters" element="tns:createAnsResponse"/>
+</message>
+<message name="voteUp">
+<part name="parameters" element="tns:voteUp"/>
+</message>
+<message name="voteUpResponse">
+<part name="parameters" element="tns:voteUpResponse"/>
 </message>
 <portType name="AnswerWS">
-<operation name="createAns">
-<input wsam:Action="http://ans.wbd.com/AnswerWS/createAnsRequest" message="tns:createAns"/>
-<output wsam:Action="http://ans.wbd.com/AnswerWS/createAnsResponse" message="tns:createAnsResponse"/>
-</operation>
-<operation name="voteDown">
-<input wsam:Action="http://ans.wbd.com/AnswerWS/voteDownRequest" message="tns:voteDown"/>
-<output wsam:Action="http://ans.wbd.com/AnswerWS/voteDownResponse" message="tns:voteDownResponse"/>
-</operation>
-<operation name="voteUp">
-<input wsam:Action="http://ans.wbd.com/AnswerWS/voteUpRequest" message="tns:voteUp"/>
-<output wsam:Action="http://ans.wbd.com/AnswerWS/voteUpResponse" message="tns:voteUpResponse"/>
+<operation name="getNamaAns">
+<input wsam:Action="http://ans.wbd.com/AnswerWS/getNamaAnsRequest" message="tns:getNamaAns"/>
+<output wsam:Action="http://ans.wbd.com/AnswerWS/getNamaAnsResponse" message="tns:getNamaAnsResponse"/>
 </operation>
 <operation name="getAnswerByQID">
 <input wsam:Action="http://ans.wbd.com/AnswerWS/getAnswerByQIDRequest" message="tns:getAnswerByQID"/>
 <output wsam:Action="http://ans.wbd.com/AnswerWS/getAnswerByQIDResponse" message="tns:getAnswerByQIDResponse"/>
 </operation>
-<operation name="getNamaAns">
-<input wsam:Action="http://ans.wbd.com/AnswerWS/getNamaAnsRequest" message="tns:getNamaAns"/>
-<output wsam:Action="http://ans.wbd.com/AnswerWS/getNamaAnsResponse" message="tns:getNamaAnsResponse"/>
+<operation name="voteDown">
+<input wsam:Action="http://ans.wbd.com/AnswerWS/voteDownRequest" message="tns:voteDown"/>
+<output wsam:Action="http://ans.wbd.com/AnswerWS/voteDownResponse" message="tns:voteDownResponse"/>
+</operation>
+<operation name="createAns">
+<input wsam:Action="http://ans.wbd.com/AnswerWS/createAnsRequest" message="tns:createAns"/>
+<output wsam:Action="http://ans.wbd.com/AnswerWS/createAnsResponse" message="tns:createAnsResponse"/>
+</operation>
+<operation name="voteUp">
+<input wsam:Action="http://ans.wbd.com/AnswerWS/voteUpRequest" message="tns:voteUp"/>
+<output wsam:Action="http://ans.wbd.com/AnswerWS/voteUpResponse" message="tns:voteUpResponse"/>
 </operation>
 </portType>
 <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="createAns">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="voteDown">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="voteUp">
+<operation name="getNamaAns">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -94,7 +76,25 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getNamaAns">
+<operation name="voteDown">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="createAns">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="voteUp">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

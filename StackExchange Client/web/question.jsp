@@ -14,7 +14,9 @@
 </head>
 
     <body>
-        <div class="link-normalizer"><a class='title' href="index.jsp">Simple StackExchange</a></div>
+        <div class="link-normalizer">
+            <%out.println("<a class='title' href='index.jsp?token=" + request.getParameter("token") + "'>Simple StackExchange</a>");%>
+        </div>
         <br>
         <br>
         <br>
@@ -65,7 +67,7 @@
                                 +"edit"
                             +"</a>"
                             +" | "
-                            +"<a id='color-red' href=delete.jsp?id=" + result.get(i).getIDQ() + ">"
+                            +"<a id='color-red' href=delete.jsp?id=" + result.get(i).getIDQ() + "&token=" + request.getParameter("token") + ">"
                                 +"delete"
                             +"</a>"
 	    		+"</div>"
@@ -143,9 +145,9 @@
         <%
         String answerForm =
                 "<div class='subtitle'>" + "<a id='color-grey'>" + "Your Answer" + "</a>" + "</div>"
-		+"<form name='answerForm' action='anspost.php' onsubmit='return validateAnswer()' method='post'>"
+		+"<form name='answerForm' action='createAnswer.jsp?id="+ request.getParameter("id") +"&token=" + request.getParameter("token") +"' onsubmit='return validateAnswer()' method='post'>"
 			+"<input type='hidden' name='question_id' value=' " + Integer.parseInt(request.getParameter("id")) + "'>"
-			+"<textarea class='form-textarea' name='content' placeholder='Content'></textarea><br>"
+			+"<textarea class='form-textarea' name='content' placeholder='Content' required></textarea><br>"
 			+"<button class='button-post' type='submit'> Post </button>"
 		+"</form>";
         ;

@@ -23,7 +23,7 @@
 	// TODO process result here
 	int result = port.createQ(accessToken, title, content);
 	if (result == 1){
-            String site = "index.jsp";
+            String site = "index.jsp?token=" + accessToken;
             response.setStatus(response.SC_MOVED_TEMPORARILY);
             response.setHeader("Location", site);
         } else if (result == -1){

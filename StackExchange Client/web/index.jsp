@@ -25,7 +25,7 @@
                         java.lang.String accessToken = request.getParameter("token");
                         // TODO process result here
                         java.lang.String result = port.getUsername(accessToken);
-                        out.println("<div class='smalltitle-right'>Hello " + result + "</div>");
+                        out.println("<div class='smalltitle-right'>Welcome " + result + "</div>");
                     } catch (Exception ex) {
                         // TODO handle custom exceptions here
                     }
