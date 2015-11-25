@@ -528,7 +528,7 @@ public class StackExchange {
             statement.setString(2, "%"+key+"%");
             
             ResultSet result = statement.executeQuery();
-            if(result.next()){
+            while(result.next()){
                 question.add(new Question(
                     result.getInt("id"),
                     result.getInt("id_user"),
