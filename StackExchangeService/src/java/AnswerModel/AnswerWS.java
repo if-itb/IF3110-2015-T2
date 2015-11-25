@@ -113,40 +113,38 @@ public class AnswerWS {
         return status;
     }
     @WebMethod(operationName = "voteUp")
-    public int voteUp(@WebParam(name = "aid") int aid,@WebParam(name = "token") String token ){
-        int count=0;
-        conn = db.connect();
-        String username = auth.checkToken(token);
-        if(!username.equals("-999")){
+    public int voteUp(@WebParam(name = "qid") int qid,@WebParam(name = "token") String token ){
+        int count;
+        count=getVoteById(qid);
+        String username= auth.checkToken(token);
+        if((!username.equals("-999"))&&(!isVoteUp(qid, username))){
             try {
+                conn = db.connect();
                 Statement stmt;
                 stmt = conn.createStatement();
-
+                //pernah vote down
+                if(isVoteDown(qid,username)){
+                    count+=2;
+                    String sql;
+                    sql="DELETE FROM vote_answer WHERE id_answer = ?";
+                    PreparedStatement dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, qid);
+                    dbStatement.execute();
+                }
+                else{count+=1;}
                 String sql, sql_select;
-                sql="UPDATE answer SET vote = vote+ 1 WHERE id_answer = ? ";
-                sql_select = "SELECT vote FROM answer where id_answer = ?";
+                sql="UPDATE answer SET vote = ? WHERE id_answer = ? ";
 
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setInt(1, aid);
+                dbStatement.setInt(1, count);
+                dbStatement.setInt(2, qid);
                 dbStatement.execute();
-
-                sql="INSERT INTO vote_answer (id_answer, username) VALUES (?,?)";
+                sql="INSERT INTO vote_answer (id_answer, username,value) VALUES (?,?,1)";
                 PreparedStatement dbStatement2 = conn.prepareStatement(sql);
-                dbStatement2.setInt(1, aid);
+                dbStatement2.setInt(1, qid);
                 dbStatement2.setString(2, username);
-                dbStatement2.execute();
+                dbStatement2.executeUpdate();
 
-                PreparedStatement dbStatementSelect = conn.prepareStatement(sql_select);
-                dbStatementSelect.setInt(1, aid);
-
-                ResultSet rs;
-                rs = dbStatementSelect.executeQuery();
-
-                /* Get every data returned by SQLquery */
-                while(rs.next()) {
-                    count = rs.getInt("vote");
-                }
-                rs.close();
                 stmt.close();
                 conn.close();
             }
@@ -158,39 +156,36 @@ public class AnswerWS {
     }
     @WebMethod(operationName = "voteDown")
     public int voteDown(@WebParam(name = "aid") int aid,@WebParam(name = "token") String token ){
-        int count=0;
-        conn = db.connect();
-        String username= auth.checkToken(token);
-        if(!username.equals("-999")){
+        int count;
+        count=getVoteById(aid);
+        String username= auth.checkToken(token);       
+        if((!username.equals("-999"))&&(!isVoteDown(aid, username))){
             try {
+                conn = db.connect();
                 Statement stmt;
                 stmt = conn.createStatement();
-
+                if(isVoteUp(aid,username)){
+                    count-=2;
+                    String sql;
+                    sql="DELETE FROM vote_answer WHERE id_answer = ?";
+                    PreparedStatement dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, aid);
+                    dbStatement.execute();
+                }else{count-=1;}
                 String sql, sql_select;
-                sql="UPDATE answer SET vote = vote- 1 WHERE id_answer = ? ";
-                sql_select = "SELECT vote FROM answer where id_answer = ?";
+                sql="UPDATE answer SET vote = ? WHERE id_answer = ? ";
 
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setInt(1, aid);
+                dbStatement.setInt(1, count);
+                dbStatement.setInt(2, aid);
                 dbStatement.execute();
 
-                sql="INSERT INTO vote_answer (id_answer, username) VALUES (?,?)";
+                sql="INSERT INTO vote_answer (id_answer, username,value) VALUES (?,?,-1)";
                 PreparedStatement dbStatement2 = conn.prepareStatement(sql);
                 dbStatement2.setInt(1, aid);
                 dbStatement2.setString(2, username);
                 dbStatement2.execute();
 
-                PreparedStatement dbStatementSelect = conn.prepareStatement(sql_select);
-                dbStatementSelect.setInt(1, aid);
-
-                ResultSet rs;
-                rs = dbStatementSelect.executeQuery();
-
-                /* Get every data returned by SQLquery */
-                while(rs.next()) {
-                    count = rs.getInt("vote");
-                }
-                rs.close();
                 stmt.close();
                 conn.close();
             }
@@ -204,6 +199,7 @@ public class AnswerWS {
     public Boolean isVoted(@WebParam(name = "aid") int aid,@WebParam(name = "token") String token){
         Boolean status = false;
         conn = db.connect();
+        
         String username = auth.checkToken(token);
         if(!username.equals("-999")){
             try {
@@ -234,5 +230,98 @@ public class AnswerWS {
         }
         return status;
     }
-    
+     public Boolean isVoteUp(@WebParam(name = "aid") int aid,@WebParam(name = "username") String username){
+        Boolean status = false;
+        conn = db.connect();
+        
+         try {
+            Statement stmt;
+            stmt = conn.createStatement();
+            
+            String sql;
+            sql="Select * from vote_answer where id_answer = ? and username = ? and value = 1";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, aid);
+            dbStatement.setString(2, username);
+
+            ResultSet rs;
+            rs = dbStatement.executeQuery();
+            
+            /* Get every data returned by SQLquery */
+            while(rs.next()) {
+                status= true;
+            }
+            
+            stmt.close();
+            //conn.close();
+        }
+        catch(SQLException ex) {
+           Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex); 
+        }
+        return status;
+    }
+    public Boolean isVoteDown(@WebParam(name = "aid") int aid,@WebParam(name = "username") String username){
+        Boolean status = false;
+        conn = db.connect();
+        
+         try {
+            Statement stmt;
+            stmt = conn.createStatement();
+            
+            String sql;
+            sql="Select * from vote_answer where id_answer = ? and username = ? and value = -1";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, aid);
+            dbStatement.setString(2, username);
+
+            ResultSet rs;
+            rs = dbStatement.executeQuery();
+            
+            /* Get every data returned by SQLquery */
+            while(rs.next()) {
+                status= true;
+            }
+            
+            stmt.close();
+            //conn.close();
+        }
+        catch(SQLException ex) {
+           Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex); 
+        }
+        return status;
+    }
+    @WebMethod(operationName = "getVoteById")
+    @WebResult(name = "vote")
+    public int getVoteById(@WebParam(name = "aid") int aid) {
+        int count= 0;
+        conn = db.connect();
+        try {
+            Statement stmt;
+            stmt = conn.createStatement();
+            
+            String sql;
+            sql = "SELECT vote FROM answer where id_answer = ?";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, aid);
+            
+            ResultSet rs;
+            rs = dbStatement.executeQuery();
+            
+            /* Get every data returned by SQLquery */
+            while(rs.next()) {
+                count = rs.getInt("vote");
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        }
+        catch(SQLException ex) {
+           Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex); 
+        }
+        
+        return count;
+    }
 }
