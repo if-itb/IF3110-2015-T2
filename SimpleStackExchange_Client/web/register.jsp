@@ -27,10 +27,7 @@
             <a class="navbar-brand" href="${pageContext.request.contextPath}">Simple <strong>StackExchange</strong></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
-            <form class="navbar-form navbar-right" action="${pageContext.request.contextPath}/register" method="POST">
-            <div class="form-group">
-              <input type="text" name="name" placeholder="Name" class="form-control">
-            </div>
+            <form class="navbar-form navbar-right" action="${pageContext.request.contextPath}/UserLogin" method="POST">
             <div class="form-group">
               <input type="text" name="email" placeholder="Email" class="form-control">
             </div>
@@ -45,13 +42,13 @@
         
       <div class="container">
 
-          <form class="form-signin" action="Register" method="POST">
+          <form class="form-signin" action="register" method="POST">
           <h2 class="form-signin-heading">Sign up now!<br/>
               <small>So, you can access full feature from Simple Stack Exchange</small></h2>
           <hr/>
           <div class="form-group">
           <label for="inputName" class="sr-only">Name</label>
-          <input type="text" id="inputName" class="form-control" placeholder="Name" required="" autofocus="">
+          <input name="name" type="text" id="inputName" class="form-control" placeholder="Name" required="" autofocus="">
           </div>
           <div class="form-group">
           <label for="inputEmail" class="sr-only">Email address</label>
@@ -59,15 +56,15 @@
           </div>
           <div class="form-group">
           <label for="inputPassword" class="sr-only">Password</label>
-          <input name="name" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+          <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
           </div>
           <div class="form-group">
           <label for="confirmPassword" class="sr-only">Password</label>
-          <input name="password" type="password" id="confirmPassword" class="form-control" placeholder="Password" required="">
+          <input name="cpassword" type="password" id="confirmPassword" class="form-control" placeholder="Password" required="">
           </div>
           <div class="checkbox form-group">
             <label>
-              <input type="checkbox" value="ok"> I accept the terms provided 
+              <input name="check" type="checkbox" value="ok"> I accept the terms provided 
             </label>
           </div>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>

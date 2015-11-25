@@ -54,6 +54,21 @@ public interface SimpleStackExchangeWS {
 
     /**
      * 
+     * @param question
+     * @param token
+     */
+    @WebMethod
+    @RequestWrapper(localName = "createQuestion", targetNamespace = "http://webservice/", className = "webservice.CreateQuestion")
+    @ResponseWrapper(localName = "createQuestionResponse", targetNamespace = "http://webservice/", className = "webservice.CreateQuestionResponse")
+    @Action(input = "http://webservice/SimpleStackExchange_WS/createQuestionRequest", output = "http://webservice/SimpleStackExchange_WS/createQuestionResponse")
+    public void createQuestion(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "question", targetNamespace = "")
+        Question question);
+
+    /**
+     * 
      * @param uid
      * @return
      *     returns webservice.Registereduser
@@ -66,6 +81,21 @@ public interface SimpleStackExchangeWS {
     public Registereduser getUserById(
         @WebParam(name = "uid", targetNamespace = "")
         int uid);
+
+    /**
+     * 
+     * @param email
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "checkEmailUser", targetNamespace = "http://webservice/", className = "webservice.CheckEmailUser")
+    @ResponseWrapper(localName = "checkEmailUserResponse", targetNamespace = "http://webservice/", className = "webservice.CheckEmailUserResponse")
+    @Action(input = "http://webservice/SimpleStackExchange_WS/checkEmailUserRequest", output = "http://webservice/SimpleStackExchange_WS/checkEmailUserResponse")
+    public Boolean checkEmailUser(
+        @WebParam(name = "email", targetNamespace = "")
+        String email);
 
     /**
      * 
@@ -96,5 +126,17 @@ public interface SimpleStackExchangeWS {
     public List<Answer> getAnswers(
         @WebParam(name = "qid", targetNamespace = "")
         int qid);
+
+    /**
+     * 
+     * @param user
+     */
+    @WebMethod
+    @RequestWrapper(localName = "createUser", targetNamespace = "http://webservice/", className = "webservice.CreateUser")
+    @ResponseWrapper(localName = "createUserResponse", targetNamespace = "http://webservice/", className = "webservice.CreateUserResponse")
+    @Action(input = "http://webservice/SimpleStackExchange_WS/createUserRequest", output = "http://webservice/SimpleStackExchange_WS/createUserResponse")
+    public void createUser(
+        @WebParam(name = "user", targetNamespace = "")
+        Registereduser user);
 
 }

@@ -41,10 +41,10 @@ public class ConsumerREST {
         webTarget = client.target(BASE_URI).path(mode);
     }
     
-    public <T> T findByEmail(Class<T> responseType, String email) throws ClientErrorException {
+    public Boolean auth(String token) throws ClientErrorException {
         WebTarget resource = webTarget;
-        resource = resource.path(java.text.MessageFormat.format("email/{0}", new Object[]{email}));
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(responseType);
+        resource = resource.path(java.text.MessageFormat.format("auth/{0}", new Object[]{token}));
+        return resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).get(Boolean.class);
     }
     
     public int getUidByToken(String token) throws ClientErrorException {

@@ -25,6 +25,12 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _Answer_QNAME = new QName("http://webservice/", "answer");
+    private final static QName _CheckEmailUser_QNAME = new QName("http://webservice/", "checkEmailUser");
+    private final static QName _CheckEmailUserResponse_QNAME = new QName("http://webservice/", "checkEmailUserResponse");
+    private final static QName _CreateQuestion_QNAME = new QName("http://webservice/", "createQuestion");
+    private final static QName _CreateQuestionResponse_QNAME = new QName("http://webservice/", "createQuestionResponse");
+    private final static QName _CreateUser_QNAME = new QName("http://webservice/", "createUser");
+    private final static QName _CreateUserResponse_QNAME = new QName("http://webservice/", "createUserResponse");
     private final static QName _GetAnswers_QNAME = new QName("http://webservice/", "getAnswers");
     private final static QName _GetAnswersResponse_QNAME = new QName("http://webservice/", "getAnswersResponse");
     private final static QName _GetQuestion_QNAME = new QName("http://webservice/", "getQuestion");
@@ -51,6 +57,54 @@ public class ObjectFactory {
      */
     public Answer createAnswer() {
         return new Answer();
+    }
+
+    /**
+     * Create an instance of {@link CheckEmailUser }
+     * 
+     */
+    public CheckEmailUser createCheckEmailUser() {
+        return new CheckEmailUser();
+    }
+
+    /**
+     * Create an instance of {@link CheckEmailUserResponse }
+     * 
+     */
+    public CheckEmailUserResponse createCheckEmailUserResponse() {
+        return new CheckEmailUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateQuestion }
+     * 
+     */
+    public CreateQuestion createCreateQuestion() {
+        return new CreateQuestion();
+    }
+
+    /**
+     * Create an instance of {@link CreateQuestionResponse }
+     * 
+     */
+    public CreateQuestionResponse createCreateQuestionResponse() {
+        return new CreateQuestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateUser }
+     * 
+     */
+    public CreateUser createCreateUser() {
+        return new CreateUser();
+    }
+
+    /**
+     * Create an instance of {@link CreateUserResponse }
+     * 
+     */
+    public CreateUserResponse createCreateUserResponse() {
+        return new CreateUserResponse();
     }
 
     /**
@@ -156,6 +210,60 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice/", name = "answer")
     public JAXBElement<Answer> createAnswer(Answer value) {
         return new JAXBElement<Answer>(_Answer_QNAME, Answer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CheckEmailUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "checkEmailUser")
+    public JAXBElement<CheckEmailUser> createCheckEmailUser(CheckEmailUser value) {
+        return new JAXBElement<CheckEmailUser>(_CheckEmailUser_QNAME, CheckEmailUser.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CheckEmailUserResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "checkEmailUserResponse")
+    public JAXBElement<CheckEmailUserResponse> createCheckEmailUserResponse(CheckEmailUserResponse value) {
+        return new JAXBElement<CheckEmailUserResponse>(_CheckEmailUserResponse_QNAME, CheckEmailUserResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateQuestion }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "createQuestion")
+    public JAXBElement<CreateQuestion> createCreateQuestion(CreateQuestion value) {
+        return new JAXBElement<CreateQuestion>(_CreateQuestion_QNAME, CreateQuestion.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateQuestionResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "createQuestionResponse")
+    public JAXBElement<CreateQuestionResponse> createCreateQuestionResponse(CreateQuestionResponse value) {
+        return new JAXBElement<CreateQuestionResponse>(_CreateQuestionResponse_QNAME, CreateQuestionResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "createUser")
+    public JAXBElement<CreateUser> createCreateUser(CreateUser value) {
+        return new JAXBElement<CreateUser>(_CreateUser_QNAME, CreateUser.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateUserResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "createUserResponse")
+    public JAXBElement<CreateUserResponse> createCreateUserResponse(CreateUserResponse value) {
+        return new JAXBElement<CreateUserResponse>(_CreateUserResponse_QNAME, CreateUserResponse.class, null, value);
     }
 
     /**

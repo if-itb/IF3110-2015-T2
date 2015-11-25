@@ -2,6 +2,18 @@
 
 <xs:element name="answer" type="tns:answer"/>
 
+<xs:element name="checkEmailUser" type="tns:checkEmailUser"/>
+
+<xs:element name="checkEmailUserResponse" type="tns:checkEmailUserResponse"/>
+
+<xs:element name="createQuestion" type="tns:createQuestion"/>
+
+<xs:element name="createQuestionResponse" type="tns:createQuestionResponse"/>
+
+<xs:element name="createUser" type="tns:createUser"/>
+
+<xs:element name="createUserResponse" type="tns:createUserResponse"/>
+
 <xs:element name="getAnswers" type="tns:getAnswers"/>
 
 <xs:element name="getAnswersResponse" type="tns:getAnswersResponse"/>
@@ -26,6 +38,26 @@
 
 <xs:element name="searchQuestionResponse" type="tns:searchQuestionResponse"/>
 
+<xs:complexType name="createUser">
+<xs:sequence>
+<xs:element name="user" type="tns:registereduser" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="registereduser">
+<xs:sequence>
+<xs:element name="createdtime" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+<xs:element name="uid" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createUserResponse">
+<xs:sequence/>
+</xs:complexType>
+
 <xs:complexType name="listQuestion">
 <xs:sequence/>
 </xs:complexType>
@@ -48,6 +80,17 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="createQuestion">
+<xs:sequence>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
+<xs:element name="question" type="tns:question" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createQuestionResponse">
+<xs:sequence/>
+</xs:complexType>
+
 <xs:complexType name="getUserById">
 <xs:sequence>
 <xs:element name="uid" type="xs:int"/>
@@ -60,16 +103,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="registereduser">
-<xs:sequence>
-<xs:element name="createdtime" type="xs:dateTime" minOccurs="0"/>
-<xs:element name="email" type="xs:string" minOccurs="0"/>
-<xs:element name="name" type="xs:string" minOccurs="0"/>
-<xs:element name="password" type="xs:string" minOccurs="0"/>
-<xs:element name="uid" type="xs:int" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="getQuestion">
 <xs:sequence>
 <xs:element name="qid" type="xs:int"/>
@@ -79,6 +112,18 @@
 <xs:complexType name="getQuestionResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:question" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="checkEmailUser">
+<xs:sequence>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="checkEmailUserResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

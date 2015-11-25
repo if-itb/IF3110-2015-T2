@@ -23,7 +23,7 @@ import javax.persistence.Persistence;
 @WebService(serviceName = "SimpleStackExchange_WS")
 public class SimpleStackExchange_WS {
     
-      /**
+     /**
      * Web service operation
      */
     @WebMethod(operationName = "createUser")
@@ -128,5 +128,20 @@ public class SimpleStackExchange_WS {
         EntityManager em = emf.createEntityManager();
        
         return (List<Answer>)em.createQuery("SELECT q FROM Answer q WHERE q.qid="+qid, Answer.class).getResultList();
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "checkEmailUser")
+    public Boolean checkEmailUser(@WebParam(name = "email") String email) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+        if (em.createNamedQuery("Registereduser.findByEmail")
+                .setParameter("email", email)
+                .getResultList() == null) {
+            return true;
+        }
+        else return false;
     }
 }
