@@ -4,33 +4,52 @@
 <xsd:import namespace="http://user.model/" schemaLocation="http://localhost:8081/StackExchange_WS/UserWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="addUser">
-<part name="parameters" element="tns:addUser"/>
-</message>
 <message name="getUserByID">
 <part name="parameters" element="tns:getUserByID"/>
 </message>
 <message name="getUserByIDResponse">
 <part name="parameters" element="tns:getUserByIDResponse"/>
 </message>
+<message name="addUser">
+<part name="parameters" element="tns:addUser"/>
+</message>
+<message name="getIDbyEmail">
+<part name="parameters" element="tns:getIDbyEmail"/>
+</message>
+<message name="getIDbyEmailResponse">
+<part name="parameters" element="tns:getIDbyEmailResponse"/>
+</message>
 <portType name="UserWS">
-<operation name="addUser">
-<input wsam:Action="http://user.model/UserWS/addUser" message="tns:addUser"/>
-</operation>
 <operation name="getUserByID">
 <input wsam:Action="http://user.model/UserWS/getUserByIDRequest" message="tns:getUserByID"/>
 <output wsam:Action="http://user.model/UserWS/getUserByIDResponse" message="tns:getUserByIDResponse"/>
 </operation>
+<operation name="addUser">
+<input wsam:Action="http://user.model/UserWS/addUser" message="tns:addUser"/>
+</operation>
+<operation name="getIDbyEmail">
+<input wsam:Action="http://user.model/UserWS/getIDbyEmailRequest" message="tns:getIDbyEmail"/>
+<output wsam:Action="http://user.model/UserWS/getIDbyEmailResponse" message="tns:getIDbyEmailResponse"/>
+</operation>
 </portType>
 <binding name="UserWSPortBinding" type="tns:UserWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="getUserByID">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="addUser">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
 </input>
 </operation>
-<operation name="getUserByID">
+<operation name="getIDbyEmail">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

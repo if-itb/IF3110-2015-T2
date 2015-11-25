@@ -4,6 +4,10 @@
 
 <xs:element name="addUser" type="tns:addUser"/>
 
+<xs:element name="getIDbyEmail" type="tns:getIDbyEmail"/>
+
+<xs:element name="getIDbyEmailResponse" type="tns:getIDbyEmailResponse"/>
+
 <xs:element name="getUserByID" type="tns:getUserByID"/>
 
 <xs:element name="getUserByIDResponse" type="tns:getUserByIDResponse"/>
@@ -32,6 +36,18 @@
 <xs:complexType name="getUserByIDResponse">
 <xs:sequence>
 <xs:element name="User" type="tns:user" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getIDbyEmail">
+<xs:sequence>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getIDbyEmailResponse">
+<xs:sequence>
+<xs:element name="Integer" type="xs:int" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

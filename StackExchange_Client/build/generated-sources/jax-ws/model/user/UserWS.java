@@ -27,18 +27,6 @@ public interface UserWS {
 
     /**
      * 
-     * @param u
-     */
-    @WebMethod
-    @Oneway
-    @RequestWrapper(localName = "addUser", targetNamespace = "http://user.model/", className = "model.user.AddUser")
-    @Action(input = "http://user.model/UserWS/addUser")
-    public void addUser(
-        @WebParam(name = "u", targetNamespace = "")
-        User u);
-
-    /**
-     * 
      * @param userId
      * @return
      *     returns model.user.User
@@ -51,5 +39,32 @@ public interface UserWS {
     public User getUserByID(
         @WebParam(name = "user_id", targetNamespace = "")
         int userId);
+
+    /**
+     * 
+     * @param u
+     */
+    @WebMethod
+    @Oneway
+    @RequestWrapper(localName = "addUser", targetNamespace = "http://user.model/", className = "model.user.AddUser")
+    @Action(input = "http://user.model/UserWS/addUser")
+    public void addUser(
+        @WebParam(name = "u", targetNamespace = "")
+        User u);
+
+    /**
+     * 
+     * @param email
+     * @return
+     *     returns java.lang.Integer
+     */
+    @WebMethod
+    @WebResult(name = "Integer", targetNamespace = "")
+    @RequestWrapper(localName = "getIDbyEmail", targetNamespace = "http://user.model/", className = "model.user.GetIDbyEmail")
+    @ResponseWrapper(localName = "getIDbyEmailResponse", targetNamespace = "http://user.model/", className = "model.user.GetIDbyEmailResponse")
+    @Action(input = "http://user.model/UserWS/getIDbyEmailRequest", output = "http://user.model/UserWS/getIDbyEmailResponse")
+    public Integer getIDbyEmail(
+        @WebParam(name = "email", targetNamespace = "")
+        String email);
 
 }

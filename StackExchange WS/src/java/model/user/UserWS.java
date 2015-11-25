@@ -84,26 +84,20 @@ public class UserWS {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "getUserNameByID")
-    @WebResult(name="String")
-    public String getUserNameByID (@WebParam(name = "user_id") int user_id) {
-        ArrayList<User> user = new ArrayList<User>();
+    @WebMethod(operationName = "getIDbyEmail")
+    @WebResult(name="Integer")
+    public Integer getIDbyEmail (@WebParam(name = "email") String email) {
+        int id = -1;
         try{
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM user WHERE user_id = ?";
+            sql = "SELECT user_id FROM user WHERE user_id = ?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1,user_id);
+            dbStatement.setString(1, email);
             ResultSet rs = dbStatement.executeQuery();
             
-            /* Get every data returned by SQL query */
-            int i = 0;
             while(rs.next()){
-                user.add(new User( rs.getInt("user_id"),
-                rs.getString("name"),
-                rs.getString("email"),
-                rs.getString("password")));
-                ++i;
+                id = rs.getInt("user_id");
             }
             rs.close();
             stmt.close();
@@ -111,6 +105,6 @@ public class UserWS {
             Logger.getLogger(UserWS.class.getName()).log
             (Level.SEVERE, null, ex);
            }
-        return user.get(0).getName();
+        return id;
     }
 }

@@ -21,6 +21,10 @@
         <servlet-class>User.AddUserServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>User.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddQuestionServlet</servlet-name>
         <servlet-class>Question.AddQuestionServlet</servlet-class>
     </servlet>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>AddUserServlet</servlet-name>
         <url-pattern>/addUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddQuestionServlet</servlet-name>
