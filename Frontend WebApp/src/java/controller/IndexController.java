@@ -8,6 +8,8 @@ package controller;
 
 import AnswerWS.AnswerWS_Service;
 import QuestionWS.QuestionWS_Service;
+import UserWS.User;
+import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -26,6 +28,9 @@ import javax.xml.ws.WebServiceRef;
  */
 public class IndexController extends HttpServlet {
 
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/UserWS.wsdl")
+    private UserWS_Service service_2;
+
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/AnswerWS.wsdl")
     private AnswerWS_Service service_1;
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/QuestionWS.wsdl")
@@ -42,16 +47,29 @@ public class IndexController extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
-    // Untuk memperoleh list semua pertanyaan
+    // Memperoleh list semua pertanyaan
     java.util.List<QuestionWS.Question> questions = getQuestions();
     request.setAttribute("questions", questions);
     
-    // Untuk memperoleh list jumlah jawaban semua pertanyaan
+    // Memperoleh list jumlah jawaban semua pertanyaan
     int countAnswers[] = new int [questions.size()];
     for (int i = 0; i < questions.size(); i++) {
         countAnswers[i] = getCountAnswerByQId(questions.get(i).getIdQuestion());
     }
     request.setAttribute("countAnswers",countAnswers);
+    
+    // Memperoleh list user yang menanyakan pertanyaan
+    User users[] = new User [questions.size()];
+    for (int i = 0; i < questions.size(); i++) {
+        users[i] = getUserByIdQuestion(questions.get(i).getIdQuestion());
+    }
+    request.setAttribute("users", users);
+    
+    // Memperoleh user id berdasarkan token
+    if ((request.getParameter("token") != "not-valid") && (request.getParameter("token") != null)) {
+        int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
+        request.setAttribute("userId", userId);
+    }
     
     request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
   }
@@ -107,5 +125,19 @@ public class IndexController extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
         return port.getCountAnswerByQId(qid);
+    }
+
+    private User getUserByIdQuestion(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        UserWS.UserWS port = service_2.getUserWSPort();
+        return port.getUserByIdQuestion(qid);
+    }
+
+    private int getUserByToken(java.lang.String token, java.lang.String urlString) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        UserWS.UserWS port = service_2.getUserWSPort();
+        return port.getUserByToken(token, urlString);
     }
 }

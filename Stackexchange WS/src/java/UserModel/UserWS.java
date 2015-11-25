@@ -187,9 +187,9 @@ public class UserWS {
         try {
           JSONObject tokenResponse = new JSONObject(response);
           //result = tokenResponse.getString("token");
-          valid = tokenResponse.getBoolean("validity");
+          valid = tokenResponse.getBoolean("is_valid");
           if (valid) {
-            userId = tokenResponse.getInt("idUser");
+            userId = tokenResponse.getInt("id_user");
           }
         } catch (JSONException ex) {
           Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);

@@ -7,6 +7,7 @@ Author:
 <!-- File: index.jsp -->
 
 <%@page import="java.util.*"%>
+<%@page import="UserWS.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,7 +27,7 @@ Author:
       
     <!-- Title -->
     <div class="title">
-      <a href="IndexController">
+      <a href="IndexController?token=<%= request.getParameter("token") %>">
         StackExchange
       </a>
     </div>
@@ -53,11 +54,18 @@ Author:
         <div class="questions-list">
           <%
             List<QuestionWS.Question> questions = new ArrayList<QuestionWS.Question>();
+            
             if (request.getAttribute("questions") != null) {
               questions = (ArrayList<QuestionWS.Question>)request.getAttribute("questions");
-              if (questions.size() > 0) {
-                for (int i = 0; i < questions.size(); i++) {
               
+              if (questions.size() > 0) {
+                  int countAnswers[] = new int [questions.size()];
+                  User users[] = new User [questions.size()];
+                  
+                  countAnswers = (int[])request.getAttribute("countAnswers");
+                  users = (User[])request.getAttribute("users");
+                  
+                for (int i = 0; i < questions.size(); i++) {
           %>
           <div class="same-height-row border-bottom">
             <div class="vote-number">
@@ -66,7 +74,7 @@ Author:
               Votes
             </div>
             <div class="answer-number">
-              1
+                <%= countAnswers[i] %>
               <br>
               Answers
             </div>
@@ -84,15 +92,23 @@ Author:
               </div>
               asked by
               <span class="blue">
-                Jen Hammington
+                  <%= users[i].getName() %>
               </span>
+              <%
+                  if (request.getAttribute("userId") != null) {
+                      if (users[i].getIdUser() == (Integer)request.getAttribute("userId")) {
+              %>
               |
               <a class="yellow" href="ask-question.jsp">
-                edit
+                  edit
               </a>
               |
               <a class="red" href="index.jsp" onclick="return confirm('Do you want to delete this post?')">
                 delete
+                <%
+                        }
+                    }
+                %>
               </a>
             </div>
           </div>

@@ -20,7 +20,7 @@ public class Token {
   
   // Konstruktor
   public Token() {
-    accessToken = "Not valid";
+    accessToken = "not-valid";
     lifetime = Timestamp.valueOf("0001-01-01 01:01:01");
   }
   public Token(String email, String password) {
