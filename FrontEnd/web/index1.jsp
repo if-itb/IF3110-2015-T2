@@ -25,7 +25,9 @@
                     <input type="text" maxlength="50" name="key">
                     <input type="submit" value="Search">
                 </form>
-                <h6>Cannot find what you are looking for? <a href="newquestion.jsp">Ask here</a></h6>
+                <% if (request.getParameter("token") != null) 
+                    out.println("<h6>Cannot find what you are looking for? <a href='newquestion.jsp'>Ask here</a></h6>");
+                %>
             </div>
             <div class="question">
                 <h5>Recently Asked Questions</h5>

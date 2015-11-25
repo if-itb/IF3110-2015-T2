@@ -22,7 +22,76 @@
                     $("#tabreg").css("background-color", "white");
                 });
             });*/
-        
+            /*$(document).ready(function(){
+                $("#loginform").submit(function(e) {
+                    e.preventDefault();
+                    $.support.cors = true;
+                    var credential = { Email: $("#emailtext").val(), Password: $("#password").val() };
+                    $.ajax({
+                        url: 'http://localhost:8001/Identity/LoginRSServlet',
+                        type: 'POST',
+                        data: JSON.stringify(credential),
+                        ontentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        async: false,
+                        crossDomain: true,
+                        success: function(msg) {
+                            alert("msg");
+                        },
+                        error: function(xhr, status, errMsg) {
+                            //window.location.href = "http://localhost:8001/Identity/LoginRSServlet";
+                            console.log(errMsg);
+                            alert("sesuatu");
+                        }
+                    });
+                    alert(JSON.stringify(credential));
+                    
+                });
+            });*/
+            /*function login(email, password) {
+                var req = new XMLHttpRequest();
+                var body = JSON.stringify({ Email: email, Password: password });
+
+                if ('withCredentials' in req) {
+                    req.open('GET', 'http://updates.html5rocks.com', true);
+                    req.setRequestHeader('Content-Type', 'application/json');
+                    req.onreadystatechange = function() {
+                        if (req.readyState === 4) {
+                            console.log(req.responseText);
+                        }
+                    };
+                    req.send();
+                }/*
+                var createCORSRequest = function(method, url) {
+                    var xhr = new XMLHttpRequest();
+                    if ("withCredentials" in xhr) {
+                        // Most browsers.
+                        xhr.open(method, url, true);
+                    
+                    } else {
+                        // CORS not supported.
+                        xhr = null;
+                    }
+                    return xhr;
+                };
+
+              var url = 'http://server.cors-api.appspot.com/server?id=8710499&enable=true&status=200&credentials=false';
+              var method = 'GET';
+              var xhr = createCORSRequest(method, url);
+
+              xhr.onload = function() {
+                // Success code goes here.
+                console.log(xhr.responseText);
+              };
+
+              xhr.onerror = function() {
+                // Error code goes here.
+                console.log(xhr.responseText);
+              };
+
+              xhr.send();
+            }
+            */
             function changetab(type) {
                 /*var xhttp;
                 if (window.XMLHttpRequest) {
@@ -67,11 +136,11 @@
                     }
                         
                 %>
-                <form method = "post" action = "http://localhost:8001/Identity/LoginRSServlet">
+                <form id = "loginform" method = "post" action = "http://localhost:8001/Identity/LoginRSServlet">
                     <br>
                     <table class = "borderless">
-                        <tr><td class = "borderless">Email</td><td class = "borderless">:</td><td class = "borderless"><input type ="text" name = "email"></td></tr>
-                        <tr><td class = "borderless">Password</td><td class = "borderless">:</td><td class = "borderless"><input type ="password" name = "password"></td></tr>
+                        <tr><td class = "borderless">Email</td><td class = "borderless">:</td><td class = "borderless"><input type ="text" name = "email" id = "emailtext"></td></tr>
+                        <tr><td class = "borderless">Password</td><td class = "borderless">:</td><td class = "borderless"><input type ="password" name = "password" id = "password"></td></tr>
                     </table>
                     <br>
                     <input type ="hidden" name ="submitted" value ="yes">
