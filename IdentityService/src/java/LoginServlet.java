@@ -117,7 +117,7 @@ public class LoginServlet extends HttpServlet {
                         String token = tokenGenerator.toString();
                         String updateQuery = "INSERT INTO token(value, user_Email) values('" + token + "', '" + request.getParameter("email") + "')";
                         statement.execute(updateQuery);
-                        response.sendRedirect("http://localhost:8081/Front-End/login.jsp?token=" + token);
+                        response.sendRedirect("http://localhost:8081/Front-End/index.jsp?token=" + token);
                     }
                     else {
                         rs = statement.executeQuery(query2);
