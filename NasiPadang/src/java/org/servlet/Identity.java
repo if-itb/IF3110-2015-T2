@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +26,10 @@ import org.json.JSONObject;
  * @author user
  */
 public class Identity extends HttpServlet {
+    private ArrayList<HttpSession> sessions;
+    public Identity(){
+        sessions = new ArrayList<>();
+    }
     private class User{
         public int id_user;
         public String name;
@@ -90,10 +95,16 @@ public class Identity extends HttpServlet {
             throws ServletException, IOException {
         JSONObject json = new JSONObject();
         String token = request.getParameter("token");
-        HttpSession session = request.getSession(true);
-        Object tokenSession = session.getAttribute("token");
+        boolean isValid = false;
+        HttpSession session = null;
+        for(HttpSession h : sessions){
+            if(h.getAttribute("token").equals(token)){
+                isValid = true;
+                session = h;
+            }
+        }
         
-        if((tokenSession != null) && (tokenSession.equals(token))){
+        if(isValid){
             int id_user = (int) session.getAttribute("id_user");
             json.put("status", "ok");
             json.put("id_user", id_user);
@@ -119,7 +130,6 @@ public class Identity extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         User user = getUser(request.getParameter("email"), request.getParameter("password"));
-        JSONObject json = new JSONObject();
         if(user != null){
             HttpSession session = request.getSession(true);
             
@@ -127,16 +137,11 @@ public class Identity extends HttpServlet {
             session.setAttribute("name", user.name);
             System.out.println("token : " + token);
             session.setAttribute("token", token);
-            session.setMaxInactiveInterval(600);
-            json.put("status", "ok");
-            json.put("token", token);
-        }
-        else{
-            json.put("status", "invalid");
-        }
-        response.setContentType("application/json");
-        try (PrintWriter out = response.getWriter()) {
-            out.println(json.toString());
+            session.setAttribute("id_user", user.id_user);
+            session.setMaxInactiveInterval(43200);
+            sessions.add(session);
+            request.setAttribute("token", token);
+            request.setAttribute("name", user.name);
         }
     }
 

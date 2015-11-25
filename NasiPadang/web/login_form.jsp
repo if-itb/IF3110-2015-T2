@@ -12,7 +12,7 @@
         <title>Registration</title>
     </head>
     <body>
-        <form  method="post" action="login.jsp">
+        <form  method="post" action="rest/identity">
             <input class="inputform" type="text" name="email" placeholder="Email"><br>
             <input class="inputform" type="password" name="password" placeholder="Password"><br>
             <input type="submit" class="button" value="Login">
