@@ -33,7 +33,7 @@
                             <li><a href="signin"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
                         </c:when>
                         <c:otherwise>
-                        <li><p class="navbar-text">Hi, ${user.name}</p></li>
+                        <li><p class="navbar-text">Hi, <c:out value="${user.name}" /></p> </li>
                         <li><a href="signout"><span class="glyphicon glyphicon-log-out"></span> Sign out</a></li>
                         </c:otherwise>
                     </c:choose>

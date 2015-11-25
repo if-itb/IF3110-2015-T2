@@ -23,7 +23,7 @@
     </div>
     <br>
     <div class="container">
-        <h3>Search Result</h3>
+        <h3>Search Result ${empty message? "" : message}</h3>
         <hr class="heading">        
         <c:forEach items="${questions}" var="question">
             <div class=question-item>

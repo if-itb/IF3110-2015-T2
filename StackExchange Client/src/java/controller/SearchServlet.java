@@ -68,8 +68,10 @@ public class SearchServlet extends HttpServlet {
             request.setAttribute("askers", askers);
             request.getRequestDispatcher("WEB-INF/view/search.jsp").forward(request, response);
         }
-        else
-            response.sendRedirect(request.getContextPath());
+        else{
+            request.setAttribute("message", " - Not Found");
+            request.getRequestDispatcher("WEB-INF/view/search.jsp").forward(request, response);
+        }
     }
 
     /**
