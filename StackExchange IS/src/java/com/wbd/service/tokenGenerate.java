@@ -8,9 +8,11 @@ import MD5Hashing.MD5Hashing;
 
 import com.wbd.db.DBConnection;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Date;
 import javax.ws.rs.Consumes;
@@ -74,9 +76,12 @@ public class tokenGenerate {
 
                 token.access_token = md5.Hash(password);
                 token.lifetime = 5;
-
-                sql = "INSERT INTO token(access_token,IDUser) VALUES (?,?)";
+                sql = "DELETE FROM token WHERE access_token = ?";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1, token.access_token);
+                dbStatement.executeUpdate();
+                sql = "INSERT INTO token(access_token,IDUser) VALUES (?,?)";
+                dbStatement = conn.prepareStatement(sql);
                 dbStatement.setString(1, token.access_token);
                 dbStatement.setInt(2, rs.getInt("IDUser"));
                 dbStatement.executeUpdate();
@@ -176,24 +181,9 @@ public class tokenGenerate {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void signOut(@FormParam("access_token") String access_token) {
-		DBConnection dbc = new DBConnection();
-		PreparedStatement stmt = dbc.getStatement();
-		Connection conn = dbc.getConnection();
-		
-		try{
-			String sql = "DELETE FROM token WHERE access_token = ? ";
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, access_token);
-			stmt.executeUpdate();
-		} catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		} catch(Exception e){
-			//Handle errors for Class.forName
-			e.printStackTrace();
-		}					
 	}
 
-
+        
+        
 }
 

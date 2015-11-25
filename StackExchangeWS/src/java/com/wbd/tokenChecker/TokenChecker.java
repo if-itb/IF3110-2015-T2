@@ -11,6 +11,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 
 import org.apache.http.HttpResponse;
@@ -27,10 +32,13 @@ import org.json.simple.parser.ParseException;
 public class TokenChecker{
         private int valid;
         private int IDUser;
+        private int expired;
         public TokenChecker(){
             valid = 0;
             IDUser = 0;
+            expired = 0;
         }
+        
         public int getValid(){
 		return valid;	
 	}
@@ -46,6 +54,32 @@ public class TokenChecker{
 	public void setIDUser(int _IDUser){
 		this.IDUser = _IDUser;
 	}
+        
+        public int getExpired(){
+            return expired;
+        }
+        
+        public void setExpired(int expired){
+            this.expired = expired;
+        }
+
+        public static void deleteToken(String access_token){
+            Connection conn = null;
+            try {
+                //Class.forName("com.mysql.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+                Statement stmt = conn.createStatement();
+                String sql = "DELETE FROM token WHERE access_token = ?";
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1, access_token);
+                dbStatement.executeUpdate();
+                stmt.close();
+            } catch (SQLException ex){
+                System.out.println(ex);
+            }
+        }
+    
+        
 	public void check(String access_token) throws ParseException{
                 System.out.println("TOken Checker Start");
                 try {
@@ -94,7 +128,10 @@ public class TokenChecker{
                         user_id = (int) user_id_long;
                         System.out.println("USer ID : " + user_id);
                         setIDUser(user_id);
-		
+                        if (user_id != 0 && valid == 0){ // Kondisi expired
+                            deleteToken(access_token);
+                            setExpired(1);
+                        }
                     } catch (MalformedURLException ex) {
                         //Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (IOException ex) {
@@ -154,7 +191,6 @@ public class TokenChecker{
 		System.out.println("Token Identity :" + ti);
 		return ti;*/
         }
-
         
         
 }

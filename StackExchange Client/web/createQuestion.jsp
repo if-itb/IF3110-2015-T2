@@ -11,26 +11,27 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Simple StackExchange</title>
     </head>
-    <body>        
+    <body>     
     <%
     try {
-        out.println("Hello World");
 	com.wbd.qst.QuestionWS_Service service = new com.wbd.qst.QuestionWS_Service();
 	com.wbd.qst.QuestionWS port = service.getQuestionWSPort();
 	 // TODO initialize WS operation arguments here
-        java.lang.String accessToken = request.getParameter("token");
-	java.lang.String title = request.getParameter("topic");
+	java.lang.String accessToken = request.getParameter("token");
+	java.lang.String title = request.getParameter("topic");        
 	java.lang.String content = request.getParameter("content");
-        out.println("Hello World2");
 	// TODO process result here
 	int result = port.createQ(accessToken, title, content);
-        out.println(result);
 	if (result == 1){
             String site = "index.jsp";
             response.setStatus(response.SC_MOVED_TEMPORARILY);
             response.setHeader("Location", site);
-        } else {
-            String site = "login.jsp";
+        } else if (result == -1){
+            String site = "register.jsp?error=-1";
+            response.setStatus(response.SC_MOVED_TEMPORARILY);
+            response.setHeader("Location", site);
+        } else if (result == -2){
+            String site = "login.jsp?error=-2";
             response.setStatus(response.SC_MOVED_TEMPORARILY);
             response.setHeader("Location", site);
         }
@@ -38,5 +39,6 @@
 	// TODO handle custom exceptions here
     }
     %>
+    
     </body>
 </html>

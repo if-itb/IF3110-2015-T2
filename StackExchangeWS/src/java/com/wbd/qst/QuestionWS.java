@@ -94,10 +94,13 @@ public class QuestionWS {
     @WebMethod(operationName = "createQ")
     public int createQ(@WebParam(name = "access_token") String access_token, @WebParam(name = "title") String title, @WebParam(name = "content") String content) throws ParseException {
         int message = 0;
-        System.out.println("Wilhelm Homo");
         TokenChecker token_check = new TokenChecker();
+        System.out.println("ACCESS TOKEN : " + access_token);
         token_check.check(access_token);
-        System.out.println("ABC : " + token_check.getValid());
+        System.out.println("Validity : " + token_check.getValid());
+        if (token_check.getExpired() == 1){
+            return -2; //Expired
+        }
         try {
             if (token_check.getValid() == 1){
                 //Can access. Right Identity

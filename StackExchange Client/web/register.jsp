@@ -24,8 +24,14 @@
         <br>
         <br>
         <br>
-        <div class="subtitle">Please Register</div>
+        <div class="subtitle">Register Here</div>
         <hr class='line'>
+         <%
+           /* if (request.getParameter("error").equals("-2")){
+                out.println("User Not Found! Please Register First!");
+            }*/
+            
+        %>
         <form name="registerForm" action="registerresult.jsp" onsubmit="" method="POST">
             <input type="hidden" name="question_id">
             <input type="text" class='form-text' name="name" placeholder="Name" required><br>

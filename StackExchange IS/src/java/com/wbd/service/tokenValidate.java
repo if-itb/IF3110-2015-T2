@@ -39,7 +39,7 @@ public class tokenValidate{
 		public int userID = 0;
 	}
 
-	public static Identity getIdentity(String access_token){
+        public static Identity getIdentity(String access_token){
 		//Create Object Identity
 		Identity identity = new Identity();
 
@@ -55,28 +55,30 @@ public class tokenValidate{
                         System.out.println("Token Validate access_token :" + access_token);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()){
-				identity.userID = rs.getInt("IDUser");
-                                identity.valid = 1;
-				//Check whether the access_token is expired or not
-				/*Date tokenDate = rs.getTimestamp("created_at");
+				//identity.valid = 1;
+                                identity.userID = rs.getInt("IDUser");
                                 
-				Date expired = new Date(tokenDate.getTime() + TimeUnit.MINUTES.toMillis( lifetimeToken ));
-				Date current = new Date();
+                                //Check whether the access_token is expired or not
 
-				//Get the time of data in milliseconds
-				long expiredTime = expired.getTime();
-				long currentTime = current.getTime();
+                                Date tokenDate = rs.getTimestamp("created_at");
 
-				if (currentTime >= expiredTime){
-					identity.valid = 0;
-				}
-				else{
-					identity.valid = 1;
-				}*/
+                                Date expired = new Date(tokenDate.getTime() + TimeUnit.MINUTES.toMillis( lifetimeToken ));
+                                Date current = new Date();
+
+                                //Get the time of data in milliseconds
+                                long expiredTime = expired.getTime();
+                                long currentTime = current.getTime();
+
+                                if (currentTime >= expiredTime){
+                                        identity.valid = 0;
+                                }
+                                else{
+                                        identity.valid = 1;
+                                }
+                                
 			} else {
                             identity.valid = 0;
                             identity.userID = 0;
-                            System.out.println("Tidak dapat Query");
                         }			
 		}catch(SQLException se){
 			se.printStackTrace();
