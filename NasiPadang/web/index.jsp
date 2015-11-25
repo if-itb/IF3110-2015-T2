@@ -27,6 +27,11 @@
     
 </head>
 <body>
+    <a href="reg.jsp">
+        <button class="button">Register</button>
+    </a>
+    <a href="login_form.jsp">Log In</a>
+    
     <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
     <%if (name != null) { 
             out.println(name); %>
