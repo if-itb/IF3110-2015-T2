@@ -5,28 +5,23 @@
  */
 package Container;
 
-import QuestionsWS.Question;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
-import QuestionsWS.QuestionsWS_Service;
+import user.UserWS_Service;
 
 /**
  *
  * @author mochamadtry
  */
-public class home extends HttpServlet {
+public class registers extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/QuestionsWS.wsdl")
-    private question.QuestionsWS_Service service_1;
-
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_41585/StackExchangeWS/QuestionsWS.wsdl")
-    private QuestionsWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_41585/StackExchangeWS/UserWS.wsdl")
+    private UserWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +34,11 @@ public class home extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       java.util.List<question.Question> result = getAllQuestions(); 
-       request.setAttribute("result", result); 
-       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp"); 
-       dispatcher.forward(request, response); 
+      String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password"); 
+        addUser(name, email, password);
+        response.sendRedirect("home.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -84,12 +80,11 @@ public class home extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private java.util.List<question.Question> getAllQuestions() {
+    private int addUser(java.lang.String name, java.lang.String email, java.lang.String password) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        question.QuestionsWS port = service_1.getQuestionsWSPort();
-        return port.getAllQuestions();
+        user.UserWS port = service.getUserWSPort();
+        return port.addUser(name, email, password);
     }
 
-  
 }

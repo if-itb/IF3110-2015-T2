@@ -8,6 +8,22 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Login.Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>registers</servlet-name>
+        <servlet-class>Container.registers</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>homes</servlet-name>
+        <servlet-class>Container.homes</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AskQuestion</servlet-name>
+        <servlet-class>Container.AskQuestion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>askquestion</servlet-name>
+        <servlet-class>Container.askquestion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -15,6 +31,22 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>registers</servlet-name>
+        <url-pattern>/registers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>homes</servlet-name>
+        <url-pattern>/homes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AskQuestion</servlet-name>
+        <url-pattern>/AskQuestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>askquestion</servlet-name>
+        <url-pattern>/askquestion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

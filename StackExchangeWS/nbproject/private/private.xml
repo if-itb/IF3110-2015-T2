@@ -5,6 +5,11 @@
         <group>
             <file>file:/C:/xampp/tomcat/webapps/ROOT/IF3110-2015-T2/StackExchangeWS/src/java/Validation/ValidationToken.java</file>
             <file>file:/C:/xampp/tomcat/webapps/ROOT/IF3110-2015-T2/StackExchangeWS/src/java/Question/QuestionsWS.java</file>
+            <file>file:/C:/Users/mochamadtry/Documents/GitHub/IF3110-2015-T2/StackExchangeWS/src/java/database/DB.java</file>
+            <file>file:/C:/Users/mochamadtry/Documents/GitHub/IF3110-2015-T2/StackExchangeWS/src/java/Question/Question.java</file>
+            <file>file:/C:/Users/mochamadtry/Documents/GitHub/IF3110-2015-T2/StackExchangeWS/src/java/Question/QuestionsWS.java</file>
+            <file>file:/C:/Users/mochamadtry/Documents/GitHub/IF3110-2015-T2/StackExchangeWS/src/java/User/UserWS.java</file>
+            <file>file:/C:/Users/mochamadtry/Documents/GitHub/IF3110-2015-T2/StackExchangeWS/src/java/User/User.java</file>
         </group>
     </open-files>
 </project-private>

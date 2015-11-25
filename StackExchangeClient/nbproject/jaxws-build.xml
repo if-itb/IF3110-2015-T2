@@ -28,8 +28,8 @@
     </target>
     <target name="wsimport-client-UserWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/UserWS"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/UserWS" destdir="${build.generated.dir}/jax-wsCache/UserWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/UserWS/wsdl/localhost_8081/StackExchangeWS/UserWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8081/StackExchangeWS/UserWS?wsdl" xnocompile="true" xendorsed="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/UserWS/wsdl/localhost_8081/StackExchangeWS/UserWS.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/UserWS" destdir="${build.generated.dir}/jax-wsCache/UserWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/UserWS/wsdl/localhost_41585/StackExchangeWS/UserWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:41585/StackExchangeWS/UserWS?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/UserWS/wsdl/localhost_41585/StackExchangeWS/UserWS.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/UserWS"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
@@ -44,8 +44,8 @@
     </target>
     <target name="wsimport-client-QuestionsWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/QuestionsWS"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/QuestionsWS" destdir="${build.generated.dir}/jax-wsCache/QuestionsWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/QuestionsWS/wsdl/localhost_8081/StackExchangeWS/QuestionsWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8081/StackExchangeWS/QuestionsWS?wsdl" xnocompile="true" xendorsed="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/QuestionsWS/wsdl/localhost_8081/StackExchangeWS/QuestionsWS.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/QuestionsWS" destdir="${build.generated.dir}/jax-wsCache/QuestionsWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/QuestionsWS/wsdl/localhost_41585/StackExchangeWS/QuestionsWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:41585/StackExchangeWS/QuestionsWS?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/QuestionsWS/wsdl/localhost_41585/StackExchangeWS/QuestionsWS.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/QuestionsWS"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">

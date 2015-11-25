@@ -1,10 +1,4 @@
-<%-- 
-    Document   : home
-    Created on : Nov 18, 2015, 1:59:58 PM
-    Author     : mochamadtry
---%>
-
-<%@page contentType = "text/html" pageEncoding="UTF-8"%>
+<%@ page language ="java" contentType = "text/html ; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -26,19 +20,25 @@
 	<div>
 		<!--div class="wrapper" id="searchbox">-->
                 <div>
-			<form role="form" action="" method="get">
+			<form role="form" action="homes" method="GET">
 				<input type="text" id="searchbox" name="searchquery" required>
 				<input type="submit" id="searchbutton" value="Search" name="search">
-			</form>
+			
 
 			<p>Cannot find what you are looking for? <a href="ask.php?req=new">Ask here</a></p>
 		</div>
                 <div class="header2" id="main3"> Recently Asked Questions </div>
+                <br> answers
                 <c:forEach items="${result}" var="question">
-                    ${questions.q_topic}<br>answers
-                    
+                    <br> answers
+                    ${question.topic} 
+                    <a href="<c:url value="\viewpost">
+                        <c:param name="id" value="${question.id}"/>
+                    </c:url>">${question.topic}
+                    </a>
                 
                 </c:forEach> 
+                    </form>
         </div> 
         
 </div>
