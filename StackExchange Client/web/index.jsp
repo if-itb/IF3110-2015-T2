@@ -20,7 +20,7 @@
  
       <div class ="userNavigation">
           <span class="signIn">Sign In</span>
-          <span class="registration">Register</span>
+          <span class="registration"><a href="registration.jsp">Register</a></span>
       </div>
       
       

@@ -21,8 +21,8 @@
 	wsmodel.WS port = service.getWSPort();
 	 // TODO initialize WS operation arguments here
 	int questionId = Integer.parseInt(request.getParameter("questionId"));
-	java.lang.String questionContent = request.getParameter("questionContent");
-	int userID = 999;
+	java.lang.String questionContent = request.getParameter("answerContent");
+	int userID = 1;
 	// TODO process result here
 	java.lang.Boolean result = port.addAnswer(questionId, questionContent, userID);
     } catch (Exception ex) {
@@ -33,6 +33,9 @@
 
         
         
+    
+    
+    
         
         
         

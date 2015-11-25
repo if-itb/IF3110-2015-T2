@@ -21,7 +21,7 @@
 	 // TODO initialize WS operation arguments here
 	java.lang.String questionTitle = request.getParameter("questionTopic");
 	java.lang.String questionContent = request.getParameter("questionContent");
-	int userID = 10;
+	int userID = 1;
 	// TODO process result here
 	java.lang.Boolean result = port.addQuestion(questionTitle, questionContent, userID);
 	if (result){

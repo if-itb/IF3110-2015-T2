@@ -31,7 +31,7 @@
     <div class ='questionAnswerBody'>
         <div class ='questionAnswerVote'>
             <div class='questionAnswerVoteUpArrow'>
-                <a href='voteUpAnswer.jsp?a_id=<%=answerList.get(i).getAnswerId()%>&q_id="<%=questionId%>'><img src='icons/upArrow.png' width='30' height='30'></a> 
+                <a href='voteUpAnswer.jsp?a_id=<%=answerList.get(i).getAnswerId()%>&q_id=<%=questionId%>'><img src='icons/upArrow.png' width='30' height='30'></a> 
             </div>
             <div class='questionAnswerVoteNumber' <%--id='voteAnswer$answerId'--%>>
                 <% out.println(answerList.get(i).getAnswerVote()) ;%>

@@ -26,13 +26,15 @@
 	// TODO process result here
 	java.lang.Boolean result = port.voteDownAnswer(answerId, questionId, userID);
 
+
+                
+    String site = new String("questionAnswerPage.jsp?q_id="+questionId);
+    response.setStatus(response.SC_MOVED_TEMPORARILY);
+    response.setHeader("Location", site);
     %>
     <%-- end web service invocation --%><hr/>
 
-        
-    String site = new String("questionAnswerPage.jsp?q_id="<%=questionId%>);
-    response.setStatus(response.SC_MOVED_TEMPORARILY);
-    response.setHeader("Location", site);
+
         
         
     </body>

@@ -23,7 +23,7 @@
 
 
   <div id="body">
-    <form name="registForm" action="" method="post">
+    <form name="registForm" action="registrationProcess.jsp" method="post">
       <input type="text" name="name" placeholder="Name" required><br>
       <input type="text" name="email" placeholder="Email" required><br>
       <input type="text" name="password" placeholder="Password" required><br>

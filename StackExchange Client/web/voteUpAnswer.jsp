@@ -25,12 +25,14 @@
 	int userID = 999;
 	// TODO process result here
 	java.lang.Boolean result = port.voteUpAnswer(answerId, questionId, userID);
+        
+    String site = new String("questionAnswerPage.jsp?q_id="+questionId);
+    response.setStatus(response.SC_MOVED_TEMPORARILY);
+    response.setHeader("Location", site);
 
     %>
     <%-- end web service invocation --%>
-    String site = new String("questionAnswerPage.jsp?q_id=<%=questionId%>");
-    response.setStatus(response.SC_MOVED_TEMPORARILY);
-    response.setHeader("Location", site);
+
      
     </body>
 </html>

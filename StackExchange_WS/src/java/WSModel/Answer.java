@@ -197,7 +197,7 @@ public class Answer {
                 String query = "UPDATE answers SET `vote` = `vote`+1 WHERE question_id =" + questionId + " And answer_id=" + answerId;
                 statement.executeUpdate(query);
             } else if (value == 1) {
-                String query2 = "UPDATE voteanswer SET `value` = 0 WHERE question_id =" + questionId + " And userID =" + userID + " And answerID =" + answerId;
+                String query2 = "UPDATE voteanswer SET `value` = 0 WHERE questionId =" + questionId + " And userID =" + userID + " And answerID =" + answerId;
                 statement.executeUpdate(query2);
                 String query = "UPDATE answers SET `vote` = `vote`-1 WHERE question_id =" + questionId + " And answer_id=" + answerId;
                 statement.executeUpdate(query);
