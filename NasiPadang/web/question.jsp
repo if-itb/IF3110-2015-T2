@@ -23,6 +23,7 @@
         <%
             String name = (String) session.getAttribute("name");
             String token = (String) session.getAttribute("token");
+            if(token == null) token = "";
             String id = request.getParameter("id");
             StackExchangeImplService stackExchangeService = new StackExchangeImplService();
             org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
@@ -34,7 +35,7 @@
     </head>
     <body>
         <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
-        <%if (!name.equals("")) out.println(name);
+        <%if (name != null) out.println(name);
         else{%>
             <a href="login.jsp">log in</a>
             <a href="reg.jsp">log in</a>

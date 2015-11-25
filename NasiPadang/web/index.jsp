@@ -21,15 +21,16 @@
         org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
         QuestionArray allQuestion = stackExchange.getAllQuestion("");
         List<Question> items = allQuestion.getItem();
-        String name = (String) session.getAttribute("name");
+        String name = "";
+        name = (String) session.getAttribute("name");
     %>
     
 </head>
 <body>
     <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
-    <%if (!name.equals("")) out.println(name);
+    <%if (name != null) out.println(name);
     else{%>
-        <a href="login.jsp">log in</a>
+        <a href="login_form.jsp">log in</a>
         <a href="reg.jsp">register</a>
     <%}%>
     <div class="search">
