@@ -1,3 +1,6 @@
+package Login;
+
+import Database.DatabaseConnect;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,8 +19,8 @@ public class UserService {
             ResultSet rs = statement.executeQuery();
             if(rs.next())
                 exist = true;
-            //rs.close();
-            //statement.close();
+            rs.close();
+            statement.close();
             
         } catch (SQLException se){
             se.printStackTrace();
@@ -35,8 +38,8 @@ public class UserService {
             ResultSet rs = statement.executeQuery();
             if(rs.next())
                 valid = true;
-            //rs.close();
-            //statement.close();
+            rs.close();
+            statement.close();
             
         } catch (SQLException se){
             se.printStackTrace();
@@ -59,8 +62,8 @@ public class UserService {
             }
             else
                 token = null;
-            //rs.close();
-            //statement.close();
+            rs.close();
+            statement.close();
         } catch (SQLException se){
             se.printStackTrace();
 	}
@@ -81,8 +84,8 @@ public class UserService {
             if(rs.next()){
                 user_id = rs.getInt("id"); 
             }
-            //rs.close();
-            //statement.close();
+            rs.close();
+            statement.close();
         } catch (SQLException se){
             se.printStackTrace();
 	}
@@ -98,8 +101,7 @@ public class UserService {
             statement =  dbc.getConn().prepareStatement(query);
             statement.executeUpdate();
            
-            //rs.close();
-            //statement.close();
+            statement.close();
         } catch (SQLException se){
             se.printStackTrace();
 	}
