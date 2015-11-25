@@ -72,7 +72,7 @@ public class RegisterController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("pass");
         
-        if(register(username,name,email,password) == 1){
+        if(register(email,name,password) == 1){
             response.sendRedirect("/StackExchange_Client/login.jsp");
         }
         
@@ -94,5 +94,4 @@ public class RegisterController extends HttpServlet {
         UserWS.UserWS port = service.getUserWSPort();
         return port.register(name, email, password);
     }
-
 }
