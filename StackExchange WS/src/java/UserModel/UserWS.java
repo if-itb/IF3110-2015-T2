@@ -1,18 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package UserModel;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.jws.WebService;
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
+import DB.Database;
+import java.sql.*;
+import javax.jws.*;
 
 /**
  *
@@ -31,28 +21,33 @@ public class UserWS {
      */
     @WebMethod(operationName = "register")
     public String register(@WebParam(name = "nama") String nama, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Driver loaded!");
-        } catch (ClassNotFoundException e) {
-            throw new IllegalStateException("Cannot find the driver in the classpath!", e);
-        }
-        
-        String url = "jdbc:mysql://localhost:3306/stackexchange";
-        String username = "root";
-        String pswd = "";
+        Connection conn = new Database().connect();
+        Statement stmt;
+        ResultSet rs;
+        int i;
 
         try {
-            Connection conn = DriverManager.getConnection(url, username, pswd);
-            Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO user VALUES (0,?,?,?)";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, nama);
-            pstmt.setString(2, email);
-            pstmt.setString(3, password);
-            int a = pstmt.executeUpdate();
-            stmt.close();
-            return "Sukses!";
+            i = 0;
+            stmt = conn.createStatement();
+            String sqlCheck = "SELECT * FROM user WHERE email = ?";
+            PreparedStatement pstmtCheck = conn.prepareStatement(sqlCheck);
+            pstmtCheck.setString(1, email);
+            rs = pstmtCheck.executeQuery();
+            while (rs.next()) {
+                i++;
+            }
+            if (i > 0) {
+                return "Error! Karena email tersebut sudah pernah didaftarkan";
+            } else {
+                String sqlMain = "INSERT INTO user VALUES (0,?,?,?)";
+                PreparedStatement pstmtMain = conn.prepareStatement(sqlMain);
+                pstmtMain.setString(1, nama);
+                pstmtMain.setString(2, email);
+                pstmtMain.setString(3, password);
+                int a = pstmtMain.executeUpdate();
+                stmt.close();
+                return "Sukses!";
+            }
         } catch (SQLException ex) {
             return "Error!";
         }

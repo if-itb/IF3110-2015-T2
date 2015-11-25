@@ -13,9 +13,9 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class Question {
     @XmlElement(name="QID", required=true)
-    private int qid;
+    private final int qid;
     @XmlElement(name="UserID", required=true)
-    private int userid;
+    private final int userid;
     @XmlElement(name="Topic", required=true)
     private String topic;
     @XmlElement(name="Content", required=true)
