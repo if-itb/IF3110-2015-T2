@@ -25,8 +25,8 @@
     try {
         
         String askForm =        
-            "<form name='askForm' action='askpost.php' onsubmit='return validateQuestion()' method='post'>"
-                +"<input type='hidden' name='question_id'>"
+            "<form name='askForm' action='createQuestion.jsp' onsubmit='return validateQuestion()' method='post'>"
+                +"<input type='hidden' name='accessToken' value='5'>"
                 +"<input type='text' class='form-text' name='topic' placeholder='Question Topic'><br>"
                 +"<textarea name='content' class='form-textarea' placeholder='Content'></textarea><br>"
                 +"<button class='button-post' type='submit'> Submit </button>"
