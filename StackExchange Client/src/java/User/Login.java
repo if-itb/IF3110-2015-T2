@@ -31,12 +31,14 @@ public class Login extends HttpServlet {
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
    
-    if ( request.getParameter("alert").equals("0") ) {
-      request.setAttribute("alert", "Session Expired - Please login again");
-    } else if ( request.getParameter("alert").equals("-1") ) {
-      request.setAttribute("alert", "Invalid Session - Please login");      
-    } else {
-      request.setAttribute("alert", null);       
+    request.setAttribute("alert", ""); 
+    
+    if ( request.getParameterMap().containsKey("alert") ) {
+      if ( request.getParameter("alert").equals("0") ) {
+        request.setAttribute("alert", "Session Expired - Please login again");
+      } else if ( request.getParameter("alert").equals("-1") ) {
+        request.setAttribute("alert", "Invalid Session - Please login");   
+      }
     }
     
     RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp"); 
