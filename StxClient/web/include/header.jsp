@@ -14,6 +14,7 @@
 	<script type="text/javascript" src="js/coppeng.js"></script>
     </head>
     <body>
+        <h1 class = "center"><a href="index.php">Simple Stack Exchange</a></h1>
         <%!
             class question
             {
