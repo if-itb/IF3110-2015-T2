@@ -53,10 +53,9 @@ public class AnswerClass {
     public String getContent() {
         return content;
     }
-    
-    
-    @XmlElement(name = "answerVote")
-    public int getVote() {
+
+	@XmlElement(name = "answerVote")
+    public int getAnswerVote() {
 
         return vote;
     }

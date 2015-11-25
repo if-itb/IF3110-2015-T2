@@ -20,9 +20,7 @@ import java.util.ArrayList;
 /**
  *
  * @author Jessica
- */    
-
-
+ */
 public class Answer {
     final static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     final static String localhost = "jdbc:mysql://localhost:3306/wbd2";
@@ -151,62 +149,65 @@ public class Answer {
         return answerList;
     }
     
-    public static String getAnswerUserName(int userID) {
-        Connection conn = null;
-        Statement statement = null;
-        String userName = null;
-        try {
-            Class.forName(JDBC_DRIVER);
-            conn = DriverManager.getConnection(localhost, USER, PASS);
-            String query = "SELECT userName FROM account WHERE userID=" + userID;
-            statement = conn.prepareStatement(query, statement.RETURN_GENERATED_KEYS);
-            userName = (statement.executeQuery(query)).toString();
-            System.out.println(userName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }               
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        if (conn != null) {
-            try {
-                conn.close();    
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return userName;
-    }
-  
-    public static Boolean voteUpAnswer(int answer_id, int userID) {
+    public static Boolean voteUpAnswer(int answerId, int questionId, int userID) {
         boolean success = false;
         Connection conn = null;
         Statement statement = null;
-        int value = 0;
+        int userID_Exist = 0, questionID_Exist = 0, answerID_Exist = 0;
+        int countVote = 0, value = 0;
         
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(localhost, USER, PASS);
             statement = conn.createStatement();
-            String insertVote = "INSERT INTO vote(`userID`, `answerID`) VALUES (" + userID + "," + answer_id + ")";
-            statement.executeUpdate(insertVote);
-            String checkVote = "SELECT `value` FROM vote WHERE answerID=" + answer_id + " AND userID=" + userID;
-            ResultSet rs = statement.executeQuery(checkVote);
+            //cek email
+            String voteTable = "SELECT count(*) FROM voteanswer";
+            ResultSet rs = statement.executeQuery(voteTable);
             if(rs.next()) {
-                value = rs.getInt("value");
+                countVote = rs.getInt(1);
             }
-            // cek value dari vote
-            if (value > -1 && value <= 1) {
-                String query = "UPDATE answers SET vote = vote+1 WHERE answer_id = " + answer_id;
-                statement.executeUpdate(query);
-                String query2 = "UPDATE vote SET `value` = `value`+1 WHERE answerID =" + answer_id + "AND userID=" + userID;
+            int i = 0;
+            Boolean found = false;
+            while (i < countVote && !found) {
+                String checkEmail = "SELECT userID, answerID, questionID FROM voteanswer WHERE userID=" + userID + " And questionID=" + questionId + " And answerID=" + answerId;
+                ResultSet rsVote = statement.executeQuery(checkEmail);
+                if (rsVote.next()) {
+                    userID_Exist = rsVote.getInt(1);
+                    answerID_Exist = rsVote.getInt(2);
+                    questionID_Exist = rsVote.getInt(3);
+                }
+                if ((userID == userID_Exist) && (answerId == answerID_Exist) && (questionId == questionID_Exist)) {
+                    found = true;
+                } else {
+                    i++;
+                }
+            }
+            if (found == false) {
+                String insertVote = "INSERT INTO voteanswer(`userID`, `answerID`, `questionID`) VALUES (" + userID + "," + answerId + "," + questionId + ")";
+                statement.executeUpdate(insertVote);
+            }
+            String checkVote = "SELECT `value` FROM voteanswer WHERE questionID=" + questionId + " AND userID=" + userID + " AND answerID=" + answerId;
+            ResultSet rsVote = statement.executeQuery(checkVote);
+            if(rsVote.next()) {
+                value = rsVote.getInt("value");
+            }
+            if (value == 0) {
+                String query2 = "UPDATE voteanswer SET `value` = 1 WHERE questionId =" + questionId + " And userID =" + userID + " And answerID =" + answerId;
                 statement.executeUpdate(query2);
-                success = true;
+                String query = "UPDATE answers SET `vote` = `vote`+1 WHERE question_id =" + questionId + " And answer_id=" + answerId;
+                statement.executeUpdate(query);
+            } else if (value == 1) {
+                String query2 = "UPDATE voteanswer SET `value` = 0 WHERE question_id =" + questionId + " And userID =" + userID + " And answerID =" + answerId;
+                statement.executeUpdate(query2);
+                String query = "UPDATE answers SET `vote` = `vote`-1 WHERE question_id =" + questionId + " And answer_id=" + answerId;
+                statement.executeUpdate(query);
+            } else if (value == -1) {
+                String query2 = "UPDATE voteanswer SET `value` = 1 WHERE questionId =" + questionId + " And userID =" + userID;
+                statement.executeUpdate(query2);
+                String query = "UPDATE answers SET `vote` = `vote`+2 WHERE question_id =" + questionId + " And answer_iD=" + answerId;
+                statement.executeUpdate(query);
             }
+            success = true;
         } catch (Exception e) {
             e.printStackTrace();
             success = false;
@@ -228,31 +229,65 @@ public class Answer {
         return success;
     }
     
-    public static Boolean voteDownAnswer(int answer_id, int userID) {
+    public static Boolean voteDownAnswer(int answerId, int questionId, int userID) {
         boolean success = false;
         Connection conn = null;
         Statement statement = null;
-        int value = 0;
+        int userID_Exist = 0, questionID_Exist = 0, answerID_Exist = 0;
+        int countVote = 0, value = 0;
         
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(localhost, USER, PASS);
             statement = conn.createStatement();
-            String insertVote = "INSERT INTO vote(`userID`, `answerID`) VALUES (" + userID + "," + answer_id + ")";
-            statement.executeUpdate(insertVote);
-            String checkVote = "SELECT `value` FROM vote WHERE answerID=" + answer_id + " AND userID=" + userID;
-            ResultSet rs = statement.executeQuery(checkVote);
+            //cek email
+            String voteTable = "SELECT count(*) FROM voteanswer";
+            ResultSet rs = statement.executeQuery(voteTable);
             if(rs.next()) {
-                value = rs.getInt("value");
+                countVote = rs.getInt(1);
             }
-            // cek value dari vote
-            if (value > -1 && value <= 1) {
-                String query = "UPDATE answers SET vote = vote-1 WHERE answer_id = " + answer_id;
-                statement.executeUpdate(query);
-                String query2 = "UPDATE vote SET `value` = `value`-1 WHERE answerID =" + answer_id + "AND userID=" + userID;
+            int i = 0;
+            Boolean found = false;
+            while (i < countVote && !found) {
+                String checkEmail = "SELECT userID, answerID, questionID FROM voteanswer WHERE userID=" + userID + " And questionID=" + questionId + " And answerID=" + answerId;
+                ResultSet rsVote = statement.executeQuery(checkEmail);
+                if (rsVote.next()) {
+                    userID_Exist = rsVote.getInt(1);
+                    answerID_Exist = rsVote.getInt(2);
+                    questionID_Exist = rsVote.getInt(3);
+                }
+                if ((userID == userID_Exist) && (answerId == answerID_Exist) && (questionId == questionID_Exist)) {
+                    found = true;
+                } else {
+                    i++;
+                }
+            }
+            if (found == false) {
+                String insertVote = "INSERT INTO voteanswer(`userID`, `answerID`, `questionID`) VALUES (" + userID + "," + answerId + "," + questionId + ")";
+                statement.executeUpdate(insertVote);
+            }
+            String checkVote = "SELECT `value` FROM voteanswer WHERE questionID=" + questionId + " AND userID=" + userID + " AND answerID=" + answerId;
+            ResultSet rsVote = statement.executeQuery(checkVote);
+            if(rsVote.next()) {
+                value = rsVote.getInt("value");
+            }
+            if (value == 0) {
+                String query2 = "UPDATE voteanswer SET `value` = -1 WHERE questionID =" + questionId + " And userID =" + userID + " And answerID =" + answerId;
                 statement.executeUpdate(query2);
-                success = true;
+                String query = "UPDATE answers SET `vote` = `vote`-1 WHERE question_id =" + questionId + " And answer_id=" + answerId;
+            statement.executeUpdate(query);
+            } else if (value == 1) {
+                String query2 = "UPDATE voteanswer SET `value` = -1 WHERE questionID =" + questionId + " And userID =" + userID + " And answerID =" + answerId;
+                statement.executeUpdate(query2);
+                String query = "UPDATE answers SET `vote` = `vote`-2 WHERE question_id =" + questionId + " And answer_id=" + answerId;
+            statement.executeUpdate(query);
+            } else if (value == -1) {
+                String query2 = "UPDATE voteanswer SET `value` = 0 WHERE questionID =" + questionId + " And userID =" + userID;
+                statement.executeUpdate(query2);
+                String query = "UPDATE answers SET `vote` = `vote`+1 WHERE question_id =" + questionId + " And answer_id=" + answerId;
+                statement.executeUpdate(query);
             }
+            success = true;
         } catch (Exception e) {
             e.printStackTrace();
             success = false;

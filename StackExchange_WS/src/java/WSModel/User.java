@@ -33,6 +33,7 @@ public class User {
         boolean success;
         Connection conn = null;
         Statement statement = null;
+        String emailExist = null;
         int countAccount = 0;
         
         try {
@@ -48,10 +49,11 @@ public class User {
             int i = 0;
             Boolean found = false;
             while (i < countAccount && !found) {
-                String checkEmail = "SELECT email FROM account WHERE email=" + email;
-                String emailExist = statement.executeQuery("checkEmail").toString();
-                //System.out.println("email : " + email);
-                //System.out.println("email Exist : " + emailExist);
+                String checkEmail = "SELECT email FROM account WHERE email='" + email + "'";
+                ResultSet rsEmail = statement.executeQuery(checkEmail);
+                if(rsEmail.next()) {
+                    emailExist = rsEmail.getString(1);
+                }
                 if (email.equals(emailExist)) {
                     found = true;
                 } else {
@@ -84,5 +86,38 @@ public class User {
             }
         }
         return success;
+    }
+	
+	public static String getUserName(int userID) {
+        Connection conn = null;
+        Statement statement = null;
+        String userName = null;
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(localhost, USER, PASS);
+            statement = conn.createStatement();
+            String query = "SELECT userName FROM account WHERE userID=" + userID;
+            ResultSet rsName = statement.executeQuery(query);
+            if(rsName.next()) {
+                userName = rsName.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }               
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (conn != null) {
+            try {
+                conn.close();    
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return userName;
     }
 }

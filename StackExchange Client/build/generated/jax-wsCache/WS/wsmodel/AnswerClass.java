@@ -16,12 +16,12 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element name="answerVote" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="answerId" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="answerContent" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="answerDate" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="questionId2" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="answerUserId" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="answerVote" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -32,21 +32,37 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "answerClass", propOrder = {
+    "answerVote",
     "answerId",
     "answerContent",
     "answerDate",
     "questionId2",
-    "answerUserId",
-    "answerVote"
+    "answerUserId"
 })
 public class AnswerClass {
 
+    protected int answerVote;
     protected int answerId;
     protected String answerContent;
     protected String answerDate;
     protected int questionId2;
     protected int answerUserId;
-    protected int answerVote;
+
+    /**
+     * Gets the value of the answerVote property.
+     * 
+     */
+    public int getAnswerVote() {
+        return answerVote;
+    }
+
+    /**
+     * Sets the value of the answerVote property.
+     * 
+     */
+    public void setAnswerVote(int value) {
+        this.answerVote = value;
+    }
 
     /**
      * Gets the value of the answerId property.
@@ -142,22 +158,6 @@ public class AnswerClass {
      */
     public void setAnswerUserId(int value) {
         this.answerUserId = value;
-    }
-
-    /**
-     * Gets the value of the answerVote property.
-     * 
-     */
-    public int getAnswerVote() {
-        return answerVote;
-    }
-
-    /**
-     * Sets the value of the answerVote property.
-     * 
-     */
-    public void setAnswerVote(int value) {
-        this.answerVote = value;
     }
 
 }

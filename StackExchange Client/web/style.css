@@ -55,6 +55,37 @@
 }
 
 
+.userNavigation{
+    display: flex;
+    flex-direction: row;
+    order: 1;
+    margin-top: 20px;
+    margin-left: 20px;
+    align-self:flex-end;
+    justify-content: flex-end;
+}
+
+.signIn{
+    order: 1;
+    text-align: center;
+    margin-right: 10px;
+}
+.registration{
+    order: 2;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 input[type="text"]{
     border: solid;
     border-width: 1px;

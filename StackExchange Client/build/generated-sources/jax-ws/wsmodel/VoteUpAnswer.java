@@ -3,7 +3,6 @@ package wsmodel;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -17,7 +16,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="answer_id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="answerId" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="questionId" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="userID" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -30,12 +30,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "voteUpAnswer", propOrder = {
     "answerId",
+    "questionId",
     "userID"
 })
 public class VoteUpAnswer {
 
-    @XmlElement(name = "answer_id")
     protected int answerId;
+    protected int questionId;
     protected int userID;
 
     /**
@@ -52,6 +53,22 @@ public class VoteUpAnswer {
      */
     public void setAnswerId(int value) {
         this.answerId = value;
+    }
+
+    /**
+     * Gets the value of the questionId property.
+     * 
+     */
+    public int getQuestionId() {
+        return questionId;
+    }
+
+    /**
+     * Sets the value of the questionId property.
+     * 
+     */
+    public void setQuestionId(int value) {
+        this.questionId = value;
     }
 
     /**

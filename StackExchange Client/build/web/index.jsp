@@ -17,6 +17,13 @@
     <div id = "header">
       <p>${flash}</p>
       <span id="Judul">Simple StackExchange</span>
+ 
+      <div class ="userNavigation">
+          <span class="signIn">Sign In</span>
+          <span class="registration">Register</span>
+      </div>
+      
+      
       <form id="search" action ="index.php" method="get">
         <input name = 'search' id="bar" type="text"/>
         <input id="submitButton" type="submit" value="Search"/>
@@ -24,7 +31,7 @@
     <p align="center">Cannot find what you are looking for? <a style="color:red" href="addQuestion.jsp">Ask here</a>
     <div id ="body">
       <h3>Recently Asked Questions</h3>
-    <%-- start web service invocation --%><hr/>
+    <%-- start web service invocation --%>
             <%
                 wsmodel.WS_Service service = new wsmodel.WS_Service();
                 wsmodel.WS port = service.getWSPort();
@@ -33,13 +40,13 @@
                 int allQuestionNumber = allQuestionList.size();
             
             %>
-    <%-- end web service invocation --%><hr/>
+    <%-- end web service invocation --%>
     
     <% for (int i = 0; i< allQuestionNumber;i++){ %>
     		<div class = 'questionItem'>
                         <div class = questionLeft>
                             <span class = 'votes_number'> <% out.println(allQuestionList.get(i).getQuestionVote()); %> <br>Votes</span>
-                                <%-- start web service invocation --%><hr/>
+                                <%-- start web service invocation --%>
                                 <%
                                     wsmodel.WS_Service service2 = new wsmodel.WS_Service();
                                     wsmodel.WS port2 = service2.getWSPort();
@@ -48,7 +55,7 @@
                                     // TODO process result here
                                     int numOfAnswer = port2.getSumAnswer(questionId);
                                 %>
-                                <%-- end web service invocation --%><hr/>
+                                <%-- end web service invocation --%>
 
                             
                             <span class = 'Answers_number'> <% out.println(numOfAnswer); %> <br>Answers</span>
@@ -68,22 +75,22 @@
                              </div>
                         </div>
                              
-                            <%-- start web service invocation --%><hr/>
+                            <%-- start web service invocation --%>
                             <%
                                 wsmodel.WS_Service service3 = new wsmodel.WS_Service();
                                 wsmodel.WS port3 = service3.getWSPort();
                                  // TODO initialize WS operation arguments here
                                 int userID = allQuestionList.get(i).getQuestionUserId();
                                 // TODO process result here
-                                java.lang.String q_UserName = port3.getQuestionUserName(userID);
+                                java.lang.String q_UserName = port3.getAnswerUserName(userID);
                             %>
-                            <%-- end web service invocation --%><hr/>
+                            <%-- end web service invocation --%>
      
                              
                              
 
                         <div class= questionRight>
-                            asked by <font color='blue'> <% out.println(q_UserName);%> </font> |<a class='editQuestion' href='editQuestion.jsp?id=<%= allQuestionList.get(i).getQuestionId() %>'><font color='green'>edit</font> </a>|<a class='deleteQuestion' href = 'deleteQuestionProcess.jsp?id=<%= allQuestionList.get(i).getQuestionId() %> onclick= \"return confirm('Confirm Delete?');\'><font color='red'>delete</font> </a>
+                            asked by <font color='blue'> <% out.println(q_UserName);%> </font> |<a class='editQuestion' href='editQuestion.jsp?id=<%= allQuestionList.get(i).getQuestionId() %>'><font color='green'>edit</font> </a>|<a class='deleteQuestion' href = 'deleteQuestionProcess.jsp?id=<%= allQuestionList.get(i).getQuestionId() %>' onclick= "return confirm('are you sure?')"><font color='red'>delete</font> </a>
                         </div>
 
                 </div>

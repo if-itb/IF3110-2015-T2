@@ -55,7 +55,7 @@ public class QuestionClass {
     }
 
 	@XmlElement(name = "questionVote")
-    public int getVote() {
+    public int getVoteQuestion() {
 
         return vote;
     }

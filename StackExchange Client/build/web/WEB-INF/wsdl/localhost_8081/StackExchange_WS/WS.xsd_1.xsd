@@ -38,10 +38,6 @@
 
 <xs:element name="getQuestionByIDResponse" type="tns:getQuestionByIDResponse"/>
 
-<xs:element name="getQuestionUserName" type="tns:getQuestionUserName"/>
-
-<xs:element name="getQuestionUserNameResponse" type="tns:getQuestionUserNameResponse"/>
-
 <xs:element name="getSumAnswer" type="tns:getSumAnswer"/>
 
 <xs:element name="getSumAnswerResponse" type="tns:getSumAnswerResponse"/>
@@ -89,6 +85,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getQuestionByID">
+<xs:sequence>
+<xs:element name="questionId" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getQuestionByIDResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:questionClass" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="addUser">
 <xs:sequence>
 <xs:element name="userName" type="xs:string" minOccurs="0"/>
@@ -100,18 +108,6 @@
 <xs:complexType name="addUserResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getQuestionByID">
-<xs:sequence>
-<xs:element name="questionId" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getQuestionByIDResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:questionClass" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -142,12 +138,12 @@
 
 <xs:complexType name="answerClass">
 <xs:sequence>
+<xs:element name="answerVote" type="xs:int"/>
 <xs:element name="answerId" type="xs:int"/>
 <xs:element name="answerContent" type="xs:string" minOccurs="0"/>
 <xs:element name="answerDate" type="xs:string" minOccurs="0"/>
 <xs:element name="questionId2" type="xs:int"/>
 <xs:element name="answerUserId" type="xs:int"/>
-<xs:element name="answerVote" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -205,7 +201,8 @@
 
 <xs:complexType name="voteDownAnswer">
 <xs:sequence>
-<xs:element name="answer_id" type="xs:int"/>
+<xs:element name="answerId" type="xs:int"/>
+<xs:element name="questionId" type="xs:int"/>
 <xs:element name="userID" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
@@ -216,21 +213,10 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getQuestionUserName">
-<xs:sequence>
-<xs:element name="userID" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getQuestionUserNameResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="voteUpAnswer">
 <xs:sequence>
-<xs:element name="answer_id" type="xs:int"/>
+<xs:element name="answerId" type="xs:int"/>
+<xs:element name="questionId" type="xs:int"/>
 <xs:element name="userID" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
@@ -255,15 +241,16 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getAnswerUserName">
+<xs:complexType name="voteUpQuestion">
 <xs:sequence>
+<xs:element name="questionId" type="xs:int"/>
 <xs:element name="userID" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getAnswerUserNameResponse">
+<xs:complexType name="voteUpQuestionResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -279,16 +266,15 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="voteUpQuestion">
+<xs:complexType name="getAnswerUserName">
 <xs:sequence>
-<xs:element name="questionId" type="xs:int"/>
 <xs:element name="userID" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="voteUpQuestionResponse">
+<xs:complexType name="getAnswerUserNameResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

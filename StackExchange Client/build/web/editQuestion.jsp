@@ -20,7 +20,7 @@
     <span id="what">What's your question?</span>
   </div>
     
-        <%-- start web service invocation --%><hr/>
+        <%-- start web service invocation --%>
     <%
 	wsmodel.WS_Service service = new wsmodel.WS_Service();
 	wsmodel.WS port = service.getWSPort();
@@ -33,7 +33,9 @@
         String qTopic = result.getQuestionTitle();
         String qContent = result.getQuestionContent();
     %>
-    <%-- end web service invocation --%><hr/>
+    <%-- end web service invocation --%>
+    
+    
 
     
     

@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-    <%-- start web service invocation --%><hr/>
+    <%-- start web service invocation --%>
     <%
 	wsmodel.WS_Service service = new wsmodel.WS_Service();
 	wsmodel.WS port = service.getWSPort();
@@ -16,7 +16,7 @@
 	wsmodel.QuestionClass questionItem = port.getQuestionByID(questionId);
 
     %>
-    <%-- end web service invocation --%><hr/>
+    <%-- end web service invocation --%>
 
     
     
@@ -25,14 +25,14 @@
          <span class='questionAnswerHeader'><% out.println(questionItem.getQuestionTitle()); %></span>
     <div class ='questionAnswerBody'>
         <div class ='questionAnswerVote'>
-            <div class='questionAnswerVoteUpArrow' <%--onclick= \voteUpdate('question',$questionId, 'up')\--%>>
-                 <img src='icons/upArrow.png' width='30' height='30'>
+            <div class='questionAnswerVoteUpArrow'>
+                <a  href='voteUpQuestion.jsp?q_id=<%= questionItem.getQuestionId() %>'><img src='icons/upArrow.png' width='30' height='30'></a> 
             </div>
             <div class='questionAnswerVoteNumber' id='voteQuestion'>
                  <% out.println(questionItem.getQuestionVote()); %>
             </div>
-            <div class='questionAnswerVoteDownArrow' <%--onclick= \voteUpdate('question',$questionId, 'down')\--%> >
-                 <img src='icons/downArrow.png' width='30' height='30'>
+            <div class='questionAnswerVoteDownArrow'>
+                <a  href='voteDownQuestion.jsp?q_id=<%= questionItem.getQuestionId()%>' ><img src='icons/downArrow.png' width='30' height='30'></a>
             </div>
         </div>
         <div class ='questionAnswerContent'>
@@ -40,16 +40,16 @@
         </div>
     </div>
         
-         <%-- start web service invocation --%><hr/>
+         <%-- start web service invocation --%>
                             <%
                                 wsmodel.WS_Service service3 = new wsmodel.WS_Service();
                                 wsmodel.WS port3 = service3.getWSPort();
                                  // TODO initialize WS operation arguments here
                                 int userID = questionItem.getQuestionUserId();
                                 // TODO process result here
-                                java.lang.String q_UserName = port3.getQuestionUserName(userID);
+                                java.lang.String q_UserName = port3.getAnswerUserName(userID);
                             %>
-                            <%-- end web service invocation --%><hr/>
+                            <%-- end web service invocation --%>
         
         
     <span class='questionAnswerFooter'>asked by <% out.println(q_UserName); %> at <% out.println(questionItem.getQuestionDate()); %>|<a class='editQuestion' href='editQuestion.jsp?id=<%= questionItem.getQuestionId() %>'><font color='green'>edit</font> </a>|<a class='deleteQuestion' href = 'deleteQuestionProcess.jsp?id=<%= questionItem.getQuestionId() %> onclick= \"return confirm('Confirm Delete?');\'><font color='red'>delete</font> </a></span>

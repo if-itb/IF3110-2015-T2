@@ -225,62 +225,64 @@ public class Question {
         return success;
     }
     
-    public static String getQuestionUserName(int userID) {
-        Connection conn = null;
-        Statement statement = null;
-        String userName = null;
-        try {
-            Class.forName(JDBC_DRIVER);
-            conn = DriverManager.getConnection(localhost, USER, PASS);
-            String query = "SELECT userName FROM account WHERE userID=" + userID;
-            statement = conn.prepareStatement(query, statement.RETURN_GENERATED_KEYS);
-            userName = (statement.executeQuery(query)).toString();
-            System.out.println(userName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }               
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        if (conn != null) {
-            try {
-                conn.close();    
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return userName;
-    }
-    
     public static Boolean voteUpQuestion(int questionId, int userID) {
         boolean success = false;
         Connection conn = null;
         Statement statement = null;
-        int value = 0;
+        int userID_Exist = 0, questionID_Exist = 0;
+        int countVote = 0, value = 0;
         
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(localhost, USER, PASS);
             statement = conn.createStatement();
-            String insertVote = "INSERT INTO vote(`userID`, `questionID`) VALUES (" + userID + "," + questionId + ")";
-            statement.executeUpdate(insertVote);
-            String checkVote = "SELECT `value` FROM vote WHERE questionID=" + questionId + " AND userID=" + userID;
-            ResultSet rs = statement.executeQuery(checkVote);
+            //cek email
+            String voteTable = "SELECT count(*) FROM votequestion";
+            ResultSet rs = statement.executeQuery(voteTable);
             if(rs.next()) {
-                value = rs.getInt("value");
+                countVote = rs.getInt(1);
             }
-            // cek value dari vote
-            if (value >= -1 && value < 1) {
-                String query = "UPDATE questions SET `vote` = `vote`+1 WHERE questionId =" + questionId;
-                statement.executeUpdate(query);
-                String query2 = "UPDATE vote SET `value` = `value`+1 WHERE questionId =" + questionId + "And userID=" + userID;
+            int i = 0;
+            Boolean found = false;
+            while (i < countVote && !found) {
+                String checkEmail = "SELECT userID, questionID FROM votequestion WHERE userID=" + userID + " And questionID=" + questionId;
+                ResultSet rsVote = statement.executeQuery(checkEmail);
+                if (rsVote.next()) {
+                    userID_Exist = rsVote.getInt(1);
+                    questionID_Exist = rsVote.getInt(2);
+                }
+                if ((userID == userID_Exist) && (questionId == questionID_Exist)) {
+                    found = true;
+                } else {
+                    i++;
+                }
+            }
+            if (found == false) {
+                String insertVote = "INSERT INTO votequestion(`userID`, `questionID`) VALUES (" + userID + "," + questionId + ")";
+                statement.executeUpdate(insertVote);
+            }
+            String checkVote = "SELECT `value` FROM votequestion WHERE questionID=" + questionId + " AND userID=" + userID;
+            ResultSet rsVote = statement.executeQuery(checkVote);
+            if(rsVote.next()) {
+                value = rsVote.getInt("value");
+            }
+            if (value == 0) {
+                String query2 = "UPDATE votequestion SET `value` = 1 WHERE questionId =" + questionId + " And userID =" + userID;
                 statement.executeUpdate(query2);
-                success = true;
+                String query = "UPDATE questions SET `vote` = `vote`+1 WHERE questionId =" + questionId;
+            statement.executeUpdate(query);
+            } else if (value == 1) {
+                String query2 = "UPDATE votequestion SET `value` = 0 WHERE questionId =" + questionId + " And userID =" + userID;
+                statement.executeUpdate(query2);
+                String query = "UPDATE questions SET `vote` = `vote`-1 WHERE questionId =" + questionId;
+            statement.executeUpdate(query);
+            } else if (value == -1) {
+                String query2 = "UPDATE votequestion SET `value` = 1 WHERE questionId =" + questionId + " And userID =" + userID;
+                statement.executeUpdate(query2);
+                String query = "UPDATE questions SET `vote` = `vote`+2 WHERE questionId =" + questionId;
+                statement.executeUpdate(query);
             }
+            success = true;
         } catch (Exception e) {
             e.printStackTrace();
             success = false;
@@ -306,27 +308,60 @@ public class Question {
         boolean success = false;
         Connection conn = null;
         Statement statement = null;
-        int value = 0;
+        int userID_Exist = 0, questionID_Exist = 0;
+        int countVote = 0, value = 0;
         
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(localhost, USER, PASS);
             statement = conn.createStatement();
-            String insertVote = "INSERT INTO vote(`userID`, `questionID`) VALUES (" + userID + "," + questionId + ")";
-            statement.executeUpdate(insertVote);
-            String checkVote = "SELECT `value` FROM vote WHERE questionID=" + questionId + " AND userID=" + userID;
-            ResultSet rs = statement.executeQuery(checkVote);
+            //cek email
+            String voteTable = "SELECT count(*) FROM votequestion";
+            ResultSet rs = statement.executeQuery(voteTable);
             if(rs.next()) {
-                value = rs.getInt("value");
+                countVote = rs.getInt(1);
             }
-            // cek value dari vote
-            if (value > -1 && value <= 1) {
-                String query = "UPDATE questions SET `vote` = `vote`-1 WHERE questionId =" + questionId;
-                statement.executeUpdate(query);
-                String query2 = "UPDATE vote SET `value` = `value`-1 WHERE questionID =" + questionId + "AND userID=" + userID;
+            int i = 0;
+            Boolean found = false;
+            while (i < countVote && !found) {
+                String checkEmail = "SELECT userID, questionID FROM votequestion WHERE userID=" + userID + " And questionID=" + questionId;
+                ResultSet rsVote = statement.executeQuery(checkEmail);
+                if (rsVote.next()) {
+                    userID_Exist = rsVote.getInt(1);
+                    questionID_Exist = rsVote.getInt(2);
+                }
+                if ((userID == userID_Exist) && (questionId == questionID_Exist)) {
+                    found = true;
+                } else {
+                    i++;
+                }
+            }
+            if (found == false) {
+                String insertVote = "INSERT INTO votequestion(`userID`, `questionID`) VALUES (" + userID + "," + questionId + ")";
+                statement.executeUpdate(insertVote);
+            }
+            String checkVote = "SELECT `value` FROM votequestion WHERE questionID=" + questionId + " AND userID=" + userID;
+            ResultSet rsVote = statement.executeQuery(checkVote);
+            if(rsVote.next()) {
+                value = rsVote.getInt("value");
+            }
+            if (value == 0) {
+                String query2 = "UPDATE votequestion SET `value` = -1 WHERE questionID =" + questionId + " And userID =" + userID;
                 statement.executeUpdate(query2);
-                success = true;
+                String query = "UPDATE questions SET `vote` = `vote`-1 WHERE questionID =" + questionId;
+            statement.executeUpdate(query);
+            } else if (value == 1) {
+                String query2 = "UPDATE votequestion SET `value` = -1 WHERE questionID =" + questionId + " And userID =" + userID;
+                statement.executeUpdate(query2);
+                String query = "UPDATE questions SET `vote` = `vote`-2 WHERE questionID =" + questionId;
+            statement.executeUpdate(query);
+            } else if (value == -1) {
+                String query2 = "UPDATE votequestion SET `value` = 0 WHERE questionID =" + questionId + " And userID =" + userID;
+                statement.executeUpdate(query2);
+                String query = "UPDATE questions SET `vote` = `vote`+1 WHERE questionID =" + questionId;
+                statement.executeUpdate(query);
             }
+            success = true;
         } catch (Exception e) {
             e.printStackTrace();
             success = false;

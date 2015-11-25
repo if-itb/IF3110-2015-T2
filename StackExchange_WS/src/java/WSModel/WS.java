@@ -52,30 +52,6 @@ public class WS {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "getAnswerUserName")
-    public String getAnswerUserName(@WebParam(name = "userID") int userID) {
-        //TODO write your implementation code here:
-        return Answer.getAnswerUserName(userID);
-    }
-    
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "voteUpAnswer")
-    public Boolean voteUpAnswer(@WebParam(name = "answer_id") int answer_id, @WebParam(name = "userID") int userID) {
-        //TODO write your implementation code here:
-        return Answer.voteUpAnswer(answer_id, userID);
-    }
-
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "voteDownAnswer")
-    public Boolean voteDownAnswer(@WebParam(name = "answer_id") int answer_id, @WebParam(name = "userID") int userID) {
-        //TODO write your implementation code here:
-        return Answer.voteDownAnswer(answer_id, userID);
-    }
-    
     /**
      * Web service operation
      */
@@ -85,6 +61,21 @@ public class WS {
         return Answer.getSumAnswer(question_id);
     }
 
+     @WebMethod(operationName = "voteUpAnswer")
+    public Boolean voteUpAnswer(@WebParam(name = "answerId") int answerId, @WebParam(name = "questionId") int questionId, @WebParam(name = "userID") int userID) {
+        //TODO write your implementation code here:
+        return Answer.voteUpAnswer(answerId, questionId, userID);
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "voteDownAnswer")
+    public Boolean voteDownAnswer(@WebParam(name = "answerId") int answerId, @WebParam(name = "questionId") int questionId, @WebParam(name = "userID") int userID) {
+        //TODO write your implementation code here:
+        return Answer.voteDownAnswer(answerId, questionId, userID);
+    }
+    
     /************************************ Question Class ****************************************/
     /**
      * Web service operation
@@ -134,15 +125,6 @@ public class WS {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "getQuestionUserName")
-    public String getQuestionUserName(@WebParam(name = "userID") int userID) {
-        //TODO write your implementation code here:
-        return Question.getQuestionUserName(userID);
-    }
-    
-    /**
-     * Web service operation
-     */
     @WebMethod(operationName = "voteUpQuestion")
     public Boolean voteUpQuestion(@WebParam(name = "questionId") int questionId, @WebParam(name = "userID") int userID) {
         //TODO write your implementation code here:
@@ -167,4 +149,14 @@ public class WS {
         //TODO write your implementation code here:
         return User.addUser(userName, password, email);
     }
+	
+	/**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getAnswerUserName")
+    public String getUserName(@WebParam(name = "userID") int userID) {
+        //TODO write your implementation code here:
+        return User.getUserName(userID);
+    }
+    
 }
