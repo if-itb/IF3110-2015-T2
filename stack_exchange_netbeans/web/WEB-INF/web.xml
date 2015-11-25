@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>AddAnswerServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.AddAnswerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpVoteAnswer</servlet-name>
+        <servlet-class>org.stackexchange.controller.UpVoteAnswerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DownVoteAnswerServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.DownVoteAnswerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddAnswerServlet</servlet-name>
+        <url-pattern>/question</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpVoteAnswer</servlet-name>
+        <url-pattern>/UpVoteAnswer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownVoteAnswerServlet</servlet-name>
+        <url-pattern>/DownVoteAnswer</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
