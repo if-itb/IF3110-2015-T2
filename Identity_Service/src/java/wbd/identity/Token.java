@@ -97,10 +97,7 @@ public class Token implements Serializable {
       return false;
     }
     Token other = (Token) object;
-    if ((this.val == null && other.val != null) || (this.val != null && !this.val.equals(other.val))) {
-      return false;
-    }
-    return true;
+    return !((this.val == null && other.val != null) || (this.val != null && !this.val.equals(other.val)));
   }
 
   @Override

@@ -5,6 +5,7 @@
  */
 package wbd.identity.service;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.core.Application;
@@ -16,9 +17,13 @@ import javax.ws.rs.ApplicationPath;
  */
 @ApplicationPath("webresources")
 public class ApplicationConfig extends Application {
+
+  /**
+   *
+   * @return Set of Class
+   */
   @Override
   public Set<Class<?>> getClasses() {
-    Set<Class<?>> s = new HashSet<>();
-    return s;
+    return new HashSet<>(Arrays.asList(TokenRESTFacade.class, UserRESTFacade.class));
   }
 }

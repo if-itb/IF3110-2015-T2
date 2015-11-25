@@ -25,8 +25,8 @@ import javax.ws.rs.core.Response;
  */
 public class TokenClient {
 
-  private WebTarget webTarget;
-  private Client client;
+  private final WebTarget webTarget;
+  private final Client client;
   private static final String BASE_URI = "http://localhost:8082/IS/webresources";
 
   public TokenClient() {

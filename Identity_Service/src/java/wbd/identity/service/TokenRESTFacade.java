@@ -13,7 +13,6 @@ import wbd.identity.controller.TokenJpaController;
 import wbd.identity.Token;
 import java.net.URI;
 import java.util.List;
-//import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -29,7 +28,6 @@ import javax.ws.rs.core.Response;
  *
  * @author Afrizal
  */
-//@Stateless
 @Path("wbd.identity.token")
 public class TokenRESTFacade {
 
@@ -54,7 +52,7 @@ public class TokenRESTFacade {
   public Response create(Token entity) {
     try {
       getJpaController().create(entity);
-      return Response.created(URI.create(entity.getVal().toString())).build();
+      return Response.created(URI.create(entity.getVal())).build();
     } catch (Exception ex) {
       return Response.notModified(ex.getMessage()).build();
     }
