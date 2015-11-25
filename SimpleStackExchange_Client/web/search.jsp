@@ -39,9 +39,9 @@
             <form class="form-horizontal" action="${pageContext.request.contextPath}/search" method="GET">
             <div class="col-lg-12">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for...">
+                  <input type="text" class="form-control" name="q" placeholder="Search for...">
                   <span class="input-group-btn">
-                    <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                   </span>
                 </div><!-- /input-group -->
             </div><!-- /.col-lg-12 -->

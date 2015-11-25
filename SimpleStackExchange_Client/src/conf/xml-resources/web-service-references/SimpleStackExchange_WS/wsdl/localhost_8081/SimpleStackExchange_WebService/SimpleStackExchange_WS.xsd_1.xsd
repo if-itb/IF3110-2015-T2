@@ -16,6 +16,10 @@
 
 <xs:element name="registereduser" type="tns:registereduser"/>
 
+<xs:element name="searchQuestion" type="tns:searchQuestion"/>
+
+<xs:element name="searchQuestionResponse" type="tns:searchQuestionResponse"/>
+
 <xs:complexType name="hello">
 <xs:sequence>
 <xs:element name="name" type="xs:string" minOccurs="0"/>
@@ -69,6 +73,18 @@
 <xs:element name="name" type="xs:string" minOccurs="0"/>
 <xs:element name="password" type="xs:string" minOccurs="0"/>
 <xs:element name="uid" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="searchQuestion">
+<xs:sequence>
+<xs:element name="keyword" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="searchQuestionResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

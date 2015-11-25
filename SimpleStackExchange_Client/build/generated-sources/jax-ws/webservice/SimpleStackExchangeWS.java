@@ -54,6 +54,21 @@ public interface SimpleStackExchangeWS {
 
     /**
      * 
+     * @param keyword
+     * @return
+     *     returns java.util.List<webservice.Question>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "searchQuestion", targetNamespace = "http://webservice/", className = "webservice.SearchQuestion")
+    @ResponseWrapper(localName = "searchQuestionResponse", targetNamespace = "http://webservice/", className = "webservice.SearchQuestionResponse")
+    @Action(input = "http://webservice/SimpleStackExchange_WS/searchQuestionRequest", output = "http://webservice/SimpleStackExchange_WS/searchQuestionResponse")
+    public List<Question> searchQuestion(
+        @WebParam(name = "keyword", targetNamespace = "")
+        String keyword);
+
+    /**
+     * 
      * @param uid
      * @return
      *     returns webservice.Registereduser

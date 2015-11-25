@@ -16,6 +16,12 @@
 <message name="listQuestionResponse">
 <part name="parameters" element="tns:listQuestionResponse"/>
 </message>
+<message name="searchQuestion">
+<part name="parameters" element="tns:searchQuestion"/>
+</message>
+<message name="searchQuestionResponse">
+<part name="parameters" element="tns:searchQuestionResponse"/>
+</message>
 <message name="getUserById">
 <part name="parameters" element="tns:getUserById"/>
 </message>
@@ -30,6 +36,10 @@
 <operation name="listQuestion">
 <input wsam:Action="http://webservice/SimpleStackExchange_WS/listQuestionRequest" message="tns:listQuestion"/>
 <output wsam:Action="http://webservice/SimpleStackExchange_WS/listQuestionResponse" message="tns:listQuestionResponse"/>
+</operation>
+<operation name="searchQuestion">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/searchQuestionRequest" message="tns:searchQuestion"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/searchQuestionResponse" message="tns:searchQuestionResponse"/>
 </operation>
 <operation name="getUserById">
 <input wsam:Action="http://webservice/SimpleStackExchange_WS/getUserByIdRequest" message="tns:getUserById"/>
@@ -48,6 +58,15 @@
 </output>
 </operation>
 <operation name="listQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="searchQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

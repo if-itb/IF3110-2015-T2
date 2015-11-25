@@ -53,4 +53,16 @@ public class SimpleStackExchange_WS {
         EntityManager em = emf.createEntityManager();
         return em.find(Registereduser.class, uid);
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "searchQuestion")
+    public List<Question> searchQuestion(@WebParam(name = "keyword") String keyword) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+       
+        return  em.createQuery("SELECT q FROM Question q WHERE q.topic LIKE '%"+keyword+"%' OR q.content LIKE '%"+keyword+"%'", Question.class).getResultList();
+                
+    }
 }

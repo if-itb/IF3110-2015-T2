@@ -51,7 +51,6 @@ public class QuestionList extends HttpServlet {
             else
                 ques.add(new Pair(q, ru.getName()));
         }
-//        response.sendRedirect("home.jsp");
         request.setAttribute("questions", ques);
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }

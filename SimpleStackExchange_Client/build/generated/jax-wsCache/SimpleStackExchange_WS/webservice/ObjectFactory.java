@@ -32,6 +32,8 @@ public class ObjectFactory {
     private final static QName _ListQuestionResponse_QNAME = new QName("http://webservice/", "listQuestionResponse");
     private final static QName _Question_QNAME = new QName("http://webservice/", "question");
     private final static QName _Registereduser_QNAME = new QName("http://webservice/", "registereduser");
+    private final static QName _SearchQuestion_QNAME = new QName("http://webservice/", "searchQuestion");
+    private final static QName _SearchQuestionResponse_QNAME = new QName("http://webservice/", "searchQuestionResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: webservice
@@ -105,6 +107,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link SearchQuestion }
+     * 
+     */
+    public SearchQuestion createSearchQuestion() {
+        return new SearchQuestion();
+    }
+
+    /**
+     * Create an instance of {@link SearchQuestionResponse }
+     * 
+     */
+    public SearchQuestionResponse createSearchQuestionResponse() {
+        return new SearchQuestionResponse();
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetUserById }{@code >}}
      * 
      */
@@ -174,6 +192,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice/", name = "registereduser")
     public JAXBElement<Registereduser> createRegistereduser(Registereduser value) {
         return new JAXBElement<Registereduser>(_Registereduser_QNAME, Registereduser.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SearchQuestion }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "searchQuestion")
+    public JAXBElement<SearchQuestion> createSearchQuestion(SearchQuestion value) {
+        return new JAXBElement<SearchQuestion>(_SearchQuestion_QNAME, SearchQuestion.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SearchQuestionResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "searchQuestionResponse")
+    public JAXBElement<SearchQuestionResponse> createSearchQuestionResponse(SearchQuestionResponse value) {
+        return new JAXBElement<SearchQuestionResponse>(_SearchQuestionResponse_QNAME, SearchQuestionResponse.class, null, value);
     }
 
 }

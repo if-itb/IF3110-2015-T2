@@ -7,16 +7,27 @@ package question;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.util.Pair;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.WebServiceRef;
+import webservice.Registereduser;
+import webservice.SimpleStackExchangeWS_Service;
 
 /**
  *
  * @author mfikria
  */
+@WebServlet(name = "QuestionSearh", urlPatterns = {"/search"})
 public class QuestionSearch extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/SimpleStackExchange_WS.wsdl")
+    private SimpleStackExchangeWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,19 +40,19 @@ public class QuestionSearch extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Search</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Search at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        List<webservice.Question> que = searchQuestion(request.getParameter("q"));
+        ArrayList<Pair<webservice.Question, String> > ques;
+        ques = new ArrayList<Pair<webservice.Question, String>>();
+        for(webservice.Question q : que) {
+            webservice.Registereduser ru = getUserById(q.getUid());
+            if(ru == null)
+                ques.add(new Pair(q, "Deleted User"));
+            else
+                ques.add(new Pair(q, ru.getName()));
         }
+        request.setAttribute("questions", ques);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,5 +93,19 @@ public class QuestionSearch extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private java.util.List<webservice.Question> searchQuestion(java.lang.String keyword) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        return port.searchQuestion(keyword);
+    }
+
+    private Registereduser getUserById(int uid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        return port.getUserById(uid);
+    }
 
 }
