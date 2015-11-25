@@ -40,7 +40,7 @@
         %>
         <br><br><br><br>
         
-        <form name='searchForm' action='search.jsp' method='post'>
+        <form name='searchForm' action='index.jsp' method='post'>
             <input class='form-search' type="text" name="search_key" size='120%'>
             <button class='button-search' type='submit'> Search </button>
         </form>
@@ -52,6 +52,7 @@
         <hr class='line'>
     <%
     try {
+        
 	com.wbd.qst.QuestionWS_Service service = new com.wbd.qst.QuestionWS_Service();
 	com.wbd.qst.QuestionWS port = service.getQuestionWSPort();
         com.wbd.ans.AnswerWS_Service service2 = new com.wbd.ans.AnswerWS_Service();
@@ -59,7 +60,13 @@
         com.wbd.qst.QuestionWS_Service service3 = new com.wbd.qst.QuestionWS_Service();
 	com.wbd.qst.QuestionWS port3 = service3.getQuestionWSPort();
 	// TODO process result here
-	java.util.List<com.wbd.qst.Question> result = port.retrieveQ();        
+        java.util.List<com.wbd.qst.Question> result;
+        if(request.getParameter("search_key") != null){
+            result = port.searchQ(request.getParameter("search_key"), request.getParameter("search_key"));        
+        }
+        else{
+            result = port.retrieveQ();
+        }
 	for(int i = 0; i < result.size() ; i++){
             String vote;
             java.util.List<com.wbd.ans.Answer> result2 = port2.getAnswerByQID(result.get(i).getIDQ());
