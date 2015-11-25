@@ -12,34 +12,8 @@
         <link rel = "stylesheet" type = "text/css" href = "style.css">
         <script src="jquery.min.js"></script>
         <script>
-            /*$(document).ready(function(){
-                $("#tablogin").click(function(){
-                    $("#tablogin").css("background-color", "white");
-                    $("#tabreg").css("background-color", "silver");
-                });
-                $("#tabreg").click(function(){
-                    $("#tablogin").css("background-color", "silver");
-                    $("#tabreg").css("background-color", "white");
-                });
-            });*/
         
             function changetab(type) {
-                /*var xhttp;
-                if (window.XMLHttpRequest) {
-                    xhttp = new XMLHttpRequest();
-                    } else {
-                    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-                xhttp.onreadystatechange = function() {
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        document.getElementById("formaccount").innerHTML = xhttp.responseText;
-                    }
-                }
-                if (type == "login")
-                    xhttp.open("GET", "login.html", true);
-                else
-                    xhttp.open("GET", "reg.html", true);
-                xhttp.send();*/
                 window.open(type+".jsp", "_self");
             }
         </script>
