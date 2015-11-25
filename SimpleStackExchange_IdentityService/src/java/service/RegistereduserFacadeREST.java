@@ -10,7 +10,6 @@ import entity.Registereduser;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
@@ -41,9 +40,11 @@ public class RegistereduserFacadeREST extends AbstractFacade<Registereduser> {
         super(Registereduser.class);
     }
     
+    /*
     @GET
     @Path("email/{email}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    */
     public Registereduser findByEmail(@PathParam("email") String email) {
         return (Registereduser) this.getEntityManager().createNamedQuery("Registereduser.findByEmail")
                 .setParameter("email", email)
@@ -69,7 +70,6 @@ public class RegistereduserFacadeREST extends AbstractFacade<Registereduser> {
                 Date date = new Date();
                 Timestamp timestamp = new Timestamp(date.getTime());
                 
-                
                 // Create Activeuser object
                 Activeuser auser = new Activeuser(token, user.getUid(), date);
               
@@ -77,7 +77,7 @@ public class RegistereduserFacadeREST extends AbstractFacade<Registereduser> {
                em.persist(auser);
   
                // return auserFacadeREST.countREST();
-                return token;
+               return token;
             }
             else return "";
     }

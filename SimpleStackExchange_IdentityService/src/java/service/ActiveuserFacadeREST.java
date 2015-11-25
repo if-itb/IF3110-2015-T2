@@ -6,6 +6,7 @@
 package service;
 
 import entity.Activeuser;
+import entity.Registereduser;
 import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -35,8 +36,16 @@ public class ActiveuserFacadeREST extends AbstractFacade<Activeuser> {
     public ActiveuserFacadeREST() {
         super(Activeuser.class);
     }
-
-   
+    
+    @GET
+    @Path("getuid/{token}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public int getUidByToken(@PathParam("token") String token) {
+        return ((Activeuser) this.getEntityManager().createNamedQuery("Activeuser.findByToken")
+                .setParameter("token", token)
+                .getResultList().get(0)).getUid();
+    }
+    
     @GET
     @Path("auth/{token}")
     @Produces(MediaType.TEXT_PLAIN)
@@ -44,9 +53,9 @@ public class ActiveuserFacadeREST extends AbstractFacade<Activeuser> {
     {
         Activeuser auser = new Activeuser();
         try {
-        auser = (Activeuser) em.createNamedQuery("Activeuser.findByToken")
-        .setParameter("token", token)
-        .getResultList().get(0);
+            auser = (Activeuser) em.createNamedQuery("Activeuser.findByToken")
+            .setParameter("token", token)
+            .getResultList().get(0);
         }catch(IllegalArgumentException | EntityNotFoundException | EJBException | IndexOutOfBoundsException e){
             return false;
         }
@@ -58,7 +67,7 @@ public class ActiveuserFacadeREST extends AbstractFacade<Activeuser> {
         long diff = date.getTime() - date2.getTime();
         long diffMinutes = diff / (60 * 1000) % 60;
         
-        return (diffMinutes <= 15);
+        return (diffMinutes <= 15); // check the different time between created time and current time
     }
     
     @GET
@@ -69,9 +78,9 @@ public class ActiveuserFacadeREST extends AbstractFacade<Activeuser> {
         Activeuser auser = new Activeuser();
         
         try{
-        auser = (Activeuser) em.createNamedQuery("Activeuser.findByToken")
-        .setParameter("token", token)
-        .getResultList().get(0);
+            auser = (Activeuser) em.createNamedQuery("Activeuser.findByToken")
+            .setParameter("token", token)
+            .getResultList().get(0);
         }catch(IllegalArgumentException | EntityNotFoundException | EJBException | IndexOutOfBoundsException e){
             return false;
         }

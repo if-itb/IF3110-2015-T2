@@ -2,7 +2,7 @@
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
     <service name="SimpleStackExchange_WS">
-      <implementation-class>service.SimpleStackExchange_WS</implementation-class>
+      <implementation-class>webservice.SimpleStackExchange_WS</implementation-class>
     </service>
   </services>
   <clients/>

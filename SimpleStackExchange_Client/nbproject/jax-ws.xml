@@ -2,10 +2,10 @@
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services/>
   <clients>
-    <client name="service">
-      <wsdl-url>http://localhost:8082/SimpleStackExchange_WebService/service?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8082/SimpleStackExchange_WebService/service.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">tool</package-name>
+    <client name="SimpleStackExchange_WS">
+      <wsdl-url>http://localhost:8081/SimpleStackExchange_WebService/SimpleStackExchange_WS?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8081/SimpleStackExchange_WebService/SimpleStackExchange_WS.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">webservice</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -22,7 +22,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8082/SimpleStackExchange_WebService/service?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:8081/SimpleStackExchange_WebService/SimpleStackExchange_WS?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -34,7 +34,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>tool</wsimport-option-value>
+          <wsimport-option-value>webservice</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

@@ -72,15 +72,7 @@ public class Registereduser implements Serializable {
     public Registereduser(Integer uid) {
         this.uid = uid;
     }
-    
-    public Registereduser(Registereduser user) {
-        this.uid = user.uid;
-        this.name = user.name;
-        this.createdtime = user.createdtime;
-        this.email = user.email;
-        this.password = user.password;        
-    }
-       
+
     public Registereduser(Integer uid, String name, String email, String password, Date createdtime) {
         this.uid = uid;
         this.name = name;
@@ -151,7 +143,7 @@ public class Registereduser implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Registereduser[ uid=" + uid + " ]";
+        return "webservice.Registereduser[ uid=" + uid + " ]";
     }
     
 }

@@ -73,7 +73,7 @@ public class Registereduser implements Serializable {
         this.uid = uid;
     }
     
-       public Registereduser(Registereduser user) {
+    public Registereduser(Registereduser user) {
         this.uid = user.uid;
         this.name = user.name;
         this.createdtime = user.createdtime;

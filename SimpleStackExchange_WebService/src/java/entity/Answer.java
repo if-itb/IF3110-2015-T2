@@ -155,7 +155,7 @@ public class Answer implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Answer[ aid=" + aid + " ]";
+        return "webservice.Answer[ aid=" + aid + " ]";
     }
     
 }

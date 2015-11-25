@@ -8,6 +8,7 @@ package user;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,15 +32,10 @@ public class UserLogout extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       response.setContentType("text/html");
-        
-        //invalidate the session if exists
-        HttpSession session = request.getSession(false);
-        System.out.println("Access_token="+session.getAttribute("access_token"));
-        if(session != null){
-            session.invalidate();
-        }
-        //no encoding because we have invalidated the session
+        Cookie cookie = new Cookie("token", null); 
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
         response.sendRedirect("index.jsp");
     }
 

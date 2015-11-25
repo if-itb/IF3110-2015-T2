@@ -140,7 +140,7 @@ public class Answervoter implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Answervoter[ id=" + id + " ]";
+        return "webservice.Answervoter[ id=" + id + " ]";
     }
     
 }

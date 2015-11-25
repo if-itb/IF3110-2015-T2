@@ -47,6 +47,12 @@ public class ConsumerREST {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(responseType);
     }
     
+    public int getUidByToken(String token) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("getuid/{0}", new Object[]{token}));
+        return resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).get(Integer.class);
+    }
+    
     public String validate(String email, String password) throws ClientErrorException {
         Form form = new Form();
         form.param("email", email);

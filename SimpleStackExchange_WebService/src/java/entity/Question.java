@@ -170,7 +170,7 @@ public class Question implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Question[ qid=" + qid + " ]";
+        return "webservice.Question[ qid=" + qid + " ]";
     }
     
 }

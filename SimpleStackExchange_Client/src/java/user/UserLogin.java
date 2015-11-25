@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,26 +35,26 @@ public class UserLogin extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-         // get request parameters for userID and password
+        
+        // get request parameters for userID and password
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        ConsumerREST r = new ConsumerREST();
-        Registereduser ru = r.findByEmail(Registereduser.class, email);
-        String token = r.validate(email, password);
         
-        if(token != null){
-            HttpSession session = request.getSession();
-            session.setAttribute("access_token", token);
-            session.setAttribute("name", ru.getName());
-            session.setAttribute("email", ru.getEmail());
+        ConsumerREST r = new ConsumerREST(); // Create object for consumming REST Web service
+        String token = r.validate(email, password); // validate whether there is valid email and password
+        
+        if(!token.equals("")){
+            Cookie loginCookie = new Cookie("token", token); // Set cookie to track user's session
+            loginCookie.setMaxAge(30*60); // set cookie to expiry in 30 mins
+            response.addCookie(loginCookie);
             
-            //Get the encoded URL string
-            String encodedURL = response.encodeRedirectURL("index.jsp");
-            response.sendRedirect(encodedURL);
+            response.sendRedirect("index.jsp"); // redirect to homepage
+            
         }else{
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp"); // redirect to login page
+            
             PrintWriter out= response.getWriter();
-            out.println(token);
+            out.println("<div class=\"alert alert-danger\" role=\"alert\">Either the password or email are not valid</div>"); // pass the error message
             rd.include(request, response);
         }
     }
