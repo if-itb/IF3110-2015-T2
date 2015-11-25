@@ -14,7 +14,9 @@ import java.sql.SQLException;
  * @author adar
  */
 public class DB {
-    public static Connection connect() throws ClassNotFoundException, SQLException {
+    
+    
+    public static Connection connect() {
         // Database driver and URL
         String driver = "com.mysql.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull";
@@ -23,9 +25,14 @@ public class DB {
         String username = "root";
         String pass = "";
         
+        Connection conn = null;
         
-        Class.forName(driver);
-        Connection conn = DriverManager.getConnection(url, username, pass);
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, username, pass);
+        } catch (SQLException | ClassNotFoundException ex) {
+            
+        }
         
         return conn;
     }
