@@ -21,7 +21,7 @@
 
         <div class="main">
             <div class="container">
-                <form name="search" action="indexsearch.php" method="post" class="search">
+
                 <form name="search" action="index1.jsp" method="post" class="search">
                     <input type="text" maxlength="50" name="key">
                     <input type="submit" value="Search">
@@ -34,47 +34,11 @@
 
                     <%
                         String token = null;
-                        /*Cookie cookies[] = request.getCookies();
-                        if (cookies != null) {
-                            out.println(cookies.length);
-                            for (int i=0;i<cookies.length;i++) {
-                                if (cookies[i].getName().equals("access_token")) {
-                                    token = cookies[i].getValue();
-                                    out.println(cookies[i].getName() + " " + token); 
-                                    break;
-                                }
-                            }
-                        }*/
-                        
-                         if (cookies != null) {
-                         out.println(cookies.length);
-                         for (int i=0;i<cookies.length;i++) {
-                         if (cookies[i].getName().equals("access_token")) {
-                         token = cookies[i].getValue();
-                         out.println(cookies[i].getName() + " " + token); 
-                         break;
-                         }
-                         }
-                         }*/
 
                         token = request.getParameter("access_token");
                         String search = request.getParameter("key");
                         out.println(token);
-                        try {
-                            questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();
-                            questionmodel.QuestionWS port = service.getQuestionWSPort();
-                            // TODO process result here
-                            java.util.List<questionmodel.Question> result = port.getallQuestions();
-                            for (int i = 0; i < result.size(); i++) {
-                                out.println("<div class='itemquestion'>");
-                                out.println("<div class='columnsmall left'> <p>" + result.get(i).getVotes()
-                                        + "</p> <p>Votes</p></div>");
-                                out.println("<div class='columnsmall left'> <p>" + result.get(i).getAnswers()
-                                        + "</p> <p>Answers</p></div>");
-                                if (result.get(i).getQuestion().length() > 30) {
-                                    out.println("<div class='columnlarge center'><a href='answer.jsp?id=" + result.get(i).getQuestionID() + "'><h4>" + result.get(i).getTopic() + "</h4></a><p>" + result.get(i).getQuestion().substring(0,30) + ". . .</p></div>");
-                                } else {
-                                    out.println("<div class='columnlarge center'><a href='answer.jsp?id=" + result.get(i).getQuestionID() + "'><h4>" + result.get(i).getTopic() + "</h4></a><p>" + result.get(i).getQuestion() + "</p></div>");
+
                         if (search == null) {
                             try {
                                 questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();
@@ -127,12 +91,6 @@
                             }
                         }
                     %>
-
-
-
-
-
-
 
                 </div>
             </div>
