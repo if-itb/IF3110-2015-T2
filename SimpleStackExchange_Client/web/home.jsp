@@ -73,7 +73,7 @@
             <div class="col-sm-10">
             <div class="panel panel-default">
                 <!-- Default panel contents -->
-                <div class="panel-heading"><h4><a href="${pageContext.request.contextPath}/question?qid=1">${item.getKey().getTopic()}</a></h4></div>
+                <div class="panel-heading"><h4><a href="${pageContext.request.contextPath}/question?qid=${item.getKey().getQid()}">${item.getKey().getTopic()}</a></h4></div>
                 <div class="panel-body">
                   
                   <span class="pull-right">

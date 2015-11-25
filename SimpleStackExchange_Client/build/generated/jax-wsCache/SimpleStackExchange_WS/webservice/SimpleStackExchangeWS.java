@@ -27,21 +27,6 @@ public interface SimpleStackExchangeWS {
 
     /**
      * 
-     * @param name
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "hello", targetNamespace = "http://webservice/", className = "webservice.Hello")
-    @ResponseWrapper(localName = "helloResponse", targetNamespace = "http://webservice/", className = "webservice.HelloResponse")
-    @Action(input = "http://webservice/SimpleStackExchange_WS/helloRequest", output = "http://webservice/SimpleStackExchange_WS/helloResponse")
-    public String hello(
-        @WebParam(name = "name", targetNamespace = "")
-        String name);
-
-    /**
-     * 
      * @return
      *     returns java.util.List<webservice.Question>
      */
@@ -81,5 +66,35 @@ public interface SimpleStackExchangeWS {
     public Registereduser getUserById(
         @WebParam(name = "uid", targetNamespace = "")
         int uid);
+
+    /**
+     * 
+     * @param qid
+     * @return
+     *     returns webservice.Question
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getQuestion", targetNamespace = "http://webservice/", className = "webservice.GetQuestion")
+    @ResponseWrapper(localName = "getQuestionResponse", targetNamespace = "http://webservice/", className = "webservice.GetQuestionResponse")
+    @Action(input = "http://webservice/SimpleStackExchange_WS/getQuestionRequest", output = "http://webservice/SimpleStackExchange_WS/getQuestionResponse")
+    public Question getQuestion(
+        @WebParam(name = "qid", targetNamespace = "")
+        int qid);
+
+    /**
+     * 
+     * @param qid
+     * @return
+     *     returns java.util.List<webservice.Answer>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAnswers", targetNamespace = "http://webservice/", className = "webservice.GetAnswers")
+    @ResponseWrapper(localName = "getAnswersResponse", targetNamespace = "http://webservice/", className = "webservice.GetAnswersResponse")
+    @Action(input = "http://webservice/SimpleStackExchange_WS/getAnswersRequest", output = "http://webservice/SimpleStackExchange_WS/getAnswersResponse")
+    public List<Answer> getAnswers(
+        @WebParam(name = "qid", targetNamespace = "")
+        int qid);
 
 }

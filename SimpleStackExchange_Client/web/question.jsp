@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en"><head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,8 +52,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <h2>
-                    <a href="${pageContext.request.contextPath}/question/?qid=1">
-                    Judul Pertanyaan
+                    <a href="${pageContext.request.contextPath}/question/?qid=${question.getKey().getQid()}">
+                    ${question.getKey().getTopic()}
                     </a>
                 </h2>
                 <hr>
@@ -61,11 +62,10 @@
            
             <div class="question-item row">
             <div class="col-sm-1 ">
-                <div class="btn-group-vertical" role="group" aria-label="...">
                     <button type="button" class="btn btn-success">
                         <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                     </button>
-                    <div class="text-center well-lg">0</div>
+                    <div class="text-center well-lg">${question.getKey().getCountvotes()}</div>
                     <button type="button" class="btn btn-danger">
                         <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                     </button>
@@ -76,11 +76,11 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <p>
-                        Isi Pertanyaan...
+                        ${question.getKey().getContent()}
                     </p>
                   <span class="pull-right">
                       <button type="button" class="btn btn-default transparent">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> User at 2015-10-26 05:22:32
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> ${question.getValue()} at ${question.getKey().getCreatedtime()}
                       </button>
                       <button type="button" class="btn btn-warning " aria-label="Edit">
                         <a class="glyphicon glyphicon-pencil white" aria-hidden="true"></a>
@@ -95,17 +95,18 @@
         </div><!-- end of col-sm-11 -->
         <div class="col-sm-12">
             <h2>
-                0 Answers
+                ${question.getKey().getCountanswers()} Answers
             </h2>
             <hr>
         </div>
+        <c:forEach items="${answers}" var="answer-item">
         <div class="row">
             <div class="col-sm-1 col-sm-offset-1">
                 <div class="btn-group-vertical" role="group" aria-label="...">
                     <button type="button" class="btn btn-success">
                         <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                     </button>
-                    <div class="text-center well-lg">0</div>
+                    <div class="text-center well-lg">${answer-item.getKey().getCountvotes()}</div>
                     <button type="button" class="btn btn-danger">
                         <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                     </button>
@@ -115,11 +116,11 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <p>
-                        Isi Jawaban...
+                        ${answer-item.getKey().getContent()}
                     </p>
                   <span class="pull-right">
                       <button type="button" class="btn btn-default transparent">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> User at 2015-10-26 05:22:32
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> ${answer-item.getValue()} at answer-item.getKey().getCreatedtime()}
                       </button>
                   </span>
                 </div>
@@ -127,8 +128,10 @@
             </div>
         </div><!-- end of col-sm-10 -->
         </div>
-      </div><!-- end of question-item -->
-      
+        </div><!-- end of question-item -->
+
+        </c:forEach>
+        
       <div class="col-sm-12">
             <h2>
                 Answer Question!

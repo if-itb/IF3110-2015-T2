@@ -1,12 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://webservice/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://webservice/">
 
+<xs:element name="answer" type="tns:answer"/>
+
+<xs:element name="getAnswers" type="tns:getAnswers"/>
+
+<xs:element name="getAnswersResponse" type="tns:getAnswersResponse"/>
+
+<xs:element name="getQuestion" type="tns:getQuestion"/>
+
+<xs:element name="getQuestionResponse" type="tns:getQuestionResponse"/>
+
 <xs:element name="getUserById" type="tns:getUserById"/>
 
 <xs:element name="getUserByIdResponse" type="tns:getUserByIdResponse"/>
-
-<xs:element name="hello" type="tns:hello"/>
-
-<xs:element name="helloResponse" type="tns:helloResponse"/>
 
 <xs:element name="listQuestion" type="tns:listQuestion"/>
 
@@ -19,18 +25,6 @@
 <xs:element name="searchQuestion" type="tns:searchQuestion"/>
 
 <xs:element name="searchQuestionResponse" type="tns:searchQuestionResponse"/>
-
-<xs:complexType name="hello">
-<xs:sequence>
-<xs:element name="name" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="helloResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
 
 <xs:complexType name="listQuestion">
 <xs:sequence/>
@@ -76,6 +70,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getQuestion">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getQuestionResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:question" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="searchQuestion">
 <xs:sequence>
 <xs:element name="keyword" type="xs:string" minOccurs="0"/>
@@ -85,6 +91,29 @@
 <xs:complexType name="searchQuestionResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAnswers">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAnswersResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:answer" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="answer">
+<xs:sequence>
+<xs:element name="aid" type="xs:int" minOccurs="0"/>
+<xs:element name="content" type="xs:string" minOccurs="0"/>
+<xs:element name="countvotes" type="xs:int"/>
+<xs:element name="createdtime" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="qid" type="xs:int"/>
+<xs:element name="uid" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

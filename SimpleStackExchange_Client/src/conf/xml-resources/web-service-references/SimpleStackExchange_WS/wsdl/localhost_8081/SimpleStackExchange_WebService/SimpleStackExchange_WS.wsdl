@@ -4,12 +4,6 @@
 <xsd:import namespace="http://webservice/" schemaLocation="http://localhost:8081/SimpleStackExchange_WebService/SimpleStackExchange_WS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="hello">
-<part name="parameters" element="tns:hello"/>
-</message>
-<message name="helloResponse">
-<part name="parameters" element="tns:helloResponse"/>
-</message>
 <message name="listQuestion">
 <part name="parameters" element="tns:listQuestion"/>
 </message>
@@ -28,11 +22,19 @@
 <message name="getUserByIdResponse">
 <part name="parameters" element="tns:getUserByIdResponse"/>
 </message>
+<message name="getQuestion">
+<part name="parameters" element="tns:getQuestion"/>
+</message>
+<message name="getQuestionResponse">
+<part name="parameters" element="tns:getQuestionResponse"/>
+</message>
+<message name="getAnswers">
+<part name="parameters" element="tns:getAnswers"/>
+</message>
+<message name="getAnswersResponse">
+<part name="parameters" element="tns:getAnswersResponse"/>
+</message>
 <portType name="SimpleStackExchange_WS">
-<operation name="hello">
-<input wsam:Action="http://webservice/SimpleStackExchange_WS/helloRequest" message="tns:hello"/>
-<output wsam:Action="http://webservice/SimpleStackExchange_WS/helloResponse" message="tns:helloResponse"/>
-</operation>
 <operation name="listQuestion">
 <input wsam:Action="http://webservice/SimpleStackExchange_WS/listQuestionRequest" message="tns:listQuestion"/>
 <output wsam:Action="http://webservice/SimpleStackExchange_WS/listQuestionResponse" message="tns:listQuestionResponse"/>
@@ -45,18 +47,17 @@
 <input wsam:Action="http://webservice/SimpleStackExchange_WS/getUserByIdRequest" message="tns:getUserById"/>
 <output wsam:Action="http://webservice/SimpleStackExchange_WS/getUserByIdResponse" message="tns:getUserByIdResponse"/>
 </operation>
+<operation name="getQuestion">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/getQuestionRequest" message="tns:getQuestion"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/getQuestionResponse" message="tns:getQuestionResponse"/>
+</operation>
+<operation name="getAnswers">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/getAnswersRequest" message="tns:getAnswers"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/getAnswersResponse" message="tns:getAnswersResponse"/>
+</operation>
 </portType>
 <binding name="SimpleStackExchange_WSPortBinding" type="tns:SimpleStackExchange_WS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="hello">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="listQuestion">
 <soap:operation soapAction=""/>
 <input>
@@ -76,6 +77,24 @@
 </output>
 </operation>
 <operation name="getUserById">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getAnswers">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

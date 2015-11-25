@@ -5,6 +5,7 @@
  */
 package webservice;
 
+import entity.Answer;
 import entity.Question;
 import entity.Registereduser;
 import java.util.List;
@@ -21,13 +22,53 @@ import javax.persistence.Persistence;
  */
 @WebService(serviceName = "SimpleStackExchange_WS")
 public class SimpleStackExchange_WS {
-
-    /**
-     * This is a sample web service operation
+    
+      /**
+     * Web service operation
      */
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
+    @WebMethod(operationName = "createUser")
+    public void createUser(@WebParam(name = "user") Registereduser user) {
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+        
+        em.getTransaction().begin();
+        try {
+            
+            em.persist(user);
+            
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        
+        emf.close();
+    }
+    
+      /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "createQuestion")
+    public void createQuestion(@WebParam(name = "token") String token, @WebParam(name = "question") Question question) {
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+        
+        em.getTransaction().begin();
+        try {
+            
+            em.persist(question);
+            
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        
+        emf.close();
     }
     
       /**
@@ -64,5 +105,28 @@ public class SimpleStackExchange_WS {
        
         return  em.createQuery("SELECT q FROM Question q WHERE q.topic LIKE '%"+keyword+"%' OR q.content LIKE '%"+keyword+"%'", Question.class).getResultList();
                 
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getQuestion")
+    public Question getQuestion(@WebParam(name = "qid") int qid) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+        return (Question) em.createNamedQuery("Question.findByQid")
+                .setParameter("qid", qid)
+                .getResultList().get(0);
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getAnswers")
+    public List<Answer> getAnswers(@WebParam(name = "qid") int qid) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+       
+        return (List<Answer>)em.createQuery("SELECT q FROM Answer q WHERE q.qid="+qid, Answer.class).getResultList();
     }
 }

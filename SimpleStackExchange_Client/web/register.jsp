@@ -27,7 +27,10 @@
             <a class="navbar-brand" href="${pageContext.request.contextPath}">Simple <strong>StackExchange</strong></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
-            <form class="navbar-form navbar-right" action="${pageContext.request.contextPath}/Login" method="POST">
+            <form class="navbar-form navbar-right" action="${pageContext.request.contextPath}/register" method="POST">
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Name" class="form-control">
+            </div>
             <div class="form-group">
               <input type="text" name="email" placeholder="Email" class="form-control">
             </div>

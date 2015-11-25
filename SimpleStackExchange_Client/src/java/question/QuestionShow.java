@@ -7,11 +7,18 @@ package question;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.util.Pair;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.WebServiceRef;
+import webservice.Question;
+import webservice.Registereduser;
+import webservice.SimpleStackExchangeWS_Service;
 
 /**
  *
@@ -19,6 +26,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "QuestionShow", urlPatterns = {"/question"})
 public class QuestionShow extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/SimpleStackExchange_WS.wsdl")
+    private SimpleStackExchangeWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,19 +41,29 @@ public class QuestionShow extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet QuestionShow</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet QuestionShow at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        int qid = Integer.parseInt(request.getParameter("qid"));
+        Pair<webservice.Question, String> que;
+        webservice.Registereduser ru = getUserById(qid);
+        if(ru == null)
+            que = new Pair(getQuestion(qid), "Invalid User");
+        else
+            que = new Pair(getQuestion(qid), ru.getName());
+        request.setAttribute("question", que);
+        
+        
+        List<webservice.Answer> ans = getAnswers(qid);
+        ArrayList<Pair<webservice.Question, String> > answers;
+        answers = new ArrayList<Pair<webservice.Question, String>>();
+        for(webservice.Answer a : ans) {
+            webservice.Registereduser aru = getUserById(a.getUid());
+            if(aru == null)
+                answers.add(new Pair(a, "Deleted User"));
+            else
+                answers.add(new Pair(a, ru.getName()));
         }
+        request.setAttribute("answers", answers);
+        
+        request.getRequestDispatcher("question.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -84,6 +104,27 @@ public class QuestionShow extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private Question getQuestion(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        return port.getQuestion(qid);
+    }
+
+    private Registereduser getUserById(int uid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        return port.getUserById(uid);
+    }
+
+    private java.util.List<webservice.Answer> getAnswers(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        return port.getAnswers(qid);
+    }
 
 
 }
