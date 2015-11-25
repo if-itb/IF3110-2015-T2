@@ -79,9 +79,14 @@
         %>
         
         <% out.write("<br><br><br><br><br>");%>
+<<<<<<< Updated upstream
 
 
         
+=======
+      
+
+>>>>>>> Stashed changes
         <%
         try {
             com.wbd.ans.AnswerWS_Service service = new com.wbd.ans.AnswerWS_Service();
@@ -105,7 +110,11 @@
             ;
             out.write(answerTitle);
             for(int i = 0; i < result.size() ; i++){
+
                 java.lang.String result2 = port2.getNamaAns(result.get(i).getIDAns());
+
+                // java.lang.String result2 = port.getNamaAns(result.get(i).getIDAns());
+
                 String answer = 
                     "<div class='block-QA'>"
                         +"<div class='bQA-vote'>"

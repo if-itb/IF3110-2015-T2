@@ -38,7 +38,11 @@
 
 <xs:complexType name="getNamaAns">
 <xs:sequence>
+<<<<<<< Updated upstream
 <xs:element name="idans" type="xs:int"/>
+=======
+<xs:element name="ansid" type="xs:int"/>
+>>>>>>> Stashed changes
 </xs:sequence>
 </xs:complexType>
 

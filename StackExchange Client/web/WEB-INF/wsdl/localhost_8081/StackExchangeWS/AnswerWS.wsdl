@@ -4,8 +4,19 @@
 <xsd:import namespace="http://ans.wbd.com/" schemaLocation="http://localhost:8081/StackExchangeWS/AnswerWS?xsd=1"/>
 </xsd:schema>
 </types>
+<<<<<<< Updated upstream
 <message name="createAns">
 <part name="parameters" element="tns:createAns"/>
+=======
+<message name="getNamaAns">
+<part name="parameters" element="tns:getNamaAns"/>
+</message>
+<message name="getNamaAnsResponse">
+<part name="parameters" element="tns:getNamaAnsResponse"/>
+</message>
+<message name="getAnswerByQID">
+<part name="parameters" element="tns:getAnswerByQID"/>
+>>>>>>> Stashed changes
 </message>
 <message name="createAnsResponse">
 <part name="parameters" element="tns:createAnsResponse"/>
@@ -34,7 +45,14 @@
 <message name="getNamaAnsResponse">
 <part name="parameters" element="tns:getNamaAnsResponse"/>
 </message>
+<message name="createAns">
+<part name="parameters" element="tns:createAns"/>
+</message>
+<message name="createAnsResponse">
+<part name="parameters" element="tns:createAnsResponse"/>
+</message>
 <portType name="AnswerWS">
+<<<<<<< Updated upstream
 <operation name="createAns">
 <input wsam:Action="http://ans.wbd.com/AnswerWS/createAnsRequest" message="tns:createAns"/>
 <output wsam:Action="http://ans.wbd.com/AnswerWS/createAnsResponse" message="tns:createAnsResponse"/>
@@ -42,6 +60,15 @@
 <operation name="voteDown">
 <input wsam:Action="http://ans.wbd.com/AnswerWS/voteDownRequest" message="tns:voteDown"/>
 <output wsam:Action="http://ans.wbd.com/AnswerWS/voteDownResponse" message="tns:voteDownResponse"/>
+=======
+<operation name="getNamaAns">
+<input wsam:Action="http://ans.wbd.com/AnswerWS/getNamaAnsRequest" message="tns:getNamaAns"/>
+<output wsam:Action="http://ans.wbd.com/AnswerWS/getNamaAnsResponse" message="tns:getNamaAnsResponse"/>
+</operation>
+<operation name="getAnswerByQID">
+<input wsam:Action="http://ans.wbd.com/AnswerWS/getAnswerByQIDRequest" message="tns:getAnswerByQID"/>
+<output wsam:Action="http://ans.wbd.com/AnswerWS/getAnswerByQIDResponse" message="tns:getAnswerByQIDResponse"/>
+>>>>>>> Stashed changes
 </operation>
 <operation name="voteUp">
 <input wsam:Action="http://ans.wbd.com/AnswerWS/voteUpRequest" message="tns:voteUp"/>
@@ -55,10 +82,18 @@
 <input wsam:Action="http://ans.wbd.com/AnswerWS/getNamaAnsRequest" message="tns:getNamaAns"/>
 <output wsam:Action="http://ans.wbd.com/AnswerWS/getNamaAnsResponse" message="tns:getNamaAnsResponse"/>
 </operation>
+<operation name="createAns">
+<input wsam:Action="http://ans.wbd.com/AnswerWS/createAnsRequest" message="tns:createAns"/>
+<output wsam:Action="http://ans.wbd.com/AnswerWS/createAnsResponse" message="tns:createAnsResponse"/>
+</operation>
 </portType>
 <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<<<<<<< Updated upstream
 <operation name="createAns">
+=======
+<operation name="getNamaAns">
+>>>>>>> Stashed changes
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -67,7 +102,11 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<<<<<<< Updated upstream
 <operation name="voteDown">
+=======
+<operation name="getAnswerByQID">
+>>>>>>> Stashed changes
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -95,6 +134,15 @@
 </output>
 </operation>
 <operation name="getNamaAns">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="createAns">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

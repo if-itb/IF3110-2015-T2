@@ -151,16 +151,20 @@ public class AnswerWS {
      * Web service operation
      */
     @WebMethod(operationName = "getNamaAns")
+
     public String getNamaAns(@WebParam(name = "idans") int idans) {
+
         String result = "";
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
             Statement stmt = conn.createStatement();
             
             String sql;
+
             sql = "SELECT user.Nama FROM user NATURAL JOIN answer WHERE IDAns = ?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1,idans);
+
             
             ResultSet rs = dbStatement.executeQuery();
             if (rs.next()){
