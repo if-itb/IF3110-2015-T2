@@ -5,39 +5,39 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
- <head>
-	<link href="mainstyle.css" rel="stylesheet">
- </head>
- <body>
- 
- 	    <header id="top" class="header">
-        <div class="text-vertical-center">
-
-
-            <h1>Register your mail</h1>
-			
-	<form method="post" action="">
-
-		<div>
-			<h2> Full Name : <input type ="text" name="fullname" value=""> </h2>
-			<span class="error">* 
-		</div>
-		<div>
-			<h2> User Name : <input type ="text" name="username" value=""> </h2>
-			<span class="error">* 
-		</div>
-		<div>
-			<h2> E-mail address : <input type ="text" name="email" value=""> </h2>
-			<span class="error">* 
-		</div>
-		<div>		
-			<input type="submit" name="submit" value="Submit" class="btn btn-dark btn-lg">
-		</div>
-        </div>
-</header>
-
-	</form>
- </body>
+  <head>
+    <link href="mainstyle.css" rel="stylesheet">
+  </head>
+  <body>
+    <header id="top" class="header">
+      <div class="text-vertical-center">
+        <h1>Register your mail</h1>	
+        <form method="POST" action="registervalidation.jsp">
+          <div>
+            <h2>Name<span class="error">* : <input type ="text" name="name"> </h2>
+          </div>
+          <div>
+            <h2>E-mail address<span class="error">* : <input type ="text" name="email"> </h2> 
+          </div>
+          <div>
+            <h2>Password<span class="error">* : <input type ="password" name="password"> </h2> 
+          </div>
+          <div>		
+            <input type="submit" name="submit" value="Submit" class="btn btn-dark btn-lg">
+          </div>
+        </form>
+        <%
+          String result =  request.getParameter("res");
+          if (result.equals("1")) {
+        %>
+        <p>Email is exist, choose another one!</p>
+        <%
+          } 
+        %>
+      </div>
+    </header>  
+  </body>
 </html>
