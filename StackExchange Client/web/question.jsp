@@ -23,44 +23,27 @@
 	<div class="section">
 		<h2 class="underlined">  </h2>
 		<div class="question" id="question-">
+                  <%
+                  try {
+                      questionWS.QuestionWebService_Service service = new questionWS.QuestionWebService_Service();
+                      questionWS.QuestionWebService port = service.getQuestionWebServicePort();
+                       // TODO initialize WS operation arguments here
+                      int id = Integer.parseInt(request.getParameter("id"));
+                      // TODO process result here
+                      questionWS.Question result = port.getQuestionById(id);
+                      out.println(result.getContent());
+                  %>
+    
+  
 			<div class="row">
 				<div class= "vote col">
-                                    <a href=     "<%
-    try {
-	answerWebService.AnswerWebService_Service service = new answerWebService.AnswerWebService_Service();
-	answerWebService.AnswerWebService port = service.getAnswerWebServicePort();
-	 // TODO initialize WS operation arguments here
-	int arg0 = 0;
-	// TODO process result here
-	java.lang.String result = port.incrVote(arg0);
-	out.println("Result = "+result);
-    } catch (Exception ex) {
-	// TODO handle custom exceptions here
-    }
-    %>" >
+                                    
 						<img src="img/upvote.png" width ="30" height="30">
-					    <%-- start web service invocation --%><hr/>
-                                    </a>
 
-    <%-- end web service invocation --%><hr/>
+
 
 					<span id="question-vote-count-"> </span>
-					<a href= "    <%-- start web service invocation --%><hr/>
-    <%
-    try {
-	answerWebService.AnswerWebService_Service service = new answerWebService.AnswerWebService_Service();
-	answerWebService.AnswerWebService port = service.getAnswerWebServicePort();
-	 // TODO initialize WS operation arguments here
-	int arg0 = 0;
-	// TODO process result here
-	java.lang.String result = port.decrVote(arg0);
-	out.println("Result = "+result);
-    } catch (Exception ex) {
-	// TODO handle custom exceptions here
-    }
-    %>
-    <%-- end web service invocation --%><hr/>
- " >
+					
 						<img src="img/downvote.png" width="30" height="30">
 					
 				</div>
@@ -72,21 +55,36 @@
 			</div>
 	</div>
 	<div class = "row-info">
-		asked by <span class="name"></span> &lt; <span class="email">  
-                </span>
+		asked by <span class="name"> <%= result.getAskerName()%></span>
+                <%
+                                } catch (Exception ex) {
+                      // TODO handle custom exceptions here
+                  }
+                  %>
+                  <hr>
+                  <hr>
+    <%
+    try {
+	answerWebService.AnswerWebService_Service service = new answerWebService.AnswerWebService_Service();
+	answerWebService.AnswerWebService port = service.getAnswerWebServicePort();
+	 // TODO initialize WS operation arguments here
+	int qid = Integer.parseInt(request.getParameter("id"));
+	// TODO process result here
+	java.util.List<answerWebService.Answer> result = port.getAnswerByQid(qid);
+	for(int i=0; i<result.size(); i++ ){
+          
+        
+    %>
 	<div class="section" id="answers">
+              <%out.println(result.get(i).getContent());%>
 		<h2 class="underline"></h2>
-		
 			<div class="answer underline" id="answer-">
 				<div class="row">
+                                                                   
 					<div class="col vote">
-						
 							<img src="img/upvote.png" width="35" height="35">
-					
 						<span id="answer-vote-count-"></span>
-						
 							<img src="img/downvote.png" width="35" height="35">
-						
 					</div>
 					<div class="col content">
 						<p>
@@ -99,7 +97,10 @@
 					at <span class="create-date"></span>
 				</div>
 			</div>
-		
+<% } } catch (Exception ex) {
+	// TODO handle custom exceptions here
+    }
+    %>		
 	</div>
 
 	<div class="section" id="form-answer">
@@ -113,7 +114,8 @@
 			<input type="hidden" name="question_id" value="" />
 		</form>
 	</div>	
-</div>	
+</div>
+
 
 	</div>
  </body>

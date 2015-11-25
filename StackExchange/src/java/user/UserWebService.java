@@ -108,6 +108,26 @@ public class UserWebService {
         return false;
     }
     
+    @WebMethod(operationName = "getIdUserFromEmail")
+    @WebResult(name="int")
+    public int getIdUserFromEmail(String email) {
+      String query = "SELECT * FROM user WHERE email = '" + email + "';";
+      Database database = new Database();
+        database.connect(path);
+        ResultSet rs = database.fetchData(query);
+        try {
+            rs.next();
+            int id = rs.getInt("user_id");
+            rs.close();
+            database.closeDatabase();
+            return id;
+        } catch (SQLException ex) {
+            database.closeDatabase();
+            Logger.getLogger(UserWebService.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }
+    
     @WebMethod(operationName = "getUser")
     @WebResult(name="User")
     public User getUser(int id) {

@@ -7,33 +7,25 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
- <head>
-	<link href="mainstyle.css" rel="stylesheet">
- </head>
- <body>
- 
- 	    <header id="top" class="header">
-        <div class="text-vertical-center">
-
-
-            <h1>Register your mail</h1>
-			
-	<form method="post" action="">
-            
-		<div>
-			<h2> User Name : <input type ="text" name="username" value=""> </h2>
-			<span class="error">* 
-		</div>
-		<div>
-			<h2> Password: <input type ="text" name="password" value=""> </h2>
-			<span class="error">* 
-		</div>
-		<div>		
-			<input type="submit" name="submit" value="Submit" class="btn btn-dark btn-lg">
-		</div>
-        </div>
-</header>
-
-	</form>
- </body>
+  <head>
+    <link href="mainstyle.css" rel="stylesheet">
+  </head>
+  <body> 
+    <header id="top" class="header">
+      <div class="text-vertical-center">
+        <h1>Login</h1>			
+	<form method="POST" action="/IdentityServices/Token">    
+          <div>
+            <h2>Email<span class="error">* : <input type ="text" name="uname" value=""> </h2>
+          </div>
+          <div>
+            <h2>Password<span class="error">* : <input type ="password" name="pword" value=""> </h2> 
+          </div>
+          <div>		
+            <input type="submit" name="submit" value="Submit" class="btn btn-dark btn-lg">
+          </div>
+        </form>
+      </div>
+    </header>
+  </body>
 </html>
