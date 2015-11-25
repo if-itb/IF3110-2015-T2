@@ -15,6 +15,10 @@
         <servlet-name>RegistrationController</servlet-name>
         <servlet-class>controller.RegistrationController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VoteController</servlet-name>
+        <servlet-class>controller.VoteController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IndexController</servlet-name>
         <url-pattern>/IndexController</url-pattern>
@@ -26,6 +30,10 @@
     <servlet-mapping>
         <servlet-name>RegistrationController</servlet-name>
         <url-pattern>/RegistrationController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VoteController</servlet-name>
+        <url-pattern>/VoteController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

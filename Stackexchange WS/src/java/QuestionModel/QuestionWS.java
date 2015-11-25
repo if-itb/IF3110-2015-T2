@@ -201,4 +201,90 @@ public class QuestionWS {
     
     return question;
   }
+  
+  
+  
+  @WebMethod(operationName = "voteQuestion")
+  public boolean voteQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "uid") int uid, @WebParam(name = "vote") String vote) {
+    boolean isVoted = false;
+    if (!hasUserVoteQuestion(qid, uid)) {
+      try {
+        Connection conn = database.connectDatabase();
+        Statement stmt = conn.createStatement();
+        String sql;
+        int voteNum=0;
+        sql = "SELECT vote_num FROM question WHERE id_question = ?";
+        PreparedStatement dbStatement1 = conn.prepareStatement(sql);
+        dbStatement1.setInt(1, qid);
+        ResultSet rs = dbStatement1.executeQuery();
+
+        while (rs.next()) {
+          voteNum = rs.getInt("vote_num");
+        }
+
+        if ("up".equals(vote)) {
+          voteNum++;
+        } else {
+          voteNum--;
+        }
+
+        // Mengubah vote number
+        sql = "UPDATE question SET vote_num = ? WHERE id_question = ?";
+        PreparedStatement dbStatement2 = conn.prepareStatement(sql);
+        dbStatement2.setInt(1, voteNum);
+        dbStatement2.setInt(2, qid);
+        dbStatement2.executeUpdate();
+
+
+        sql = "INSERT INTO vote (id_question, id_user) VALUES (?, ?)";
+        PreparedStatement dbStatement3 = conn.prepareStatement(sql);
+        dbStatement3.setInt(1, qid);
+        dbStatement3.setInt(2, uid);
+        dbStatement3.executeUpdate();
+
+        isVoted = true;
+        rs.close();
+        stmt.close();
+
+      } catch (SQLException ex) {
+        Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    }
+    return isVoted;
+  }
+
+  /**
+   * Web service operation
+   */
+  @WebMethod(operationName = "hasUserVoteQuestion")
+  public boolean hasUserVoteQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "uid") int uid) {
+    //TODO write your implementation code here:
+    boolean hasVote = false;
+    int count = 0;
+    try {
+      Connection conn = database.connectDatabase();
+      Statement stmt = conn.createStatement();
+      String sql;
+      sql = "SELECT count(*) FROM vote WHERE id_question = ? AND id_user = ?";
+      PreparedStatement dbStatement = conn.prepareStatement(sql);
+      dbStatement.setInt(1, qid);
+      dbStatement.setInt(2, uid);
+      ResultSet rs = dbStatement.executeQuery();
+      
+      while (rs.next()) {
+        count = rs.getInt("count(*)");
+      }
+      
+      if (count > 0) {
+        hasVote = true;
+      }
+      
+      rs.close();
+      stmt.close();
+      
+    } catch (SQLException ex) {
+      Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return hasVote;
+  }
 }

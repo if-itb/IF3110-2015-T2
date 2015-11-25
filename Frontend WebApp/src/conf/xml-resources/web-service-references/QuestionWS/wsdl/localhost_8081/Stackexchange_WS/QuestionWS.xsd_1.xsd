@@ -22,6 +22,14 @@
 
 <xs:element name="getQuestionsResponse" type="tns:getQuestionsResponse"/>
 
+<xs:element name="hasUserVoteQuestion" type="tns:hasUserVoteQuestion"/>
+
+<xs:element name="hasUserVoteQuestionResponse" type="tns:hasUserVoteQuestionResponse"/>
+
+<xs:element name="voteQuestion" type="tns:voteQuestion"/>
+
+<xs:element name="voteQuestionResponse" type="tns:voteQuestionResponse"/>
+
 <xs:complexType name="getQuestion">
 <xs:sequence>
 <xs:element name="id_question" type="xs:int"/>
@@ -41,16 +49,18 @@
 <xs:element name="content" type="xs:string"/>
 <xs:element name="datetime" type="xs:string"/>
 <xs:element name="id_user" type="xs:int"/>
+<xs:element name="voteNum" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="deleteQuestion">
+<xs:complexType name="hasUserVoteQuestion">
 <xs:sequence>
-<xs:element name="id_question" type="xs:int"/>
+<xs:element name="qid" type="xs:int"/>
+<xs:element name="uid" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="deleteQuestionResponse">
+<xs:complexType name="hasUserVoteQuestionResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
@@ -63,6 +73,18 @@
 <xs:complexType name="getQuestionsResponse">
 <xs:sequence>
 <xs:element name="Question" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteQuestion">
+<xs:sequence>
+<xs:element name="id_question" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteQuestionResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -89,6 +111,20 @@
 </xs:complexType>
 
 <xs:complexType name="editQuestionResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="voteQuestion">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+<xs:element name="uid" type="xs:int"/>
+<xs:element name="vote" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="voteQuestionResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean"/>
 </xs:sequence>

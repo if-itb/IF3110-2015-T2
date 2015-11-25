@@ -62,6 +62,7 @@ public class QuestionDetailController extends HttpServlet {
       request.setAttribute("u2", u2);
       request.getServletContext().getRequestDispatcher("/question-detail.jsp").forward(request, response);
     }
+    
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

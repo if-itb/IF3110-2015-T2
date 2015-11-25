@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.1.6
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2015 at 07:35 AM
+-- Generation Time: Nov 25, 2015 at 05:57 PM
 -- Server version: 5.6.16
--- PHP Version: 5.5.11
+-- PHP Version: 5.5.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -77,10 +77,10 @@ CREATE TABLE IF NOT EXISTS `user` (
   `name` varchar(535) NOT NULL,
   `email` varchar(535) NOT NULL,
   `password` varchar(128) NOT NULL,
-  `token` varchar(36) NOT NULL,
-  `lifetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `token` varchar(36) DEFAULT NULL,
+  `lifetime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `user`
@@ -91,7 +91,26 @@ INSERT INTO `user` (`id_user`, `name`, `email`, `password`, `token`, `lifetime`)
 (3, 'Jen Teda', 'jenteda@hotmail.com', 'jenteda11', '', '2015-11-23 04:50:15'),
 (4, 'Abraham Lincoln', 'abraham.lincoln@live.com', 'lincolnkece', '', '2015-11-21 04:37:15'),
 (5, 'Lingga', 'lingga@yahoo.com', 'okelahkalobegitu9002', '', '2015-11-17 08:37:15'),
-(6, 'Jen Teda', 'jenteda@gmail.com', 'localhost8080', '', '2015-11-19 04:30:15');
+(6, 'Jen Teda', 'jenteda@gmail.com', 'localhost8080', '', '2015-11-19 04:30:15'),
+(7, 'Angela Lynn', 'angela@gmail.com', 'test123', NULL, '2015-11-23 09:13:32'),
+(8, 'Devina Ekawati', 'dvina.deph@gmail.com', 'devina', NULL, '2015-11-23 09:53:35'),
+(9, 'Harry Potter', 'harry@gmail.com', 'harry', NULL, '2015-11-23 09:56:16'),
+(11, 'Ron Weasley', 'ron@gmail.com', 'ron', NULL, '2015-11-23 10:28:51'),
+(12, 'William Sentosa', 'william@gmail.com', 'test', NULL, '2015-11-23 10:41:34'),
+(13, 'Candy Olivia', 'candy@gmail.com', 'candy', NULL, '2015-11-23 10:55:34'),
+(15, 'Hermonie Granger', 'hermonie@gmail.com', 'hermonie', NULL, '2015-11-23 11:02:34'),
+(16, 'Test', 'test@gmail.com', 'test', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vote`
+--
+
+CREATE TABLE IF NOT EXISTS `vote` (
+  `id_user` int(4) NOT NULL,
+  `id_question` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -43,11 +43,11 @@ Author:
         <!-- Questions Content -->
         <div class="same-height-row border-bottom">
           <div class="vote-number">
-            <img class="small-icon" src="img/up.png" onclick=""/><br>
+            <img class="small-icon" src="img/up.png" name="question-up" onclick="QuestionDetailController?qid=<%= questions.get(i).getIdQuestion()%>&token=<%= request.getParameter("token") %>"/><br>
             <div class="big-number" id="question-1">
-              5
+                <%= questions.get(i).getVoteNum() %>
             </div>
-            <img class="small-icon" src="img/down.png" onclick=""/><br>
+            <img class="small-icon" src="img/down.png" name="question-down" onclick="QuestionDetailController?qid=<%= questions.get(i).getIdQuestion()%>&token=<%= request.getParameter("token") %>"/><br>
           </div>
           <div class="right-position">
             <div class="answer-question-detail">
@@ -98,17 +98,7 @@ Author:
 
         <!-- Answers -->
         <div class="same-height-row border-bottom">
-          <div class="vote-number">
-            <img class="small-icon" src="img/up.png" onclick=""/><br>
-            <div class="big-number" id="answer-1">
-              5
-            </div>
-            <img class="small-icon" src="img/down.png" onclick=""/><br>
-          </div>
-          <!-- Answers Content -->
-          <div class="right-position">
-            <div class="answer-question-detail">
-            <%
+          <%
             List<AnswerWS.Answer> answers = new ArrayList<AnswerWS.Answer>();
             List<UserWS.User> u2 = new ArrayList<UserWS.User>();
             if ((request.getAttribute("answers") != null) && (request.getAttribute("u2") != null)) {
@@ -116,7 +106,18 @@ Author:
               u2 = (ArrayList<UserWS.User>)request.getAttribute("u2");
               if (answers.size() > 0) {
                 for (int i = 0; i < answers.size(); i++) {
-            %>
+          %>
+          <div class="vote-number">
+              <a href = 'VoteController?name=answer-up&qid=<%= questions.get(i).getIdQuestion()%>&aid=<%= answers.get(i).getIdAnswer()%>&token=<%= request.getParameter("token") %>'><img class="small-icon" src="img/up.png" onclick=""/><br></a>
+            <div class="big-number" id="answer-1">
+                <%= answers.get(i).getVoteNum() %>
+            </div>
+            <img class="small-icon" src="img/down.png" name="answer-up" onclick="QuestionDetailController?aid=<%= answers.get(i).getIdAnswer()%>&token=<%= request.getParameter("token") %>"/><br>
+          </div>
+          <!-- Answers Content -->
+          <div class="right-position">
+            <div class="answer-question-detail">
+            
             <%= answers.get(i).getContent() %>
             </div>
             answered by
