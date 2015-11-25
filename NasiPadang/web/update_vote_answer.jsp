@@ -8,10 +8,10 @@
 <%
     StackExchangeImplService stackExchangeService = new StackExchangeImplService();
     org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
+    int id = Integer.parseInt(request.getParameter("id"));
     int id_answer = Integer.parseInt(request.getParameter("id_answer"));
     int vote = Integer.parseInt(request.getParameter("vote"));
-    int votes = stackExchange.updateVoteAnswer(id_answer, vote);
-    request.setAttribute("votes", votes);
-    response.setContentType("text/html;charset=UTF-8");
-    out.println(request.getParameter("votes"));
+    int votes = stackExchange.updateVoteAnswer((String)session.getAttribute("token"), id_answer, vote);
+    response.setStatus(response.SC_MOVED_TEMPORARILY);
+    response.setHeader("Location", "question.jsp?id=" + id);
 %>

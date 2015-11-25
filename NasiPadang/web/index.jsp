@@ -28,11 +28,13 @@
 </head>
 <body>
     <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
-    <%if (name != null) out.println(name);
-    else{%>
-        <a href="login_form.jsp">log in</a>
-        <a href="reg.jsp">register</a>
-    <%}%>
+    <%if (name != null) { 
+            out.println(name); %>
+            <a href="logout.jsp">log out</a>
+        <%}else{%>
+            <a href="login_form.jsp">log in</a>
+            <a href="reg.jsp">register</a>
+        <%}%>
     <div class="search">
         <form method="post" action="search.jsp">
             <input class="search_form" type="text" name="keyword">
@@ -53,7 +55,7 @@
                         <td><div class="count"><%=question.getCount()%><br>Answers</div></td>
                         <td>
                             <div class="content"><a href="question.jsp?id=<%=question.getId()%>"><%=question.getTopic()%></a></div>
-                            <div class="credential">asked by <div class="name"><%=question.getName()%></div> | <a class="yellow" href="edit.jsp?id=<%=question.getId()%>">edit</a> | <a class="delete" href="javascript:confirmDelete(<%=question.getId()%>)">delete</a></div>
+                            <div class="credential">asked by <div class="name"><%=question.getName()%></div> <%if(name != null && name.equals(question.getName())){%>| <a class="yellow" href="edit.jsp?id=<%=question.getId()%>">edit</a> | <a class="delete" href="javascript:confirmDelete(<%=question.getId()%>)">delete</a></div><%}%>
                         </td>
                     </tr>
                 </tbody>

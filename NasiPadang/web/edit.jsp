@@ -26,7 +26,13 @@
     </head>
     <body>
 	<a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
-
+        <%if (name != null) { 
+            out.println(name); %>
+            <a href="logout.jsp">log out</a>
+        <%}else{%>
+            <a href="login_form.jsp">log in</a>
+            <a href="reg.jsp">register</a>
+        <%}%>
 	<div class="list">
 	<div class="title">Edit your question</div>
 	<hr></hr>

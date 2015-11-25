@@ -155,7 +155,7 @@ public class StackExchangeImpl implements StackExchange {
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT question.id, (SELECT name FROM user WHERE user.id_user = question.id_user) as name, question.topic, question.content, question.timestamp, (SELECT COUNT(vote_question.id_user) as votes FROM vote_question WHERE vote_question.id = question.id) as votes, COUNT(answer.id) AS count FROM (question LEFT JOIN answer ON question.id = answer.id) WHERE question.id = '" + id + "'");
+            String sql = ("SELECT question.id, (SELECT name FROM user WHERE user.id_user = question.id_user) as name, question.topic, question.content, question.timestamp, (SELECT SUM(vote_question.value) as votes FROM vote_question WHERE vote_question.id = question.id) as votes, COUNT(answer.id) AS count FROM (question LEFT JOIN answer ON question.id = answer.id) WHERE question.id = '" + id + "'");
             ResultSet rs = st.executeQuery(sql);
             
             while(rs.next()){
@@ -195,7 +195,7 @@ public class StackExchangeImpl implements StackExchange {
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT DISTINCT question.id, (SELECT name FROM user WHERE user.id_user = question.id_user) as name, question.topic, question.content, question.timestamp, (SELECT COUNT(vote_question.id_user) as votes FROM vote_question WHERE vote_question.id = question.id) as votes, (SELECT COUNT(answer.id) as count FROM answer WHERE answer.id = question.id) as count FROM question ORDER BY id DESC");
+            String sql = ("SELECT DISTINCT question.id, (SELECT name FROM user WHERE user.id_user = question.id_user) as name, question.topic, question.content, question.timestamp, (SELECT SUM(vote_question.value) as votes FROM vote_question WHERE vote_question.id = question.id) as votes, (SELECT COUNT(answer.id) as count FROM answer WHERE answer.id = question.id) as count FROM question ORDER BY id DESC");
             ResultSet rs = st.executeQuery(sql);
             
             while(rs.next()){
@@ -228,7 +228,7 @@ public class StackExchangeImpl implements StackExchange {
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT *, (SELECT name FROM user WHERE user.id_user = answer.id_user) as name, (SELECT COUNT(vote_answer.id_user) as votes FROM vote_answer WHERE vote_answer.id_answer = answer.id_answer) as votes FROM answer WHERE id_answer ='" + id_answer + "'");
+            String sql = ("SELECT *, (SELECT name FROM user WHERE user.id_user = answer.id_user) as name, (SELECT SUM(vote_answer.value) as votes FROM vote_answer WHERE vote_answer.id_answer = answer.id_answer) as votes FROM answer WHERE id_answer ='" + id_answer + "'");
             ResultSet rs = st.executeQuery(sql);
             
             while(rs.next()){
@@ -262,7 +262,7 @@ public class StackExchangeImpl implements StackExchange {
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT *, (SELECT name FROM user WHERE user.id_user = answer.id_user) as name, (SELECT COUNT(vote_answer.id_user) as votes FROM vote_answer WHERE vote_answer.id_answer = answer.id_answer) as votes FROM answer WHERE id ='" + id + "'");
+            String sql = ("SELECT *, (SELECT name FROM user WHERE user.id_user = answer.id_user) as name, (SELECT SUM(vote_answer.value) as votes FROM vote_answer WHERE vote_answer.id_answer = answer.id_answer) as votes FROM answer WHERE id ='" + id + "'");
             ResultSet rs = st.executeQuery(sql);
             
             JSONObject j = new JSONObject();
@@ -382,25 +382,13 @@ public class StackExchangeImpl implements StackExchange {
         return true;
     }
     @Override
-    public int updateVoteAnswer(int id_answer, int vote){
+    public int updateVoteAnswer(String token, int id_answer, int vote){
+        int id_user = whoIs(token);
         int votes = 0;
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = "SELECT votes FROM answer WHERE id_answer = '" + id_answer + "'";
-            ResultSet rs = st.executeQuery(sql);
-            rs.next();
-            votes = rs.getInt("votes");
-            if(vote == 1){
-                votes++;
-            }
-            else if(vote == -1 && votes > 0){
-                votes--;
-            }
-            closeDB();
-            connectDB();
-            st = connection.createStatement();
-            sql = "UPDATE answer SET votes = '" + votes + "' WHERE id_answer = '" + id_answer + "'";
+            String sql = "INSERT INTO vote_answer (id_answer, id_user, value) VALUES ('"+ id_answer +"', '"+ id_user +"', '"+ vote +"')";
             st.execute(sql);
             closeDB();
         }catch(SQLException ex){
@@ -409,25 +397,13 @@ public class StackExchangeImpl implements StackExchange {
         return votes;
     }
     @Override
-    public int updateVoteQuestion(int id, int vote){
+    public int updateVoteQuestion(String token, int id, int vote){
+        int id_user = whoIs(token);
         int votes = 0;
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = "SELECT votes FROM question WHERE id = '" + id + "'";
-            ResultSet rs = st.executeQuery(sql);
-            rs.next();
-            votes = rs.getInt("votes");
-            if(vote == 1){
-                votes++;
-            }
-            else if(vote == -1 && votes > 0){
-                votes--;
-            }
-            closeDB();
-            connectDB();
-            st = connection.createStatement();
-            sql = "UPDATE answer SET votes = '" + votes + "' WHERE id = '" + id + "'";
+            String sql = "INSERT INTO vote_question (id, id_user, value) VALUES ('"+ id +"', '"+ id_user +"', '"+ vote +"')";
             st.execute(sql);
             closeDB();
         }catch(SQLException ex){

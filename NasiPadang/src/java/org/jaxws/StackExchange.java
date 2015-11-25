@@ -29,6 +29,6 @@ public interface StackExchange {
     @WebMethod public boolean addAnswer(int id, String token, String content);
     @WebMethod public int editQuestion(int id, String token, String topic, String content);
     @WebMethod public boolean deleteQuestion(int id, String token);
-    @WebMethod public int updateVoteAnswer(int id_answer, int vote);
-    @WebMethod public int updateVoteQuestion(int id, int vote);
+    @WebMethod public int updateVoteAnswer(String token, int id_answer, int vote);
+    @WebMethod public int updateVoteQuestion(String token, int id, int vote);
 }

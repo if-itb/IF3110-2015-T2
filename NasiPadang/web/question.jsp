@@ -35,10 +35,12 @@
     </head>
     <body>
         <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
-        <%if (name != null) out.println(name);
-        else{%>
-            <a href="login.jsp">log in</a>
-            <a href="reg.jsp">log in</a>
+        <%if (name != null) { 
+            out.println(name); %>
+            <a href="logout.jsp">log out</a>
+        <%}else{%>
+            <a href="login_form.jsp">log in</a>
+            <a href="reg.jsp">register</a>
         <%}%>
 	<div class="title"><%=question.getTopic()%></div>
 	<hr></hr>
@@ -47,9 +49,9 @@
                 <tbody>
                     <tr>
                         <td>
-                            <a class="vote-up" href="javascript:upvoteQuestion(<%=question.getId()%>)">Up</a>
+                            <a class="vote-up" href="update_vote_question.jsp?id=<%=question.getId()%>&vote=1">Up</a>
                             <div class="vote" id="votes"><%=question.getVote()%></div>
-                            <a class="vote-down" href="javascript:downvoteQuestion(<%=question.getId()%>)">Down</a>
+                            <a class="vote-down" href="update_vote_question.jsp?id=<%=question.getId()%>&vote=-1">Down</a>
                         </td>
                         <td>
                             <table>
@@ -73,9 +75,9 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <a class="vote-up" href="javascript:upvoteAnswer(<%=answer.getIdAnswer()%>)">Up</a>
+                                        <a class="vote-up" href="update_vote_answer.jsp?id=<%=question.getId()%>&id_answer=<%=answer.getIdAnswer()%>&vote=1">Up</a>
                                         <div class="vote" id="votes<%=answer.getIdAnswer()%>"><%=answer.getVote()%></div>
-                                        <a class="vote-down" href="javascript:downvoteAnswer(<%=answer.getIdAnswer()%>)">Down</a>
+                                        <a class="vote-down" href="update_vote_answer.jsp?id=<%=question.getId()%>&id_answer=<%=answer.getIdAnswer()%>&vote=-1">Down</a>
                                     </td>
                                     <td>
                                         <table>
@@ -97,7 +99,7 @@
 	<hr></hr>
 	<div class="new-answer">
 		<div class="title">Your Answer</div>
-                <%if (!name.equals("")) {%>
+                <%if (name != null) {%>
                 <form name="answer" method="post" action="add_answer.jsp">
                     <input class="inputform" type="hidden" name="token" value="<%=token%>"><br>
                     <input type="hidden" name="id" value="<%=question.getId()%>">
@@ -105,7 +107,7 @@
                     <input class="button" type="submit" value="Post" onclick="return validateFormAnswer()">
 		</form>
                 <%}else{%>
-                    <a href="login.jsp">log in</a>
+                    <a href="login_form.jsp">log in</a>
                     <a href="reg.jsp">register</a>
                 <%}%>
 	</div>
