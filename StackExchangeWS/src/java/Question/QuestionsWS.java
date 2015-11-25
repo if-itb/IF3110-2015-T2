@@ -5,6 +5,7 @@
  */
 package Question;
 
+import Validation.ValidationToken;
 import database.DB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +29,7 @@ import javax.jws.WebResult;
 public class QuestionsWS {
     
     Connection conn = DB.getConnection();
-
+            
     /**
      * Web service operation
      */
@@ -104,26 +105,34 @@ public class QuestionsWS {
                                 @WebParam(name = "topic") String topic,
                                 @WebParam(name = "content") String content) {
         
-        int res = 0;
+        int res = ValidationToken.AUTH_ERROR;       // initialize result with error first (assumption)
+        int user_id = ValidationToken.validateToken(token); // validate token and get the user id
         
-        /* TOKEN VALIDATION: Incomplete */
-        int user_id = 7; /* get user by token: incomplete */
+        // token is valid if user_id value is not -1
+        if (user_id != -1) {
         
-        try (Statement st = conn.createStatement()) {
-            
-            String query = "INSERT INTO `questions` (uid, topic, content) VALUES (?, ?, ?)";
-            
-            // set the prepared statement by the query and enter the value of where clause
-            try (PreparedStatement pst = conn.prepareStatement(query)) {
-                pst.setInt(1, user_id);
-                pst.setString(2, topic);
-                pst.setString(3, content);
-                // execute update
-                res = pst.executeUpdate();
+            try (Statement st = conn.createStatement()) {
+
+                String query = "INSERT INTO `questions` (uid, topic, content) VALUES (?, ?, ?)";
+
+                // set the prepared statement by the query and enter the value of where clause
+                try (PreparedStatement pst = conn.prepareStatement(query)) {
+                    pst.setInt(1, user_id);
+                    pst.setString(2, topic);
+                    pst.setString(3, content);
+                    // execute update
+                    res = pst.executeUpdate();
+                    
+                    if (res == 1)
+                        res = ValidationToken.AUTH_VALID;
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            // else: token is invalid, deny request
+            res = ValidationToken.AUTH_INVALID;
         }
         
         return res;
@@ -138,25 +147,33 @@ public class QuestionsWS {
                                 @WebParam(name = "newTopic") String newTopic,
                                 @WebParam(name = "newContent") String newContent) {
         
-        int res = 0;
+        int res = ValidationToken.AUTH_ERROR;       // initialize result with error first (assumption)
+        int user_id = ValidationToken.validateToken(token); // validate token and get the user id
         
-        /* TOKEN VALIDATION: Incomplete */
+        // token is valid if user_id value is not -1
+        if (user_id != -1) {
         
-        try (Statement st = conn.createStatement()) {
-            
-            String query = "UPDATE `questions` SET topic = ?, content = ? WHERE id = ?";
-            
-            // set the prepared statement by the query and enter the value of where clause
-            try (PreparedStatement pst = conn.prepareStatement(query)) {
-                pst.setString(1, newTopic);
-                pst.setString(2, newContent);
-                pst.setInt(3, qid);
-                // execute update
-                res = pst.executeUpdate();
+            try (Statement st = conn.createStatement()) {
+
+                String query = "UPDATE `questions` SET topic = ?, content = ? WHERE id = ?";
+
+                // set the prepared statement by the query and enter the value of where clause
+                try (PreparedStatement pst = conn.prepareStatement(query)) {
+                    pst.setString(1, newTopic);
+                    pst.setString(2, newContent);
+                    pst.setInt(3, qid);
+                    // execute update
+                    res = pst.executeUpdate();
+                    if (res > 0)
+                        res = ValidationToken.AUTH_VALID;
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            // else: token is invalid, deny request
+            res = ValidationToken.AUTH_INVALID;
         }
         
         return res;
@@ -169,23 +186,31 @@ public class QuestionsWS {
     public int deleteQuestion(@WebParam(name = "token") String token,
                                 @WebParam(name = "qid") int qid) {
         
-        int res = 0;
+        int res = ValidationToken.AUTH_ERROR;       // initialize result with error first (assumption)
+        int user_id = ValidationToken.validateToken(token); // validate token and get the user id
         
-        /* TOKEN VALIDATION: Incomplete */
+        // token is valid if user_id value is not -1
+        if (user_id != -1) {
         
-        try (Statement st = conn.createStatement()) {
-            
-            String query = "DELETE FROM `questions` WHERE id = ?";
-            
-            // set the prepared statement by the query and enter the value of where clause
-            try (PreparedStatement pst = conn.prepareStatement(query)) {
-                pst.setInt(1, qid);
-                // execute update
-                res = pst.executeUpdate();
+            try (Statement st = conn.createStatement()) {
+
+                String query = "DELETE FROM `questions` WHERE id = ?";
+
+                // set the prepared statement by the query and enter the value of where clause
+                try (PreparedStatement pst = conn.prepareStatement(query)) {
+                    pst.setInt(1, qid);
+                    // execute update
+                    res = pst.executeUpdate();
+                    if (res > 0)
+                        res = ValidationToken.AUTH_VALID;
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            // else: token is invalid, deny request
+            res = ValidationToken.AUTH_INVALID;
         }
         
         return res;

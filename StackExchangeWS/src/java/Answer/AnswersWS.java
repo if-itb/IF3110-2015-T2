@@ -6,6 +6,7 @@
 package Answer;
 
 import Question.QuestionsWS;
+import Validation.ValidationToken;
 import database.DB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,34 +32,42 @@ public class AnswersWS {
 
     Connection connAns = DB.getConnection();
     
-    
-
     /**
      * Web service operation
      * @return 
      */
     @WebMethod(operationName = "insertAnswer")
-    public int insertAnswer(@WebParam(name = "token") String token, @WebParam(name = "q_id") int q_id, @WebParam(name = "content") String content) {
-        int res = 0;
+    public int insertAnswer(@WebParam(name = "token") String token,
+                            @WebParam(name = "q_id") int q_id,
+                            @WebParam(name = "content") String content) {
         
-        /* TOKEN VALIDATION: Incomplete */
-        int user_id = 7; /* get user by token: incomplete */
+        int res = ValidationToken.AUTH_ERROR;       // initialize result with error first (assumption)
+        int user_id = ValidationToken.validateToken(token); // validate token and get the user id
         
-        try (Statement st = connAns.createStatement()) {
-            
-            String query = "INSERT INTO `answers` (uid, qid, content) VALUES (?, ?, ?)";
-            
-            // set the prepared statement by the query and enter the value of where clause
-            try (PreparedStatement pst = connAns.prepareStatement(query)) {
-                pst.setInt(1, user_id);
-                pst.setInt(2, q_id);
-                pst.setString(3, content);
-                // execute update
-                res = pst.executeUpdate();
+        // token is valid if user_id value is not -1
+        if (user_id != -1) {
+        
+            try (Statement st = connAns.createStatement()) {
+
+                String query = "INSERT INTO `answers` (uid, qid, content) VALUES (?, ?, ?)";
+
+                // set the prepared statement by the query and enter the value of where clause
+                try (PreparedStatement pst = connAns.prepareStatement(query)) {
+                    pst.setInt(1, user_id);
+                    pst.setInt(2, q_id);
+                    pst.setString(3, content);
+                    // execute update
+                    res = pst.executeUpdate();
+                    if (res > 0)
+                        res = ValidationToken.AUTH_VALID;
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(AnswersWS.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(AnswersWS.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            // else: token is invalid, deny request
+            res = ValidationToken.AUTH_INVALID;
         }
         
         return res;
