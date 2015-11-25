@@ -79,14 +79,7 @@
         %>
         
         <% out.write("<br><br><br><br><br>");%>
-<<<<<<< Updated upstream
 
-
-        
-=======
-      
-
->>>>>>> Stashed changes
         <%
         try {
             com.wbd.ans.AnswerWS_Service service = new com.wbd.ans.AnswerWS_Service();

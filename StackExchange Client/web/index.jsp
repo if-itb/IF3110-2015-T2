@@ -15,9 +15,15 @@
     </head>
 
     <body>
-        <div class="smalltitle-right"><a id = "color-black" href="login.jsp" >login</a> | <a id = "color-black" href="register.jsp" >register</a></div>
-        <div class="link-normalizer"><a class='title' href="index.jsp">Simple StackExchange</a></div>
-        
+        <%
+            if(request.getParameter("token") != null){
+                out.println("<div class='smalltitle-right'>Hello" + "NAMA KAMU" + "</div>");
+            }
+            else{   
+                out.println("<div class='smalltitle-right'><a id = 'color-black' href='login.jsp' >login</a> | <a id = 'color-black' href='register.jsp' >register</a></div>");
+            }
+            out.println("<div class='link-normalizer'><a class='title' href='index.jsp?token=" + request.getParameter("token") + "'>Simple StackExchange</a></div>");
+        %>
         <br><br><br><br>
         
         <form name='searchForm' action='search.jsp' method='post'>
