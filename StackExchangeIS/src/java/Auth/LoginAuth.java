@@ -65,7 +65,7 @@ public class LoginAuth extends HttpServlet {
                 
                 int uid = res.getInt("uid");
                 Timestamp tst = new Timestamp(new Date().getTime());
-                tst.setTime(tst.getTime() + ((5 * 60) + 1000));
+                tst.setTime(tst.getTime() + ((5 * 60) * 1000));
           
                 query = "INSERT INTO tokens (uid, token_str, lifetime) VALUES (?, ?, ?)";
                 pst = connAuth.prepareStatement(query);

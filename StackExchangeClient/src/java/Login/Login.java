@@ -6,16 +6,12 @@
 package Login;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -34,7 +30,7 @@ import org.json.simple.parser.ParseException;
  */
 public class Login extends HttpServlet {
     
-    private static final String URL_LOGIN = "http://localhost:8082/IdentityService/Login";
+    private static final String URL_LOGIN = "http://localhost:8082/StackExchangeIS/LoginAuth";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,59 +40,68 @@ public class Login extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request,
+            HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
+        String redirectUrl = request.getContextPath();
         
-        // set the parameters and build JSON
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         
-        // establish a connection with the identity service that handles login
-        URL url = new URL(URL_LOGIN);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        // set the request property
-        conn.setDoOutput(true);
-        conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded"); 
-        conn.setRequestProperty( "charset", "utf-8");
-        
-        // send the object
-        String params = String.format("email=%s&password=%s",
-                URLEncoder.encode(email, StandardCharsets.UTF_8.name()),
-                URLEncoder.encode(password, StandardCharsets.UTF_8.name()));
-        
-        try (OutputStream out = conn.getOutputStream()) {
-            out.write(params.getBytes("UTF-8"));
-        }
-        
-        System.out.println(conn.getResponseCode());
-        System.out.println(conn.getErrorStream());
-        InputStream is = conn.getInputStream();
-        
-        // read response json from the identity service servlet
-        BufferedReader in = new BufferedReader(new InputStreamReader(is));
-        StringBuilder sb = new StringBuilder();
-        
-        String temp;
-        while ((temp = in.readLine()) != null)
-            sb.append(temp);
-        
         try {
+            // establish a connection with the identity service that handles login
+            URL url = new URL(URL_LOGIN);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+           // set the request property
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty("charset", "utf-8");
+     
+            String params = String.format("email=%s&password=%s",
+                                            URLEncoder.encode(email, "UTF-8"),
+                                            URLEncoder.encode(password, "UTF-8"));
+      
+            try (OutputStream output = conn.getOutputStream()) {
+                output.write(params.getBytes("UTF-8"));
+            }
+     
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                                                    conn.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+        
+            String temp;
+            while ((temp = in.readLine()) != null)
+                sb.append(temp);
+        
+            // json parser needed to parse the string
             JSONParser parser = new JSONParser();
             JSONObject object = (JSONObject) parser.parse(sb.toString());
             
-            // get the attributes and add the cookie
+                // get the attributes and add the cookie
             String strToken = (String) object.get("token_str");
-            Cookie cookie;
+            Cookie tokenCookie, idCookie, lifetimeCookie;
+                
             if (strToken != null) {
-                cookie = new Cookie("token_cookie", strToken);
-                response.addCookie(cookie);
+                idCookie = new Cookie("id_cookie", (String) object.get("uid"));
+                tokenCookie = new Cookie("token_cookie", strToken);
+                lifetimeCookie = new Cookie("lifetime_cookie", (String) object.get("lifetime"));
+                response.addCookie(idCookie);
+                response.addCookie(tokenCookie);
+                response.addCookie(lifetimeCookie);
+                redirectUrl += "/register.jsp";
+            } else {
+                String error = (String) object.get("error");
+                request.setAttribute("error", error);
+                
             }
             
-            response.sendRedirect("/register.jsp");
-        } catch (ParseException ex) {
+            conn.disconnect();
+        } catch (IOException | ParseException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+        response.sendRedirect(redirectUrl);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

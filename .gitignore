@@ -1,4 +1,9 @@
 /StackExchangeWS/build/
+/StackExchangeWS/dist/
+/StackExchangeWS/nbproject/
 /StackExchangeClient/build/
 /StackExchangeClient/dist/
-/StackExchangeWS/dist/
+/StackExchangeClient/nbproject/
+/StackExchangeIS/build/
+/StackExchangeIS/dist/
+/StackExchangeIS/nbproject/

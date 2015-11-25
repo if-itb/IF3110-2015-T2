@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebService;
@@ -78,9 +77,9 @@ public class AnswersWS {
      * @param qid
      * @return 
      */
-    @WebMethod(operationName = "getQuestionByQid")
+    @WebMethod(operationName = "getAnswersByQid")
     @WebResult(name = "Answers")
-    public List getQuestionByQid(@WebParam(name = "qid") int qid) {
+    public List getAnswersByQid(@WebParam(name = "qid") int qid) {
         //TODO write your implementation code here:
         List<Answer> answers = new ArrayList<>();
         
