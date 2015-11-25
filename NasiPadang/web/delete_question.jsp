@@ -9,7 +9,7 @@
     StackExchangeImplService stackExchangeService = new StackExchangeImplService();
     org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
     int id = Integer.parseInt(request.getParameter("id"));
-    if(stackExchange.deleteQuestion(id, request.getParameter("token"))){}
+    if(stackExchange.deleteQuestion(id, (String) session.getAttribute("token"))){}
     response.setStatus(response.SC_MOVED_TEMPORARILY);
     response.setHeader("Location", "index.jsp");
 %>

@@ -21,10 +21,10 @@ import org.data.Question;
 public interface StackExchange {
     @WebMethod public boolean register(String username, String email, String password);
     @WebMethod public String login(String email, String password);
-    @WebMethod public Question getQuestion(int id);
-    @WebMethod public Question[] getAllQuestion();
-    @WebMethod public Answer getAnswer(int id_answer);
-    @WebMethod public Answer[] getAllAnswer(int id);
+    @WebMethod public Question getQuestion(String token, int id);
+    @WebMethod public Question[] getAllQuestion(String token);
+    @WebMethod public Answer getAnswer(String token, int id_answer);
+    @WebMethod public Answer[] getAllAnswer(String token, int id);
     @WebMethod public int addQuestion(String token, String topic, String content);
     @WebMethod public boolean addAnswer(int id, String token, String content);
     @WebMethod public int editQuestion(int id, String token, String topic, String content);

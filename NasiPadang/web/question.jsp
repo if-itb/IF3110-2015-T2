@@ -20,18 +20,25 @@
 	<script src="js/validation.js"></script>
 	<script src="js/delete_question.js"></script>
 	<script src="js/ajax.js"></script>
-        <%String id = request.getParameter("id");
-        StackExchangeImplService stackExchangeService = new StackExchangeImplService();
-        org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
-        int i = Integer.parseInt(id);
-        Question question = stackExchange.getQuestion(i);
-        AnswerArray allAnswer = stackExchange.getAllAnswer(i);
-        List<Answer> items = allAnswer.getItem();
+        <%
+            String name = (String) session.getAttribute("name");
+            String token = (String) session.getAttribute("token");
+            String id = request.getParameter("id");
+            StackExchangeImplService stackExchangeService = new StackExchangeImplService();
+            org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
+            int i = Integer.parseInt(id);
+            Question question = stackExchange.getQuestion(token, i);
+            AnswerArray allAnswer = stackExchange.getAllAnswer(token, i);
+            List<Answer> items = allAnswer.getItem();
         %>
     </head>
     <body>
         <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
-
+        <%if (!name.equals("")) out.println(name);
+        else{%>
+            <a href="login.jsp">log in</a>
+            <a href="reg.jsp">log in</a>
+        <%}%>
 	<div class="title"><%=question.getTopic()%></div>
 	<hr></hr>
 	<div class="question">
@@ -89,11 +96,17 @@
 	<hr></hr>
 	<div class="new-answer">
 		<div class="title">Your Answer</div>
-		<form name="answer" method="post" action="add_answer.jsp">
-			<input type="hidden" name="id" value="<%=question.getId()%>">
-			<textarea class="inputform" type="text" name="content" placeholder="Content"></textarea><br>
-			<input class="button" type="submit" value="Post" onclick="return validateFormAnswer()">
+                <%if (!name.equals("")) {%>
+                <form name="answer" method="post" action="add_answer.jsp">
+                    <input class="inputform" type="hidden" name="token" value="<%=token%>"><br>
+                    <input type="hidden" name="id" value="<%=question.getId()%>">
+                    <textarea class="inputform" type="text" name="content" placeholder="Content"></textarea><br>
+                    <input class="button" type="submit" value="Post" onclick="return validateFormAnswer()">
 		</form>
+                <%}else{%>
+                    <a href="login.jsp">log in</a>
+                    <a href="reg.jsp">register</a>
+                <%}%>
 	</div>
     </body>
 </html>

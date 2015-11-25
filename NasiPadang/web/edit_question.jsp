@@ -8,7 +8,7 @@
     StackExchangeImplService stackExchangeService = new StackExchangeImplService();
     org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
     int id = Integer.parseInt(request.getParameter("id"));
-    id = stackExchange.editQuestion(id,request.getParameter("token"), request.getParameter("topic"), request.getParameter("content"));
+    id = stackExchange.editQuestion(id,(String) session.getAttribute("token"), request.getParameter("topic"), request.getParameter("content"));
     response.setStatus(response.SC_MOVED_TEMPORARILY);
     response.setHeader("Location", "question.jsp?id=" + id);
 %>

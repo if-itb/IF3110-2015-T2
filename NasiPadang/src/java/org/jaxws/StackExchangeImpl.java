@@ -28,6 +28,7 @@ import org.data.Question;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import static java.lang.Math.toIntExact;
 
 /**
  *
@@ -73,7 +74,8 @@ public class StackExchangeImpl implements StackExchange {
                o = (JSONObject)j.parse(line);
             }
             if(o.get("status").equals("ok")){
-                id_user = (int) o.get("id_user");
+                long id_us = (long) o.get("id_user");
+                id_user = toIntExact(id_us);
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -141,11 +143,14 @@ public class StackExchangeImpl implements StackExchange {
     }
     /**
      * Web service operation
+     * @param token
      * @param id
      * @return 
      */
     @Override
-    public Question getQuestion(int id) {
+    public Question getQuestion(String token, int id) {
+        int id_user = 0;
+        if(!token.equals("")) id_user = whoIs(token);
         Question qu = new Question();
         try {
             connectDB();
@@ -163,14 +168,15 @@ public class StackExchangeImpl implements StackExchange {
                 qu.count = rs.getInt("count");
             }
             closeDB();
-
-            connectDB();
-            st = connection.createStatement();
-            sql = "SELECT * FROM vote_question WHERE id = '" + qu.id + "'";
-            rs = st.executeQuery(sql);
-            if(rs.next()) qu.hasVote = true;
-            else qu.hasVote = false;
-            closeDB();
+            if(id_user != 0){
+                connectDB();
+                st = connection.createStatement();
+                sql = "SELECT * FROM vote_question WHERE id = '" + qu.id + "' AND id_user = '" + id_user + "'";
+                rs = st.executeQuery(sql);
+                if(rs.next()) qu.hasVote = true;
+                else qu.hasVote = false;
+                closeDB();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -182,7 +188,9 @@ public class StackExchangeImpl implements StackExchange {
      * @return 
      */
     @Override
-    public Question[] getAllQuestion() {
+    public Question[] getAllQuestion(String token) {
+        int id_user = 0;
+        if(!token.equals("")) id_user = whoIs(token);
         ArrayList<Question> allQuestion = new ArrayList<>();
         try {
             connectDB();
@@ -213,12 +221,14 @@ public class StackExchangeImpl implements StackExchange {
     }
     
     @Override
-    public Answer getAnswer(int id_answer) {
+    public Answer getAnswer(String token, int id_answer) {
+        int id_user = 0;
+        if(!token.equals("")) id_user = whoIs(token);
         Answer an = new Answer();
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT *, (SELECT COUNT(vote_answer.id_user) as votes FROM vote_answer WHERE vote_answer.id_answer = answer.id_answer) as votes FROM answer WHERE id_answer ='" + id_answer + "'");
+            String sql = ("SELECT *, (SELECT name FROM user WHERE user.id_user = answer.id_user) as name, (SELECT COUNT(vote_answer.id_user) as votes FROM vote_answer WHERE vote_answer.id_answer = answer.id_answer) as votes FROM answer WHERE id_answer ='" + id_answer + "'");
             ResultSet rs = st.executeQuery(sql);
             
             while(rs.next()){
@@ -229,26 +239,30 @@ public class StackExchangeImpl implements StackExchange {
                 an.timestamp = rs.getString("timestamp");
                 an.vote = rs.getInt("votes");
             }
-            closeDB();           
-            connectDB();
-            st = connection.createStatement();
-            sql = "SELECT * FROM vote_answer WHERE id_answer = '" + an.id_answer + "'";
-            rs = st.executeQuery(sql);
-            if(rs.next()) an.hasVote = true;
-            else an.hasVote = false;
-            closeDB(); 
+            closeDB();
+            if(id_user != 0){
+                connectDB();
+                st = connection.createStatement();
+                sql = "SELECT * FROM vote_answer WHERE id_answer = '" + an.id_answer + "'AND id_user = '" + id_user + "'";
+                rs = st.executeQuery(sql);
+                if(rs.next()) an.hasVote = true;
+                else an.hasVote = false;
+                closeDB(); 
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return an;
     }
     @Override
-    public Answer[] getAllAnswer(int id) {
+    public Answer[] getAllAnswer(String token, int id) {
+        int id_user = 0;
+        if(!token.equals("")) id_user = whoIs(token);
         ArrayList<Answer> allAnswer = new ArrayList<>();
         try {
             connectDB();
             Statement st = connection.createStatement();
-            String sql = ("SELECT *, (SELECT COUNT(vote_answer.id_user) as votes FROM vote_answer WHERE vote_answer.id_answer = answer.id_answer) as votes FROM answer WHERE id ='" + id + "'");
+            String sql = ("SELECT *, (SELECT name FROM user WHERE user.id_user = answer.id_user) as name, (SELECT COUNT(vote_answer.id_user) as votes FROM vote_answer WHERE vote_answer.id_answer = answer.id_answer) as votes FROM answer WHERE id ='" + id + "'");
             ResultSet rs = st.executeQuery(sql);
             
             JSONObject j = new JSONObject();
@@ -262,13 +276,27 @@ public class StackExchangeImpl implements StackExchange {
                 an.vote = rs.getInt("votes");
                 allAnswer.add(an);
             }
-            closeDB();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         Answer an[] = new Answer[allAnswer.size()];
         for(int i = 0; i < allAnswer.size(); i++){
             an[i] = allAnswer.get(i);
+        }
+        if(id_user != 0){
+            for(Answer a : an){
+                try{
+                    connectDB();
+                    Statement st = connection.createStatement();
+                    String sql = "SELECT * FROM vote_answer WHERE id_answer = '" + a.id_answer + "' AND id_user = '" + id_user + "'";
+                    ResultSet rs = st.executeQuery(sql);
+                    if(rs.next()) a.hasVote = true;
+                    else a.hasVote = false;
+                    closeDB();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
         }
         return an;
     }

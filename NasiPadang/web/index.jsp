@@ -11,18 +11,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
-    <!--
-    <a href="login.jsp">log in</a>
-    <button class="button">register!</button>
-    -->
-
+    
+    
     <title>Simple StackExchange</title>
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/delete_question.js"></script>
     <%
         StackExchangeImplService stackExchangeService = new StackExchangeImplService();
         org.wsdl.StackExchange stackExchange = stackExchangeService.getStackExchangeImplPort();
-        QuestionArray allQuestion = stackExchange.getAllQuestion();
+        QuestionArray allQuestion = stackExchange.getAllQuestion("");
         List<Question> items = allQuestion.getItem();
         String name = (String) session.getAttribute("name");
     %>
@@ -30,7 +27,11 @@
 </head>
 <body>
     <a href="index.jsp"><h1>Simple StackExchange</h1></a><br>
-    <%=request.getParameter("token")%>
+    <%if (!name.equals("")) out.println(name);
+    else{%>
+        <a href="login.jsp">log in</a>
+        <a href="reg.jsp">register</a>
+    <%}%>
     <div class="search">
         <form method="post" action="search.jsp">
             <input class="search_form" type="text" name="keyword">

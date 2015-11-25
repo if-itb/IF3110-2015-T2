@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.UUID;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -96,16 +97,15 @@ public class Identity extends HttpServlet {
         JSONObject json = new JSONObject();
         String token = request.getParameter("token");
         boolean isValid = false;
-        HttpSession session = null;
+        int id_user = 0;
         for(HttpSession h : sessions){
             if(h.getAttribute("token").equals(token)){
                 isValid = true;
-                session = h;
+                id_user = (int) h.getAttribute("id_user");
             }
         }
         
         if(isValid){
-            int id_user = (int) session.getAttribute("id_user");
             json.put("status", "ok");
             json.put("id_user", id_user);
         }
@@ -142,6 +142,7 @@ public class Identity extends HttpServlet {
             sessions.add(session);
             request.setAttribute("token", token);
             request.setAttribute("name", user.name);
+            response.sendRedirect("../index.jsp");
         }
     }
 
