@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2015 at 09:27 AM
+-- Generation Time: Nov 25, 2015 at 11:36 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -32,7 +32,15 @@ CREATE TABLE IF NOT EXISTS `answers` (
   `qid` int(10) NOT NULL,
   `content` text NOT NULL,
   `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `answers`
+--
+
+INSERT INTO `answers` (`id`, `uid`, `qid`, `content`, `timestamp`) VALUES
+(1, 7, 4, 'doni larang aku makan ikan', '2015-11-24 05:01:23'),
+(2, 7, 4, 'doni larang aku makan ikan', '2015-11-24 05:02:15');
 
 -- --------------------------------------------------------
 
@@ -92,9 +100,17 @@ INSERT INTO `questions` (`id`, `uid`, `topic`, `content`, `timestamp`) VALUES
 
 CREATE TABLE IF NOT EXISTS `tokens` (
   `uid` int(10) NOT NULL,
-  `token_str` varchar(10) NOT NULL,
-  `expired` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `token_str` varchar(100) NOT NULL,
+  `lifetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tokens`
+--
+
+INSERT INTO `tokens` (`uid`, `token_str`, `lifetime`) VALUES
+(1, '8mfob0p1shdsp0d4lckvefucn0', '2015-11-24 20:09:48'),
+(1, '9eofhbalqcoj60aaako693jgr3', '2015-11-25 10:21:41');
 
 -- --------------------------------------------------------
 
@@ -177,6 +193,12 @@ ALTER TABLE `questions`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tokens`
+--
+ALTER TABLE `tokens`
+ ADD UNIQUE KEY `token_str` (`token_str`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -190,7 +212,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `questions`
 --
