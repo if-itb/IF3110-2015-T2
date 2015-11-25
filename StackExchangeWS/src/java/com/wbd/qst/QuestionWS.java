@@ -187,8 +187,57 @@ public class QuestionWS {
      * Web service operation
      */
     @WebMethod(operationName = "voteUp")
-    public int voteUp(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") String qid) {
+    public int voteUp(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") String qid) throws ParseException {
+        //Check Token 
         Connection conn = null;
+        int message = 0;
+        TokenChecker token_check = new TokenChecker();
+        System.out.println("ACCESS TOKEN : " + access_token);
+        token_check.check(access_token);
+        System.out.println("Validity : " + token_check.getValid());
+        if (token_check.getExpired() == 1){
+            return -2; //Expired
+        }
+        try {
+            if (token_check.getValid() == 1){
+                //Can Vote. Right Identity
+                String sql = "SELECT * FROM vote_question NATURAL JOIN token WHERE access_token = ?";
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1,access_token);
+                ResultSet rs = dbStatement.executeQuery();
+
+                if (rs.getRow() == 0){
+                    //Jika gak da vote di database, Bisa vote
+                    String sql2 = "SELECT * FROM user NATURAL JOIN token WHERE access_token = ?";
+                    PreparedStatement dbStatement2 = conn.prepareStatement(sql2);
+                    dbStatement.setString(1,access_token);
+                    ResultSet rs2 = dbStatement2.executeQuery();
+                    int user_id = rs2.getInt("IDUser");
+
+                    String sql3 = "INSERT INTO vote_question(IDUser,IDQ,vote_direction) VALUES(?,?,?)";
+                    PreparedStatement dbStatement3 = conn.prepareStatement(sql3);
+                    dbStatement.setInt(1,user_id);
+                    dbStatement.setString(2,qid);
+                    dbStatement.setInt(3,1);
+                    dbStatement3.executeUpdate();
+                
+                }
+                else{
+                    //Jika ada vote di database, gak bisa vote lagi
+                    message = -5;
+                }
+            }else{
+                //Wrong identity. Something wrong
+                message = -1;                
+            } 
+        } catch (Exception ex){
+            ex.printStackTrace();
+
+        }
+        return message;
+
+
+        /*Connection conn = null;
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
 
@@ -214,7 +263,7 @@ public class QuestionWS {
             catch (SQLException ignored) { }
                 System.out.println("Order failed. Please contact technical support.");
                   return 0;
-       }
+       }*/
     }
 
     /**
