@@ -37,7 +37,7 @@
                         <div class="votenumber"><%= question.getVote() %></div>
                         <div class="votetext">Votes</div>
                     </div>
-                    <% int answerCount = answers.get(question.getUserId()); %>
+                    <% int answerCount = answers.get(question.getQuestionId()); %>
                     <div class="answerpart">
                         <div class="answernumber"><%= answerCount %></div>
                         <div class=answertext">Answers</div>
