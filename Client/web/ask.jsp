@@ -2,13 +2,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Your Answer</title>
+<title>Your Question</title>
 <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 	<div class="container">
-		<a class="homelink" href="http://mystackexchange.dev"><h1 id="title">My StackExchange</h1></a>
+		<a class="homelink" href="index.jsp"><h1 id="title">My StackExchange</h1></a>
 		<div class="content">
 			<h2>What's your question?</h2>
 			<hr>
@@ -29,12 +29,17 @@
 
 		String topic = request.getParameter("topic");
 		String content = request.getParameter("content");
+		String token = request.getCookies()[0].getValue();
 		if ((topic!=null)&&(content!=null)){
 			URL url = new URL ("http://localhost:8082/ws/stackexchange?wsdl");
 			QName qname = new QName("http://ws.sstackex.yangnormal.com/","WebServiceImplService");
 			WebServiceImplService webService = new WebServiceImplService(url,qname);
 			WebServiceInterface ws = webService.getWebServiceImplPort();
-
+			int status = ws.postQuestion(token,topic,content);
+			request.setAttribute("status",status);
+			request.setAttribute("name","Ask Question");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("status.jsp");
+			dispatcher.forward(request,response);
 		}
 	%>
 </body>

@@ -10,6 +10,7 @@
 	WebServiceImplService webService = new WebServiceImplService(url,qname);
 	WebServiceInterface ws = webService.getWebServiceImplPort();
 	QuestionArray qList=ws.getQuestionList();
+	String token = request.getCookies()[0].getValue();
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 					<html>
@@ -20,7 +21,7 @@
 					</head>
 					<body>
 						<div class="container">
-							<a class="homelink" href="http://mystackexchange.dev"><h1 id="title">My StackExchange</h1></a>
+							<a class="homelink" href="index.jsp"><h1 id="title">My StackExchange</h1></a>
 							<div class="search">
 								<form action="search.php" method="post">
 									<input type="text" id="searchbar" name="searchbar">
@@ -28,6 +29,10 @@
 								</form>
 								<br>
 								Can't find what you are looking for? <a href="ask.jsp">Ask here!</a>
+								<% if (token==null) { %>
+									<br>
+									You are not logged in, please <a href="login.jsp">Login</a>
+								<% } %>
 							</div>
 							<div class="content">
 								<% for (Question q : qList.getItem()) { %>

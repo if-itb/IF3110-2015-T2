@@ -7,8 +7,8 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	<div class="container">
-		<a class="homelink" href="http://mystackexchange.dev"><h1 id="title">My StackExchange</h1></a>
+	<div class="container login">
+		<a class="homelink" href="index.jsp"><h1 id="title">My StackExchange</h1></a>
 		<div class="content">
 			<h2>Login</h2>
 			<hr>
@@ -17,8 +17,9 @@
 			<br>
 			<input class="textbox" type="password", name="password", id="password" placeholder="Password">
 			<br>
-			<input type="submit" id="post"  value="Post">
+			<input type="submit" id="post"  value="Login">
 			</form>
+			Have not yet registered? <a href="register.jsp">Register now</a>
 		</div>	
 	</div>
 	<%@page import= "java.net.URL,javax.xml.namespace.QName,javax.xml.ws.Service" %>

@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="container">
-		<a class="homelink" href="http://mystackexchange.dev"><h1 id="title">My StackExchange</h1></a>
+		<a class="homelink" href="index.jsp"><h1 id="title">My StackExchange</h1></a>
 		<div class="content">
 			<h2>Register</h2>
 			<hr>
@@ -37,13 +37,9 @@
 		WebServiceInterface ws = webService.getWebServiceImplPort();
 		int status = ws.register(name,email,password);
 		request.setAttribute("status",status);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("registerStatus.jsp");
+		request.setAttribute("name","Register");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("status.jsp");
 		dispatcher.forward(request,response);
-		/*if (status==0){
-			response.sendRedirect("registerSuccess.jsp");
-		} else {
-			response.sendRedirect("registerFail.jsp");
-		}*/
 	}
 	%>
 	<script type="text/javascript" src="js/script.js"></script>

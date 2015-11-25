@@ -9,6 +9,7 @@
 	int id = Integer.parseInt(request.getParameter("id"));
 	Question q=ws.getQuestion(1);
 	AnswerArray answerList = ws.getAnswerList(1);
+	String token = request.getParameter("token");
 %>
 <!DOCTYPE HTML>
 
@@ -21,7 +22,7 @@
 		</head>
 		<body>
 			<div class="container">
-				<a class="homelink" href="http://mystackexchange.dev"><h1 id="title">My StackExchange</h1></a>
+				<a class="homelink" href="index.jsp"><h1 id="title">My StackExchange</h1></a>
 				<div class="content">
 					<h2><% out.println(q.getTopic());%></h2>
 					<hr>

@@ -110,6 +110,15 @@ a:hover {
 	width: auto;
 }
 
+.status>.content{
+	text-align: center;
+}
+
+.login>.content {
+	width: 50%;
+	margin: auto;
+}
+
 .search{
 	width: 70%;
 	margin: auto;

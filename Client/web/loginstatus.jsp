@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div class="container">
-		<a class="homelink" href="http://mystackexchange.dev"><h1 id="title">My StackExchange</h1></a>
+		<a class="homelink" href="index.jsp"><h1 id="title">My StackExchange</h1></a>
 		<div class="content">
 			<h1>
 			<%
