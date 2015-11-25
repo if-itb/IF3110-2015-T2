@@ -44,7 +44,7 @@ public class AnswerWS {
       ResultSet rs = dbStatement.executeQuery();
             
       while (rs.next()) {
-        answers.add(new Answer(rs.getInt("id_answer"),rs.getString("content"), rs.getString("datetime"), rs.getInt("id_user"), rs.getInt("id_question"))); 
+        answers.add(new Answer(rs.getInt("id_answer"),rs.getString("content"), rs.getString("datetime"), rs.getInt("id_user"), rs.getInt("id_question"), rs.getInt("vote_num"))); 
       }
       rs.close();
       stmt.close();
@@ -113,7 +113,45 @@ public class AnswerWS {
     return count;
   }
 
-  
+  @WebMethod(operationName = "voteAnswer")
+  public boolean voteAnswer(@WebParam(name = "aid") int aid, @WebParam(name = "vote") String vote) {
+    boolean isVoted = false;
+    try {
+      Connection conn = db.connectDatabase();
+      Statement stmt = conn.createStatement();
+      String sql;
+      int voteNum=0;
+      sql = "SELECT vote_num FROM answer WHERE id_answer = ?";
+      PreparedStatement dbStatement1 = conn.prepareStatement(sql);
+      dbStatement1.setInt(1, aid);
+      ResultSet rs = dbStatement1.executeQuery();
+      
+      while (rs.next()) {
+        voteNum = rs.getInt("vote_num");
+      }
+      
+      if ("up".equals(vote)) {
+        voteNum++;
+      } else {
+        voteNum--;
+      }
+      
+      // Mengubah vote number
+      sql = "UPDATE answer SET vote_num = ? WHERE id_answer = ?";
+      PreparedStatement dbStatement2 = conn.prepareStatement(sql);
+      dbStatement2.setInt(1, voteNum);
+      dbStatement2.setInt(2, aid);
+      dbStatement2.executeUpdate();
+      isVoted = true;
+      
+      rs.close();
+      stmt.close();
+      
+    } catch (SQLException ex) {
+      Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return isVoted;
+  }
   
   
 }

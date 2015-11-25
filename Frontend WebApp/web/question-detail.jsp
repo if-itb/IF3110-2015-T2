@@ -141,6 +141,9 @@ Author:
       </div>
 
       <!-- Answer Form -->
+      <% if (!"not-valid".equals(request.getParameter("token")) && request.getParameter("token") != null ) {
+        
+      %>
       <div class="stacked">
         <div id="answer-form-title">
           Your Answer
@@ -152,6 +155,11 @@ Author:
           <input class="button" name="answer-submit" type="submit" value="Post">
         </form>
       </div>
+      <% } else { %>
+      <div class="same-height-row border-bottom">
+          <a href="log-in.jsp">Login</a> or <a href="register.jsp">register</a> to answer this question
+      </div>
+      <% } %>
     </div>
 
     <!-- JavaScript -->

@@ -61,7 +61,8 @@ public class QuestionWS {
                                     result.getString("topic"),
                                     result.getString("content"),
                                     result.getString("datetime"),
-                                    result.getInt("id_user")));
+                                    result.getInt("id_user"),
+                                    result.getInt("vote_num")));
       }
       
       result.close();
@@ -188,7 +189,8 @@ public class QuestionWS {
                                     result.getString("topic"),
                                     result.getString("content"),
                                     result.getString("datetime"),
-                                    result.getInt("id_user")));
+                                    result.getInt("id_user"),
+                                    result.getInt("vote_num")));
       }
       
       result.close();

@@ -28,18 +28,22 @@ public class Question {
   private String datetime;
   @XmlElement(name="id_user", required=true)
   private int idUser;
+  @XmlElement(name="voteNum", required=true)
+  private int voteNum;
   
   // Konstruktor
   public Question() {
     idQuestion = 0;
     idUser = 0;
+    voteNum = 0;
   }
   
-  public Question(int _idQuestion, String _topic, String _content, String _datetime, int _idUser) {
+  public Question(int _idQuestion, String _topic, String _content, String _datetime, int _idUser, int _voteNum) {
     idQuestion = _idQuestion;
     topic = _topic;
     content = _content;
     datetime = _datetime;
     idUser = _idUser;
+    voteNum = _voteNum;
   }
 }

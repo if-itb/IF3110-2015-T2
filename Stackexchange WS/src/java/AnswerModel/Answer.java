@@ -27,19 +27,23 @@ public class Answer {
   private String content;
   @XmlElement(name="datetime", required=true)
   private String datetime;
+  @XmlElement(name="voteNum", required=true)
+  private int voteNum;
   
   public Answer() { 
     idAnswer = 0; 
     idQuestion = 0; 
     idUser = 0; 
+    voteNum = 0;
   } 
   
-  public Answer(int idAnswer, String content, String datetime, int uid, int qid) {
+  public Answer(int idAnswer, String content, String datetime, int uid, int qid, int voteNum) {
     this.idAnswer = idAnswer; 
     idQuestion = qid; 
     idUser = uid; 
     this.content = content; 
     this.datetime = datetime; 
+    this.voteNum = voteNum;
   }
   
   public String getContent() {
