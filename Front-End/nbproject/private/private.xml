@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-<<<<<<< HEAD
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
         <file>
             <url>web/index.jsp</url>
@@ -13,22 +12,9 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/addQuestion.jsp</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/src/java/org/stackexchange/controller/DeleteServlet.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/src/java/org/stackexchange/controller/IndexServlet.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/src/java/org/stackexchange/controller/AnswerServlet.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/src/java/org/stackexchange/controller/CreateAnswerServlet.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/src/java/org/stackexchange/controller/CreateQuestionServlet.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/index.jsp</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/answer.jsp</file>
-=======
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Repo/RestingSoap/IF3110-2015-T2/Front-End/web/login.jsp</file>
-            <file>file:/D:/Repo/RestingSoap/IF3110-2015-T2/Front-End/web/index.jsp</file>
->>>>>>> origin/master
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/login.jsp</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/nbproject/jaxws-build.xml</file>
         </group>
     </open-files>
 </project-private>
