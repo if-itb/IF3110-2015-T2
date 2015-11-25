@@ -7,7 +7,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
-<%@include file = "include/header.jsp" %>     
+<%@include file = "include/header.jsp" %>
+<a href= "login.jsp">sign in</a> | <a href= "register.jsp">sign up</a>
         <div id="main-page" onload="function() {document.getElementById('autofocus').focus();}">
                 <div id="main-search" class="center">
                 <form action = 'search.jsp' id = "main-search" method = 'GET'>

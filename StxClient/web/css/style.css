@@ -27,7 +27,7 @@ a:hover, .link.edit > a:hover, .link.delete > a:hover {
 	color: #05146b;
 }
 
-button, input[type="text"], input[type="submit"] {
+button, input[type="text"], input[type="submit"]{
 	padding: 8px 10px;
 	font-size: 1em;
 }
