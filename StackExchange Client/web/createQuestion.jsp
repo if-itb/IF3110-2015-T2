@@ -27,11 +27,11 @@
             response.setStatus(response.SC_MOVED_TEMPORARILY);
             response.setHeader("Location", site);
         } else if (result == -1){
-            String site = "register.jsp?error=-1";
+            String site = "error.jsp?id=-1&token=" + accessToken;
             response.setStatus(response.SC_MOVED_TEMPORARILY);
             response.setHeader("Location", site);
         } else if (result == -2){
-            String site = "login.jsp?error=-2";
+            String site = "error.jsp?id=-2&token=" + accessToken;
             response.setStatus(response.SC_MOVED_TEMPORARILY);
             response.setHeader("Location", site);
         }

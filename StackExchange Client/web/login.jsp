@@ -25,12 +25,6 @@
         <br>
         <div class="subtitle">Login</div>
         <hr class='line'>
-         <%
-           /* if (request.getParameter("error").equals("-2")){
-                out.println("Login Expired. Please Login Again");
-            }*/
-            
-        %>
         <form id = "loginForm" name="loginForm" action="" onsubmit="" method="POST">
             <input type="hidden" name="question_id">
             <input type="text" class='form-text' name="email" placeholder="Email" required><br>

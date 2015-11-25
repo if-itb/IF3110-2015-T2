@@ -27,8 +27,8 @@
         String askForm =        
             "<form name='askForm' action='createQuestion.jsp?token=" + request.getParameter("token") + "'method='post'>"
                 +"<input type='hidden' name='accessToken' value='5'>"
-                +"<input type='text' class='form-text' name='topic' placeholder='Question Topic'><br>"
-                +"<textarea name='content' class='form-textarea' placeholder='Content'></textarea><br>"
+                +"<input type='text' class='form-text' name='topic' placeholder='Question Topic' required><br>"
+                +"<textarea name='content' class='form-textarea' placeholder='Content' required></textarea><br>"
                 +"<button class='button-post' type='submit'> Submit </button>"
             +"</form>"
         ;

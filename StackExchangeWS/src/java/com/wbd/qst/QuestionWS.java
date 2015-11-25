@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -95,9 +96,7 @@ public class QuestionWS {
     public int createQ(@WebParam(name = "access_token") String access_token, @WebParam(name = "title") String title, @WebParam(name = "content") String content) throws ParseException {
         int message = 0;
         TokenChecker token_check = new TokenChecker();
-        System.out.println("ACCESS TOKEN : " + access_token);
         token_check.check(access_token);
-        System.out.println("Validity : " + token_check.getValid());
         if (token_check.getExpired() == 1){
             return -2; //Expired
         }
@@ -131,24 +130,44 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "updateQ")
     public int updateQ(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") int qid, @WebParam(name = "title") String title, @WebParam(name = "content") String content) {
+        int message = 0;
+        TokenChecker token_check = new TokenChecker();
+        try {
+            token_check.check(access_token);
+        } catch (ParseException ex) {
+            java.util.logging.Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (token_check.getExpired() == 1){
+            return -2; //Expired
+        }
         Connection conn = null;
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
 
             // Turn on transactions
             conn.setAutoCommit(false);
-            Statement stmt = conn.createStatement();
-            String sql = "UPDATE question SET QuestionTopic = ?, Content = ? WHERE IDQ = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, title);
-            pstmt.setString(2, content);
-            pstmt.setInt(3, qid);
-            pstmt.executeUpdate();
-            conn.commit();
-
-
-            System.out.println("Order successful!  Thanks for your business!");
-            return 1;
+            if (token_check.getValid() == 1){
+                Statement stmt = conn.createStatement();
+                String sql = "SELECT IDQ FROM token NATURAL JOIN question WHERE access_token = ? AND IDQ = ?";
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1,access_token);
+                dbStatement.setInt(2,qid);
+                ResultSet rs = dbStatement.executeQuery();
+                if (rs.next()){
+                    sql = "UPDATE question SET QuestionTopic = ?, Content = ? WHERE IDQ = ?";
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    pstmt.setString(1, title);
+                    pstmt.setString(2, content);
+                    pstmt.setInt(3, qid);
+                    pstmt.executeUpdate();
+                    conn.commit();
+                    message = 1;
+                } else {
+                    message = -3; //It's your not Question. Not authorize!
+                }
+            } else {
+                message = -1; //Wrong identity. Something wrong
+            }
         }
        catch (Exception e) {
             // Any error is grounds for rollback
@@ -157,8 +176,9 @@ public class QuestionWS {
             }
             catch (SQLException ignored) { }
                 System.out.println("Order failed. Please contact technical support.");
-                  return 0;
+            message = 4;
        }
+        return message;
     }
 
     /**
@@ -166,21 +186,44 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "deleteQ")
     public int deleteQ(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") int qid) {
+        int message = 0;
+        TokenChecker token_check = new TokenChecker();
+        try {
+            token_check.check(access_token);
+        } catch (ParseException ex) {
+            java.util.logging.Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (token_check.getExpired() == 1){
+            return -2; //Expired
+        }
         Connection conn = null;
         try {
             //Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
-            Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM question WHERE IDQ = ?";
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1, qid);
-            dbStatement.executeUpdate();
-            stmt.close();
-            return 1;
+            if (token_check.getValid() == 1){
+                Statement stmt = conn.createStatement();
+                String sql = "SELECT IDQ FROM token NATURAL JOIN question WHERE access_token = ? AND IDQ = ?";
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1,access_token);
+                dbStatement.setInt(2,qid);
+                ResultSet rs = dbStatement.executeQuery();
+                if (rs.next()){
+                    sql = "DELETE FROM question WHERE IDQ = ?";
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    pstmt.setInt(1, qid);
+                    pstmt.executeUpdate();
+                    message = 1;
+                } else {
+                    message = -3; //It's your not Question. Not authorize!
+                }
+            } else {
+                message = -1; //Wrong identity. Something wrong
+            }
         } catch (SQLException ex){
             System.out.println(ex);
-            return 0;
+            message = 4;
         }
+        return message;
     }    
 
     /**

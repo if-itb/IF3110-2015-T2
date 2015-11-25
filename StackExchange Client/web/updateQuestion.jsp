@@ -1,6 +1,6 @@
 <%-- 
-    Document   : delete
-    Created on : Nov 18, 2015, 5:10:32 PM
+    Document   : updateQuestion
+    Created on : Nov 25, 2015, 5:09:34 PM
     Author     : User
 --%>
 
@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+            <%-- start web service invocation --%><hr/>
     <%
     try {
 	com.wbd.qst.QuestionWS_Service service = new com.wbd.qst.QuestionWS_Service();
@@ -19,9 +20,11 @@
 	 // TODO initialize WS operation arguments here
 	java.lang.String accessToken = request.getParameter("token");
 	int qid = Integer.parseInt(request.getParameter("id"));
+	java.lang.String title = request.getParameter("topic");
+	java.lang.String content = request.getParameter("content");
 	// TODO process result here
-	int result = port.deleteQ(accessToken, qid);
-        if (result == 1){
+	int result = port.updateQ(accessToken, qid, title, content);
+	if (result == 1){
             String site = "index.jsp";
             response.setStatus(response.SC_MOVED_TEMPORARILY);
             response.setHeader("Location", site);
@@ -42,7 +45,7 @@
 	// TODO handle custom exceptions here
     }
     %>
+    <%-- end web service invocation --%><hr/>
 
-        
     </body>
 </html>

@@ -1,6 +1,6 @@
 <%-- 
     Document   : error
-    Created on : Nov 24, 2015, 4:20:14 PM
+    Created on : Nov 25, 2015, 4:41:23 PM
     Author     : User
 --%>
 
@@ -12,6 +12,16 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>ERROR!</h1>
+    <%
+             if (request.getParameter("id").equals("-1")){
+                out.println("<h1>You have not registered yet! <a href='register.jsp?'>Register here</a></h1>");
+            } else if (request.getParameter("id").equals("-2")){
+                out.println("<h1>Login Expired. Please <a href='login.jsp'>Login</a> Again</h1>");
+            } else if (request.getParameter("id").equals("3")){
+                out.println("<h1>You are not authorized to access that! <a href='index.jsp?token="+request.getParameter("token")+"'>Home</a></h1>");
+            }
+       
+    %>
+
     </body>
 </html>

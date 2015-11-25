@@ -41,7 +41,7 @@
         <br><br><br><br>
         
         <form name='searchForm' action='index.jsp' method='post'>
-            <input class='form-search' type="text" name="search_key" size='120%'>
+            <input class='form-search' type="text" name="search_key" size='120%' required>
             <button class='button-search' type='submit'> Search </button>
         </form>
         <%
@@ -106,7 +106,7 @@
                             + ">edit"
                         +"</a>"
 			+" | "
-                        +"<a id='color-red' href=delete.jsp?id=" + result.get(i).getIDQ() +"'>"
+                        +"<a id='color-red' href=delete.jsp?id=" + result.get(i).getIDQ() +"&token=" + request.getParameter("token") +">"
                             +"delete"
 			+"</a>"
                     +"</div>"
