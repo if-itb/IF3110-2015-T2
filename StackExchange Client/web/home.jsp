@@ -11,10 +11,9 @@
 	<div class="container">
             <div class="center">
                     <div id="search">
-                            <form action="search.jsp" method="GET"> <!-- TODO: search.jsp -->
+                            <form action="search.jsp" method="GET">
                                     <fieldset class="clearfix">
-                                            <input type="search" name="search" value="Type your search-keywords here..." 
-                                                   placeholder="Type your search-keywords here...">
+                                            <input type="search" name="search" placeholder="Type your search-keywords here...">
                                             <input type="submit" value="Search" class="button">
                                     </fieldset>
                             </form>
@@ -48,7 +47,7 @@
                 <span class="question-info">
                     asked by <span class="author"><%= q.getName() %></span> | 
                     <a href="edit?q_id=<%= q.getQId() %>" class="edit-question">edit</a> | 
-                    <a href="controllers/delete-question.controller.php/?q_id=<%= q.getQId() %>" class="delete-question"
+                    <a href="delete?q_id=<%= q.getQId() %>" class="delete-question"
                     onclick="return deleteConfirmation(<%= q.getQId() %>)">delete</a>
                    <br>
                 </span>

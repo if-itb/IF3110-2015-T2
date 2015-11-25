@@ -32,6 +32,18 @@
         <servlet-name>EditController</servlet-name>
         <servlet-class>controllers.EditController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteController</servlet-name>
+        <servlet-class>controllers.DeleteController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AnswerController</servlet-name>
+        <servlet-class>controllers.AnswerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VoteController</servlet-name>
+        <servlet-class>controllers.VoteController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>QuestionController</servlet-name>
         <url-pattern>/QuestionController</url-pattern>
@@ -55,6 +67,18 @@
     <servlet-mapping>
         <servlet-name>EditController</servlet-name>
         <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteController</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AnswerController</servlet-name>
+        <url-pattern>/answer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VoteController</servlet-name>
+        <url-pattern>/vote</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

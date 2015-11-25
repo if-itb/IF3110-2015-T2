@@ -10,18 +10,17 @@
 <jsp:include page="/views/header.jsp" flush="true"/>
 <jsp:useBean id="question" type="QuestionWS.Question" scope="request"/>
 <jsp:useBean id="answers" type="java.util.List<AnswerWS.Answer>" scope="request"/>
-
 	<div class="container">
             <h2><a href="question?q_id=<%= question.getQId() %>" class="question-title-big">
                    <%= question.getTopic() %>
             </a></h2>
             <hr>
             <span id="question-vote"><br>
-                <div onclick="vote(<%= question.getQId() %>,'question','up')" class="arrow-up">
+                <div onclick="location.href='vote?id=<%= question.getQId() %>&type=q&vote=1';" class="arrow-up">
                 </div><br>
                 <span id="questvote" class="question-number"><%= question.getVote()%></span><br>
                 <br>
-		<div onclick="vote(<%= question.getQId() %>,'question','down')" class="arrow-down">
+		<div onclick="location.href='vote?id=<%= question.getQId() %>&type=q&vote=-1';" class="arrow-down">
                 </div><br></span>
 		<span id="question-content">
                     <%= question.getContent().replace("\n", "<br>") %>
@@ -33,13 +32,13 @@
                             <%= " edited at " + question.getDateEdited() + " " %>
                     <% } %>
                     <a href="edit?q_id=<%= question.getQId() %>" class="edit-question"> edit</a> | 
-                    <!-- TODO --><a href="controllers/delete-question.controller.php/?q_id=<%= question.getQId() %>"
-                                    class="delete-question" onclick="return deleteConfirmation(<%= question.getQId() %>)">
+                    <a href="delete?q_id=<%= question.getQId() %>" 
+                       class="delete-question" onclick="return deleteConfirmation(<%= question.getQId() %>)">
                         delete
-                    </a><br></span></span>
-		</span>
+                    </a><br></span>
+                </span>
                 <br><br><br>
-		<h2><%= question.getAnswer() %> Answers</h2><hr>
+		<h2><%= question.getAnswer() %> Answer(s)</h2><hr>
 		<br><br>
                 <%
 		if (question.getAnswer()==0) { %>
@@ -49,12 +48,12 @@
                 }
 		for(int i = 0; i < question.getAnswer(); i++) { %>
                     <span id="question-vote"><br>
-                        <div onclick="vote(<%= answers.get(i).getAId() %>,'answer','up')" class="arrow-up">
+                        <div onclick="location.href='vote?id=<%= question.getQId() %>&type=a&vote=1';" class="arrow-up">
                         </div><br>
 			<span id="ansvote-<%= answers.get(i).getAId() %>" class="question-number">
                             <%= answers.get(i).getVote() %></span><br>
                         <br>
-                        <div onclick="vote(<%= answers.get(i).getAId() %>,'answer','down')" class="arrow-down"></div>
+                        <div onclick="location.href='vote?id=<%= question.getQId() %>&type=a&vote=-1';" class="arrow-down"></div>
                         <br>
                     </span>
                     <span id="question-content">
@@ -72,10 +71,8 @@
                 
                 
 		<div class="center">
-			<form class="basic-grey" name= "answer" action="controllers/answer.controller.php" onsubmit="return validateAnswerForm()" method="post">
-				<input type="hidden" name="q_id" value="<?php echo $id ?>">
-				<input type="text" id="name" name="name" placeholder="Name"><br>
-				<input type="text" id="email" name="email" placeholder="Email"><br>
+			<form class="basic-grey" name= "answer" action="answer" onsubmit="return validateAnswerForm()" method="post">
+				<input type="hidden" name="q_id" value="<%= question.getQId() %>">
 				<textarea id="content" name="content" placeholder="Content" ></textarea><br>
 				<div class="div-right-button">
 					<input type="submit" class="right-button" value="Post">

@@ -71,8 +71,9 @@ public class AnswerWS {
     public int addNewAnswer(@WebParam(name = "u_id") int u_id, @WebParam(name = "content") String content, @WebParam(name = "q_id") int q_id) {
         try {
             try (Statement stmt = conn.createStatement()) {
-                String sql = "INSERT INTO answer(u_id,content,date_created,q_id) VALUE ("+u_id+",'"+content+"',now(),"+q_id+")";
+                String sql = "INSERT INTO answer(u_id,content,date_created,q_id) VALUE ("+u_id+",'?',now(),"+q_id+")";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1,content);
                 dbStatement.executeUpdate();
             }
         } catch (SQLException e) {

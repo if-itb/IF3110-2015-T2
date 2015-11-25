@@ -5,7 +5,7 @@
  */
 package controllers;
 
-import UserWS.UserWS_Service;
+import AnswerWS.AnswerWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -17,12 +17,11 @@ import javax.xml.ws.WebServiceRef;
 
 /**
  *
- * @author jessica
+ * @author vanyadeasysafrina
  */
-public class RegisterController extends HttpServlet {
-
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WebService/UserWS.wsdl")
-    private UserWS_Service service;
+public class AnswerController extends HttpServlet {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WebService/AnswerWS.wsdl")
+    private AnswerWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,9 +35,18 @@ public class RegisterController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
-        rd.forward(request, response);
-    
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AnswerController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AnswerController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -67,14 +75,12 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String password = request.getParameter("pass");
-        
-        if(register(email,name,password) == 1){
-            response.sendRedirect("/StackExchange_Client/login.jsp");
+        int q_id = Integer.parseInt(request.getParameter("q_id"));
+        String content = request.getParameter("content");
+        int qId = addNewAnswer(1, content, q_id);
+        if (qId != -1 ) {
+            response.sendRedirect("question?q_id=" + qId);
         }
-        
     }
 
     /**
@@ -87,11 +93,11 @@ public class RegisterController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private Integer register(java.lang.String email, java.lang.String name, java.lang.String password) {
+    private int addNewAnswer(int uId, java.lang.String content, int qId) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        UserWS.UserWS port = service.getUserWSPort();
-        return port.register(name, email, password);
+        AnswerWS.AnswerWS port = service.getAnswerWSPort();
+        return port.addNewAnswer(uId, content, qId);
     }
 
 }

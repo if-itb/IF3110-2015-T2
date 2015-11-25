@@ -69,9 +69,9 @@ public class EditController extends HttpServlet {
         //TODO: Username dan q id
         int qId = updateQuestion(q_id, topic, content);
         if (qId != -1 ) {
-            response.sendRedirect("question?q_id=" + qId);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/question?q_id"+qId);
+            dispatcher.forward(request, response);
         }
-        
     }
 
     /**

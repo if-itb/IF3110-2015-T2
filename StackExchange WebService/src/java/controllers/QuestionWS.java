@@ -113,8 +113,11 @@ public class QuestionWS {
     public int addNewQuestion(@WebParam(name = "u_id") int u_id, @WebParam(name = "topic") String topic,  @WebParam(name = "content") String content) {
         try {
             try (Statement stmt = conn.createStatement()) {
-                String sql = "INSERT INTO question(u_id,topic,content,date_created) VALUE ("+u_id+",'"+topic+"','"+content+"',now())";
-                stmt.executeUpdate(sql);
+                String sql = "INSERT INTO question(u_id,topic,content,date_created) VALUE ("+u_id+",'?','?',now())";
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1,topic);
+                dbStatement.setString(2,content);
+                dbStatement.executeUpdate();
                 sql = "SELECT q_id FROM question WHERE u_id="+u_id+" ORDER BY date_created DESC LIMIT 1";
                 ResultSet rs = stmt.executeQuery(sql);
                 while(rs.next()) {
@@ -139,7 +142,8 @@ public class QuestionWS {
         try {
             Statement stmt = conn.createStatement();
             String sql = "SELECT vote FROM vote_question WHERE q_id="+q_id+" and u_id="+u_id;
-            ResultSet rs = stmt.executeQuery(sql);
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            ResultSet rs = dbStatement.executeQuery();
             boolean empty = true;
             while (rs.next()) {
                 empty = false;
@@ -177,22 +181,25 @@ public class QuestionWS {
         try {
             Statement stmt = conn.createStatement();
             String sql = "SELECT vote FROM vote_question WHERE q_id="+q_id+" and u_id="+u_id;
-            ResultSet rs = stmt.executeQuery(sql);
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            ResultSet rs = dbStatement.executeQuery();
             boolean empty = true;
             while (rs.next()) {
                 empty = false;
                 vote = Integer.toString(rs.getInt("vote"));
             }
-            if(!empty && (vote.equals("-1"))) return "null";
+            if(!empty && (vote.equals("-1"))) return "null udah pernah";
             sql = "UPDATE question SET vote = vote-1 WHERE q_id="+q_id;
-            stmt.executeUpdate(sql);
+            dbStatement = conn.prepareStatement(sql);
+            dbStatement.executeUpdate();
             if(!empty) {
                 sql = "UPDATE vote_question SET vote = vote-1 WHERE q_id="+q_id+" and u_id="+u_id;
             }
             else {
                 sql = "INSERT INTO vote_question VALUE ("+q_id+","+u_id+",-1)";
             }
-            stmt.executeUpdate(sql);
+            dbStatement = conn.prepareStatement(sql);
+            dbStatement.executeUpdate();
             sql = "SELECT vote FROM question WHERE q_id="+q_id;
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -201,7 +208,7 @@ public class QuestionWS {
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            return "null";
+            return "null error";
         }
         return vote;
     }
