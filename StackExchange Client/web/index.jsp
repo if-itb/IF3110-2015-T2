@@ -37,50 +37,9 @@
             </p>
             <hr>
 
-            <table>
-                <tr>
-                    <td class="Votes" rowspan="2">
-                        <b>
-                            0
-                            <br>
-                            Votes
-                        </b>
-                    </td>
-                    <td class="Answers" rowspan="2">
-                        <b>
-                            0
-                            <br>
-                            Answers
-                        </b>
-                    </td>
-                    <td>
-                        <p class="topic">
-                            <a href="question.jsp">
-                                Topic
-                            </a>
-                        </p>
-                        <p class="content">
-                            Content
-                        </p>
-                        <br>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="Asker">
-                        asked by
-                        <p class="blue">
-                            Nama
-                        </p> | 
-                        <a class="gold" href="">
-                            edit
-                        </a> | 
-                        <a class="red" href="">
-                            delete
-                        </a>
-                    </td>
-                </tr>
-            </table>
-            <hr>
+            <div>
+                <jsp:include page="/QuestionListServlet"/>
+            </div>
         </div>
     </body>
 </html>

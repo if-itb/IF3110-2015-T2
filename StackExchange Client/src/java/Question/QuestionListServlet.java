@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Question;
 
 import QuestionWS.Question;
 import QuestionWS.QuestionWS_Service;
+import UserWS.User;
+import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -21,6 +18,9 @@ import javax.xml.ws.WebServiceRef;
  * @author M. Fauzan Naufan
  */
 public class QuestionListServlet extends HttpServlet {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/UserWS.wsdl")
+    private UserWS_Service service_1;
+
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/QuestionWS.wsdl")
     private QuestionWS_Service service;
 
@@ -38,6 +38,52 @@ public class QuestionListServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             List<Question> questions = getAllQuestion();
+            for (int i = 0; i < questions.size(); i++) {
+                out.println("<table>\n"
+                        + "                <tr>\n"
+                        + "                    <td class=\"Votes\" rowspan=\"2\">\n"
+                        + "                        <b>");
+                out.println(questions.get(i).getVotes());
+                out.println("<br>\n"
+                        + "                            Votes\n"
+                        + "                        </b>\n"
+                        + "                    </td>\n"
+                        + "                    <td class=\"Answers\" rowspan=\"2\">\n"
+                        + "                        <b>");
+                out.println(questions.get(i).getAnswers());
+                out.println("<br>\n"
+                        + "                            Answers\n"
+                        + "                        </b>\n"
+                        + "                    </td>\n"
+                        + "                    <td>\n"
+                        + "                        <p class=\"topic\">\n"
+                        + "                            <a href=\"question.jsp\">");
+                out.println(questions.get(i).getTopic());
+                out.println("</a>\n"
+                        + "                        </p>\n"
+                        + "                        <p class=\"content\">");
+                out.println(questions.get(i).getContent());
+                out.println("</p>\n"
+                        + "                        <br>\n"
+                        + "                    </td>\n"
+                        + "                </tr>\n"
+                        + "                <tr>\n"
+                        + "                    <td class=\"Asker\">\n"
+                        + "                        asked by\n"
+                        + "                        <p class=\"blue\">");
+                out.println(getUser(questions.get(i).getUserID()).get(0).getNama());
+                out.println("</p> | \n"
+                        + "                        <a class=\"gold\" href=\"\">\n"
+                        + "                            edit\n"
+                        + "                        </a> | \n"
+                        + "                        <a class=\"red\" href=\"\">\n"
+                        + "                            delete\n"
+                        + "                        </a>\n"
+                        + "                    </td>\n"
+                        + "                </tr>\n"
+                        + "            </table>\n"
+                        + "            <hr>");
+            }
         }
     }
 
@@ -87,4 +133,10 @@ public class QuestionListServlet extends HttpServlet {
         return port.getAllQuestion();
     }
 
+    private java.util.List<UserWS.User> getUser(int userID) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        UserWS.UserWS port = service_1.getUserWSPort();
+        return port.getUser(userID);
+    }
 }

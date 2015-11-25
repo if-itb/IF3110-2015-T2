@@ -2,6 +2,7 @@ package UserModel;
 
 import DB.Database;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.jws.*;
 
 /**
@@ -51,5 +52,35 @@ public class UserWS {
         } catch (SQLException ex) {
             return "Error!";
         }
+    }
+
+    /**
+     * Web service operation
+     * @param UserID
+     * @return 
+     */
+    @WebMethod(operationName = "getUser")
+    public ArrayList<User> getUser(@WebParam(name = "UserID") int UserID) {
+        Connection conn = new Database().connect();
+        Statement stmt;
+        ResultSet rs;
+        ArrayList<User> users = new ArrayList();
+        try {
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM user WHERE UserID = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, UserID);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                users.add(new User(rs.getInt("UserID"),
+                        rs.getString("Nama"),
+                        rs.getString("Email"),
+                        rs.getString("Password")
+                ));
+            }
+        } catch (SQLException ex) {
+            
+        }
+        return users;
     }
 }
