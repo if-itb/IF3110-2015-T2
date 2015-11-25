@@ -40,18 +40,6 @@ public interface QuestionWS {
 
     /**
      * 
-     * @param q
-     */
-    @WebMethod
-    @Oneway
-    @RequestWrapper(localName = "addQuestion", targetNamespace = "http://question.model/", className = "model.question.AddQuestion")
-    @Action(input = "http://question.model/QuestionWS/addQuestion")
-    public void addQuestion(
-        @WebParam(name = "q", targetNamespace = "")
-        Question q);
-
-    /**
-     * 
      * @param questionId
      * @return
      *     returns model.question.Question
@@ -71,10 +59,49 @@ public interface QuestionWS {
      */
     @WebMethod
     @Oneway
+    @RequestWrapper(localName = "addQuestion", targetNamespace = "http://question.model/", className = "model.question.AddQuestion")
+    @Action(input = "http://question.model/QuestionWS/addQuestion")
+    public void addQuestion(
+        @WebParam(name = "q", targetNamespace = "")
+        Question q);
+
+    /**
+     * 
+     * @param q
+     */
+    @WebMethod
+    @Oneway
     @RequestWrapper(localName = "editQuestion", targetNamespace = "http://question.model/", className = "model.question.EditQuestion")
     @Action(input = "http://question.model/QuestionWS/editQuestion")
     public void editQuestion(
         @WebParam(name = "q", targetNamespace = "")
         Question q);
+
+    /**
+     * 
+     * @param questionId
+     */
+    @WebMethod
+    @Oneway
+    @RequestWrapper(localName = "deleteQuestion", targetNamespace = "http://question.model/", className = "model.question.DeleteQuestion")
+    @Action(input = "http://question.model/QuestionWS/deleteQuestion")
+    public void deleteQuestion(
+        @WebParam(name = "question_id", targetNamespace = "")
+        int questionId);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<model.question.Question>
+     */
+    @WebMethod
+    @WebResult(name = "Question", targetNamespace = "")
+    @RequestWrapper(localName = "searchQuestions", targetNamespace = "http://question.model/", className = "model.question.SearchQuestions")
+    @ResponseWrapper(localName = "searchQuestionsResponse", targetNamespace = "http://question.model/", className = "model.question.SearchQuestionsResponse")
+    @Action(input = "http://question.model/QuestionWS/searchQuestionsRequest", output = "http://question.model/QuestionWS/searchQuestionsResponse")
+    public List<Question> searchQuestions(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
 
 }

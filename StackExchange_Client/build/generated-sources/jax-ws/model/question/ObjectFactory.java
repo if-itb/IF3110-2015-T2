@@ -28,8 +28,11 @@ public class ObjectFactory {
     private final static QName _Question_QNAME = new QName("http://question.model/", "Question");
     private final static QName _EditQuestion_QNAME = new QName("http://question.model/", "editQuestion");
     private final static QName _GetAllQuestionsResponse_QNAME = new QName("http://question.model/", "getAllQuestionsResponse");
+    private final static QName _SearchQuestionsResponse_QNAME = new QName("http://question.model/", "searchQuestionsResponse");
     private final static QName _GetAllQuestions_QNAME = new QName("http://question.model/", "getAllQuestions");
+    private final static QName _DeleteQuestion_QNAME = new QName("http://question.model/", "deleteQuestion");
     private final static QName _GetQuestionByIDResponse_QNAME = new QName("http://question.model/", "getQuestionByIDResponse");
+    private final static QName _SearchQuestions_QNAME = new QName("http://question.model/", "searchQuestions");
     private final static QName _GetQuestionByID_QNAME = new QName("http://question.model/", "getQuestionByID");
 
     /**
@@ -37,6 +40,14 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link SearchQuestionsResponse }
+     * 
+     */
+    public SearchQuestionsResponse createSearchQuestionsResponse() {
+        return new SearchQuestionsResponse();
     }
 
     /**
@@ -48,11 +59,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DeleteQuestion }
+     * 
+     */
+    public DeleteQuestion createDeleteQuestion() {
+        return new DeleteQuestion();
+    }
+
+    /**
      * Create an instance of {@link GetQuestionByIDResponse }
      * 
      */
     public GetQuestionByIDResponse createGetQuestionByIDResponse() {
         return new GetQuestionByIDResponse();
+    }
+
+    /**
+     * Create an instance of {@link SearchQuestions }
+     * 
+     */
+    public SearchQuestions createSearchQuestions() {
+        return new SearchQuestions();
     }
 
     /**
@@ -132,6 +159,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SearchQuestionsResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://question.model/", name = "searchQuestionsResponse")
+    public JAXBElement<SearchQuestionsResponse> createSearchQuestionsResponse(SearchQuestionsResponse value) {
+        return new JAXBElement<SearchQuestionsResponse>(_SearchQuestionsResponse_QNAME, SearchQuestionsResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetAllQuestions }{@code >}}
      * 
      */
@@ -141,12 +177,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteQuestion }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://question.model/", name = "deleteQuestion")
+    public JAXBElement<DeleteQuestion> createDeleteQuestion(DeleteQuestion value) {
+        return new JAXBElement<DeleteQuestion>(_DeleteQuestion_QNAME, DeleteQuestion.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionByIDResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://question.model/", name = "getQuestionByIDResponse")
     public JAXBElement<GetQuestionByIDResponse> createGetQuestionByIDResponse(GetQuestionByIDResponse value) {
         return new JAXBElement<GetQuestionByIDResponse>(_GetQuestionByIDResponse_QNAME, GetQuestionByIDResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SearchQuestions }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://question.model/", name = "searchQuestions")
+    public JAXBElement<SearchQuestions> createSearchQuestions(SearchQuestions value) {
+        return new JAXBElement<SearchQuestions>(_SearchQuestions_QNAME, SearchQuestions.class, null, value);
     }
 
     /**

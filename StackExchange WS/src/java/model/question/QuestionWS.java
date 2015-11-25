@@ -43,7 +43,7 @@ public class QuestionWS {
             rs.close();
             stmt.close();
         } catch (SQLException ex) {
-            //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return questions;
@@ -111,21 +111,47 @@ public class QuestionWS {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     /**
      * Web service operation
-     * @param q
      */
     @WebMethod(operationName = "deleteQuestion")
     @Oneway
-    public void deleteQuestion(@WebParam(name = "q") Question q) {
+    public void deleteQuestion(@WebParam(name = "question_id") int question_id) {
         try {
             String sql = "DELETE FROM question WHERE question_id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, q.getQuestionID());
-            stmt.executeUpdate(sql);
+            stmt.setInt(1, question_id);
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "searchQuestions")
+    @WebResult(name="Question")
+    public ArrayList<Question> searchQuestions(String query) {
+        ArrayList<Question> results = new ArrayList<>();
+        
+        try {
+            String sql = "SELECT * FROM question WHERE topic LIKE ? OR content LIKE ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1,"%"+query+"%");
+            stmt.setString(2,"%"+query+"%");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                results.add(new Question(rs.getInt("question_id"),rs.getString("topic"),rs.getString("content"),rs.getInt("user_id"),rs.getString("create_time"),rs.getInt("vote")));
+            }
+            
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return results;
     }
 }

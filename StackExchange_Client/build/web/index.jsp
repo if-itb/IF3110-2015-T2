@@ -20,8 +20,8 @@
     <body>
         <div class="container">
             <h1>Simple StackExchange</h1>
-            <form action="Search.jsp"><!--ini filenya belum ada-->
-		<input class="searchBox" type="text" name="questions">
+            <form action="search"method="get">
+		<input class="searchBox" type="text" name="q">
 		<input type="submit" class="submitButton" value="Search">
             </form>
             <p>
@@ -48,7 +48,7 @@
                         <% String content = question.getContent();if (content.length() > 503) content = content.substring(0,500)+"..."; %>
                         <div class="qcontent"><%= content %></div>
                     </div>
-                    <% model.user.User user = users.get(question.getUserId()); %>
+                    <% model.user.User user = users.get(question.getQuestionId()); %>
                     <div class="details">
                         asked by
                         <span class="name"><%= user.getName() %> (<%= user.getEmail() %>)</span><a class="edit" href="edit?id=<%= question.getQuestionId() %>">edit</a><a class="delete" href="delete?id=<%= question.getQuestionId() %>" onclick="return confirm('Are you sure you want delete this question?')">delete</a></span></div>    

@@ -24,6 +24,10 @@
         <servlet-name>AddQuestionServlet</servlet-name>
         <servlet-class>Question.AddQuestionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchQuestionServlet</servlet-name>
+        <servlet-class>Question.SearchQuestionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>QuestionListServlet</servlet-name>
         <url-pattern>/index</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>AddQuestionServlet</servlet-name>
         <url-pattern>/addQuestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchQuestionServlet</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

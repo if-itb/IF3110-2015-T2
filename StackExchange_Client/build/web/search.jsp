@@ -19,17 +19,19 @@
     </head>
     <body>
         <div class="container">
-            <h1>Simple StackExchange</h1>
-            <form action="search"method="get">
+            <h1><a href="index">Simple StackExchange</a></h1>
+            <form action="search" method="get">
 		<input class="searchBox" type="text" name="q">
 		<input type="submit" class="submitButton" value="Search">
             </form>
             <p>
 		Cannot find what you are looking for? <a href="ask.jsp">Ask here</a>
+                <br><br>
+                <a href="index">< Back to Home</a>
 		<br>
 		<br>
             </p>
-            <div class="raqtitle left"><h3>Recently Asked Question</h3></div>
+            <div class="raqtitle left"><h3>Search Results</h3></div>
         
         <% for (model.question.Question question : questions) { %>
                 <div class="raq question-block">
@@ -53,6 +55,9 @@
                         asked by
                         <span class="name"><%= user.getName() %> (<%= user.getEmail() %>)</span><a class="edit" href="edit?id=<%= question.getQuestionId() %>">edit</a><a class="delete" href="delete?id=<%= question.getQuestionId() %>" onclick="return confirm('Are you sure you want delete this question?')">delete</a></span></div>    
                 </div>
+        <% } %>
+        <% if (questions.isEmpty()) {%>
+            No results found.
         <% } %>
     </div>
 </body>
