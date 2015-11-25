@@ -14,3 +14,6 @@ StackExchange WebService/setup/sun-resources.xml
 StackExchange WebService/setup/sun-resources.xml
 StackExchange WebService/nbproject/project.xml
 StackExchange WebService/nbproject/build-impl.xml
+/StackExchange IdentityService/nbproject/private/
+/StackExchange IdentityService/build/
+/StackExchange IdentityService/dist/

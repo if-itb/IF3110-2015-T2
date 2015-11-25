@@ -93,5 +93,4 @@ public class RegisterController extends HttpServlet {
         UserWS.UserWS port = service.getUserWSPort();
         return port.register(name, email, password);
     }
-
 }

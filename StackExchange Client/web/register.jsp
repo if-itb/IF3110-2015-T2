@@ -13,7 +13,7 @@
 		<br>
 		<div class="center">
                     <!-- TODO: Ask Controller -->
-                    <form name="register" class="register" action="Register" method="post">
+                    <form name="register" class="register" action="register" method="post">
                         <input type="text" id="email" name="email" placeholder="Email"><br>
 			<input type="text" id="name" name="name" placeholder="Name"><br>
 			<input type="password" id="pass" name="pass" placeholder="Password"><br>
