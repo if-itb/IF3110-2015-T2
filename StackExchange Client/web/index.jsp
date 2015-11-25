@@ -17,6 +17,7 @@
     <body>
         <%
             if(request.getParameter("token") != null){
+                
                 out.println("<div class='smalltitle-right'>Hello" + "NAMA KAMU" + "</div>");
             }
             else{   

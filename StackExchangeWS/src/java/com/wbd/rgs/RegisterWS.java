@@ -82,4 +82,32 @@ public class RegisterWS {
         }
         return hasil;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUsername")
+    public String getUsername(@WebParam(name = "accessToken") String accessToken) {
+        //TODO write your implementation code here:
+        String hasil = "";
+        Connection conn = null;
+        PreparedStatement dbStatement = null;
+        try {
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            Statement stmt = conn.createStatement();
+            String sql; 
+            sql= "SELECT user.Nama as name FROM user INNER JOIN token ON user.IDUser=token.IDUser WHERE token.access_token = '"+ accessToken +"'";
+            dbStatement = conn.prepareStatement(sql);
+            ResultSet rs = dbStatement.executeQuery();
+            while (rs.next()){
+                hasil = rs.getString("name");
+            }
+            dbStatement.close();
+            conn.close();
+        }catch(SQLException se){
+            se.printStackTrace();
+            hasil = "";
+        }
+        return hasil;
+    }
 }
