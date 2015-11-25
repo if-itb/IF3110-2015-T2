@@ -112,10 +112,12 @@
                             if (token == null){
                                 //Username password gak sama
                                 //window.location.href = "IVanWeteng.jsp"
+                                alert("Invalid Username and Password");
                             }
                             else{
                                 //Berhasil login
                                 //window.location.href = "index.jsp";
+                                window.location.href = "http://localhost:8080/StackExchange_Client/index.jsp?token=" + token;
                             }
 
                         },

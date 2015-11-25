@@ -6,6 +6,8 @@
 package com.wbd.qst;
 
 import com.wbd.ans.Answer;
+import com.wbd.tokenChecker.TokenChecker;
+import com.wbd.tokenChecker.TokenIdentity;
 import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,6 +20,7 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import org.jboss.logging.Logger;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -89,24 +92,35 @@ public class QuestionWS {
      * Web service operation
      */
     @WebMethod(operationName = "createQ")
-    public int createQ(@WebParam(name = "access_token") String access_token, @WebParam(name = "title") String title, @WebParam(name = "content") String content) {
+    public int createQ(@WebParam(name = "access_token") String access_token, @WebParam(name = "title") String title, @WebParam(name = "content") String content) throws ParseException {
+        int message = 0;
+        System.out.println("Wilhelm Homo");
+        TokenChecker token_check = new TokenChecker();
+        token_check.check(access_token);
+        System.out.println("ABC : " + token_check.getValid());
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
-            Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO question(IDUser, QuestionTopic, Content, Vote) VALUES (?,?,?,?)";
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1, 0);
-            dbStatement.setString(2, title);
-            dbStatement.setString(3, content);
-            dbStatement.setInt(4, 0);
-            dbStatement.executeUpdate();
-            stmt.close();
-            return 1;
-        } catch (SQLException ex){
-            //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+            if (token_check.getValid() == 1){
+                //Can access. Right Identity
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wbd","root","");
+                Statement stmt = conn.createStatement();
+                String sql = "INSERT INTO question(IDUser, QuestionTopic, Content, Vote) VALUES (?,?,?,?)";
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, token_check.getIDUser());
+                dbStatement.setString(2, title);
+                dbStatement.setString(3, content);
+                dbStatement.setInt(4, 0);
+                dbStatement.executeUpdate();
+                stmt.close();
+                message = 1;
+            }else{
+                //Wrong identity. Something wrong
+                message = -1;                
+            } 
+        } catch (Exception ex){
             ex.printStackTrace();
-            return 0;
+
         }
+        return message;
     }
 
     /**

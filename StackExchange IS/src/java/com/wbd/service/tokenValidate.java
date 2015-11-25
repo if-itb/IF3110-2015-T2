@@ -47,16 +47,18 @@ public class tokenValidate{
 		DBConnection dbc = new DBConnection();
 		PreparedStatement stmt = dbc.getStatement();
 		Connection conn = dbc.getConnection();
-		try{
-			String sql = "SELECT * FROM token WHERE access_token = ?";
+                System.out.println("Token Validate Start");
+                try{
+			String sql = "SELECT * FROM token NATURAL JOIN user WHERE access_token = ?";
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1,access_token);
-
-			ResultSet rs = stmt.executeQuery(sql);
+			stmt.setString(1, access_token);
+                        System.out.println("Token Validate access_token :" + access_token);
+			ResultSet rs = stmt.executeQuery();
 			if (rs.next()){
-				identity.userID = rs.getInt("userID");
+				identity.userID = rs.getInt("IDUser");
+                                identity.valid = 1;
 				//Check whether the access_token is expired or not
-				Date tokenDate = rs.getTimestamp("timestamp");
+				/*Date tokenDate = rs.getTimestamp("created_at");
                                 
 				Date expired = new Date(tokenDate.getTime() + TimeUnit.MINUTES.toMillis( lifetimeToken ));
 				Date current = new Date();
@@ -70,8 +72,12 @@ public class tokenValidate{
 				}
 				else{
 					identity.valid = 1;
-				}
-			}			
+				}*/
+			} else {
+                            identity.valid = 0;
+                            identity.userID = 0;
+                            System.out.println("Tidak dapat Query");
+                        }			
 		}catch(SQLException se){
 			se.printStackTrace();
 		}catch(Exception e){
