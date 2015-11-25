@@ -20,21 +20,22 @@ public class User {
     private String name;
     @XmlElement(name="email", required=true)
     private String email;
-    @XmlElement(name="token", required=true)
-    private String token;
-    @XmlElement(name="valid", required=true)
-    private boolean valid;
+    @XmlElement(name="password", required=true)
+    private String password;
     
-    public User(){
-        id = 0;
+    public User(){}
+    
+    public User(String name, String email, String password){
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
     
-    public User(int id, String name, String email, String token, boolean valid){
+    public User(int id, String name, String email, String password){
         this.id = id;
         this.name = name;
         this.email = email;
-        this.token = token;
-        this.valid = valid;
+        this.password = password;
     }
 
     /**
@@ -61,14 +62,7 @@ public class User {
     /**
      * @return the token
      */
-    public String getToken() {
-        return token;
-    }
-
-    /**
-     * @return the valid
-     */
-    public boolean isValid() {
-        return valid;
+    public String getPassword() {
+        return password;
     }
 }

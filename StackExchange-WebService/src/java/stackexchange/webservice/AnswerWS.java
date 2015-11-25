@@ -39,7 +39,7 @@ public class AnswerWS {
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Answer answer = new Answer(rs.getInt("id"), rs.getInt("questionId"), rs.getString("name"), rs.getString("email"), rs.getString("content"), rs.getDate("dateMade"), "", rs.getInt("vote"));
+                Answer answer = new Answer(rs.getInt("id"), rs.getInt("userid"), rs.getInt("questionId"), rs.getString("name"), rs.getString("email"), rs.getString("content"), rs.getDate("dateMade"), "", rs.getInt("vote"));
                 answers.add(answer);
             }
             return answers;
@@ -68,7 +68,7 @@ public class AnswerWS {
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Answer answer = new Answer(rs.getInt("id"), rs.getInt("questionId"), rs.getString("name"), rs.getString("email"), rs.getString("content"), rs.getDate("dateMade"), "", rs.getInt("vote"));
+                Answer answer = new Answer(rs.getInt("id"), rs.getInt("userid"), rs.getInt("questionId"), rs.getString("name"), rs.getString("email"), rs.getString("content"), rs.getDate("dateMade"), "", rs.getInt("vote"));
                 answers.add(answer);
             }
             return answers;
@@ -91,7 +91,6 @@ public class AnswerWS {
         Database db = new Database();
         try{
             String values="(";
-            values+= answer.getId() +",";
             values+= answer.getQuestionId() +",";
             values+= "'"+ answer.getName() +"',";
             values+= "'"+ answer.getEmail() +"',";
@@ -100,7 +99,7 @@ public class AnswerWS {
             values+= answer.getVote() +")";
             String sql="insert into answers values " + values;
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
         }catch(Exception e){
             
         }finally{
@@ -119,7 +118,7 @@ public class AnswerWS {
         try{
             String sql="delete from questions where questionId=" + questionId + "and id=" + id;
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
         }catch(Exception e){
             
         }finally{
@@ -149,7 +148,7 @@ public class AnswerWS {
             values+= "vote=val+("+ val + ")";
             String sql="update answers set " + values + " where id=" + id + "and questionId=" + questionId;
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
         }catch(Exception e){
             
         }finally{
@@ -177,7 +176,7 @@ public class AnswerWS {
             values+= "vote=val+("+ val + ")";
             String sql="update answers set " + values + " where id=" + id + "and questionId=" + questionId;
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
         }catch(Exception e){
             
         }finally{
@@ -201,7 +200,7 @@ public class AnswerWS {
             values+= "dateMade='"+ answer.getDateMade() +"',";
             String sql="update answers set " + values + " where id=" + id + "and questionId=" + questionId;
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
         }catch(Exception e){
             
         }finally{

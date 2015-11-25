@@ -17,6 +17,8 @@ import javax.xml.bind.annotation.*;
 public class Question {
     @XmlElement(name="id", required=true)
     private int id;
+    @XmlElement(name="userid", required=true)
+    private int userid;
     @XmlElement(name="name", required=true)
     private String name;
     @XmlElement(name="email", required=true)
@@ -32,12 +34,22 @@ public class Question {
     @XmlElement(name="answer", required=true)
     private int answer;
 
-    public Question(){
-        id = 0;
+    public Question(){}
+    
+    public Question(int userid, String name, String email, String topic, String content, Date dateMade, int vote, int answer){
+        this.userid = userid;
+        this.name = name;
+        this.email = email;
+        this.topic = topic;
+        this.content = content;
+        this.dateMade = dateMade;
+        this.vote = vote;
+        this.answer = answer;
     }
     
-    public Question(int id, String name, String email, String topic, String content, Date dateMade, int vote, int answer){
+    public Question(int id, int userid, String name, String email, String topic, String content, Date dateMade, int vote, int answer){
         this.id = id;
+        this.userid = userid;
         this.name = name;
         this.email = email;
         this.topic = topic;
@@ -54,6 +66,13 @@ public class Question {
         return id;
     }
 
+    /**
+     * @return the userid
+     */
+    public int getUserid() {
+        return userid;
+    }
+    
     /**
      * @return the name
      */

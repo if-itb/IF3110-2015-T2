@@ -37,11 +37,10 @@ public class UserWS {
             values+= user.getId() +",";
             values+= "'"+ user.getName() +"',";
             values+= "'"+ user.getEmail() +"',";
-            values+= "'"+ user.getToken() +"',";
-            values+= user.isValid() +")";
+            values+= "'"+ user.getPassword() +"')";
             String sql="insert into users values " + values;
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
         }catch(Exception e){
             
         }finally{
@@ -60,7 +59,7 @@ public class UserWS {
         try{
             String sql="delete from users where id=" + id;
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            ps.executeUpdate();
         }catch(Exception e){
             
         }finally{
@@ -82,7 +81,7 @@ public class UserWS {
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("token"), rs.getBoolean("valid"));
+                User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("password"));
                 users.add(user);
             }
             return users;
