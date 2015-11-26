@@ -41,18 +41,13 @@ public class DeleteController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         // Memperoleh user id berdasarkan token
-        if ((request.getParameter("token") != "not-valid") && (request.getParameter("token") != null)) {
-            int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
-            request.setAttribute("userId", 2);
-            if (userId > 0) {
-                boolean deleteQuestion = deleteQuestion(Integer.parseInt(request.getParameter("qid")));
-                
-                request.getServletContext().getRequestDispatcher("/IndexController?token="+request.getParameter("token")).forward(request, response);
-            } else {
-                request.getServletContext().getRequestDispatcher("/log-in.jsp").forward(request, response);
-            }
+        int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
+        if (userId > 0) {
+            boolean deleteQuestion = deleteQuestion(Integer.parseInt(request.getParameter("qid")));
+            
+            response.sendRedirect("IndexController?token="+request.getParameter("token"));
         } else {
-            request.getServletContext().getRequestDispatcher("/log-in.jsp").forward(request, response);
+            response.sendRedirect("log-in.jsp");
         }
     }
 

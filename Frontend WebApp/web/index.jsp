@@ -20,14 +20,20 @@ Author:
   </head>
   <body>
     <!-- Navigation Bar -->
+    <% if ((request.getParameter("token") == null) || (request.getParameter("token") == "not-valid")) { %>
     <ul class="nav-bar">
       <li><a href="log-in.jsp">Log in</a></li>
       <li><a href="register.jsp">Register</a></li>
     </ul>
+    <% } %>
       
     <!-- Title -->
     <div class="title">
-      <a href="IndexController?token=123abc">
+        <% if ((request.getParameter("token") == null) || (request.getParameter("token") == "not-valid")) { %>
+        <a href="IndexController">
+        <% } else { %>
+        <a href="IndexController?token=<%= request.getParameter("token") %>">
+        <% } %>
         StackExchange
       </a>
     </div>
@@ -41,7 +47,7 @@ Author:
         </form>
         <br>
         Cannot find what you are looking for? 
-        <a class="yellow" href="AskController?token=<%= request.getParameter("token") %>">
+        <a class="yellow" href="AskController?token=<%= request.getParameter("token") %>&name=ask">
           Ask here
         </a>
       </div>
@@ -69,7 +75,7 @@ Author:
           %>
           <div class="same-height-row border-bottom">
             <div class="vote-number">
-              3
+                <%= questions.get(i).getVoteNum() %>
               <br>
               Votes
             </div>
@@ -81,7 +87,7 @@ Author:
             <div class="right-position">
               <div class="answer-question-detail">
                 <!-- Question Topic & Content -->
-                <a href="QuestionDetailController?qid=<%= questions.get(i).getIdQuestion() %>">
+                <a href="QuestionDetailController?token=<%= request.getParameter("token") %>&qid=<%= questions.get(i).getIdQuestion() %>">
                   <div class="question-topic">
                     <%= questions.get(i).getTopic() %>
                   </div>
@@ -99,7 +105,7 @@ Author:
                       if (users[i].getIdUser() == (Integer)request.getAttribute("userId")) {
               %>
               |
-              <a class="yellow" href="EditController?token=<%= request.getParameter("token") %>&qid<%= questions.get(i).getIdQuestion() %>">
+              <a class="yellow" href="EditController?token=<%= request.getParameter("token") %>&qid<%= questions.get(i).getIdQuestion() %>&name=edit">
                   edit
               </a>
               |

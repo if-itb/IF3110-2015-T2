@@ -38,17 +38,18 @@ public class EditController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        // Memperoleh user id berdasarkan token
-        if ((request.getParameter("token") != "not-valid") && (request.getParameter("token") != null)) {
-            int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
-            request.setAttribute("userId", 2);
-            if (userId > 0) {
-                request.getServletContext().getRequestDispatcher("/ask-question.jsp").forward(request, response);
+        // Memvalidasi token
+        int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
+        if (userId > 0) {
+            if (request.getParameter("name") == null) {
+                
             } else {
-                request.getServletContext().getRequestDispatcher("/log-in.jsp").forward(request, response);
+                request.getServletContext().getRequestDispatcher("/ask-question.jsp").forward(request, response);
             }
+            request.setAttribute("userId", userId);
+            
         } else {
-            request.getServletContext().getRequestDispatcher("/log-in.jsp").forward(request, response);
+            response.sendRedirect("log-in.jsp");
         }
     }
 

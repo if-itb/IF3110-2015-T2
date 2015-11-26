@@ -68,10 +68,15 @@ public class IndexController extends HttpServlet {
     // Memperoleh user id berdasarkan token
     if ((request.getParameter("token") != "not-valid") && (request.getParameter("token") != null)) {
         int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
-        request.setAttribute("userId", 2);
+        if (userId > 0) {
+            request.setAttribute("userId", userId);
+            request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("log-in.jsp");
+        }
+    } else {
+        request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
-    
-    request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

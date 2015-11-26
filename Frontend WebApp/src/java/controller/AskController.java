@@ -5,6 +5,7 @@
  */
 package controller;
 
+import QuestionWS.QuestionWS_Service;
 import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +20,9 @@ import javax.xml.ws.WebServiceRef;
  * @author angelynz95
  */
 public class AskController extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/QuestionWS.wsdl")
+    private QuestionWS_Service service_1;
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/UserWS.wsdl")
     private UserWS_Service service;
@@ -39,14 +43,23 @@ public class AskController extends HttpServlet {
         // Memperoleh user id berdasarkan token
         if ((request.getParameter("token") != "not-valid") && (request.getParameter("token") != null)) {
             int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
-            request.setAttribute("userId", 2);
+            request.setAttribute("userId", userId);
             if (userId > 0) {
-                request.getServletContext().getRequestDispatcher("/ask-question.jsp").forward(request, response);
+                if (request.getAttribute("name") == null) {
+                    boolean addQuestion = addQuestion(request.getParameter("question-content"), request.getParameter("question-topic"), request.getParameter("token"));
+                    if (addQuestion) {
+                        response.sendRedirect("IndexController?token="+request.getParameter("token"));
+                    } else {
+                        response.sendRedirect("log-in.jsp");
+                    }
+                } else {
+                    request.getServletContext().getRequestDispatcher("/ask-question.jsp").forward(request, response);
+                }
             } else {
-                request.getServletContext().getRequestDispatcher("/log-in.jsp").forward(request, response);
+                response.sendRedirect("log-in.jsp");
             }
         } else {
-            request.getServletContext().getRequestDispatcher("/log-in.jsp").forward(request, response);
+            response.sendRedirect("log-in.jsp");
         }
     }
 
@@ -94,6 +107,13 @@ public class AskController extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         UserWS.UserWS port = service.getUserWSPort();
         return port.getUserByToken(token, urlString);
+    }
+
+    private boolean addQuestion(java.lang.String topic, java.lang.String content, java.lang.String token) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
+        return port.addQuestion(topic, content, token);
     }
 
 }

@@ -103,49 +103,59 @@ public class QuestionWS {
       }
     } catch (SQLException ex) {
       Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
-      questionAdded = false;
     }
     
     return questionAdded;
   }
   
   @WebMethod(operationName = "editQuestion")
-  public boolean editQuestion(@WebParam(name = "id_question") int idQuestion, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
+  public boolean editQuestion(@WebParam(name = "question-id") int idQuestion, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content, @WebParam(name = "token") String token) {
     //TODO write your implementation code here:
-    boolean questionEdited;
+    boolean questionEdited = false;
+    int userId = 0;
+    UserWS user = new UserWS();
     
     try {
       // Connect database
       Connection connection = database.connectDatabase();
       Statement statement = connection.createStatement();
       
-      // Menjalankan query
-      String query = "UPDATE question SET topic = ?, content = ? WHERE id_question = ?";
-      PreparedStatement databaseStatement = connection.prepareStatement(query);
-      databaseStatement.setString(1, topic);
-      databaseStatement.setString(2, content);
-      databaseStatement.setInt(3, idQuestion);
-      databaseStatement.executeUpdate();
+      // Memvalidasi token
+      userId = user.getUserIdByToken(token, "http://localhost:8082/Identity_Service/TokenController");
       
-      statement.close();
-      questionEdited = true;
+      if (userId > 0) {
+        // Menjalankan query
+        String query = "UPDATE question SET topic = ?, content = ? WHERE id_question = ?";
+        PreparedStatement databaseStatement = connection.prepareStatement(query);
+        databaseStatement.setString(1, topic);
+        databaseStatement.setString(2, content);
+        databaseStatement.setInt(3, idQuestion);
+        databaseStatement.executeUpdate();
+
+        statement.close();
+        questionEdited = true;
+      }
     } catch (SQLException ex) {
       Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
-      questionEdited = false;
     }
     
     return questionEdited;
   }
   
   @WebMethod(operationName = "deleteQuestion")
-  public boolean deleteQuestion(@WebParam(name = "id_question") int idQuestion) {
+  public boolean deleteQuestion(@WebParam(name = "id_question") int idQuestion, @WebParam(name = "token") String token) {
     //TODO write your implementation code here:
-    boolean questionDeleted;
+    boolean questionDeleted = false;
+    int userId = 0;
+    UserWS user = new UserWS();
     
     try {
       // Connect database
       Connection connection = database.connectDatabase();
       Statement statement = connection.createStatement();
+      
+      // Memvalidasi token
+      userId = user.getUserIdByToken(token, "http://localhost:8082/Identity_Service/TokenController");
       
       // Menjalankan query
       String query1 = "DELETE FROM question WHERE id_question = ?";
@@ -161,7 +171,6 @@ public class QuestionWS {
       questionDeleted = true;
     } catch (SQLException ex) {
       Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
-      questionDeleted = false;
     }
     
     return questionDeleted;
