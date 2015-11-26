@@ -68,7 +68,7 @@ public class AnswerWS {
       // Request User ke Identity Service
       String urlString = "http://localhost:8082/Identity_Service/TokenController";
       userId = u.getUserIdByToken(token,urlString);
-      if (userId != -9999) {
+      if (userId > 0) {
         String sql;
         sql = "INSERT INTO answer (id_question, id_user, content) VALUES (?,?,?)";
         PreparedStatement dbStatement = conn.prepareStatement(sql);
@@ -159,6 +159,4 @@ public class AnswerWS {
     }
     return isVoted;
   }
-  
-  
 }

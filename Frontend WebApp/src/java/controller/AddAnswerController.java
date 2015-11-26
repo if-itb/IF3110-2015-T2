@@ -38,12 +38,7 @@ public class AddAnswerController extends HttpServlet {
     String token = request.getParameter("token");
     String answerContent = request.getParameter("answer-content");
     boolean valid = addAnswer(questionId, token, answerContent);
-    
-    if (valid) {
-      response.sendRedirect("question-detail.jsp?qid="+questionId);
-    } else {
-      response.sendRedirect("question-detail.jsp?valid="+valid);
-    }
+    response.sendRedirect("QuestionDetailController?token=" + token + "&qid="+questionId);
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -91,5 +86,4 @@ public class AddAnswerController extends HttpServlet {
     AnswerWS.AnswerWS port = service.getAnswerWSPort();
     return port.addAnswer(qid, token, content);
   }
-
 }

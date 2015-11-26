@@ -72,11 +72,11 @@ Author:
                     if (u1.getIdUser() == (Integer)request.getAttribute("userId")) {
             %>
             |
-            <a class="yellow" href="ask-question.jsp">
+            <a class="yellow" href="EditController?token=<%= request.getParameter("token") %>&qid=<%= questions.get(i).getIdQuestion() %>&name=edit">
               edit
             </a>
             |
-            <a class="red" href="index.jsp" onclick="return confirm('Do you want to delete this post?')">
+            <a class="red" href="DeleteController?token=<%= request.getParameter("token") %>&qid=<%= questions.get(i).getIdQuestion() %>" " onclick="return confirm('Do you want to delete this post?')">
               delete
               <%
                         }
@@ -109,22 +109,22 @@ Author:
         </div>
 
         <!-- Answers -->
+        <%
+          List<AnswerWS.Answer> answers = new ArrayList<AnswerWS.Answer>();
+          List<UserWS.User> u2 = new ArrayList<UserWS.User>();
+          if ((request.getAttribute("answers") != null) && (request.getAttribute("u2") != null)) {
+            answers = (ArrayList<AnswerWS.Answer>)request.getAttribute("answers");
+            u2 = (ArrayList<UserWS.User>)request.getAttribute("u2");
+            if (answers.size() > 0) {
+              for (int i = 0; i < answers.size(); i++) {
+        %>
         <div class="same-height-row border-bottom">
-          <%
-            List<AnswerWS.Answer> answers = new ArrayList<AnswerWS.Answer>();
-            List<UserWS.User> u2 = new ArrayList<UserWS.User>();
-            if ((request.getAttribute("answers") != null) && (request.getAttribute("u2") != null)) {
-              answers = (ArrayList<AnswerWS.Answer>)request.getAttribute("answers");
-              u2 = (ArrayList<UserWS.User>)request.getAttribute("u2");
-              if (answers.size() > 0) {
-                for (int i = 0; i < answers.size(); i++) {
-          %>
           <div class="vote-number">
-              <a href = 'VoteController?name=answer-up&qid=<%= questions.get(i).getIdQuestion()%>&aid=<%= answers.get(i).getIdAnswer()%>&token=<%= request.getParameter("token") %>'><img class="small-icon" src="img/up.png" onclick=""/><br></a>
+              <a href = 'VoteController?name=answer-up&qid=<%= request.getParameter("qid") %>&aid=<%= answers.get(i).getIdAnswer()%>&token=<%= request.getParameter("token") %>'><img class="small-icon" src="img/up.png" onclick=""/><br></a>
             <div class="big-number" id="answer-1">
                 <%= answers.get(i).getVoteNum() %>
             </div>
-              <a href = 'VoteController?name=answer-down&qid=<%= questions.get(i).getIdQuestion()%>&aid=<%= answers.get(i).getIdAnswer()%>&token=<%= request.getParameter("token") %>'><img class="small-icon" src="img/down.png" name="answer-up"/><br></a>
+              <a href = 'VoteController?name=answer-down&qid=<%= request.getParameter("qid") %>&aid=<%= answers.get(i).getIdAnswer()%>&token=<%= request.getParameter("token") %>'><img class="small-icon" src="img/down.png" name="answer-up"/><br></a>
           </div>
           <!-- Answers Content -->
           <div class="right-position">
@@ -150,7 +150,6 @@ Author:
               }
             }
         %>
-        
       </div>
 
       <!-- Answer Form -->

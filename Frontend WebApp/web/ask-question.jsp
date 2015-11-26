@@ -27,7 +27,7 @@ Author:
       <div class="subtitle">
         What's your question?
       </div>
-      <% if (request.getParameter("name") == "ask") { %>
+      <% if (request.getParameter("qid") == null) { %>
       <form class="right" id="question-form" action="AskController?token=<%= request.getParameter("token") %>" method="post" onsubmit="return answerFormValidation()">
       <% } else { %>
       <form class="right" id="question-form" action="EditController?token=<%= request.getParameter("token") %>&qid=<%= request.getParameter("qid") %>" method="post" onsubmit="return answerFormValidation()">

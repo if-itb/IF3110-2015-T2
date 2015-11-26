@@ -109,11 +109,11 @@ Author:
                       if (users[i].getIdUser() == (Integer)request.getAttribute("userId")) {
               %>
               |
-              <a class="yellow" href="EditController?token=<%= request.getParameter("token") %>&qid<%= questions.get(i).getIdQuestion() %>&name=edit">
+              <a class="yellow" href="EditController?token=<%= request.getParameter("token") %>&qid=<%= questions.get(i).getIdQuestion() %>&name=edit">
                   edit
               </a>
               |
-              <a class="red" href="DeleteController?token=<%= request.getParameter("token") %>&qid<%= questions.get(i).getIdQuestion() %>" onclick="return confirm('Do you want to delete this post?')">
+              <a class="red" href="DeleteController?token=<%= request.getParameter("token") %>&qid=<%= questions.get(i).getIdQuestion() %>" onclick="return confirm('Do you want to delete this post?')">
                 delete
                 <%
                         }

@@ -56,11 +56,11 @@ public class QuestionDetailController extends HttpServlet {
       }
       int count = getCountAnswerByQId(id);
       
-    // Memperoleh user id berdasarkan token
-    if (request.getParameter("token") != null) {
-        int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
-        request.setAttribute("userId", userId);
-    }
+      // Memperoleh user id berdasarkan token
+      if (request.getParameter("token") != null) {
+          int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
+          request.setAttribute("userId", userId);
+      }
       
       request.setAttribute("questions", questions);
       request.setAttribute("u1", u1);
@@ -151,7 +151,5 @@ public class QuestionDetailController extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         UserWS.UserWS port = service_2.getUserWSPort();
         return port.getUserByToken(token, urlString);
-    }
-    
-    
+    }    
 }

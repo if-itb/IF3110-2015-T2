@@ -47,10 +47,7 @@ public class FrontEndTokenController extends HttpServlet {
       JSONObject obj = new JSONObject();
       TokenExecutor executor = new TokenExecutor(email, password);
       obj.put("access_token", executor.getToken().getAccessToken());
-      obj.put("lifetime", executor.getToken().getLifetime());
-      obj.put("id_user", executor.getIdUser());
       out.print(obj);
-
       out.close();
     }
   }

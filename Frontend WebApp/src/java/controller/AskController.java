@@ -45,21 +45,21 @@ public class AskController extends HttpServlet {
             int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
             request.setAttribute("userId", userId);
             if (userId > 0) {
-                if (request.getAttribute("name") == null) {
-                    boolean addQuestion = addQuestion(request.getParameter("question-content"), request.getParameter("question-topic"), request.getParameter("token"));
+                if (request.getParameter("name") == null) {
+                    boolean addQuestion = addQuestion(request.getParameter("question-topic"), request.getParameter("question-content"), request.getParameter("token"));
                     if (addQuestion) {
                         response.sendRedirect("IndexController?token="+request.getParameter("token"));
                     } else {
-                        response.sendRedirect("log-in.jsp");
+                        response.sendRedirect("log-in.jsp?id=3");
                     }
                 } else {
                     request.getServletContext().getRequestDispatcher("/ask-question.jsp").forward(request, response);
                 }
             } else {
-                response.sendRedirect("log-in.jsp");
+                response.sendRedirect("log-in.jsp?id=2");
             }
         } else {
-            response.sendRedirect("log-in.jsp");
+            response.sendRedirect("log-in.jsp?id=1");
         }
     }
 

@@ -48,7 +48,7 @@ public class EditController extends HttpServlet {
               boolean editQuestion = editQuestion(Integer.parseInt(request.getParameter("qid")), request.getParameter("question-topic"), request.getParameter("question-content"), request.getParameter("token"));
               
               if (editQuestion) {
-                response.sendRedirect("QuestionDetailController?qid="+request.getParameter("qid"));
+                response.sendRedirect("QuestionDetailController?token="+request.getParameter("token")+"&qid="+request.getParameter("qid"));
               } else {
                 response.sendRedirect("log-in.jsp");
               }
