@@ -409,6 +409,7 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "getEmail")
     public String getEmail(@WebParam(name = "token") String token) {
+        return null;
         
     }
 

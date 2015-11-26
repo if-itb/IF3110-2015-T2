@@ -56,6 +56,6 @@
                 <%-- end web service invocation --%><hr/>
 
             </div>
-        </div<
+        </div>
     </body>
 </html>
