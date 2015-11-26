@@ -14,7 +14,6 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
-import model.Question;
 import model.User;
 
 /**
@@ -30,7 +29,7 @@ public class UserWS {
      * Web service operation
      */
     @WebMethod(operationName = "register")
-    public Integer register(@WebParam(name = "email") String email, @WebParam(name = "name") String name, @WebParam(name = "password") String password) {
+    public Integer register(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
         try {
             String selectQuery = "SELECT * FROM user WHERE email = ?";
             
@@ -63,11 +62,27 @@ public class UserWS {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "getUser")
-    @WebResult(name="Question")
-    public Question getUser(@WebParam(name = "u_id") int u_id) {
-        Question user = new Question();
-                
+    @WebMethod(operationName = "getUserClass")
+    @WebResult(name="User")
+    public User getUserClass(@WebParam(name = "u_id") int u_id) {
+        User user = new User();
+        try {
+            String selectQuery = "SELECT * FROM user WHERE u_id = ?";
+            PreparedStatement select = conn.prepareStatement(selectQuery);
+            select.setInt(1, u_id);
+            ResultSet result = select.executeQuery();
+
+            if(result.next()){
+                user = new User(
+                    result.getInt("u_id"),
+                    result.getString("name"),
+                    result.getString("email"),
+                    result.getString("password"));
+            }
+        } catch (SQLException e) {
+            //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
+            e.printStackTrace();          
+        }        
         return user;
     }
 }

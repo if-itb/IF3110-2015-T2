@@ -5,6 +5,7 @@
 /StackExchange WebService/build/
 /StackExchange Client/dist/
 /StackExchange WebService/dist/
+StackExchange Client/nbproject/build-impl.xml
 StackExchange Client/nbproject/private/private.properties
 StackExchange Client/nbproject/private/private.properties
 StackExchange Client/nbproject/private/private.properties
