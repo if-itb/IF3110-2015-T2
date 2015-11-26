@@ -32,7 +32,6 @@
             <div class="container">
                 <%-- start web service invocation --%><hr/>
                 <%
-                    String token = null;
                     /*Cookie cookies[] = request.getCookies();
                      if (cookies != null) {
                      out.println(cookies.length);

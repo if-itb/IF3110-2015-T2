@@ -75,9 +75,9 @@
                                     out.println("<div class='columnsmall left'> <p>" + result.get(i).getAnswers()
                                             + "</p> <p>Answers</p></div>");
                                     if (result.get(i).getQuestion().length() > 30) {
-                                        out.println("<div class='columnlarge center'><a href='answer.jsp?id=" + result.get(i).getQuestionID() + "'><h4>" + result.get(i).getTopic() + "</h4></a><p>" + result.get(i).getQuestion().substring(0, 30) + ". . .</p></div>");
+                                        out.println("<div class='columnlarge center'><a href='answer.jsp?id=" + result.get(i).getQuestionID() + "&token=" + token +"'><h4>" + result.get(i).getTopic() + "</h4></a><p>" + result.get(i).getQuestion().substring(0, 30) + ". . .</p></div>");
                                     } else {
-                                        out.println("<div class='columnlarge center'><a href='answer.jsp?id=" + result.get(i).getQuestionID() + "'><h4>" + result.get(i).getTopic() + "</h4></a><p>" + result.get(i).getQuestion() + "</p></div>");
+                                        out.println("<div class='columnlarge center'><a href='answer.jsp?id=" + result.get(i).getQuestionID() + "&token=" + token + "'><h4>" + result.get(i).getTopic() + "</h4></a><p>" + result.get(i).getQuestion() + "</p></div>");
                                     }
                                     out.println("<div class='columnlarge right'>'<p>asked by <span class='name'>"
                                             + result.get(i).getName() + "</span>|<a class='edit' href='question.jsp?id="
@@ -101,9 +101,9 @@
                                     out.println("<div class='columnsmall left'> <p>" + result.get(i).getAnswers()
                                             + "</p> <p>Answers</p></div>");
                                     if (result.get(i).getQuestion().length() > 30) {
-                                        out.println("<div class='columnlarge center'><a href='answer.jsp?id=" + result.get(i).getQuestionID() + "'><h4>" + result.get(i).getTopic() + "</h4></a><p>" + result.get(i).getQuestion().substring(0, 30) + ". . .</p></div>");
+                                        out.println("<div class='columnlarge center'><a href='answer.jsp?id=" + result.get(i).getQuestionID() + "&token=" + token + "'><h4>" + result.get(i).getTopic() + "</h4></a><p>" + result.get(i).getQuestion().substring(0, 30) + ". . .</p></div>");
                                     } else {
-                                        out.println("<div class='columnlarge center'><a href='answer.jsp?id=" + result.get(i).getQuestionID() + "'><h4>" + result.get(i).getTopic() + "</h4></a><p>" + result.get(i).getQuestion() + "</p></div>");
+                                        out.println("<div class='columnlarge center'><a href='answer.jsp?id=" + result.get(i).getQuestionID() + "&token=" + token + "'><h4>" + result.get(i).getTopic() + "</h4></a><p>" + result.get(i).getQuestion() + "</p></div>");
                                     }
                                     out.println("<div class='columnlarge right'>'<p>asked by <span class='name'>"
                                             + result.get(i).getName() + "</span>|<a class='edit' href='question.jsp?id="
