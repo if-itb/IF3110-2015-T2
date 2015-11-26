@@ -9,6 +9,9 @@ import AnswerWS.AnswerWS_Service;
 import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -55,13 +58,9 @@ public class VoteController extends HttpServlet {
             else {
                 q_id = devoteAnswer(id,1);
             }
+            id = Integer.parseInt(request.getParameter("q_id"));
         }
-        if(!q_id.equals("null")) {
-            response.sendRedirect("question?q_id=" + id);
-        }
-        else {
-            // message
-        }
+        response.sendRedirect("question?q_id="+id);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

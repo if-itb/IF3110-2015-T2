@@ -3,23 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/Users/vanyadeasysafrina/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/web/question.jsp</file>
             <file>file:/Users/vanyadeasysafrina/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/web/home.jsp</file>
             <file>file:/Users/vanyadeasysafrina/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/src/java/controllers/VoteController.java</file>
-            <file>file:/Users/vanyadeasysafrina/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/src/java/controllers/AskController.java</file>
-=======
-            <file>file:/C:/Users/Tifani/Documents/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/src/java/controllers/RegisterController.java</file>
-            <file>file:/C:/Users/Tifani/Documents/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/src/java/controllers/EditController.java</file>
-            <file>file:/C:/Users/Tifani/Documents/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/web/question.jsp</file>
-            <file>file:/C:/Users/Tifani/Documents/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Tifani/Documents/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/src/java/controllers/QuestionDetailController.java</file>
-            <file>file:/C:/Users/Tifani/Documents/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/web/home.jsp</file>
-            <file>file:/C:/Users/Tifani/Documents/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/web/edit.jsp</file>
-            <file>file:/C:/Users/Tifani/Documents/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/web/views/header.jsp</file>
-            <file>file:/C:/Users/Tifani/Documents/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/web/ask.jsp</file>
-            <file>file:/C:/Users/Tifani/Documents/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/src/java/controllers/AskController.java</file>
->>>>>>> origin/master
+            <file>file:/Users/vanyadeasysafrina/NetBeansProjects/IF3110-2015-T2/StackExchange%20Client/web/search.jsp</file>
         </group>
     </open-files>
 </project-private>

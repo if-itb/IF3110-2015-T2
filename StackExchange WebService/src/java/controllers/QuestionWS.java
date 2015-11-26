@@ -39,7 +39,6 @@ public class QuestionWS {
     @WebMethod(operationName = "getAllQuestions")
     @WebResult(name="Question")
     public ArrayList<Question> getAllQuestions() {
-        //TODO write your implementation code here:
         ArrayList<Question> questions = new ArrayList<Question>();
         try {
             Statement stmt = conn.createStatement();
@@ -279,6 +278,41 @@ public class QuestionWS {
         }
         return q_id;
     }
-    
-    
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "searchQuestion")
+    public ArrayList<Question> searchQuestion(@WebParam(name = "keyword") String keyword) {
+        ArrayList<Question> questions = new ArrayList<Question>();
+        try {
+            Statement stmt = conn.createStatement();
+            String key = "%"+keyword+"%"; 
+            String sql = "SELECT * FROM question natural join user WHERE topic like ? or content like ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1, key);
+            dbStatement.setString(2, key);
+            ResultSet rs = dbStatement.executeQuery();
+            /* Get data */
+            while (rs.next()) {
+                //int qId, int uId, String email, String name, String topic, String content, int vote, int answer, String dateCreated, String dateEdited
+                questions.add(new Question (
+                    rs.getInt("q_id"),
+                    rs.getInt("u_id"),
+                    rs.getString("email"),
+                    rs.getString("name"),
+                    rs.getString("topic"),
+                    rs.getString("content"),
+                    rs.getInt("vote"),
+                    getCountAnswer(rs.getInt("q_id")),
+                    rs.getString("date_created"),
+                    rs.getString("date_edited")));
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return questions;
+    }
 }

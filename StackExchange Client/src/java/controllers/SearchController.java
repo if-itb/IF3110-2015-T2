@@ -5,10 +5,9 @@
  */
 package controllers;
 
-import AnswerWS.AnswerWS_Service;
-import QuestionWS.Question;
 import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,13 +17,11 @@ import javax.xml.ws.WebServiceRef;
 
 /**
  *
- * @author Tifani
+ * @author vanyadeasysafrina
  */
-public class QuestionDetailController extends HttpServlet {
+public class SearchController extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WebService/QuestionWS.wsdl")
-    private QuestionWS_Service service_1;
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WebService/AnswerWS.wsdl")
-    private AnswerWS_Service service;
+    private QuestionWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,13 +35,18 @@ public class QuestionDetailController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int qId = Integer.parseInt(request.getParameter("q_id"));
-        QuestionWS.Question question = getQuestion(qId);
-        java.util.List<AnswerWS.Answer> answers = getAnswerByQId(qId);
-        request.setAttribute("question", question);
-        request.setAttribute("answers", answers);
-        RequestDispatcher rd = request.getRequestDispatcher("question.jsp");
-        rd.forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet SearchController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet SearchController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,12 +62,9 @@ public class QuestionDetailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int qId = Integer.parseInt(request.getParameter("q_id"));
-        QuestionWS.Question question = getQuestion(qId);
-        java.util.List<AnswerWS.Answer> answers = getAnswerByQId(qId);
-        request.setAttribute("question", question);
-        request.setAttribute("answers", answers);
-        RequestDispatcher rd = request.getRequestDispatcher("question.jsp");
+        java.util.List<QuestionWS.Question> questions = searchQuestion(request.getParameter("keyword"));
+        request.setAttribute("questions", questions);
+        RequestDispatcher rd = request.getRequestDispatcher("search.jsp?keyword="+request.getParameter("keyword"));
         rd.forward(request, response);
     }
 
@@ -80,14 +79,7 @@ public class QuestionDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        int qId = Integer.parseInt(request.getParameter("q_id"));
-        QuestionWS.Question question = getQuestion(qId);
-        java.util.List<AnswerWS.Answer> answers = getAnswerByQId(qId);
-        request.setAttribute("question", question);
-        request.setAttribute("answers", answers);
-        RequestDispatcher rd = request.getRequestDispatcher("question.jsp");
-        rd.forward(request, response);
+        processRequest(request,response);
     }
 
     /**
@@ -99,21 +91,12 @@ public class QuestionDetailController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-   
 
-    private java.util.List<AnswerWS.Answer> getAnswerByQId(int qId) {
+    private java.util.List<QuestionWS.Question> searchQuestion(java.lang.String keyword) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        AnswerWS.AnswerWS port = service.getAnswerWSPort();
-        return port.getAnswerByQId(qId);
-    }
-
-    private Question getQuestion(int qId) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
-        return port.getQuestion(qId);
+        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        return port.searchQuestion(keyword);
     }
 
 }

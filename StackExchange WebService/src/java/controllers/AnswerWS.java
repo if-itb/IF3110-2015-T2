@@ -91,7 +91,6 @@ public class AnswerWS {
     public String voteAnswer(@WebParam(name = "a_id") int a_id, @WebParam(name = "u_id") int u_id) {
         String vote = "null";
         try {
-            Statement stmt = conn.createStatement();
             String sql = "SELECT vote FROM vote_answer WHERE a_id="+a_id+" and u_id="+u_id;
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             ResultSet rs = dbStatement.executeQuery();
@@ -121,12 +120,11 @@ public class AnswerWS {
             while (rs.next()) {
                 vote = Integer.toString(rs.getInt("vote"));
             }
-            stmt.close();
         } catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
             return "null";
-        }
+        } 
         return vote;
     }
 
@@ -137,7 +135,6 @@ public class AnswerWS {
     public String devoteAnswer(@WebParam(name = "a_id") int a_id, @WebParam(name = "u_id") int u_id) {
         String vote = "null";
         try {
-            Statement stmt = conn.createStatement();
             String sql = "SELECT vote FROM vote_answer WHERE a_id="+a_id+" and u_id="+u_id;
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             ResultSet rs = dbStatement.executeQuery();
@@ -167,7 +164,8 @@ public class AnswerWS {
             while (rs.next()) {
                 vote = Integer.toString(rs.getInt("vote"));
             }
-            stmt.close();
+            rs.close();
+            dbStatement.closeOnCompletion();
         } catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
