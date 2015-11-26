@@ -9,6 +9,7 @@ import database.Database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebMethod;
@@ -75,6 +76,36 @@ public class QuestionWebService {
             );
             rs.close();
             return question;
+        } catch (SQLException ex) {
+            Logger.getLogger(AnswerWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        database.closeDatabase();
+        return null;
+    }
+    
+    @WebMethod(operationName = "searchQuestion")
+    @WebResult(name="Question")
+    public List<Question> searchQuestion(String key) {
+        Question question;
+        List<Question> result = new ArrayList<Question>();
+        String query = "SELECT * FROM question WHERE content = LIKE %" + key + "%;";
+        Database database = new Database();
+        database.connect(path);
+        ResultSet rs = database.fetchData(query);
+        try {
+            while(rs.next()) {
+                question = new Question(rs.getInt("question_id"), 
+                    rs.getString("asker_name"), 
+                    rs.getString("asker_email"),
+                    rs.getString("question_topic"), 
+                    rs.getString("question_content"), 
+                    rs.getInt("question_vote"),
+                    rs.getInt("user_id")
+                );
+                result.add(question);
+            }
+            rs.close();
+            return result;
         } catch (SQLException ex) {
             Logger.getLogger(AnswerWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
