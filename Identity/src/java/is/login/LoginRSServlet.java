@@ -70,7 +70,7 @@ public class LoginRSServlet extends HttpServlet {
                 
                 out.println(token);
 
-                sql = "INSERT INTO sessions (Email, AccessToken,StartDate) VALUES (?,?,NOW())";
+                sql = "INSERT INTO sessions (Email, AccessToken,ExpiredDate) VALUES (?,?,NOW()+INTERVAL 5 MINUTE)";
                 dbStatement = conn.prepareStatement(sql);
                 dbStatement.setString(1, request.getParameter("email"));
                 dbStatement.setString(2, token);
