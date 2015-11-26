@@ -69,7 +69,7 @@
                   <label for="password">Password</label>
                 </div>
               </div>
-              <button class="button-post btn waves-effect waves-light" type="submit" name="action">login
+              <button id = "button-post" class="btn waves-effect waves-light" type="submit" name="action">login
                 <i class="material-icons right">send</i>
             </button>
             </form>
@@ -139,7 +139,7 @@
         <script>
             $(document).ready(function(){
                 var url = "http://localhost:8082/StackExchange_IS/rest/token";
-                $('.button-post').click(function(e){
+                $('#button-post').click(function(e){
                     e.preventDefault();
                     var data = $('#loginForm').serialize();
                     console.log(data);
