@@ -12,17 +12,16 @@
 	answermodel.AnswerWS port = service.getAnswerWSPort();
 	 // TODO initialize WS operation arguments here
 	int qid = Integer.parseInt(request.getParameter("id"));
-	java.lang.String name = request.getParameter("name");
-	java.lang.String email = request.getParameter("email");
+	java.lang.String token = request.getParameter("token");
 	java.lang.String content = request.getParameter("content");
 	// TODO process result here
-	int result = port.insertAnswer(qid, name, email, content);
+	int result = port.insertAnswer(qid, token, content);
 	out.println("Result = "+result);
     } catch (Exception ex) {
 	// TODO handle custom exceptions here
     }
     
-    String site = "answer.jsp?id="+Integer.parseInt(request.getParameter("id"));
+    String site = "answer.jsp?id="+request.getParameter("id")+"&token="+request.getParameter("token");
     response.setStatus(response.SC_MOVED_TEMPORARILY);
     response.setHeader("Location", site);
     %>

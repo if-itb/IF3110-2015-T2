@@ -4,18 +4,6 @@
 <xsd:import namespace="http://AnswerModel/" schemaLocation="http://localhost:8002/WS/AnswerWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getAnswerbyQID">
-<part name="parameters" element="tns:getAnswerbyQID"/>
-</message>
-<message name="getAnswerbyQIDResponse">
-<part name="parameters" element="tns:getAnswerbyQIDResponse"/>
-</message>
-<message name="upAnswer">
-<part name="parameters" element="tns:upAnswer"/>
-</message>
-<message name="upAnswerResponse">
-<part name="parameters" element="tns:upAnswerResponse"/>
-</message>
 <message name="downAnswer">
 <part name="parameters" element="tns:downAnswer"/>
 </message>
@@ -28,15 +16,19 @@
 <message name="InsertAnswerResponse">
 <part name="parameters" element="tns:InsertAnswerResponse"/>
 </message>
+<message name="getAnswerbyQID">
+<part name="parameters" element="tns:getAnswerbyQID"/>
+</message>
+<message name="getAnswerbyQIDResponse">
+<part name="parameters" element="tns:getAnswerbyQIDResponse"/>
+</message>
+<message name="upAnswer">
+<part name="parameters" element="tns:upAnswer"/>
+</message>
+<message name="upAnswerResponse">
+<part name="parameters" element="tns:upAnswerResponse"/>
+</message>
 <portType name="AnswerWS">
-<operation name="getAnswerbyQID">
-<input wsam:Action="http://AnswerModel/AnswerWS/getAnswerbyQIDRequest" message="tns:getAnswerbyQID"/>
-<output wsam:Action="http://AnswerModel/AnswerWS/getAnswerbyQIDResponse" message="tns:getAnswerbyQIDResponse"/>
-</operation>
-<operation name="upAnswer">
-<input wsam:Action="http://AnswerModel/AnswerWS/upAnswerRequest" message="tns:upAnswer"/>
-<output wsam:Action="http://AnswerModel/AnswerWS/upAnswerResponse" message="tns:upAnswerResponse"/>
-</operation>
 <operation name="downAnswer">
 <input wsam:Action="http://AnswerModel/AnswerWS/downAnswerRequest" message="tns:downAnswer"/>
 <output wsam:Action="http://AnswerModel/AnswerWS/downAnswerResponse" message="tns:downAnswerResponse"/>
@@ -45,27 +37,17 @@
 <input wsam:Action="http://AnswerModel/AnswerWS/InsertAnswerRequest" message="tns:InsertAnswer"/>
 <output wsam:Action="http://AnswerModel/AnswerWS/InsertAnswerResponse" message="tns:InsertAnswerResponse"/>
 </operation>
+<operation name="getAnswerbyQID">
+<input wsam:Action="http://AnswerModel/AnswerWS/getAnswerbyQIDRequest" message="tns:getAnswerbyQID"/>
+<output wsam:Action="http://AnswerModel/AnswerWS/getAnswerbyQIDResponse" message="tns:getAnswerbyQIDResponse"/>
+</operation>
+<operation name="upAnswer">
+<input wsam:Action="http://AnswerModel/AnswerWS/upAnswerRequest" message="tns:upAnswer"/>
+<output wsam:Action="http://AnswerModel/AnswerWS/upAnswerResponse" message="tns:upAnswerResponse"/>
+</operation>
 </portType>
 <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getAnswerbyQID">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="upAnswer">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="downAnswer">
 <soap:operation soapAction=""/>
 <input>
@@ -76,6 +58,24 @@
 </output>
 </operation>
 <operation name="InsertAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getAnswerbyQID">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="upAnswer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

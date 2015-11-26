@@ -9,7 +9,7 @@
 <%@page import="java.io.IOException"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-   
+   String token=request.getParameter("token");
     try {
 	questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();
 	questionmodel.QuestionWS port = service.getQuestionWSPort();
@@ -22,7 +22,7 @@
 	// TODO handle custom exceptions here
     }
     
-    String site = "index1.jsp" ;
+    String site = "index1.jsp?token=" + token;
     response.setStatus(response.SC_MOVED_TEMPORARILY);
     response.setHeader("Location", site); 
 %>

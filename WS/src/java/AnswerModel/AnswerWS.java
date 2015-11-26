@@ -69,7 +69,7 @@ public class AnswerWS {
             Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
         }
         return answers;
-    }
+    }   
     
     /**
      * Web service operation up vote an answer
@@ -233,7 +233,7 @@ public class AnswerWS {
      */
     @WebMethod(operationName = "InsertAnswer")
      @WebResult(name = "Answer")
-    public int InsertAnswer(@WebParam(name = "qid") int qid ,@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "content") String content) {
+    public int InsertAnswer(@WebParam(name = "qid") int qid ,@WebParam(name = "token") String token, @WebParam(name = "content") String content) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
@@ -243,8 +243,9 @@ public class AnswerWS {
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, qid);
             dbStatement.setString(2, content);
-            dbStatement.setString(3, name);
-            dbStatement.setString(4, email);
+            Auth auth=new Auth();
+            dbStatement.setString(3, auth.getName(token));
+            dbStatement.setString(4, auth.getEmail(token));
             dbStatement.executeUpdate();
             /* Get every data returned by SQL query */
 

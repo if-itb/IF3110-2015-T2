@@ -47,18 +47,20 @@ public class AuthRSServlet extends HttpServlet {
         String currentEmail = null;
         Timestamp exp = null;
         String Name = null;
-        try {
-            StringBuffer jb = new StringBuffer();
+        StringBuffer jb = new StringBuffer();
             String line = null;
             try {
                 BufferedReader reader = request.getReader();
                 while ((line = reader.readLine()) != null)
                     jb.append(line);
             } catch (Exception e) {}
+            //System.out.println(jb.toString());
+        try {
             
             JSONParser parser = new JSONParser();
             
-            JSONObject obj = (JSONObject) parser.parse(line);
+            Object tempObj = parser.parse(jb.toString());
+            JSONObject obj = (JSONObject) tempObj;
             String token = (String) obj.get("access_token");
             
             response.setContentType("application/json;charset=UTF-8");
@@ -85,16 +87,17 @@ public class AuthRSServlet extends HttpServlet {
             dbStatement.setString(1, currentEmail);
             ResultSet rsName = dbStatement.executeQuery();
             if(rsName.next()) {
-                Name = rsEmail.getString("Name");
+                Name = rsName.getString("Name");
             }
             PrintWriter out = response.getWriter();
             JSONObject objOut = new JSONObject();
             objOut.put("name", Name);
             objOut.put("email", currentEmail);
-            objOut.put("expireddate", exp);
+            objOut.put("expireddate", exp.toString());
             out.println(objOut);
             
         } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(AuthRSServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(AuthRSServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

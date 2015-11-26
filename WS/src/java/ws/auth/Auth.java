@@ -43,6 +43,7 @@ public class Auth {
             outstream = new DataOutputStream(urlConn.getOutputStream());
             JSONObject obj = new JSONObject();
             obj.put("access_token", token);
+            
             outstream.writeBytes(obj.toString());
             outstream.flush();
             outstream.close();
@@ -51,11 +52,11 @@ public class Auth {
             
             String resLine = "";
             String in = resReader.readLine();
+            
             while (in != null) {
                 resLine += in;
                 in = resReader.readLine();
             }
-            
             JSONObject objResponse = new JSONObject(resLine);
             currentEmail = objResponse.getString("email");
             
