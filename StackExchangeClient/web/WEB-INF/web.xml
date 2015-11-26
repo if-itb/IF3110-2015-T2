@@ -36,6 +36,10 @@
         <servlet-name>saveeditedquestion</servlet-name>
         <servlet-class>Servlet.saveeditedquestion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>deletequestion</servlet-name>
+        <servlet-class>Servlet.deletequestion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>viewpost</servlet-name>
         <url-pattern>/viewpost</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>saveeditedquestion</servlet-name>
         <url-pattern>/saveeditedquestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deletequestion</servlet-name>
+        <url-pattern>/deletequestion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

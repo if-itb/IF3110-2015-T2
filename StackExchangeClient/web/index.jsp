@@ -68,7 +68,11 @@
                                                     <c:param name="id" value="${question.idQuestion}"/>
                                                 </c:url>">edit
                                         </a> | 
-                                        delete
+                                        <a href="<c:url value="/deletequestion" >
+                                                    <c:param name="id" value="${question.idQuestion}"/>
+                                                </c:url>"
+                                           onclick="return confirm('Are you sure you want to delete this item?')">delete
+                                        </a>
                                     </p>
                                 </c:when>
                                 <c:otherwise>
