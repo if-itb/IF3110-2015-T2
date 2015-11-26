@@ -12,13 +12,21 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/addQuestion.jsp</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/index.jsp</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/login.jsp</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/answer.jsp</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/register.jsp</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/editQuestion.jsp</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/IF3110-2015-T2/Front-End/web/about.jsp</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/src/java/org/stackexchange/controller/EditQuestionServlet.java</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/web/about.jsp</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/src/java/org/stackexchange/controller/CreateQuestionServlet.java</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/web/login.jsp</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/src/java/org/stackexchange/controller/IndexServlet.java</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/src/java/org/stackexchange/controller/RegisterServlet.java</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/web/index.jsp</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/src/java/org/stackexchange/controller/CreateAnswerServlet.java</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/web/editQuestion.jsp</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/web/register.jsp</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/web/answer.jsp</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/web/WEB-INF/web.xml</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/src/java/org/stackexchange/controller/SubmitEditServlet.java</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/web/addQuestion.jsp</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/src/java/org/stackexchange/controller/DeleteServlet.java</file>
         </group>
     </open-files>
 </project-private>

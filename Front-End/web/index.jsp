@@ -92,6 +92,9 @@
                 <div class="card cardhome blue-grey darken-1">
                     <div class="card-content white-text">
                         <span class="card-title"><a href="answer?qid=<%= question.getQuestionid() %>" class="white-text"><%= question.getTopic() %></a></span>
+                        <p class="right vote">0 vote</p>
+                        <a class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">thumb_down</i></a>
+                        <a class="btn-floating btn-large waves-effect waves-light green right"><i class="material-icons">thumb_up</i></a>
                         <p><%= question.getContent() %></p>
                     </div>
                     <div class="card-action">

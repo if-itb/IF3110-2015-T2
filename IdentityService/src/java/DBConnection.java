@@ -17,7 +17,7 @@ public class DBConnection {
 		
 	//  Username dan password
 	final String USER = "root";
-	final String PASS = "venzel";//sesuaikan dengan password database
+	final String PASS = "";//sesuaikan dengan password database
 	
 	private Connection conn;
 	
