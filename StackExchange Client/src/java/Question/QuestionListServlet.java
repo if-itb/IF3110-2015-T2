@@ -2,7 +2,6 @@ package Question;
 
 import QuestionWS.Question;
 import QuestionWS.QuestionWS_Service;
-import UserWS.User;
 import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -17,8 +17,8 @@
         <servlet-class>Question.QuestionByQIDServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AnswerByQIDServlet</servlet-name>
-        <servlet-class>Answer.AnswerByQIDServlet</servlet-class>
+        <servlet-name>CreateAnswerServlet</servlet-name>
+        <servlet-class>Answer.CreateAnswerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -37,8 +37,8 @@
         <url-pattern>/QuestionByQIDServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AnswerByQIDServlet</servlet-name>
-        <url-pattern>/AnswerByQIDServlet</url-pattern>
+        <servlet-name>CreateAnswerServlet</servlet-name>
+        <url-pattern>/CreateAnswerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

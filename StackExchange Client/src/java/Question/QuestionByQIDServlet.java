@@ -5,6 +5,8 @@
  */
 package Question;
 
+import AnswerWS.Answer;
+import AnswerWS.AnswerWS_Service;
 import QuestionWS.Question;
 import QuestionWS.QuestionWS_Service;
 import UserWS.UserWS_Service;
@@ -23,6 +25,9 @@ import javax.xml.ws.WebServiceRef;
  */
 public class QuestionByQIDServlet extends HttpServlet {
 
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/AnswerWS.wsdl")
+    private AnswerWS_Service service_2;
+
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/UserWS.wsdl")
     private UserWS_Service service_1;
 
@@ -40,13 +45,12 @@ public class QuestionByQIDServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int qid = Integer.valueOf((String)request.getAttribute("qid"));
+        int qid = Integer.valueOf((String) request.getAttribute("qid"));
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             List<Question> question = getQuestionByQID(qid);
             for (int i = 0; i < question.size(); i++) {
-                out.println("<div class=\"main\">\n"
-                        + "            <br>\n"
+                out.println("            <br>\n"
                         + "            <h2>");
                 out.println(question.get(i).getTopic());
                 out.println("</h2>\n"
@@ -74,7 +78,7 @@ public class QuestionByQIDServlet extends HttpServlet {
                         + "                        asked by ");
                 out.println(getUser(question.get(i).getUserID()).get(0).getEmail());
                 out.println(" at ");
-                out.println(question.get(i).getDateTime());
+                out.println(question.get(i).getDateTime().substring(0, 19));
                 out.println(" | \n"
                         + "                        <a class=\"gold\" href=\"");
                 out.println("edit.jsp?qid=" + qid);
@@ -92,13 +96,56 @@ public class QuestionByQIDServlet extends HttpServlet {
                         + "\n"
                         + "            <br>\n"
                         + "            <h2>");
-                out.println(question.get(i).getAnswers() + " Answer");
+                out.print(question.get(i).getAnswers() + " Answer");
                 if (question.get(i).getAnswers() != 1) {
                     out.println("s");
                 }
                 out.println("</h2>\n"
                         + "            <hr>");
             }
+            List<Answer> answers = getAnswerByQID(Integer.valueOf((String) request.getAttribute("qid")));
+            for (int i = 0; i < answers.size(); i++) {
+                out.println("<table>\n"
+                        + "                <tr>\n"
+                        + "                    <td class=\"VotesQA\">\n"
+                        + "                        <a onclick=\"\">\n"
+                        + "                            <img src=\"img/vote-up.png\">\n"
+                        + "                        </a>\n"
+                        + "                        <br>\n"
+                        + "                        <div class=\"VotesA\" id=\"\">");
+                out.println(answers.get(i).getVotes());
+                out.println("</div>\n"
+                        + "                        <a onclick=\"\">\n"
+                        + "                            <img src=\"img/vote-down.png\">\n"
+                        + "                        </a>\n"
+                        + "                    </td>\n"
+                        + "                    <td>");
+                out.println(answers.get(i).getContent());
+                out.println("</td>\n"
+                        + "                </tr>\n"
+                        + "                <tr>\n"
+                        + "                    <td></td>\n"
+                        + "                    <td class=\"Answerer\">\n"
+                        + "                        answered by ");
+                out.println(getUser(answers.get(i).getUserID()).get(0).getEmail());
+                out.println(" at ");
+                out.println(answers.get(i).getDateTime().substring(0, 19));
+                out.println("</td>\n"
+                        + "                </tr>\n"
+                        + "            </table>\n"
+                        + "            <hr>");
+            }
+            out.println("<h2>\n"
+                    + "                Your Answer\n"
+                    + "            </h2>\n"
+                    + "\n"
+                    + "            <form name=\"answerForm\" action=\"CreateAnswerServlet\" method=\"post\" onsubmit=\"\">\n"
+                    + "                <input name=\"qid\" type=\"hidden\" value=");
+            out.println(qid);
+            out.println(">\n"
+                    + "                <textarea name=\"content\" id=\"question\" placeholder=\"Content\"></textarea>\n"
+                    + "                <input class=\"button\" type=\"submit\" value=\"Post\"><br>\n"
+                    + "            </form>");
         }
     }
 
@@ -153,6 +200,13 @@ public class QuestionByQIDServlet extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         UserWS.UserWS port = service_1.getUserWSPort();
         return port.getUser(userID);
+    }
+
+    private java.util.List<AnswerWS.Answer> getAnswerByQID(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        AnswerWS.AnswerWS port = service_2.getAnswerWSPort();
+        return port.getAnswerByQID(qid);
     }
 
 }

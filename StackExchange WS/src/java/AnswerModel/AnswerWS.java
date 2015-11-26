@@ -67,7 +67,7 @@ public class AnswerWS {
         //2a.Jika access token kadaluarsa, respons expired token
         //2b.Jika access token tidak valid, respons error
         //2c.Jika access token valid, ambil user ID
-        int userID = 0;
+        int userID = 8;
         try {
             stmt = conn.createStatement();
             String sqlA = "INSERT INTO answer VALUES (0,?,?,0,?,?)";
