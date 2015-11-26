@@ -23,7 +23,7 @@ import stackexchangews.StackExchangeWS_Service;
  */
 @WebServlet(name = "GetQuestionByID", urlPatterns = {"/questionbyID"})
 public class GetQuestionByID extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/StackExchangeWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/StackExchangeWS.wsdl") 
     private StackExchangeWS_Service service;
 
     /**
