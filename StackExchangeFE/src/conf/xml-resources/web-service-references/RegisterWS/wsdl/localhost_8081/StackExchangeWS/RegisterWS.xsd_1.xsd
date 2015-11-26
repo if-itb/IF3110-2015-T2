@@ -8,6 +8,10 @@
 
 <xs:element name="registerResponse" type="tns:registerResponse"/>
 
+<xs:element name="signout" type="tns:signout"/>
+
+<xs:element name="signoutResponse" type="tns:signoutResponse"/>
+
 <xs:complexType name="register">
 <xs:sequence>
 <xs:element name="nama" type="xs:string" minOccurs="0"/>
@@ -31,6 +35,18 @@
 <xs:complexType name="getUsernameResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="signout">
+<xs:sequence>
+<xs:element name="access_token" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="signoutResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

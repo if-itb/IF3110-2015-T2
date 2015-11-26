@@ -16,6 +16,12 @@
 <message name="getUsernameResponse">
 <part name="parameters" element="tns:getUsernameResponse"/>
 </message>
+<message name="signout">
+<part name="parameters" element="tns:signout"/>
+</message>
+<message name="signoutResponse">
+<part name="parameters" element="tns:signoutResponse"/>
+</message>
 <portType name="RegisterWS">
 <operation name="register">
 <input wsam:Action="http://rgs.wbd.com/RegisterWS/registerRequest" message="tns:register"/>
@@ -24,6 +30,10 @@
 <operation name="getUsername">
 <input wsam:Action="http://rgs.wbd.com/RegisterWS/getUsernameRequest" message="tns:getUsername"/>
 <output wsam:Action="http://rgs.wbd.com/RegisterWS/getUsernameResponse" message="tns:getUsernameResponse"/>
+</operation>
+<operation name="signout">
+<input wsam:Action="http://rgs.wbd.com/RegisterWS/signoutRequest" message="tns:signout"/>
+<output wsam:Action="http://rgs.wbd.com/RegisterWS/signoutResponse" message="tns:signoutResponse"/>
 </operation>
 </portType>
 <binding name="RegisterWSPortBinding" type="tns:RegisterWS">
@@ -38,6 +48,15 @@
 </output>
 </operation>
 <operation name="getUsername">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="signout">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

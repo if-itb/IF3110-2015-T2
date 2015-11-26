@@ -40,11 +40,11 @@
                     java.lang.String accessToken = request.getParameter("token");
                     java.lang.String result = port.getUsername(accessToken);
                     String border = "<ul class='right hide-on-med-and-down'>"
-                                        + "<li>Welcome, " + result + "</li>"
+                                        + "<li>" + result + "</li>"
                                         + "<li><a href='index.jsp?token=null'>Sign Out</a></li>" //Jelek, ntar diganti
                                     + " </ul>" + 
                                     "<ul id='nav-mobile' class='side-nav'>"
-                                        + "<li>Welcome, " + result + "</li>"
+                                        + "<li>" + result + "</li>"
                                         + "<li><a href='index.jsp?token=null'>Sign Out</a></li>" //Jelek, ntar diganti
                                     + " </ul>";
                     out.write(border);

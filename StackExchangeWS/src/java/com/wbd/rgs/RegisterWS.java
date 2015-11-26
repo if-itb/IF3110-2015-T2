@@ -110,4 +110,31 @@ public class RegisterWS {
         }
         return hasil;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "signout")
+    public int signout(@WebParam(name = "access_token") String access_token) {
+        int message = 0 ;
+        Connection conn = null;
+        PreparedStatement dbStatement = null;
+        try {
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            Statement stmt = conn.createStatement();
+            String sql; 
+            sql = "DELETE FROM token WHERE access_token = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, access_token);
+            pstmt.executeUpdate();
+            pstmt.close();
+            conn.close();
+            message = 1;
+        }catch(SQLException se){
+            se.printStackTrace();
+            message = -1;
+        }
+        return message;
+    }
+
 }
