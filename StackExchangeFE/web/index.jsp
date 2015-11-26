@@ -64,7 +64,9 @@
                  <title>Simple StackExchange</title>
     </head>
 
-    <body>    
+    <body>   
+        
+        
         <div class="container">
             <h1 class="header center orange-text">Simple Stack Exchange</h1>
             <div class="row center">
@@ -73,14 +75,16 @@
             <div class="row center">
                 <% out.write("<a href='ask.jsp?token="+ request.getParameter("token") +"' id='download-button' class='btn-large waves-effect waves-light orange'>Ask Here</a>");%>
             </div>
-            <br><br>
+            <div class="row center">
+                <h5 class="header col s12 light">or</h5>
+            </div>
         </div>
   
         <div class="row">
             <div class="orange col s8 push-s2">
                 <% out.write("<form name='searchForm' action='index.jsp?token="+request.getParameter("token") +"' method='POST'>");%>
                     <div class="input-field">
-                        <input name="search_key" id="search" type="search" required>
+                        <input name="search_key" id="search" type="search" placeholder="Search here" required>
                         <i class="material-icons">close</i>
                     </div>
                </form>
@@ -105,7 +109,7 @@
         }
         else{
             result = port.retrieveQ();
-            out.write("<h4 class='header center-align orange-text'> Recently Asked Questions </h2>");
+            out.write("<h4 class='header center-align cyan-text'> Recently Asked Questions </h2>");
         }
     out.write("<ul class='collection'>");
     for(int i = 0; i < result.size() ; i++){
@@ -119,7 +123,10 @@
             else{
                 vote = "Vote";
             }
-            
+            String Content = result.get(i).getContent();
+            if(Content.length()>300){
+                Content = Content.substring(0, 299) + "...";
+            }
             String question ="<div class='bquestion-vote'>" 
                         +result.get(i).getVote()
                         +"<br>"
@@ -133,7 +140,7 @@
             +"<div class='bquestion-content'>" 
                         +"<a id='color-black' href=question.jsp?id=" + result.get(i).getIDQ() + "&token=" + request.getParameter("token") + ">" + result.get(i).getQuestionTopic() + "</a>"
                         +"<br>"
-                        +result.get(i).getContent()
+                        + Content
                         +"<br><br>"
                     +"</div>"
                     +"<div class='bquestion-identity'>" 
