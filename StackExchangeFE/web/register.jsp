@@ -90,113 +90,11 @@
                   <label for="password">Password</label>
                 </div>
               </div>
-              <button class="button-post btn waves-effect waves-light" type="submit" name="action">login
+              <button class="btn waves-effect waves-light" type="submit" name="action">register
                 <i class="material-icons right">send</i>
             </button>
             </form>
           </div>   
-       
-        <% 
-            Cookie cookie = null;
-            Cookie[] cookies = null;
-            String access_token = null;
-            
-            if (cookies != null){
-                for (int i=0; i< cookies.length; i++){
-                   if (cookies[i].getName().equals("access_token")){
-                        access_token = cookie.getValue();
-                        break;
-                    }
-                }
-
-                if (access_token != null && access_token.length() > 0){
-                    //check access_token validity to server    
-        %>
-
-        <script>
-            //Fungsi java script untuk pengecekan Validitas Token 
-
-            //Java script, JQuery, and AJAX Initialization
-            function checkTokenValidity(){
-                var token = {access_token: "<%= access_token %>" };
-                var url = "http://localhost:8082/StackExchange_IS/rest/tokenValidate";
-
-                $.ajax({
-                    url: url,
-                    data: token,
-                    dataType: "jsonp",
-                    crossDomain: true,
-                    type: "POST",
-                    success: function(data){
-                        var valid = data.valid;
-                        if (valid == 1){
-                            window.location.href = "index.jsp";
-                        }
-                        else if (valid == 0){
-                            //regenerate Token and move to index.jsp
-
-                        }
-                    },
-                    error: function(jqxhr,status,errorMsg){
-                        alert(status + " : " + errorMsg);
-                    }
-                });
-            }
-
-            //Document ready function, java script function
-            $(document).ready(function(){
-                checkTokenValidity();
-            });
-        </script>
-            
-        <%
-            }
-        }
-        else{
-            //out.println("Tidak ada cookies");
-        }
-        %>
-
-        <script>
-            $(document).ready(function(){
-                var url = "http://localhost:8082/StackExchange_IS/rest/token";
-                $('.button-post').click(function(e){
-                    e.preventDefault();
-                    var data = $('#loginForm').serialize();
-                    console.log(data);
-                    $.ajax({
-                        url: url,
-                        data: data,
-                        crossDomain: true,
-                        dataType: "json",
-                        type: "POST",
-                        success: function(data){
-                            var token = data.access_token;
-                            document.cookie = "access_token" + token;
-                            //expired = null;
-                            if (token == null){
-                                //Username password gak sama
-                                //window.location.href = "IVanWeteng.jsp"
-                                alert("Invalid Username and Password");
-                            }
-                            else{
-                                //Berhasil login
-                                //window.location.href = "index.jsp";
-                                window.location.href = "http://localhost:8080/StackExchange_Client/index.jsp?token=" + token;
-                            }
-
-                        },
-                        error: function(jqxhr,status,errorMsg){
-                            out.println("AJAX Error");
-                        }
-                    });
-                });
-            });
-        </script>
-        
-        
-        
-        
-        
+  
     </body>
 </html>
