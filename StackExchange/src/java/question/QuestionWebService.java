@@ -131,13 +131,13 @@ public class QuestionWebService {
     public String incrVote(String token, int id, int userId) {
         Auth auth = new Auth(token);
         if(auth.getResponse(url)){
-            String sql = "SELECT * FROM question_vote WHERE question_id = " + id + "AND user_id = " + userId;
+            String sql = "SELECT * FROM question_vote WHERE question_id = " + id + " AND user_id = " + userId;
             String result;
             Database database = new Database();
             database.connect(path);
             ResultSet rs = database.fetchData(sql);
             try {
-                if(rs.next()) {
+                if(!rs.next()) {
                     String query = "UPDATE question SET question_vote = question_vote + 1 WHERE question_id= " + id;
                     result = database.changeData(query);
                     query = "INSERT INTO question_vote (user_id, question_id) VALUES (" + userId + ", " + id + ")";
@@ -159,7 +159,7 @@ public class QuestionWebService {
     public String decrVote(String token, int id, int userId) {
         Auth auth = new Auth(token);
         if(auth.getResponse(url)){
-            String sql = "SELECT * FROM question_vote WHERE question_id = " + id + "AND user_id = " + userId;
+            String sql = "SELECT * FROM question_vote WHERE question_id = " + id + " AND user_id = " + userId;
             String result;
             Database database = new Database();
             database.connect(path);

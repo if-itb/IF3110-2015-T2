@@ -49,7 +49,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="row-info">
+                    <div class="row">
                         asked by <span class="name"><%= result.getAskerName()%></span>
                     </div>
                     <hr>
@@ -81,7 +81,7 @@
                                                     <%= result.get(i).getVote() %>
                                                 </span>
                                                 <br>
-                                                <a href=" <% out.print("qvoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid") + "&aid=" +result.get(i).getAnswerId()); %>">
+                                                <a href=" <% out.print("qvotedown.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid") + "&aid=" +result.get(i).getAnswerId()); %>">
                                                 <img src="img/downvote.png" width="35" height="35">
                                                 </a>
                                                 </div>
