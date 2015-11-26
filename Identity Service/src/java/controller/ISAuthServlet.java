@@ -57,22 +57,24 @@ public class ISAuthServlet extends HttpServlet {
                     try {
                         Date expire_date = format.parse(result.getString("expire_date"));
                         if (current_date.after(expire_date)) {
-                            obj.put("error", "Expired access token");
+                            obj.put("status", -1);
                             query = "DELETE FROM token WHERE access_token = ?";
                             try (PreparedStatement deleteStatement = conn.prepareStatement(query)) {
                                 deleteStatement.setString(1, token);
                                 deleteStatement.executeUpdate();
                             }
                         }
-                        else
+                        else {
+                            obj.put("status", 1);
                             obj.put("id", result.getInt("user_id"));
+                        }
                     }
                     catch ( SQLException | ParseException ex ){
                         System.err.println(ex.getMessage());
                     }                                                            
                 }
                 else {
-                    obj.put("error", "Invalid access token");
+                    obj.put("status", 0);
                 }
             }
             out.println(obj);            

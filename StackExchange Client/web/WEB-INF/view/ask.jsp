@@ -10,7 +10,7 @@
         <c:if test="${not empty error}">
         <div class="alert alert-danger" role="alert">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="sr-only">Error:</span>${error}
+            <span class="sr-only">Error:</span><c:out value="${error}"/>
         </div>
         </c:if>
         <h3>What's your question?</h3>

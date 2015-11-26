@@ -19,6 +19,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.ws.WebServiceRef;
 import org.json.simple.JSONObject;
 import service.StackExchange_Service;
@@ -57,11 +59,26 @@ public class ServletFilter implements Filter {
                 }
             if (auth != null) {
                 JSONObject object = ISConnector.requestAuth(auth);
-                if (object != null && object.containsKey("id")) {
-                    long id = (long)object.get("id");
-                    User user = service.getStackExchangePort().getUser((int)id);
-                    if (user != null)
-                        request.setAttribute("user", user);
+                if (object != null && object.containsKey("status")) {
+                    long status = (long)object.get("status");
+                    switch ((int)status) {
+                        // expired access token
+                        case -1:
+                            HttpServletRequest req = (HttpServletRequest) request;
+                            HttpServletResponse res = (HttpServletResponse) response;
+                            HttpSession session = req.getSession();
+                            session.setAttribute("error", "Expired access token, please re-sign in");
+                            res.sendRedirect(req.getContextPath() + "/signin");
+                            return;
+                        case 1:
+                            if (!object.containsKey("id"))
+                                break;
+                            long id = (long)object.get("id");
+                            User user = service.getStackExchangePort().getUser((int)id);
+                            if (user != null)
+                                request.setAttribute("user", user);
+                            break;
+                    }
                 }
             }
         }

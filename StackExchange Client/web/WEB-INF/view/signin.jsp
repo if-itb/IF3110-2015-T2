@@ -14,12 +14,14 @@
             <c:choose>
                 <c:when test="${not empty error}"> <!-- error message -->
                     <div class="alert alert-danger" role="alert">
-                        <c:out value="${error}" />
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span><c:out value="${error}"/>
                     </div>
                 </c:when>
                 <c:when test="${not empty success}"> <!-- success message -->
                     <div class="alert alert-success" role="alert">
-                        <c:out value="${success}" />
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        <span class="sr-only">Success:</span><c:out value="${success}"/>
                     </div>
                 </c:when>
             </c:choose>

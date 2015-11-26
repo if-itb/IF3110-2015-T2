@@ -59,16 +59,13 @@ public class EditServlet extends HttpServlet {
         Question question = port.getQuestion(id);
         if (question != null) {
             User user = (User) request.getAttribute("user");
-            if (user.getId() == question.getIdUser()) { 
+            if (user != null && user.getId() == question.getIdUser()) {
                 request.setAttribute("question", question);
                 request.getRequestDispatcher("WEB-INF/view/ask.jsp").forward(request, response);
-            }
-            else {
-                response.sendRedirect(request.getContextPath());
-            }
-        }
-        else
-            response.sendRedirect(request.getContextPath());
+                return;
+            }            
+        }        
+        response.sendRedirect(request.getContextPath());
     }
 
     /**

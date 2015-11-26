@@ -6,28 +6,18 @@
 package controller;
 
 import connector.ISConnector;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.ws.WebServiceRef;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import service.*;
 
 /**
@@ -68,6 +58,12 @@ public class SignInServlet extends HttpServlet {
         if (user != null) {
             response.sendRedirect(request.getContextPath());
         } else {
+            HttpSession session = request.getSession(false);
+            String error = null;
+            if (session != null && (error = (String) session.getAttribute("error")) != null) {
+                request.setAttribute("error", error);
+                session.removeAttribute("error");
+            }
             request.getRequestDispatcher("WEB-INF/view/signin.jsp").forward(request, response);
         }
     }
@@ -93,8 +89,8 @@ public class SignInServlet extends HttpServlet {
             String  email = request.getParameter("email"),
                     password = request.getParameter("password");
             
-            JSONObject object = ISConnector.requestLogin(email, password);                        
-            if (object != null) {
+            JSONObject object = null;
+            if (email != null && password != null && (object = ISConnector.requestLogin(email, password)) != null) {
                 if (object.containsKey("auth")){
                     Cookie cookie = new Cookie("auth", (String)object.get("auth"));
                     cookie.setPath("/");
