@@ -88,7 +88,7 @@ public class QuestionWebService {
     public List<Question> searchQuestion(String key) {
         Question question;
         List<Question> result = new ArrayList<Question>();
-        String query = "SELECT * FROM question WHERE content = LIKE %" + key + "%;";
+        String query = "SELECT * FROM question WHERE question_content LIKE '%" + key + "%' OR question_topic LIKE '%" + key + "%'";
         Database database = new Database();
         database.connect(path);
         ResultSet rs = database.fetchData(query);
@@ -110,7 +110,7 @@ public class QuestionWebService {
             Logger.getLogger(AnswerWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
         database.closeDatabase();
-        return null;
+        return result;
     }
     
     @WebMethod(operationName = "addQuestion")

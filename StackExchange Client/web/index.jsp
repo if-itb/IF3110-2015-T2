@@ -4,6 +4,9 @@
     Author     : William Sentosa
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="questionWS.Question"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -40,8 +43,8 @@
                 
             </div>
         <div id="main-search" class="center">
-		<form action="index.php" method="GET">
-			<input autofocus="autofocus" type="text" name="q" id="search-bar" placeholder="Search question topic or content here..." value="">
+		<form action="index.jsp?token=<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>" method="POST">
+			<input autofocus="autofocus" type="text" name="search" id="search-bar" placeholder="Search question topic or content here..." value="">
 			<input type="submit" value="Search">
 		</form>
 	</div>
@@ -58,8 +61,15 @@
                     try {
                         questionWS.QuestionWebService_Service service = new questionWS.QuestionWebService_Service();
                         questionWS.QuestionWebService port = service.getQuestionWebServicePort();
-                        java.util.List<questionWS.Question> result = port.getAllQuestion();
-
+                        List<Question> result = new ArrayList<Question>();
+                        if(request.getParameter("search") == null) {
+                            result = port.getAllQuestion();
+                        } else {
+                            result = port.searchQuestion(request.getParameter("search"));
+                            if(result.size() == 0) {
+                              out.println("No question found");
+                            }
+                        }
                         for (int i=0 ; i < result.size(); i++){
                             int id = result.get(i).getQuestionId();
                             String s = String.valueOf(id);
@@ -105,7 +115,7 @@
                                         %>
                                             |
                                             <a href="editForm.jsp?token=<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>&qid=<%= result.get(i).getQuestionId()%>"><span class="link edit"> edit </span></a> |
-                                            <a href="deleteQuestion.jsp?token<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>&qid=<%= result.get(i).getQuestionId()%>"><span class="link delete"> delete </span></a>
+                                            <a onclick="confirm('Are you sure to delete this question ?');" href="deleteQuestion.jsp?token=<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>&qid=<%= result.get(i).getQuestionId()%>"><span class="link delete"> delete </span></a>
                                         <%
                                         }
                                         %>

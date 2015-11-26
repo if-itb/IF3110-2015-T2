@@ -30,6 +30,10 @@
 
 <xs:element name="incrVoteResponse" type="tns:incrVoteResponse"/>
 
+<xs:element name="searchQuestion" type="tns:searchQuestion"/>
+
+<xs:element name="searchQuestionResponse" type="tns:searchQuestionResponse"/>
+
 <xs:complexType name="decrVote">
 <xs:sequence>
 <xs:element name="arg0" type="xs:string" minOccurs="0"/>
@@ -44,11 +48,13 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getAllQuestion">
-<xs:sequence/>
+<xs:complexType name="searchQuestion">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getAllQuestionResponse">
+<xs:complexType name="searchQuestionResponse">
 <xs:sequence>
 <xs:element name="Question" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
@@ -63,6 +69,16 @@
 <xs:element name="content" type="xs:string"/>
 <xs:element name="vote" type="xs:int"/>
 <xs:element name="user_id" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAllQuestion">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getAllQuestionResponse">
+<xs:sequence>
+<xs:element name="Question" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 

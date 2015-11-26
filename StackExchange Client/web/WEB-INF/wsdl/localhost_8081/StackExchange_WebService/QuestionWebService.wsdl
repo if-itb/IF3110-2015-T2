@@ -4,17 +4,17 @@
 <xsd:import namespace="http://question/" schemaLocation="http://localhost:8081/StackExchange_WebService/QuestionWebService?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="searchQuestion">
+<part name="parameters" element="tns:searchQuestion"/>
+</message>
+<message name="searchQuestionResponse">
+<part name="parameters" element="tns:searchQuestionResponse"/>
+</message>
 <message name="getAllQuestion">
 <part name="parameters" element="tns:getAllQuestion"/>
 </message>
 <message name="getAllQuestionResponse">
 <part name="parameters" element="tns:getAllQuestionResponse"/>
-</message>
-<message name="getQuestionById">
-<part name="parameters" element="tns:getQuestionById"/>
-</message>
-<message name="getQuestionByIdResponse">
-<part name="parameters" element="tns:getQuestionByIdResponse"/>
 </message>
 <message name="addQuestion">
 <part name="parameters" element="tns:addQuestion"/>
@@ -22,11 +22,11 @@
 <message name="addQuestionResponse">
 <part name="parameters" element="tns:addQuestionResponse"/>
 </message>
-<message name="editQuestion">
-<part name="parameters" element="tns:editQuestion"/>
+<message name="incrVote">
+<part name="parameters" element="tns:incrVote"/>
 </message>
-<message name="editQuestionResponse">
-<part name="parameters" element="tns:editQuestionResponse"/>
+<message name="incrVoteResponse">
+<part name="parameters" element="tns:incrVoteResponse"/>
 </message>
 <message name="deleteQuestion">
 <part name="parameters" element="tns:deleteQuestion"/>
@@ -34,11 +34,17 @@
 <message name="deleteQuestionResponse">
 <part name="parameters" element="tns:deleteQuestionResponse"/>
 </message>
-<message name="incrVote">
-<part name="parameters" element="tns:incrVote"/>
+<message name="getQuestionById">
+<part name="parameters" element="tns:getQuestionById"/>
 </message>
-<message name="incrVoteResponse">
-<part name="parameters" element="tns:incrVoteResponse"/>
+<message name="getQuestionByIdResponse">
+<part name="parameters" element="tns:getQuestionByIdResponse"/>
+</message>
+<message name="editQuestion">
+<part name="parameters" element="tns:editQuestion"/>
+</message>
+<message name="editQuestionResponse">
+<part name="parameters" element="tns:editQuestionResponse"/>
 </message>
 <message name="decrVote">
 <part name="parameters" element="tns:decrVote"/>
@@ -47,29 +53,33 @@
 <part name="parameters" element="tns:decrVoteResponse"/>
 </message>
 <portType name="QuestionWebService">
+<operation name="searchQuestion">
+<input wsam:Action="http://question/QuestionWebService/searchQuestionRequest" message="tns:searchQuestion"/>
+<output wsam:Action="http://question/QuestionWebService/searchQuestionResponse" message="tns:searchQuestionResponse"/>
+</operation>
 <operation name="getAllQuestion">
 <input wsam:Action="http://question/QuestionWebService/getAllQuestionRequest" message="tns:getAllQuestion"/>
 <output wsam:Action="http://question/QuestionWebService/getAllQuestionResponse" message="tns:getAllQuestionResponse"/>
-</operation>
-<operation name="getQuestionById">
-<input wsam:Action="http://question/QuestionWebService/getQuestionByIdRequest" message="tns:getQuestionById"/>
-<output wsam:Action="http://question/QuestionWebService/getQuestionByIdResponse" message="tns:getQuestionByIdResponse"/>
 </operation>
 <operation name="addQuestion">
 <input wsam:Action="http://question/QuestionWebService/addQuestionRequest" message="tns:addQuestion"/>
 <output wsam:Action="http://question/QuestionWebService/addQuestionResponse" message="tns:addQuestionResponse"/>
 </operation>
-<operation name="editQuestion">
-<input wsam:Action="http://question/QuestionWebService/editQuestionRequest" message="tns:editQuestion"/>
-<output wsam:Action="http://question/QuestionWebService/editQuestionResponse" message="tns:editQuestionResponse"/>
+<operation name="incrVote">
+<input wsam:Action="http://question/QuestionWebService/incrVoteRequest" message="tns:incrVote"/>
+<output wsam:Action="http://question/QuestionWebService/incrVoteResponse" message="tns:incrVoteResponse"/>
 </operation>
 <operation name="deleteQuestion">
 <input wsam:Action="http://question/QuestionWebService/deleteQuestionRequest" message="tns:deleteQuestion"/>
 <output wsam:Action="http://question/QuestionWebService/deleteQuestionResponse" message="tns:deleteQuestionResponse"/>
 </operation>
-<operation name="incrVote">
-<input wsam:Action="http://question/QuestionWebService/incrVoteRequest" message="tns:incrVote"/>
-<output wsam:Action="http://question/QuestionWebService/incrVoteResponse" message="tns:incrVoteResponse"/>
+<operation name="getQuestionById">
+<input wsam:Action="http://question/QuestionWebService/getQuestionByIdRequest" message="tns:getQuestionById"/>
+<output wsam:Action="http://question/QuestionWebService/getQuestionByIdResponse" message="tns:getQuestionByIdResponse"/>
+</operation>
+<operation name="editQuestion">
+<input wsam:Action="http://question/QuestionWebService/editQuestionRequest" message="tns:editQuestion"/>
+<output wsam:Action="http://question/QuestionWebService/editQuestionResponse" message="tns:editQuestionResponse"/>
 </operation>
 <operation name="decrVote">
 <input wsam:Action="http://question/QuestionWebService/decrVoteRequest" message="tns:decrVote"/>
@@ -78,7 +88,7 @@
 </portType>
 <binding name="QuestionWebServicePortBinding" type="tns:QuestionWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getAllQuestion">
+<operation name="searchQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -87,7 +97,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getQuestionById">
+<operation name="getAllQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -105,7 +115,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="editQuestion">
+<operation name="incrVote">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -123,7 +133,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="incrVote">
+<operation name="getQuestionById">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="editQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
