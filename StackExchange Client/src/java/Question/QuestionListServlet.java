@@ -79,8 +79,8 @@ public class QuestionListServlet extends HttpServlet {
                 out.println("\">\n"
                         + "                            edit\n"
                         + "                        </a> | \n"
-                        + "                        <a class=\"red\" href=\"delete.jsp?qid=");
-                out.println(questions.get(i).getQID());
+                        + "                        <a class=\"red\" href=\"");
+                out.println("DeleteQuestionServlet?qid="+questions.get(i).getQID());
                 out.println("\">\n"
                         + "                            delete\n"
                         + "                        </a>\n"

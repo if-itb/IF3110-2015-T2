@@ -58,13 +58,17 @@ public class QuestionByQIDServlet extends HttpServlet {
                         + "            <table>\n"
                         + "                <tr>\n"
                         + "                    <td class=\"VotesQA\">\n"
-                        + "                        <a onclick=\"\">\n"
+                        + "                        <a href=\"VoteQuestionServlet?qid=");
+                out.println(qid);
+                out.println("&type=up\">\n"
                         + "                            <img src=\"img/vote-up.png\">\n"
                         + "                        </a>\n"
                         + "                        <div id=\"VotesQ\">");
                 out.println(question.get(i).getVotes());
                 out.println("</div>\n"
-                        + "                        <a onclick=\"\">\n"
+                        + "                        <a href=\"VoteQuestionServlet?qid=");
+                out.println(qid);
+                out.println("&type=down\">\n"
                         + "                            <img src=\"img/vote-down.png\">\n"
                         + "                        </a>\n"
                         + "                    </td>\n"
@@ -86,7 +90,7 @@ public class QuestionByQIDServlet extends HttpServlet {
                         + "                            edit\n"
                         + "                        </a> | \n"
                         + "                        <a class=\"red\" href=\"");
-                out.println("delete.jsp?qid=" + qid);
+                out.println("DeleteQuestionServlet?qid="+qid);
                 out.println("\" onclick=\"\" >\n"
                         + "                            delete\n"
                         + "                        </a>\n"
@@ -108,14 +112,18 @@ public class QuestionByQIDServlet extends HttpServlet {
                 out.println("<table>\n"
                         + "                <tr>\n"
                         + "                    <td class=\"VotesQA\">\n"
-                        + "                        <a onclick=\"\">\n"
+                        + "                        <a href=\"VoteAnswerServlet?qid=");
+                out.println(answers.get(i).getQID()+"&aid="+answers.get(i).getAID());
+                out.println("&type=up\">\n"
                         + "                            <img src=\"img/vote-up.png\">\n"
                         + "                        </a>\n"
                         + "                        <br>\n"
                         + "                        <div class=\"VotesA\" id=\"\">");
                 out.println(answers.get(i).getVotes());
                 out.println("</div>\n"
-                        + "                        <a onclick=\"\">\n"
+                        + "                        <a href=\"VoteAnswerServlet?qid=");
+                out.println(answers.get(i).getQID()+"&aid="+answers.get(i).getAID());
+                out.println("&type=down\">\n"
                         + "                            <img src=\"img/vote-down.png\">\n"
                         + "                        </a>\n"
                         + "                    </td>\n"

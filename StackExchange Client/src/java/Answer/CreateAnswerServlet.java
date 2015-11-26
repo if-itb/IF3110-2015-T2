@@ -28,7 +28,6 @@ public class CreateAnswerServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         String accessToken = "a";
         String content = request.getParameter("content");
         int qid = Integer.parseInt(request.getParameter("qid"));

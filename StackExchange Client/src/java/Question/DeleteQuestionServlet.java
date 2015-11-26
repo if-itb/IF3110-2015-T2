@@ -18,7 +18,7 @@ import javax.xml.ws.WebServiceRef;
  *
  * @author M. Fauzan Naufan
  */
-public class EditServlet extends HttpServlet {
+public class DeleteQuestionServlet extends HttpServlet {
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/QuestionWS.wsdl")
     private QuestionWS_Service service;
@@ -35,10 +35,8 @@ public class EditServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int qid = Integer.parseInt(request.getParameter("qid"));
-        String topic = request.getParameter("topic");
-        String content = request.getParameter("content");
         String accessToken = null;
-        String result = editQuestion(qid, accessToken, topic, content);
+        String result = deleteQuestion(qid, accessToken);
         if (result.equals("Respons oke!")) {
             response.sendRedirect("/StackExchange_Client/index.jsp");
         } else {
@@ -64,7 +62,7 @@ public class EditServlet extends HttpServlet {
                         + "        </div>");
                 out.println("<div class=\"main\">");
                 out.println("<br>");
-                out.println("<p class=\"blue\">Pertanyaan gagal diubah</p>");
+                out.println("<p class=\"blue\">Gagal menghapus pertanyaan</p>");
                 out.println("</div>");
                 out.println("</body>");
                 out.println("</html>");
@@ -111,11 +109,11 @@ public class EditServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private String editQuestion(int qid, java.lang.String accessToken, java.lang.String title, java.lang.String content) {
+    private String deleteQuestion(int qid, java.lang.String accessToken) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.editQuestion(qid, accessToken, title, content);
+        return port.deleteQuestion(qid, accessToken);
     }
 
 }

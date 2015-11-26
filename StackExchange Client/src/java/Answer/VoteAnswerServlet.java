@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Question;
+package Answer;
 
-import QuestionWS.QuestionWS_Service;
+import AnswerWS.AnswerWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,10 +18,9 @@ import javax.xml.ws.WebServiceRef;
  *
  * @author M. Fauzan Naufan
  */
-public class EditServlet extends HttpServlet {
-
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/QuestionWS.wsdl")
-    private QuestionWS_Service service;
+public class VoteAnswerServlet extends HttpServlet {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/AnswerWS.wsdl")
+    private AnswerWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,12 +34,17 @@ public class EditServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int qid = Integer.parseInt(request.getParameter("qid"));
-        String topic = request.getParameter("topic");
-        String content = request.getParameter("content");
+        int aid = Integer.parseInt(request.getParameter("aid"));
+        String type = request.getParameter("type");
         String accessToken = null;
-        String result = editQuestion(qid, accessToken, topic, content);
+        String result;
+        if (type.equals("up")) {
+            result = voteAnswer(accessToken, aid, true);
+        } else {
+            result = voteAnswer(accessToken, aid, false);
+        }
         if (result.equals("Respons oke!")) {
-            response.sendRedirect("/StackExchange_Client/index.jsp");
+            response.sendRedirect("/StackExchange_Client/question.jsp?qid="+qid);
         } else {
             response.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
@@ -64,7 +68,7 @@ public class EditServlet extends HttpServlet {
                         + "        </div>");
                 out.println("<div class=\"main\">");
                 out.println("<br>");
-                out.println("<p class=\"blue\">Pertanyaan gagal diubah</p>");
+                out.println("<p class=\"blue\">Gagal vote pertanyaan</p>");
                 out.println("</div>");
                 out.println("</body>");
                 out.println("</html>");
@@ -111,11 +115,11 @@ public class EditServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private String editQuestion(int qid, java.lang.String accessToken, java.lang.String title, java.lang.String content) {
+    private String voteAnswer(java.lang.String accessToken, int aid, boolean voteUp) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.editQuestion(qid, accessToken, title, content);
+        AnswerWS.AnswerWS port = service.getAnswerWSPort();
+        return port.voteAnswer(accessToken, aid, voteUp);
     }
 
 }

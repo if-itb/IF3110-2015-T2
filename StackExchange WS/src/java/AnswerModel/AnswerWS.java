@@ -26,38 +26,39 @@ public class AnswerWS {
         ArrayList<Answer> answers = new ArrayList();
         Statement stmt;
         ResultSet rs;
-        
+
         try {
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM answer WHERE qid = ?";
-            
+            String sql = "SELECT * FROM answer WHERE qid = ? ORDER BY Votes DESC";
+
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1,qid);
+            pstmt.setInt(1, qid);
             rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 answers.add(new Answer(rs.getInt("AID"),
-                            rs.getInt("UserID"),
-                            rs.getString("content"),
-                            rs.getInt("Votes"),
-                            qid,
-                            rs.getString("DateTime")
-                            ));
+                        rs.getInt("UserID"),
+                        rs.getString("content"),
+                        rs.getInt("Votes"),
+                        qid,
+                        rs.getString("DateTime")
+                ));
             }
             rs.close();
             stmt.close();
         } catch (SQLException ex) {
-            
+
         }
         return answers;
     }
 
     /**
      * Web service operation
+     *
      * @param access_token
      * @param qid
      * @param content
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "createAnswer")
     public String createAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") int qid, @WebParam(name = "content") String content) {
@@ -83,6 +84,39 @@ public class AnswerWS {
             int a = pstmtA.executeUpdate();
             int b = pstmtQ.executeUpdate();
             stmt.close();
+            return "Respons oke!";
+        } catch (SQLException se) {
+            return "Gagal!";
+        }
+    }
+
+    /**
+     * Web service operation
+     * @param access_token
+     * @param AID
+     * @param voteUp
+     * @return 
+     */
+    @WebMethod(operationName = "voteAnswer")
+    public String voteAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "AID") int AID, @WebParam(name = "voteUp") boolean voteUp) {
+        Connection conn = new Database().connect();
+        Statement stmt;
+        //1.HTTP Request connection ke Identity Service, untuk memastikan pemilik access_token
+        //2a.Jika access token kadaluarsa, respons expired token
+        //2b.Jika access token tidak valid, respons error
+        //2c.Jika access token valid, ambil user ID
+        //Update ke DB : UPDATE question SET topic = title, content = new content, datetime = new datetime WHERE qid = 'qid'
+        try {
+            stmt = conn.createStatement();
+            String sql;
+            if (voteUp) {
+                sql = "UPDATE answer SET Votes=Votes+1 WHERE aid = ?";
+            } else {
+                sql = "UPDATE answer SET Votes=Votes-1 WHERE aid = ?";
+            }
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, AID);
+            int a = pstmt.executeUpdate();
             return "Respons oke!";
         } catch (SQLException se) {
             return "Gagal!";

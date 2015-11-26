@@ -28,6 +28,18 @@
         <servlet-name>EditServlet</servlet-name>
         <servlet-class>Question.EditServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteQuestionServlet</servlet-name>
+        <servlet-class>Question.DeleteQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VoteQuestionServlet</servlet-name>
+        <servlet-class>Question.VoteQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VoteAnswerServlet</servlet-name>
+        <servlet-class>Answer.VoteAnswerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
@@ -55,6 +67,18 @@
     <servlet-mapping>
         <servlet-name>EditServlet</servlet-name>
         <url-pattern>/EditServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteQuestionServlet</servlet-name>
+        <url-pattern>/DeleteQuestionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VoteQuestionServlet</servlet-name>
+        <url-pattern>/VoteQuestionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VoteAnswerServlet</servlet-name>
+        <url-pattern>/VoteAnswerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
