@@ -1,3 +1,9 @@
+<%-- 
+    Document   : editQuestion
+    Created on : Nov 26, 2015, 8:21:20 AM
+    Author     : X450
+--%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

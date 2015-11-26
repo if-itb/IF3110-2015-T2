@@ -34,7 +34,7 @@ public class QuestionWS {
         QuestionDao questionDao = new QuestionDao();
         UserDao userDao = new UserDao();
 
-        ArrayList<Question> questionList = (ArrayList) questionDao.getAll();
+        List<Question> questionList = questionDao.getAll();
         for (Question question: questionList) {
             question.setName(userDao.getById(question.getUserId()).getName());
         }
@@ -43,8 +43,8 @@ public class QuestionWS {
         String json = gson.toJson(questionList);
         
         // cara balikin
-        Type listType = new TypeToken<List<Question>>() {}.getType();
-        List<Question> questionListFromJson = gson.fromJson(json, listType);
+//        Type listType = new TypeToken<List<Question>>() {}.getType();
+//        List<Question> questionListFromJson = gson.fromJson(json, listType);
         
         return json;
     }
