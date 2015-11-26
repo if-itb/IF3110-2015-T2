@@ -13,16 +13,12 @@
 	<link rel="stylesheet" type="text/css" href="css/mainstyle.css">
     </head>
     <body>
-	<div id="main-search" class="center">
-		<form action="index.php" method="GET">
-			<input autofocus="autofocus" type="text" name="q" id="search-bar" placeholder="Search question topic or content here..." value="<?php echo $q ?>">
-			<input type="submit" value="Search">
-		</form>
-	</div>
+
 	<div id="wrapper">
             <h1 class="center">
                 <a href="index.jsp?token=<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>">Simple StackExchange</a>
             </h1>
+
             <div class="row">
                 <%! String name; %>
                 Welcome, 
@@ -41,7 +37,14 @@
                 <div class="right">
                     <a href="login.jsp">Logout</a>
                 </div>
+                
             </div>
+        <div id="main-search" class="center">
+		<form action="index.php" method="GET">
+			<input autofocus="autofocus" type="text" name="q" id="search-bar" placeholder="Search question topic or content here..." value="">
+			<input type="submit" value="Search">
+		</form>
+	</div>
             <br>
             <div>
                 <h2>

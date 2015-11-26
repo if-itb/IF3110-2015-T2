@@ -5,3 +5,4 @@
 StackExchange Client/src/java/META-INF/AnswerWebService.xml
 *.xml
 StackExchange Client/nbproject/private/private.xml
+StackExchange/nbproject/private/private.properties
