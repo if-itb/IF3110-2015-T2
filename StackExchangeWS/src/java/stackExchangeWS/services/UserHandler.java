@@ -6,11 +6,10 @@
 package stackExchangeWS.services;
 
 import java.sql.SQLException;
-import javax.jws.Oneway;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import stackExchangeWS.database.DbManager;
+import stackExchangeWS.database.DbUserManager;
 import stackExchangeWS.database.User;
 
 /**
@@ -28,12 +27,12 @@ public class UserHandler {
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
-        if(DbManager.isUserExist(user)){
+        if(DbUserManager.isUserExist(user)){
             // User already exist, return -1
             return -1;
         }
         else{
-            DbManager.registerUser(user);
+            DbUserManager.registerUser(user);
             // Registration successful, return 1
             return 1;
         }

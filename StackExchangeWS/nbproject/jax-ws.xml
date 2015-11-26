@@ -4,6 +4,9 @@
     <service name="UserHandler">
       <implementation-class>stackExchangeWS.services.UserHandler</implementation-class>
     </service>
+    <service name="QuestionHandler">
+      <implementation-class>stackExchangeWS.services.QuestionHandler</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>
