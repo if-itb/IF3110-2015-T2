@@ -1,4 +1,5 @@
 
+<%@page import="java.util.List"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
@@ -15,9 +16,10 @@
         <link rel="StyleSheet" href="style.css" type="text/css">
         <title>Simple Stack Exchage</title>
     </head>
-    <body>
+    
+<body>
         <div id="header">
-	<h1> <a href ="question-list.jsp" style="color:#000"> Simple Stack Exchange </a> </h1>
+	<h1> <a href ="/Stack_Exchange_Client/QuestionServlet" style="color:#000"> Simple Stack Exchange </a> </h1>
 </div>
 
 <div class = "container">
@@ -30,5 +32,29 @@
 		</div>
 	</form>
         <h2> Recently Asked Question <hr> </h2>
+        
+        <c:forEach var="question" items="${questions}">
+            <div class="boxarea">
+		<div class="vote">
+                    <h3><c:out value="${question.vote}"/></h3>
+                    <c:out value="Votes"/>
+		</div>
+
+                <div class="vote" style="margin-left:5%">
+		<h3><c:out value="${question.countAnswer}"/></h3>
+                <c:out value="Answers"/>
+		</div>
+
+		<div class="question-content">
+                    <h4><a href="/Stack_Exchange_Client/QuestionPage?id=${question.id}"> <c:out value="${question.topic}"/></a></h4>
+                    <p> <c:out value="${question.content}"/> </p>
+		</div>
+					
+		<div class = "edit-delete">
+                    <p> <c:out value="${question.userId}"/> | <a href="#" style="color:#FFA500"> edit </a> | <a href="#" style="color:#FF0000"> delete </a></p>
+		</div>
+
+            </div>
+        </c:forEach>
     </body>
 </html>

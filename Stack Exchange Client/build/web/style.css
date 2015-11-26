@@ -28,7 +28,7 @@ h3 {
 	text-align: center;
 }
 
-input[type="text"] {
+input[type=text]{
 	width:100%;
 	height: 20px;
 	display:block;

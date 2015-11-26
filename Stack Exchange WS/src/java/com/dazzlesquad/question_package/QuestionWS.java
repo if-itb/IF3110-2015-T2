@@ -56,7 +56,9 @@ public class QuestionWS {
             
             if (result.next())
             {
-                questionresult = new Question(result.getInt("id"), result.getInt("user_id"),result.getString("topic"),result.getString("content"), result.getInt("vote"), result.getString("date")); 
+                int count= countAnswer(result.getInt("id"));
+                questionresult = new Question(result.getInt("id"), result.getInt("user_id"),result.getString("topic"),result.getString("content"), 
+                        result.getInt("vote"), result.getString("date"), count);
             }
             else {
                 questionresult = new Question();
@@ -69,6 +71,38 @@ public class QuestionWS {
         }
         
         return questionresult;
+    }
+    
+    @WebMethod(operationName = "getAnswerByQuestionId")
+    @WebResult(name="Answer")
+    public java.util.ArrayList<Answer> getAnswerByQuestionId(@WebParam(name = "id") int id) {
+        ArrayList<Answer> answers = new ArrayList<Answer>();
+        
+        try {
+            Statement statement = conn.createStatement();
+            String sql;
+            sql = "SELECT * FROM Answer WHERE question_id=?";
+                    
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1,id);
+            
+            ResultSet result = dbStatement.executeQuery();
+            
+           
+            while(result.next()) {
+               answers.add(new Answer(result.getInt("id"), result.getInt("question_id"), result.getInt("user_id"),
+               result.getString("content"), result.getInt("vote"), result.getString("date"))); 
+               
+            }
+            
+            result.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AnswerWS.class.getName()).log
+            (Level.SEVERE, null, ex);
+        }
+        return answers;
+        
     }
     
     @WebMethod(operationName = "deleteQuestion")
@@ -143,7 +177,8 @@ public class QuestionWS {
             
            
             while(result.next()) {
-               questions.add(new Question(result.getInt("id"), result.getInt("user_id"),result.getString("topic"),result.getString("content"), result.getInt("vote"), result.getString("date"))); 
+               int count= countAnswer(result.getInt("id"));
+               questions.add(new Question(result.getInt("id"), result.getInt("user_id"),result.getString("topic"),result.getString("content"), result.getInt("vote"), result.getString("date"), count)); 
                
             }
             
@@ -181,5 +216,13 @@ public class QuestionWS {
             }
         }
         return editsuccessful;
+    }
+    
+    @WebMethod(operationName = "countAnswer")
+    @WebResult(name="count")
+    public int countAnswer(@WebParam(name = "qid") int qid) {
+        java.util.ArrayList<Answer> answers = getAnswerByQuestionId(qid);
+        int size = answers.size();
+        return size;
     }
 }

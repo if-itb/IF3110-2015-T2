@@ -14,7 +14,7 @@
     </head>
     
     <div id="header">
-	<h1> <a href ="question-list.jsp" style="color:#000"> Simple Stack Exchange </a> </h1>
+	<h1> <a href ="/Stack_Exchange_Client/QuestionServlet" style="color:#000"> Simple Stack Exchange </a> </h1>
     </div>
     
     <body>

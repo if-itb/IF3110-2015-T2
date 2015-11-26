@@ -31,38 +31,41 @@ public class AnswerWS {
     /**
      * Web service operation
      */
+   
+    
     @WebMethod(operationName = "getAnswerById")
     @WebResult(name="Answer")
-    public java.util.ArrayList<Answer> getAnswerById(@WebParam(name = "id") int id) {
-        ArrayList<Answer> answers = new ArrayList<Answer>();
-        
+    public Answer getQuestionById(@WebParam(name = "id") int id) {
+        Answer answerResult = null;
         try {
             Statement statement = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM Answer WHERE question_id=?";
+            sql = "SELECT * FROM Answer WHERE id=?";
                     
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1,id);
             
             ResultSet result = dbStatement.executeQuery();
             
-           
-            while(result.next()) {
-               answers.add(new Answer(result.getInt("id"), result.getInt("question_id"), result.getInt("user_id"),
-               result.getString("content"), result.getInt("vote"), result.getString("date"))); 
-               
+            if (result.next())
+            {
+               answerResult = new Answer(result.getInt("id"), result.getInt("question_id"), result.getInt("user_id"),
+               result.getString("content"), result.getInt("vote"), result.getString("date")); 
+            }
+            else {
+                answerResult = new Answer();
             }
             
             result.close();
             statement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(AnswerWS.class.getName()).log
-            (Level.SEVERE, null, ex);
+            Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return answers;
         
+        return answerResult;
     }
-
+    
+    
     @WebMethod(operationName = "insertAnswer")
     @WebResult(name="NewAnswer")
     public int insertAnswer(@WebParam(name = "answer") Answer answer) {
@@ -118,13 +121,7 @@ public class AnswerWS {
         return deletesuccessful;
     }
     
-    @WebMethod(operationName = "countAnswer")
-    @WebResult(name="count")
-    public int countAnswer(@WebParam(name = "qid") int qid) {
-        java.util.ArrayList<Answer> answers = getAnswerById(qid);
-        int size = answers.size();
-        return size;
-    }
+ 
     
     
 }

@@ -32,18 +32,23 @@ public class Question {
     @XmlElement(name="date", required=true)
     private String date;
     
+    @XmlElement(name="countAnswer", required=true)
+    private int countAnswer;
+    
     public Question() {
         id=0;
         userId = 0;
     }
     
-    public Question(int id, int uid, String topic, String content, int vote, String date){
+    public Question(int id, int uid, String topic, String content, int vote, String date, int count){
         this.id=id;
         this.userId = uid;
         this.topic = topic;
         this.content = content;
         this.vote=vote;
         this.date = date;
+        this.countAnswer=count;
+        
     }
     
     
