@@ -15,29 +15,52 @@
     <body>
         <div class="header">
             <div class="container">
-                <p><a href="index1.jsp">Simple StackExchange</a></p> 
+                
+                <%
+                    String token = request.getParameter("token");
+                    if (token != null) {
+                        out.println("<p><a href='index1.jsp?token="+token+"'>Simple StackExchange</a></p> ");
+                    }
+                    else
+                        out.println("<p><a href='index1.jsp'>Simple StackExchange</a></p> ");
+
+                %>
             </div>
         </div>
 
         <div class="main">
             <div class="container">
 
-                <form name="search" action="index1.jsp" method="post" class="search">
+                <%
+                    
+                    if (token != null) {
+                        out.println("<form name='search' action='index1.jsp?token="+token+"' method='post' class='search'>");
+                    }
+                    else
+                        out.println("<form name='search' action='index1.jsp' method='post' class='search'>");
+
+                %>
+                <form name='search' action='index1.jsp' method='post' class='search'>
                     <input type="text" maxlength="50" name="key">
                     <input type="submit" value="Search">
                 </form>
-                <h6>Cannot find what you are looking for? <a href="newquestion.jsp">Ask here</a></h6>
+                <%
+     
+                    if (token != null) {
+                        out.println("<h6>Cannot find what you are looking for? <a href='newquestion'>Ask here</a></h6>");
+                    }
+                    else
+                        out.println("<h6>Cannot find what you are looking for? <a href='login.jsp'>Login to ask here</a></h6>");
+
+                %>
             </div>
             <div class="question">
                 <h5>Recently Asked Questions</h5>
                 <div class="listquestion">
 
-                    <%
-                        String token = null;
-
-                        token = request.getParameter("access_token");
+                    <%  
                         String search = request.getParameter("key");
-                        out.println(token);
+                       
 
                         if (search == null) {
                             try {
