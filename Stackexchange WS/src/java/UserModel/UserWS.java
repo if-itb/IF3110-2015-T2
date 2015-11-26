@@ -16,7 +16,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.*;
@@ -170,36 +169,28 @@ public class UserWS {
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Content-Length", Integer.toString(request.toString().getBytes(StandardCharsets.UTF_8).length));
         connection.setUseCaches(false);
-        
+
         // Mengirim token ke Identity Service
         DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
         writer.write(request.toString().getBytes(StandardCharsets.UTF_8));
-        
         // Menerima response dari Identity Service
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
         String response = "";
-        
         while ((inputLine = in.readLine()) != null) {
           response += inputLine;
         }
-        
         try {
           JSONObject tokenResponse = new JSONObject(response);
           //result = tokenResponse.getString("token");
           valid = tokenResponse.getBoolean("is_valid");
-          if (valid) {
-            userId = tokenResponse.getInt("id_user");
-          }
+          userId = tokenResponse.getInt("id_user");
         } catch (JSONException ex) {
           Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
       } catch (IOException ex) {
         Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
       }
-      
     } catch (MalformedURLException ex) {
       Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
     }

@@ -64,28 +64,7 @@ public class TokenController extends HttpServlet {
       writer.println(resp);
     } catch (ParseException ex) {
       Logger.getLogger(TokenController.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    
-    //    BufferedReader in = request.getReader();
-//    String inputLine;
-//    StringBuffer stringBuffer = new StringBuffer();
-//    
-//    while ((inputLine = in.readLine()) != null) {
-//      stringBuffer.append(inputLine);
-//    }
-//    in.close();
-//    
-//    ServletOutputStream out = response.getOutputStream();
-//    PrintWriter writer = new PrintWriter(new OutputStreamWriter(out,"utf-8"));
-//    writer.write("token diterima");
-//    writer.close();
-    
-//    try {
-//      receiveGet(request,response);
-//    } catch (Exception ex) {
-//      Logger.getLogger(TokenController.class.getName()).log(Level.SEVERE, null, ex);
-//    }
-    
+    }   
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -126,29 +105,4 @@ public class TokenController extends HttpServlet {
   public String getServletInfo() {
     return "Short description";
   }// </editor-fold>
-  
-//  private void receiveGet(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-//    // Mengatur koneksi
-//    URL url = new URL(req.getServletPath());
-//    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//    connection.setRequestMethod("GET");
-//    
-//    if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-//      // Menerima request
-//      BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//      String inputLine;
-//      StringBuffer request = new StringBuffer();
-//      
-//      while ((inputLine = in.readLine()) != null) {
-//        request.append(inputLine);
-//      }
-//      in.close();
-//      
-//      // Mengirim response
-//      OutputStreamWriter response = new OutputStreamWriter(connection.getOutputStream());
-//      response.write("message=blabla");
-//      response.close();
-//    }
-//  }
-
 }

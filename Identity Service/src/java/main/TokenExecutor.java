@@ -51,6 +51,7 @@ public class TokenExecutor {
     }
   }
   public TokenExecutor(String accessToken) {
+    token = new Token();
     token.setAccessToken(accessToken);
     if (token.isValid()) {
     // Format token valid, maka periksa apakah token ada di basis data
@@ -131,10 +132,8 @@ public class TokenExecutor {
     // Menjalankan query
     try (Statement statement = connection.createStatement()) {
       // Menjalankan query
-      String query = "SELECT id_user, lifetime FROM user WHERE token = ?";
-      PreparedStatement databaseStatement = connection.prepareStatement(query);
-      databaseStatement.setString(1, token.getAccessToken());
-      ResultSet result = databaseStatement.executeQuery(query);
+      String query = "SELECT id_user, lifetime FROM user WHERE token = '" + token.getAccessToken() + "'";
+      ResultSet result = statement.executeQuery(query);
       if (result.next()) {
         // Token ada, periksa lifetime
         idUser = result.getInt("id_user");
@@ -150,6 +149,7 @@ public class TokenExecutor {
         isValid = false;
       }
       result.close();
+      statement.close();
     }
   }
 }

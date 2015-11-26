@@ -22,7 +22,7 @@ $(document).ready(function(){
         
         // Buat AJAX request
         $.ajax({
-           type: "POST",//4850
+           type: "POST",
            url: "http://localhost:8082/Identity_Service/FrontEndTokenController",
            data: dataString,
            dataType: "json",

@@ -18,8 +18,8 @@ import java.util.Date;
  */
 public class HttpServer {
     public static void main (String[] args) {
-      TokenExecutor executor = new TokenExecutor("jenteda@gmail.com", "test");
+      TokenExecutor executor = new TokenExecutor("5fad7751-60c8-3fe6-a796-d86293d8b2af");
       Token token = executor.getToken();
-      System.out.println(token.getAccessToken() + "\n" + token.getLifetime() + "\n" + executor.getIsValid());
+      System.out.println(executor.getIdUser() + "\n" + executor.getIsValid());
     }
 }
