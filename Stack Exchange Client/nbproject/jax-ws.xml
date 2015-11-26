@@ -3,9 +3,15 @@
   <services/>
   <clients>
     <client name="QuestionWS">
+<<<<<<< HEAD
       <wsdl-url>http://localhost:8083/Stack_Exchange_WS/QuestionWS?wsdl</wsdl-url>
       <local-wsdl-file>localhost_8083/Stack_Exchange_WS/QuestionWS.wsdl</local-wsdl-file>
       <package-name forceReplace="true">QuestionWS</package-name>
+=======
+      <wsdl-url>http://localhost:8080/Stack_Exchange_WS/QuestionWS?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8080/Stack_Exchange_WS/QuestionWS.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">com.dazzlesquad.question_package</package-name>
+>>>>>>> origin/master
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -22,7 +28,11 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
+<<<<<<< HEAD
           <wsimport-option-value>http://localhost:8083/Stack_Exchange_WS/QuestionWS?wsdl</wsimport-option-value>
+=======
+          <wsimport-option-value>http://localhost:8080/Stack_Exchange_WS/QuestionWS?wsdl</wsimport-option-value>
+>>>>>>> origin/master
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -34,6 +44,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
+<<<<<<< HEAD
           <wsimport-option-value>QuestionWS</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
@@ -75,6 +86,9 @@
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
           <wsimport-option-value>AnswerWS</wsimport-option-value>
+=======
+          <wsimport-option-value>com.dazzlesquad.question_package</wsimport-option-value>
+>>>>>>> origin/master
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>target</wsimport-option-name>

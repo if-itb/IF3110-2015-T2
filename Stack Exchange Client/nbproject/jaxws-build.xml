@@ -28,8 +28,13 @@
     </target>
     <target name="wsimport-client-QuestionWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/QuestionWS"/>
+<<<<<<< HEAD
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/QuestionWS" destdir="${build.generated.dir}/jax-wsCache/QuestionWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/QuestionWS/wsdl/localhost_8083/Stack_Exchange_WS/QuestionWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8083/Stack_Exchange_WS/QuestionWS?wsdl" xnocompile="true" xendorsed="true" package="QuestionWS" target="2.1">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/QuestionWS/wsdl/localhost_8083/Stack_Exchange_WS/QuestionWS.wsdl"/>
+=======
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/QuestionWS" destdir="${build.generated.dir}/jax-wsCache/QuestionWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/QuestionWS/wsdl/localhost_8080/Stack_Exchange_WS/QuestionWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/Stack_Exchange_WS/QuestionWS?wsdl" xnocompile="true" xendorsed="true" package="com.dazzlesquad.question_package" target="2.1">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/QuestionWS/wsdl/localhost_8080/Stack_Exchange_WS/QuestionWS.wsdl"/>
+>>>>>>> origin/master
             <produces dir="${build.generated.dir}/jax-wsCache/QuestionWS"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
@@ -39,6 +44,7 @@
         </copy>
     </target>
     <target name="wsimport-client-clean-QuestionWS" depends="-init-project">
+<<<<<<< HEAD
         <delete dir="${build.generated.sources.dir}/jax-ws/QuestionWS"/>
         <delete dir="${build.generated.dir}/jax-wsCache/QuestionWS"/>
     </target>
@@ -59,4 +65,10 @@
         <delete dir="${build.generated.dir}/jax-wsCache/AnswerWS"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-QuestionWS, wsimport-client-AnswerWS"/>
+=======
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/dazzlesquad/question_package"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/QuestionWS"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-QuestionWS"/>
+>>>>>>> origin/master
 </project>
