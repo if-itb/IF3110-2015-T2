@@ -35,18 +35,21 @@ public class QuestionCreate extends HttpServlet {
 
         if (isSuccess == true){
             response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
+            response.sendRedirect("/?token=" + request.getParameter("token"));
+//            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
             return;
         }
 
         if (request.getParameter("token") != null && !request.getParameter("token").isEmpty()){
+            System.out.println("AAAAA");
             response.setContentType("text/html;charset=UTF-8");
 
             request.setAttribute("error", "Internal Server Error");
             request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         } else {
             response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
+            response.sendRedirect("/login");
+//            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
         }
     }
 
