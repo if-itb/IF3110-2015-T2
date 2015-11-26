@@ -40,6 +40,14 @@
         <servlet-name>deletequestion</servlet-name>
         <servlet-class>Servlet.deletequestion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>votequestion</servlet-name>
+        <servlet-class>Servlet.votequestion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>voteanswer</servlet-name>
+        <servlet-class>Servlet.voteanswer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>viewpost</servlet-name>
         <url-pattern>/viewpost</url-pattern>
@@ -79,6 +87,14 @@
     <servlet-mapping>
         <servlet-name>deletequestion</servlet-name>
         <url-pattern>/deletequestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>votequestion</servlet-name>
+        <url-pattern>/votequestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>voteanswer</servlet-name>
+        <url-pattern>/voteanswer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

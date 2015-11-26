@@ -33,30 +33,71 @@
             <h1>Simple StackExchange</h1><br>
             
             <c:forEach items="${result}" var="question">
-            <h2>${question.topic}</h2><br>  
-            <table>
-		<tr>
-                    <td style="width:15%; text-align:center">
-                        <div class="arrow-up"></div>
-                        <p id="vote" style="font-size:40px; margin:0; color:lightgrey"> ${question.vote} </p>
-                        <div class="arrow-down"></div><br>
-		    </td>
-		    <td style="vertical-align:top">
-		    	${question.content}<br>
-		    </td>
-		</tr>
-            </table>
-            <p style="text-align:right">asked by ${question.username} at ${question.date} | edit | delete</p>
-            <h2>${count} Answer</h2><br>
+                <h2>${question.topic}</h2><br>  
+                <table>
+                    <tr>
+                        <td style="width:15%; text-align:center">
+                            <a href="<c:url value="/votequestion" >
+                                        <c:param name="id" value="${question.idQuestion}"/>
+                                        <c:param name="type" value="1"/>
+                                    </c:url>">
+                                <div class="arrow-up"></div>
+                            </a>
+                            <p id="vote" style="font-size:40px; margin:0; color:lightgrey"> ${question.vote} </p>
+                            <a href="<c:url value="/votequestion" >
+                                        <c:param name="id" value="${question.idQuestion}"/>
+                                        <c:param name="type" value="-1"/>
+                                    </c:url>">
+                                <div class="arrow-down"></div>
+                            </a><br>
+                        </td>
+                        <td style="vertical-align:top">
+                            ${question.content}<br>
+                        </td>
+                    </tr>
+                </table>
+
+                <c:choose>
+                    <c:when test="${question.username == username}">
+                        <p style="text-align:right">
+                            asked by ${question.username} | 
+                            <a href="<c:url value="/editquestion" >
+                                        <c:param name="id" value="${question.idQuestion}"/>
+                                    </c:url>">edit
+                            </a> | 
+                            <a href="<c:url value="/deletequestion" >
+                                1       <c:param name="id" value="${question.idQuestion}"/>
+                                    </c:url>"
+                                onclick="return confirm('Are you sure you want to delete this item?')">delete
+                            </a>
+                        </p>
+                    </c:when>
+                    <c:otherwise>
+                        <p style="text-align:right">asked by ${question.username}</p>
+                    </c:otherwise>
+                </c:choose>
+                <h2>${count} Answer</h2><br>
             </c:forEach>
 
             <table>
                 <c:forEach items="${answers}" var="answer">
                     <tr style="border-bottom:2px solid #000">
                         <td style="width:15%; text-align:center; padding:20px">
-                            <div class="arrow-up"></div>
+                            <a href="<c:url value="/voteanswer" >
+                                    <c:param name="id_answer" value="${answer.idAnswer}"/>
+                                    <c:param name="id_question" value="${answer.idQuestion}"/>
+                                    <c:param name="type" value="1"/>
+                                </c:url>">
+                                <div class="arrow-up"></div>
+                            </a>
                             <p style="font-size:40px; margin:0; color:lightgrey">${answer.vote}</p>
-                            <div class="arrow-down"></div>
+                            <a href="<c:url value="/voteanswer" >
+                                    <c:param name="id_answer" value="${answer.idAnswer}"/>
+                                    <c:param name="id_question" value="${answer.idQuestion}"/>
+                                    <c:param name="type" value="-1"/>
+                                </c:url>">
+                                <div class="arrow-down"></div>
+                            </a>
                         </td>
                         <td style="vertical-align:top; padding:20px">${answer.content}<br>
                             <p style="text-align:right">answered by ${answer.username} at ${answer.date}</p>
