@@ -70,7 +70,8 @@ public class AnswerServlet extends HttpServlet {
             count_answer.put(question.getId(), port2.getAnswerByQID(question.getId()).size());
             //Map<Integer, Integer> answerStates = new HashMap<>();
             for (AnswerWS.Answer answer: answers) {
-                answerers.put(answer.getId(), port3.getUserbyID(answer.getIdUser()));                
+                answerers.put(answer.getId(), port3.getUserbyID(answer.getIdUser()));  
+                //System.out.println(port3.getUserbyID(answer.getIdUser()));
                 //answerStates.put(answer.getId(), user == null? 0: port.getAnswerVoteState(user.getId(), answer.getId()));
             }
             request.setAttribute("asker", port3.getUserbyID(question.getIdUser()));

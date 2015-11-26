@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="id_user" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="content" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="timestamp" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="votes" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,7 +37,8 @@ import javax.xml.bind.annotation.XmlType;
     "idQuestion",
     "idUser",
     "content",
-    "timestamp"
+    "timestamp",
+    "votes"
 })
 public class Answer {
 
@@ -49,6 +51,7 @@ public class Answer {
     protected String content;
     @XmlElement(required = true)
     protected String timestamp;
+    protected int votes;
 
     /**
      * Gets the value of the id property.
@@ -144,6 +147,22 @@ public class Answer {
      */
     public void setTimestamp(String value) {
         this.timestamp = value;
+    }
+
+    /**
+     * Gets the value of the votes property.
+     * 
+     */
+    public int getVotes() {
+        return votes;
+    }
+
+    /**
+     * Sets the value of the votes property.
+     * 
+     */
+    public void setVotes(int value) {
+        this.votes = value;
     }
 
 }

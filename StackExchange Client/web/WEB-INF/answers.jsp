@@ -46,12 +46,46 @@
 		</div>
             </div>
         <h2 class="align">
-            <div>
-                <span>${count_answer[question.id]}Answers </span>
+            <div>   
+                <span>${count_answer[question.id]} Answers </span>
             </div>
             <div>
 		<hr>
             </div>
 	</h2>
+        <c:forEach items="${answers}" var="answers">
+            <div class="answers">
+		<div class="vote">
+                    <div class="number">
+                        <span>&#x25B2</span>
+                    </div>
+                    <br>
+                    <div class="number">
+			<span>${answers.votes}</span>
+                    </div>
+                    <br>
+                    <div class="number">
+			<span>&#x25BC</span>
+                    </div>	
+		</div>
+		<div class="answer_topic">
+                    <c:out value="${answers.content}"/>
+		</div>
+				
+		<div class="asked_email">
+                    answered by ${answerers[answers.id]}
+                </div>			
+            </div>
+            <hr class="Margin">
+        </c:forEach>
+        <h3 class="align"> Your Answer </h3>
+            <form class="align" name="answer" action="Answer.php?id=" method="post">
+		<div class="kotakform">
+                    <textarea name="Content" class="form_content" placeholder="Content"></textarea>
+		</div>
+		<div class="form_post">
+                    <input type="submit" name="answer" value="Post">
+		</div>
+            </form>    
     </body>
 </html>

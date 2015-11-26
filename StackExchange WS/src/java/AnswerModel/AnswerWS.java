@@ -37,10 +37,11 @@ public class AnswerWS {
             int i = 0;
             while(result.next()) {
                 answers.add(new Answer(result.getInt("id"),
-                    result.getInt("id_user"),
                     result.getInt("id_question"),
+                    result.getInt("id_user"),
                     result.getString("content"),
-                    result.getString("timestamp")
+                    result.getString("timestamp"),
+                    result.getInt("votes")
                 ));
                 ++i;
             }

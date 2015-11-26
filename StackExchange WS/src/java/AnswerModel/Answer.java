@@ -13,18 +13,22 @@ public class Answer {
     private String content;
     @XmlElement(name="timestamp", required=true)
     private String timestamp;
+    @XmlElement(name="votes", required=true)
+    private int votes;
     
     public Answer() {
         id = 0;
         idQuestion = 0;
         idUser = 0;
+        votes=0;
     }
     
-    public Answer(int id, int qid, int uid, String content, String timestamp) {
+    public Answer(int id, int qid, int uid, String content, String timestamp, int votes) {
         this.id = id;
         idQuestion = qid;
         idUser = uid;
         this.content = content;
         this.timestamp = timestamp;
+        this.votes = votes;
     }
 }

@@ -25,6 +25,7 @@
 <xs:element name="id_user" type="xs:int"/>
 <xs:element name="content" type="xs:string"/>
 <xs:element name="timestamp" type="xs:string"/>
+<xs:element name="votes" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>
