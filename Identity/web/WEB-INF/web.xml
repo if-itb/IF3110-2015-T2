@@ -4,9 +4,17 @@
         <servlet-name>LoginRSServlet</servlet-name>
         <servlet-class>is.login.LoginRSServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AuthRSServlet</servlet-name>
+        <servlet-class>is.auth.AuthRSServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginRSServlet</servlet-name>
         <url-pattern>/LoginRSServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthRSServlet</servlet-name>
+        <url-pattern>/AuthRSServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

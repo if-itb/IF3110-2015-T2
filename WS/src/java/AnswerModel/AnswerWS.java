@@ -18,6 +18,7 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
+import ws.auth.Auth;
 import ws.register.RegisterWS;
 
 /**
@@ -87,17 +88,8 @@ public class AnswerWS {
             String currentAccessToken = token;
             String sql;
             PreparedStatement dbStatement;
-            //take the email from session asumsi bahwa token selalu bersama email
-            sql = "SELECT Email FROM sessions WHERE AccessToken = ?";
-            dbStatement = conn.prepareStatement(sql);
-            dbStatement.setString(1, currentAccessToken);
-            ResultSet rsEmail = dbStatement.executeQuery();
-            //agar index berada di elemen pertama dan get email
-            if(rsEmail.next()) {
-                //returnExecution = returnExecution + 1;
-                currentEmail = rsEmail.getString("Email");
-            }
-            
+            Auth auth = new Auth();
+            currentEmail = auth.getEmail(token);
             //Melakukan pengecekan apakah sudah ada atau belum dalam database
             sql = "SELECT * FROM upanswer WHERE IDAns = ? AND email = ?";
             dbStatement = conn.prepareStatement(sql);
