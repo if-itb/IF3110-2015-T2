@@ -62,8 +62,8 @@
                 out.println("</div>");
                 out.println("<div class='card-action'>");
                 out.println("<a class='left' href='#'>Asked by " + q.getUserId() + "</a>");
-                out.println("<a class='right' href='#'>Edit</a>");
-                out.println("<a class='right' href='#'>Delete</a>");
+                out.println("<a class='right' href='edit.jsp?qid=" + q.getId() + "'>Edit</a>");
+                out.println("<a class='right' href='delete?qid=" + q.getId() + "'>Delete</a>");
                 out.println("</div></div></div></div>");
             }            
         %>    

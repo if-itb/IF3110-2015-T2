@@ -50,8 +50,10 @@
           </div>
         </div>
         <div class="container center">
-          <input class="btn waves-effect waves-light deep-purple darken-2" type="submit">
-          <i class="material-icons right">send</i>
+            <button class="btn waves-effect waves-light deep-purple darken-2">
+                <input type="submit" name="action">
+                <i class="material-icons right">send</i>
+            </button>
         </div>
       </form>
     </div>

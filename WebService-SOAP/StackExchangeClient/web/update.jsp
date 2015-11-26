@@ -1,8 +1,9 @@
 <%-- 
-    Document   : register
+    Document   : update
     Created on : Nov 18, 2015, 9:40:20 AM
     Author     : Gerry
 --%>
+<%@page import="stackexchangews.Question"%>
 <html lang="en">
   <head>
     <title>Stack Exchange</title>
@@ -14,10 +15,10 @@
   <body>
     <nav class="deep-purple darken-2" role="navigation">
       <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo">Stack Exchange - Register</a>
+        <a id="logo-container" href="#" class="brand-logo">Stack Exchange - Question</a>
         <ul class="right hide-on-med-and-down">
           <li><a href="index.jsp">Home</a></li>
-          <li><a href="login.jsp">Login</a></li>
+          <li><a href="register.jsp">Register</a></li>
         </ul>
       </div>
     </nav>
@@ -38,34 +39,37 @@
     <br><br>
 
     <div class="row container">
-      <form class="col s12 m8" action="RegisterServlet">
+      <form class="col s12 m8" action="UpdateServlet">
         <div class="row">
           <div class="input-field">
-            <input name="name" id="name" type="text" class="validate">
-            <label for="name">Name</label>
+            <%
+                Question q = (Question)request.getAttribute("question");
+                out.println("<input name='qid' type='hidden' value='" + q.getId() + "'>");
+                out.println("<input name='topic' id='topic-content' type='text' class='validate' value='"
+                        + q.getTopic()
+                        + "'>");
+            %>
+            <label for="topic-content">Topic Content
+            </label>
           </div>
           <div class="input-field">
-            <input name="email" id="email" type="text" class="validate">
-            <label for="email">Email</label>
-          </div>
-          <div class="input-field">
-            <input name="password" id="password" type="password" class="validate">
-            <label for="password">Password</label>
-          </div>
-          <div class="input-field">
-            <input id="confirm-password" type="password" class="validate">
-            <label for="confirm-password">Confirm Password</label>
+            <%
+                out.println("<input name='content' id='content' type='text' class='validate' value='"
+                        + q.getContent()
+                        + "'>");
+            %>
+            <label for="content">Content</label>
           </div>
         </div>
         <div class="container center">
-            <button class="btn waves-effect waves-light deep-purple darken-2">
-                <input type="submit" name="action">
-                <i class="material-icons right">send</i>
-            </button>
+          <input class="btn waves-effect waves-light deep-purple darken-2" type="submit">
+          <i class="material-icons right">send</i>
         </div>
       </form>
-    </div>       
+    </div>
     
+    
+        
     <footer class="page-footer deep-purple darken-2">
       <div class="footer-copyright">
         <div class="container">
