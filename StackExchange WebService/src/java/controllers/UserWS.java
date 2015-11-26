@@ -30,21 +30,36 @@ public class UserWS {
     @WebMethod(operationName = "register")
     public Integer register(@WebParam(name = "email") String email, @WebParam(name = "name") String name, @WebParam(name = "password") String password) {
         try {
+            String selectQuery = "SELECT * FROM user WHERE email = ?";
             
-            String sql = "INSERT INTO user(email, name, password) VALUE (?, ?, SHA1(?))";
-            try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                statement.setString(1, email);
-                statement.setString(2, name);
-                statement.setString(3, password);
+            try (PreparedStatement select = conn.prepareStatement(selectQuery)){
+                select.setString(1, email);
+                    
+                ResultSet result = select.executeQuery();
+                    
+                if(result.next()){
+                    return 0;
+                }
+                    
+                else {
+                    String sql = "INSERT INTO user(email, name, password) VALUE (?, ?, SHA1(?))";
+                    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                        statement.setString(1, email);
+                        statement.setString(2, name);
+                        statement.setString(3, password);
                 
-                statement.executeQuery();
+                        statement.executeUpdate();
+                        return 1;
                 
+                    }
+                }
+            
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
-            return 0;
-        }
-        return 1;
+            return 0;            
+        }        
     }
 }
