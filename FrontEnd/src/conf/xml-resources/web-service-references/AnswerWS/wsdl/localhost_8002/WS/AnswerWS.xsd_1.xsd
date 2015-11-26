@@ -60,24 +60,26 @@
 <xs:complexType name="downAnswer">
 <xs:sequence>
 <xs:element name="AnsId" type="xs:int"/>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="downAnswerResponse">
 <xs:sequence>
-<xs:element name="Answer" type="xs:int"/>
+<xs:element name="Answer" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="upAnswer">
 <xs:sequence>
 <xs:element name="AnsId" type="xs:int"/>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="upAnswerResponse">
 <xs:sequence>
-<xs:element name="Answer" type="xs:int"/>
+<xs:element name="Answer" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>
