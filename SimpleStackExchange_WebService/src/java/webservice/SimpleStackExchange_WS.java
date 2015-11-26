@@ -6,8 +6,11 @@
 package webservice;
 
 import entity.Answer;
+import entity.Answervoter;
 import entity.Question;
+import entity.Questionvoter;
 import entity.Registereduser;
+import java.util.Date;
 import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -143,5 +146,207 @@ public class SimpleStackExchange_WS {
             return true;
         }
         else return false;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "voteQuestion")
+    public Boolean voteQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "uid") int uid, @WebParam(name = "value") String value) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+        
+        Questionvoter qvoter = new Questionvoter();
+        qvoter.setQid(qid);
+        qvoter.setUid(uid);
+        qvoter.setValue(value);
+        qvoter.setCreatedtime(new Date());
+        
+        int vote = getVotesQuestion(qid);
+        vote += Integer.parseInt(value);
+        
+        // increment countvotes in Question table
+        Question q = em.find(Question.class, qid);
+                
+        em.getTransaction().begin();
+        try {
+            q.setCountvotes(vote);
+            em.persist(qvoter);
+            
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
+        
+        emf.close();
+        
+        return true;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "voteAnswer")
+    public Boolean voteAnswer(@WebParam(name = "aid") int aid, @WebParam(name = "uid") int uid, @WebParam(name = "value") String value) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+        
+        Answervoter avoter = new Answervoter();
+        avoter.setAid(aid);
+        avoter.setUid(uid);
+        avoter.setValue(value);
+        avoter.setCreatedtime(new Date());
+        
+        int vote = getVotesAnswer(aid);
+        vote += Integer.parseInt(value);
+        
+        // increment countvotes in Question table
+        Answer a = em.find(Answer.class, aid);
+                
+        em.getTransaction().begin();
+        try {
+            a.setCountvotes(vote);
+            em.persist(avoter);
+            
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
+        
+        emf.close();
+        
+        return true;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deleteAllVoteAnswer")
+    public Boolean deleteAllVoteAnswer(@WebParam(name = "aid") int aid) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+       
+        em.getTransaction().begin();
+        try {
+            int ex = em.createNativeQuery("DELETE FROM answervoter WHERE aid = " + aid)
+                    .executeUpdate();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
+        
+        emf.close();
+        return true;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deleteAllVoteQuestion")
+    public Boolean deleteAllVoteQuestion(@WebParam(name = "qid") int qid) {
+         EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+       
+        em.getTransaction().begin();
+        try {
+            int ex = em.createNativeQuery("DELETE FROM questionvoter WHERE qid = " + qid)
+                    .executeUpdate();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
+        
+        emf.close();
+        return true;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getVotesQuestion")
+    public Integer getVotesQuestion(@WebParam(name = "qid") int qid) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+       
+        return (Integer)em.createQuery("SELECT q.countvotes FROM Question q WHERE q.qid="+qid, Integer.class).getSingleResult();
+    }
+    
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getVotesAnswer")
+    public Integer getVotesAnswer(@WebParam(name = "aid") int aid) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+       
+        return (Integer)em.createQuery("SELECT a.countvotes FROM Answer a WHERE a.aid="+aid, Integer.class).getSingleResult();
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "hasVotedAnswer")
+    public Boolean hasVotedAnswer(@WebParam(name = "aid") int aid, @WebParam(name = "uid") int uid) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+       
+        em.getTransaction().begin();
+        int count = 0;
+        try {
+            count = ((Number)em.createQuery("SELECT COUNT(av) FROM Answervoter av WHERE av.aid=:aid")
+                    .setParameter("aid", aid)
+                    .getSingleResult()).intValue();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        
+        emf.close();
+        
+        return count > 0;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "hasVotedQuestion")
+    public Boolean hasVotedQuestion (@WebParam(name = "qid") int qid, @WebParam(name = "uid") int uid) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+       
+        em.getTransaction().begin();
+        int count = 0;
+        try {
+            count = ((Number)em.createQuery("SELECT COUNT(qv) FROM Questionvoter qv WHERE qv.qid=:qid")
+                    .setParameter("qid", qid)
+                    .getSingleResult()).intValue();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        
+        emf.close();
+        
+        return count > 0;
     }
 }

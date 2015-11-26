@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import tool.ConsumerREST;
 
 /**
  *
@@ -32,10 +33,23 @@ public class UserLogout extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie cookie = new Cookie("token", null); 
-        cookie.setHttpOnly(true);
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
+        ConsumerREST cr = new ConsumerREST();
+        
+        // get token from user cookie
+        String token = new String();
+        Cookie[] cookies = request.getCookies();
+        if(cookies !=null){
+            for(Cookie cookie : cookies){
+                if(cookie.getName().equals("token")) token = cookie.getValue();
+            }
+        }
+        
+        if(cr.clear(token)) {
+            Cookie cookie = new Cookie("token", null); 
+            cookie.setHttpOnly(true);
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+        }
         response.sendRedirect(""); // redirect to homepage
     }
 

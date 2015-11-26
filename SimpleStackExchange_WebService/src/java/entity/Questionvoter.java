@@ -142,5 +142,9 @@ public class Questionvoter implements Serializable {
     public String toString() {
         return "webservice.Questionvoter[ id=" + id + " ]";
     }
+
+    public void setValue(int value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

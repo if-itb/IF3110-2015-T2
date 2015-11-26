@@ -46,6 +46,13 @@ public class ConsumerREST {
             return false;
     }
     
+    public Boolean clear(String token) throws ClientErrorException {
+        webTarget = client.target(BASE_URI).path("activeuser");
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("clear/{0}", new Object[]{token}));
+        return resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).get(Boolean.class);
+    }
+    
     public int getUidByToken(String token) throws ClientErrorException {
         webTarget = client.target(BASE_URI).path("activeuser");
         WebTarget resource = webTarget;
