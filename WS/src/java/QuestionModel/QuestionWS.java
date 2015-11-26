@@ -224,14 +224,16 @@ public class QuestionWS {
             PreparedStatement dbStatement;
             //take the email from session asumsi bahwa token selalu bersama email
             sql = "SELECT email FROM sessions WHERE AccessToken = ?";
+            sql = "SELECT Email FROM sessions WHERE AccessToken = ?";
             dbStatement = conn.prepareStatement(sql);
             dbStatement.setString(1, currentAccessToken);
             ResultSet rsEmail = dbStatement.executeQuery();
             //agar index berada di elemen pertama dan get email
             if(rsEmail.next()) {
                 returnExecution = returnExecution + 1;
+                //returnExecution = returnExecution + 1;
                 currentEmail = rsEmail.getString("Email");
-                return currentEmail;
+                return currentAccessToken;
             }
             
             //Melakukan pengecekan apakah sudah pernah di upvote atau tidak
@@ -272,7 +274,7 @@ public class QuestionWS {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //return currentEmail;
+        return currentEmail;
     }
 
     /**
