@@ -34,9 +34,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name="login", urlPatterns = "/login")
 public class login extends HttpServlet {
     private static final long serialVersionUID = 1;
-    
-    /* Make JSON object */
-    JSONObject jo = new JSONObject();
 
     public login(){
         super();
@@ -50,6 +47,8 @@ public class login extends HttpServlet {
         int uid;
         Calendar calendar;
         Timestamp token_expired;
+        /* Make JSON object */
+        JSONObject jo = new JSONObject();
         /*ALGORITMA*/
         /* Connect to database */
         Connection conn = DB.connect();
@@ -59,7 +58,6 @@ public class login extends HttpServlet {
             password = request.getParameter("password");
             if (email != null & password != null){
                 sql = "SELECT * FROM user WHERE email = ? AND password = ?";
-                out.println(conn);
                 conn.setAutoCommit(false);
                 
                 try(PreparedStatement stmt = conn.prepareStatement(sql)){

@@ -21,8 +21,8 @@
         <servlet-class>User.AddUserServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>User.LoginServlet</servlet-class>
+        <servlet-name>LoginIS</servlet-name>
+        <servlet-class>LoginIS.LoginIS</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddQuestionServlet</servlet-name>
@@ -32,9 +32,13 @@
         <servlet-name>SearchQuestionServlet</servlet-name>
         <servlet-class>Question.SearchQuestionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConnectionIS</servlet-name>
+        <servlet-class>ConnectionIS.ConnectionIS</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>QuestionListServlet</servlet-name>
-        <url-pattern>/index</url-pattern>
+        <url-pattern></url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewQuestionServlet</servlet-name>
@@ -53,8 +57,8 @@
         <url-pattern>/addUser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <servlet-name>LoginIS</servlet-name>
+        <url-pattern>/LoginIS</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddQuestionServlet</servlet-name>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>SearchQuestionServlet</servlet-name>
         <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConnectionIS</servlet-name>
+        <url-pattern>/ConnectionIS</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

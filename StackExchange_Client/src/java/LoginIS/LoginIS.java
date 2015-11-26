@@ -6,7 +6,7 @@
 package LoginIS;
 
 import ConnectionIS.ConnectionIS;
-import model.user.UserWS;
+import model.user.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -29,7 +29,7 @@ import java.sql.Timestamp;
  */
 @WebServlet(name = "LoginIS", urlPatterns = {"/LoginIS"})
 public class LoginIS extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/AnswerWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/UserWS.wsdl")
     private UserWS_Service service;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -94,7 +94,6 @@ public class LoginIS extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         User userlogin = (User) request.getAttribute("user");
         if (userlogin!=null)
         {
@@ -102,15 +101,15 @@ public class LoginIS extends HttpServlet {
             return;
         }
         else
-        {
+        {          
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             JSONObject json = null;
             if (email!=null && password != null && (json = ConnectionIS.requestLogin(email,password))!=null)
             {
-                if (json.containsKey("token_id"))
+                if (json.containsKey("token"))
                 {
-                    Cookie cookie = new Cookie("stackexchange_token", (String)json.get("token_id"));
+                    Cookie cookie = new Cookie("stackexchange_token", (String)json.get("token"));
                     cookie.setPath("/");
                     long umur= -1;
                     if (json.containsKey("token_expired"))
@@ -128,41 +127,6 @@ public class LoginIS extends HttpServlet {
                     if(json.containsKey("ERROR"))
                     {
                         request.setAttribute("error", (String) json.get("ERROR"));
-                    }
-                }
-            }
-        }
-        
-         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        Cookie[] cookies = httpRequest.getCookies();
-        if (cookies != null) {
-            String auth = null;
-            for (Cookie cookie: cookies)
-                if (cookie.getName().equals("stackexchange_token")) {
-                    auth = cookie.getValue();
-                    break;
-                }
-            if (auth != null) {
-                JSONObject jo = ConnectionIS.requestAuth(auth);
-                if (jo != null && jo.containsKey("status")) {
-                    long status = (long)jo.get("status");
-                    switch ((int)status) {
-                        // expired access token
-                        case -1:
-                            HttpServletRequest req = (HttpServletRequest) request;
-                            HttpServletResponse res = (HttpServletResponse) response;
-                            HttpSession session = req.getSession();
-                            session.setAttribute("error", "Expired access token, please re-sign in");
-                            res.sendRedirect(req.getContextPath() + "/signin");
-                            return;
-                        case 1:
-                            if (!jo.containsKey("id"))
-                                break;
-                            long id = (long)jo.get("id");
-                            User user = service.getUserWSPort().getUserByID((int) id);
-                            if (user != null)
-                                request.setAttribute("user", user);
-                            break;
                     }
                 }
             }

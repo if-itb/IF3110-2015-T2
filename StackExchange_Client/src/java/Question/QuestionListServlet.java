@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.annotation.WebServlet;
 import model.answer.AnswerWS_Service;
 import model.question.QuestionWS_Service;
 import model.user.User;
@@ -21,6 +22,7 @@ import model.user.UserWS_Service;
  *
  * @author ASUS X202E
  */
+@WebServlet (name = "QuestionListServlet", urlPatterns = "")
 public class QuestionListServlet extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/QuestionWS.wsdl")
     private QuestionWS_Service service;
@@ -47,11 +49,12 @@ public class QuestionListServlet extends HttpServlet {
             userMap.put(q.getQuestionId(),getUserByID(q.getUserId()));
             answerMap.put(q.getQuestionId(),getAnswerCount(q.getQuestionId()));
         }
+        System.err.println("asdasd");
         request.setAttribute("questions",questionList);
         request.setAttribute("users",userMap);
         request.setAttribute("answers",answerMap);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-        dispatcher.forward(request,response);
+        System.err.println("asdasd");
+        request.getRequestDispatcher("index.jsp").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

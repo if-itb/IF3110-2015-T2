@@ -22,7 +22,7 @@
                 <script>
                     
                 </script>
-                <form method="POST" action="LoginIS" name="login">
+                <form method="POST" name="login">
                     <input type="text" class="input-group" placeholder="Email" name="email">
                     <input type="password" class="input-group" placeholder="Password" name="password">
                     <div class="button-bottom">
