@@ -36,6 +36,14 @@
         <servlet-name>addanswer</servlet-name>
         <servlet-class>Container.addanswer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>votequestion</servlet-name>
+        <servlet-class>Container.votequestion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>voteanswer</servlet-name>
+        <servlet-class>Container.voteanswer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>addanswer</servlet-name>
         <url-pattern>/addanswer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>votequestion</servlet-name>
+        <url-pattern>/votequestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>voteanswer</servlet-name>
+        <url-pattern>/voteanswer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
