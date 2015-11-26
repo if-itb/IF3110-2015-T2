@@ -31,8 +31,8 @@ public class AnswerModel {
     static final String PASS = "";
  
     public static int create(User user, int questionId, String content) {
-        int r = -1;
-        if (user.isValid()) {
+        int r = user.isValid();
+        if (user.isValid() >= 0) {
             Connection conn = null;
             PreparedStatement stmt = null;
             try {
@@ -52,14 +52,14 @@ public class AnswerModel {
                
                int affectedRows = stmt.executeUpdate();
                if (affectedRows == 0) {
-                   r = -1;
+                   r = -3;
                } else {
                     try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                         if (generatedKeys.next()) {
                             r = generatedKeys.getInt(1);
                         }
                         else {
-                            r = -1;
+                            r = -3;
                         }
                     }
                }
@@ -67,9 +67,11 @@ public class AnswerModel {
                conn.close();
             } catch(SQLException se) {
                //Handle errors for JDBC
+               r = -3;
                se.printStackTrace();
             } catch(Exception e) {
                //Handle errors for Class.forName
+               r = -3;
                e.printStackTrace();
             } finally {
                //finally block used to close resources
@@ -91,8 +93,8 @@ public class AnswerModel {
     }
     
     public static int edit(User user, int answerId, String content) {
-        int r = -1;
-        if (user.isValid()) {
+        int r = user.isValid();
+        if (user.isValid() >= 0) {
             Connection conn = null;
             PreparedStatement stmt = null;
             try {
@@ -113,7 +115,7 @@ public class AnswerModel {
                
                int affectedRows = stmt.executeUpdate();
                if (affectedRows == 0) {
-                   r = -1;
+                   r = -3;
                } else {
                    r = answerId;
                }
@@ -122,9 +124,11 @@ public class AnswerModel {
                conn.close();
             } catch(SQLException se) {
                //Handle errors for JDBC
+               r = -3;
                se.printStackTrace();
             } catch(Exception e) {
                //Handle errors for Class.forName
+               r = -3;
                e.printStackTrace();
             } finally {
                //finally block used to close resources
@@ -145,8 +149,8 @@ public class AnswerModel {
     }
     
     public static int vote(User user, int answerId, int inc) {
-        int r = -1;
-        if (user.isValid()) {
+        int r = user.isValid();
+        if (user.isValid() >= 0) {
             Connection conn = null;
             PreparedStatement stmt = null;
             try {
@@ -184,9 +188,11 @@ public class AnswerModel {
                 stmt.close();
                 conn.close();
             } catch(SQLException se) {
+               r = -3;
                //Handle errors for JDBC
                se.printStackTrace();
             } catch(Exception e) {
+               r = -3;
                //Handle errors for Class.forName
                e.printStackTrace();
             } finally {
@@ -210,7 +216,11 @@ public class AnswerModel {
     
     public static String delete(User user, int answerId) {
         String r = "ERROR";
-        if (user.isValid()) {
+        switch (user.isValid()) {
+            case -2: r = "INVALID TOKEN";
+            case -1: r = "EXPIRED TOKEN";
+        }
+        if (user.isValid() >= 0) {
             Connection conn = null;
             PreparedStatement stmt = null;
             try {
@@ -239,9 +249,11 @@ public class AnswerModel {
                conn.close();
             } catch(SQLException se) {
                //Handle errors for JDBC
+                   r = "ERROR";
                se.printStackTrace();
             } catch(Exception e) {
                //Handle errors for Class.forName
+                   r = "ERROR";
                e.printStackTrace();
             } finally {
                //finally block used to close resources
