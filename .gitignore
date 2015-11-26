@@ -3,3 +3,5 @@
 /StackExchange Client/build/
 /StackExchange Client/dist/
 StackExchange Client/src/java/META-INF/AnswerWebService.xml
+*.xml
+StackExchange Client/nbproject/private/private.xml
