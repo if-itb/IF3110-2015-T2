@@ -22,7 +22,7 @@
     </div>
     <br>
     <div class="container">
-        <h3>Recently Asked Questions</h3>
+        <h3>${empty heading? "Recently Asked Questions": heading}</h3>
         <hr class="heading">        
         <c:forEach items="${questions}" var="question">
             <div class=question-item>
