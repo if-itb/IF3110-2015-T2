@@ -53,6 +53,19 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="deleteQuestion">
+<xs:sequence>
+<xs:element name="id_question" type="xs:int"/>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteQuestionResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getQuestions">
 <xs:sequence/>
 </xs:complexType>
@@ -60,18 +73,6 @@
 <xs:complexType name="getQuestionsResponse">
 <xs:sequence>
 <xs:element name="Question" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="deleteQuestion">
-<xs:sequence>
-<xs:element name="id_question" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="deleteQuestionResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -104,9 +105,10 @@
 
 <xs:complexType name="editQuestion">
 <xs:sequence>
-<xs:element name="id_question" type="xs:int"/>
+<xs:element name="question-id" type="xs:int"/>
 <xs:element name="topic" type="xs:string" minOccurs="0"/>
 <xs:element name="content" type="xs:string" minOccurs="0"/>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -119,7 +121,7 @@
 <xs:complexType name="voteQuestion">
 <xs:sequence>
 <xs:element name="qid" type="xs:int"/>
-<xs:element name="uid" type="xs:int"/>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
 <xs:element name="vote" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>

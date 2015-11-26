@@ -5,6 +5,7 @@
  */
 package controller;
 
+import QuestionWS.QuestionWS_Service;
 import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,6 +23,8 @@ import javax.xml.ws.WebServiceRef;
  */
 public class EditController extends HttpServlet {
 
+  @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/QuestionWS.wsdl")
+  private QuestionWS_Service service_1;
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/UserWS.wsdl")
     private UserWS_Service service;
 
@@ -42,12 +45,16 @@ public class EditController extends HttpServlet {
         int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
         if (userId > 0) {
             if (request.getParameter("name") == null) {
-                
+              boolean editQuestion = editQuestion(Integer.parseInt(request.getParameter("qid")), request.getParameter("question-topic"), request.getParameter("question-content"), request.getParameter("token"));
+              
+              if (editQuestion) {
+                response.sendRedirect("QuestionDetailController?qid="+request.getParameter("qid"));
+              } else {
+                response.sendRedirect("log-in.jsp");
+              }
             } else {
                 request.getServletContext().getRequestDispatcher("/ask-question.jsp").forward(request, response);
             }
-            request.setAttribute("userId", userId);
-            
         } else {
             response.sendRedirect("log-in.jsp");
         }
@@ -99,4 +106,10 @@ public class EditController extends HttpServlet {
         return port.getUserByToken(token, urlString);
     }
 
+  private boolean editQuestion(int questionId, java.lang.String topic, java.lang.String content, java.lang.String token) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
+    return port.editQuestion(questionId, topic, content, token);
+  }
 }

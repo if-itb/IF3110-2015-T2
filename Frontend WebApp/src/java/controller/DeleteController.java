@@ -21,11 +21,8 @@ import javax.xml.ws.WebServiceRef;
  */
 public class DeleteController extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/QuestionWS.wsdl")
-    private QuestionWS_Service service_1;
-
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/UserWS.wsdl")
-    private UserWS_Service service;
+  @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/QuestionWS.wsdl")
+  private QuestionWS_Service service_1;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,14 +37,11 @@ public class DeleteController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        // Memperoleh user id berdasarkan token
-        int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
-        if (userId > 0) {
-            boolean deleteQuestion = deleteQuestion(Integer.parseInt(request.getParameter("qid")));
-            
-            response.sendRedirect("IndexController?token="+request.getParameter("token"));
+        boolean deleteQuestion = deleteQuestion(Integer.parseInt(request.getParameter("qid")), request.getParameter("token"));
+        if (deleteQuestion) {
+          response.sendRedirect("IndexController?token="+request.getParameter("token"));
         } else {
-            response.sendRedirect("log-in.jsp");
+          response.sendRedirect("log-in.jsp");
         }
     }
 
@@ -90,18 +84,10 @@ public class DeleteController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int getUserByToken(java.lang.String token, java.lang.String urlString) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        UserWS.UserWS port = service.getUserWSPort();
-        return port.getUserByToken(token, urlString);
-    }
-
-    private boolean deleteQuestion(int idQuestion) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
-        return port.deleteQuestion(idQuestion);
-    }
-
+  private boolean deleteQuestion(int idQuestion, java.lang.String token) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
+    return port.deleteQuestion(idQuestion, token);
+  }
 }

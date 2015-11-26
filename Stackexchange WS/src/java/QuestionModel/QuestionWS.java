@@ -157,18 +157,20 @@ public class QuestionWS {
       // Memvalidasi token
       userId = user.getUserIdByToken(token, "http://localhost:8082/Identity_Service/TokenController");
       
-      // Menjalankan query
-      String query1 = "DELETE FROM question WHERE id_question = ?";
-      String query2 = "DELETE FROM answer WHERE id_question = ?";
-      PreparedStatement databaseStatement1 = connection.prepareStatement(query1);
-      PreparedStatement databaseStatement2 = connection.prepareStatement(query2);
-      databaseStatement1.setInt(1, idQuestion);
-      databaseStatement2.setInt(1, idQuestion);
-      databaseStatement1.executeUpdate();
-      databaseStatement2.executeUpdate();
-      
-      statement.close();
-      questionDeleted = true;
+      if (userId > 0) {
+        // Menjalankan query
+        String query1 = "DELETE FROM question WHERE id_question = ?";
+        String query2 = "DELETE FROM answer WHERE id_question = ?";
+        PreparedStatement databaseStatement1 = connection.prepareStatement(query1);
+        PreparedStatement databaseStatement2 = connection.prepareStatement(query2);
+        databaseStatement1.setInt(1, idQuestion);
+        databaseStatement2.setInt(1, idQuestion);
+        databaseStatement1.executeUpdate();
+        databaseStatement2.executeUpdate();
+
+        statement.close();
+        questionDeleted = true;
+      }
     } catch (SQLException ex) {
       Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -214,49 +216,57 @@ public class QuestionWS {
   
   
   @WebMethod(operationName = "voteQuestion")
-  public boolean voteQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "uid") int uid, @WebParam(name = "vote") String vote) {
+  public boolean voteQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "token") String token, @WebParam(name = "vote") String vote) {
     boolean isVoted = false;
-    if (!hasUserVoteQuestion(qid, uid)) {
-      try {
-        Connection conn = database.connectDatabase();
-        Statement stmt = conn.createStatement();
-        String sql;
-        int voteNum=0;
-        sql = "SELECT vote_num FROM question WHERE id_question = ?";
-        PreparedStatement dbStatement1 = conn.prepareStatement(sql);
-        dbStatement1.setInt(1, qid);
-        ResultSet rs = dbStatement1.executeQuery();
+    int uid = 0;
+    UserWS user = new UserWS();
+    
+    // Memvalidasi token
+    uid = user.getUserIdByToken(token, "http://localhost:8082/Identity_Service/TokenController");
+    
+    if (uid > 0) {
+      if (!hasUserVoteQuestion(qid, uid)) {
+        try {
+          Connection conn = database.connectDatabase();
+          Statement stmt = conn.createStatement();
+          String sql;
+          int voteNum=0;
+          sql = "SELECT vote_num FROM question WHERE id_question = ?";
+          PreparedStatement dbStatement1 = conn.prepareStatement(sql);
+          dbStatement1.setInt(1, qid);
+          ResultSet rs = dbStatement1.executeQuery();
 
-        while (rs.next()) {
-          voteNum = rs.getInt("vote_num");
+          while (rs.next()) {
+            voteNum = rs.getInt("vote_num");
+          }
+
+          if ("up".equals(vote)) {
+            voteNum++;
+          } else {
+            voteNum--;
+          }
+
+          // Mengubah vote number
+          sql = "UPDATE question SET vote_num = ? WHERE id_question = ?";
+          PreparedStatement dbStatement2 = conn.prepareStatement(sql);
+          dbStatement2.setInt(1, voteNum);
+          dbStatement2.setInt(2, qid);
+          dbStatement2.executeUpdate();
+
+
+          sql = "INSERT INTO vote (id_question, id_user) VALUES (?, ?)";
+          PreparedStatement dbStatement3 = conn.prepareStatement(sql);
+          dbStatement3.setInt(1, qid);
+          dbStatement3.setInt(2, uid);
+          dbStatement3.executeUpdate();
+
+          isVoted = true;
+          rs.close();
+          stmt.close();
+
+        } catch (SQLException ex) {
+          Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        if ("up".equals(vote)) {
-          voteNum++;
-        } else {
-          voteNum--;
-        }
-
-        // Mengubah vote number
-        sql = "UPDATE question SET vote_num = ? WHERE id_question = ?";
-        PreparedStatement dbStatement2 = conn.prepareStatement(sql);
-        dbStatement2.setInt(1, voteNum);
-        dbStatement2.setInt(2, qid);
-        dbStatement2.executeUpdate();
-
-
-        sql = "INSERT INTO vote (id_question, id_user) VALUES (?, ?)";
-        PreparedStatement dbStatement3 = conn.prepareStatement(sql);
-        dbStatement3.setInt(1, qid);
-        dbStatement3.setInt(2, uid);
-        dbStatement3.executeUpdate();
-
-        isVoted = true;
-        rs.close();
-        stmt.close();
-
-      } catch (SQLException ex) {
-        Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
       }
     }
     return isVoted;

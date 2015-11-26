@@ -87,7 +87,11 @@ Author:
             <div class="right-position">
               <div class="answer-question-detail">
                 <!-- Question Topic & Content -->
+                <% if ((request.getParameter("token") == null) || (request.getParameter("token") == "not-valid")) { %>
+                <a href="QuestionDetailController?qid=<%= questions.get(i).getIdQuestion() %>">
+                <% } else { %>
                 <a href="QuestionDetailController?token=<%= request.getParameter("token") %>&qid=<%= questions.get(i).getIdQuestion() %>">
+                <% } %>
                   <div class="question-topic">
                     <%= questions.get(i).getTopic() %>
                   </div>

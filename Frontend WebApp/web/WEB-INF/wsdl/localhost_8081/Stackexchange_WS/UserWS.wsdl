@@ -16,17 +16,17 @@
 <message name="addUserResponse">
 <part name="parameters" element="tns:addUserResponse"/>
 </message>
-<message name="getUserByIdAnswer">
-<part name="parameters" element="tns:getUserByIdAnswer"/>
-</message>
-<message name="getUserByIdAnswerResponse">
-<part name="parameters" element="tns:getUserByIdAnswerResponse"/>
-</message>
 <message name="getUserByIdQuestion">
 <part name="parameters" element="tns:getUserByIdQuestion"/>
 </message>
 <message name="getUserByIdQuestionResponse">
 <part name="parameters" element="tns:getUserByIdQuestionResponse"/>
+</message>
+<message name="getUserByIdAnswer">
+<part name="parameters" element="tns:getUserByIdAnswer"/>
+</message>
+<message name="getUserByIdAnswerResponse">
+<part name="parameters" element="tns:getUserByIdAnswerResponse"/>
 </message>
 <portType name="UserWS">
 <operation name="getUserByToken">
@@ -37,13 +37,13 @@
 <input wsam:Action="http://UserModel/UserWS/addUserRequest" message="tns:addUser"/>
 <output wsam:Action="http://UserModel/UserWS/addUserResponse" message="tns:addUserResponse"/>
 </operation>
-<operation name="getUserByIdAnswer">
-<input wsam:Action="http://UserModel/UserWS/getUserByIdAnswerRequest" message="tns:getUserByIdAnswer"/>
-<output wsam:Action="http://UserModel/UserWS/getUserByIdAnswerResponse" message="tns:getUserByIdAnswerResponse"/>
-</operation>
 <operation name="getUserByIdQuestion">
 <input wsam:Action="http://UserModel/UserWS/getUserByIdQuestionRequest" message="tns:getUserByIdQuestion"/>
 <output wsam:Action="http://UserModel/UserWS/getUserByIdQuestionResponse" message="tns:getUserByIdQuestionResponse"/>
+</operation>
+<operation name="getUserByIdAnswer">
+<input wsam:Action="http://UserModel/UserWS/getUserByIdAnswerRequest" message="tns:getUserByIdAnswer"/>
+<output wsam:Action="http://UserModel/UserWS/getUserByIdAnswerResponse" message="tns:getUserByIdAnswerResponse"/>
 </operation>
 </portType>
 <binding name="UserWSPortBinding" type="tns:UserWS">
@@ -66,7 +66,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getUserByIdAnswer">
+<operation name="getUserByIdQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -75,7 +75,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getUserByIdQuestion">
+<operation name="getUserByIdAnswer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
