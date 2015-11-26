@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author acel
  */
 public class IdentityChecker extends HttpServlet {
-    private int lifetime = 100*1000; //100 seconds
+    private int lifetime = 1000*1000; //100 seconds
     private String[] userIdentifier = new String[2];
     
     public void decodeToken(String token){
@@ -36,7 +36,7 @@ public class IdentityChecker extends HttpServlet {
         userIdentifier = token.split(delim);
     }
     
-    public String getUsername(){
+    public String getID(){
         return userIdentifier[0];
     }
     
@@ -52,7 +52,7 @@ public class IdentityChecker extends HttpServlet {
         //path and port for the database
         final String path = "jdbc:mysql://localhost:3306/stack_exchange";
         //query for database
-        final String query = "SELECT COUNT(*) FROM user WHERE nama = '" + getUsername() + "'";
+        final String query = "SELECT COUNT(*) FROM user WHERE user_id = '" + getID() + "'";
         Database database = new Database();
         database.connect(path);
 

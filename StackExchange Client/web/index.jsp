@@ -16,9 +16,8 @@
     </head>
     <body>
 	<div id="wrapper">
-		<h1 class = "center">  Simple StackExchange
-</h1>
-
+		<h1 class = "center">  Simple StackExchange</h1>
+                <h2><a href="ask.jsp?token=<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>">Ask a question!</h2>
 <div id="main-page" onload="function() {document.getElementById('autofocus').focus();}">
 
 

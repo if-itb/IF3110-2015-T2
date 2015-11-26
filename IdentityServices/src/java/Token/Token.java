@@ -80,7 +80,7 @@ public class Token extends HttpServlet {
     
     public void generateToken(String username){
         try {
-            token = username + ";" + generateTime();
+            token = userID + ";" + generateTime();
             token = Base64.getEncoder().encodeToString(token.getBytes("utf-8"));
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Token.class.getName()).log(Level.SEVERE, null, ex);
