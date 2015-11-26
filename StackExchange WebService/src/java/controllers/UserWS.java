@@ -13,6 +13,8 @@ import java.sql.Statement;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebResult;
+import model.Question;
 import model.User;
 
 /**
@@ -34,14 +36,11 @@ public class UserWS {
             
             try (PreparedStatement select = conn.prepareStatement(selectQuery)){
                 select.setString(1, email);
-                    
                 ResultSet result = select.executeQuery();
-                    
+                
                 if(result.next()){
-                    return 0;
-                }
-                    
-                else {
+                    return 0; // Has already registered before
+                } else {
                     String sql = "INSERT INTO user(email, name, password) VALUE (?, ?, SHA1(?))";
                     try (PreparedStatement statement = conn.prepareStatement(sql)) {
                         statement.setString(1, email);
@@ -49,17 +48,26 @@ public class UserWS {
                         statement.setString(3, password);
                 
                         statement.executeUpdate();
-                        return 1;
-                
+                        return 1; // Successfully registered 
                     }
                 }
-            
             }
         }
         catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
-            return 0;            
+            return -1; // Registration failed           
         }        
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUser")
+    @WebResult(name="Question")
+    public Question getUser(@WebParam(name = "u_id") int u_id) {
+        Question user = new Question();
+                
+        return user;
     }
 }
