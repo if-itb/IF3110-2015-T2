@@ -120,6 +120,7 @@ public class Token extends HttpServlet {
             } else {
                 token = "";
                 out.write(toJSON());
+                response.sendRedirect("http://localhost:8080/StackExchange_Client/login.jsp?ef=1");
             }
         }
     }
