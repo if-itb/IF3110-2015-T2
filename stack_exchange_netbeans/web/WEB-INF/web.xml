@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-<<<<<<< HEAD
     <!-- Static Asset -->
     <!--
     <servlet-mapping>
@@ -38,6 +37,14 @@
         <servlet-name>AddNewQuestionServlet</servlet-name>
         <servlet-class>org.stackexchange.controller.AddNewQuestionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditQuestionServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.EditQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateQuestionServlet</servlet-name>
+        <servlet-class>UpdateQuestionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Index Page</servlet-name>
         <url-pattern>/index</url-pattern>
@@ -58,7 +65,6 @@
         <servlet-name>AddNewQuestionServlet</servlet-name>
         <url-pattern>/AddNewQuestionServlet</url-pattern>
     </servlet-mapping>
-=======
     <servlet>
         <servlet-name>AddAnswerServlet</servlet-name>
         <servlet-class>org.stackexchange.controller.AddAnswerServlet</servlet-class>
@@ -83,10 +89,17 @@
         <servlet-name>DownVoteAnswerServlet</servlet-name>
         <url-pattern>/DownVoteAnswer</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditQuestionServlet</servlet-name>
+        <url-pattern>/EditQuestionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateQuestionServlet</servlet-name>
+        <url-pattern>/UpdateQuestionServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
->>>>>>> 9283ff1861364287723e35f49cb9e9d8849528c9
 </web-app>

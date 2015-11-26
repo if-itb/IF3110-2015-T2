@@ -35,7 +35,7 @@
             <div class="controls" style="border-bottom:0px" align="right">
                 asked by <span class="name"><font color="blue"><c:out value="${question_name}"/></font></span> &lt;<span class="email">TES@GMAIL.COM></span>
                 at <span class="create-date"><c:out value="${question.createdAt}"/></span> |
-                <span class="link_edit"><a class="link_edit" title="Click here to edit" href="      ">edit</a></span> |
+                <span class="link_edit"><a class="link_edit" title="Click here to edit" href="http://localhost:8080/stack_exchange_netbeans/EditQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc"">edit</a></span> |
                 <span class="link_delete"><a class="link_delete" title="Click here to delete" href="      " onclick="      ">delete</a></span>
             </div>
         </div>
@@ -53,11 +53,11 @@
 		<div class="answer underline" style="width:100%" id="answer-  ">
                 	<div class="row">
                 		<div class="col_vote">
-        				<a title="Click to Upvote" href="http://localhost:8080/stack_exchange_netbeans/UpVoteAnswer?question_id=<c:out value="${question.id}"/>&answer_id=<c:out value="${answers.id}"/>" id="increase-vote">
+        				<a title="Click to Upvote" href="http://localhost:8080/stack_exchange_netbeans/UpVoteAnswer?question_id=<c:out value="${question.id}"/>&answer_id=<c:out value="${answers.id}"/>&token=sssc" id="increase-vote">
 					<img src="assets/img/up.png" width="32" height="32"><br>
 					</a>
                                     <span id="answer-vote-count-"><font size = "5" color ="blue"><c:out value="${answers.vote}"/></font></span><br>
-					<a title="Click to Downvote" href="http://localhost:8080/stack_exchange_netbeans/DownVoteAnswer?question_id=<c:out value="${question.id}"/>&answer_id=<c:out value="${answers.id}"/>" id="decrease-vote">
+					<a title="Click to Downvote" href="http://localhost:8080/stack_exchange_netbeans/DownVoteAnswer?question_id=<c:out value="${question.id}"/>&answer_id=<c:out value="${answers.id}"/>&token=sssc" id="decrease-vote">
 					<img src="assets/img/down.png" width="32" height="32">
 					</a>
 				</div>

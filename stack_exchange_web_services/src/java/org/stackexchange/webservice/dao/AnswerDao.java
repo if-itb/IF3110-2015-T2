@@ -91,7 +91,7 @@ public class AnswerDao extends MySQLDao {
         Answer answer = getById(id);
 
         long newVote = answer.getVote() + 1;
-        String query = "UPDATE `question` SET vote='" + newVote + "' WHERE id=" + id;
+        String query = "UPDATE `answer` SET vote='" + newVote + "' WHERE id=" + id;
         Statement statement;
 
         try {
@@ -113,7 +113,7 @@ public class AnswerDao extends MySQLDao {
         Answer answer = getById(id);
 
         long newVote = answer.getVote() - 1;
-        String query = "UPDATE `question` SET vote='" + newVote + "' WHERE id=" + id;
+        String query = "UPDATE `answer` SET vote='" + newVote + "' WHERE id=" + id;
         Statement statement;
 
         try {

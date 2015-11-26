@@ -3,9 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.stackexchange.controller;
-
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,14 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
-import model.Question;
 import org.stackexchange.webservice.service.QuestionWS_Service;
 
 /**
  *
  * @author X450
  */
-public class EditQuestionServlet extends HttpServlet {
+public class UpdateQuestionServlet extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/stack_exchange_web_services/QuestionWS.wsdl")
     private QuestionWS_Service service;
 
@@ -41,10 +37,10 @@ public class EditQuestionServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditQuestionServlet</title>");            
+            out.println("<title>Servlet UpdateQuestionServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EditQuestionServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateQuestionServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,13 +58,7 @@ public class EditQuestionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String question_id = request.getParameter("question_id");
-        String json = getById(Long.valueOf(request.getParameter("question_id")));
-        Gson gson = new Gson();
-        Question questionFromJson = gson.fromJson(json, Question.class);
-        request.setAttribute("Question",questionFromJson);
-        request.getRequestDispatcher("editQuestion.jsp").forward(request, response);
-        //processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -82,7 +72,20 @@ public class EditQuestionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        
+        Long question_id = Long.valueOf(request.getParameter("question_id"));
+        String topic = request.getParameter("Topic");
+        String content = request.getParameter("Content");
+        String token = request.getParameter("token");
+        if (token != null && !token.isEmpty()) {
+            update(question_id,topic,content,token);
+            response.sendRedirect("http://localhost:8080/stack_exchange_netbeans/index?token="+token);
+            //request.getRequestDispatcher("addQuestion.jsp").forward(request, response);
+        } else {
+            request.setAttribute("flash", "You Need To Login First");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -95,11 +98,11 @@ public class EditQuestionServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private String getById(long id) {
+    private boolean update(long id, java.lang.String title, java.lang.String content, java.lang.String token) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         org.stackexchange.webservice.service.QuestionWS port = service.getQuestionWSPort();
-        return port.getById(id);
+        return port.update(id, title, content, token);
     }
 
 }

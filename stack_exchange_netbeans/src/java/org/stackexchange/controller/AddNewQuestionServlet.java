@@ -80,7 +80,8 @@ public class AddNewQuestionServlet extends HttpServlet {
         String token = request.getParameter("token");
         if (token != null && !token.isEmpty()) {
             insert(topic,content,token);
-            request.getRequestDispatcher("addQuestion.jsp").forward(request, response);
+            response.sendRedirect("http://localhost:8080/stack_exchange_netbeans/index?token="+token);
+            //request.getRequestDispatcher("addQuestion.jsp").forward(request, response);
         } else {
             request.setAttribute("flash", "You Need To Login First");
             request.getRequestDispatcher("index.jsp").forward(request, response);

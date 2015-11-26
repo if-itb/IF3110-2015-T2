@@ -104,15 +104,24 @@
       <div class="col s10 offset-s1 l10">
         <div class="card blue-grey darken-1">
           <div class="card-content white-text">
-            <span class="card-title">${question.topic}</span>
+              <span class="card-title"><a href = "http://localhost:8080/stack_exchange_netbeans/question?question_id=<c:out value="${question.id}"/>&token=sssc">${question.topic}</a></span>
+              <div class="right">
+                <p style="font-size: 35px;margin:20px 28px 0 0">${question.vote}</p>
+              </div>
             <p>${question.content}</p>
               <div class="right-align">
                 <p>Asked by ${question.userId}</p>
               </div>
           </div>
-          <div class="card-action right-align">
-            <a href="#">Edit</a>
-            <a href="#">Delete</a>
+          <div class="card-action">
+            <div class="left">
+                <a href="#"><img src="assets/image/up.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+                <a href="#"><img src="assets/image/down.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+            </div>
+            <div class="right-align">
+                <a href="http://localhost:8080/stack_exchange_netbeans/EditQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc">Edit</a>
+                <a href="#">Delete</a>
+            </div> 
           </div>
         </div>
       </div>

@@ -28,10 +28,10 @@ import org.stackexchange.webservice.service.TokenService;
  */
 public class UpVoteAnswerServlet extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/stack_exchange_web_services/QuestionWS.wsdl")
+   // @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/stack_exchange_web_services/QuestionWS.wsdl")
     private QuestionWS_Service service_1 = new QuestionWS_Service();
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/stack_exchange_web_services/AnswerWS.wsdl")
+   // @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/stack_exchange_web_services/AnswerWS.wsdl")
     private AnswerWS_Service service = new AnswerWS_Service();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -46,25 +46,8 @@ public class UpVoteAnswerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String json = getByQuestionId(Long.valueOf(request.getParameter("question_id")));
-        Gson gson = new Gson();
-        Type listType = new TypeToken<List<Answer>>() {}.getType();
-        List<Answer> answerListFromJson = gson.fromJson(json, listType);
-        
-        json = getById(Long.valueOf(request.getParameter("question_id")));
-        gson = new Gson();
-        Question questionFromJson = gson.fromJson(json, Question.class);
-        
-        TokenService TS = new TokenService();
-        String name = TS.getUserName("123");
-        //String email = TS.getEmail();
-        request.setAttribute("question", questionFromJson);
-        request.setAttribute("answer", answerListFromJson);
-        request.setAttribute("question_name",name);
-//        request.setAttribute("question_email",email);
-        
         upvoteAnswer(Long.valueOf(request.getParameter("answer_id")),request.getParameter("token"));
-        request.getRequestDispatcher("question.jsp").forward(request, response);
+        response.sendRedirect("/stack_exchange_netbeans/question?question_id=" + request.getParameter("question_id") + "&token=" + request.getParameter("token"));
     }
 
     private boolean upvoteAnswer(long id, java.lang.String token) {
