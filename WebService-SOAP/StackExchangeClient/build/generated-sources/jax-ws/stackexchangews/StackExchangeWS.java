@@ -146,40 +146,13 @@ public interface StackExchangeWS {
     /**
      * 
      * @param id
-     * @param type
      * @param userId
-     * @return
-     *     returns java.lang.String
      */
     @WebMethod
-    @WebResult(name = "voteResult", targetNamespace = "")
-    @RequestWrapper(localName = "voteUp", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteUp")
-    @ResponseWrapper(localName = "voteUpResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteUpResponse")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/voteUpRequest", output = "http://StackExchangeWS/StackExchangeWS/voteUpResponse")
-    public String voteUp(
-        @WebParam(name = "type", targetNamespace = "")
-        String type,
-        @WebParam(name = "userId", targetNamespace = "")
-        int userId,
-        @WebParam(name = "id", targetNamespace = "")
-        int id);
-
-    /**
-     * 
-     * @param id
-     * @param type
-     * @param userId
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(name = "voteResult", targetNamespace = "")
-    @RequestWrapper(localName = "voteDown", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteDown")
-    @ResponseWrapper(localName = "voteDownResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteDownResponse")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/voteDownRequest", output = "http://StackExchangeWS/StackExchangeWS/voteDownResponse")
-    public String voteDown(
-        @WebParam(name = "type", targetNamespace = "")
-        String type,
+    @Oneway
+    @RequestWrapper(localName = "voteUpQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteUpQuestion")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/voteUpQuestion")
+    public void voteUpQuestion(
         @WebParam(name = "userId", targetNamespace = "")
         int userId,
         @WebParam(name = "id", targetNamespace = "")
@@ -199,6 +172,36 @@ public interface StackExchangeWS {
 
     /**
      * 
+     * @param id
+     * @param userId
+     */
+    @WebMethod
+    @Oneway
+    @RequestWrapper(localName = "voteUpAnswer", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteUpAnswer")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/voteUpAnswer")
+    public void voteUpAnswer(
+        @WebParam(name = "userId", targetNamespace = "")
+        int userId,
+        @WebParam(name = "id", targetNamespace = "")
+        int id);
+
+    /**
+     * 
+     * @param id
+     * @param userId
+     */
+    @WebMethod
+    @Oneway
+    @RequestWrapper(localName = "voteDownAnswer", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteDownAnswer")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/voteDownAnswer")
+    public void voteDownAnswer(
+        @WebParam(name = "userId", targetNamespace = "")
+        int userId,
+        @WebParam(name = "id", targetNamespace = "")
+        int id);
+
+    /**
+     * 
      * @param userId
      * @return
      *     returns java.lang.String
@@ -211,5 +214,20 @@ public interface StackExchangeWS {
     public String getNameById(
         @WebParam(name = "userId", targetNamespace = "")
         int userId);
+
+    /**
+     * 
+     * @param id
+     * @param userId
+     */
+    @WebMethod
+    @Oneway
+    @RequestWrapper(localName = "voteDownQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteDownQuestion")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/voteDownQuestion")
+    public void voteDownQuestion(
+        @WebParam(name = "userId", targetNamespace = "")
+        int userId,
+        @WebParam(name = "id", targetNamespace = "")
+        int id);
 
 }

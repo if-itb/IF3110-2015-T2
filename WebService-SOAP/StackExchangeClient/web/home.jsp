@@ -64,9 +64,8 @@
                 out.println("</div>");
                 out.println("<div class='card-action'>");
                 out.println("<a class='left' href='#'>Asked by " + names.get(i) + "</a>");
-                out.println("<i class='left small deep-purple darken-2 material-icons' style='padding-left:20px'>thumb_up</i>");
                 out.println("<a class='left' style='padding-left:5px'>" + q.getVote() + "</a>");
-                out.println("<i class='left small deep-purple darken-2 material-icons'>thumb_down</i>");
+                out.println("<a class='left'>Votes</a>");
                 out.println("<a class='right' href='edit.jsp?qid=" + q.getId() + "'>Edit</a>");
                 out.println("<a class='right' href='delete?qid=" + q.getId() + "'>Delete</a>");
                 out.println("</div></div></div></div>");

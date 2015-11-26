@@ -201,137 +201,470 @@ public class StackExchangeWS {
         }
     }
 
-    @WebMethod(operationName = "voteUp")
-    @WebResult(name="voteResult")
-    public String voteUp(@WebParam(name="type") String type, @WebParam(name = "userId") int userId, @WebParam(name = "id") int id) {
+    @WebMethod(operationName = "voteUpQuestion")
+    @Oneway
+    public void voteUpQuestion(@WebParam(name = "userId") int userId, @WebParam(name = "id") int id) {
         try {
-            String sql;
-            
-            if (type.equals("question"))
-                sql = "SELECT * FROM userVote WHERE userId=? AND qid=?";
-            else
-                sql = "SELECT * FROM userVote WHERE userId=? AND aid=?";
-            
+            String sql = "SELECT * FROM questionvote WHERE userid=? AND questionid=?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, userId);
             dbStatement.setInt(2, id);
-            
             ResultSet rs = dbStatement.executeQuery();
-            int count = 0;
-            
-            while (rs.next())
-                count++;
                         
-            if (count == 0) {
-                if (type.equals("question"))
-                    sql = "SELECT vote FROM question WHERE id=?";
-                else
-                    sql = "SELECT vote FROM answer WHERE id=?";
+            if (!rs.next()) {
+                sql = "INSERT INTO questionvote(userid, questionid, type) VALUES(?, ?, ?)";
+                dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, userId);
+                dbStatement.setInt(2, id);
+                dbStatement.setInt(3, 1);
+                dbStatement.executeUpdate();
+                
+                sql = "SELECT vote FROM question WHERE id=?";
                 dbStatement = conn.prepareStatement(sql);
                 dbStatement.setInt(1, id);
                 rs = dbStatement.executeQuery();
                 
-                int vote = -9999;
-                
-                while (rs.next())
-                    vote = rs.getInt("vote") + 1;
-                
-                if (type.equals("question"))
-                    sql = "UPDATE question SET vote=? WHERE id=?";
-                else
-                    sql = "UPDATE answer SET vote=? WHERE id=?";
+                rs.next();
+                int vote = rs.getInt("vote") + 1;
+                                
+                sql = "UPDATE question SET vote=? WHERE id=?";
                 dbStatement = conn.prepareStatement(sql);
                 dbStatement.setInt(1, vote);
                 dbStatement.setInt(2, id);
                 dbStatement.executeUpdate();
-                
-                if (type.equals("question"))
-                    sql = "INSERT INTO userVote(userId, qid) VALUES(?, ?)";
-                else
-                    sql = "INSERT INTO userVote(userId, aid) VALUES(?, ?)";
-                
+            }
+            else {
+                sql = "SELECT type FROM questionvote WHERE userid=? AND questionid=?";
                 dbStatement = conn.prepareStatement(sql);
                 dbStatement.setInt(1, userId);
                 dbStatement.setInt(2, id);
-                dbStatement.executeUpdate();
+                rs = dbStatement.executeQuery();
                 
-                return "Successfully voted " + type;
+                rs.next();
+                int type = rs.getInt("type");
+                
+                if (type == 0) {
+                    type = 1;
+                    sql = "UPDATE questionvote SET type=? WHERE userid=? AND questionid=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, 1);
+                    dbStatement.setInt(2, userId);
+                    dbStatement.setInt(3, id);
+                    dbStatement.executeUpdate();
+                    
+                    sql = "SELECT vote FROM question WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, id);
+                    rs = dbStatement.executeQuery();
+
+                    rs.next();
+                    int vote = rs.getInt("vote") + 1;
+
+                    sql = "UPDATE question SET vote=? WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, vote);
+                    dbStatement.setInt(2, id);
+                    dbStatement.executeUpdate();
+                }
+                else if (type == 1) {
+                    type = 0;
+                    sql = "UPDATE questionvote SET type=? WHERE userid=? AND questionid=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, 0);
+                    dbStatement.setInt(2, userId);
+                    dbStatement.setInt(3, id);
+                    dbStatement.executeUpdate();
+                    
+                    sql = "SELECT vote FROM question WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, id);
+                    rs = dbStatement.executeQuery();
+                    rs.next();
+                    int vote = rs.getInt("vote") - 1;
+
+                    sql = "UPDATE question SET vote=? WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, vote);
+                    dbStatement.setInt(2, id);
+                    dbStatement.executeUpdate();
+                }
+                else if (type == -1) {
+                    type = 1;
+                    sql = "UPDATE questionvote SET type=? WHERE userid=? AND questionid=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, 1);
+                    dbStatement.setInt(2, userId);
+                    dbStatement.setInt(3, id);
+                    dbStatement.executeUpdate();
+                    
+                    sql = "SELECT vote FROM question WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, id);
+                    rs = dbStatement.executeQuery();
+                    
+                    rs.next();
+                    int vote = rs.getInt("vote") + 2;
+
+                    sql = "UPDATE question SET vote=? WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, vote);
+                    dbStatement.setInt(2, id);
+                    dbStatement.executeUpdate();
+                }
             }
-            else
-                return "You have already voted for this " + type;
         }
         catch (SQLException ex) {
-            return ex.getMessage();
         }
     }
     
-    @WebMethod(operationName = "voteDown")
-    @WebResult(name="voteResult")
-    public String voteDown(@WebParam(name="type") String type, @WebParam(name = "userId") int userId, @WebParam(name = "id") int id) {
+    @WebMethod(operationName = "voteDownQuestion")
+    @Oneway
+    public void voteDownQuestion(@WebParam(name = "userId") int userId, @WebParam(name = "id") int id) {
         try {
-            String sql;
-            
-            if (type.equals("question"))
-                sql = "SELECT * FROM userVote WHERE userId=? AND qid=?";
-            else
-                sql = "SELECT * FROM userVote WHERE userId=? AND aid=?";
-            
+            String sql = "SELECT * FROM questionvote WHERE userid=? AND questionid=?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, userId);
             dbStatement.setInt(2, id);
-            
             ResultSet rs = dbStatement.executeQuery();
-            int count = 0;
-            
-            while (rs.next())
-                count++;
                         
-            if (count == 0) {
-                if (type.equals("question"))
-                    sql = "SELECT vote FROM question WHERE id=?";
-                else
-                    sql = "SELECT vote FROM answer WHERE id=?";
+            if (!rs.next()) {
+                sql = "INSERT INTO questionvote(userid, questionid, type) VALUES(?, ?, ?)";
+                dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, userId);
+                dbStatement.setInt(2, id);
+                dbStatement.setInt(3, -1);
+                dbStatement.executeUpdate();
+                
+                sql = "SELECT vote FROM question WHERE id=?";
                 dbStatement = conn.prepareStatement(sql);
                 dbStatement.setInt(1, id);
                 rs = dbStatement.executeQuery();
                 
-                int vote = 9999;
-                
-                while (rs.next())
-                    vote = rs.getInt("vote") - 1;
-                
-                if (type.equals("question"))
-                    sql = "UPDATE question SET vote=? WHERE id=?";
-                else
-                    sql = "UPDATE answer SET vote=? WHERE id=?";
+                rs.next();
+                int vote = rs.getInt("vote") - 1;
+                                
+                sql = "UPDATE question SET vote=? WHERE id=?";
                 dbStatement = conn.prepareStatement(sql);
                 dbStatement.setInt(1, vote);
                 dbStatement.setInt(2, id);
                 dbStatement.executeUpdate();
-                
-                if (type.equals("question"))
-                    sql = "INSERT INTO userVote(userId, qid) VALUES(?, ?)";
-                else
-                    sql = "INSERT INTO userVote(userId, aid) VALUES(?, ?)";
-                
+            }
+            else {
+                sql = "SELECT type FROM questionvote WHERE userid=? AND questionid=?";
                 dbStatement = conn.prepareStatement(sql);
                 dbStatement.setInt(1, userId);
                 dbStatement.setInt(2, id);
-                dbStatement.executeUpdate();
+                rs = dbStatement.executeQuery();
                 
-                return "Successfully voted " + type;
+                rs.next();
+                int type = rs.getInt("type");
+                
+                if (type == 0) {
+                    type = -1;
+                    sql = "UPDATE questionvote SET type=? WHERE userid=? AND questionid=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, type);
+                    dbStatement.setInt(2, userId);
+                    dbStatement.setInt(3, id);
+                    dbStatement.executeUpdate();
+                    
+                    sql = "SELECT vote FROM question WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, id);
+                    rs = dbStatement.executeQuery();
+
+                    rs.next();
+                    int vote = rs.getInt("vote") - 1;
+
+                    sql = "UPDATE question SET vote=? WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, vote);
+                    dbStatement.setInt(2, id);
+                    dbStatement.executeUpdate();
+                }
+                else if (type == 1) {
+                    type = -1;
+                    sql = "UPDATE questionvote SET type=? WHERE userid=? AND questionid=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, type);
+                    dbStatement.setInt(2, userId);
+                    dbStatement.setInt(3, id);
+                    dbStatement.executeUpdate();
+                    
+                    sql = "SELECT vote FROM question WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, id);
+                    rs = dbStatement.executeQuery();
+                    rs.next();
+                    int vote = rs.getInt("vote") - 2;
+
+                    sql = "UPDATE question SET vote=? WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, vote);
+                    dbStatement.setInt(2, id);
+                    dbStatement.executeUpdate();
+                }
+                else if (type == -1) {
+                    type = 0;
+                    sql = "UPDATE questionvote SET type=? WHERE userid=? AND questionid=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, type);
+                    dbStatement.setInt(2, userId);
+                    dbStatement.setInt(3, id);
+                    dbStatement.executeUpdate();
+                    
+                    sql = "SELECT vote FROM question WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, id);
+                    rs = dbStatement.executeQuery();
+                    
+                    rs.next();
+                    int vote = rs.getInt("vote") + 1;
+
+                    sql = "UPDATE question SET vote=? WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, vote);
+                    dbStatement.setInt(2, id);
+                    dbStatement.executeUpdate();
+                }
             }
-            else
-                return "You have already voted for this " + type;
         }
         catch (SQLException ex) {
-            return ex.getMessage();
         }
     }
+    
+    @WebMethod(operationName = "voteUpAnswer")
+    @Oneway
+    public void voteUpAnswer(@WebParam(name = "userId") int userId, @WebParam(name = "id") int id) {
+        try {
+            String sql = "SELECT * FROM answervote WHERE userid=? AND answerid=?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, userId);
+            dbStatement.setInt(2, id);
+            ResultSet rs = dbStatement.executeQuery();
+                        
+            if (!rs.next()) {
+                sql = "INSERT INTO answervote(userid, answerid, type) VALUES(?, ?, ?)";
+                dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, userId);
+                dbStatement.setInt(2, id);
+                dbStatement.setInt(3, 1);
+                dbStatement.executeUpdate();
+                
+                sql = "SELECT vote FROM answer WHERE id=?";
+                dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, id);
+                rs = dbStatement.executeQuery();
+                
+                rs.next();
+                int vote = rs.getInt("vote") + 1;
+                                
+                sql = "UPDATE answer SET vote=? WHERE id=?";
+                dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, vote);
+                dbStatement.setInt(2, id);
+                dbStatement.executeUpdate();
+            }
+            else {
+                sql = "SELECT type FROM answervote WHERE userid=? AND answerid=?";
+                dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, userId);
+                dbStatement.setInt(2, id);
+                rs = dbStatement.executeQuery();
+                
+                rs.next();
+                int type = rs.getInt("type");
+                
+                if (type == 0) {
+                    type = 1;
+                    sql = "UPDATE answervote SET type=? WHERE userid=? AND answerid=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, 1);
+                    dbStatement.setInt(2, userId);
+                    dbStatement.setInt(3, id);
+                    dbStatement.executeUpdate();
+                    
+                    sql = "SELECT vote FROM answer WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, id);
+                    rs = dbStatement.executeQuery();
 
-    /**
-     * Web service operation
-     */
+                    rs.next();
+                    int vote = rs.getInt("vote") + 1;
+
+                    sql = "UPDATE answer SET vote=? WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, vote);
+                    dbStatement.setInt(2, id);
+                    dbStatement.executeUpdate();
+                }
+                else if (type == 1) {
+                    type = 0;
+                    sql = "UPDATE answervote SET type=? WHERE userid=? AND answerid=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, 0);
+                    dbStatement.setInt(2, userId);
+                    dbStatement.setInt(3, id);
+                    dbStatement.executeUpdate();
+                    
+                    sql = "SELECT vote FROM answer WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, id);
+                    rs = dbStatement.executeQuery();
+                    rs.next();
+                    int vote = rs.getInt("vote") - 1;
+
+                    sql = "UPDATE answer SET vote=? WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, vote);
+                    dbStatement.setInt(2, id);
+                    dbStatement.executeUpdate();
+                }
+                else if (type == -1) {
+                    type = 1;
+                    sql = "UPDATE answervote SET type=? WHERE userid=? AND answerid=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, 1);
+                    dbStatement.setInt(2, userId);
+                    dbStatement.setInt(3, id);
+                    dbStatement.executeUpdate();
+                    
+                    sql = "SELECT vote FROM answer WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, id);
+                    rs = dbStatement.executeQuery();
+                    
+                    rs.next();
+                    int vote = rs.getInt("vote") + 2;
+
+                    sql = "UPDATE answer SET vote=? WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, vote);
+                    dbStatement.setInt(2, id);
+                    dbStatement.executeUpdate();
+                }
+            }
+        }
+        catch (SQLException ex) {
+        }
+    }
+    
+    @WebMethod(operationName = "voteDownAnswer")
+    @Oneway
+    public void voteDownAnswer(@WebParam(name = "userId") int userId, @WebParam(name = "id") int id) {
+        try {
+            String sql = "SELECT * FROM answervote WHERE userid=? AND answerid=?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, userId);
+            dbStatement.setInt(2, id);
+            ResultSet rs = dbStatement.executeQuery();
+                        
+            if (!rs.next()) {
+                sql = "INSERT INTO answervote(userid, answerid, type) VALUES(?, ?, ?)";
+                dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, userId);
+                dbStatement.setInt(2, id);
+                dbStatement.setInt(3, -1);
+                dbStatement.executeUpdate();
+                
+                sql = "SELECT vote FROM answer WHERE id=?";
+                dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, id);
+                rs = dbStatement.executeQuery();
+                
+                rs.next();
+                int vote = rs.getInt("vote") - 1;
+                                
+                sql = "UPDATE answer SET vote=? WHERE id=?";
+                dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, vote);
+                dbStatement.setInt(2, id);
+                dbStatement.executeUpdate();
+            }
+            else {
+                sql = "SELECT type FROM answervote WHERE userid=? AND answerid=?";
+                dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, userId);
+                dbStatement.setInt(2, id);
+                rs = dbStatement.executeQuery();
+                
+                rs.next();
+                int type = rs.getInt("type");
+                
+                if (type == 0) {
+                    type = -1;
+                    sql = "UPDATE answervote SET type=? WHERE userid=? AND answerid=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, type);
+                    dbStatement.setInt(2, userId);
+                    dbStatement.setInt(3, id);
+                    dbStatement.executeUpdate();
+                    
+                    sql = "SELECT vote FROM answer WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, id);
+                    rs = dbStatement.executeQuery();
+
+                    rs.next();
+                    int vote = rs.getInt("vote") - 1;
+
+                    sql = "UPDATE answer SET vote=? WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, vote);
+                    dbStatement.setInt(2, id);
+                    dbStatement.executeUpdate();
+                }
+                else if (type == 1) {
+                    type = -1;
+                    sql = "UPDATE answervote SET type=? WHERE userid=? AND answerid=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, type);
+                    dbStatement.setInt(2, userId);
+                    dbStatement.setInt(3, id);
+                    dbStatement.executeUpdate();
+                    
+                    sql = "SELECT vote FROM answer WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, id);
+                    rs = dbStatement.executeQuery();
+                    rs.next();
+                    int vote = rs.getInt("vote") - 2;
+
+                    sql = "UPDATE answer SET vote=? WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, vote);
+                    dbStatement.setInt(2, id);
+                    dbStatement.executeUpdate();
+                }
+                else if (type == -1) {
+                    type = 0;
+                    sql = "UPDATE answervote SET type=? WHERE userid=? AND answerid=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, type);
+                    dbStatement.setInt(2, userId);
+                    dbStatement.setInt(3, id);
+                    dbStatement.executeUpdate();
+                    
+                    sql = "SELECT vote FROM answer WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, id);
+                    rs = dbStatement.executeQuery();
+                    
+                    rs.next();
+                    int vote = rs.getInt("vote") + 1;
+
+                    sql = "UPDATE answer SET vote=? WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, vote);
+                    dbStatement.setInt(2, id);
+                    dbStatement.executeUpdate();
+                }
+            }
+        }
+        catch (SQLException ex) {
+        }
+    }
+    
     @WebMethod(operationName = "getNameById")
     @WebResult(name="Name")
     public String getNameById(@WebParam(name = "userId") int userId) {

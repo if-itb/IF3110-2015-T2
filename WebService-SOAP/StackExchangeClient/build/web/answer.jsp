@@ -55,9 +55,13 @@
             out.println("</div>");
             out.println("<div class='card-action'>");
             out.println("<a class='left' href='#'>Asked by " + qname + "</a>");
+            out.println("<a href='votequestion?qid=" + q.getId() + "&type=1'>");
             out.println("<i class='left small deep-purple darken-2 material-icons' style='padding-left:20px'>thumb_up</i>");
+            out.println("</a>");
             out.println("<a class='left' style='padding-left:5px'>" + q.getVote() + "</a>");
+            out.println("<a href='votequestion?qid=" + q.getId() + "&type=-1'>");
             out.println("<i class='left small deep-purple darken-2 material-icons'>thumb_down</i>");
+            out.println("</a>");
             out.println("<a class='right' href='edit.jsp?qid=" + q.getId() + "'>Edit</a>");
             out.println("<a class='right' href='delete?qid=" + q.getId() + "'>Delete</a>");
             out.println("</div></div></div>");
@@ -76,9 +80,13 @@
                 out.println("</div>");
                 out.println("<div class='card-action'>");
                 out.println("<a class='left' href='#'>Answered by " + anames.get(i) + "</a>");
+                out.println("<a href='voteanswer?qid=" + q.getId() + "&aid=" + a.getId() + "&type=1'>");
                 out.println("<i class='left small deep-purple darken-2 material-icons' style='padding-left:20px'>thumb_up</i>");
-                out.println("<a class='left' style='padding-left:5px'>" + q.getVote() + "</a>");
+                out.println("</a>");
+                out.println("<a class='left' style='padding-left:5px'>" + a.getVote() + "</a>");
+                out.println("<a href='voteanswer?qid=" + q.getId() + "&aid=" + a.getId() + "&type=-1'>");
                 out.println("<i class='left small deep-purple darken-2 material-icons'>thumb_down</i>");
+                out.println("</a>");
                 out.println("</div></div></div>");
                 i++;
             }

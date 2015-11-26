@@ -26,6 +26,7 @@ public class ObjectFactory {
 
     private final static QName _InsertAnswer_QNAME = new QName("http://StackExchangeWS/", "insertAnswer");
     private final static QName _UpdateQuestion_QNAME = new QName("http://StackExchangeWS/", "updateQuestion");
+    private final static QName _VoteDownAnswer_QNAME = new QName("http://StackExchangeWS/", "voteDownAnswer");
     private final static QName _Answer_QNAME = new QName("http://StackExchangeWS/", "Answer");
     private final static QName _RegisterResponse_QNAME = new QName("http://StackExchangeWS/", "registerResponse");
     private final static QName _GetNameById_QNAME = new QName("http://StackExchangeWS/", "getNameById");
@@ -35,15 +36,14 @@ public class ObjectFactory {
     private final static QName _Question_QNAME = new QName("http://StackExchangeWS/", "Question");
     private final static QName _GetAnswerResponse_QNAME = new QName("http://StackExchangeWS/", "getAnswerResponse");
     private final static QName _GetNameByIdResponse_QNAME = new QName("http://StackExchangeWS/", "getNameByIdResponse");
+    private final static QName _VoteUpQuestion_QNAME = new QName("http://StackExchangeWS/", "voteUpQuestion");
     private final static QName _Register_QNAME = new QName("http://StackExchangeWS/", "register");
+    private final static QName _VoteUpAnswer_QNAME = new QName("http://StackExchangeWS/", "voteUpAnswer");
+    private final static QName _VoteDownQuestion_QNAME = new QName("http://StackExchangeWS/", "voteDownQuestion");
     private final static QName _GetQuestion_QNAME = new QName("http://StackExchangeWS/", "getQuestion");
     private final static QName _GetRecentQuestions_QNAME = new QName("http://StackExchangeWS/", "getRecentQuestions");
     private final static QName _InsertQuestion_QNAME = new QName("http://StackExchangeWS/", "insertQuestion");
     private final static QName _GetQuestionResponse_QNAME = new QName("http://StackExchangeWS/", "getQuestionResponse");
-    private final static QName _VoteDownResponse_QNAME = new QName("http://StackExchangeWS/", "voteDownResponse");
-    private final static QName _VoteUp_QNAME = new QName("http://StackExchangeWS/", "voteUp");
-    private final static QName _VoteUpResponse_QNAME = new QName("http://StackExchangeWS/", "voteUpResponse");
-    private final static QName _VoteDown_QNAME = new QName("http://StackExchangeWS/", "voteDown");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: stackexchangews
@@ -85,35 +85,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link VoteDownResponse }
+     * Create an instance of {@link VoteDownQuestion }
      * 
      */
-    public VoteDownResponse createVoteDownResponse() {
-        return new VoteDownResponse();
-    }
-
-    /**
-     * Create an instance of {@link VoteUp }
-     * 
-     */
-    public VoteUp createVoteUp() {
-        return new VoteUp();
-    }
-
-    /**
-     * Create an instance of {@link VoteDown }
-     * 
-     */
-    public VoteDown createVoteDown() {
-        return new VoteDown();
-    }
-
-    /**
-     * Create an instance of {@link VoteUpResponse }
-     * 
-     */
-    public VoteUpResponse createVoteUpResponse() {
-        return new VoteUpResponse();
+    public VoteDownQuestion createVoteDownQuestion() {
+        return new VoteDownQuestion();
     }
 
     /**
@@ -130,6 +106,14 @@ public class ObjectFactory {
      */
     public UpdateQuestion createUpdateQuestion() {
         return new UpdateQuestion();
+    }
+
+    /**
+     * Create an instance of {@link VoteDownAnswer }
+     * 
+     */
+    public VoteDownAnswer createVoteDownAnswer() {
+        return new VoteDownAnswer();
     }
 
     /**
@@ -189,6 +173,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link VoteUpQuestion }
+     * 
+     */
+    public VoteUpQuestion createVoteUpQuestion() {
+        return new VoteUpQuestion();
+    }
+
+    /**
      * Create an instance of {@link Question }
      * 
      */
@@ -202,6 +194,14 @@ public class ObjectFactory {
      */
     public GetAnswerResponse createGetAnswerResponse() {
         return new GetAnswerResponse();
+    }
+
+    /**
+     * Create an instance of {@link VoteUpAnswer }
+     * 
+     */
+    public VoteUpAnswer createVoteUpAnswer() {
+        return new VoteUpAnswer();
     }
 
     /**
@@ -228,6 +228,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "updateQuestion")
     public JAXBElement<UpdateQuestion> createUpdateQuestion(UpdateQuestion value) {
         return new JAXBElement<UpdateQuestion>(_UpdateQuestion_QNAME, UpdateQuestion.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link VoteDownAnswer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "voteDownAnswer")
+    public JAXBElement<VoteDownAnswer> createVoteDownAnswer(VoteDownAnswer value) {
+        return new JAXBElement<VoteDownAnswer>(_VoteDownAnswer_QNAME, VoteDownAnswer.class, null, value);
     }
 
     /**
@@ -312,12 +321,39 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link VoteUpQuestion }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "voteUpQuestion")
+    public JAXBElement<VoteUpQuestion> createVoteUpQuestion(VoteUpQuestion value) {
+        return new JAXBElement<VoteUpQuestion>(_VoteUpQuestion_QNAME, VoteUpQuestion.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Register }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "register")
     public JAXBElement<Register> createRegister(Register value) {
         return new JAXBElement<Register>(_Register_QNAME, Register.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link VoteUpAnswer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "voteUpAnswer")
+    public JAXBElement<VoteUpAnswer> createVoteUpAnswer(VoteUpAnswer value) {
+        return new JAXBElement<VoteUpAnswer>(_VoteUpAnswer_QNAME, VoteUpAnswer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link VoteDownQuestion }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "voteDownQuestion")
+    public JAXBElement<VoteDownQuestion> createVoteDownQuestion(VoteDownQuestion value) {
+        return new JAXBElement<VoteDownQuestion>(_VoteDownQuestion_QNAME, VoteDownQuestion.class, null, value);
     }
 
     /**
@@ -354,42 +390,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "getQuestionResponse")
     public JAXBElement<GetQuestionResponse> createGetQuestionResponse(GetQuestionResponse value) {
         return new JAXBElement<GetQuestionResponse>(_GetQuestionResponse_QNAME, GetQuestionResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link VoteDownResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "voteDownResponse")
-    public JAXBElement<VoteDownResponse> createVoteDownResponse(VoteDownResponse value) {
-        return new JAXBElement<VoteDownResponse>(_VoteDownResponse_QNAME, VoteDownResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link VoteUp }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "voteUp")
-    public JAXBElement<VoteUp> createVoteUp(VoteUp value) {
-        return new JAXBElement<VoteUp>(_VoteUp_QNAME, VoteUp.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link VoteUpResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "voteUpResponse")
-    public JAXBElement<VoteUpResponse> createVoteUpResponse(VoteUpResponse value) {
-        return new JAXBElement<VoteUpResponse>(_VoteUpResponse_QNAME, VoteUpResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link VoteDown }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "voteDown")
-    public JAXBElement<VoteDown> createVoteDown(VoteDown value) {
-        return new JAXBElement<VoteDown>(_VoteDown_QNAME, VoteDown.class, null, value);
     }
 
 }
