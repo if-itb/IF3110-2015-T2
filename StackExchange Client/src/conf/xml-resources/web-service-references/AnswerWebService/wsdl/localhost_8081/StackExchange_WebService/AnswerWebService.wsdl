@@ -10,21 +10,6 @@
 <message name="getCountAnswerByQidResponse">
 <part name="parameters" element="tns:getCountAnswerByQidResponse"/>
 </message>
-<message name="getQuestionById">
-<part name="parameters" element="tns:getQuestionById"/>
-</message>
-<message name="getQuestionByIdResponse">
-<part name="parameters" element="tns:getQuestionByIdResponse"/>
-</message>
-<message name="getAnswerByQid">
-<part name="parameters" element="tns:getAnswerByQid"/>
-</message>
-<message name="getAnswerByQidResponse">
-<part name="parameters" element="tns:getAnswerByQidResponse"/>
-</message>
-<message name="ClassNotFoundException">
-<part name="fault" element="tns:ClassNotFoundException"/>
-</message>
 <message name="addAnswer">
 <part name="parameters" element="tns:addAnswer"/>
 </message>
@@ -37,6 +22,21 @@
 <message name="incrVoteResponse">
 <part name="parameters" element="tns:incrVoteResponse"/>
 </message>
+<message name="getAnswerByQid">
+<part name="parameters" element="tns:getAnswerByQid"/>
+</message>
+<message name="getAnswerByQidResponse">
+<part name="parameters" element="tns:getAnswerByQidResponse"/>
+</message>
+<message name="ClassNotFoundException">
+<part name="fault" element="tns:ClassNotFoundException"/>
+</message>
+<message name="getQuestionById">
+<part name="parameters" element="tns:getQuestionById"/>
+</message>
+<message name="getQuestionByIdResponse">
+<part name="parameters" element="tns:getQuestionByIdResponse"/>
+</message>
 <message name="decrVote">
 <part name="parameters" element="tns:decrVote"/>
 </message>
@@ -48,15 +48,6 @@
 <input wsam:Action="http://answer/AnswerWebService/getCountAnswerByQidRequest" message="tns:getCountAnswerByQid"/>
 <output wsam:Action="http://answer/AnswerWebService/getCountAnswerByQidResponse" message="tns:getCountAnswerByQidResponse"/>
 </operation>
-<operation name="getQuestionById">
-<input wsam:Action="http://answer/AnswerWebService/getQuestionByIdRequest" message="tns:getQuestionById"/>
-<output wsam:Action="http://answer/AnswerWebService/getQuestionByIdResponse" message="tns:getQuestionByIdResponse"/>
-</operation>
-<operation name="getAnswerByQid">
-<input wsam:Action="http://answer/AnswerWebService/getAnswerByQidRequest" message="tns:getAnswerByQid"/>
-<output wsam:Action="http://answer/AnswerWebService/getAnswerByQidResponse" message="tns:getAnswerByQidResponse"/>
-<fault message="tns:ClassNotFoundException" name="ClassNotFoundException" wsam:Action="http://answer/AnswerWebService/getAnswerByQid/Fault/ClassNotFoundException"/>
-</operation>
 <operation name="addAnswer">
 <input wsam:Action="http://answer/AnswerWebService/addAnswerRequest" message="tns:addAnswer"/>
 <output wsam:Action="http://answer/AnswerWebService/addAnswerResponse" message="tns:addAnswerResponse"/>
@@ -64,6 +55,15 @@
 <operation name="incrVote">
 <input wsam:Action="http://answer/AnswerWebService/incrVoteRequest" message="tns:incrVote"/>
 <output wsam:Action="http://answer/AnswerWebService/incrVoteResponse" message="tns:incrVoteResponse"/>
+</operation>
+<operation name="getAnswerByQid">
+<input wsam:Action="http://answer/AnswerWebService/getAnswerByQidRequest" message="tns:getAnswerByQid"/>
+<output wsam:Action="http://answer/AnswerWebService/getAnswerByQidResponse" message="tns:getAnswerByQidResponse"/>
+<fault message="tns:ClassNotFoundException" name="ClassNotFoundException" wsam:Action="http://answer/AnswerWebService/getAnswerByQid/Fault/ClassNotFoundException"/>
+</operation>
+<operation name="getQuestionById">
+<input wsam:Action="http://answer/AnswerWebService/getQuestionByIdRequest" message="tns:getQuestionById"/>
+<output wsam:Action="http://answer/AnswerWebService/getQuestionByIdResponse" message="tns:getQuestionByIdResponse"/>
 </operation>
 <operation name="decrVote">
 <input wsam:Action="http://answer/AnswerWebService/decrVoteRequest" message="tns:decrVote"/>
@@ -81,7 +81,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getQuestionById">
+<operation name="addAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="incrVote">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -102,16 +111,7 @@
 <soap:fault name="ClassNotFoundException" use="literal"/>
 </fault>
 </operation>
-<operation name="addAnswer">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="incrVote">
+<operation name="getQuestionById">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

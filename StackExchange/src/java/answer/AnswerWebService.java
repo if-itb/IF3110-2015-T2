@@ -42,19 +42,19 @@ public class AnswerWebService {
     
     @WebMethod(operationName = "incrVote")
     @WebResult(name="String")
-    public String incrVote(String token, int id, int userId) {
+    public String incrVote(String token, int id, int qid, int userId) {
         Auth auth = new Auth(token);
         if(auth.getResponse(url)){
-            String sql = "SELECT * FROM answer_vote WHERE answer_id = " + id + " AND user_id = " + userId;
+            String sql = "SELECT * FROM answer_vote WHERE answer_id = " + id + " AND user_id = " + userId + " AND question_id = " + qid;
             String result;
             Database database = new Database();
             database.connect(path);
             ResultSet rs = database.fetchData(sql);
             try {
-                if(rs.next()) {
+                if(!rs.next()) {
                     String query = "UPDATE answer SET answer_vote = answer_vote + 1 WHERE answer_id = " + id;
                     result = database.changeData(query);
-                    query = "INSERT INTO answer_vote (user_id, question_id) VALUES (" + userId + ", " + id + ")";
+                    query = "INSERT INTO answer_vote (user_id, question_id, answer_id) VALUES (" + userId + ", " + qid + ", " + id + ")";
                     result = database.changeData(query);
                 }
                 rs.close();
@@ -70,19 +70,19 @@ public class AnswerWebService {
     
     @WebMethod(operationName = "decrVote")
     @WebResult(name="String")
-    public String decrVote(String token, int id, int userId) {
+    public String decrVote(String token, int id, int qid, int userId) {
         Auth auth = new Auth(token);
         if(auth.getResponse(url)){
-            String sql = "SELECT * FROM answer_vote WHERE answer_id = " + id + " AND user_id = " + userId;
+            String sql = "SELECT * FROM answer_vote WHERE answer_id = " + id + " AND user_id = " + userId + " AND question_id = " + qid;
             String result;
             Database database = new Database();
             database.connect(path);
             ResultSet rs = database.fetchData(sql);
             try {
-                if(rs.next()) {
+                if(!rs.next()) {
                     String query = "UPDATE answer SET answer_vote = answer_vote - 1 WHERE answer_id = " + id;
                     result = database.changeData(query);
-                    query = "INSERT INTO answer_vote (user_id, question_id) VALUES (" + userId + ", " + id + ")";
+                    query = "INSERT INTO answer_vote (user_id, question_id, answer_id) VALUES (" + userId + ", " + qid + ", " + id + ")";
                     result = database.changeData(query);
                 }
                 rs.close();

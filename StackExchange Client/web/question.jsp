@@ -73,7 +73,7 @@
                                     <div class="answer underline" id="answer-">
                                         <div class="row">
                                             <div class="col vote">
-                                                <a href=" <% out.print("qvoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid") + "&aid=" +result.get(i).getAnswerId()); %>">
+                                                <a href=" <% out.print("avoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid") + "&aid=" +result.get(i).getAnswerId()); %>">
                                                 <img src="img/upvote.png" width="35" height="35">
                                                 </a>
                                                 <br>
@@ -81,7 +81,7 @@
                                                     <%= result.get(i).getVote() %>
                                                 </span>
                                                 <br>
-                                                <a href=" <% out.print("qvotedown.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid") + "&aid=" +result.get(i).getAnswerId()); %>">
+                                                <a href=" <% out.print("avotedown.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid") + "&aid=" +result.get(i).getAnswerId()); %>">
                                                 <img src="img/downvote.png" width="35" height="35">
                                                 </a>
                                                 </div>
@@ -107,12 +107,12 @@
                         %>		
                         <div class="section" id="form-answer">
                             <h2>Your Answer</h2>
-                            <form class="block" action="createanswer.jsp?token=<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>" method="POST" onsubmit="return validateAnswerForm(this);">
-                                <input type="text" placeholder="Name" name="name">
-                                <input type="text" placeholder="Email" name="email">
+                            <form class="block" action="createanswer.jsp" method="POST">
                                 <textarea name="content" placeholder="Content"></textarea>
                                 <input type="submit" value="Post">
-                                <input type="hidden" name="qid" value="<%= request.getParameter("qid") %>">
+                                <input type="hidden" name="aid" value="<%= request.getParameter("qid") %>">
+                                <input type="hidden" name="token" value="<%= request.getParameter("token")%>" />
+                                <input type="hidden" name="uid" value="<%= request.getParameter("id")%>" />
                             </form>
                         </div>
                     </div>
