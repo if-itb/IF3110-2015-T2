@@ -95,8 +95,8 @@
                                         if(name.equals(result.get(i).getAskerName())) { 
                                         %>
                                             |
-                                            <span class="link edit"> edit </span> |
-                                            <span class="link delete"> delete </span>
+                                            <a href="editForm.jsp?token=<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>&qid=<%= result.get(i).getQuestionId()%>"><span class="link edit"> edit </span></a> |
+                                            <a href="deleteQuestion.jsp?token<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>&qid=<%= result.get(i).getQuestionId()%>"><span class="link delete"> delete </span></a>
                                         <%
                                         }
                                         %>
