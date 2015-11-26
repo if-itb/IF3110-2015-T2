@@ -8,6 +8,10 @@
         <servlet-name>QuestionPage</servlet-name>
         <servlet-class>com.dazzlesquad.servlet.QuestionPage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddQuestion</servlet-name>
+        <servlet-class>com.dazzlesquad.servlet.AddQuestion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>QuestionServlet</servlet-name>
         <url-pattern>/QuestionServlet</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>QuestionPage</servlet-name>
         <url-pattern>/QuestionPage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddQuestion</servlet-name>
+        <url-pattern>/AddQuestion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

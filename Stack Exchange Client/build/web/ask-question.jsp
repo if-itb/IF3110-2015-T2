@@ -21,10 +21,6 @@
        <div class = "container">
 		<h2> What's Your Question? <hr> </h2>
 		<form method="POST" name="Form" action="question-page.jsp" onsubmit="return validateFormQuestion()">
-			<input type="text" name="question_name" id="question_name" placeholder="Name">
-			<br>
-			<input type="text" name="question_email" id="question_email" placeholder="Email">
-			<br> 
 			<input type="text" name="question_topic" id="question_topic" placeholder="Question Topic">
 			<br>
 			<textarea name="question_content" id="question_content" rows="15" placeholder="Content"></textarea>

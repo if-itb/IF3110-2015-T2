@@ -56,6 +56,8 @@ public class Question {
     protected String date;
     protected int countAnswer;
 
+    
+
     /**
      * Gets the value of the id property.
      * 

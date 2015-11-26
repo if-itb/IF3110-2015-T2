@@ -7,7 +7,7 @@ package com.dazzlesquad.question_package;
 
 import javax.xml.bind.annotation.*;
 
-@XmlRootElement(name="Answer")
+@XmlRootElement(name="Question")
 
 /**
  *
@@ -51,6 +51,13 @@ public class Question {
         
     }
     
+    public Question(int uid, String topic, String content, int count){
+        this.userId = uid;
+        this.topic = topic;
+        this.content = content;
+        this.countAnswer=count;     
+    }
+    
     
     /* Getter */
     public int getQuestionId() {
@@ -76,4 +83,33 @@ public class Question {
     public String getQuestionDate() {
         return this.date;
     }
+    
+    void setId(int id) {
+        this.id = id;
+    }
+    
+    void setUserId(int userId){
+        this.userId = userId;
+    }
+    
+    void setTopic(String topic){
+        this.topic = topic;
+    }
+    
+    void setContent(String content) {
+        this.content = content;
+    }
+    
+    void setVote(int vote) {
+        this.vote = vote;
+    }
+    
+    void setDate(String date) {
+        this.date = date;
+    }
+    
+    void setCountAnswer(int count) {
+        this.countAnswer = count;
+    }
+    
 }

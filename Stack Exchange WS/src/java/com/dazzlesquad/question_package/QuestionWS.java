@@ -137,28 +137,27 @@ public class QuestionWS {
     @WebResult(name="Question")
     public int insertQuestion(@WebParam(name = "Question") Question q) {
         int insertsuccessful = 1; // nanti diganti fungsi validasi
+        int lastId=0;
         
         if (insertsuccessful == 1) {
             try {
                 Statement statement = conn.createStatement();
                 String sql;
-                sql = "INSERT INTO Question (id_user, topic, content) VALUES (?,?,?)";
+                sql = "INSERT INTO Question (id_user, topic, content, vote, date) VALUES (?,?,?,0,now())";
 
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
                 dbStatement.setInt(1,q.getQuestionUserId());
                 dbStatement.setString(2,q.getQuestionTopic());
                 dbStatement.setString(3,q.getQuestionContent());
 
-                dbStatement.executeUpdate(); 
-
-              
+                lastId= statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS); 
                 statement.close();
                 
             } catch (SQLException ex) {
                 Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return insertsuccessful;
+        return lastId;
     }
     
     @WebMethod(operationName = "showAllQuestion")
