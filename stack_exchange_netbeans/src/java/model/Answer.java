@@ -25,12 +25,20 @@ public class Answer implements Serializable {
     @XmlElement(name = "created_at", required = true)
     private String createdAt;
     
+    @XmlElement(name = "name", required = true)
+    private String name;
+    
+    @XmlElement(name = "email", required = true)
+    private String email;
+    
     public Answer() {
         
     }
 
-    public Answer(long id, long userId, long questionId, String content, long vote, String createdAt) {
+    public Answer(long id, String name, String email, long userId, long questionId, String content, long vote, String createdAt) {
         this.id = id;
+        this.name = name;
+        this.email = email;
         this.userId = userId;
         this.questionId = questionId;
         this.content = content;
