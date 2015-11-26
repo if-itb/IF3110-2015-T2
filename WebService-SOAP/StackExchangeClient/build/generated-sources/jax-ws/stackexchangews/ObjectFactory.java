@@ -28,11 +28,13 @@ public class ObjectFactory {
     private final static QName _UpdateQuestion_QNAME = new QName("http://StackExchangeWS/", "updateQuestion");
     private final static QName _Answer_QNAME = new QName("http://StackExchangeWS/", "Answer");
     private final static QName _RegisterResponse_QNAME = new QName("http://StackExchangeWS/", "registerResponse");
+    private final static QName _GetNameById_QNAME = new QName("http://StackExchangeWS/", "getNameById");
     private final static QName _GetRecentQuestionsResponse_QNAME = new QName("http://StackExchangeWS/", "getRecentQuestionsResponse");
     private final static QName _DeleteQuestion_QNAME = new QName("http://StackExchangeWS/", "deleteQuestion");
     private final static QName _GetAnswer_QNAME = new QName("http://StackExchangeWS/", "getAnswer");
     private final static QName _Question_QNAME = new QName("http://StackExchangeWS/", "Question");
     private final static QName _GetAnswerResponse_QNAME = new QName("http://StackExchangeWS/", "getAnswerResponse");
+    private final static QName _GetNameByIdResponse_QNAME = new QName("http://StackExchangeWS/", "getNameByIdResponse");
     private final static QName _Register_QNAME = new QName("http://StackExchangeWS/", "register");
     private final static QName _GetQuestion_QNAME = new QName("http://StackExchangeWS/", "getQuestion");
     private final static QName _GetRecentQuestions_QNAME = new QName("http://StackExchangeWS/", "getRecentQuestions");
@@ -139,6 +141,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetNameById }
+     * 
+     */
+    public GetNameById createGetNameById() {
+        return new GetNameById();
+    }
+
+    /**
      * Create an instance of {@link GetRecentQuestionsResponse }
      * 
      */
@@ -168,6 +178,14 @@ public class ObjectFactory {
      */
     public RegisterResponse createRegisterResponse() {
         return new RegisterResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNameByIdResponse }
+     * 
+     */
+    public GetNameByIdResponse createGetNameByIdResponse() {
+        return new GetNameByIdResponse();
     }
 
     /**
@@ -231,6 +249,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetNameById }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "getNameById")
+    public JAXBElement<GetNameById> createGetNameById(GetNameById value) {
+        return new JAXBElement<GetNameById>(_GetNameById_QNAME, GetNameById.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetRecentQuestionsResponse }{@code >}}
      * 
      */
@@ -273,6 +300,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "getAnswerResponse")
     public JAXBElement<GetAnswerResponse> createGetAnswerResponse(GetAnswerResponse value) {
         return new JAXBElement<GetAnswerResponse>(_GetAnswerResponse_QNAME, GetAnswerResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetNameByIdResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "getNameByIdResponse")
+    public JAXBElement<GetNameByIdResponse> createGetNameByIdResponse(GetNameByIdResponse value) {
+        return new JAXBElement<GetNameByIdResponse>(_GetNameByIdResponse_QNAME, GetNameByIdResponse.class, null, value);
     }
 
     /**

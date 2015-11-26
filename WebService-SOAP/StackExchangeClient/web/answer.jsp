@@ -46,7 +46,7 @@
     <div class="section white">
         <%
             Question q = (Question)request.getAttribute("question");
-            //out.println("<div class='row center'>");
+            String qname = (String)request.getAttribute("qname");
             out.println("<div class='container'>");
             out.println("<div class='card deep-purple darken-2'>");
             out.println("<div class='card-content white-text'>");
@@ -54,7 +54,10 @@
             out.println("<p>" + q.getContent() + "</p>");
             out.println("</div>");
             out.println("<div class='card-action'>");
-            out.println("<a class='left' href='#'>Asked by " + q.getUserId() + "</a>");
+            out.println("<a class='left' href='#'>Asked by " + qname + "</a>");
+            out.println("<i class='left small deep-purple darken-2 material-icons' style='padding-left:20px'>thumb_up</i>");
+            out.println("<a class='left' style='padding-left:5px'>" + q.getVote() + "</a>");
+            out.println("<i class='left small deep-purple darken-2 material-icons'>thumb_down</i>");
             out.println("<a class='right' href='edit.jsp?qid=" + q.getId() + "'>Edit</a>");
             out.println("<a class='right' href='delete?qid=" + q.getId() + "'>Delete</a>");
             out.println("</div></div></div>");
@@ -63,16 +66,21 @@
         <h2 align="center">Answers</h2>
         <%
             List<Answer> answers = (List<Answer>)request.getAttribute("answers");
+            List<String> anames = (List<String>)request.getAttribute("anames");
+            int i = 0;
             for (Answer a : answers) {
-                //out.println("<div class='row center'>");
                 out.println("<div class='container'>");
                 out.println("<div class='card deep-purple darken-2'>");
                 out.println("<div class='card-content white-text'>");
                 out.println("<p>" + a.getContent() + "</p>");
                 out.println("</div>");
                 out.println("<div class='card-action'>");
-                out.println("<a class='left' href='#'>Answered by " + a.getUserId() + "</a>");
+                out.println("<a class='left' href='#'>Answered by " + anames.get(i) + "</a>");
+                out.println("<i class='left small deep-purple darken-2 material-icons' style='padding-left:20px'>thumb_up</i>");
+                out.println("<a class='left' style='padding-left:5px'>" + q.getVote() + "</a>");
+                out.println("<i class='left small deep-purple darken-2 material-icons'>thumb_down</i>");
                 out.println("</div></div></div>");
+                i++;
             }
         %>    
     </div>

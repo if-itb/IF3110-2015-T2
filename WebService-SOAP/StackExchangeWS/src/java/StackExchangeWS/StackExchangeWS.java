@@ -328,4 +328,25 @@ public class StackExchangeWS {
             return ex.getMessage();
         }
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getNameById")
+    @WebResult(name="Name")
+    public String getNameById(@WebParam(name = "userId") int userId) {
+        try {
+            String sql = "SELECT name FROM user WHERE id=?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, userId);
+            ResultSet rs = dbStatement.executeQuery();
+            String name = "Name Unknown";
+            while(rs.next())
+                name = rs.getString("name");
+            return name;
+        }
+        catch (SQLException ex) {
+            return "Name Unknown";
+        }
+    }
 }

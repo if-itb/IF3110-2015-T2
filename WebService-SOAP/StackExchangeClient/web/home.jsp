@@ -52,6 +52,8 @@
     <div class="section white">
         <%
             List<Question> questions = (List<Question>)request.getAttribute("questions");
+            List<String> names = (List<String>)request.getAttribute("names");
+            int i = 0;
             for (Question q : questions) {
                 out.println("<div class='row center'>");
                 out.println("<div class='container'>");
@@ -61,10 +63,14 @@
                 out.println("<p>" + q.getContent() + "</p>");
                 out.println("</div>");
                 out.println("<div class='card-action'>");
-                out.println("<a class='left' href='#'>Asked by " + q.getUserId() + "</a>");
+                out.println("<a class='left' href='#'>Asked by " + names.get(i) + "</a>");
+                out.println("<i class='left small deep-purple darken-2 material-icons' style='padding-left:20px'>thumb_up</i>");
+                out.println("<a class='left' style='padding-left:5px'>" + q.getVote() + "</a>");
+                out.println("<i class='left small deep-purple darken-2 material-icons'>thumb_down</i>");
                 out.println("<a class='right' href='edit.jsp?qid=" + q.getId() + "'>Edit</a>");
                 out.println("<a class='right' href='delete?qid=" + q.getId() + "'>Delete</a>");
                 out.println("</div></div></div></div>");
+                i++;
             }            
         %>    
     </div>

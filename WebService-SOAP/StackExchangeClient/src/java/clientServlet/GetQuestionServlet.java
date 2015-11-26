@@ -6,6 +6,7 @@
 package clientServlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,7 +39,12 @@ public class GetQuestionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         List<Question> questions = (List<Question>)getRecentQuestions();
+        ArrayList<String> names = new ArrayList<String>();
+        for (Question q : questions)
+            names.add(getNameById(q.getUserId()));
+        
         request.setAttribute("questions", questions);
+        request.setAttribute("names", names);
         request.getRequestDispatcher("/home.jsp").forward(request, response);
     }
     
@@ -86,6 +92,13 @@ public class GetQuestionServlet extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         stackexchangews.StackExchangeWS port = service.getStackExchangeWSPort();
         return port.getRecentQuestions();
+    }
+
+    private String getNameById(int userId) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        stackexchangews.StackExchangeWS port = service.getStackExchangeWSPort();
+        return port.getNameById(userId);
     }
 
 }

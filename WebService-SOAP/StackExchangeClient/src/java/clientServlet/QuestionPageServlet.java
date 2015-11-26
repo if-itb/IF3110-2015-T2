@@ -6,6 +6,7 @@
 package clientServlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,11 +40,21 @@ public class QuestionPageServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         int qid = Integer.parseInt(request.getParameter("qid"));
+        
         Question question = getQuestion(qid);
+        String qname = getNameById(question.getUserId());
+        
         List<Answer> answers = getAnswer(qid);
+        ArrayList<String> anames = new ArrayList<String>();
+        
+        for (Answer a : answers) {
+            anames.add(getNameById(a.getUserId()));
+        }
         
         request.setAttribute("question", question);
         request.setAttribute("answers", answers);
+        request.setAttribute("qname", qname);
+        request.setAttribute("anames", anames);
         request.getRequestDispatcher("/answer.jsp").forward(request, response);
     }
 
@@ -98,5 +109,12 @@ public class QuestionPageServlet extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         stackexchangews.StackExchangeWS port = service.getStackExchangeWSPort();
         return port.getQuestion(qid);
+    }
+
+    private String getNameById(int userId) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        stackexchangews.StackExchangeWS port = service.getStackExchangeWSPort();
+        return port.getNameById(userId);
     }
 }

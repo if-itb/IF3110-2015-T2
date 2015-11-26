@@ -10,6 +10,10 @@
 
 <xs:element name="getAnswerResponse" type="tns:getAnswerResponse"/>
 
+<xs:element name="getNameById" type="tns:getNameById"/>
+
+<xs:element name="getNameByIdResponse" type="tns:getNameByIdResponse"/>
+
 <xs:element name="getQuestion" type="tns:getQuestion"/>
 
 <xs:element name="getQuestionResponse" type="tns:getQuestionResponse"/>
@@ -36,9 +40,15 @@
 
 <xs:element name="voteUpResponse" type="tns:voteUpResponse"/>
 
-<xs:complexType name="deleteQuestion">
+<xs:complexType name="getNameById">
 <xs:sequence>
-<xs:element name="qid" type="xs:int"/>
+<xs:element name="userId" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getNameByIdResponse">
+<xs:sequence>
+<xs:element name="Name" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -64,11 +74,9 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="updateQuestion">
+<xs:complexType name="deleteQuestion">
 <xs:sequence>
 <xs:element name="qid" type="xs:int"/>
-<xs:element name="topic" type="xs:string" minOccurs="0"/>
-<xs:element name="content" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -94,18 +102,26 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="insertAnswer">
-<xs:sequence>
-<xs:element name="qid" type="xs:int"/>
-<xs:element name="userId" type="xs:int"/>
-<xs:element name="content" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="insertQuestion">
 <xs:sequence>
 <xs:element name="userId" type="xs:int"/>
 <xs:element name="topic" type="xs:string" minOccurs="0"/>
+<xs:element name="content" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="updateQuestion">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+<xs:element name="topic" type="xs:string" minOccurs="0"/>
+<xs:element name="content" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="insertAnswer">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+<xs:element name="userId" type="xs:int"/>
 <xs:element name="content" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
