@@ -119,7 +119,7 @@ public class IdentityServiceAPI extends HttpServlet {
 
                 if (checkAuthentication(email, password)) {
                     String token = issueAuthorization(uid);
-                    out.print("{\"status\":\"1\", \"token\":\""+ token + "\"}");
+                    out.print("{\"status\":\"1\", \"token\":\""+ token + "\", \"uid\":\""+uid+"\"}");
                 } else {
                     out.print("{\"status\":\"0\"}");
                 }

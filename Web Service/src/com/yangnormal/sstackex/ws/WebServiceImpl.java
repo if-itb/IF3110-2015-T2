@@ -2,7 +2,6 @@ package com.yangnormal.sstackex.ws;
 
 import java.sql.*;
 import java.util.ArrayList;
-import javax.jws.WebMethod;
 import javax.jws.WebService;
 import com.yangnormal.sstackex.ws.classes.*;
 import org.json.*;
@@ -19,10 +18,9 @@ public class WebServiceImpl implements WebServiceInterface{
     public int checkToken(int uid, String token) throws Exception{
         int status = 1;
         HttpConnection http = new HttpConnection();
-        JSONObject obj = new JSONObject(http.sendGet("http://luckandlogic-tcg.wikia.com/api/v1/Articles/AsSimpleJson?id=2"));
-//        JSONObject obj = new JSONObject(http.sendGet("http://localhost:8082/check?email="+email+"&token="+token));
-        System.out.println(obj.get("sections").toString());
-        return status;
+        JSONObject obj = new JSONObject(http.sendGet("http://localhost:8080/check?token="+token+"&uid="+uid));
+        System.out.println(obj.get("status").toString());
+        return (int)obj.get("status");
     }
 
     @Override
@@ -92,11 +90,11 @@ public class WebServiceImpl implements WebServiceInterface{
                 e.printStackTrace();
             }
         }
-
+        return (checkToken(uid, token));
     }
 
     @Override
-    public void postAnswer(int qid, int uid, String token, String content) throws Exception{
+    public int postAnswer(int qid, int uid, String token, String content) throws Exception{
         if (checkToken(uid, token) == 1){
             Connection conn = null;
             Statement stmt = null;
@@ -119,10 +117,11 @@ public class WebServiceImpl implements WebServiceInterface{
                 e.printStackTrace();
             }
         }
+        return (checkToken(uid, token));
     }
 
     @Override
-    public void deleteQuestion(int qid, int uid, String token) throws Exception{
+    public int deleteQuestion(int qid, int uid, String token) throws Exception{
         if (checkToken(uid, token) == 1){
             Connection conn = null;
             Statement stmt = null;
@@ -145,6 +144,7 @@ public class WebServiceImpl implements WebServiceInterface{
                 e.printStackTrace();
             }
         }
+        return (checkToken(uid, token));
     }
 
     @SuppressWarnings("ValidExternallyBoundObject")
@@ -414,7 +414,7 @@ public class WebServiceImpl implements WebServiceInterface{
     }
 
     @Override
-    public void vote(int type, int id, int direction, int uid, String token) throws Exception{
+    public int vote(int type, int id, int direction, int uid, String token) throws Exception{
         if (checkToken(uid, token) == 1){
             Connection conn = null;
             Statement stmt = null;
@@ -458,10 +458,11 @@ public class WebServiceImpl implements WebServiceInterface{
                 e.printStackTrace();
             }
         }
+        return (checkToken(uid, token));
     }
 
     @Override
-    public void updateQuestion(int qid, int uid, String token, String title, String content) throws Exception{
+    public int updateQuestion(int qid, int uid, String token, String title, String content) throws Exception{
         if (checkToken(uid, token) == 1){
             Connection conn = null;
             Statement stmt = null;
@@ -484,9 +485,10 @@ public class WebServiceImpl implements WebServiceInterface{
                 e.printStackTrace();
             }
         }
+        return (checkToken(uid, token));
     }
     @Override
-    public void updateAnswer(int aid, int qid, int uid, String token, String content) throws Exception{
+    public int updateAnswer(int aid, int qid, int uid, String token, String content) throws Exception{
         if (checkToken(uid, token) == 1){
             Connection conn = null;
             Statement stmt = null;
@@ -509,5 +511,6 @@ public class WebServiceImpl implements WebServiceInterface{
                 e.printStackTrace();
             }
         }
+        return (checkToken(uid, token));
     }
 }
