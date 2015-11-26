@@ -79,7 +79,8 @@ public class RegisterServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         createUser(name, email, password);
-        processRequest(request, response);
+//        processRequest(request, response);
+        request.getRequestDispatcher("/index").forward(request, response);
     }
 
     /**

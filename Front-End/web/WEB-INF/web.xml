@@ -24,6 +24,11 @@
         <servlet-name>EditQuestionServlet</servlet-name>
         <servlet-class>org.stackexchange.controller.EditQuestionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubmitEditServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.SubmitEditServlet</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/index</url-pattern>
@@ -47,6 +52,10 @@
     <servlet-mapping>
         <servlet-name>EditQuestionServlet</servlet-name>
         <url-pattern>/editQuestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitEditServlet</servlet-name>
+        <url-pattern>/submitEdit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -78,7 +78,8 @@ public class CreateAnswerServlet extends HttpServlet {
         int qid = Integer.parseInt(request.getParameter("qid"));
         String content = request.getParameter("content");
         createAnswer(token, qid, content);
-        processRequest(request, response);
+//        processRequest(request, response);
+        request.getRequestDispatcher("/answer?qid="+qid).forward(request, response);
     }
 
     /**

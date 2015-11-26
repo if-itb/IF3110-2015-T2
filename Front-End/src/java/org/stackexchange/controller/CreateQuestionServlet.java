@@ -79,7 +79,8 @@ public class CreateQuestionServlet extends HttpServlet {
         String topic = request.getParameter("topic");
         String content = request.getParameter("content");
         createQuestion(token, topic, content);
-        processRequest(request, response);
+//        processRequest(request, response);
+        request.getRequestDispatcher("/index").forward(request, response);
     }
 
     /**
