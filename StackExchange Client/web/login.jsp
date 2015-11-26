@@ -4,6 +4,8 @@
     Author     : jessica
 --%>
 
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <jsp:include page="/views/header.jsp" flush="true"/>
@@ -21,8 +23,8 @@
             </c:choose>
             <div class="center">
                 <!-- TODO: Ask Controller -->
-                <form name="register" class="register" action="controllers/ask.controller.php" 
-                          onsubmit="return validateAskForm()" method="post">
+                <form name="login" class="login" action="login" 
+                          onsubmit="return validateAskForm()" method="post"> <!-- TODO VALIDATE LOGIN MAYBE -->
                             <input type="text" id="email" name="email" placeholder="Email"><br>
                             <input type="password" id="pass" name="pass" placeholder="Password"><br>
                             <div class="div-right-button">

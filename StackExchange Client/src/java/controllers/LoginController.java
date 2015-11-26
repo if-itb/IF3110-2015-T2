@@ -5,33 +5,26 @@
  */
 package controllers;
 
+import UserWS.User;
+import connector.ISConnector;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.json.simple.JSONObject;
 
 /**
  *
  * @author Tifani
  */
 public class LoginController extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-    }
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -45,8 +38,21 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-        rd.forward(request, response);
+        User user = (User) request.getAttribute("user");
+        if (user != null) {
+            // User has been already registered
+            response.sendRedirect(request.getContextPath());
+        } else {
+            // Remove user's session
+            HttpSession session = request.getSession(false);
+            String error = null;
+            if (session != null && (error = (String) session.getAttribute("error")) != null) {
+                request.setAttribute("error", error);
+                session.removeAttribute("error");
+            }
+            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+            rd.forward(request, response);
+        }
     }
 
     /**
@@ -60,7 +66,35 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        User user = (User) request.getAttribute("user");
+        if (user != null) {
+            // User has been already registered
+            response.sendRedirect(request.getContextPath());
+        } else {
+            // Login in user
+            String  email = request.getParameter("email"),
+                    password = request.getParameter("pass");
+            
+            JSONObject object = null;
+            object = ISConnector.validateLogin(email, password);
+            if (object.containsKey("token")){
+                Cookie cookie = new Cookie("token", (String)object.get("token"));
+                cookie.setPath("/");
+                long expiredDate = -1;
+                if (object.containsKey("expire_date")) {                        
+                    expiredDate = new Timestamp(new Date().getTime()).getTime()-(long)object.get("expire_date");
+                    expiredDate /= 1000;                                                
+                }                    
+                cookie.setMaxAge((int)expiredDate);
+                response.addCookie(cookie);
+                response.sendRedirect(request.getContextPath());
+                return;
+            } else if (object.containsKey("error")) {
+                request.setAttribute("error", (String)object.get("error"));
+            }         
+        }
+        doGet(request, response);
     }
 
     /**

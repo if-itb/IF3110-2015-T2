@@ -5,6 +5,9 @@
  */
 package controllers;
 
+import UserWS.User;
+import com.sun.net.httpserver.HttpServer;
+import connector.ISConnector;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -12,29 +15,80 @@ import java.io.StringWriter;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.json.simple.JSONObject;
 
 /**
  *
  * @author Tifani
  */
 public class AuthFilter implements Filter {
+    private ServletContext context;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.context = filterConfig.getServletContext();
+        this.context.log("RequestLoggingFilter initialized");
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        Cookie[] cookies = httpRequest.getCookies();
+        
+        // Check cookie with name auth
+        if (cookies != null) {
+                String token = null;
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+
+            // Check whether the auth token hasn't expired yet
+            if (token != null) {
+                JSONObject obj = ISConnector.validateToken(token);
+                HttpServletRequest req = (HttpServletRequest) request;
+                HttpServletResponse res = (HttpServletResponse) response;
+                if (obj!=null && obj.containsKey("error")) { //Authorization failed, expired access token
+                    String uri = req.getRequestURI();
+                    this.context.log("Requested Resource:: "+uri);
+
+                    // Get session and set session
+                    HttpSession session = req.getSession(false);
+                    session.setAttribute("error", "Authentication failed");
+                    this.context.log("Unauthorized access request");
+                    res.sendRedirect(req.getContextPath() + "/login");
+                    return;
+                } else {
+                    if (obj!=null && obj.containsKey("u_id")) {
+                        int id = (Integer) obj.get("u_id");
+                        UserWS.UserWS_Service service = new UserWS.UserWS_Service();
+                        UserWS.UserWS port = service.getUserWSPort();
+                        User user = (User) port.getUser(id);
+                        if (user != null) {
+                            req.setAttribute("user", user);
+                        }
+                    }
+                }
+            }
+        }   
+         // Pass the request along the filter chain
+        chain.doFilter(request, response);
     }
 
     @Override
     public void destroy() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
-}
+ }

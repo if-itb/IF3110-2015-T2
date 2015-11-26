@@ -80,7 +80,7 @@ public class ISLogin extends HttpServlet {
                             deleteStatement.execute();
                             insertStatement.execute();
                             
-                            object.put("auth", uuid);
+                            object.put("token", uuid);
                             conn.commit();
                         }   
                         finally {

@@ -62,7 +62,7 @@ public class UserWS {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "getUserClass")
+    @WebMethod(operationName = "getUser")
     @WebResult(name="User")
     public User getUserClass(@WebParam(name = "u_id") int u_id) {
         User user = new User();
