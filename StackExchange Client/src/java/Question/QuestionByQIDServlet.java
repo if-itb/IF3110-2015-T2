@@ -45,7 +45,7 @@ public class QuestionByQIDServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int qid = Integer.valueOf((String) request.getAttribute("qid"));
+        int qid = Integer.parseInt((String) request.getAttribute("qid"));
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             List<Question> question = getQuestionByQID(qid);

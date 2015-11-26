@@ -22,11 +22,7 @@
             <br>
             <h2>Edit your question</h2>
             <hr>
-            <form name="editForm" action="" method="post" onsubmit="">
-                <input name="topic" class="text" type="text" placeholder="Question Topic"><br>
-                <textarea name="content" placeholder="Content"></textarea>
-                <input class="button" type="submit" value="Post"><br>
-            </form>
+            <jsp:include page="/EditQuestionServlet" />
         </div>
     </body>
 </html>
