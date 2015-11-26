@@ -14,7 +14,9 @@
     </head>
     <body>
 	<div id="wrapper">
-            <h1 class = "center">Simple StackExchange</h1>
+            <h1 class="center">
+                <a href="index.jsp?token=<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>">Simple StackExchange</a>
+            </h1>
             <div class="content">
                 <%! String name; %>
                 Welcome, 
@@ -36,7 +38,7 @@
             </div>
             <div id="main-page" onload="function() {document.getElementById('autofocus').focus();}">
                 <div class="questions">
-                    <h3>Recently Asked Questions</h3>
+                    <h2>Recently Asked Questions</h2>
                     <%
                     try {
                         questionWS.QuestionWebService_Service service = new questionWS.QuestionWebService_Service();
@@ -48,7 +50,7 @@
                             String s = String.valueOf(id);
                     %>
                             <div class="col title">
-                                <a href="question.jsp?id=<%= s %>"><% out.println(result.get(i).getTopic());%></a>
+                                <a href="question.jsp?token=<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>&qid=<%= s %>"><% out.println(result.get(i).getTopic());%></a>
                                 <br>
                             </div>
                             <div class="content">

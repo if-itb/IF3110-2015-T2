@@ -10,10 +10,6 @@
 
 <xs:element name="getAllUserResponse" type="tns:getAllUserResponse"/>
 
-<xs:element name="getIdUserFromEmail" type="tns:getIdUserFromEmail"/>
-
-<xs:element name="getIdUserFromEmailResponse" type="tns:getIdUserFromEmailResponse"/>
-
 <xs:element name="getUser" type="tns:getUser"/>
 
 <xs:element name="getUserResponse" type="tns:getUserResponse"/>
@@ -63,7 +59,6 @@
 
 <xs:complexType name="user">
 <xs:sequence>
-<xs:element name="user_id" type="xs:int"/>
 <xs:element name="email" type="xs:string"/>
 <xs:element name="name" type="xs:string"/>
 <xs:element name="password" type="xs:string"/>
@@ -72,25 +67,13 @@
 
 <xs:complexType name="getUser">
 <xs:sequence>
-<xs:element name="arg0" type="xs:int"/>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="getUserResponse">
 <xs:sequence>
 <xs:element name="User" type="tns:user" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getIdUserFromEmail">
-<xs:sequence>
-<xs:element name="arg0" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getIdUserFromEmailResponse">
-<xs:sequence>
-<xs:element name="int" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
