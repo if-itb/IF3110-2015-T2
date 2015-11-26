@@ -24,6 +24,10 @@
         <servlet-name>askquestion</servlet-name>
         <servlet-class>Container.askquestion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>viewpost</servlet-name>
+        <servlet-class>Container.viewpost</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>askquestion</servlet-name>
         <url-pattern>/askquestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>viewpost</servlet-name>
+        <url-pattern>/viewpost</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

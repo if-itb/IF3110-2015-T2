@@ -12,4 +12,6 @@
     <system systemId="http://localhost:41585/StackExchangeWS/UserWS?xsd=1" uri="wsdl/localhost_41585/StackExchangeWS/UserWS.xsd_1.xsd"/>
     <system systemId="http://localhost:41585/StackExchangeWS/QuestionsWS?wsdl" uri="wsdl/localhost_41585/StackExchangeWS/QuestionsWS.wsdl"/>
     <system systemId="http://localhost:41585/StackExchangeWS/QuestionsWS?xsd=1" uri="wsdl/localhost_41585/StackExchangeWS/QuestionsWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8081/StackExchangeWS/AnswersWS?wsdl" uri="wsdl/localhost_8081/StackExchangeWS/AnswersWS.wsdl"/>
+    <system systemId="http://localhost:8081/StackExchangeWS/AnswersWS?xsd=1" uri="wsdl/localhost_8081/StackExchangeWS/AnswersWS.xsd_1.xsd"/>
 </catalog>

@@ -13,37 +13,37 @@
 
 <div class="containerT">
 	<div id="headerT">
-		<a href="index.php"><h1>Simple StackExchange</h1></a>
+		<a href="/StackExchangeClient/home"><h1 class="col-3">Simple StackExchange</h1></a>
 	</div>
 
 	<!-- das searchbox -->
 	<div>
 		<!--div class="wrapper" id="searchbox">-->
                 <div>
-			<form role="form" action="homes" method="GET">
-				<input type="text" id="searchbox" name="searchquery" required>
-				<input type="submit" id="searchbutton" value="Search" name="search">
-			
+			<form role="form" action="" method="get">
+                            <input class="col-md-6 col-md-offset-3" type="text" id="searchbox" name="searchquery" required>
+                            <input class="btn" type="submit" id="searchbutton" value="Search" name="search">
+			</form>
 
-			<p>Cannot find what you are looking for? <a href="ask.php?req=new">Ask here</a></p>
+                    <div class="col-md"><p>Cannot find what you are looking for? <a href="ask.php?req=new">Ask here</a></p></div>
 		</div>
-                <div class="header2" id="main3"> Recently Asked Questions </div>
-                <br> answers
+                <div class="col-md-2" id="main3"><h3>Recently Asked Questions</h3></div>
+                   
+                <div class="col-md-8">
                 <c:forEach items="${result}" var="question">
-                    <br> answers
-                    ${question.topic} 
-                    <a href="<c:url value="\viewpost">
-                        <c:param name="id" value="${question.id}"/>
-                    </c:url>">${question.topic}
-                    </a>
-                
+                   <ul class="list-inline">
+                       <li>
+                           VOTE COUNT:
+                       </li>
+                       <li><a href=""><h4>${question.getQuestionTopic()}</h4></a></li>
+                   </ul>
+                   ${question.getQuestionContent()}<br>
                 </c:forEach> 
-                    </form>
+                   </div>
+
         </div> 
         
 </div>
-
-
 
 </body>
 </html>
