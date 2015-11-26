@@ -9,7 +9,7 @@
     <div class="container">
         <h1> StackExchange Login </h1> 
         <!--<div id="searchbox">-->
-        <form action="" method="post"> 
+        <form action="Login" method="post"> 
             <table> 
                 <tr> 
                     <td class = "container"> Email  : </td> <td> <input name="email" type="text" required /> </td> 

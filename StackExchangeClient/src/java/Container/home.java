@@ -19,9 +19,9 @@ import question.QuestionsWS_Service;
  *
  * @author mochamadtry
  */
-public class homes extends HttpServlet {
+public class home extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_41585/StackExchangeWS/QuestionsWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/QuestionsWS.wsdl")
     private QuestionsWS_Service service;
 
     /**

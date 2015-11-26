@@ -15,7 +15,7 @@
     <body>
         <h1>stackexchange?</h1>
         <h2>Question Topic</h2>
-        <h2><c:out value="${}"/></h2>
+        <h2><c:out value=""/></h2>
         <p>Question Content</p>
         <div class="col-md-8">  
             <c: items="${answers}" var="answer">

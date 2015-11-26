@@ -90,7 +90,7 @@ public class Login extends HttpServlet {
                 response.addCookie(idCookie);
                 response.addCookie(tokenCookie);
                 response.addCookie(lifetimeCookie);
-                redirectUrl += "/register.jsp";
+                redirectUrl += "/home";
             } else {
                 String error = (String) object.get("error");
                 request.setAttribute("error", error);

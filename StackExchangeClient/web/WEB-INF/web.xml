@@ -28,6 +28,10 @@
         <servlet-name>viewpost</servlet-name>
         <servlet-class>Container.viewpost</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>home</servlet-name>
+        <servlet-class>Container.home</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>viewpost</servlet-name>
         <url-pattern>/viewpost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>home</servlet-name>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
