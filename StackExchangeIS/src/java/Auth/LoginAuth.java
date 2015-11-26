@@ -17,6 +17,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -66,7 +68,14 @@ public class LoginAuth extends HttpServlet {
                 int uid = res.getInt("uid");
                 Timestamp tst = new Timestamp(new Date().getTime());
                 tst.setTime(tst.getTime() + ((5 * 60) * 1000));
+                
+                // delete the older token, replace it with a new one
+                query = "DELETE FROM tokens WHERE uid = ?";
+                pst = connAuth.prepareStatement(query);
+                pst.setInt(1, uid);
+                pst.executeUpdate();
           
+                // insert the newly created token into database
                 query = "INSERT INTO tokens (uid, token_str, lifetime) VALUES (?, ?, ?)";
                 pst = connAuth.prepareStatement(query);
                 pst.setInt(1, uid);
@@ -75,18 +84,20 @@ public class LoginAuth extends HttpServlet {
 
                 pst.executeUpdate();
 
+                tokenobj.put("success", 1);
                 tokenobj.put("user_id", uid);
                 tokenobj.put("token_str", token);
                 tokenobj.put("lifetime", tst.toString());
 
             } else {
+                tokenobj.put("success", 0);
                 tokenobj.put("error", "Invalid credentials!");  
-                      
             }
             
             out.print(tokenobj);
-        } catch (SQLException e) {
-            tokenobj.put("error", e); 
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(LoginAuth.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -104,7 +115,7 @@ public class LoginAuth extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**
