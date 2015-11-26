@@ -60,7 +60,7 @@ public class QuestionCreate extends HttpServlet {
             
             ConsumerREST r = new ConsumerREST(); // Create object for consumming REST Web service
             // Get data from user and data from session
-            q.setUid(r.getUidByToken(token));
+            q.setUid(1);
             q.setTopic(request.getParameter("topic"));
             q.setContent(request.getParameter("content"));
         
@@ -74,9 +74,8 @@ public class QuestionCreate extends HttpServlet {
             q.setCreatedtime(date);
             
             // Pass token and object question to web service
-            //createQuestion(token, q);
-            
-            response.sendRedirect("index.jsp"); // redirect to homepage
+            if(createQuestion(token, q))
+            response.sendRedirect(""); // redirect to homepage
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -118,11 +117,11 @@ public class QuestionCreate extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private java.util.List<webservice.Question> listQuestion() {
+    private Boolean createQuestion(java.lang.String token, webservice.Question question) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
-        return port.listQuestion();
+        return port.createQuestion(token, question);
     }
 
 

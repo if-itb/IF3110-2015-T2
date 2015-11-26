@@ -4,17 +4,17 @@
 <xsd:import namespace="http://webservice/" schemaLocation="http://localhost:8081/SimpleStackExchange_WebService/SimpleStackExchange_WS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="listQuestion">
-<part name="parameters" element="tns:listQuestion"/>
+<message name="voteQuestion">
+<part name="parameters" element="tns:voteQuestion"/>
 </message>
-<message name="listQuestionResponse">
-<part name="parameters" element="tns:listQuestionResponse"/>
+<message name="voteQuestionResponse">
+<part name="parameters" element="tns:voteQuestionResponse"/>
 </message>
-<message name="searchQuestion">
-<part name="parameters" element="tns:searchQuestion"/>
+<message name="createAnswer">
+<part name="parameters" element="tns:createAnswer"/>
 </message>
-<message name="searchQuestionResponse">
-<part name="parameters" element="tns:searchQuestionResponse"/>
+<message name="createAnswerResponse">
+<part name="parameters" element="tns:createAnswerResponse"/>
 </message>
 <message name="createQuestion">
 <part name="parameters" element="tns:createQuestion"/>
@@ -22,17 +22,17 @@
 <message name="createQuestionResponse">
 <part name="parameters" element="tns:createQuestionResponse"/>
 </message>
-<message name="getUserById">
-<part name="parameters" element="tns:getUserById"/>
+<message name="createUser">
+<part name="parameters" element="tns:createUser"/>
 </message>
-<message name="getUserByIdResponse">
-<part name="parameters" element="tns:getUserByIdResponse"/>
+<message name="createUserResponse">
+<part name="parameters" element="tns:createUserResponse"/>
 </message>
-<message name="checkEmailUser">
-<part name="parameters" element="tns:checkEmailUser"/>
+<message name="listQuestion">
+<part name="parameters" element="tns:listQuestion"/>
 </message>
-<message name="checkEmailUserResponse">
-<part name="parameters" element="tns:checkEmailUserResponse"/>
+<message name="listQuestionResponse">
+<part name="parameters" element="tns:listQuestionResponse"/>
 </message>
 <message name="getQuestion">
 <part name="parameters" element="tns:getQuestion"/>
@@ -40,55 +40,135 @@
 <message name="getQuestionResponse">
 <part name="parameters" element="tns:getQuestionResponse"/>
 </message>
+<message name="searchQuestion">
+<part name="parameters" element="tns:searchQuestion"/>
+</message>
+<message name="searchQuestionResponse">
+<part name="parameters" element="tns:searchQuestionResponse"/>
+</message>
+<message name="checkEmailUser">
+<part name="parameters" element="tns:checkEmailUser"/>
+</message>
+<message name="checkEmailUserResponse">
+<part name="parameters" element="tns:checkEmailUserResponse"/>
+</message>
+<message name="getUserById">
+<part name="parameters" element="tns:getUserById"/>
+</message>
+<message name="getUserByIdResponse">
+<part name="parameters" element="tns:getUserByIdResponse"/>
+</message>
 <message name="getAnswers">
 <part name="parameters" element="tns:getAnswers"/>
 </message>
 <message name="getAnswersResponse">
 <part name="parameters" element="tns:getAnswersResponse"/>
 </message>
-<message name="createUser">
-<part name="parameters" element="tns:createUser"/>
+<message name="deleteAllVoteAnswer">
+<part name="parameters" element="tns:deleteAllVoteAnswer"/>
 </message>
-<message name="createUserResponse">
-<part name="parameters" element="tns:createUserResponse"/>
+<message name="deleteAllVoteAnswerResponse">
+<part name="parameters" element="tns:deleteAllVoteAnswerResponse"/>
+</message>
+<message name="deleteAllVoteQuestion">
+<part name="parameters" element="tns:deleteAllVoteQuestion"/>
+</message>
+<message name="deleteAllVoteQuestionResponse">
+<part name="parameters" element="tns:deleteAllVoteQuestionResponse"/>
+</message>
+<message name="getVotesQuestion">
+<part name="parameters" element="tns:getVotesQuestion"/>
+</message>
+<message name="getVotesQuestionResponse">
+<part name="parameters" element="tns:getVotesQuestionResponse"/>
+</message>
+<message name="getVotesAnswer">
+<part name="parameters" element="tns:getVotesAnswer"/>
+</message>
+<message name="getVotesAnswerResponse">
+<part name="parameters" element="tns:getVotesAnswerResponse"/>
+</message>
+<message name="hasVotedAnswer">
+<part name="parameters" element="tns:hasVotedAnswer"/>
+</message>
+<message name="hasVotedAnswerResponse">
+<part name="parameters" element="tns:hasVotedAnswerResponse"/>
+</message>
+<message name="hasVotedQuestion">
+<part name="parameters" element="tns:hasVotedQuestion"/>
+</message>
+<message name="hasVotedQuestionResponse">
+<part name="parameters" element="tns:hasVotedQuestionResponse"/>
 </message>
 <portType name="SimpleStackExchange_WS">
-<operation name="listQuestion">
-<input wsam:Action="http://webservice/SimpleStackExchange_WS/listQuestionRequest" message="tns:listQuestion"/>
-<output wsam:Action="http://webservice/SimpleStackExchange_WS/listQuestionResponse" message="tns:listQuestionResponse"/>
+<operation name="voteQuestion">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/voteQuestionRequest" message="tns:voteQuestion"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/voteQuestionResponse" message="tns:voteQuestionResponse"/>
 </operation>
-<operation name="searchQuestion">
-<input wsam:Action="http://webservice/SimpleStackExchange_WS/searchQuestionRequest" message="tns:searchQuestion"/>
-<output wsam:Action="http://webservice/SimpleStackExchange_WS/searchQuestionResponse" message="tns:searchQuestionResponse"/>
+<operation name="createAnswer">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/createAnswerRequest" message="tns:createAnswer"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/createAnswerResponse" message="tns:createAnswerResponse"/>
 </operation>
 <operation name="createQuestion">
 <input wsam:Action="http://webservice/SimpleStackExchange_WS/createQuestionRequest" message="tns:createQuestion"/>
 <output wsam:Action="http://webservice/SimpleStackExchange_WS/createQuestionResponse" message="tns:createQuestionResponse"/>
 </operation>
-<operation name="getUserById">
-<input wsam:Action="http://webservice/SimpleStackExchange_WS/getUserByIdRequest" message="tns:getUserById"/>
-<output wsam:Action="http://webservice/SimpleStackExchange_WS/getUserByIdResponse" message="tns:getUserByIdResponse"/>
+<operation name="createUser">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/createUserRequest" message="tns:createUser"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/createUserResponse" message="tns:createUserResponse"/>
 </operation>
-<operation name="checkEmailUser">
-<input wsam:Action="http://webservice/SimpleStackExchange_WS/checkEmailUserRequest" message="tns:checkEmailUser"/>
-<output wsam:Action="http://webservice/SimpleStackExchange_WS/checkEmailUserResponse" message="tns:checkEmailUserResponse"/>
+<operation name="listQuestion">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/listQuestionRequest" message="tns:listQuestion"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/listQuestionResponse" message="tns:listQuestionResponse"/>
 </operation>
 <operation name="getQuestion">
 <input wsam:Action="http://webservice/SimpleStackExchange_WS/getQuestionRequest" message="tns:getQuestion"/>
 <output wsam:Action="http://webservice/SimpleStackExchange_WS/getQuestionResponse" message="tns:getQuestionResponse"/>
 </operation>
+<operation name="searchQuestion">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/searchQuestionRequest" message="tns:searchQuestion"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/searchQuestionResponse" message="tns:searchQuestionResponse"/>
+</operation>
+<operation name="checkEmailUser">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/checkEmailUserRequest" message="tns:checkEmailUser"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/checkEmailUserResponse" message="tns:checkEmailUserResponse"/>
+</operation>
+<operation name="getUserById">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/getUserByIdRequest" message="tns:getUserById"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/getUserByIdResponse" message="tns:getUserByIdResponse"/>
+</operation>
 <operation name="getAnswers">
 <input wsam:Action="http://webservice/SimpleStackExchange_WS/getAnswersRequest" message="tns:getAnswers"/>
 <output wsam:Action="http://webservice/SimpleStackExchange_WS/getAnswersResponse" message="tns:getAnswersResponse"/>
 </operation>
-<operation name="createUser">
-<input wsam:Action="http://webservice/SimpleStackExchange_WS/createUserRequest" message="tns:createUser"/>
-<output wsam:Action="http://webservice/SimpleStackExchange_WS/createUserResponse" message="tns:createUserResponse"/>
+<operation name="deleteAllVoteAnswer">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/deleteAllVoteAnswerRequest" message="tns:deleteAllVoteAnswer"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/deleteAllVoteAnswerResponse" message="tns:deleteAllVoteAnswerResponse"/>
+</operation>
+<operation name="deleteAllVoteQuestion">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/deleteAllVoteQuestionRequest" message="tns:deleteAllVoteQuestion"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/deleteAllVoteQuestionResponse" message="tns:deleteAllVoteQuestionResponse"/>
+</operation>
+<operation name="getVotesQuestion">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/getVotesQuestionRequest" message="tns:getVotesQuestion"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/getVotesQuestionResponse" message="tns:getVotesQuestionResponse"/>
+</operation>
+<operation name="getVotesAnswer">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/getVotesAnswerRequest" message="tns:getVotesAnswer"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/getVotesAnswerResponse" message="tns:getVotesAnswerResponse"/>
+</operation>
+<operation name="hasVotedAnswer">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/hasVotedAnswerRequest" message="tns:hasVotedAnswer"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/hasVotedAnswerResponse" message="tns:hasVotedAnswerResponse"/>
+</operation>
+<operation name="hasVotedQuestion">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/hasVotedQuestionRequest" message="tns:hasVotedQuestion"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/hasVotedQuestionResponse" message="tns:hasVotedQuestionResponse"/>
 </operation>
 </portType>
 <binding name="SimpleStackExchange_WSPortBinding" type="tns:SimpleStackExchange_WS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="listQuestion">
+<operation name="voteQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -97,7 +177,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="searchQuestion">
+<operation name="createAnswer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -115,7 +195,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getUserById">
+<operation name="createUser">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -124,7 +204,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="checkEmailUser">
+<operation name="listQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -142,6 +222,33 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="searchQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="checkEmailUser">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getUserById">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="getAnswers">
 <soap:operation soapAction=""/>
 <input>
@@ -151,7 +258,52 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="createUser">
+<operation name="deleteAllVoteAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="deleteAllVoteQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getVotesQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getVotesAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="hasVotedAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="hasVotedQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

@@ -8,16 +8,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for createQuestionResponse complex type.
+ * <p>Java class for getVotesAnswerResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="createQuestionResponse"&gt;
+ * &lt;complexType name="getVotesAnswerResponse"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -27,23 +27,23 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "createQuestionResponse", propOrder = {
+@XmlType(name = "getVotesAnswerResponse", propOrder = {
     "_return"
 })
-public class CreateQuestionResponse {
+public class GetVotesAnswerResponse {
 
     @XmlElement(name = "return")
-    protected Boolean _return;
+    protected Integer _return;
 
     /**
      * Gets the value of the return property.
      * 
      * @return
      *     possible object is
-     *     {@link Boolean }
+     *     {@link Integer }
      *     
      */
-    public Boolean isReturn() {
+    public Integer getReturn() {
         return _return;
     }
 
@@ -52,10 +52,10 @@ public class CreateQuestionResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link Boolean }
+     *     {@link Integer }
      *     
      */
-    public void setReturn(Boolean value) {
+    public void setReturn(Integer value) {
         this._return = value;
     }
 

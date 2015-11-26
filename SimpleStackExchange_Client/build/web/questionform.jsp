@@ -42,15 +42,11 @@
               <small></small></h2>
           <hr/>
           <div class="form-group">
-              <div class="col-md-12">
                 <label for="inputTopic" class="sr-only">Topic</label>
                 <input name="topic" type="text" id="inputTopic" class="form-control" placeholder="Topic Question" required="" autofocus="">
-              </div>
           </div>
           <div class="form-group">
-            <div class="col-md-12">
             <textarea placeholder="Content" id="inputContent" class="form-control" rows="5" name="content"></textarea>
-            </div>
           </div>
           
           <div class="form-group">

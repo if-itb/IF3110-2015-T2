@@ -7,11 +7,23 @@ package answer;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.ws.WebServiceRef;
+import question.QuestionCreate;
+import tool.ConsumerREST;
+import webservice.SimpleStackExchangeWS_Service;
 
 /**
  *
@@ -19,6 +31,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AnswerCreate", urlPatterns = {"/AnswerCreate"})
 public class AnswerCreate extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/SimpleStackExchange_WS.wsdl")
+    private SimpleStackExchangeWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,19 +46,28 @@ public class AnswerCreate extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AnswerCreate</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AnswerCreate at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+                    HttpSession session = request.getSession();
+            webservice.Answer a = new webservice.Answer();
+            
+            String token = tool.Util.getTokenCookie(request);
+            ConsumerREST r = new ConsumerREST(); // Create object for consumming REST Web service
+            // Get data from user and data from session
+            a.setUid(tool.Util.getUid(request));
+            a.setQid(Integer.parseInt(request.getParameter("qid")));
+            a.setContent(request.getParameter("answer"));
+        
+            // Initialize Created time
+            XMLGregorianCalendar date = null;
+                    try {
+                        date = DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar());
+                    } catch (DatatypeConfigurationException ex) {
+                        Logger.getLogger(QuestionCreate.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            a.setCreatedtime(date);
+            
+            // Pass token and object question to web service
+            if(createAnswer(token, a))
+                response.sendRedirect("question?qid="+request.getParameter("qid")); // redirect to homepage
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -84,5 +108,12 @@ public class AnswerCreate extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private Boolean createAnswer(java.lang.String token, webservice.Answer answer) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        return port.createAnswer(token, answer);
+    }
 
 }

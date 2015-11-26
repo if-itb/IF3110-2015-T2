@@ -46,13 +46,23 @@
                 
                     <% if (Util.isLogin(request)) { %>
                     <div class="btn-group-vertical" role="group" aria-label="...">
+                        <form action="QuestionVote" method="POST">
+                        <input name="qid" type="hidden" value="${question.getKey().getQid()}" />
+                        <input name="uid" type="hidden" value="${question.getKey().getUid()}" />
+                        <input name="value" type="hidden" value="1" />
                         <button type="submit" class="btn btn-success">
                             <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                         </button>
+                        </form>
                         <div class="text-center well-lg">${question.getKey().getCountvotes()}</div>
+                        <form action="QuestionVote" method="POST">
+                        <input name="qid" type="hidden" value="${question.getKey().getQid()}" />
+                        <input name="uid" type="hidden" value="${question.getKey().getUid()}" />
+                        <input name="value" type="hidden" value="-1" />
                         <button type="submit" class="btn btn-danger">
                             <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                         </button>
+                        </form>
                     </div>
                 <%} else {%>
                     <div class="btn-group-vertical" role="group" aria-label="...">
@@ -99,7 +109,7 @@
             </h2>
             <hr>
         </div>
-        <c:forEach items="${answers}" var="answer-item">
+        <c:forEach items="${answers}" var="answer">
         <div class="row">
             <div class="col-sm-1 col-sm-offset-1">
                 
@@ -108,7 +118,7 @@
                         <button type="submit" class="btn btn-success">
                             <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                         </button>
-                        <div class="text-center well-lg">${answer-item.getKey().getCountvotes()}</div>
+                        <div class="text-center well-lg">${answer.getKey().getCountvotes()}</div>
                         <button type="submit" class="btn btn-danger">
                             <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                         </button>
@@ -118,7 +128,7 @@
                         <button type="submit" class="btn btn-success disabled">
                             <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                         </button>
-                        <div class="text-center well-lg">${answer-item.getKey().getCountvotes()}</div>
+                        <div class="text-center well-lg">${answer.getKey().getCountvotes()}</div>
                         <button type="submit" class="btn btn-danger disabled">
                             <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                         </button>
@@ -129,11 +139,11 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <p>
-                        ${answer-item.getKey().getContent()}
+                        ${answer.getKey().getContent()}
                     </p>
                   <span class="pull-right">
                       <button type="button" class="btn btn-default transparent">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> ${answer-item.getValue()} at answer-item.getKey().getCreatedtime()}
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> ${answer.getValue()} at ${answer.getKey().getCreatedtime()}
                       </button>
                   </span>
                 </div>
@@ -153,14 +163,14 @@
         </div>
       
           <% if (Util.isLogin(request)) { %>
-            <form class="form-horizontal" role="form">
+          <form class="form-horizontal" role="form" action="AnswerCreate" method="POST">
                 <div class="form-group">
                     
                     <div class="col-md-12">
                     <textarea class="form-control" rows="5" id="answer" name="answer"></textarea>
                     </div>
                   </div>
-                
+              <input name="qid" value="${question.getKey().getQid()}" type="hidden" />
                 <div class="form-group"> 
                   <div class="col-md-12">
                     <button type="submit" class="btn btn-info btn-block">Post</button>

@@ -8,12 +8,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for createQuestionResponse complex type.
+ * <p>Java class for hasVotedAnswerResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="createQuestionResponse"&gt;
+ * &lt;complexType name="hasVotedAnswerResponse"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
@@ -27,10 +27,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "createQuestionResponse", propOrder = {
+@XmlType(name = "hasVotedAnswerResponse", propOrder = {
     "_return"
 })
-public class CreateQuestionResponse {
+public class HasVotedAnswerResponse {
 
     @XmlElement(name = "return")
     protected Boolean _return;
