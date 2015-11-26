@@ -25,6 +25,9 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _Answer_QNAME = new QName("http://AnswerModel/", "Answer");
+    private final static QName _ParseException_QNAME = new QName("http://AnswerModel/", "ParseException");
+    private final static QName _CreateAnswer_QNAME = new QName("http://AnswerModel/", "createAnswer");
+    private final static QName _CreateAnswerResponse_QNAME = new QName("http://AnswerModel/", "createAnswerResponse");
     private final static QName _GetAnswerByQID_QNAME = new QName("http://AnswerModel/", "getAnswerByQID");
     private final static QName _GetAnswerByQIDResponse_QNAME = new QName("http://AnswerModel/", "getAnswerByQIDResponse");
 
@@ -41,6 +44,30 @@ public class ObjectFactory {
      */
     public Answer createAnswer() {
         return new Answer();
+    }
+
+    /**
+     * Create an instance of {@link ParseException }
+     * 
+     */
+    public ParseException createParseException() {
+        return new ParseException();
+    }
+
+    /**
+     * Create an instance of {@link CreateAnswer }
+     * 
+     */
+    public CreateAnswer createCreateAnswer() {
+        return new CreateAnswer();
+    }
+
+    /**
+     * Create an instance of {@link CreateAnswerResponse }
+     * 
+     */
+    public CreateAnswerResponse createCreateAnswerResponse() {
+        return new CreateAnswerResponse();
     }
 
     /**
@@ -66,6 +93,33 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://AnswerModel/", name = "Answer")
     public JAXBElement<Answer> createAnswer(Answer value) {
         return new JAXBElement<Answer>(_Answer_QNAME, Answer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ParseException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://AnswerModel/", name = "ParseException")
+    public JAXBElement<ParseException> createParseException(ParseException value) {
+        return new JAXBElement<ParseException>(_ParseException_QNAME, ParseException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateAnswer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://AnswerModel/", name = "createAnswer")
+    public JAXBElement<CreateAnswer> createCreateAnswer(CreateAnswer value) {
+        return new JAXBElement<CreateAnswer>(_CreateAnswer_QNAME, CreateAnswer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateAnswerResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://AnswerModel/", name = "createAnswerResponse")
+    public JAXBElement<CreateAnswerResponse> createCreateAnswerResponse(CreateAnswerResponse value) {
+        return new JAXBElement<CreateAnswerResponse>(_CreateAnswerResponse_QNAME, CreateAnswerResponse.class, null, value);
     }
 
     /**

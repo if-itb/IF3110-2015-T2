@@ -42,8 +42,8 @@
                     }
                 }
                 try {
-                    questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();
-                    questionmodel.QuestionWS port = service.getQuestionWSPort();
+                    QuestionWS.QuestionWS_Service service = new QuestionWS.QuestionWS_Service();
+                    QuestionWS.QuestionWS port = service.getQuestionWSPort();
                     int result = port.createQuestion(token, title, content);
                     if(result==1) 
                         response.sendRedirect(request.getContextPath() + "/CreateQuestion.jsp");

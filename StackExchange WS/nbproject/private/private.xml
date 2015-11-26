@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/xampp/htdocs/IF3110-2015-T2/StackExchange%20WS/src/java/Registration/RegistrationWS.java</file>
             <file>file:/C:/xampp/htdocs/IF3110-2015-T2/StackExchange%20WS/src/java/AnswerModel/AnswerWS.java</file>
+            <file>file:/C:/xampp/htdocs/IF3110-2015-T2/StackExchange%20WS/src/java/AnswerModel/Answer.java</file>
             <file>file:/C:/xampp/htdocs/IF3110-2015-T2/StackExchange%20WS/src/java/QuestionModel/QuestionWS.java</file>
+            <file>file:/C:/xampp/htdocs/IF3110-2015-T2/StackExchange%20WS/src/java/QuestionModel/Question.java</file>
             <file>file:/C:/xampp/htdocs/IF3110-2015-T2/StackExchange%20WS/src/java/UserModel/UserWS.java</file>
         </group>
     </open-files>

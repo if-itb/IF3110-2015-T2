@@ -79,10 +79,11 @@
             <hr class="Margin">
         </c:forEach>
         <h3 class="align"> Your Answer </h3>
-            <form class="align" name="answer" action="Answer.php?id=" method="post">
+            <form class="align" name="answer" method="post">
 		<div class="kotakform">
-                    <textarea name="Content" class="form_content" placeholder="Content"></textarea>
+                    <textarea name="Content" class="form_content" placeholder="Content" required></textarea>
 		</div>
+                <input type="hidden" name="id" value="${question.id}">
 		<div class="form_post">
                     <input type="submit" name="answer" value="Post">
 		</div>

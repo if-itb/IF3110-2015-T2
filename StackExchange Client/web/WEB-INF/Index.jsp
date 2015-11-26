@@ -43,7 +43,7 @@
 		</div>
 					
 		<div class=asked>
-                    <!--asked by <span class=name>ini namanya</span> | <a href=\"Edit.php?id=".$row["Q_id"]."\"class=\"color_yellow\">edit<a> | <a onclick="return confirm_delete()\" href=\"Delete.php?id=".$row["Q_id"]."\"class=\"delete\">delete<a> -->
+                    asked by <span class=name>${askers[question.id]}</span> |<!-- <a href=\"Edit.php?id=".$row["Q_id"]."\"class=\"color_yellow\">edit<a> | <a onclick="return confirm_delete()\" href=\"Delete.php?id=".$row["Q_id"]."\"class=\"delete\">delete<a> -->
 		</div>
             </c:forEach>
     </body>

@@ -6,6 +6,7 @@
 package controller;
 
 import AnswerWS.AnswerWS_Service;
+import AnswerWS.ParseException_Exception;
 import QuestionWS.Question;
 import QuestionWS.QuestionWS_Service;
 import UserWS.UserWS_Service;
@@ -13,8 +14,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -97,6 +101,28 @@ public class AnswerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String content = request.getParameter("Content");
+        int id = Integer.valueOf(request.getParameter("id"));
+        AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
+        String token = "";
+        Cookie[] cookies = request.getCookies();
+        if(cookies==null) {      
+            System.out.println("COOKIES NULL");
+        }else {                
+            for(Cookie cookie : cookies) {
+                if("token".equals(cookie.getName())) { 
+                    token = cookie.getValue();
+                    System.out.println(token);
+                    break;
+                }   
+            }
+        }
+        try {
+            int result = port.createAnswer(id, token, content);
+        } catch (ParseException_Exception ex) {
+            Logger.getLogger(AnswerServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        doGet(request, response);
     }
 
     /**

@@ -10,10 +10,24 @@
 <message name="getAnswerByQIDResponse">
 <part name="parameters" element="tns:getAnswerByQIDResponse"/>
 </message>
+<message name="createAnswer">
+<part name="parameters" element="tns:createAnswer"/>
+</message>
+<message name="createAnswerResponse">
+<part name="parameters" element="tns:createAnswerResponse"/>
+</message>
+<message name="ParseException">
+<part name="fault" element="tns:ParseException"/>
+</message>
 <portType name="AnswerWS">
 <operation name="getAnswerByQID">
 <input wsam:Action="http://AnswerModel/AnswerWS/getAnswerByQIDRequest" message="tns:getAnswerByQID"/>
 <output wsam:Action="http://AnswerModel/AnswerWS/getAnswerByQIDResponse" message="tns:getAnswerByQIDResponse"/>
+</operation>
+<operation name="createAnswer">
+<input wsam:Action="http://AnswerModel/AnswerWS/createAnswerRequest" message="tns:createAnswer"/>
+<output wsam:Action="http://AnswerModel/AnswerWS/createAnswerResponse" message="tns:createAnswerResponse"/>
+<fault message="tns:ParseException" name="ParseException" wsam:Action="http://AnswerModel/AnswerWS/createAnswer/Fault/ParseException"/>
 </operation>
 </portType>
 <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
@@ -26,6 +40,18 @@
 <output>
 <soap:body use="literal"/>
 </output>
+</operation>
+<operation name="createAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="ParseException">
+<soap:fault name="ParseException" use="literal"/>
+</fault>
 </operation>
 </binding>
 <service name="AnswerWS">

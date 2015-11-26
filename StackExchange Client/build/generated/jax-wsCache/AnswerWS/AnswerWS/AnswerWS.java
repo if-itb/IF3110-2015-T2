@@ -8,6 +8,7 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.ws.Action;
+import javax.xml.ws.FaultAction;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 
@@ -39,5 +40,31 @@ public interface AnswerWS {
     public List<Answer> getAnswerByQID(
         @WebParam(name = "qid", targetNamespace = "")
         int qid);
+
+    /**
+     * 
+     * @param idQuestion
+     * @param content
+     * @param token
+     * @return
+     *     returns int
+     * @throws ParseException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createAnswer", targetNamespace = "http://AnswerModel/", className = "AnswerWS.CreateAnswer")
+    @ResponseWrapper(localName = "createAnswerResponse", targetNamespace = "http://AnswerModel/", className = "AnswerWS.CreateAnswerResponse")
+    @Action(input = "http://AnswerModel/AnswerWS/createAnswerRequest", output = "http://AnswerModel/AnswerWS/createAnswerResponse", fault = {
+        @FaultAction(className = ParseException_Exception.class, value = "http://AnswerModel/AnswerWS/createAnswer/Fault/ParseException")
+    })
+    public int createAnswer(
+        @WebParam(name = "idQuestion", targetNamespace = "")
+        int idQuestion,
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "content", targetNamespace = "")
+        String content)
+        throws ParseException_Exception
+    ;
 
 }

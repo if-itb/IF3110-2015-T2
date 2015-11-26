@@ -54,18 +54,6 @@ public interface QuestionWS {
 
     /**
      * 
-     * @return
-     *     returns java.util.List<QuestionWS.Question>
-     */
-    @WebMethod(operationName = "GetAllQuestion")
-    @WebResult(name = "Question", targetNamespace = "")
-    @RequestWrapper(localName = "GetAllQuestion", targetNamespace = "http://QuestionModel/", className = "QuestionWS.GetAllQuestion")
-    @ResponseWrapper(localName = "GetAllQuestionResponse", targetNamespace = "http://QuestionModel/", className = "QuestionWS.GetAllQuestionResponse")
-    @Action(input = "http://QuestionModel/QuestionWS/GetAllQuestionRequest", output = "http://QuestionModel/QuestionWS/GetAllQuestionResponse")
-    public List<Question> getAllQuestion();
-
-    /**
-     * 
      * @param id
      * @return
      *     returns QuestionWS.Question
@@ -78,5 +66,17 @@ public interface QuestionWS {
     public Question getQuestionByID(
         @WebParam(name = "id", targetNamespace = "")
         int id);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<QuestionWS.Question>
+     */
+    @WebMethod(operationName = "GetAllQuestion")
+    @WebResult(name = "Question", targetNamespace = "")
+    @RequestWrapper(localName = "GetAllQuestion", targetNamespace = "http://QuestionModel/", className = "QuestionWS.GetAllQuestion")
+    @ResponseWrapper(localName = "GetAllQuestionResponse", targetNamespace = "http://QuestionModel/", className = "QuestionWS.GetAllQuestionResponse")
+    @Action(input = "http://QuestionModel/QuestionWS/GetAllQuestionRequest", output = "http://QuestionModel/QuestionWS/GetAllQuestionResponse")
+    public List<Question> getAllQuestion();
 
 }
