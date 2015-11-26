@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="stack_exchange_web_services" default="default" basedir=".">
-    <description>Builds, tests, and runs the project stack_exchange_web_services.</description>
+<project name="WebApplication1" default="default" basedir=".">
+    <description>Builds, tests, and runs the project WebApplication1.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 
