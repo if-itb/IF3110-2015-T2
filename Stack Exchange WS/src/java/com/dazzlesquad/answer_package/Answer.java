@@ -72,4 +72,23 @@ public class Answer {
         return date;
     }
     
+    public void setAnswerQuestionId(int qid) {
+        this.questionId = qid;
+    }
+    
+    public void setAnswerUserId(int uid) {
+        this.userId = uid;
+    }
+    
+    public void setAnswerContent(String content) {
+        this.content = content;
+    }
+    
+    public void setAnswerVote(int vote) {
+        this.vote = vote;
+    }
+    
+    public void setAnswerDate(String date) {
+        this.date = date;
+    }
 }

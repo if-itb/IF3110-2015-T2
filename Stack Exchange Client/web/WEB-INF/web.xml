@@ -12,6 +12,10 @@
         <servlet-name>AddQuestion</servlet-name>
         <servlet-class>com.dazzlesquad.servlet.AddQuestion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddAnswer</servlet-name>
+        <servlet-class>com.dazzlesquad.servlet.AddAnswer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>QuestionServlet</servlet-name>
         <url-pattern>/QuestionServlet</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>AddQuestion</servlet-name>
         <url-pattern>/AddQuestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAnswer</servlet-name>
+        <url-pattern>/AddAnswer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

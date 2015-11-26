@@ -20,7 +20,7 @@ import javax.xml.ws.WebServiceRef;
  * @author zulvafachrina
  */
 public class AddQuestion extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stack_Exchange_WS/QuestionWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8083/Stack_Exchange_WS/QuestionWS.wsdl")
     private QuestionWS_Service service;
 
     /**
@@ -37,14 +37,20 @@ public class AddQuestion extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String question_topic= request.getParameter("question_topic");
         String question_content= request.getParameter("question_content");
-        int question_userid= Integer.parseInt(request.getParameter("question_userid"));
+        //int question_userid= Integer.parseInt(request.getParameter("question_userid"));
         
-        /*Question question = new Question(0,question_userid,question_topic,question_content,0,"",0);
+        /*try (PrintWriter out = response.getWriter()) {
+            out.println(question_topic);
+            out.println(question_content);
+        }*/
+        Question question = new Question();
+        question.setUserId(1);
+        question.setTopic(question_topic);
+        question.setContent(question_content);
         
-        request.setAttribute("question", question);
-        request.setAttribute("answers", answers);
-        request.setAttribute("countAnswer", count);
-        request.getRequestDispatcher("/question-page.jsp").forward(request, response);*/
+        int success = insertQuestion(question);
+        response.sendRedirect("/Stack_Exchange_Client/QuestionServlet");
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -51,7 +51,7 @@
                 <div class="boxarea">
                     <div class="vote">
 			<div class="arrow-up"></div>
-			<h3> <div id="answer-vote-${answer.id}"><c:out value="${answer.id}"/></div> </h3>
+			<h3> <div id="answer-vote-${answer.id}"><c:out value="${answer.vote}"/></div> </h3>
 			<div class="arrow-down"></div>
                     </div>
 
@@ -72,11 +72,7 @@
         </c:choose>
 	
         <h3> Your Answer </h3>
-	<form method="POST" name="Form" action="question-page.jsp">
-		<input type="text" name="answer_name" id="answer_name" placeholder="Name">
-		<br>
-		<input type="text" name="answer_email" id="answer_email" placeholder="Email">
-		<br> 
+	<form method="POST" name="Form" action="/Stack_Exchange_Client/AddAnswer?qid=${question.id}">
 		<textarea name="answer_content" id="answer_content" rows="15" placeholder="Content"></textarea>
 		<br>
 		<input type="submit" id="submit_answer" name="submit_answer" value="Post">

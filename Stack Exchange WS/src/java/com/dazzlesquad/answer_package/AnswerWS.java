@@ -75,14 +75,13 @@ public class AnswerWS {
             try {
                 Statement statement = conn.createStatement();
                 String sql;
-                sql = "INSERT INTO Answer (id_user, question_id, content, vote, date) VALUES (?,?,?,?,?)";
+                sql = "INSERT INTO Answer (user_id, question_id, content, vote, date) VALUES (?,?,?,0,now())";
 
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
                 dbStatement.setInt(1,answer.getId());
                 dbStatement.setInt(2,answer.getQid());
                 dbStatement.setString(3,answer.getContent());
-                dbStatement.setInt(4,answer.getVote());
-                dbStatement.setString(5,answer.getDate());
+                
 
                 dbStatement.executeUpdate(); 
 
