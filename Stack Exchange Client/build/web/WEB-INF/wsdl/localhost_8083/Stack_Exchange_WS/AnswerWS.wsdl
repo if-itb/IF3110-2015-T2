@@ -4,11 +4,11 @@
 <xsd:import namespace="http://answer_package.dazzlesquad.com/" schemaLocation="http://localhost:8083/Stack_Exchange_WS/AnswerWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="insertAnswer">
-<part name="parameters" element="tns:insertAnswer"/>
+<message name="deleteAnswer">
+<part name="parameters" element="tns:deleteAnswer"/>
 </message>
-<message name="insertAnswerResponse">
-<part name="parameters" element="tns:insertAnswerResponse"/>
+<message name="deleteAnswerResponse">
+<part name="parameters" element="tns:deleteAnswerResponse"/>
 </message>
 <message name="getAnswerById">
 <part name="parameters" element="tns:getAnswerById"/>
@@ -16,29 +16,29 @@
 <message name="getAnswerByIdResponse">
 <part name="parameters" element="tns:getAnswerByIdResponse"/>
 </message>
-<message name="deleteAnswer">
-<part name="parameters" element="tns:deleteAnswer"/>
+<message name="insertAnswer">
+<part name="parameters" element="tns:insertAnswer"/>
 </message>
-<message name="deleteAnswerResponse">
-<part name="parameters" element="tns:deleteAnswerResponse"/>
+<message name="insertAnswerResponse">
+<part name="parameters" element="tns:insertAnswerResponse"/>
 </message>
 <portType name="AnswerWS">
-<operation name="insertAnswer">
-<input wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/insertAnswerRequest" message="tns:insertAnswer"/>
-<output wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/insertAnswerResponse" message="tns:insertAnswerResponse"/>
+<operation name="deleteAnswer">
+<input wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/deleteAnswerRequest" message="tns:deleteAnswer"/>
+<output wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/deleteAnswerResponse" message="tns:deleteAnswerResponse"/>
 </operation>
 <operation name="getAnswerById">
 <input wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/getAnswerByIdRequest" message="tns:getAnswerById"/>
 <output wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/getAnswerByIdResponse" message="tns:getAnswerByIdResponse"/>
 </operation>
-<operation name="deleteAnswer">
-<input wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/deleteAnswerRequest" message="tns:deleteAnswer"/>
-<output wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/deleteAnswerResponse" message="tns:deleteAnswerResponse"/>
+<operation name="insertAnswer">
+<input wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/insertAnswerRequest" message="tns:insertAnswer"/>
+<output wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/insertAnswerResponse" message="tns:insertAnswerResponse"/>
 </operation>
 </portType>
 <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="insertAnswer">
+<operation name="deleteAnswer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -56,7 +56,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="deleteAnswer">
+<operation name="insertAnswer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

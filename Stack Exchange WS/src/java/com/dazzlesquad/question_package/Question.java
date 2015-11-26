@@ -35,12 +35,15 @@ public class Question {
     @XmlElement(name="countAnswer", required=true)
     private int countAnswer;
     
+    @XmlElement(name="username", required=true)
+    private String username;
+    
     public Question() {
         id=0;
         userId = 0;
     }
     
-    public Question(int id, int uid, String topic, String content, int vote, String date, int count){
+    public Question(int id, int uid, String topic, String content, int vote, String date, int count, String username){
         this.id=id;
         this.userId = uid;
         this.topic = topic;
@@ -48,6 +51,7 @@ public class Question {
         this.vote=vote;
         this.date = date;
         this.countAnswer=count;
+        this.username = username;
         
     }
     
@@ -84,6 +88,10 @@ public class Question {
         return this.date;
     }
     
+    public String getQuestionUsername() {
+        return this.username;
+    }
+    
     void setId(int id) {
         this.id = id;
     }
@@ -110,6 +118,10 @@ public class Question {
     
     void setCountAnswer(int count) {
         this.countAnswer = count;
+    }
+    
+    void setUsername(String username) {
+        this.username = username;
     }
     
 }

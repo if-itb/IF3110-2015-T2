@@ -10,6 +10,8 @@ package com.dazzlesquad.question_package;
  */
 import com.dazzesquad.database_console.DBConnect;
 import com.dazzlesquad.answer_package.*;
+import com.dazzlesquad.user_package.User;
+import com.dazzlesquad.user_package.UserWS;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
@@ -57,8 +59,10 @@ public class QuestionWS {
             if (result.next())
             {
                 int count= countAnswer(result.getInt("id"));
+                UserWS userws = new UserWS();
+                User user = userws.getUserById(result.getInt("user_id"));
                 questionresult = new Question(result.getInt("id"), result.getInt("user_id"),result.getString("topic"),result.getString("content"), 
-                        result.getInt("vote"), result.getString("date"), count);
+                        result.getInt("vote"), result.getString("date"), count, user.getUserName());
             }
             else {
                 questionresult = new Question();
@@ -90,8 +94,10 @@ public class QuestionWS {
             
            
             while(result.next()) {
+               UserWS userws = new UserWS();
+               User user = userws.getUserById(result.getInt("user_id"));
                answers.add(new Answer(result.getInt("id"), result.getInt("question_id"), result.getInt("user_id"),
-               result.getString("content"), result.getInt("vote"), result.getString("date"))); 
+               result.getString("content"), result.getInt("vote"), result.getString("date"), user.getUserName())); 
                
             }
             
@@ -177,7 +183,10 @@ public class QuestionWS {
            
             while(result.next()) {
                int count= countAnswer(result.getInt("id"));
-               questions.add(new Question(result.getInt("id"), result.getInt("user_id"),result.getString("topic"),result.getString("content"), result.getInt("vote"), result.getString("date"), count)); 
+               UserWS userws = new UserWS();
+               User user = userws.getUserById(result.getInt("user_id"));
+               questions.add(new Question(result.getInt("id"), result.getInt("user_id"),result.getString("topic"),result.getString("content"), 
+                       result.getInt("vote"), result.getString("date"), count, user.getUserName())); 
                
             }
             

@@ -34,6 +34,7 @@ public class ObjectFactory {
     private final static QName _CountAnswer_QNAME = new QName("http://question_package.dazzlesquad.com/", "countAnswer");
     private final static QName _ShowAllQuestion_QNAME = new QName("http://question_package.dazzlesquad.com/", "showAllQuestion");
     private final static QName _Hello_QNAME = new QName("http://question_package.dazzlesquad.com/", "hello");
+    private final static QName _Question_QNAME = new QName("http://question_package.dazzlesquad.com/", "Question");
     private final static QName _EditQuestion_QNAME = new QName("http://question_package.dazzlesquad.com/", "editQuestion");
     private final static QName _GetQuestionByIdResponse_QNAME = new QName("http://question_package.dazzlesquad.com/", "getQuestionByIdResponse");
     private final static QName _GetQuestionById_QNAME = new QName("http://question_package.dazzlesquad.com/", "getQuestionById");
@@ -106,6 +107,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Answer }
+     * 
+     */
+    public Answer createAnswer() {
+        return new Answer();
+    }
+
+    /**
      * Create an instance of {@link GetAnswerByQuestionId }
      * 
      */
@@ -146,6 +155,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Question }
+     * 
+     */
+    public Question createQuestion() {
+        return new Question();
+    }
+
+    /**
      * Create an instance of {@link EditQuestion }
      * 
      */
@@ -175,22 +192,6 @@ public class ObjectFactory {
      */
     public CountAnswer createCountAnswer() {
         return new CountAnswer();
-    }
-
-    /**
-     * Create an instance of {@link Question }
-     * 
-     */
-    public Question createQuestion() {
-        return new Question();
-    }
-
-    /**
-     * Create an instance of {@link Answer }
-     * 
-     */
-    public Answer createAnswer() {
-        return new Answer();
     }
 
     /**
@@ -239,12 +240,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Answer }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://question_package.dazzlesquad.com/", name = "Answer")
-    public JAXBElement<Object> createAnswer(Object value) {
-        return new JAXBElement<Object>(_Answer_QNAME, Object.class, null, value);
+    public JAXBElement<Answer> createAnswer(Answer value) {
+        return new JAXBElement<Answer>(_Answer_QNAME, Answer.class, null, value);
     }
 
     /**
@@ -281,6 +282,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://question_package.dazzlesquad.com/", name = "hello")
     public JAXBElement<Hello> createHello(Hello value) {
         return new JAXBElement<Hello>(_Hello_QNAME, Hello.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Question }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://question_package.dazzlesquad.com/", name = "Question")
+    public JAXBElement<Question> createQuestion(Question value) {
+        return new JAXBElement<Question>(_Question_QNAME, Question.class, null, value);
     }
 
     /**

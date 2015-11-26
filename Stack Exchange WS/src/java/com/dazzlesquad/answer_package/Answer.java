@@ -32,19 +32,23 @@ public class Answer {
     @XmlElement(name="date", required=true)
     private String date;
     
+    @XmlElement(name="username", required=true)
+    private String username;
+    
     public Answer() {
         id=0;
         questionId=0;
         userId = 0;
     }
     
-    public Answer(int id, int qid, int uid, String content, int vote, String date){
+    public Answer(int id, int qid, int uid, String content, int vote, String date, String username){
         this.id=id;
         questionId = qid;
         userId = uid;
         this.content = content;
         this.vote=vote;
         this.date = date;
+        this.username = username;
         
     }
     
@@ -72,6 +76,10 @@ public class Answer {
         return date;
     }
     
+    public String getAnswerUsername(){
+        return username;
+    }
+    
     public void setAnswerQuestionId(int qid) {
         this.questionId = qid;
     }
@@ -90,5 +98,9 @@ public class Answer {
     
     public void setAnswerDate(String date) {
         this.date = date;
+    }
+    
+     public void setAnswerUsername(String username) {
+        this.username = username;
     }
 }

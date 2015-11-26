@@ -26,34 +26,6 @@ public interface QuestionWS {
 
     /**
      * 
-     * @param id
-     * @return
-     *     returns java.util.List<QuestionWS.Answer>
-     */
-    @WebMethod
-    @WebResult(name = "Answer", targetNamespace = "")
-    @RequestWrapper(localName = "getAnswerByQuestionId", targetNamespace = "http://question_package.dazzlesquad.com/", className = "QuestionWS.GetAnswerByQuestionId")
-    @ResponseWrapper(localName = "getAnswerByQuestionIdResponse", targetNamespace = "http://question_package.dazzlesquad.com/", className = "QuestionWS.GetAnswerByQuestionIdResponse")
-    public List<Answer> getAnswerByQuestionId(
-        @WebParam(name = "id", targetNamespace = "")
-        int id);
-
-    /**
-     * 
-     * @param qid
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(name = "count", targetNamespace = "")
-    @RequestWrapper(localName = "countAnswer", targetNamespace = "http://question_package.dazzlesquad.com/", className = "QuestionWS.CountAnswer")
-    @ResponseWrapper(localName = "countAnswerResponse", targetNamespace = "http://question_package.dazzlesquad.com/", className = "QuestionWS.CountAnswerResponse")
-    public int countAnswer(
-        @WebParam(name = "qid", targetNamespace = "")
-        int qid);
-
-    /**
-     * 
      * @param name
      * @return
      *     returns java.lang.String
@@ -77,6 +49,20 @@ public interface QuestionWS {
     @RequestWrapper(localName = "getQuestionById", targetNamespace = "http://question_package.dazzlesquad.com/", className = "QuestionWS.GetQuestionById")
     @ResponseWrapper(localName = "getQuestionByIdResponse", targetNamespace = "http://question_package.dazzlesquad.com/", className = "QuestionWS.GetQuestionByIdResponse")
     public Question getQuestionById(
+        @WebParam(name = "id", targetNamespace = "")
+        int id);
+
+    /**
+     * 
+     * @param id
+     * @return
+     *     returns java.util.List<QuestionWS.Answer>
+     */
+    @WebMethod
+    @WebResult(name = "Answer", targetNamespace = "")
+    @RequestWrapper(localName = "getAnswerByQuestionId", targetNamespace = "http://question_package.dazzlesquad.com/", className = "QuestionWS.GetAnswerByQuestionId")
+    @ResponseWrapper(localName = "getAnswerByQuestionIdResponse", targetNamespace = "http://question_package.dazzlesquad.com/", className = "QuestionWS.GetAnswerByQuestionIdResponse")
+    public List<Answer> getAnswerByQuestionId(
         @WebParam(name = "id", targetNamespace = "")
         int id);
 
@@ -138,5 +124,19 @@ public interface QuestionWS {
         String topic,
         @WebParam(name = "content", targetNamespace = "")
         String content);
+
+    /**
+     * 
+     * @param qid
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(name = "count", targetNamespace = "")
+    @RequestWrapper(localName = "countAnswer", targetNamespace = "http://question_package.dazzlesquad.com/", className = "QuestionWS.CountAnswer")
+    @ResponseWrapper(localName = "countAnswerResponse", targetNamespace = "http://question_package.dazzlesquad.com/", className = "QuestionWS.CountAnswerResponse")
+    public int countAnswer(
+        @WebParam(name = "qid", targetNamespace = "")
+        int qid);
 
 }

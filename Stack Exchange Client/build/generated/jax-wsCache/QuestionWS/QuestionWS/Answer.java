@@ -23,6 +23,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="content" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="vote" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="date" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="answerUsername" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -38,7 +40,9 @@ import javax.xml.bind.annotation.XmlType;
     "userId",
     "content",
     "vote",
-    "date"
+    "date",
+    "username",
+    "answerUsername"
 })
 public class Answer {
 
@@ -52,6 +56,9 @@ public class Answer {
     protected int vote;
     @XmlElement(required = true)
     protected String date;
+    @XmlElement(required = true)
+    protected String username;
+    protected String answerUsername;
 
     /**
      * Gets the value of the id property.
@@ -163,6 +170,54 @@ public class Answer {
      */
     public void setDate(String value) {
         this.date = value;
+    }
+
+    /**
+     * Gets the value of the username property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Sets the value of the username property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setUsername(String value) {
+        this.username = value;
+    }
+
+    /**
+     * Gets the value of the answerUsername property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAnswerUsername() {
+        return answerUsername;
+    }
+
+    /**
+     * Sets the value of the answerUsername property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAnswerUsername(String value) {
+        this.answerUsername = value;
     }
 
 }

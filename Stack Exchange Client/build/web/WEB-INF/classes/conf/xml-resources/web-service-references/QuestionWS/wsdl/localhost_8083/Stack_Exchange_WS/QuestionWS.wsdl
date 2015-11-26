@@ -4,18 +4,6 @@
 <xsd:import namespace="http://question_package.dazzlesquad.com/" schemaLocation="http://localhost:8083/Stack_Exchange_WS/QuestionWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getAnswerByQuestionId">
-<part name="parameters" element="tns:getAnswerByQuestionId"/>
-</message>
-<message name="getAnswerByQuestionIdResponse">
-<part name="parameters" element="tns:getAnswerByQuestionIdResponse"/>
-</message>
-<message name="countAnswer">
-<part name="parameters" element="tns:countAnswer"/>
-</message>
-<message name="countAnswerResponse">
-<part name="parameters" element="tns:countAnswerResponse"/>
-</message>
 <message name="hello">
 <part name="parameters" element="tns:hello"/>
 </message>
@@ -27,6 +15,12 @@
 </message>
 <message name="getQuestionByIdResponse">
 <part name="parameters" element="tns:getQuestionByIdResponse"/>
+</message>
+<message name="getAnswerByQuestionId">
+<part name="parameters" element="tns:getAnswerByQuestionId"/>
+</message>
+<message name="getAnswerByQuestionIdResponse">
+<part name="parameters" element="tns:getAnswerByQuestionIdResponse"/>
 </message>
 <message name="deleteQuestion">
 <part name="parameters" element="tns:deleteQuestion"/>
@@ -52,15 +46,13 @@
 <message name="editQuestionResponse">
 <part name="parameters" element="tns:editQuestionResponse"/>
 </message>
+<message name="countAnswer">
+<part name="parameters" element="tns:countAnswer"/>
+</message>
+<message name="countAnswerResponse">
+<part name="parameters" element="tns:countAnswerResponse"/>
+</message>
 <portType name="QuestionWS">
-<operation name="getAnswerByQuestionId">
-<input wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/getAnswerByQuestionIdRequest" message="tns:getAnswerByQuestionId"/>
-<output wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/getAnswerByQuestionIdResponse" message="tns:getAnswerByQuestionIdResponse"/>
-</operation>
-<operation name="countAnswer">
-<input wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/countAnswerRequest" message="tns:countAnswer"/>
-<output wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/countAnswerResponse" message="tns:countAnswerResponse"/>
-</operation>
 <operation name="hello">
 <input wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/helloRequest" message="tns:hello"/>
 <output wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/helloResponse" message="tns:helloResponse"/>
@@ -68,6 +60,10 @@
 <operation name="getQuestionById">
 <input wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/getQuestionByIdRequest" message="tns:getQuestionById"/>
 <output wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/getQuestionByIdResponse" message="tns:getQuestionByIdResponse"/>
+</operation>
+<operation name="getAnswerByQuestionId">
+<input wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/getAnswerByQuestionIdRequest" message="tns:getAnswerByQuestionId"/>
+<output wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/getAnswerByQuestionIdResponse" message="tns:getAnswerByQuestionIdResponse"/>
 </operation>
 <operation name="deleteQuestion">
 <input wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/deleteQuestionRequest" message="tns:deleteQuestion"/>
@@ -85,27 +81,13 @@
 <input wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/editQuestionRequest" message="tns:editQuestion"/>
 <output wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/editQuestionResponse" message="tns:editQuestionResponse"/>
 </operation>
+<operation name="countAnswer">
+<input wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/countAnswerRequest" message="tns:countAnswer"/>
+<output wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/countAnswerResponse" message="tns:countAnswerResponse"/>
+</operation>
 </portType>
 <binding name="QuestionWSPortBinding" type="tns:QuestionWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getAnswerByQuestionId">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="countAnswer">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="hello">
 <soap:operation soapAction=""/>
 <input>
@@ -116,6 +98,15 @@
 </output>
 </operation>
 <operation name="getQuestionById">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getAnswerByQuestionId">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -152,6 +143,15 @@
 </output>
 </operation>
 <operation name="editQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="countAnswer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

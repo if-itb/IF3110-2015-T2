@@ -25,17 +25,17 @@ public interface AnswerWS {
 
     /**
      * 
-     * @param answer
+     * @param qid
      * @return
      *     returns int
      */
     @WebMethod
-    @WebResult(name = "NewAnswer", targetNamespace = "")
-    @RequestWrapper(localName = "insertAnswer", targetNamespace = "http://answer_package.dazzlesquad.com/", className = "AnswerWS.InsertAnswer")
-    @ResponseWrapper(localName = "insertAnswerResponse", targetNamespace = "http://answer_package.dazzlesquad.com/", className = "AnswerWS.InsertAnswerResponse")
-    public int insertAnswer(
-        @WebParam(name = "answer", targetNamespace = "")
-        Answer answer);
+    @WebResult(name = "Success", targetNamespace = "")
+    @RequestWrapper(localName = "deleteAnswer", targetNamespace = "http://answer_package.dazzlesquad.com/", className = "AnswerWS.DeleteAnswer")
+    @ResponseWrapper(localName = "deleteAnswerResponse", targetNamespace = "http://answer_package.dazzlesquad.com/", className = "AnswerWS.DeleteAnswerResponse")
+    public int deleteAnswer(
+        @WebParam(name = "qid", targetNamespace = "")
+        int qid);
 
     /**
      * 
@@ -53,16 +53,16 @@ public interface AnswerWS {
 
     /**
      * 
-     * @param qid
+     * @param answer
      * @return
      *     returns int
      */
     @WebMethod
-    @WebResult(name = "Success", targetNamespace = "")
-    @RequestWrapper(localName = "deleteAnswer", targetNamespace = "http://answer_package.dazzlesquad.com/", className = "AnswerWS.DeleteAnswer")
-    @ResponseWrapper(localName = "deleteAnswerResponse", targetNamespace = "http://answer_package.dazzlesquad.com/", className = "AnswerWS.DeleteAnswerResponse")
-    public int deleteAnswer(
-        @WebParam(name = "qid", targetNamespace = "")
-        int qid);
+    @WebResult(name = "NewAnswer", targetNamespace = "")
+    @RequestWrapper(localName = "insertAnswer", targetNamespace = "http://answer_package.dazzlesquad.com/", className = "AnswerWS.InsertAnswer")
+    @ResponseWrapper(localName = "insertAnswerResponse", targetNamespace = "http://answer_package.dazzlesquad.com/", className = "AnswerWS.InsertAnswerResponse")
+    public int insertAnswer(
+        @WebParam(name = "answer", targetNamespace = "")
+        Answer answer);
 
 }

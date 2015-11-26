@@ -6,6 +6,8 @@
 package com.dazzlesquad.answer_package;
 
 import com.dazzesquad.database_console.DBConnect;
+import com.dazzlesquad.user_package.User;
+import com.dazzlesquad.user_package.UserWS;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
@@ -35,7 +37,7 @@ public class AnswerWS {
     
     @WebMethod(operationName = "getAnswerById")
     @WebResult(name="Answer")
-    public Answer getQuestionById(@WebParam(name = "id") int id) {
+    public Answer getAnswerById(@WebParam(name = "id") int id) {
         Answer answerResult = null;
         try {
             Statement statement = conn.createStatement();
@@ -49,8 +51,10 @@ public class AnswerWS {
             
             if (result.next())
             {
+               UserWS userws = new UserWS();
+               User user = userws.getUserById(result.getInt("user_id"));
                answerResult = new Answer(result.getInt("id"), result.getInt("question_id"), result.getInt("user_id"),
-               result.getString("content"), result.getInt("vote"), result.getString("date")); 
+               result.getString("content"), result.getInt("vote"), result.getString("date"), user.getUserName()); 
             }
             else {
                 answerResult = new Answer();

@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="vote" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="date" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="countAnswer" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -40,7 +41,8 @@ import javax.xml.bind.annotation.XmlType;
     "content",
     "vote",
     "date",
-    "countAnswer"
+    "countAnswer",
+    "username"
 })
 public class Question {
 
@@ -55,6 +57,8 @@ public class Question {
     @XmlElement(required = true)
     protected String date;
     protected int countAnswer;
+    @XmlElement(required = true)
+    protected String username;
 
     /**
      * Gets the value of the id property.
@@ -190,6 +194,30 @@ public class Question {
      */
     public void setCountAnswer(int value) {
         this.countAnswer = value;
+    }
+
+    /**
+     * Gets the value of the username property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Sets the value of the username property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setUsername(String value) {
+        this.username = value;
     }
 
 }

@@ -34,8 +34,8 @@
 		</div>
 
 		<div class="edit-delete">
-			<p> asked by <b><c:out value="${question.userId}"/></b><br>
-				email at <c:out value="${question.date}"/> | <a href="/Stack_Exchange_Client/GetQuestion?qid=${question.id}" style="color:#FFA500"> edit </a> | <a href="#" style="color:#FF0000"> delete </a> </p>
+			<p> asked by <b><c:out value="${question.username}"/></b><br>
+				email at <c:out value="${question.date}"/> | <a href="/Stack_Exchange_Client/GetQuestion?qid=${question.id}" style="color:#FFA500"> edit </a> | <a href="#" onclick="validateDelete(${question.id})" style="color:#FF0000"> delete </a> </p>
 		</div>
 	</div>
 
@@ -62,8 +62,8 @@
 
                     <div class="edit-delete">
                         <p><c:out value="answer by"/>
-                            <b><c:out value="${answer.userId}"/></b><br>
-                            <c:out value="${answer.userId} at ${answer.date} "/>
+                            <b><c:out value="${answer.username}"/></b>
+                            <c:out value="at ${answer.date} "/>
                         </p>
                     </div>
 		</div>
