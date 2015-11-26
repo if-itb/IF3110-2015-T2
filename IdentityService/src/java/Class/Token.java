@@ -5,6 +5,8 @@
  */
 package Class;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -31,15 +33,8 @@ public class Token {
     public  Token() {}
     
     public void generateToken(String name) {
-        String aa = "abcdefghijklmnopqrstuvwxyz1234567890";
-        String temp = "";
-        Random r ;
-        for (int i=0;i<name.length();i++) {
-            r = new Random();
-            int ix = r.nextInt(35);
-            temp = temp+aa.charAt(ix)+name.charAt(i);
-        }
-        this.ac_Token=temp;
+        SecureRandom random = new SecureRandom();
+        ac_Token= new BigInteger(100,random).toString(32);
         long times = (long) (System.currentTimeMillis() / 1000);
         times = times+3600;
         this.expire = String.valueOf(times);        
