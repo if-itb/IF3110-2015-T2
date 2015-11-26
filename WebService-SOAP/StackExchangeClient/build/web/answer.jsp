@@ -75,21 +75,24 @@
     </div>
     
     <div class="row container">
-      <form class="col s12 m8">
+      <form class="col s12 m8" action="AnswerServlet">
         <div class="row">
           <div class="input-field">
-            <input id="content" type="text" class="validate">
+            <input name="content" id="content" type="text" class="validate">
             <label for="content">Content</label>
+            <%
+                out.println("<input name='qid' type='hidden' value='" + request.getParameter("qid") + "'>");
+            %>
           </div>
+        </div>
+        <div class="container center">
+            <input class="btn waves-effect waves-light deep-purple darken-2" type="submit" name="action">
+            <i class="material-icons right">send</i>
         </div>
       </form>
     </div>
     
-    <div class="container center">
-    <button class="btn waves-effect waves-light deep-purple darken-2" type="submit" name="action">Submit
-      <i class="material-icons right">send</i>
-    </button>
-      </div>
+    
         
     <footer class="page-footer deep-purple darken-2">
       <div class="footer-copyright">

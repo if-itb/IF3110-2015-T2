@@ -38,25 +38,25 @@
     <br><br>
 
     <div class="row container">
-      <form class="col s12 m8">
+      <form class="col s12 m8" action="AskServlet">
         <div class="row">
           <div class="input-field">
-            <input id="topic-content" type="text" class="validate">
+            <input name="topic" id="topic-content" type="text" class="validate">
             <label for="topic-content">Topic Content</label>
           </div>
           <div class="input-field">
-            <input id="content" type="text" class="validate">
+            <input name="content" id="content" type="text" class="validate">
             <label for="content">Content</label>
           </div>
+        </div>
+        <div class="container center">
+          <input class="btn waves-effect waves-light deep-purple darken-2" type="submit">
+          <i class="material-icons right">send</i>
         </div>
       </form>
     </div>
     
-    <div class="container center">
-    <button class="btn waves-effect waves-light deep-purple darken-2" type="submit" name="action">Submit
-      <i class="material-icons right">send</i>
-    </button>
-      </div>
+    
         
     <footer class="page-footer deep-purple darken-2">
       <div class="footer-copyright">
