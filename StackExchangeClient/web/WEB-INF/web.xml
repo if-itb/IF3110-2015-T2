@@ -48,6 +48,10 @@
         <servlet-name>voteanswer</servlet-name>
         <servlet-class>Servlet.voteanswer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>search</servlet-name>
+        <servlet-class>Servlet.search</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>viewpost</servlet-name>
         <url-pattern>/viewpost</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>voteanswer</servlet-name>
         <url-pattern>/voteanswer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>search</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

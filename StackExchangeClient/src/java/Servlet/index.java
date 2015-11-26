@@ -31,10 +31,19 @@ public class index extends HttpServlet {
             }
         }
         
-        java.util.List<questionmodel.Question> result = getQuestions();
-        request.setAttribute("result", result);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-        dispatcher.forward(request, response);
+        String keyword = request.getParameter("keyword");
+        if (keyword == null) {
+            java.util.List<questionmodel.Question> result = getQuestions();
+            request.setAttribute("result", result);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            dispatcher.forward(request, response);
+        }
+        else {
+            java.util.List<questionmodel.Question> result = searchQuestion(keyword);
+            request.setAttribute("result", result);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -88,6 +97,13 @@ public class index extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         questionmodel.QuestionWS port = service.getQuestionWSPort();
         return port.getAnswerById(qid);
+    }
+
+    private java.util.List<questionmodel.Question> searchQuestion(java.lang.String keyword) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        questionmodel.QuestionWS port = service.getQuestionWSPort();
+        return port.searchQuestion(keyword);
     }
 
 }

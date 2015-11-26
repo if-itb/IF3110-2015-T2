@@ -1,6 +1,7 @@
 package Servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.StringReader;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -12,11 +13,6 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.xml.sax.InputSource;
 
 public class logout extends HttpServlet {
 
@@ -46,29 +42,22 @@ public class logout extends HttpServlet {
         
         try {
             String result = client.target(url).request(MediaType.APPLICATION_XML).post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED), String.class);
-           
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(new InputSource(new StringReader(result)));
-            Element rootElement = document.getDocumentElement();
-            String token = rootElement.getAttribute("token");
             
-            if (result.equals("Success")) {
-                int count = 0;
-                i = 0;
-                while (count<2 && i<cookies.length){
-                    if (cookies[i].getName().equals("usernameCookie") || cookies[i].getName().equals("tokenCookie")) {
-                        cookies[i].setMaxAge(0);
-                        response.addCookie(cookies[i]);
-                        count++;
-                    }
-                    i++;
+            int count = 0;
+            i = 0;
+            while (count<2 && i<cookies.length){
+                if (cookies[i].getName().equals("usernameCookie") || cookies[i].getName().equals("tokenCookie")) {
+                    cookies[i].setMaxAge(0);
+                    cookies[i].setPath("/");
+                    response.addCookie(cookies[i]);
+                    count++;
                 }
+                i++;
             }
+            
             response.sendRedirect("index");
         }
         catch (Exception e) {}
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -35,7 +35,7 @@
             
             <h1>Simple StackExchange</h1><br>
 
-            <form class="search-box" method="POST">
+            <form class="search-box" action="/StackExchangeClient/index" method="POST">
 		<input type="text" name="keyword">
 		<input type="submit" value="Search"><br>
             </form>
