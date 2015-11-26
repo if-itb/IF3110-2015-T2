@@ -66,9 +66,9 @@
     <body>
     <%
             if (request.getParameter("id").equals("-1")){
-                out.println("<h2 class='header center orange-text'>Oops! You're not logged in yet!<br><br></h2><h4 class='center orange-text'>Please Register or Login</h4>");
+                out.println("<h2 class='header center orange-text'>Oops! You're not logged in yet!<br><br></h2><h4 class='center orange-text'>Please login or register</h4>");
             } else if (request.getParameter("id").equals("-2")){
-                out.println("<h2 class='header center orange-text'>Oops! Your session has expired!<br><br></h2><h4 class='center orange-text'>Please Login again</h4>");
+                out.println("<h2 class='header center orange-text'>Oops! Your session has expired!<br><br></h2><h4 class='center orange-text'>Please login again</h4>");
                 } else if (request.getParameter("id").equals("3")){
                 out.println("<h2 class='header center orange-text'>Oops! You're not authorized to access that!</h4>");
             }

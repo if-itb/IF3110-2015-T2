@@ -9,19 +9,61 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href='css/style.css'/>
-        <title>Simple StackExchange</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">    
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>    
+        <nav class="light-blue lighten-1" role="navigation">
+            <div class="nav-wrapper container">
+                
+            <% out.write("<a id='logo-container' href='index.jsp?token="+ request.getParameter("token") +"' class='brand-logo'>Home</a>");%>
+            <%
+                if (request.getParameter("token").equals("null")){
+                    String border = "<ul class='right hide-on-med-and-down'>"
+                                        + "<li><a href='login.jsp'>Login</a></li>"
+                                        + "<li><a href='register.jsp'>Register</a></li>"
+                                    + " </ul>" + 
+                                    "<ul id='nav-mobile' class='side-nav'>"
+                                        + "<li><a href='login.jsp'>Login</a></li>"
+                                        + "<li><a href='register.jsp'>Register</a></li>"
+                                    + " </ul>";
+                    out.write(border);
+                } else {
+                    com.wbd.rgs.RegisterWS_Service service = new com.wbd.rgs.RegisterWS_Service();
+                    com.wbd.rgs.RegisterWS port = service.getRegisterWSPort();
+                    java.lang.String accessToken = request.getParameter("token");
+                    java.lang.String result = port.getUsername(accessToken);
+                    String border = "<ul class='right hide-on-med-and-down'>"
+                                        + "<li>Welcome, " + result + "</li>"
+                                        + "<li><a href='index.jsp?token=null'>Sign Out</a></li>" //Jelek, ntar diganti
+                                    + " </ul>" + 
+                                    "<ul id='nav-mobile' class='side-nav'>"
+                                        + "<li>Welcome, " + result + "</li>"
+                                        + "<li><a href='index.jsp?token=null'>Sign Out</a></li>" //Jelek, ntar diganti
+                                    + " </ul>";
+                    out.write(border);
+                }
+            %>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+            </div>
+        </nav>   
+        <script>
+            $(document).ready(function(){
+
+              // Initialize collapse button
+              $(".button-collapse").sideNav();
+            });
+        </script>
+        
+                 <title>Simple StackExchange</title>
 </head>
 
     <body>
-        <div class="link-normalizer">
-            <%out.println("<a class='title' href='index.jsp?token=" + request.getParameter("token") + "'>Simple StackExchange</a>");%>
-        </div>
-        <br>
-        <br>
-        <br>
-        <br>    
-
         <%
         try {
             com.wbd.qst.QuestionWS_Service service = new com.wbd.qst.QuestionWS_Service();
@@ -34,13 +76,14 @@
             //out.println("QID : " + qid);
             java.util.List<com.wbd.qst.Question> result = port.getQuestionbyID(qid);
             java.lang.String result2 = port2.getNama(qid);
-            for (int i = 0; i < result.size(); i++){
+            int i = 0;
+            out.write("<h2 class='header center-align orange-text'>" + result.get(i).getQuestionTopic() + "</h2>");
+            out.write("<ul class='collection'>");
+            
+            
                 String question = 
-                    "<div class='subtitle'>"
-			+result.get(i).getQuestionTopic()
-                    +"</div>"
-                    +"<hr class='line'>"
-                    +"<div class='block-QA'>"
+                    
+                    "<div class='block-QA'>"
 			+"<div class='bQA-vote'>"
                             +"<a href = voteUp.jsp?id=" + request.getParameter("id") + "&token=" + request.getParameter("token") + "><div class='vote-up'>"
                             +"</div></a>"
@@ -73,14 +116,18 @@
 	    		+"</div>"
 	    	+"</div>"           
                 ;
-                out.write(question);
-            }
+                String start = "<li class='collection-item avatar'><i class='material-icons circle'>folder</i>";
+                String end = "<br><br><br><br><br><br><a href='' class='secondary-content'><i class='material-icons'>grade</i></a></li>";
+                
+                out.write(start + question + end);
+                out.write("<br><br>");
+            
         } catch (Exception ex) {
             // TODO handle custom exceptions here
         }
         %>
         
-        <% out.write("<br><br><br><br><br>");%>
+        <% out.write("<br><br>");%>
 
         <%
         try {
@@ -94,18 +141,18 @@
             java.util.List<com.wbd.ans.Answer> result = port.getAnswerByQID(qid);
             String isManyAnswer;
             if(result.size() > 1){
-                isManyAnswer = "Answers";
+                isManyAnswer = " Answers";
             }
             else{
-                isManyAnswer = "Answer";
+                isManyAnswer = " Answer";
             }
             String answerTitle = 
-                "<div class='subtitle'>" + result.size() + " " + isManyAnswer + "</div>"
-                + "<hr class ='line'>"
+                "<h2 class='header center-align orange-text'>" + result.size() + isManyAnswer + "</h2>"
             ;
             out.write(answerTitle);
+            out.write("<ul class='collection'>");
             for(int i = 0; i < result.size() ; i++){
-
+                
                 java.lang.String result2 = port2.getNamaAns(result.get(i).getIDAns());
 
                 // java.lang.String result2 = port.getNamaAns(result.get(i).getIDAns());
@@ -133,25 +180,57 @@
                             +"</a>"
                         +"</div>"
                     +"</div>"
-		    +"<hr class='line'>"
                 ;
-                out.write(answer);
-        }
+                String start = "<li class='collection-item avatar'><i class='material-icons circle'>folder</i>";
+                String end = "<br><br><br><br><br><br><a href='' class='secondary-content'><i class='material-icons'>grade</i></a></li>";
+
+            out.write(start + answer + end);
+                
+            }
+            out.write("</ul>");
         } catch (Exception ex) {
             // TODO handle custom exceptions here
         }
         %>
         <% out.write("<br><br>"); %>
         <%
-        String answerForm =
-                "<div class='subtitle'>" + "<a id='color-grey'>" + "Your Answer" + "</a>" + "</div>"
-		+"<form name='answerForm' action='createAnswer.jsp?id="+ request.getParameter("id") +"&token=" + request.getParameter("token") +"' onsubmit='return validateAnswer()' method='post'>"
-			+"<input type='hidden' name='question_id' value=' " + Integer.parseInt(request.getParameter("id")) + "'>"
-			+"<textarea class='form-textarea' name='content' placeholder='Content' required></textarea><br>"
-			+"<button class='button-post' type='submit'> Post </button>"
-		+"</form>";
+        /*String answerForm =
+                "<h2 class='header center orange-text'>Answer here!</h2>"
+                +"<br><br>"
+                +"<div class='row'>"
+                    +"<form class='col s12' name='answerForm' action='createAnswer.jsp?id="+ request.getParameter("id") +"&token=" + request.getParameter("token") +"' onsubmit='' method='post'>"
+                            +"<input type='hidden' name='question_id' value=' " + Integer.parseInt(request.getParameter("id")) + "'>"
+                        +"<div class='row'>"  
+                            +"<input placeholder='The content goes here...' name='content' id='content' type='text' required>"
+                            +"<label for='content' data-error='wrong' data-success='right'>Content</label>"
+                        +"</div>"
+                        +"<button class='btn waves-effect waves-light' type='submit' name='action'>ask"
+                            +"<i class='material-icons right'>answer</i>"
+                        +"</button>"
+                    +"</form>"
+                +"</div>"
+              
         ;
-        out.write(answerForm);
+        out.write(answerForm);*/
         %>
+        <div class="container">
+            <br><br>
+            <h1 class="header center orange-text">Answer here!</h1>
+        </div>
+
+        <div class="row">
+            <%out.write("<form class='col s12' name='loginForm' action='createAnswer.jsp?token="+ request.getParameter("token") +"' onsubmit='' method='POST'>");%>
+            <%out.write("<input type='hidden' name='question_id' value='"+ request.getParameter("id") +"'>");%>  
+            <div class="row">
+                <div class="input-field col s12">
+                  <input placeholder="The content goes here..." name="content" id="content" type="text" required>
+                  <label for="content" data-error="wrong" data-success="right">Content</label> 
+                </div>
+              </div>
+              <button class="btn waves-effect waves-light" type="submit" name="action">ask
+                <i class="material-icons right">send</i>
+            </button>
+            </form>
+          </div>
     </body>
 </html>

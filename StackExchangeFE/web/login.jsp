@@ -57,7 +57,6 @@
 
         <div class="row">
             <form id="loginForm" class="col s12" name="loginForm" action="" onsubmit="" method="POST">
-              <input type="hidden" name="question_id">
               <div class="row">
                 <div class="input-field col s12">
                   <input placeholder="Email" name="email" id="email" type="email" class="validate" required>
@@ -70,7 +69,7 @@
                   <label for="password">Password</label>
                 </div>
               </div>
-              <button class="button-post btn waves-effect waves-light" type="submit" name="action">Login
+              <button class="button-post btn waves-effect waves-light" type="submit" name="action">login
                 <i class="material-icons right">send</i>
             </button>
             </form>
