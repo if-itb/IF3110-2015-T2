@@ -28,7 +28,7 @@
                     Welcome back! Have some question?
                 </span>
                 <span>
-                    <a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/ask" role="button">Ask Now!</a>
+                    <a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/questionform.jsp" role="button">Ask Now!</a>
                 </span>
             <%}%>
 

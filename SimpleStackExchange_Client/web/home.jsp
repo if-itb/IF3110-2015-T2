@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="tool.Util" %>
+
 <html lang="en"><head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,23 +19,12 @@
   </head>
 
   <body>
-      
-    <%
-        Boolean isLogin= false;
-        String name = null;
-        Cookie[] cookies = request.getCookies();
-        if(cookies !=null){
-            for(Cookie cookie : cookies){
-                if(cookie.getName().equals("token")) isLogin = true;
-            }
-        }
-    %>
     <jsp:include page="template/navbar.jsp">
-        <jsp:param name="isLogin" value="<%=isLogin%>"/>
+        <jsp:param name="isLogin" value="<%=Util.isLogin(request)%>"/>
     </jsp:include>
     
     <jsp:include page="template/userinfo.jsp">
-        <jsp:param name="isLogin" value="<%=isLogin%>"/>
+        <jsp:param name="isLogin" value="<%=Util.isLogin(request)%>"/>
         <jsp:param name="name" value="${name}"/>
     </jsp:include>
     
@@ -56,11 +47,11 @@
             <div class="col-sm-12">
                 <h2>
                     Recently Asked Questions
-                </h2>
-                <hr>
+                <hr/>
             </div>
         </div>
         <c:forEach items="${questions}" var="item">
+            
             <div class="question-item row">
             <div class="col-sm-1 ">
                 <div class="text-center well-lg text-lg">${item.getKey().getCountvotes()}</div>
@@ -80,12 +71,16 @@
                       <button type="button" class="btn btn-default transparent">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span> ${item.getValue()}
                       </button>
+                      <c:set var="uid" value="${item.getKey().getUid()}"/>
+                       
+                      <% if(Util.isAuthUser(request,(Integer)pageContext.getAttribute("uid"))){ %>
                       <button type="button" class="btn btn-warning " aria-label="Edit">
                         <a class="glyphicon glyphicon-pencil white" aria-hidden="true"></a>
                       </button>
                       <button type="button" class="btn btn-danger" aria-label="Delete">
                         <a class="glyphicon glyphicon-trash white" aria-hidden="true"></a>
                       </button>
+                          <% }%>
                   </span>
                 </div>
                
@@ -93,7 +88,7 @@
             </div><!-- end of col-sm-11 -->
             </div><!-- end of question-item -->
       </c:forEach>
-      <footer>
+      <footer class="col-md-12">
           <p class="text-center">© Simple StackExchage 2015</p>
       </footer>
     </div> <!-- /container -->

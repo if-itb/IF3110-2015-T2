@@ -48,7 +48,7 @@ public class UserLogin extends HttpServlet {
             loginCookie.setMaxAge(30*60); // set cookie to expiry in 30 mins
             response.addCookie(loginCookie);
             
-            response.sendRedirect("index.jsp"); // redirect to homepage
+            response.sendRedirect(""); // redirect to homepage
             
         }else{
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp"); // redirect to login page

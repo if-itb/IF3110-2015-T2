@@ -36,18 +36,18 @@ public class ConsumerREST {
         webTarget = client.target(BASE_URI).path("user");
     }
     
-    public ConsumerREST(String mode) {
-        client = javax.ws.rs.client.ClientBuilder.newClient();
-        webTarget = client.target(BASE_URI).path(mode);
-    }
-    
     public Boolean auth(String token) throws ClientErrorException {
+        webTarget = client.target(BASE_URI).path("activeuser");
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("auth/{0}", new Object[]{token}));
-        return resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).get(Boolean.class);
+        if(resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).get(String.class).equalsIgnoreCase("true"))
+            return true;
+        else
+            return false;
     }
     
     public int getUidByToken(String token) throws ClientErrorException {
+        webTarget = client.target(BASE_URI).path("activeuser");
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("getuid/{0}", new Object[]{token}));
         return resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).get(Integer.class);

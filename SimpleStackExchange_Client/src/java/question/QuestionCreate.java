@@ -58,7 +58,7 @@ public class QuestionCreate extends HttpServlet {
             }
             
             
-            ConsumerREST r = new ConsumerREST("activeuser"); // Create object for consumming REST Web service
+            ConsumerREST r = new ConsumerREST(); // Create object for consumming REST Web service
             // Get data from user and data from session
             q.setUid(r.getUidByToken(token));
             q.setTopic(request.getParameter("topic"));

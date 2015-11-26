@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="tool.Util" %>
+<% if(Util.isLogin(request)) {%>
+    <c:redirect url="/"/>
+<%}%>
 <html lang="en">
     <head>
     <meta charset="utf-8">

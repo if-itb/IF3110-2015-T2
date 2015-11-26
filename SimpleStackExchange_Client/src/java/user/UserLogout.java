@@ -36,7 +36,7 @@ public class UserLogout extends HttpServlet {
         cookie.setHttpOnly(true);
         cookie.setMaxAge(0);
         response.addCookie(cookie);
-        response.sendRedirect("index.jsp");
+        response.sendRedirect(""); // redirect to homepage
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.WebServiceRef;
 import question.QuestionCreate;
-import tool.ConsumerREST;
+import tool.*;
 import webservice.SimpleStackExchangeWS_Service;
 
 /**
@@ -45,34 +46,44 @@ public class UserRegister extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
         
-        if(!checkEmailUser(email)) {
-            webservice.Registereduser user = new webservice.Registereduser();
-            user.setName(name);
-            user.setEmail(email);
-            user.setPassword(password);
-            
-            // Initialize Created time
-            XMLGregorianCalendar date = null;
+        if(Util.isLogin(request)) {
+            String name = request.getParameter("name");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+
+            if(!checkEmailUser(email)) {
+                webservice.Registereduser user = new webservice.Registereduser();
+                user.setName(name);
+                user.setEmail(email);
+                user.setPassword(password);
+
+                // Initialize Created time
+                XMLGregorianCalendar date = null;
                     try {
                         date = DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar());
                     } catch (DatatypeConfigurationException ex) {
                         Logger.getLogger(QuestionCreate.class.getName()).log(Level.SEVERE, null, ex);
                     }
-            user.setCreatedtime(date);
+                user.setCreatedtime(date);
+
+                createUser(user);
+
+                response.sendRedirect("");
+            }
+            else {
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/register.jsp"); // redirect to login page
             
-            createUser(user);
-            
-            response.sendRedirect("");
+                PrintWriter out= response.getWriter();
+                out.println("<div class=\"alert alert-danger\" role=\"alert\">Email are not valid</div>"); // pass the error message
+                rd.include(request, response);
+            }
         }
         else {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/register.jsp"); // redirect to login page
+            RequestDispatcher rd = getServletContext().getRequestDispatcher(""); // redirect to home page
             
             PrintWriter out= response.getWriter();
-            out.println("<div class=\"alert alert-danger\" role=\"alert\">Email are not valid</div>"); // pass the error message
+            out.println("<div class=\"alert alert-danger\" role=\"alert\">Please, logout first!</div>"); // pass the error message
             rd.include(request, response);
         }
     }

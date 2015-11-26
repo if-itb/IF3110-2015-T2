@@ -14,6 +14,7 @@ import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TransactionRequiredException;
 import javax.ws.rs.GET;
@@ -41,25 +42,32 @@ public class ActiveuserFacadeREST extends AbstractFacade<Activeuser> {
     @Path("getuid/{token}")
     @Produces(MediaType.TEXT_PLAIN)
     public int getUidByToken(@PathParam("token") String token) {
-        return ((Activeuser) this.getEntityManager().createNamedQuery("Activeuser.findByToken")
+        Activeuser au= new Activeuser();
+        try {
+        au = (Activeuser) this.getEntityManager().createNamedQuery("Activeuser.findByToken")
                 .setParameter("token", token)
-                .getResultList().get(0)).getUid();
+                .getSingleResult();
+        }catch(NoResultException e) {
+            return 0;
+        }
+        return au.getUid();
     }
     
     @GET
     @Path("auth/{token}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Boolean auth(@PathParam("token") String token) throws ParseException
+    public String auth(@PathParam("token") String token) throws ParseException
     {
         Activeuser auser = new Activeuser();
         try {
             auser = (Activeuser) em.createNamedQuery("Activeuser.findByToken")
             .setParameter("token", token)
-            .getResultList().get(0);
-        }catch(IllegalArgumentException | EntityNotFoundException | EJBException | IndexOutOfBoundsException e){
-            return false;
+            .getSingleResult();
+        }catch(NoResultException | IllegalArgumentException | EntityNotFoundException | EJBException | IndexOutOfBoundsException e){
+            return "false";
         }
-        
+        return "true";
+        /*
         // Generate timestamp
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         Date date = new Date();
@@ -68,6 +76,7 @@ public class ActiveuserFacadeREST extends AbstractFacade<Activeuser> {
         long diffMinutes = diff / (60 * 1000) % 60;
         
         return (diffMinutes <= 15); // check the different time between created time and current time
+*/
     }
     
     @GET
@@ -80,8 +89,8 @@ public class ActiveuserFacadeREST extends AbstractFacade<Activeuser> {
         try{
             auser = (Activeuser) em.createNamedQuery("Activeuser.findByToken")
             .setParameter("token", token)
-            .getResultList().get(0);
-        }catch(IllegalArgumentException | EntityNotFoundException | EJBException | IndexOutOfBoundsException e){
+            .getSingleResult();
+        }catch(NoResultException | IllegalArgumentException | EntityNotFoundException | EJBException | IndexOutOfBoundsException e){
             return false;
         }
         
