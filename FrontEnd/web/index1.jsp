@@ -28,8 +28,13 @@
                 Timestamp ts = new Timestamp(System.currentTimeMillis());
                 out.println(ts);
                 out.println(result);
-                
-                
+
+                if (ts.after(result)) {
+                    String site = "login.jsp?relog=1";
+                    response.setStatus(response.SC_MOVED_TEMPORARILY);
+                    response.setHeader("Location", site);
+                }
+
             } catch (Exception ex) {
                 // TODO handle custom exceptions here
             }

@@ -146,6 +146,11 @@
                     <input type ="hidden" name ="submitted" value ="yes">
                     <input type ="submit" value = "Login">
                 </form>
+                <%
+                    if (Integer.parseInt(request.getParameter("relog"))==1){
+                        out.println("need to relog again");
+                    }
+                %>
             </div>
         </div>
 
