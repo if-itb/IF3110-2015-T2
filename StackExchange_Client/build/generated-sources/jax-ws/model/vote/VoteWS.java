@@ -1,7 +1,6 @@
 
 package model.vote;
 
-import javax.jws.Oneway;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -24,75 +23,6 @@ import javax.xml.ws.ResponseWrapper;
 })
 public interface VoteWS {
 
-
-    /**
-     * 
-     * @param answerId
-     * @param userId
-     * @param vote
-     */
-    @WebMethod
-    @Oneway
-    @RequestWrapper(localName = "voteAnswer", targetNamespace = "http://vote.model/", className = "model.vote.VoteAnswer")
-    @Action(input = "http://vote.model/VoteWS/voteAnswer")
-    public void voteAnswer(
-        @WebParam(name = "answer_id", targetNamespace = "")
-        int answerId,
-        @WebParam(name = "user_id", targetNamespace = "")
-        int userId,
-        @WebParam(name = "vote", targetNamespace = "")
-        int vote);
-
-    /**
-     * 
-     * @param answerId
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getAnswerVotes", targetNamespace = "http://vote.model/", className = "model.vote.GetAnswerVotes")
-    @ResponseWrapper(localName = "getAnswerVotesResponse", targetNamespace = "http://vote.model/", className = "model.vote.GetAnswerVotesResponse")
-    @Action(input = "http://vote.model/VoteWS/getAnswerVotesRequest", output = "http://vote.model/VoteWS/getAnswerVotesResponse")
-    public int getAnswerVotes(
-        @WebParam(name = "answer_id", targetNamespace = "")
-        int answerId);
-
-    /**
-     * 
-     * @param questionId
-     * @param userId
-     * @param vote
-     */
-    @WebMethod
-    @Oneway
-    @RequestWrapper(localName = "voteQuestion", targetNamespace = "http://vote.model/", className = "model.vote.VoteQuestion")
-    @Action(input = "http://vote.model/VoteWS/voteQuestion")
-    public void voteQuestion(
-        @WebParam(name = "question_id", targetNamespace = "")
-        int questionId,
-        @WebParam(name = "user_id", targetNamespace = "")
-        int userId,
-        @WebParam(name = "vote", targetNamespace = "")
-        int vote);
-
-    /**
-     * 
-     * @param questionId
-     * @param userId
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "hasVotedQuestion", targetNamespace = "http://vote.model/", className = "model.vote.HasVotedQuestion")
-    @ResponseWrapper(localName = "hasVotedQuestionResponse", targetNamespace = "http://vote.model/", className = "model.vote.HasVotedQuestionResponse")
-    @Action(input = "http://vote.model/VoteWS/hasVotedQuestionRequest", output = "http://vote.model/VoteWS/hasVotedQuestionResponse")
-    public boolean hasVotedQuestion(
-        @WebParam(name = "question_id", targetNamespace = "")
-        int questionId,
-        @WebParam(name = "user_id", targetNamespace = "")
-        int userId);
 
     /**
      * 
@@ -126,5 +56,80 @@ public interface VoteWS {
     public int getQuestionVotes(
         @WebParam(name = "question_id", targetNamespace = "")
         int questionId);
+
+    /**
+     * 
+     * @param answerId
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAnswerVotes", targetNamespace = "http://vote.model/", className = "model.vote.GetAnswerVotes")
+    @ResponseWrapper(localName = "getAnswerVotesResponse", targetNamespace = "http://vote.model/", className = "model.vote.GetAnswerVotesResponse")
+    @Action(input = "http://vote.model/VoteWS/getAnswerVotesRequest", output = "http://vote.model/VoteWS/getAnswerVotesResponse")
+    public int getAnswerVotes(
+        @WebParam(name = "answer_id", targetNamespace = "")
+        int answerId);
+
+    /**
+     * 
+     * @param answerId
+     * @param vote
+     * @param token
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(name = "Integer", targetNamespace = "")
+    @RequestWrapper(localName = "voteAnswer", targetNamespace = "http://vote.model/", className = "model.vote.VoteAnswer")
+    @ResponseWrapper(localName = "voteAnswerResponse", targetNamespace = "http://vote.model/", className = "model.vote.VoteAnswerResponse")
+    @Action(input = "http://vote.model/VoteWS/voteAnswerRequest", output = "http://vote.model/VoteWS/voteAnswerResponse")
+    public int voteAnswer(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "answer_id", targetNamespace = "")
+        int answerId,
+        @WebParam(name = "vote", targetNamespace = "")
+        int vote);
+
+    /**
+     * 
+     * @param questionId
+     * @param userId
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "hasVotedQuestion", targetNamespace = "http://vote.model/", className = "model.vote.HasVotedQuestion")
+    @ResponseWrapper(localName = "hasVotedQuestionResponse", targetNamespace = "http://vote.model/", className = "model.vote.HasVotedQuestionResponse")
+    @Action(input = "http://vote.model/VoteWS/hasVotedQuestionRequest", output = "http://vote.model/VoteWS/hasVotedQuestionResponse")
+    public boolean hasVotedQuestion(
+        @WebParam(name = "question_id", targetNamespace = "")
+        int questionId,
+        @WebParam(name = "user_id", targetNamespace = "")
+        int userId);
+
+    /**
+     * 
+     * @param questionId
+     * @param vote
+     * @param token
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(name = "Integer", targetNamespace = "")
+    @RequestWrapper(localName = "voteQuestion", targetNamespace = "http://vote.model/", className = "model.vote.VoteQuestion")
+    @ResponseWrapper(localName = "voteQuestionResponse", targetNamespace = "http://vote.model/", className = "model.vote.VoteQuestionResponse")
+    @Action(input = "http://vote.model/VoteWS/voteQuestionRequest", output = "http://vote.model/VoteWS/voteQuestionResponse")
+    public int voteQuestion(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "question_id", targetNamespace = "")
+        int questionId,
+        @WebParam(name = "vote", targetNamespace = "")
+        int vote);
 
 }

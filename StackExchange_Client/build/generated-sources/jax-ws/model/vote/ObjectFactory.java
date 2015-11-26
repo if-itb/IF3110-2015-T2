@@ -29,8 +29,10 @@ public class ObjectFactory {
     private final static QName _VoteQuestion_QNAME = new QName("http://vote.model/", "voteQuestion");
     private final static QName _GetQuestionVotes_QNAME = new QName("http://vote.model/", "getQuestionVotes");
     private final static QName _VoteAnswer_QNAME = new QName("http://vote.model/", "voteAnswer");
+    private final static QName _VoteAnswerResponse_QNAME = new QName("http://vote.model/", "voteAnswerResponse");
     private final static QName _GetQuestionVotesResponse_QNAME = new QName("http://vote.model/", "getQuestionVotesResponse");
     private final static QName _GetAnswerVotes_QNAME = new QName("http://vote.model/", "getAnswerVotes");
+    private final static QName _VoteQuestionResponse_QNAME = new QName("http://vote.model/", "voteQuestionResponse");
     private final static QName _GetAnswerVotesResponse_QNAME = new QName("http://vote.model/", "getAnswerVotesResponse");
     private final static QName _HasVotedQuestion_QNAME = new QName("http://vote.model/", "hasVotedQuestion");
     private final static QName _HasVotedQuestionResponse_QNAME = new QName("http://vote.model/", "hasVotedQuestionResponse");
@@ -48,6 +50,14 @@ public class ObjectFactory {
      */
     public GetAnswerVotes createGetAnswerVotes() {
         return new GetAnswerVotes();
+    }
+
+    /**
+     * Create an instance of {@link VoteQuestionResponse }
+     * 
+     */
+    public VoteQuestionResponse createVoteQuestionResponse() {
+        return new VoteQuestionResponse();
     }
 
     /**
@@ -72,6 +82,14 @@ public class ObjectFactory {
      */
     public HasVotedQuestionResponse createHasVotedQuestionResponse() {
         return new HasVotedQuestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link VoteAnswerResponse }
+     * 
+     */
+    public VoteAnswerResponse createVoteAnswerResponse() {
+        return new VoteAnswerResponse();
     }
 
     /**
@@ -168,6 +186,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link VoteAnswerResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://vote.model/", name = "voteAnswerResponse")
+    public JAXBElement<VoteAnswerResponse> createVoteAnswerResponse(VoteAnswerResponse value) {
+        return new JAXBElement<VoteAnswerResponse>(_VoteAnswerResponse_QNAME, VoteAnswerResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionVotesResponse }{@code >}}
      * 
      */
@@ -183,6 +210,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://vote.model/", name = "getAnswerVotes")
     public JAXBElement<GetAnswerVotes> createGetAnswerVotes(GetAnswerVotes value) {
         return new JAXBElement<GetAnswerVotes>(_GetAnswerVotes_QNAME, GetAnswerVotes.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link VoteQuestionResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://vote.model/", name = "voteQuestionResponse")
+    public JAXBElement<VoteQuestionResponse> createVoteQuestionResponse(VoteQuestionResponse value) {
+        return new JAXBElement<VoteQuestionResponse>(_VoteQuestionResponse_QNAME, VoteQuestionResponse.class, null, value);
     }
 
     /**

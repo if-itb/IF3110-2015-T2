@@ -3,6 +3,7 @@ package model.answer;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -16,7 +17,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="a" type="{http://answer.model/}answer" minOccurs="0"/>
+ *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="question_id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="content" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,34 +30,79 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "addAnswer", propOrder = {
-    "a"
+    "token",
+    "questionId",
+    "content"
 })
 public class AddAnswer {
 
-    protected Answer a;
+    protected String token;
+    @XmlElement(name = "question_id")
+    protected int questionId;
+    protected String content;
 
     /**
-     * Gets the value of the a property.
+     * Gets the value of the token property.
      * 
      * @return
      *     possible object is
-     *     {@link Answer }
+     *     {@link String }
      *     
      */
-    public Answer getA() {
-        return a;
+    public String getToken() {
+        return token;
     }
 
     /**
-     * Sets the value of the a property.
+     * Sets the value of the token property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Answer }
+     *     {@link String }
      *     
      */
-    public void setA(Answer value) {
-        this.a = value;
+    public void setToken(String value) {
+        this.token = value;
+    }
+
+    /**
+     * Gets the value of the questionId property.
+     * 
+     */
+    public int getQuestionId() {
+        return questionId;
+    }
+
+    /**
+     * Sets the value of the questionId property.
+     * 
+     */
+    public void setQuestionId(int value) {
+        this.questionId = value;
+    }
+
+    /**
+     * Gets the value of the content property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getContent() {
+        return content;
+    }
+
+    /**
+     * Sets the value of the content property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setContent(String value) {
+        this.content = value;
     }
 
 }

@@ -4,24 +4,6 @@
 <xsd:import namespace="http://vote.model/" schemaLocation="http://localhost:8081/StackExchange_WS/VoteWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="voteAnswer">
-<part name="parameters" element="tns:voteAnswer"/>
-</message>
-<message name="getAnswerVotes">
-<part name="parameters" element="tns:getAnswerVotes"/>
-</message>
-<message name="getAnswerVotesResponse">
-<part name="parameters" element="tns:getAnswerVotesResponse"/>
-</message>
-<message name="voteQuestion">
-<part name="parameters" element="tns:voteQuestion"/>
-</message>
-<message name="hasVotedQuestion">
-<part name="parameters" element="tns:hasVotedQuestion"/>
-</message>
-<message name="hasVotedQuestionResponse">
-<part name="parameters" element="tns:hasVotedQuestionResponse"/>
-</message>
 <message name="hasVotedAnswer">
 <part name="parameters" element="tns:hasVotedAnswer"/>
 </message>
@@ -34,21 +16,31 @@
 <message name="getQuestionVotesResponse">
 <part name="parameters" element="tns:getQuestionVotesResponse"/>
 </message>
+<message name="getAnswerVotes">
+<part name="parameters" element="tns:getAnswerVotes"/>
+</message>
+<message name="getAnswerVotesResponse">
+<part name="parameters" element="tns:getAnswerVotesResponse"/>
+</message>
+<message name="voteAnswer">
+<part name="parameters" element="tns:voteAnswer"/>
+</message>
+<message name="voteAnswerResponse">
+<part name="parameters" element="tns:voteAnswerResponse"/>
+</message>
+<message name="hasVotedQuestion">
+<part name="parameters" element="tns:hasVotedQuestion"/>
+</message>
+<message name="hasVotedQuestionResponse">
+<part name="parameters" element="tns:hasVotedQuestionResponse"/>
+</message>
+<message name="voteQuestion">
+<part name="parameters" element="tns:voteQuestion"/>
+</message>
+<message name="voteQuestionResponse">
+<part name="parameters" element="tns:voteQuestionResponse"/>
+</message>
 <portType name="VoteWS">
-<operation name="voteAnswer">
-<input wsam:Action="http://vote.model/VoteWS/voteAnswer" message="tns:voteAnswer"/>
-</operation>
-<operation name="getAnswerVotes">
-<input wsam:Action="http://vote.model/VoteWS/getAnswerVotesRequest" message="tns:getAnswerVotes"/>
-<output wsam:Action="http://vote.model/VoteWS/getAnswerVotesResponse" message="tns:getAnswerVotesResponse"/>
-</operation>
-<operation name="voteQuestion">
-<input wsam:Action="http://vote.model/VoteWS/voteQuestion" message="tns:voteQuestion"/>
-</operation>
-<operation name="hasVotedQuestion">
-<input wsam:Action="http://vote.model/VoteWS/hasVotedQuestionRequest" message="tns:hasVotedQuestion"/>
-<output wsam:Action="http://vote.model/VoteWS/hasVotedQuestionResponse" message="tns:hasVotedQuestionResponse"/>
-</operation>
 <operation name="hasVotedAnswer">
 <input wsam:Action="http://vote.model/VoteWS/hasVotedAnswerRequest" message="tns:hasVotedAnswer"/>
 <output wsam:Action="http://vote.model/VoteWS/hasVotedAnswerResponse" message="tns:hasVotedAnswerResponse"/>
@@ -57,39 +49,25 @@
 <input wsam:Action="http://vote.model/VoteWS/getQuestionVotesRequest" message="tns:getQuestionVotes"/>
 <output wsam:Action="http://vote.model/VoteWS/getQuestionVotesResponse" message="tns:getQuestionVotesResponse"/>
 </operation>
+<operation name="getAnswerVotes">
+<input wsam:Action="http://vote.model/VoteWS/getAnswerVotesRequest" message="tns:getAnswerVotes"/>
+<output wsam:Action="http://vote.model/VoteWS/getAnswerVotesResponse" message="tns:getAnswerVotesResponse"/>
+</operation>
+<operation name="voteAnswer">
+<input wsam:Action="http://vote.model/VoteWS/voteAnswerRequest" message="tns:voteAnswer"/>
+<output wsam:Action="http://vote.model/VoteWS/voteAnswerResponse" message="tns:voteAnswerResponse"/>
+</operation>
+<operation name="hasVotedQuestion">
+<input wsam:Action="http://vote.model/VoteWS/hasVotedQuestionRequest" message="tns:hasVotedQuestion"/>
+<output wsam:Action="http://vote.model/VoteWS/hasVotedQuestionResponse" message="tns:hasVotedQuestionResponse"/>
+</operation>
+<operation name="voteQuestion">
+<input wsam:Action="http://vote.model/VoteWS/voteQuestionRequest" message="tns:voteQuestion"/>
+<output wsam:Action="http://vote.model/VoteWS/voteQuestionResponse" message="tns:voteQuestionResponse"/>
+</operation>
 </portType>
 <binding name="VoteWSPortBinding" type="tns:VoteWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="voteAnswer">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-</operation>
-<operation name="getAnswerVotes">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="voteQuestion">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-</operation>
-<operation name="hasVotedQuestion">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="hasVotedAnswer">
 <soap:operation soapAction=""/>
 <input>
@@ -100,6 +78,42 @@
 </output>
 </operation>
 <operation name="getQuestionVotes">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getAnswerVotes">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="voteAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="hasVotedQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="voteQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

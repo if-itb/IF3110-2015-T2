@@ -2,7 +2,6 @@
 package model.question;
 
 import java.util.List;
-import javax.jws.Oneway;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -28,6 +27,24 @@ public interface QuestionWS {
 
     /**
      * 
+     * @param questionId
+     * @param token
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(name = "Integer", targetNamespace = "")
+    @RequestWrapper(localName = "deleteQuestion", targetNamespace = "http://question.model/", className = "model.question.DeleteQuestion")
+    @ResponseWrapper(localName = "deleteQuestionResponse", targetNamespace = "http://question.model/", className = "model.question.DeleteQuestionResponse")
+    @Action(input = "http://question.model/QuestionWS/deleteQuestionRequest", output = "http://question.model/QuestionWS/deleteQuestionResponse")
+    public int deleteQuestion(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "question_id", targetNamespace = "")
+        int questionId);
+
+    /**
+     * 
      * @return
      *     returns java.util.List<model.question.Question>
      */
@@ -37,6 +54,42 @@ public interface QuestionWS {
     @ResponseWrapper(localName = "getAllQuestionsResponse", targetNamespace = "http://question.model/", className = "model.question.GetAllQuestionsResponse")
     @Action(input = "http://question.model/QuestionWS/getAllQuestionsRequest", output = "http://question.model/QuestionWS/getAllQuestionsResponse")
     public List<Question> getAllQuestions();
+
+    /**
+     * 
+     * @param topic
+     * @param content
+     * @param token
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(name = "Integer", targetNamespace = "")
+    @RequestWrapper(localName = "addQuestion", targetNamespace = "http://question.model/", className = "model.question.AddQuestion")
+    @ResponseWrapper(localName = "addQuestionResponse", targetNamespace = "http://question.model/", className = "model.question.AddQuestionResponse")
+    @Action(input = "http://question.model/QuestionWS/addQuestionRequest", output = "http://question.model/QuestionWS/addQuestionResponse")
+    public int addQuestion(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "topic", targetNamespace = "")
+        String topic,
+        @WebParam(name = "content", targetNamespace = "")
+        String content);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<model.question.Question>
+     */
+    @WebMethod
+    @WebResult(name = "Question", targetNamespace = "")
+    @RequestWrapper(localName = "searchQuestions", targetNamespace = "http://question.model/", className = "model.question.SearchQuestions")
+    @ResponseWrapper(localName = "searchQuestionsResponse", targetNamespace = "http://question.model/", className = "model.question.SearchQuestionsResponse")
+    @Action(input = "http://question.model/QuestionWS/searchQuestionsRequest", output = "http://question.model/QuestionWS/searchQuestionsResponse")
+    public List<Question> searchQuestions(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
 
     /**
      * 
@@ -55,53 +108,26 @@ public interface QuestionWS {
 
     /**
      * 
-     * @param q
-     */
-    @WebMethod
-    @Oneway
-    @RequestWrapper(localName = "addQuestion", targetNamespace = "http://question.model/", className = "model.question.AddQuestion")
-    @Action(input = "http://question.model/QuestionWS/addQuestion")
-    public void addQuestion(
-        @WebParam(name = "q", targetNamespace = "")
-        Question q);
-
-    /**
-     * 
-     * @param q
-     */
-    @WebMethod
-    @Oneway
-    @RequestWrapper(localName = "editQuestion", targetNamespace = "http://question.model/", className = "model.question.EditQuestion")
-    @Action(input = "http://question.model/QuestionWS/editQuestion")
-    public void editQuestion(
-        @WebParam(name = "q", targetNamespace = "")
-        Question q);
-
-    /**
-     * 
      * @param questionId
-     */
-    @WebMethod
-    @Oneway
-    @RequestWrapper(localName = "deleteQuestion", targetNamespace = "http://question.model/", className = "model.question.DeleteQuestion")
-    @Action(input = "http://question.model/QuestionWS/deleteQuestion")
-    public void deleteQuestion(
-        @WebParam(name = "question_id", targetNamespace = "")
-        int questionId);
-
-    /**
-     * 
-     * @param arg0
+     * @param topic
+     * @param content
+     * @param token
      * @return
-     *     returns java.util.List<model.question.Question>
+     *     returns int
      */
     @WebMethod
-    @WebResult(name = "Question", targetNamespace = "")
-    @RequestWrapper(localName = "searchQuestions", targetNamespace = "http://question.model/", className = "model.question.SearchQuestions")
-    @ResponseWrapper(localName = "searchQuestionsResponse", targetNamespace = "http://question.model/", className = "model.question.SearchQuestionsResponse")
-    @Action(input = "http://question.model/QuestionWS/searchQuestionsRequest", output = "http://question.model/QuestionWS/searchQuestionsResponse")
-    public List<Question> searchQuestions(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0);
+    @WebResult(name = "Integer", targetNamespace = "")
+    @RequestWrapper(localName = "editQuestion", targetNamespace = "http://question.model/", className = "model.question.EditQuestion")
+    @ResponseWrapper(localName = "editQuestionResponse", targetNamespace = "http://question.model/", className = "model.question.EditQuestionResponse")
+    @Action(input = "http://question.model/QuestionWS/editQuestionRequest", output = "http://question.model/QuestionWS/editQuestionResponse")
+    public int editQuestion(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "question_id", targetNamespace = "")
+        int questionId,
+        @WebParam(name = "topic", targetNamespace = "")
+        String topic,
+        @WebParam(name = "content", targetNamespace = "")
+        String content);
 
 }

@@ -18,13 +18,23 @@
 
 <xs:element name="voteAnswer" type="tns:voteAnswer"/>
 
+<xs:element name="voteAnswerResponse" type="tns:voteAnswerResponse"/>
+
 <xs:element name="voteQuestion" type="tns:voteQuestion"/>
+
+<xs:element name="voteQuestionResponse" type="tns:voteQuestionResponse"/>
 
 <xs:complexType name="voteQuestion">
 <xs:sequence>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
 <xs:element name="question_id" type="xs:int"/>
-<xs:element name="user_id" type="xs:int"/>
 <xs:element name="vote" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="voteQuestionResponse">
+<xs:sequence>
+<xs:element name="Integer" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -55,9 +65,15 @@
 
 <xs:complexType name="voteAnswer">
 <xs:sequence>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
 <xs:element name="answer_id" type="xs:int"/>
-<xs:element name="user_id" type="xs:int"/>
 <xs:element name="vote" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="voteAnswerResponse">
+<xs:sequence>
+<xs:element name="Integer" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 

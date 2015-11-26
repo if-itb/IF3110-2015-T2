@@ -36,6 +36,10 @@
         <servlet-name>ConnectionIS</servlet-name>
         <servlet-class>ConnectionIS.ConnectionIS</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteQuestionServlet</servlet-name>
+        <servlet-class>Question.DeleteQuestionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>QuestionListServlet</servlet-name>
         <url-pattern></url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>ConnectionIS</servlet-name>
         <url-pattern>/ConnectionIS</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteQuestionServlet</servlet-name>
+        <url-pattern>/delete</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

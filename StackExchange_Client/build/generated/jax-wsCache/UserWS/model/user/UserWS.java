@@ -27,21 +27,6 @@ public interface UserWS {
 
     /**
      * 
-     * @param userId
-     * @return
-     *     returns model.user.User
-     */
-    @WebMethod
-    @WebResult(name = "User", targetNamespace = "")
-    @RequestWrapper(localName = "getUserByID", targetNamespace = "http://user.model/", className = "model.user.GetUserByID")
-    @ResponseWrapper(localName = "getUserByIDResponse", targetNamespace = "http://user.model/", className = "model.user.GetUserByIDResponse")
-    @Action(input = "http://user.model/UserWS/getUserByIDRequest", output = "http://user.model/UserWS/getUserByIDResponse")
-    public User getUserByID(
-        @WebParam(name = "user_id", targetNamespace = "")
-        int userId);
-
-    /**
-     * 
      * @param u
      */
     @WebMethod
@@ -66,5 +51,35 @@ public interface UserWS {
     public Integer getIDbyEmail(
         @WebParam(name = "email", targetNamespace = "")
         String email);
+
+    /**
+     * 
+     * @param token
+     * @return
+     *     returns model.user.User
+     */
+    @WebMethod
+    @WebResult(name = "User", targetNamespace = "")
+    @RequestWrapper(localName = "getUserByToken", targetNamespace = "http://user.model/", className = "model.user.GetUserByToken")
+    @ResponseWrapper(localName = "getUserByTokenResponse", targetNamespace = "http://user.model/", className = "model.user.GetUserByTokenResponse")
+    @Action(input = "http://user.model/UserWS/getUserByTokenRequest", output = "http://user.model/UserWS/getUserByTokenResponse")
+    public User getUserByToken(
+        @WebParam(name = "token", targetNamespace = "")
+        String token);
+
+    /**
+     * 
+     * @param userId
+     * @return
+     *     returns model.user.User
+     */
+    @WebMethod
+    @WebResult(name = "User", targetNamespace = "")
+    @RequestWrapper(localName = "getUserByID", targetNamespace = "http://user.model/", className = "model.user.GetUserByID")
+    @ResponseWrapper(localName = "getUserByIDResponse", targetNamespace = "http://user.model/", className = "model.user.GetUserByIDResponse")
+    @Action(input = "http://user.model/UserWS/getUserByIDRequest", output = "http://user.model/UserWS/getUserByIDResponse")
+    public User getUserByID(
+        @WebParam(name = "user_id", targetNamespace = "")
+        int userId);
 
 }

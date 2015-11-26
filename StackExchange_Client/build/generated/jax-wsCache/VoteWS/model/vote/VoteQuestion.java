@@ -17,8 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="question_id" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="user_id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="vote" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -30,17 +30,40 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "voteQuestion", propOrder = {
+    "token",
     "questionId",
-    "userId",
     "vote"
 })
 public class VoteQuestion {
 
+    protected String token;
     @XmlElement(name = "question_id")
     protected int questionId;
-    @XmlElement(name = "user_id")
-    protected int userId;
     protected int vote;
+
+    /**
+     * Gets the value of the token property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * Sets the value of the token property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setToken(String value) {
+        this.token = value;
+    }
 
     /**
      * Gets the value of the questionId property.
@@ -56,22 +79,6 @@ public class VoteQuestion {
      */
     public void setQuestionId(int value) {
         this.questionId = value;
-    }
-
-    /**
-     * Gets the value of the userId property.
-     * 
-     */
-    public int getUserId() {
-        return userId;
-    }
-
-    /**
-     * Sets the value of the userId property.
-     * 
-     */
-    public void setUserId(int value) {
-        this.userId = value;
     }
 
     /**

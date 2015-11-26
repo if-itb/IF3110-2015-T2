@@ -28,6 +28,7 @@ public class ObjectFactory {
     private final static QName _GetAnswerCount_QNAME = new QName("http://answer.model/", "getAnswerCount");
     private final static QName _GetAnswersByQIDResponse_QNAME = new QName("http://answer.model/", "getAnswersByQIDResponse");
     private final static QName _GetAnswerCountResponse_QNAME = new QName("http://answer.model/", "getAnswerCountResponse");
+    private final static QName _AddAnswerResponse_QNAME = new QName("http://answer.model/", "addAnswerResponse");
     private final static QName _AddAnswer_QNAME = new QName("http://answer.model/", "addAnswer");
     private final static QName _GetAnswerByID_QNAME = new QName("http://answer.model/", "getAnswerByID");
     private final static QName _GetAnswersByQID_QNAME = new QName("http://answer.model/", "getAnswersByQID");
@@ -69,6 +70,14 @@ public class ObjectFactory {
      */
     public GetAnswersByQIDResponse createGetAnswersByQIDResponse() {
         return new GetAnswersByQIDResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddAnswerResponse }
+     * 
+     */
+    public AddAnswerResponse createAddAnswerResponse() {
+        return new AddAnswerResponse();
     }
 
     /**
@@ -137,6 +146,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://answer.model/", name = "getAnswerCountResponse")
     public JAXBElement<GetAnswerCountResponse> createGetAnswerCountResponse(GetAnswerCountResponse value) {
         return new JAXBElement<GetAnswerCountResponse>(_GetAnswerCountResponse_QNAME, GetAnswerCountResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AddAnswerResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer.model/", name = "addAnswerResponse")
+    public JAXBElement<AddAnswerResponse> createAddAnswerResponse(AddAnswerResponse value) {
+        return new JAXBElement<AddAnswerResponse>(_AddAnswerResponse_QNAME, AddAnswerResponse.class, null, value);
     }
 
     /**

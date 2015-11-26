@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="question_id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -28,12 +29,38 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "deleteQuestion", propOrder = {
+    "token",
     "questionId"
 })
 public class DeleteQuestion {
 
+    protected String token;
     @XmlElement(name = "question_id")
     protected int questionId;
+
+    /**
+     * Gets the value of the token property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * Sets the value of the token property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setToken(String value) {
+        this.token = value;
+    }
 
     /**
      * Gets the value of the questionId property.

@@ -26,9 +26,11 @@ public class ObjectFactory {
 
     private final static QName _AddUser_QNAME = new QName("http://user.model/", "addUser");
     private final static QName _GetUserByIDResponse_QNAME = new QName("http://user.model/", "getUserByIDResponse");
+    private final static QName _GetUserByTokenResponse_QNAME = new QName("http://user.model/", "getUserByTokenResponse");
     private final static QName _User_QNAME = new QName("http://user.model/", "User");
     private final static QName _GetUserByID_QNAME = new QName("http://user.model/", "getUserByID");
     private final static QName _GetIDbyEmail_QNAME = new QName("http://user.model/", "getIDbyEmail");
+    private final static QName _GetUserByToken_QNAME = new QName("http://user.model/", "getUserByToken");
     private final static QName _GetIDbyEmailResponse_QNAME = new QName("http://user.model/", "getIDbyEmailResponse");
 
     /**
@@ -71,6 +73,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetUserByTokenResponse }
+     * 
+     */
+    public GetUserByTokenResponse createGetUserByTokenResponse() {
+        return new GetUserByTokenResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetUserByToken }
+     * 
+     */
+    public GetUserByToken createGetUserByToken() {
+        return new GetUserByToken();
+    }
+
+    /**
      * Create an instance of {@link GetIDbyEmailResponse }
      * 
      */
@@ -105,6 +123,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetUserByTokenResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://user.model/", name = "getUserByTokenResponse")
+    public JAXBElement<GetUserByTokenResponse> createGetUserByTokenResponse(GetUserByTokenResponse value) {
+        return new JAXBElement<GetUserByTokenResponse>(_GetUserByTokenResponse_QNAME, GetUserByTokenResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link User }{@code >}}
      * 
      */
@@ -129,6 +156,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://user.model/", name = "getIDbyEmail")
     public JAXBElement<GetIDbyEmail> createGetIDbyEmail(GetIDbyEmail value) {
         return new JAXBElement<GetIDbyEmail>(_GetIDbyEmail_QNAME, GetIDbyEmail.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetUserByToken }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://user.model/", name = "getUserByToken")
+    public JAXBElement<GetUserByToken> createGetUserByToken(GetUserByToken value) {
+        return new JAXBElement<GetUserByToken>(_GetUserByToken_QNAME, GetUserByToken.class, null, value);
     }
 
     /**
