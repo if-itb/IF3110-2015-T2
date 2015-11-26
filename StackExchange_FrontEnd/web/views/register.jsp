@@ -20,9 +20,6 @@
     <%--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">--%>
 </head>
 <body>
-${name}
-${email}
-${password}
 <nav class="blue center-align" role="navigation">
     <a id="logo-container" href="/">Stack Exchange</a>
 </nav>
