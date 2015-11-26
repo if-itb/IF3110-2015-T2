@@ -17,7 +17,7 @@ Author:
   <body>
     <!-- Title -->
     <div class="title">
-      <a href="index.jsp">
+      <a href="IndexController">
         StackExchange
       </a>
     </div>

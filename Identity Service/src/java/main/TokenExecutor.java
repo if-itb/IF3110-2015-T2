@@ -25,6 +25,8 @@ public class TokenExecutor {
   private int idUser;
   private boolean isValid;
   private Connection connection;
+  public String emailTest;
+  public String passwordTest;
   
   // Konstruktor
   public TokenExecutor(String email, String password) {
@@ -95,6 +97,8 @@ public class TokenExecutor {
     PreparedStatement dbStatement = connection.prepareStatement(query);
     dbStatement.setString(1, email);
     dbStatement.setString(2, password);
+    emailTest = email;
+    passwordTest = password;
     ResultSet result = dbStatement.executeQuery();
     if (result.next()) {
       // Email and password matched
