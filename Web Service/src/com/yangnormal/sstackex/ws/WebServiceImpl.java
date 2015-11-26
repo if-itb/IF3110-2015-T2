@@ -69,7 +69,7 @@ public class WebServiceImpl implements WebServiceInterface{
     }
 
     @Override
-    public void postQuestion(int uid, String token, String title, String content) throws Exception{
+    public int postQuestion(int uid, String token, String title, String content) throws Exception{
         if (checkToken(uid, token) == 1){
             Connection conn = null;
             Statement stmt = null;
@@ -92,6 +92,7 @@ public class WebServiceImpl implements WebServiceInterface{
                 e.printStackTrace();
             }
         }
+
     }
 
     @Override

@@ -82,8 +82,8 @@ public class IdentityServiceAPI extends HttpServlet {
         serve((request, out) -> {
             try {
                 Map<String, String> queryStringMap = splitQuery(req.getQueryString());
-                PreparedStatement stmt=conn.prepareStatement("SELECT COUNT(*) as count FROM token WHERE email = ? AND token = ?");
-                stmt.setString(1,queryStringMap.get("email"));
+                PreparedStatement stmt=conn.prepareStatement("SELECT COUNT(*) as count FROM token WHERE uid = ? AND token = ?");
+                stmt.setString(1,queryStringMap.get("uid"));
                 stmt.setString(2,queryStringMap.get("token"));
 
                 ResultSet result = stmt.executeQuery();
@@ -110,8 +110,15 @@ public class IdentityServiceAPI extends HttpServlet {
                 String email = (String)map.get("email");
                 String password = (String)map.get("password");
 
+                // Ambil id
+                PreparedStatement stmt=conn.prepareStatement("SELECT id FROM user WHERE email = ?");
+                stmt.setString(1, email);
+                ResultSet result = stmt.executeQuery();
+                result.next();
+                int uid = result.getInt("id");
+
                 if (checkAuthentication(email, password)) {
-                    String token = issueAuthorization(email);
+                    String token = issueAuthorization(uid);
                     out.print("{\"status\":\"1\", \"token\":\""+ token + "\"}");
                 } else {
                     out.print("{\"status\":\"0\"}");
@@ -160,10 +167,10 @@ public class IdentityServiceAPI extends HttpServlet {
         return result.getInt("count") == 1;
     }
 
-    private String issueAuthorization(String email) throws SQLException {
+    private String issueAuthorization(int uid) throws SQLException {
         Statement stmt = conn.createStatement();
         String token = UUID.randomUUID().toString();
-        stmt.executeUpdate("INSERT INTO `token` (`email`, `token`, `expired`) VALUES ('"+email+"', '"+token+"', NOW() + INTERVAL 12 HOUR);");
+        stmt.executeUpdate("INSERT INTO `token` (`uid`, `token`, `expired`) VALUES ('"+uid+"', '"+token+"', NOW() + INTERVAL 12 HOUR);");
         return token;
     }
 

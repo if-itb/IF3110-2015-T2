@@ -15,11 +15,11 @@ public interface WebServiceInterface {
     @WebMethod
     int register(String name, String email, String password);
     @WebMethod
-    void postQuestion(int uid, String token, String title, String content) throws Exception;
+    int postQuestion(int uid, String token, String title, String content) throws Exception;
     @WebMethod
-    void postAnswer(int qid, int uid, String token, String content) throws Exception;
+    int postAnswer(int qid, int uid, String token, String content) throws Exception;
     @WebMethod
-    void deleteQuestion(int uid, int qid, String token) throws Exception;
+    int deleteQuestion(int uid, int qid, String token) throws Exception;
     @WebMethod
     Question getQuestion(int qid);
     @WebMethod
@@ -31,11 +31,11 @@ public interface WebServiceInterface {
     @WebMethod
     String[][] getAnswerListArray(int qid);
     @WebMethod
-    void vote(int type, int id, int direction, int uid, String token) throws Exception;
+    int vote(int type, int id, int direction, int uid, String token) throws Exception;
     @WebMethod
     String[] getQuestionArray(int qid);
     @WebMethod
-    void updateQuestion(int qid, int uid, String token, String title, String content) throws Exception;
+    int updateQuestion(int qid, int uid, String token, String title, String content) throws Exception;
     @WebMethod
-    void updateAnswer(int aid, int qid, int uid, String token, String content) throws Exception;
+    int updateAnswer(int aid, int qid, int uid, String token, String content) throws Exception;
 }
