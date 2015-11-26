@@ -25,9 +25,9 @@ import javax.xml.ws.WebServiceRef;
  */
 @WebServlet(name = "AnswerServlet", urlPatterns = {"/answer"})
 public class AnswerServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchangeWS/AnswerWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/AnswerWS.wsdl")
     private AnswerWS_Service service_1;
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchangeWS/QuestionWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/QuestionWS.wsdl")
     private QuestionWS_Service service;
     
     private int qid;

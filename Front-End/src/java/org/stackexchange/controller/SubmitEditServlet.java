@@ -21,7 +21,7 @@ import javax.xml.ws.WebServiceRef;
  */
 @WebServlet(name = "SubmitEditServlet", urlPatterns = {"/submitEdit"})
 public class SubmitEditServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchangeWS/QuestionWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/QuestionWS.wsdl")
     private QuestionWS_Service service;
 
     /**

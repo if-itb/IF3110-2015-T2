@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceRef;
  * @author user
  */
 public class CreateAnswerServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchangeWS/AnswerWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/AnswerWS.wsdl")
     private AnswerWS_Service service;
 
     /**
