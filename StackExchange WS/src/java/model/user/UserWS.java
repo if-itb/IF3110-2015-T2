@@ -107,4 +107,44 @@ public class UserWS {
            }
         return id;
     }
+    
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUserByToken")
+    @WebResult(name="User")
+    public User getUserByToken (@WebParam(name = "token") String token) {
+        User user = new User();
+        try{
+            Statement stmt = conn.createStatement();
+            String sql;
+            sql = "SELECT user_id FROM token WHERE token_id = ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1, token);
+            ResultSet rs = dbStatement.executeQuery();
+            
+            while(rs.next()){
+                user.setUserID(rs.getInt("user_id"));
+            }
+            rs.close();
+            
+            String sql2 = "SELECT * FROM user WHERE user_id = ?";
+            PreparedStatement dbStatement2 = conn.prepareStatement(sql);
+            dbStatement2.setInt(1, user.getUserID());
+            ResultSet rs2 = dbStatement2.executeQuery();
+            
+            while(rs2.next()){
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+            }
+            rs2.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserWS.class.getName()).log
+            (Level.SEVERE, null, ex);
+           }
+        
+        return user;
+    }
 }
