@@ -84,5 +84,25 @@ public class QuestionHandler {
         
         return 1;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "editQuestion")
+    public int editQuestion(@WebParam(name = "questionId") int questionId, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) throws SQLException {
+        DbQuestionManager.editQuestion(questionId, topic, content);
+        
+        return 1;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deleteQuestion")
+    public int deleteQuestion(@WebParam(name = "questionId") int questionId) throws SQLException {
+        DbQuestionManager.deleteQuestion(questionId);
+        
+        return 1;
+    }
     
 }

@@ -127,4 +127,28 @@ public class DbQuestionManager {
             
             return countVote;
         }
+        
+        public static void editQuestion(int questionId, String topic, String content) throws SQLException{
+            conn = ConnectionManager.getInstance().getConnection();
+            String sql = "UPDATE question SET topic = ?, content = ? WHERE questionId = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            
+            pstmt.setString(1, topic);
+            pstmt.setString(2, content);
+            pstmt.setInt(3, questionId);
+            
+            pstmt.executeUpdate();
+            ConnectionManager.getInstance().close();
+        }
+        
+        public static void deleteQuestion(int questionId) throws SQLException{
+            conn = ConnectionManager.getInstance().getConnection();
+            String sql = "DELETE FROM question WHERE questionId = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            
+            pstmt.setInt(1, questionId);
+            
+            pstmt.executeUpdate();
+            ConnectionManager.getInstance().close();
+        }
 }
