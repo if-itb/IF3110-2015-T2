@@ -24,6 +24,18 @@
         <servlet-name>logout</servlet-name>
         <servlet-class>Servlet.logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>edit</servlet-name>
+        <servlet-class>Servlet.edit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editquestion</servlet-name>
+        <servlet-class>Servlet.editquestion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>saveeditedquestion</servlet-name>
+        <servlet-class>Servlet.saveeditedquestion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>viewpost</servlet-name>
         <url-pattern>/viewpost</url-pattern>
@@ -47,6 +59,18 @@
     <servlet-mapping>
         <servlet-name>logout</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>edit</servlet-name>
+        <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editquestion</servlet-name>
+        <url-pattern>/editquestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>saveeditedquestion</servlet-name>
+        <url-pattern>/saveeditedquestion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

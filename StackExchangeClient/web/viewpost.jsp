@@ -37,9 +37,9 @@
             <table>
 		<tr>
                     <td style="width:15%; text-align:center">
-                        <img src="images/up.png"><br>
+                        <div class="arrow-up"></div>
                         <p id="vote" style="font-size:40px; margin:0; color:lightgrey"> ${question.vote} </p>
-                        <img src="images/down.png">
+                        <div class="arrow-down"></div><br>
 		    </td>
 		    <td style="vertical-align:top">
 		    	${question.content}<br>
@@ -54,9 +54,9 @@
                 <c:forEach items="${answers}" var="answer">
                     <tr style="border-bottom:2px solid #000">
                         <td style="width:15%; text-align:center; padding:20px">
-                            <img src="images/up.png"><br>
+                            <div class="arrow-up"></div>
                             <p style="font-size:40px; margin:0; color:lightgrey">${answer.vote}</p>
-                            <img src="images/down.png">
+                            <div class="arrow-down"></div>
                         </td>
                         <td style="vertical-align:top; padding:20px">${answer.content}<br>
                             <p style="text-align:right">answered by ${answer.username} at ${answer.date}</p>

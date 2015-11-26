@@ -10,7 +10,22 @@ h1 {
     margin-top: 10%;
 }
 
-
+.arrow-up {
+    margin: auto;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid black;
+}
+.arrow-down {
+    margin: auto;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 15px solid black;
+}
 
 .login {
     float: right;

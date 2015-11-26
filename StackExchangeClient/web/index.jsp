@@ -59,7 +59,24 @@
                                 </c:url>">${question.topic}
                             </a>
                             <br><br>${question.content}<br>
-                            <p style="text-align:right">asked by ${question.username} | edit | delete</p>
+                            
+                            <c:choose>
+                                <c:when test="${question.username == username}">
+                                    <p style="text-align:right">
+                                        asked by ${question.username} | 
+                                        <a href="<c:url value="/editquestion" >
+                                                    <c:param name="id" value="${question.idQuestion}"/>
+                                                </c:url>">edit
+                                        </a> | 
+                                        delete
+                                    </p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p style="text-align:right">asked by ${question.username}</p>
+                                </c:otherwise>
+                            </c:choose>
+                            
+                            
                         </td>
                     </tr>
                 </c:forEach>
