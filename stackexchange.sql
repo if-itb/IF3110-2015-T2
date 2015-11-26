@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2015 at 02:37 AM
+-- Generation Time: Nov 26, 2015 at 06:58 AM
 -- Server version: 5.6.21
--- PHP Version: 5.5.19
+-- PHP Version: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
 
 INSERT INTO `questions` (`QuestionID`, `Votes`, `Answers`, `Topic`, `Question`, `Name`, `Email`, `Datetime`) VALUES
 (37, 2, 1, 'asdf', 'fsfsfsfsf', 'fsdfsfsf', 'afasfaf@asdf.cg', '2015-10-10 17:19:54'),
-(38, 5, 6, 'How to get a gf?', 'im such a loser', 'fdsa', 'cliffsantoso@gmail.com', '2015-10-10 17:08:03'),
+(38, 10, 6, 'How to get a gf?', 'im such a loser', 'fdsa', 'cliffsantoso@gmail.com', '2015-10-10 17:08:03'),
 (39, 3, 2, 'asdasd', 'asdsdsd', 'adadasdsad', 'sfsfsf@sgsgsgs.sdf', '2015-10-10 19:03:24'),
 (42, -2, 1, 'ben???''', 'is ben gay?" i''m not!@#%^*()`~', 'Cliff', 'cliffsantoso@gmail.com', '2015-10-15 15:25:49');
 
@@ -85,10 +85,57 @@ INSERT INTO `questions` (`QuestionID`, `Votes`, `Answers`, `Topic`, `Question`, 
 --
 
 CREATE TABLE IF NOT EXISTS `sessions` (
-  `SessionID` int(11) NOT NULL,
+`SessionID` int(11) NOT NULL,
   `Email` varchar(50) NOT NULL,
-  `AccessToken` varchar(32) NOT NULL
+  `AccessToken` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`SessionID`, `Email`, `AccessToken`) VALUES
+(2, 'tio', 'dfcc5e81-8c60-4d90-9b6e-7c6fba3eee55'),
+(3, 'tio', '26aa4171-c3d7-4f7e-bc2d-678cfb60b062');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `upanswer`
+--
+
+CREATE TABLE IF NOT EXISTS `upanswer` (
+  `email` varchar(50) DEFAULT NULL,
+  `IDAns` int(11) DEFAULT NULL,
+  `totalVote` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `upanswer`
+--
+
+INSERT INTO `upanswer` (`email`, `IDAns`, `totalVote`) VALUES
+('tio', 6, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `upquestion`
+--
+
+CREATE TABLE IF NOT EXISTS `upquestion` (
+  `email` varchar(50) NOT NULL,
+  `IDQuestion` int(11) DEFAULT NULL,
+  `totalVote` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `upquestion`
+--
+
+INSERT INTO `upquestion` (`email`, `IDQuestion`, `totalVote`) VALUES
+('tio', 38, 1),
+('tio', 37, 0);
 
 -- --------------------------------------------------------
 
@@ -101,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `Name` varchar(20) NOT NULL,
   `Email` varchar(50) NOT NULL,
   `Password` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -111,7 +158,8 @@ INSERT INTO `users` (`UserID`, `Name`, `Email`, `Password`) VALUES
 (1, 'Yoga', 'yoga@gmail.com', 'yoga'),
 (2, 'Cliff', 'cliffsantoso@gmail.com', 'cliff'),
 (3, 'asdf', 'asdfasdf', 'asdfasfd'),
-(4, 'Memek', 'Kontol', 'memek');
+(4, 'Memek', 'Kontol', 'memek'),
+(5, 'tio', 'tio', 'tiotio');
 
 --
 -- Indexes for dumped tables
@@ -121,7 +169,7 @@ INSERT INTO `users` (`UserID`, `Name`, `Email`, `Password`) VALUES
 -- Indexes for table `answers`
 --
 ALTER TABLE `answers`
- ADD PRIMARY KEY (`AnswerID`), ADD UNIQUE KEY `AnswerID` (`AnswerID`), ADD KEY `QuestionID` (`QuestionID`);
+ ADD PRIMARY KEY (`AnswerID`), ADD UNIQUE KEY `AnswerID` (`AnswerID`), ADD KEY `QuestionID` (`QuestionID`), ADD KEY `AnswerID_2` (`AnswerID`);
 
 --
 -- Indexes for table `questions`
@@ -130,10 +178,28 @@ ALTER TABLE `questions`
  ADD PRIMARY KEY (`QuestionID`), ADD UNIQUE KEY `QuestionID` (`QuestionID`);
 
 --
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+ ADD PRIMARY KEY (`SessionID`), ADD UNIQUE KEY `SessionID` (`SessionID`);
+
+--
+-- Indexes for table `upanswer`
+--
+ALTER TABLE `upanswer`
+ ADD KEY `IDAns` (`IDAns`), ADD KEY `email` (`email`);
+
+--
+-- Indexes for table `upquestion`
+--
+ALTER TABLE `upquestion`
+ ADD KEY `IDQuestion` (`IDQuestion`), ADD KEY `email` (`email`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
- ADD PRIMARY KEY (`UserID`), ADD UNIQUE KEY `UserID` (`UserID`), ADD KEY `UserID_2` (`UserID`);
+ ADD PRIMARY KEY (`UserID`), ADD UNIQUE KEY `UserID` (`UserID`), ADD KEY `UserID_2` (`UserID`), ADD KEY `Email` (`Email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -150,10 +216,15 @@ MODIFY `AnswerID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 ALTER TABLE `questions`
 MODIFY `QuestionID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
 --
+-- AUTO_INCREMENT for table `sessions`
+--
+ALTER TABLE `sessions`
+MODIFY `SessionID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --
@@ -163,6 +234,20 @@ MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 ALTER TABLE `answers`
 ADD CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`QuestionID`) REFERENCES `questions` (`QuestionID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `upanswer`
+--
+ALTER TABLE `upanswer`
+ADD CONSTRAINT `upanswer_ibfk_1` FOREIGN KEY (`IDAns`) REFERENCES `answers` (`AnswerID`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `upanswer_ibfk_2` FOREIGN KEY (`email`) REFERENCES `users` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `upquestion`
+--
+ALTER TABLE `upquestion`
+ADD CONSTRAINT `upquestion_ibfk_1` FOREIGN KEY (`IDQuestion`) REFERENCES `questions` (`QuestionID`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `upquestion_ibfk_2` FOREIGN KEY (`email`) REFERENCES `users` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
