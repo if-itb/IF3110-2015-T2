@@ -41,7 +41,7 @@ public class AnswersWS {
                             @WebParam(name = "content") String content) {
         
         int res = ValidationToken.AUTH_ERROR;       // initialize result with error first (assumption)
-        int user_id = ValidationToken.validateToken(token); // validate token and get the user id
+        long user_id = ValidationToken.validateToken(token); // validate token and get the user id
         
         // token is valid if user_id value is not -1
         if (user_id != -1) {
@@ -52,7 +52,7 @@ public class AnswersWS {
 
                 // set the prepared statement by the query and enter the value of where clause
                 try (PreparedStatement pst = connAns.prepareStatement(query)) {
-                    pst.setInt(1, user_id);
+                    pst.setLong(1, user_id);
                     pst.setInt(2, q_id);
                     pst.setString(3, content);
                     // execute update
@@ -113,36 +113,41 @@ public class AnswersWS {
      * Web service operation
      */
     @WebMethod(operationName = "voteanswers")
-    public int voteanswers(@WebParam(name = "uid") int uid, @WebParam(name = "aid") int aid, @WebParam(name = "value") int value) {
-        int res = 0;
+    public int voteanswers(@WebParam(name = "token") String token, @WebParam(name = "aid") int aid, @WebParam(name = "value") int value) {
+        int res = ValidationToken.AUTH_ERROR;       // initialize result with error first (assumption)
+        long user_id = ValidationToken.validateToken(token); // validate token and get the user id
         
-        /* TOKEN VALIDATION: Incomplete */
+        // token is valid if user_id value is not -1
+        if (user_id != -1) {
         
-        try (Statement st = connAns.createStatement()) {
-            String query = "SELECT * FROM `vote_answers` WHERE uid = ? AND aid = ?";
-            try (PreparedStatement pstselect = connAns.prepareStatement(query)) {
-                pstselect.setInt(1, uid);
-                pstselect.setInt(2, aid);
-                // execute select
-                ResultSet ret = pstselect.executeQuery();
-                if (ret.next() == false){
-                    query = "INSERT INTO `vote_answers` (uid, aid, value) VALUES (?, ?, ?)";
-            
-                    // set the prepared statement by the query and enter the value of where clause
-                    try (PreparedStatement pstins = connAns.prepareStatement(query)) {
-                        pstins.setInt(1, uid);
-                        pstins.setInt(2, aid);
-                        pstins.setInt(3, value);
-                        // execute update
-                        res = pstins.executeUpdate();
+            try (Statement st = connAns.createStatement()) {
+                String query = "SELECT * FROM `vote_answers` WHERE uid = ? AND aid = ?";
+                try (PreparedStatement pstselect = connAns.prepareStatement(query)) {
+                    pstselect.setLong(1, user_id);
+                    pstselect.setInt(2, aid);
+                    // execute select
+                    ResultSet ret = pstselect.executeQuery();
+                    if (ret.next() == false){
+                        query = "INSERT INTO `vote_answers` (uid, aid, value) VALUES (?, ?, ?)";
+
+                        // set the prepared statement by the query and enter the value of where clause
+                        try (PreparedStatement pstins = connAns.prepareStatement(query)) {
+                            pstins.setLong(1, user_id);
+                            pstins.setInt(2, aid);
+                            pstins.setInt(3, value);
+                            // execute update
+                            res = pstins.executeUpdate();
+                        }
                     }
                 }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            // else: token is invalid, deny request
+            res = ValidationToken.AUTH_INVALID;
         }
-        
         return res;
     }
 

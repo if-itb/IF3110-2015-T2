@@ -74,7 +74,7 @@ public class UserWS {
     @WebMethod(operationName = "logoutUser")
     public int logoutUser(@WebParam(name = "token") String token) {
         int res = ValidationToken.AUTH_ERROR;       // initialize result with error first (assumption)
-        int user_id = ValidationToken.validateToken(token); // validate token and get the user id
+        long user_id = ValidationToken.validateToken(token); // validate token and get the user id
         
         // token is valid if user_id value is not -1
         if (user_id != -1) {
@@ -85,7 +85,7 @@ public class UserWS {
 
                 // set the prepared statement by the query and enter the value of where clause
                 try (PreparedStatement pst = conn.prepareStatement(query)) {
-                    pst.setInt(1, user_id);
+                    pst.setLong(1, user_id);
                     // execute update
                     res = pst.executeUpdate();
                     if (res > 0)

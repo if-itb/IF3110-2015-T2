@@ -106,7 +106,7 @@ public class QuestionsWS {
                                 @WebParam(name = "content") String content) {
         
         int res = ValidationToken.AUTH_ERROR;       // initialize result with error first (assumption)
-        int user_id = ValidationToken.validateToken(token); // validate token and get the user id
+        long user_id = ValidationToken.validateToken(token); // validate token and get the user id
         
         // token is valid if user_id value is not -1
         if (user_id != -1) {
@@ -117,7 +117,7 @@ public class QuestionsWS {
 
                 // set the prepared statement by the query and enter the value of where clause
                 try (PreparedStatement pst = conn.prepareStatement(query)) {
-                    pst.setInt(1, user_id);
+                    pst.setLong(1, user_id);
                     pst.setString(2, topic);
                     pst.setString(3, content);
                     // execute update
@@ -148,7 +148,7 @@ public class QuestionsWS {
                                 @WebParam(name = "newContent") String newContent) {
         
         int res = ValidationToken.AUTH_ERROR;       // initialize result with error first (assumption)
-        int user_id = ValidationToken.validateToken(token); // validate token and get the user id
+        long user_id = ValidationToken.validateToken(token); // validate token and get the user id
         
         // token is valid if user_id value is not -1
         if (user_id != -1) {
@@ -187,7 +187,7 @@ public class QuestionsWS {
                                 @WebParam(name = "qid") int qid) {
         
         int res = ValidationToken.AUTH_ERROR;       // initialize result with error first (assumption)
-        int user_id = ValidationToken.validateToken(token); // validate token and get the user id
+        long user_id = ValidationToken.validateToken(token); // validate token and get the user id
         
         // token is valid if user_id value is not -1
         if (user_id != -1) {
@@ -220,38 +220,46 @@ public class QuestionsWS {
      * Web service operation
      */
     @WebMethod(operationName = "votequestion")
-    public int votequestion(@WebParam(name = "uid") int uid, @WebParam(name = "qid") int qid, @WebParam(name = "value") int value) {
+    public int votequestion(@WebParam(name = "token") String token, @WebParam(name = "qid") int qid, @WebParam(name = "value") int value) {
         //TODO write your implementation code here:
-        int res = 0;
+        int res = ValidationToken.AUTH_ERROR;       // initialize result with error first (assumption)
+        long user_id = ValidationToken.validateToken(token); // validate token and get the user id
         
-        /* TOKEN VALIDATION: Incomplete */
-        
-        try (Statement st = conn.createStatement()) {
-            String query = "SELECT * FROM `vote_questions` WHERE uid = ? AND qid = ?";
-            try (PreparedStatement pstselect = conn.prepareStatement(query)) {
-                pstselect.setInt(1, uid);
-                pstselect.setInt(2, qid);
-                // execute select
-                ResultSet ret = pstselect.executeQuery();
-                if (ret.next() == false){
-                    query = "INSERT INTO `vote_questions` (uid, qid, value) VALUES (?, ?, ?)";
-            
-                    // set the prepared statement by the query and enter the value of where clause
-                    try (PreparedStatement pst = conn.prepareStatement(query)) {
-                        pst.setInt(1, uid);
-                        pst.setInt(2, qid);
-                        pst.setInt(3, value);
-                        // execute update
-                        res = pst.executeUpdate();
-                    }
-            
-                } 
-            }
-            
-        }
-        catch (SQLException ex) {
-                    Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
+        // token is valid if user_id value is not -1
+        if (user_id != -1) {
+            try (Statement st = conn.createStatement()) {
+                String query = "SELECT * FROM `vote_questions` WHERE uid = ? AND qid = ?";
+                try (PreparedStatement pstselect = conn.prepareStatement(query)) {
+                    pstselect.setLong(1, user_id);
+                    pstselect.setInt(2, qid);
+                    // execute select
+                    ResultSet ret = pstselect.executeQuery();
+                    if (ret.next() == false){
+                        query = "INSERT INTO `vote_questions` (uid, qid, value) VALUES (?, ?, ?)";
+
+                        // set the prepared statement by the query and enter the value of where clause
+                        try (PreparedStatement pst = conn.prepareStatement(query)) {
+                            pst.setLong(1, user_id);
+                            pst.setInt(2, qid);
+                            pst.setInt(3, value);
+                            // execute update
+                            res = pst.executeUpdate();
+                            if (res > 0)
+                                res = ValidationToken.AUTH_VALID;
+                        }
+
+                    } 
                 }
+
+            }
+            catch (SQLException ex) {
+                Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            // else: token is invalid, deny request
+            res = ValidationToken.AUTH_INVALID;
+        }
+        
         return res;    
     }
 
