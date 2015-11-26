@@ -43,7 +43,15 @@
     </servlet>
     <servlet>
         <servlet-name>UpdateQuestionServlet</servlet-name>
-        <servlet-class>UpdateQuestionServlet</servlet-class>
+        <servlet-class>org.stackexchange.controller.UpdateQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpVoteQuestionServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.UpVoteQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DownVoteQuestionServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.DownVoteQuestionServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Index Page</servlet-name>
@@ -96,6 +104,14 @@
     <servlet-mapping>
         <servlet-name>UpdateQuestionServlet</servlet-name>
         <url-pattern>/UpdateQuestionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpVoteQuestionServlet</servlet-name>
+        <url-pattern>/UpVoteQuestionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownVoteQuestionServlet</servlet-name>
+        <url-pattern>/DownVoteQuestionServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

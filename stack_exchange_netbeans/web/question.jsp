@@ -18,11 +18,11 @@
         <div class="question" id="question-   ">
             <div class="row">
                 <div class="col_vote">
-                    <a title="Click to Upvote" href="     " onclick="   " id="increase-vote">
+                    <a title="Click to Upvote" href="http://localhost:8080/stack_exchange_netbeans/UpVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc&from=question" onclick="   " id="increase-vote">
                         <img src="assets/img/up.png" width="32" height="32"><br>
                     </a>
                     <span id="question-vote-count-    "><font size = "5" color ="blue"><c:out value="${question.vote}"/></font></span><br>
-                    <a title="Click to Downvote" href="    " onclick="   " id="decrease-vote">
+                    <a title="Click to Downvote" href="http://localhost:8080/stack_exchange_netbeans/DownVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc&from=question" onclick="   " id="decrease-vote">
                         <img src="assets/img/down.png" width="32" height="32">
                     </a>
                 </div>
