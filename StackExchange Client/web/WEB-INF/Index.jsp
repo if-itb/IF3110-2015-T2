@@ -1,4 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
     <head>
         <title>StackExchange</title>
@@ -35,7 +37,7 @@
 		</div>
 					
 		<div class=topic>
-                    <c:out value="${question.title}"/>
+                    <a href="Answer?id=${question.id}"><c:out value="${question.title}"/></a>
                     <c:out value="${question.content}"/>
                     <br>
 		</div>

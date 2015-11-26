@@ -64,4 +64,19 @@ public interface QuestionWS {
     @Action(input = "http://QuestionModel/QuestionWS/GetAllQuestionRequest", output = "http://QuestionModel/QuestionWS/GetAllQuestionResponse")
     public List<Question> getAllQuestion();
 
+    /**
+     * 
+     * @param id
+     * @return
+     *     returns QuestionWS.Question
+     */
+    @WebMethod(operationName = "GetQuestionByID")
+    @WebResult(name = "QuestionByID", targetNamespace = "")
+    @RequestWrapper(localName = "GetQuestionByID", targetNamespace = "http://QuestionModel/", className = "QuestionWS.GetQuestionByID")
+    @ResponseWrapper(localName = "GetQuestionByIDResponse", targetNamespace = "http://QuestionModel/", className = "QuestionWS.GetQuestionByIDResponse")
+    @Action(input = "http://QuestionModel/QuestionWS/GetQuestionByIDRequest", output = "http://QuestionModel/QuestionWS/GetQuestionByIDResponse")
+    public Question getQuestionByID(
+        @WebParam(name = "id", targetNamespace = "")
+        int id);
+
 }

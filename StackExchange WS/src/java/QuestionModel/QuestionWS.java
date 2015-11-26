@@ -95,12 +95,41 @@ public class QuestionWS {
             }
             results.close();
             stmt.close();
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
             
-        } catch (SQLException ex) {
-            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
         return Questions;
+    }
+    
+    @WebMethod(operationName = "GetQuestionByID")
+    @WebResult(name="QuestionByID")
+    public Question GetQuestionByID(@WebParam(name = "id") final int id) {
+        Question q = new Question();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dadakandb?zeroDateTimeBehavior=convertToNull","root","");
+          
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM questions WHERE id=?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1,id);
+            ResultSet results = dbStatement.executeQuery();
+            if(results.next()){
+                q=(new Question( results.getInt("id"),
+                    results.getInt("id_user"),
+                    results.getString("title"),
+                    results.getString("content"),
+                    results.getString("timestamp"),
+                    results.getInt("votes")
+                ));
+            }
+            results.close();
+            stmt.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        return q;
     }
 }

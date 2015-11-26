@@ -16,6 +16,14 @@
         <servlet-name>ShowQuestionServlet</servlet-name>
         <url-pattern></url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>AnswerServlet</servlet-name>
+        <servlet-class>controller.AnswerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AnswerServlet</servlet-name>
+        <url-pattern>/Answer</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

@@ -26,6 +26,8 @@ public class ObjectFactory {
 
     private final static QName _GetAllQuestion_QNAME = new QName("http://QuestionModel/", "GetAllQuestion");
     private final static QName _GetAllQuestionResponse_QNAME = new QName("http://QuestionModel/", "GetAllQuestionResponse");
+    private final static QName _GetQuestionByID_QNAME = new QName("http://QuestionModel/", "GetQuestionByID");
+    private final static QName _GetQuestionByIDResponse_QNAME = new QName("http://QuestionModel/", "GetQuestionByIDResponse");
     private final static QName _ParseException_QNAME = new QName("http://QuestionModel/", "ParseException");
     private final static QName _Question_QNAME = new QName("http://QuestionModel/", "Question");
     private final static QName _CreateQuestion_QNAME = new QName("http://QuestionModel/", "createQuestion");
@@ -52,6 +54,22 @@ public class ObjectFactory {
      */
     public GetAllQuestionResponse createGetAllQuestionResponse() {
         return new GetAllQuestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetQuestionByID }
+     * 
+     */
+    public GetQuestionByID createGetQuestionByID() {
+        return new GetQuestionByID();
+    }
+
+    /**
+     * Create an instance of {@link GetQuestionByIDResponse }
+     * 
+     */
+    public GetQuestionByIDResponse createGetQuestionByIDResponse() {
+        return new GetQuestionByIDResponse();
     }
 
     /**
@@ -102,6 +120,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://QuestionModel/", name = "GetAllQuestionResponse")
     public JAXBElement<GetAllQuestionResponse> createGetAllQuestionResponse(GetAllQuestionResponse value) {
         return new JAXBElement<GetAllQuestionResponse>(_GetAllQuestionResponse_QNAME, GetAllQuestionResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionByID }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://QuestionModel/", name = "GetQuestionByID")
+    public JAXBElement<GetQuestionByID> createGetQuestionByID(GetQuestionByID value) {
+        return new JAXBElement<GetQuestionByID>(_GetQuestionByID_QNAME, GetQuestionByID.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionByIDResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://QuestionModel/", name = "GetQuestionByIDResponse")
+    public JAXBElement<GetQuestionByIDResponse> createGetQuestionByIDResponse(GetQuestionByIDResponse value) {
+        return new JAXBElement<GetQuestionByIDResponse>(_GetQuestionByIDResponse_QNAME, GetQuestionByIDResponse.class, null, value);
     }
 
     /**

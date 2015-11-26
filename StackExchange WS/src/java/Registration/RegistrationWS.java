@@ -11,7 +11,7 @@ public class RegistrationWS {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; 
-    private static final String CONN_STRING = "jdbc:mysql://localhost/dadakanDB";
+    private static final String CONN_STRING = "jdbc:mysql://localhost:3306/dadakandb?zeroDateTimeBehavior=convertToNull";
     @WebMethod(operationName = "register")
     public boolean register(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "password") String password) {
         Connection conn = null;
