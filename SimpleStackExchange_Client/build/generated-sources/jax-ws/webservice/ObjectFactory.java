@@ -39,6 +39,8 @@ public class ObjectFactory {
     private final static QName _DeleteAllVoteQuestionResponse_QNAME = new QName("http://webservice/", "deleteAllVoteQuestionResponse");
     private final static QName _GetAnswers_QNAME = new QName("http://webservice/", "getAnswers");
     private final static QName _GetAnswersResponse_QNAME = new QName("http://webservice/", "getAnswersResponse");
+    private final static QName _GetCountAnswer_QNAME = new QName("http://webservice/", "getCountAnswer");
+    private final static QName _GetCountAnswerResponse_QNAME = new QName("http://webservice/", "getCountAnswerResponse");
     private final static QName _GetQuestion_QNAME = new QName("http://webservice/", "getQuestion");
     private final static QName _GetQuestionResponse_QNAME = new QName("http://webservice/", "getQuestionResponse");
     private final static QName _GetUserById_QNAME = new QName("http://webservice/", "getUserById");
@@ -57,6 +59,8 @@ public class ObjectFactory {
     private final static QName _Registereduser_QNAME = new QName("http://webservice/", "registereduser");
     private final static QName _SearchQuestion_QNAME = new QName("http://webservice/", "searchQuestion");
     private final static QName _SearchQuestionResponse_QNAME = new QName("http://webservice/", "searchQuestionResponse");
+    private final static QName _VoteAnswer_QNAME = new QName("http://webservice/", "voteAnswer");
+    private final static QName _VoteAnswerResponse_QNAME = new QName("http://webservice/", "voteAnswerResponse");
     private final static QName _VoteQuestion_QNAME = new QName("http://webservice/", "voteQuestion");
     private final static QName _VoteQuestionResponse_QNAME = new QName("http://webservice/", "voteQuestionResponse");
 
@@ -185,6 +189,22 @@ public class ObjectFactory {
      */
     public GetAnswersResponse createGetAnswersResponse() {
         return new GetAnswersResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCountAnswer }
+     * 
+     */
+    public GetCountAnswer createGetCountAnswer() {
+        return new GetCountAnswer();
+    }
+
+    /**
+     * Create an instance of {@link GetCountAnswerResponse }
+     * 
+     */
+    public GetCountAnswerResponse createGetCountAnswerResponse() {
+        return new GetCountAnswerResponse();
     }
 
     /**
@@ -329,6 +349,22 @@ public class ObjectFactory {
      */
     public SearchQuestionResponse createSearchQuestionResponse() {
         return new SearchQuestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link VoteAnswer }
+     * 
+     */
+    public VoteAnswer createVoteAnswer() {
+        return new VoteAnswer();
+    }
+
+    /**
+     * Create an instance of {@link VoteAnswerResponse }
+     * 
+     */
+    public VoteAnswerResponse createVoteAnswerResponse() {
+        return new VoteAnswerResponse();
     }
 
     /**
@@ -480,6 +516,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice/", name = "getAnswersResponse")
     public JAXBElement<GetAnswersResponse> createGetAnswersResponse(GetAnswersResponse value) {
         return new JAXBElement<GetAnswersResponse>(_GetAnswersResponse_QNAME, GetAnswersResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCountAnswer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "getCountAnswer")
+    public JAXBElement<GetCountAnswer> createGetCountAnswer(GetCountAnswer value) {
+        return new JAXBElement<GetCountAnswer>(_GetCountAnswer_QNAME, GetCountAnswer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCountAnswerResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "getCountAnswerResponse")
+    public JAXBElement<GetCountAnswerResponse> createGetCountAnswerResponse(GetCountAnswerResponse value) {
+        return new JAXBElement<GetCountAnswerResponse>(_GetCountAnswerResponse_QNAME, GetCountAnswerResponse.class, null, value);
     }
 
     /**
@@ -642,6 +696,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice/", name = "searchQuestionResponse")
     public JAXBElement<SearchQuestionResponse> createSearchQuestionResponse(SearchQuestionResponse value) {
         return new JAXBElement<SearchQuestionResponse>(_SearchQuestionResponse_QNAME, SearchQuestionResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link VoteAnswer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "voteAnswer")
+    public JAXBElement<VoteAnswer> createVoteAnswer(VoteAnswer value) {
+        return new JAXBElement<VoteAnswer>(_VoteAnswer_QNAME, VoteAnswer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link VoteAnswerResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "voteAnswerResponse")
+    public JAXBElement<VoteAnswerResponse> createVoteAnswerResponse(VoteAnswerResponse value) {
+        return new JAXBElement<VoteAnswerResponse>(_VoteAnswerResponse_QNAME, VoteAnswerResponse.class, null, value);
     }
 
     /**

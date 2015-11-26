@@ -48,7 +48,6 @@
                     <div class="btn-group-vertical" role="group" aria-label="...">
                         <form action="QuestionVote" method="POST">
                         <input name="qid" type="hidden" value="${question.getKey().getQid()}" />
-                        <input name="uid" type="hidden" value="${question.getKey().getUid()}" />
                         <input name="value" type="hidden" value="1" />
                         <button type="submit" class="btn btn-success">
                             <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
@@ -57,7 +56,6 @@
                         <div class="text-center well-lg">${question.getKey().getCountvotes()}</div>
                         <form action="QuestionVote" method="POST">
                         <input name="qid" type="hidden" value="${question.getKey().getQid()}" />
-                        <input name="uid" type="hidden" value="${question.getKey().getUid()}" />
                         <input name="value" type="hidden" value="-1" />
                         <button type="submit" class="btn btn-danger">
                             <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
@@ -114,14 +112,25 @@
             <div class="col-sm-1 col-sm-offset-1">
                 
                 <% if (Util.isLogin(request)) { %>
+                
                     <div class="btn-group-vertical" role="group" aria-label="...">
+                        <form method="POST" action="AnswerVote">
+                        <input type="hidden" name="aid" value="${answer.getKey().getAid()}" />
+                        <input type="hidden" name="qid" value="${answer.getKey().getQid()}" />
+                        <input type="hidden" name="value" value="1" />
                         <button type="submit" class="btn btn-success">
                             <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                         </button>
+                        </form>
                         <div class="text-center well-lg">${answer.getKey().getCountvotes()}</div>
+                        <form method="POST" action="AnswerVote">
+                        <input type="hidden" name="aid" value="${answer.getKey().getAid()}" />
+                        <input type="hidden" name="qid" value="${answer.getKey().getQid()}" />
+                        <input type="hidden" name="value" value="-1" />
                         <button type="submit" class="btn btn-danger">
                             <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                         </button>
+                        </form>
                     </div>
                 <%} else {%>
                     <div class="btn-group-vertical" role="group" aria-label="...">

@@ -30,6 +30,10 @@
 
 <xs:element name="getAnswersResponse" type="tns:getAnswersResponse"/>
 
+<xs:element name="getCountAnswer" type="tns:getCountAnswer"/>
+
+<xs:element name="getCountAnswerResponse" type="tns:getCountAnswerResponse"/>
+
 <xs:element name="getQuestion" type="tns:getQuestion"/>
 
 <xs:element name="getQuestionResponse" type="tns:getQuestionResponse"/>
@@ -65,6 +69,10 @@
 <xs:element name="searchQuestion" type="tns:searchQuestion"/>
 
 <xs:element name="searchQuestionResponse" type="tns:searchQuestionResponse"/>
+
+<xs:element name="voteAnswer" type="tns:voteAnswer"/>
+
+<xs:element name="voteAnswerResponse" type="tns:voteAnswerResponse"/>
 
 <xs:element name="voteQuestion" type="tns:voteQuestion"/>
 
@@ -200,6 +208,20 @@
 <xs:sequence/>
 </xs:complexType>
 
+<xs:complexType name="voteAnswer">
+<xs:sequence>
+<xs:element name="aid" type="xs:int"/>
+<xs:element name="uid" type="xs:int"/>
+<xs:element name="value" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="voteAnswerResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getVotesQuestion">
 <xs:sequence>
 <xs:element name="qid" type="xs:int"/>
@@ -207,6 +229,18 @@
 </xs:complexType>
 
 <xs:complexType name="getVotesQuestionResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCountAnswer">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCountAnswerResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int" minOccurs="0"/>
 </xs:sequence>

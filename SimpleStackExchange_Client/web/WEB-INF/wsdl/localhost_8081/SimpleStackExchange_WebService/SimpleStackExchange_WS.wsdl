@@ -70,11 +70,23 @@
 <message name="deleteAllVoteAnswerResponse">
 <part name="parameters" element="tns:deleteAllVoteAnswerResponse"/>
 </message>
+<message name="getCountAnswer">
+<part name="parameters" element="tns:getCountAnswer"/>
+</message>
+<message name="getCountAnswerResponse">
+<part name="parameters" element="tns:getCountAnswerResponse"/>
+</message>
 <message name="deleteAllVoteQuestion">
 <part name="parameters" element="tns:deleteAllVoteQuestion"/>
 </message>
 <message name="deleteAllVoteQuestionResponse">
 <part name="parameters" element="tns:deleteAllVoteQuestionResponse"/>
+</message>
+<message name="voteAnswer">
+<part name="parameters" element="tns:voteAnswer"/>
+</message>
+<message name="voteAnswerResponse">
+<part name="parameters" element="tns:voteAnswerResponse"/>
 </message>
 <message name="getVotesQuestion">
 <part name="parameters" element="tns:getVotesQuestion"/>
@@ -145,9 +157,17 @@
 <input wsam:Action="http://webservice/SimpleStackExchange_WS/deleteAllVoteAnswerRequest" message="tns:deleteAllVoteAnswer"/>
 <output wsam:Action="http://webservice/SimpleStackExchange_WS/deleteAllVoteAnswerResponse" message="tns:deleteAllVoteAnswerResponse"/>
 </operation>
+<operation name="getCountAnswer">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/getCountAnswerRequest" message="tns:getCountAnswer"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/getCountAnswerResponse" message="tns:getCountAnswerResponse"/>
+</operation>
 <operation name="deleteAllVoteQuestion">
 <input wsam:Action="http://webservice/SimpleStackExchange_WS/deleteAllVoteQuestionRequest" message="tns:deleteAllVoteQuestion"/>
 <output wsam:Action="http://webservice/SimpleStackExchange_WS/deleteAllVoteQuestionResponse" message="tns:deleteAllVoteQuestionResponse"/>
+</operation>
+<operation name="voteAnswer">
+<input wsam:Action="http://webservice/SimpleStackExchange_WS/voteAnswerRequest" message="tns:voteAnswer"/>
+<output wsam:Action="http://webservice/SimpleStackExchange_WS/voteAnswerResponse" message="tns:voteAnswerResponse"/>
 </operation>
 <operation name="getVotesQuestion">
 <input wsam:Action="http://webservice/SimpleStackExchange_WS/getVotesQuestionRequest" message="tns:getVotesQuestion"/>
@@ -267,7 +287,25 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="getCountAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="deleteAllVoteQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="voteAnswer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

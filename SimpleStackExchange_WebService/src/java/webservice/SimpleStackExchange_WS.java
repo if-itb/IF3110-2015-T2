@@ -202,54 +202,52 @@ public class SimpleStackExchange_WS {
     /**
      * Web service operation
      */
-//    @WebMethod(operationName = "voteAnswer")
-//    public Boolean voteAnswer(@WebParam(name = "aid") int aid, @WebParam(name = "uid") int uid, @WebParam(name = "value") String value) {
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
-//        EntityManager em = emf.createEntityManager();
-//        
-//        em.getTransaction().begin();
-//        try {
-//            int ex = em.createNativeQuery("DELETE FROM answervoter WHERE aid = " + aid + " AND uid = " + uid)
-//                    .executeUpdate();
-//
-//            em.getTransaction().commit();
-//        } catch (Exception e) {
-//            em.getTransaction().rollback();
-//            return false;
-//        } finally {
-//            em.close();
-//        }
-//        
-//        Answervoter avoter = new Answervoter();
-//        avoter.setAid(aid);
-//        avoter.setUid(uid);
-//        avoter.setValue(value);
-//        avoter.setCreatedtime(new Date());
-//        
-//        int vote = getVotesAnswer(aid);
-//        vote += Integer.parseInt(value)-preValue;
-//        
-//        // increment countvotes in Question table
-//        Answer a = em.find(Answer.class, aid);
-//                
-//        em.getTransaction().begin();
-//        try {
-//            a.setCountvotes(vote);
-//            em.persist(avoter);
-//            
-//            em.getTransaction().commit();
-//        } catch (Exception e) {
-//            em.getTransaction().rollback();
-//            return false;
-//        } finally {
-//            em.close();
-//        }
-//        
-//        emf.close();
-//        
-//        return true;
-//    }
-
+    @WebMethod(operationName = "voteAnswer")
+    public Boolean voteAnswer(@WebParam(name = "aid") int aid, @WebParam(name = "uid") int uid, @WebParam(name = "value") String value) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+        
+        
+        // increment countvotes in Question table
+        Answer a = em.find(Answer.class, aid);
+                
+        em.getTransaction().begin();
+        try {
+            Answervoter avoter;
+            if(hasVotedAnswer(aid, uid)) {
+                avoter = (Answervoter)em.createQuery("SELECT a FROM Answervoter a WHERE a.aid=:aid AND a.uid=:uid", Answervoter.class)
+                        .setParameter("aid", aid).setParameter("uid", uid)
+                        .getSingleResult();
+                avoter.setValue(value);
+            }
+            else {
+                avoter = new Answervoter();
+                avoter.setAid(aid);
+                avoter.setUid(uid);
+                avoter.setValue(value);
+                avoter.setCreatedtime(new Date());
+                em.persist(avoter);
+            }
+            
+            em.getTransaction().commit();
+            
+            em.getTransaction().begin();
+            int vote = getVotesAnswer(aid);
+            a.setCountvotes(vote);
+            em.getTransaction().commit();
+            
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
+        
+        emf.close();
+        
+        return true;
+    }
+    
     /**
      * Web service operation
      */
@@ -322,8 +320,12 @@ public class SimpleStackExchange_WS {
     public Integer getVotesAnswer(@WebParam(name = "aid") int aid) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
         EntityManager em = emf.createEntityManager();
-       
-        return (Integer)em.createQuery("SELECT SUM(a.value) FROM Answervoter a GROUP BY a.aid HAVING a.aid="+aid, Integer.class).getSingleResult();
+        List< String > res = (List<String>)em.createQuery("SELECT a.value FROM Answervoter a WHERE a.aid="+aid, String.class).getResultList();
+        Integer sum = 0;
+        for(String it : res) {
+            sum += Integer.parseInt(it);
+        }
+        return sum;
     }
 
     /**
@@ -387,10 +389,11 @@ public class SimpleStackExchange_WS {
     public Boolean createAnswer(@WebParam(name = "token") String token, @WebParam(name = "answer") Answer answer) { 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
         EntityManager em = emf.createEntityManager();
+        Question q = em.find(Question.class, answer.getQid());
         
         em.getTransaction().begin();
         try {
-            
+            q.setCountanswers(1+getCountAnswer(answer.getQid()));
             em.persist(answer);
             
             em.getTransaction().commit();
@@ -403,5 +406,16 @@ public class SimpleStackExchange_WS {
         
         emf.close();
         return true;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getCountAnswer")
+    public Integer getCountAnswer(@WebParam(name = "qid") int qid) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+        return (Integer)em.createQuery("SELECT a FROM Answer a WHERE a.qid=:qid", Integer.class)
+                .setParameter("qid", qid).getResultList().size();
     }
 }

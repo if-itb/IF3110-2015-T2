@@ -200,6 +200,21 @@ public interface SimpleStackExchangeWS {
      * 
      * @param qid
      * @return
+     *     returns java.lang.Integer
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getCountAnswer", targetNamespace = "http://webservice/", className = "webservice.GetCountAnswer")
+    @ResponseWrapper(localName = "getCountAnswerResponse", targetNamespace = "http://webservice/", className = "webservice.GetCountAnswerResponse")
+    @Action(input = "http://webservice/SimpleStackExchange_WS/getCountAnswerRequest", output = "http://webservice/SimpleStackExchange_WS/getCountAnswerResponse")
+    public Integer getCountAnswer(
+        @WebParam(name = "qid", targetNamespace = "")
+        int qid);
+
+    /**
+     * 
+     * @param qid
+     * @return
      *     returns java.lang.Boolean
      */
     @WebMethod
@@ -210,6 +225,27 @@ public interface SimpleStackExchangeWS {
     public Boolean deleteAllVoteQuestion(
         @WebParam(name = "qid", targetNamespace = "")
         int qid);
+
+    /**
+     * 
+     * @param uid
+     * @param aid
+     * @param value
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "voteAnswer", targetNamespace = "http://webservice/", className = "webservice.VoteAnswer")
+    @ResponseWrapper(localName = "voteAnswerResponse", targetNamespace = "http://webservice/", className = "webservice.VoteAnswerResponse")
+    @Action(input = "http://webservice/SimpleStackExchange_WS/voteAnswerRequest", output = "http://webservice/SimpleStackExchange_WS/voteAnswerResponse")
+    public Boolean voteAnswer(
+        @WebParam(name = "aid", targetNamespace = "")
+        int aid,
+        @WebParam(name = "uid", targetNamespace = "")
+        int uid,
+        @WebParam(name = "value", targetNamespace = "")
+        String value);
 
     /**
      * 
