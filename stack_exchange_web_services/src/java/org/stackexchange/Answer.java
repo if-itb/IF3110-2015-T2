@@ -38,10 +38,6 @@ public class Answer implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public Answer(int aInt, String string, String string0, int aInt0, int aInt1, String string1, int aInt2, String string2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public long getId() {
         return id;
     }

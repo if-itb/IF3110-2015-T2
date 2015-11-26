@@ -13,3 +13,10 @@ catalog.xml
 /stack_exchange_web_services/build/*
 /stack_exchange_web_services/dist/*
 /stack_exchange_web_services/nbproject/*
+*/nbproject/*
+*/build/*
+*/dist/*
+/stack_exchange/nbproject/private/*
+/stack_exchange_netbeans/nbproject/private/*
+/stack_exchange_netbeans/build/*
+/stack_exchange_netbeans/dist/*
