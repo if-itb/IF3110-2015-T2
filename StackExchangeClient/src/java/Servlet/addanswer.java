@@ -3,6 +3,7 @@ package Servlet;
 import answermodel.AnswerWS_Service;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,9 +15,21 @@ public class addanswer extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idQuestion = Integer.parseInt(request.getParameter("idQuestion"));
-        String username = "ica";
-        String content = request.getParameter("content");
-        createAnswer(idQuestion,username,content);
+        boolean found = false;
+        int i=0;
+        Cookie[] cookies = null;
+        cookies = request.getCookies();
+        if (cookies != null) {
+            while (!found && i < cookies.length){
+                if (cookies[i].getName().equals("tokenCookie")) {
+                    String token = cookies[i].getValue();
+                    String content = request.getParameter("content");
+                    createAnswer(idQuestion,content,token);
+                    found = true;
+                }
+                i++;
+            }
+        }
         response.sendRedirect("viewpost?id="+idQuestion);
     }
 
@@ -59,11 +72,11 @@ public class addanswer extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private Boolean createAnswer(int idQuestion, java.lang.String username, java.lang.String content) {
+    private Boolean createAnswer(int idQuestion, java.lang.String content, java.lang.String token) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         answermodel.AnswerWS port = service.getAnswerWSPort();
-        return port.createAnswer(idQuestion, username, content);
+        return port.createAnswer(idQuestion, content, token);
     }
 
 }

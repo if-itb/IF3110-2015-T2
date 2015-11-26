@@ -15,9 +15,10 @@ public class index extends HttpServlet {
     private QuestionWS_Service service;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // Check if already log in
         boolean found = false;
         int i=0;
-        
         Cookie[] cookies = null;
         cookies = request.getCookies();
         if (cookies != null) {

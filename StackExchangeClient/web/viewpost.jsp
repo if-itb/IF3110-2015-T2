@@ -11,8 +11,27 @@
     </head>
     <body>
         <div class="container">
-            <p style="text-align:right">You're log in as ica <button onclick="window.location.href='index.jsp';">Log out</button></p>
+            <c:choose>
+                <c:when test="${username == null}">
+                    <div class="login">
+                        <h1>Log-in</h1>
+                            <form action="/StackExchangeClient/login" method="POST">
+                                <input type="text" name="user" placeholder="Username">
+                                <input type="password" name="pass" placeholder="Password">
+                                <input type="submit" name="login" value="Login">
+                            </form>
+                            <div class="login-help">
+                                <a href="StackExchangeClient/register.jsp">Register</a>
+                            </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <p style="text-align:right">You're log in as ${username} <button onclick="window.location.href='logout';">Log out</button></p>
+                </c:otherwise>
+            </c:choose>
+
             <h1>Simple StackExchange</h1><br>
+            
             <c:forEach items="${result}" var="question">
             <h2>${question.topic}</h2><br>  
             <table>

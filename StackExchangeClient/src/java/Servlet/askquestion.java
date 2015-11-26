@@ -1,9 +1,9 @@
 package Servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,11 +16,24 @@ public class askquestion extends HttpServlet {
     private QuestionWS_Service service;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = "ica";
-        String topic = request.getParameter("topic");
-        String content = request.getParameter("content");
-        createQuestion(username,topic,content);
-        response.sendRedirect("home");
+        boolean found = false;
+        int i=0;
+        
+        Cookie[] cookies = null;
+        cookies = request.getCookies();
+        if (cookies != null) {
+            while (!found && i < cookies.length){
+                if (cookies[i].getName().equals("tokenCookie")) {
+                    String token = cookies[i].getValue();
+                    String topic = request.getParameter("topic");
+                    String content = request.getParameter("content");
+                    createQuestion(topic,token,content);
+                    found = true;
+                }
+                i++;
+            }
+        }
+        response.sendRedirect("index");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -62,11 +75,11 @@ public class askquestion extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private Boolean createQuestion(java.lang.String username, java.lang.String topic, java.lang.String content) {
+    private Boolean createQuestion(java.lang.String topic, java.lang.String token, java.lang.String content) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         questionmodel.QuestionWS port = service.getQuestionWSPort();
-        return port.createQuestion(username, topic, content);
+        return port.createQuestion(topic, token, content);
     }
 
 }

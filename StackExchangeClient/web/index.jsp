@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,7 @@
                 <c:when test="${username == null}">
                     <div class="login">
                         <h1>Log-in</h1>
-                            <form action="StackExchangeClient/login" method="POST">
+                            <form action="/StackExchangeClient/login" method="POST">
                                 <input type="text" name="user" placeholder="Username">
                                 <input type="password" name="pass" placeholder="Password">
                                 <input type="submit" name="login" value="Login">
@@ -29,7 +29,7 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <p style="text-align:right">You're log in as ${username} <button onclick="window.location.href='index';">Log out</button></p>
+                    <p style="text-align:right">You're log in as ${username} <button onclick="window.location.href='logout';">Log out</button></p>
                 </c:otherwise>
             </c:choose>
             
@@ -39,9 +39,10 @@
 		<input type="text" name="keyword">
 		<input type="submit" value="Search"><br>
             </form>
-            <br><p style="text-align:center">Cannot find what you are looking for? <a href=StackExchangeClient/askquestion.jsp style="color:orange">Ask here</a></p>
+            <br><p style="text-align:center">Cannot find what you are looking for? <a href="/StackExchangeClient/askquestion.jsp" style="color:orange">Ask here</a></p>
             <h3>Recently Asked Questions</h3>
             <table style="table-layout: fixed">
+                
                 <c:forEach items="${result}" var="question">                   
                     <tr style="border-top: 2px solid #000; height: 80px;">
                         <td style="width:10%; text-align:center">
@@ -62,6 +63,7 @@
                         </td>
                     </tr>
                 </c:forEach>
+                    
             </table>
             
         </div>
