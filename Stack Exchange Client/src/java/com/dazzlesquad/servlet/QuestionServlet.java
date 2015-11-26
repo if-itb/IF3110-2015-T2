@@ -12,17 +12,20 @@ import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
+import javax.servlet.annotation.WebServlet;
 
 /**
  *
  * @author zulvafachrina
  */
+@WebServlet(name = "QuestionServlet", urlPatterns="/QuestionServlet")
 public class QuestionServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8083/Stack_Exchange_WS/QuestionWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stack_Exchange_WS/QuestionWS.wsdl")
     private QuestionWS_Service service_1;
 
     /**
@@ -130,4 +133,11 @@ public class QuestionServlet extends HttpServlet {
         QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
         return port.showAllQuestion();
     }    
+
+    private String hello(java.lang.String name) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
+        return port.hello(name);
+    }
 }

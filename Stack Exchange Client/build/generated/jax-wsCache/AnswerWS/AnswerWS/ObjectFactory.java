@@ -24,51 +24,19 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _InsertAnswer_QNAME = new QName("http://answer_package.dazzlesquad.com/", "insertAnswer");
     private final static QName _InsertAnswerResponse_QNAME = new QName("http://answer_package.dazzlesquad.com/", "insertAnswerResponse");
-    private final static QName _DeleteAnswerResponse_QNAME = new QName("http://answer_package.dazzlesquad.com/", "deleteAnswerResponse");
-    private final static QName _DeleteAnswer_QNAME = new QName("http://answer_package.dazzlesquad.com/", "deleteAnswer");
     private final static QName _GetAnswerById_QNAME = new QName("http://answer_package.dazzlesquad.com/", "getAnswerById");
     private final static QName _Answer_QNAME = new QName("http://answer_package.dazzlesquad.com/", "Answer");
-    private final static QName _InsertAnswer_QNAME = new QName("http://answer_package.dazzlesquad.com/", "insertAnswer");
     private final static QName _GetAnswerByIdResponse_QNAME = new QName("http://answer_package.dazzlesquad.com/", "getAnswerByIdResponse");
+    private final static QName _DeleteAnswer_QNAME = new QName("http://answer_package.dazzlesquad.com/", "deleteAnswer");
+    private final static QName _DeleteAnswerResponse_QNAME = new QName("http://answer_package.dazzlesquad.com/", "deleteAnswerResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: AnswerWS
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link InsertAnswer }
-     * 
-     */
-    public InsertAnswer createInsertAnswer() {
-        return new InsertAnswer();
-    }
-
-    /**
-     * Create an instance of {@link Answer }
-     * 
-     */
-    public Answer createAnswer() {
-        return new Answer();
-    }
-
-    /**
-     * Create an instance of {@link GetAnswerByIdResponse }
-     * 
-     */
-    public GetAnswerByIdResponse createGetAnswerByIdResponse() {
-        return new GetAnswerByIdResponse();
-    }
-
-    /**
-     * Create an instance of {@link InsertAnswerResponse }
-     * 
-     */
-    public InsertAnswerResponse createInsertAnswerResponse() {
-        return new InsertAnswerResponse();
     }
 
     /**
@@ -88,11 +56,52 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetAnswerByIdResponse }
+     * 
+     */
+    public GetAnswerByIdResponse createGetAnswerByIdResponse() {
+        return new GetAnswerByIdResponse();
+    }
+
+    /**
+     * Create an instance of {@link Answer }
+     * 
+     */
+    public Answer createAnswer() {
+        return new Answer();
+    }
+
+    /**
      * Create an instance of {@link GetAnswerById }
      * 
      */
     public GetAnswerById createGetAnswerById() {
         return new GetAnswerById();
+    }
+
+    /**
+     * Create an instance of {@link InsertAnswerResponse }
+     * 
+     */
+    public InsertAnswerResponse createInsertAnswerResponse() {
+        return new InsertAnswerResponse();
+    }
+
+    /**
+     * Create an instance of {@link InsertAnswer }
+     * 
+     */
+    public InsertAnswer createInsertAnswer() {
+        return new InsertAnswer();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertAnswer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer_package.dazzlesquad.com/", name = "insertAnswer")
+    public JAXBElement<InsertAnswer> createInsertAnswer(InsertAnswer value) {
+        return new JAXBElement<InsertAnswer>(_InsertAnswer_QNAME, InsertAnswer.class, null, value);
     }
 
     /**
@@ -102,24 +111,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://answer_package.dazzlesquad.com/", name = "insertAnswerResponse")
     public JAXBElement<InsertAnswerResponse> createInsertAnswerResponse(InsertAnswerResponse value) {
         return new JAXBElement<InsertAnswerResponse>(_InsertAnswerResponse_QNAME, InsertAnswerResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteAnswerResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://answer_package.dazzlesquad.com/", name = "deleteAnswerResponse")
-    public JAXBElement<DeleteAnswerResponse> createDeleteAnswerResponse(DeleteAnswerResponse value) {
-        return new JAXBElement<DeleteAnswerResponse>(_DeleteAnswerResponse_QNAME, DeleteAnswerResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteAnswer }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://answer_package.dazzlesquad.com/", name = "deleteAnswer")
-    public JAXBElement<DeleteAnswer> createDeleteAnswer(DeleteAnswer value) {
-        return new JAXBElement<DeleteAnswer>(_DeleteAnswer_QNAME, DeleteAnswer.class, null, value);
     }
 
     /**
@@ -141,21 +132,30 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertAnswer }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://answer_package.dazzlesquad.com/", name = "insertAnswer")
-    public JAXBElement<InsertAnswer> createInsertAnswer(InsertAnswer value) {
-        return new JAXBElement<InsertAnswer>(_InsertAnswer_QNAME, InsertAnswer.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetAnswerByIdResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://answer_package.dazzlesquad.com/", name = "getAnswerByIdResponse")
     public JAXBElement<GetAnswerByIdResponse> createGetAnswerByIdResponse(GetAnswerByIdResponse value) {
         return new JAXBElement<GetAnswerByIdResponse>(_GetAnswerByIdResponse_QNAME, GetAnswerByIdResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteAnswer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer_package.dazzlesquad.com/", name = "deleteAnswer")
+    public JAXBElement<DeleteAnswer> createDeleteAnswer(DeleteAnswer value) {
+        return new JAXBElement<DeleteAnswer>(_DeleteAnswer_QNAME, DeleteAnswer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteAnswerResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer_package.dazzlesquad.com/", name = "deleteAnswerResponse")
+    public JAXBElement<DeleteAnswerResponse> createDeleteAnswerResponse(DeleteAnswerResponse value) {
+        return new JAXBElement<DeleteAnswerResponse>(_DeleteAnswerResponse_QNAME, DeleteAnswerResponse.class, null, value);
     }
 
 }
