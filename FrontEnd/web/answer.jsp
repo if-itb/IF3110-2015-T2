@@ -36,10 +36,9 @@
                      }
                      }
                      }*/
-                    token = request.getParameter("access_token");
+                    token = request.getParameter("token");
                     out.println(token);
                     int qidFromURL = Integer.parseInt(request.getParameter("id"));
-
                     //take the first question
                     try {
                         questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();
@@ -50,11 +49,11 @@
                             out.println("<div>");
                             out.println("<h2>" + result.get(i).getTopic() + "</h2>");
                             out.println("<div class='columnsmall left'>");
-                            out.println("<a href='upQues.jsp?id=" + qidFromURL + "'>");
+                            out.println("<a href='upQues.jsp?id=" + qidFromURL + "&token=" + token + "'>");
                             out.println("<img src='up.png' alt='up' height='42' width='42' >");
                             out.println("</a>");
                             out.println("<p>" + result.get(i).getVotes() + "</p>");
-                            out.println("<a href='downQues.jsp?id=" + qidFromURL + "'>");
+                            out.println("<a href='downQues.jsp?id=" + qidFromURL + "&token=" + token + "'>");
                             out.println("<img src='down.png' alt='up' height='42' width='42' >");
                             out.println("</a>");
                             out.println("</div>");
@@ -84,11 +83,11 @@
                             out.println("<div class='answer'>");
 
                             out.println("<div class='columnsmall left' >");
-                            out.println("<a href='upAns.jsp?id=" + result.get(i).getAnswerID() + "&qid="+qidFromURL+"'>");
+                            out.println("<a href='upAns.jsp?id=" + result.get(i).getAnswerID() + "&qid="+qidFromURL + "&token=" + token + "'>");
                             out.println("<img src='up.png' alt='up' height='42' width='42' >");
                             out.println("</a>");
                             out.println("<p>" + result.get(i).getVotes() + "</p>");
-                            out.println("<a href='downAns.jsp?id=" + result.get(i).getAnswerID()+ "&qid="+qidFromURL+ "'>");
+                            out.println("<a href='downAns.jsp?id=" + result.get(i).getAnswerID()+ "&qid="+qidFromURL + "&token=" + token + "'>");
                             out.println("<img src='down.png' alt='up' height='42' width='42' >");
                             out.println("</a>");
                             out.println("</div>");

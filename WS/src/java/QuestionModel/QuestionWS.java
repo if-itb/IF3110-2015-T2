@@ -210,7 +210,7 @@ public class QuestionWS {
      * Web service operation up vote an answer
      */
     @WebMethod(operationName = "upQuestion")
-    public String upQuestion(@WebParam(name = "qid") int qid) {
+    public String upQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "token") String token) {
         int returnExecution = 0;
         
         String currentEmail = new String("");
@@ -218,22 +218,39 @@ public class QuestionWS {
             Class.forName("com.mysql.jdbc.Driver");
             conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
             Statement stmt = conn.createStatement();
-            String currentAccessToken = "dfcc5e81-8c60-4d90-9b6e-7c6fba3eee55";
+            String currentAccessToken = token;
             String sql;
-            returnExecution = returnExecution + 1;
             PreparedStatement dbStatement;
             //take the email from session asumsi bahwa token selalu bersama email
-            sql = "SELECT email FROM sessions WHERE AccessToken = ?";
             sql = "SELECT Email FROM sessions WHERE AccessToken = ?";
             dbStatement = conn.prepareStatement(sql);
             dbStatement.setString(1, currentAccessToken);
             ResultSet rsEmail = dbStatement.executeQuery();
             //agar index berada di elemen pertama dan get email
             if(rsEmail.next()) {
-                returnExecution = returnExecution + 1;
                 //returnExecution = returnExecution + 1;
                 currentEmail = rsEmail.getString("Email");
-                return currentAccessToken;
+            }
+            
+            //Melakukan pengecekan apakah sudah ada atau belum dalam database
+            sql = "SELECT * FROM upquestion WHERE IDQuestion = ? AND email = ?";
+            dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, qid);
+            dbStatement.setString(2, currentEmail);
+            ResultSet rs = dbStatement.executeQuery();
+            //agar index berada di elemen pertama dan jika belum ada insert terlebih dulu
+            if(!rs.next()){
+                if (!(currentEmail.equals(""))){
+                    //Up the the question table
+                    sql = "INSERT INTO upquestion (Email,IDQuestion,totalVote) VALUES(?,?,0)";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setString(1, currentEmail);
+                    dbStatement.setInt(2, qid);
+                    dbStatement.executeUpdate();
+                } else {
+                    return "0";
+                }
+                
             }
             
             //Melakukan pengecekan apakah sudah pernah di upvote atau tidak
@@ -241,33 +258,32 @@ public class QuestionWS {
             dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, qid);
             dbStatement.setString(2, currentEmail);
-            ResultSet rs = dbStatement.executeQuery();
-            if(rs.next()){
-            //agar index berada di elemen pertama
-            //search apakah sudah pernah dilakukan vote up atau down sebelumnya 
-                returnExecution = returnExecution + 2;
+            rs = dbStatement.executeQuery();
+            
+            if (rs.next()){
                 //jika sudah totalVote == 1 maka dilarang vote up lagi
-                if(rs.getInt("totalVote") == 1){
-                    //do nothing
-                    returnExecution = returnExecution + 3;
+                returnExecution = rs.getInt("totalVote");
+                if(returnExecution == 1){
+                    //do nothing because already upvote
+                    return ("WRONG");
                 } else { //total vote 0 atau -1
+                    //search apakah sudah pernah dilakukan vote up atau down sebelumnya 
                     //Up the the question table
-                    returnExecution = returnExecution + 5;
                     sql = "UPDATE questions SET Votes = Votes + 1 WHERE QuestionID = ?";
                     dbStatement = conn.prepareStatement(sql);
                     dbStatement.setInt(1, qid);
                     dbStatement.executeUpdate();
                     //Up the the relation of email and question in table upquestion
-                    sql = "UPDATE upquestions SET totalVotes = totalVotes+1 WHERE IDQuestion = ? AND email = ?";
+                    sql = "UPDATE upquestion SET totalVote = totalVote+1 WHERE IDQuestion = ? AND email = ?";
                     dbStatement = conn.prepareStatement(sql);
                     dbStatement.setInt(1, qid);
                     dbStatement.setString(2, currentEmail);
                     dbStatement.executeUpdate();
+                    return ("Right");
                 }
             }
-            
-
-            stmt.close();
+          
+            //stmt.close();
         } catch (SQLException ex) {
             //Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex);
@@ -281,28 +297,83 @@ public class QuestionWS {
      * Web service operation down vote an answer
      */
     @WebMethod(operationName = "downQuestion")
-    public int downQuestion(@WebParam(name = "qid") int qid) {
-
-        ArrayList<Answer> answers = new ArrayList<Answer>();
+    public String downQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "token") String token) {
+        int returnExecution = 0;
+        
+        String currentEmail = new String("");
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
             Statement stmt = conn.createStatement();
+            String currentAccessToken = token;
             String sql;
-            //Take the question
-            sql = "UPDATE questions SET Votes=Votes-1 WHERE QuestionID = ?";
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            PreparedStatement dbStatement;
+            //take the email from session asumsi bahwa token selalu bersama email
+            sql = "SELECT Email FROM sessions WHERE AccessToken = ?";
+            dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1, currentAccessToken);
+            ResultSet rsEmail = dbStatement.executeQuery();
+            //agar index berada di elemen pertama dan get email
+            if(rsEmail.next()) {
+                //returnExecution = returnExecution + 1;
+                currentEmail = rsEmail.getString("Email");
+            }
+            
+            //Melakukan pengecekan apakah sudah ada atau belum dalam database
+            sql = "SELECT * FROM upquestion WHERE IDQuestion = ? AND email = ?";
+            dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, qid);
-            dbStatement.executeUpdate();
-
-            stmt.close();
+            dbStatement.setString(2, currentEmail);
+            ResultSet rs = dbStatement.executeQuery();
+            //agar index berada di elemen pertama dan jika belum ada insert terlebih dulu
+            if(!rs.next()){
+            
+                //Up the the question table
+                sql = "INSERT INTO upquestion (Email,IDQuestion,totalVote) VALUES(?,?,0)";
+                dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1, currentEmail);
+                dbStatement.setInt(2, qid);
+                dbStatement.executeUpdate();
+            }
+            
+            //Melakukan pengecekan apakah sudah pernah di upvote atau tidak
+            sql = "SELECT * FROM upquestion WHERE IDQuestion = ? AND email = ?";
+            dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, qid);
+            dbStatement.setString(2, currentEmail);
+            rs = dbStatement.executeQuery();
+            
+            if (rs.next()){
+                //jika sudah totalVote == 1 maka dilarang vote up lagi
+                returnExecution = rs.getInt("totalVote");
+                if(returnExecution == -1){
+                    //do nothing because already upvote
+                    return ("WRONG");
+                } else { //total vote 0 atau -1
+                    //search apakah sudah pernah dilakukan vote up atau down sebelumnya 
+                    //Up the the question table
+                    sql = "UPDATE questions SET Votes = Votes - 1 WHERE QuestionID = ?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, qid);
+                    dbStatement.executeUpdate();
+                    //Up the the relation of email and question in table upquestion
+                    sql = "UPDATE upquestion SET totalVote = totalVote - 1 WHERE IDQuestion = ? AND email = ?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, qid);
+                    dbStatement.setString(2, currentEmail);
+                    dbStatement.executeUpdate();
+                    return ("Right");
+                }
+            }
+          
+            //stmt.close();
         } catch (SQLException ex) {
             //Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return 1;
+        return currentEmail;
     }
 
     /**
