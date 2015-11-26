@@ -243,7 +243,7 @@ public class AnswerWS {
             } 
         } catch (Exception ex){
             ex.printStackTrace();
-
+            message = 11;
         }
         return message;
     }

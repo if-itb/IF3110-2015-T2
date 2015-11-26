@@ -17,6 +17,7 @@
 
         <!-- Compiled and minified JavaScript -->
         
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>    
         <nav class="light-blue lighten-1" role="navigation">
             <div class="nav-wrapper container">
@@ -219,7 +220,7 @@
         </div>
 
         <div class="row">
-            <%out.write("<form class='col s12' name='loginForm' action='createAnswer.jsp?token="+ request.getParameter("token") +"' onsubmit='' method='POST'>");%>
+            <%out.write("<form class='col s12' name='loginForm' action='createAnswer.jsp?id="+ request.getParameter("id")+"&token="+ request.getParameter("token") +"' onsubmit='' method='POST'>");%>
             <%out.write("<input type='hidden' name='question_id' value='"+ request.getParameter("id") +"'>");%>  
             <div class="row">
                 <div class="input-field col s12">

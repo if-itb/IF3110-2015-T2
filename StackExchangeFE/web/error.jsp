@@ -71,6 +71,8 @@
                 out.println("<h2 class='header center orange-text'>Oops! Your session has expired!<br><br></h2><h4 class='center orange-text'>Please login again</h4>");
                 } else if (request.getParameter("id").equals("3")){
                 out.println("<h2 class='header center orange-text'>Oops! You're not authorized to access that!</h4>");
+            } else if (request.getParameter("id").equals("11")){
+                out.println("<h2 class='header center orange-text'>Something went wrong! :( Check the Server Log</h4>");
             }
        
     %>
