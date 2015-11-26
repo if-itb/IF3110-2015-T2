@@ -52,7 +52,7 @@ public class addanswer extends HttpServlet {
                 i++;
             }
         }
-        response.sendRedirect("viewpost?id="+qid);
+        response.sendRedirect("viewpost?qid="+qid);
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

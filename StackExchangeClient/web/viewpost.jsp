@@ -4,7 +4,8 @@
     Author     : Bimo
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language ="java" contentType = "text/html ; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,11 +19,15 @@
             <h1 class="col-md-1"><small><a href"">DOWN</a></small></h1>
         
         <h1 class="col-md-9"><small>${result.getQuestionTopic()}</small></h1>
-        <p class="col-md-4 col-md-offset-3"> ${result.getQuestionContent()}</p>
+        <p class="col-md-8 col-md-offset-3"> ${result.getQuestionContent()}</p>
+        
+        <h2 class="col-md-offset-5">${answers.size()} Answers</h2>
         <div class="col-md-8">  
             <c:forEach items="${answers}" var="answer">
-                ${answer.getAnswerContent()}
-                ${answer.getAnswerId()}<br>
+                <div class="">
+                    <div class="col-md-6 col-md-offset-3">${answer.getAnswerContent()}</div>
+                </div>
+                
             </c:forEach>
          </div>
         <div class="col-md-6 col-md-offset-2">
