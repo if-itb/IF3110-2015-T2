@@ -65,7 +65,7 @@ Author:
             <%= questions.get(i).getDatetime() %>
             <%
                 if (request.getAttribute("userId") != null) {
-                    if (users[i].getIdUser() == (Integer)request.getAttribute("userId")) {
+                    if (u1.getIdUser() == (Integer)request.getAttribute("userId")) {
             %>
             |
             <a class="yellow" href="ask-question.jsp">
@@ -120,7 +120,7 @@ Author:
             <div class="big-number" id="answer-1">
                 <%= answers.get(i).getVoteNum() %>
             </div>
-            <img class="small-icon" src="img/down.png" name="answer-up" onclick="QuestionDetailController?aid=<%= answers.get(i).getIdAnswer()%>&token=<%= request.getParameter("token") %>"/><br>
+              <a href = 'VoteController?name=answer-down&qid=<%= questions.get(i).getIdQuestion()%>&aid=<%= answers.get(i).getIdAnswer()%>&token=<%= request.getParameter("token") %>'><img class="small-icon" src="img/down.png" name="answer-up"/><br></a>
           </div>
           <!-- Answers Content -->
           <div class="right-position">
@@ -165,9 +165,7 @@ Author:
         </form>
       </div>
       <% } else { %>
-      <div class="same-height-row border-bottom">
-          <a href="log-in.jsp">Login</a> or <a href="register.jsp">register</a> to answer this question
-      </div>
+      <a href="log-in.jsp">Login</a> or <a href="register.jsp">register</a> to answer this question
       <% } %>
     </div>
 

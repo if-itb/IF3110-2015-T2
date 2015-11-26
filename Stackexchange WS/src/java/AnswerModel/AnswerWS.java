@@ -68,7 +68,7 @@ public class AnswerWS {
       // Request User ke Identity Service
       String urlString = "http://localhost:8082/Identity_Service/TokenController";
       userId = u.getUserIdByToken(token,urlString);
-      if (u != null) {
+      if (userId != -9999) {
         String sql;
         sql = "INSERT INTO answer (id_question, id_user, content) VALUES (?,?,?)";
         PreparedStatement dbStatement = conn.prepareStatement(sql);
@@ -114,41 +114,48 @@ public class AnswerWS {
   }
 
   @WebMethod(operationName = "voteAnswer")
-  public boolean voteAnswer(@WebParam(name = "aid") int aid, @WebParam(name = "vote") String vote) {
+  public boolean voteAnswer(@WebParam(name = "aid") int aid, @WebParam(name = "vote") String vote, @WebParam(name = "token") String token) {
     boolean isVoted = false;
-    try {
-      Connection conn = db.connectDatabase();
-      Statement stmt = conn.createStatement();
-      String sql;
-      int voteNum=0;
-      sql = "SELECT vote_num FROM answer WHERE id_answer = ?";
-      PreparedStatement dbStatement1 = conn.prepareStatement(sql);
-      dbStatement1.setInt(1, aid);
-      ResultSet rs = dbStatement1.executeQuery();
-      
-      while (rs.next()) {
-        voteNum = rs.getInt("vote_num");
+    int userId = 0;
+    UserWS u = new UserWS();
+    // Request User ke Identity Service
+    String urlString = "http://localhost:8082/Identity_Service/TokenController";
+    userId = u.getUserIdByToken(token,urlString);
+    if (userId > 0) {
+      try {
+        Connection conn = db.connectDatabase();
+        Statement stmt = conn.createStatement();
+        String sql;
+        int voteNum=0;
+        sql = "SELECT vote_num FROM answer WHERE id_answer = ?";
+        PreparedStatement dbStatement1 = conn.prepareStatement(sql);
+        dbStatement1.setInt(1, aid);
+        ResultSet rs = dbStatement1.executeQuery();
+
+        while (rs.next()) {
+          voteNum = rs.getInt("vote_num");
+        }
+
+        if ("up".equals(vote)) {
+          voteNum++;
+        } else {
+          voteNum--;
+        }
+
+        // Mengubah vote number
+        sql = "UPDATE answer SET vote_num = ? WHERE id_answer = ?";
+        PreparedStatement dbStatement2 = conn.prepareStatement(sql);
+        dbStatement2.setInt(1, voteNum);
+        dbStatement2.setInt(2, aid);
+        dbStatement2.executeUpdate();
+        isVoted = true;
+
+        rs.close();
+        stmt.close();
+
+      } catch (SQLException ex) {
+        Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
       }
-      
-      if ("up".equals(vote)) {
-        voteNum++;
-      } else {
-        voteNum--;
-      }
-      
-      // Mengubah vote number
-      sql = "UPDATE answer SET vote_num = ? WHERE id_answer = ?";
-      PreparedStatement dbStatement2 = conn.prepareStatement(sql);
-      dbStatement2.setInt(1, voteNum);
-      dbStatement2.setInt(2, aid);
-      dbStatement2.executeUpdate();
-      isVoted = true;
-      
-      rs.close();
-      stmt.close();
-      
-    } catch (SQLException ex) {
-      Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
     }
     return isVoted;
   }

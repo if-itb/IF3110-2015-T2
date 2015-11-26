@@ -5,18 +5,25 @@
  */
 package controller;
 
+import AnswerWS.AnswerWS_Service;
+import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.WebServiceRef;
 
 /**
  *
  * @author Devina
  */
 public class VoteController extends HttpServlet {
+  @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/QuestionWS.wsdl")
+  private QuestionWS_Service service_1;
+  @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/Stackexchange_WS/AnswerWS.wsdl")
+  private AnswerWS_Service service;
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,9 +38,23 @@ public class VoteController extends HttpServlet {
           throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
     if ("answer-up".contains(request.getParameter("name"))) {
-      //arequest.getServletContext().getRequestDispatcher("QusetionDetailController?qid=" + request.getParameter("qid")).forward(request, response);
-      //response.sendRedirect("QusetionDetailController?qid=" + request.getParameter("qid"));
+      int aid = Integer.parseInt(request.getParameter("aid"));
+      boolean voteSuccess = voteAnswer(aid, "up", request.getParameter("token"));
+      if (voteSuccess) {
+        response.sendRedirect("QuestionDetailController?token=" + request.getParameter("token") + "&qid=" + request.getParameter("qid"));
+      } else {
+        response.sendRedirect("log-in.jsp");
+      }
+    } else if ("answer-down".contains(request.getParameter("name"))) {
+      int aid = Integer.parseInt(request.getParameter("aid"));
+      boolean voteSuccess = voteAnswer(aid, "down", request.getParameter("token"));
+      if (voteSuccess) {
+        response.sendRedirect("QuestionDetailController?token=" + request.getParameter("token") + "&qid=" + request.getParameter("qid"));
+      } else {
+        response.sendRedirect("log-in.jsp");
+      }
     }
+    
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -75,4 +96,10 @@ public class VoteController extends HttpServlet {
     return "Short description";
   }// </editor-fold>
 
+  private boolean voteAnswer(int aid, java.lang.String vote, java.lang.String token) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    AnswerWS.AnswerWS port = service.getAnswerWSPort();
+    return port.voteAnswer(aid, vote, token);
+  }
 }
