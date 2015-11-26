@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.*;
 import java.util.*;
 import java.sql.*;
@@ -31,22 +29,84 @@ public class Login extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    /*protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. 
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Login</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }*/
+      // JDBC driver name and database URL
+      String JDBC_DRIVER="com.mysql.jdbc.Driver";  
+      String DB_URL="jdbc:mysql://localhost:3306/stackexchange";
+    
+      //  Database credentials
+      String USER = "root";
+      String PASS = "";
+      // Set response content type
+      response.setContentType("text/html");
+      /*PrintWriter out = response.getWriter();
+      String title = "Authentication";
+      String docType =
+        "<!doctype html public \"-//w3c//dtd html 4.0 " +
+         "transitional//en\">\n";
+         out.println(docType +
+         "<html>\n" +
+         "<head><title>" + title + "</title></head>\n" +
+         "<body bgcolor=\"#f0f0f0\">\n");*/
+      try{
+         // Register JDBC driver
+         Class.forName("com.mysql.jdbc.Driver");
+
+         // Open a connection
+         Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+         // Execute SQL query
+         Statement stmt = conn.createStatement();
+         String sql;
+         sql = "SELECT COUNT(*) as rowcount from user where Email = '"+request.getParameter("email")+"' and Password = '"+request.getParameter("password")+"'";
+         ResultSet rs = stmt.executeQuery(sql);
+         rs.next();
+        
+         if (rs.getInt("rowcount") != 0){
+            sql = "SELECT UserID from user where Email = '"+request.getParameter("email")+"'";
+            rs = stmt.executeQuery(sql);
+            rs.next();
+            int userid = rs.getInt("UserID");
+            
+            sql = "delete from token where UserID = " + userid;
+            int i = stmt.executeUpdate(sql);
+            
+            String token = "";
+            do {
+                token = generateToken();
+                sql = "SELECT COUNT(*) as rowcount from token where AccessToken = '"+token+"'";
+                rs = stmt.executeQuery(sql);
+                rs.next();
+            } while (rs.getInt("rowcount") != 0);
+            
+            java.util.Date date = new java.util.Date();
+            Timestamp expiredDate = new Timestamp(date.getTime() + (1000*60*60*24));
+            sql = "INSERT INTO token (AccessToken,UserID,ExpiredDate) VALUES ('" + token + "',"+userid+",'"+expiredDate+"')";
+            i = stmt.executeUpdate(sql);
+            if (i > 0){
+                Cookie accessToken = new Cookie("access_token",token);
+                accessToken.setMaxAge(60*60*24);
+                response.addCookie(accessToken);
+                response.setStatus(response.SC_MOVED_TEMPORARILY);
+                response.setHeader("Location", "TokenValidator"); 
+            }
+         }else{
+            response.setStatus(response.SC_MOVED_TEMPORARILY);
+            response.setHeader("Location", "Login"); 
+         }
+         // Clean-up environment
+         rs.close();
+         stmt.close();
+         conn.close();
+      }catch(SQLException se){
+         //Handle errors for JDBC
+         se.printStackTrace();
+      }catch(Exception e){
+         //Handle errors for Class.forName
+         e.printStackTrace();
+      }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -62,66 +122,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      // JDBC driver name and database URL
-      String JDBC_DRIVER="com.mysql.jdbc.Driver";  
-      String DB_URL="jdbc:mysql://localhost:3306/stackexchange";
-    
-      //  Database credentials
-      String USER = "root";
-      String PASS = "";
-      // Set response content type
-      response.setContentType("text/html");
-      PrintWriter out = response.getWriter();
-      String title = "Database Result";
-      String docType =
-        "<!doctype html public \"-//w3c//dtd html 4.0 " +
-         "transitional//en\">\n";
-         out.println(docType +
-         "<html>\n" +
-         "<head><title>" + title + "</title></head>\n" +
-         "<body bgcolor=\"#f0f0f0\">\n" +
-         "<h1 align=\"center\">" + title + "</h1>\n");
-      try{
-         // Register JDBC driver
-         Class.forName("com.mysql.jdbc.Driver");
-
-         // Open a connection
-         Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-
-         // Execute SQL query
-         Statement stmt = conn.createStatement();
-         String sql;
-         sql = "SELECT Email, Password from user";
-         ResultSet rs = stmt.executeQuery(sql);
-         
-         rs.next();
-
-         String email = rs.getString("Email");
-         String password = rs.getString("Password");
-        
-         if (email.equals(request.getParameter("email")) && password.equals(request.getParameter("password"))){
-            out.println("Login Berhasil!");
-         }else{
-            out.println("Login Gagal.");
-         }
-         out.println("</body></html>");
-
-         // Clean-up environment
-         rs.close();
-         stmt.close();
-         conn.close();
-      }catch(SQLException se){
-         //Handle errors for JDBC
-         se.printStackTrace();
-      }catch(Exception e){
-         //Handle errors for Class.forName
-         e.printStackTrace();
-      }/*finally{
-          if(stmt!=null)
-              stmt.close();
-          if(conn!=null)
-              conn.close();
-      } //end try*/
+        processRequest(request, response);
     }
 
     /**
@@ -135,7 +136,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -147,5 +148,19 @@ public class Login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
+    private String generateToken(){
+        String sAlphabet = "abcdefghijklmnopqrstuvwxyz";
+        String CAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String number = "0123456789";
+        String token = "";
+        
+        Random r = new Random();
+        token = token + sAlphabet.charAt(r.nextInt(26));
+        token = token + number.charAt(r.nextInt(10));
+        token = token + number.charAt(r.nextInt(10));
+        token = token + CAlphabet.charAt(r.nextInt(26));
+        
+        return token;
+    }
 }
