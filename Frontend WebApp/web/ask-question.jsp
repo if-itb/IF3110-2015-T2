@@ -27,7 +27,11 @@ Author:
       <div class="subtitle">
         What's your question?
       </div>
-      <form class="right" id="question-form" action="question-detail.jsp" method="post" onsubmit="return answerFormValidation()">
+      <% if (request.getParameter("name") == "ask") { %>
+      <form class="right" id="question-form" action="AskController?token=<%= request.getParameter("token") %>" method="post" onsubmit="return answerFormValidation()">
+      <% } else { %>
+      <form class="right" id="question-form" action="EditController?token=<%= request.getParameter("token") %>&qid=<%= request.getParameter("qid") %>" method="post" onsubmit="return answerFormValidation()">
+      <% } %>
         <input class="full-length" id="question-name" name="question-name" type="text" placeholder="Name">
         <input class="full-length" id="question-email" name="question-email" type="email" placeholder="Email">
         <input class="full-length" id="question-topic" name="question-topic" type="text" placeholder="Question Topic">
