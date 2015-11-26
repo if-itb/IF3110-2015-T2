@@ -27,7 +27,7 @@ Author:
       
     <!-- Title -->
     <div class="title">
-      <a href="IndexController?token=<%= request.getParameter("token") %>">
+      <a href="IndexController?token=123abc">
         StackExchange
       </a>
     </div>
@@ -41,7 +41,7 @@ Author:
         </form>
         <br>
         Cannot find what you are looking for? 
-        <a class="yellow" href="ask-question.jsp">
+        <a class="yellow" href="AskController?token=<%= request.getParameter("token") %>">
           Ask here
         </a>
       </div>
@@ -99,11 +99,11 @@ Author:
                       if (users[i].getIdUser() == (Integer)request.getAttribute("userId")) {
               %>
               |
-              <a class="yellow" href="ask-question.jsp">
+              <a class="yellow" href="EditController?token=<%= request.getParameter("token") %>&qid<%= questions.get(i).getIdQuestion() %>">
                   edit
               </a>
               |
-              <a class="red" href="index.jsp" onclick="return confirm('Do you want to delete this post?')">
+              <a class="red" href="DeleteController?token=<%= request.getParameter("token") %>&qid<%= questions.get(i).getIdQuestion() %>" onclick="return confirm('Do you want to delete this post?')">
                 delete
                 <%
                         }

@@ -63,6 +63,10 @@ Author:
             <%= u1.getName() %>
             at
             <%= questions.get(i).getDatetime() %>
+            <%
+                if (request.getAttribute("userId") != null) {
+                    if (users[i].getIdUser() == (Integer)request.getAttribute("userId")) {
+            %>
             |
             <a class="yellow" href="ask-question.jsp">
               edit
@@ -70,6 +74,10 @@ Author:
             |
             <a class="red" href="index.jsp" onclick="return confirm('Do you want to delete this post?')">
               delete
+              <%
+                        }
+                    }
+                %>
             </a>
             <%
             }

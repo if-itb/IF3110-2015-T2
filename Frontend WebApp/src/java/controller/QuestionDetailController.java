@@ -55,6 +55,13 @@ public class QuestionDetailController extends HttpServlet {
         u2.add(getUserByIdAnswer(answer.getIdAnswer()));
       }
       int count = getCountAnswerByQId(id);
+      
+    // Memperoleh user id berdasarkan token
+    if ((request.getParameter("token") != "not-valid") && (request.getParameter("token") != null)) {
+        int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
+        request.setAttribute("userId", userId);
+    }
+      
       request.setAttribute("questions", questions);
       request.setAttribute("u1", u1);
       request.setAttribute("count", count);
@@ -138,6 +145,13 @@ public class QuestionDetailController extends HttpServlet {
     UserWS.UserWS port = service_2.getUserWSPort();
     return port.getUserByIdQuestion(qid);
   }
+
+    private int getUserByToken(java.lang.String token, java.lang.String urlString) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        UserWS.UserWS port = service_2.getUserWSPort();
+        return port.getUserByToken(token, urlString);
+    }
     
     
 }

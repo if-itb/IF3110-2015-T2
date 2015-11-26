@@ -17,7 +17,7 @@ Author:
   <body>
     <!-- Title -->
     <div class="title">
-      <a href="index.jsp">
+      <a href="IndexController?token=<%= request.getParameter("token") %>">
         StackExchange
       </a>
     </div>

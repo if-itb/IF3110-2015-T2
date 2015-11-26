@@ -68,7 +68,7 @@ public class IndexController extends HttpServlet {
     // Memperoleh user id berdasarkan token
     if ((request.getParameter("token") != "not-valid") && (request.getParameter("token") != null)) {
         int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
-        request.setAttribute("userId", userId);
+        request.setAttribute("userId", 2);
     }
     
     request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
