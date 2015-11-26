@@ -10,10 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<<<<<<< HEAD
         <link rel="StyleSheet" href="style.css" type="text/css">
-=======
->>>>>>> origin/master
         <title>Simple Stack Exchange</title>
     </head>
     <body>

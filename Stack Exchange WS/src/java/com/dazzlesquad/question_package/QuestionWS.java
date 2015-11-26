@@ -217,7 +217,6 @@ public class QuestionWS {
         }
         return editsuccessful;
     }
-<<<<<<< HEAD
     
     @WebMethod(operationName = "countAnswer")
     @WebResult(name="count")
@@ -227,6 +226,3 @@ public class QuestionWS {
         return size;
     }
 }
-=======
-}
->>>>>>> origin/master
