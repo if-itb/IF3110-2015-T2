@@ -120,7 +120,7 @@
             </div>
             <div class="right-align">
                 <a href="http://localhost:8080/stack_exchange_netbeans/EditQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc">Edit</a>
-                <a href="#">Delete</a>
+                <a href="http://localhost:8080/stack_exchange_netbeans/DeleteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc">Delete</a>
             </div> 
           </div>
         </div>

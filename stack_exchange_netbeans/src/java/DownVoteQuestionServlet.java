@@ -1,5 +1,3 @@
-package org.stackexchange.controller;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -60,15 +58,16 @@ public class DownVoteQuestionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String from = request.getParameter("from");
+        String url = request.getServletPath();
+        request.setAttribute("url",url);
         //request.setAttribute("curr",baseURL);
-        if (from.equals("index")){
+        if (url.contains("index")){
             downvote(Long.valueOf(request.getParameter("question_id")),request.getParameter("token"));
-            response.sendRedirect("/stack_exchange_netbeans/index?question_id=" + request.getParameter("question_id") + "&token=" + request.getParameter("token")+ "&from=" +from);
+            response.sendRedirect("/stack_exchange_netbeans/index?question_id=" + request.getParameter("question_id") + "&token=" + request.getParameter("token"));
         }
         else{
             downvote(Long.valueOf(request.getParameter("question_id")),request.getParameter("token"));
-            response.sendRedirect("/stack_exchange_netbeans/question?question_id=" + request.getParameter("question_id") + "&token=" + request.getParameter("token")+ "&from=" +from);
+            response.sendRedirect("/stack_exchange_netbeans/question?question_id=" + request.getParameter("question_id") + "&token=" + request.getParameter("token"));
         }
         processRequest(request, response);
     }

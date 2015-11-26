@@ -130,5 +130,18 @@ public class QuestionWS {
         }
     }
     
+    @WebMethod(operationName = "delete")
+    public boolean delete(@WebParam(name = "id") int id, @WebParam(name = "token") String token) {
+        TokenService tokenService = new TokenService();
+        if (tokenService.isTokenValid(token)) {
+            long userId = tokenService.getUserId(token);
+            QuestionDao questionDao = new QuestionDao();
+
+            questionDao.delete(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
      
 }

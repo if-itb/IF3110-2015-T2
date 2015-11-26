@@ -36,7 +36,7 @@
                 asked by <span class="name"><font color="blue"><c:out value="${question_name}"/></font></span> &lt;<span class="email">TES@GMAIL.COM></span>
                 at <span class="create-date"><c:out value="${question.createdAt}"/></span> |
                 <span class="link_edit"><a class="link_edit" title="Click here to edit" href="http://localhost:8080/stack_exchange_netbeans/EditQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc"">edit</a></span> |
-                <span class="link_delete"><a class="link_delete" title="Click here to delete" href="      " onclick="      ">delete</a></span>
+                <span class="link_delete"><a class="link_delete" title="Click here to delete" href="http://localhost:8080/stack_exchange_netbeans/DeleteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc" onclick="      ">delete</a></span>
             </div>
         </div>
     </div>
