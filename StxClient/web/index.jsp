@@ -4,7 +4,10 @@
     Author     : Fikri-PC
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="Question.QuestionWS"%>
+<%@page import="Question.QuestionWS_Service"%>
+<%@page import="Question.Question"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <%@include file = "include/header.jsp" %>
@@ -24,25 +27,52 @@
                 <div class = "question">
                 <span class = "page-title"><h3>Pertanyaan baru-baru ini</h3></span> <hr>
                 <% for(int i=0; i<10; i++) { %>
-                    <div class="row">
-                    <h2> <a href = view-question.jsp?id=<% out.print(dbq[i].id); %>><% out.print(dbq[i].topic); %></a></h2>
-                    <p> <% out.print(dbq[i].content); %></p>
+                    
+                <% } %>
+                    <%-- start web service invocation --%>
+                <%
+               
+                QuestionWS_Service service = new QuestionWS_Service();
+                QuestionWS port = service.getQuestionWSPort();
+                // TODO process result here
+                java.util.List<Question> result = port.getAllQuestion();
+                for (Question Q : result) { %>
+
+                     <div class="row">
+                    <h2> <a href = view-question.jsp?id=<% out.print(Q.getId()); %>><% out.print(Q.getTopic()); %></a></h2>
+                    <p> <% out.print(Q.getContent()); %></p>
                     <br>
                     <div class="col vote in-numbers">
                         <div class = "flag">Vote</div>
-                        <div class = "number"> <% out.print(dbq[i].vote); %></div>
+                        <div class = "number"> <% out.print(Q.getVote()); %></div>
                     </div>
                     <div class = "col answers in-numbers">
-                        <div class = "flag">Jawaban</div> <div class = "number">2</div>
+                        <div class = "flag">Jawaban</div> <div class = "number"> <%    
+                        try {
+                            QuestionWS_Service service3 = new QuestionWS_Service();
+                            QuestionWS port3 = service3.getQuestionWSPort();
+                             // TODO initialize WS operation arguments here
+                           
+                            // TODO process result here
+                            int result3 = port3.getNumAnswer(Q.getId());
+                            out.println(result3);
+                        } catch (Exception ex) {
+                            // TODO handle custom exceptions here
+                        }
+                     %></div>
                     </div>
                     <div class = "controls" align = "right">
-                        Ditanyakan oleh <span class="name"><% out.print(dbq[i].name); %></span> |
-                        <span class="link edit"> <a href= "question.jsp?id=<% out.print(dbq[i].id); %>">Edit</a> </span> | 
-                                                <span class="link delete"> <a href= "javascript:delete_question(<% out.print(dbq[i].id); %>)" >Delete</a></span>
-                                        </div>
-                                </div>
-                                <br><hr>
+                        Ditanyakan oleh <span class="name"><% out.print(Q.getName()); %></span> |
+                        <span class="link edit"> <a href= "question.jsp?id=<% out.print(Q.getId()); %>">Edit</a> </span> | 
+                        <span class="link delete"> <a href= "javascript:delete_question(<% out.print(Q.getId()); %>)" >Delete</a></span>
+                    </div>
+                </div>
+                <br><hr>
+               
                 <% } %>
+                <%-- end web service invocation --%><hr/>
+
+                
                 </div>
         </div>
 <%@include file="include/footer.jsp" %>

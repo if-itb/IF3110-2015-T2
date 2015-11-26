@@ -11,23 +11,26 @@
         <%
             String sid = request.getParameter("id");
             if(sid != null){
-                String name, email, topic, content;
-                int id = Integer.parseInt(sid);
-                for(int i = 0; i<10; i++){
-                    if(dbq[i].id == id){
-                        name = dbq[i].name;
-                        email = dbq[i].email;
-                        topic = dbq[i].topic;
-                        content = dbq[i].content;
-                    }
-                }
         %>
+           
+        <%
+        
+            Question.QuestionWS_Service service = new Question.QuestionWS_Service();
+            Question.QuestionWS port = service.getQuestionWSPort();
+             // TODO initialize WS operation arguments here
+            
+             int id = Integer.parseInt(sid);
+            // TODO process result here
+            Question.Question Q = port.getQuestionById(id);
+       
+        %>
+        
         <form class="block" action = 'actions/post.jsp?id=<% out.print(id); %>' name = "myForm" method = 'POST' onsubmit = "return(validateQuestion());">
                 <ul>
-                        <input type = 'text' name = 'Nama' placeholder="Nama" value = "<% out.print(dbq[id].name); %>" maxlength = '60'></input>
-                        <input type = 'text' name = 'Email' placeholder="Email" value = "<% out.print(dbq[id].email); %>" maxlength = '60'></input>
-                        <input type = 'text' name = 'Topik' placeholder="Topik" value = "<% out.print(dbq[id].topic); %>" maxlength = '140'></input>
-                        <textarea rows = '100' cols = '100' placeholder="Konten" name = 'Konten' ><% out.print(dbq[id].content); %></textarea>
+                        <input type = 'text' name = 'Nama' placeholder="Nama" value = "<% out.print(Q.getName()); %>" maxlength = '60'></input>
+                        <input type = 'text' name = 'Email' placeholder="Email" value = "<% out.print(Q.getEmail()); %>" maxlength = '60'></input>
+                        <input type = 'text' name = 'Topik' placeholder="Topik" value = "<% out.print(Q.getTopic()); %>" maxlength = '140'></input>
+                        <textarea rows = '100' cols = '100' placeholder="Konten" name = 'Konten' ><% out.print(Q.getContent()); %></textarea>
                         <input type = 'submit' value = "Update"></input>
                 </ul>
         </form>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package QestionOperation;
+package QuestionOperation;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -59,11 +59,12 @@ public class QuestionWS {
         }
         return Questions;
     }
-     @WebMethod(operationName = "getQuestionById")
+    
+    @WebMethod(operationName = "getQuestionById")
     @WebResult(name = "Question")
-    public java.util.ArrayList<Question> getQuestionById(@WebParam(name = "qid") int qid) throws Exception {
+    public Question getQuestionById(@WebParam(name = "qid") int qid) throws Exception {
         //TODO write your implementation code here:
-        ArrayList <Question> Questions  = new ArrayList<Question>();
+        Question Q = new Question();
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -87,7 +88,7 @@ public class QuestionWS {
                     String content = rs.getString("content");
                     int vote = rs.getInt("vote");
 
-                    Questions.add(new Question(id, name, email, topic, content,vote));
+                   Q = new Question(id, name, email, topic, content,vote);
                 }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
           throw e;
@@ -95,8 +96,9 @@ public class QuestionWS {
           if(rs!= null) rs.close();
           if(ps!= null) ps.close();
         }
-        return Questions;
+        return Q;
     }
+    
     /**
      * Web service operation
      */
@@ -128,7 +130,7 @@ public class QuestionWS {
                 String topic = rs.getString("topic");
                 String content = rs.getString("content");
                 int vote = rs.getInt("vote");
-
+                
                 Questions.add(new Question(id, name, email, topic, content,vote));
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {

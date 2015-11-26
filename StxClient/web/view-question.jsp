@@ -4,6 +4,9 @@
     Author     : Fikri-PC
 --%>
 
+<%@page import="Question.QuestionWS"%>
+<%@page import="Question.QuestionWS_Service"%>
+<%@page import="Question.Question"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -14,23 +17,31 @@
 %>
 <div id="view-qeustion-page">
 <!-- pertanyaan-->
+    <%
+	QuestionWS_Service service = new QuestionWS_Service();
+	QuestionWS port = service.getQuestionWSPort();
+	 // TODO initialize WS operation arguments here
+	
+	// TODO process result here
+	Question Q = port.getQuestionById(id);
+    %>
 	<div class="section">	
-		<h2><% out.print(dbq[id].topic);%></h2>
+		<h2><% out.print(Q.getTopic());%></h2>
 		<div class="row">
 			<div class="col vote">
 				<div class = "vote-btn">
 				<button type="button" onclick=""><i class="fa fa-chevron-up"></i></button>
-				<p class = "number-vote" id=""><% out.print(dbq[id].vote);%></p>
+				<p class = "number-vote" id=""><% out.print(Q.getVote());%></p>
 				<button type="button" onclick=""><i class="fa fa-chevron-down"></i></button>
 				</div>
 			</div>
 			<div class="col content">
-				<p><% out.print(dbq[id].content);%></p>
+				<p><% out.print(Q.getContent());%></p>
 				<br>
 			</div>
 		</div>
 		<div class = "row info" align = "right">
-			Ditanyakan oleh <span class="name"><% out.print(dbq[id].email);%></span> |
+			Ditanyakan oleh <span class="name"><% out.print(Q.getName());%></span> |
 			<span class="link edit"> <a href= "question.jsp?id=<%out.print(id);%>">Edit</a> </span> | 
 			<span class="link delete"> <a href= "javascript:delete_question(<% out.print(id);%>)" >Delete</a></span>
 		</div>
@@ -38,33 +49,51 @@
 	</div>
 <!-- Jawaban --> 
 	<div class="section" id="answers">
-		<h2>
-                    <% /*
-                <?php echo $row2['numAns']; ?> Jawaban</h2> <hr>
-		<?php
-			$query = "select * from answer where q_id = '".$q_id."' order by id";
-			$data = mysql_query($query);
-		?>
-		<?php while($row3 = mysql_fetch_array($data)): ?> */
+		<%
+                try {
+                    QuestionWS_Service service1 = new QuestionWS_Service();
+                    QuestionWS port1 = service1.getQuestionWSPort();
+                     // TODO initialize WS operation arguments here
+                    
+                    // TODO process result here
+                    int result1 = port1.getNumAnswer(id);
+                    out.println("<h2>"+result1+ " Jawaban </h2>");
+                } catch (Exception ex) {
+                    // TODO handle custom exceptions here
+                }
                 %>
-			<div class = "row">
+                    <%-- start web service invocation --%><hr/>
+                <%
+                    Answer.AnswerWS_Service service2 = new Answer.AnswerWS_Service();
+                    Answer.AnswerWS port2 = service2.getAnswerWSPort();
+                     // TODO initialize WS operation arguments here
+                    int qId = id;
+                    // TODO process result here
+                    java.util.List<Answer.Answer> result2 = port2.getAnswers(qId);
+                   
+                %>
+                <%-- end web service invocation --%><hr/>
+                <%
+                    for(Answer.Answer Ans : result2) {
+                %>
+                    <div class = "row">
 				<div class = "col vote">
 					<button type="button" id = "vote-btn" onclick=""><i class="fa fa-chevron-up"></i></button>
-					<p class = "number-vote" id=""><% out.print(dba[id].vote);%></p>
+					<p class = "number-vote" id=""><% out.print(Ans.getAnsVote());%></p>
 					<button type="button" id = "vote-btn" onclick=""><i class="fa fa-chevron-down"></i></button>
 				</div>
 				<div class = "col content">
-					<p> <% out.print(dba[id].content);%></p>
+					<p> <% out.print(Ans.getAnsContent());%></p>
 					<br>
 				</div>
 				<div class = "row info" align = "right">
 
-					<p>Dijawab oleh <span class = "name"><% out.print(dba[id].email);%></span> </p>
+					<p>Dijawab oleh <span class = "name"><% out.print(Ans.getAnsEmail());%></span> </p>
 
 				</div>
 				<hr>
 			</div>
-		<% /* <?php endwhile; ?> */ %>
+		<% } %>
 	</div>
 
 <!-- Form untuk menjawab-->

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8081/StxWS1/AnswerWS?wsdl" uri="wsdl/localhost_8081/StxWS1/AnswerWS.wsdl"/>
+    <system systemId="http://localhost:8081/StxWS1/AnswerWS?xsd=1" uri="wsdl/localhost_8081/StxWS1/AnswerWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8081/StxWS1/QuestionWS?wsdl" uri="wsdl/localhost_8081/StxWS1/QuestionWS.wsdl"/>
+    <system systemId="http://localhost:8081/StxWS1/QuestionWS?xsd=1" uri="wsdl/localhost_8081/StxWS1/QuestionWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8081/StxWS1/userWS?wsdl" uri="wsdl/localhost_8081/StxWS1/userWS.wsdl"/>
+    <system systemId="http://localhost:8081/StxWS1/userWS?xsd=1" uri="wsdl/localhost_8081/StxWS1/userWS.xsd_1.xsd"/>
+</catalog>
