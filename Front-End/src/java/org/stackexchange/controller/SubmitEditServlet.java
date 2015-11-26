@@ -9,6 +9,7 @@ import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +19,8 @@ import javax.xml.ws.WebServiceRef;
  *
  * @author user
  */
-public class CreateQuestionServlet extends HttpServlet {
+@WebServlet(name = "SubmitEditServlet", urlPatterns = {"/submitEdit"})
+public class SubmitEditServlet extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchangeWS/QuestionWS.wsdl")
     private QuestionWS_Service service;
 
@@ -39,10 +41,10 @@ public class CreateQuestionServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateQuestionServlet</title>");            
+            out.println("<title>Servlet SubmitEditServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateQuestionServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SubmitEditServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,11 +76,11 @@ public class CreateQuestionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        int qid = Integer.parseInt(request.getParameter("qid"));
         String token = request.getParameter("token");
         String topic = request.getParameter("topic");
         String content = request.getParameter("content");
-        createQuestion(token, topic, content);
+        updateQuestion(qid, topic, content, token);
         processRequest(request, response);
     }
 
@@ -92,13 +94,11 @@ public class CreateQuestionServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int createQuestion(java.lang.String token, java.lang.String topic, java.lang.String content) {
+    private int updateQuestion(int qid, java.lang.String topic, java.lang.String content, java.lang.String token) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.createQuestion(token, topic, content);
+        return port.updateQuestion(qid, topic, content, token);
     }
-
-    
 
 }

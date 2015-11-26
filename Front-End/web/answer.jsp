@@ -23,7 +23,7 @@
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="index.jsp" class="brand-logo">StackExchange</a>
+      <a id="logo-container" href="index" class="brand-logo">StackExchange</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="about.jsp">About Us</a></li>
         <li><a href="login.jsp">Log In</a></li>
@@ -56,9 +56,9 @@
               <p><%= question.getContent() %></p>
             </div>
             <div class="card-action">
-              <p class="orange-text text-lighten-1 right">Asked by <%= question.getUserid() %> at <%= question.getTimestamp() %></p>
-              <a href="">Edit</a>
-              <a href="delete?qid=<%= question.getQuestionid() %>&uid=<%= question.getUserid() %>">Delete</a>
+              <p class="orange-text text-lighten-1 right">Asked by <%= question.getUsername() %> at <%= question.getTimestamp() %></p>
+              <a href="editQuestion?qid=<%= question.getQuestionid() %>&token=1">Edit</a>
+              <a href="delete?qid=<%= question.getQuestionid() %>&token=1">Delete</a>
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@
               <p><%= answer.getContent() %></p>
             </div>
             <div class="card-action">
-              <p class="orange-text text-lighten-1 right">Answered by <%= answer.getUserid() %> at <%= answer.getTimestamp() %></p>
+              <p class="orange-text text-lighten-1 right">Answered by <%= answer.getUsername() %> at <%= answer.getTimestamp() %></p>
             </div>
           </div>
         </div>
@@ -94,7 +94,7 @@
  
   <form action="submitAnswer" method="post">
   <input name="qid" type="hidden" value="<%= question.getQuestionid() %>">
-  <input name="uid" type="hidden" value="0">
+  <input name="token" type="hidden" value="1">
   <div class="container">
     <div class="section">
         <h2 class="header center blue-text text-darken-4">Your Answer</h2>

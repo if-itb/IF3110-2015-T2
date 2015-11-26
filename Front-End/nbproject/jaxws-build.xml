@@ -28,7 +28,7 @@
     </target>
     <target name="wsimport-client-QuestionWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/QuestionWS"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/QuestionWS" destdir="${build.generated.dir}/jax-wsCache/QuestionWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/QuestionWS/wsdl/localhost_8080/StackExchangeWS/QuestionWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/StackExchangeWS/QuestionWS?wsdl" xnocompile="true" xendorsed="true" package="QuestionWS">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/QuestionWS" destdir="${build.generated.dir}/jax-wsCache/QuestionWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/QuestionWS/wsdl/localhost_8080/StackExchangeWS/QuestionWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8081/StackExchangeWS/QuestionWS?wsdl" xnocompile="true" xendorsed="true" package="QuestionWS">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/QuestionWS/wsdl/localhost_8080/StackExchangeWS/QuestionWS.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/QuestionWS"/>
         </wsimport>
@@ -44,7 +44,7 @@
     </target>
     <target name="wsimport-client-UserWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/UserWS"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/UserWS" destdir="${build.generated.dir}/jax-wsCache/UserWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/UserWS/wsdl/localhost_8080/StackExchangeWS/UserWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/StackExchangeWS/UserWS?wsdl" xnocompile="true" xendorsed="true" package="UserWS">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/UserWS" destdir="${build.generated.dir}/jax-wsCache/UserWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/UserWS/wsdl/localhost_8080/StackExchangeWS/UserWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8081/StackExchangeWS/UserWS?wsdl" xnocompile="true" xendorsed="true" package="UserWS">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/UserWS/wsdl/localhost_8080/StackExchangeWS/UserWS.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/UserWS"/>
         </wsimport>
@@ -60,7 +60,7 @@
     </target>
     <target name="wsimport-client-AnswerWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AnswerWS"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AnswerWS" destdir="${build.generated.dir}/jax-wsCache/AnswerWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/AnswerWS/wsdl/localhost_8080/StackExchangeWS/AnswerWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/StackExchangeWS/AnswerWS?wsdl" xnocompile="true" xendorsed="true" package="AnswerWS">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AnswerWS" destdir="${build.generated.dir}/jax-wsCache/AnswerWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/AnswerWS/wsdl/localhost_8080/StackExchangeWS/AnswerWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8081/StackExchangeWS/AnswerWS?wsdl" xnocompile="true" xendorsed="true" package="AnswerWS">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/AnswerWS/wsdl/localhost_8080/StackExchangeWS/AnswerWS.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/AnswerWS"/>
         </wsimport>

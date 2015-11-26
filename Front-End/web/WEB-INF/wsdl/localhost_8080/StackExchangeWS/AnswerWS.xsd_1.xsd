@@ -16,7 +16,7 @@
 
 <xs:complexType name="createAnswer">
 <xs:sequence>
-<xs:element name="uid" type="xs:int"/>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
 <xs:element name="qid" type="xs:int"/>
 <xs:element name="content" type="xs:string" minOccurs="0"/>
 </xs:sequence>
@@ -57,7 +57,7 @@
 <xs:sequence>
 <xs:element name="answerid" type="xs:int"/>
 <xs:element name="questionid" type="xs:int"/>
-<xs:element name="userid" type="xs:int"/>
+<xs:element name="username" type="xs:string"/>
 <xs:element name="content" type="xs:string"/>
 <xs:element name="vote" type="xs:int"/>
 <xs:element name="timestamp" type="xs:string"/>

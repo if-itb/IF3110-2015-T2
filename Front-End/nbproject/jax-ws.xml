@@ -22,7 +22,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8080/StackExchangeWS/QuestionWS?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:8081/StackExchangeWS/QuestionWS?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -58,7 +58,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8080/StackExchangeWS/UserWS?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:8081/StackExchangeWS/UserWS?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -94,7 +94,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8080/StackExchangeWS/AnswerWS?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:8081/StackExchangeWS/AnswerWS?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>

@@ -98,11 +98,10 @@ public class AnswerServlet extends HttpServlet {
         return port.getQuestionByQID(qid);
     }
 
-    private List<Answer> getAnswerByQID(int qid) {
+    private java.util.List<AnswerWS.Answer> getAnswerByQID(int qid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
         return port.getAnswerByQID(qid);
     }
-
 }

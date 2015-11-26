@@ -20,7 +20,7 @@
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="index.jsp" class="brand-logo">StackExchange</a>
+      <a id="logo-container" href="index" class="brand-logo">StackExchange</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="about.jsp">About Us</a></li>
         <li><a href="login.jsp">Log In</a></li>
@@ -43,7 +43,7 @@
   </div>
 
   <form action="submitQuestion" method="post">  
-  <input name="uid" type="hidden" value="0">
+  <input name="token" type="hidden" value="1">
   <div class="container">
     <div class="section">
         <h2 class="header center blue-text text-darken-4">Question</h2>        

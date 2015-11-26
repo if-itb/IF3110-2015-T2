@@ -50,8 +50,8 @@ public class DeleteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
         int qid = Integer.parseInt(request.getParameter("qid"));
-        int uid = Integer.parseInt(request.getParameter("uid"));
-        deleteQuestion(qid,uid);
+        String token = request.getParameter("token");
+        deleteQuestion(qid,token);
         processRequest(request, response);
     }
 
@@ -79,11 +79,10 @@ public class DeleteServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int deleteQuestion(int qid, int uid) {
+    private int deleteQuestion(int qid, java.lang.String token) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.deleteQuestion(qid, uid);
+        return port.deleteQuestion(qid, token);
     }
-
 }

@@ -5,7 +5,7 @@
  */
 package org.stackexchange.controller;
 
-import QuestionWS.QuestionWS_Service;
+import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,9 +18,9 @@ import javax.xml.ws.WebServiceRef;
  *
  * @author user
  */
-public class CreateQuestionServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchangeWS/QuestionWS.wsdl")
-    private QuestionWS_Service service;
+public class RegisterServlet extends HttpServlet {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchangeWS/UserWS.wsdl")
+    private UserWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +39,10 @@ public class CreateQuestionServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateQuestionServlet</title>");            
+            out.println("<title>Servlet RegisterServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateQuestionServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RegisterServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -75,10 +75,10 @@ public class CreateQuestionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String token = request.getParameter("token");
-        String topic = request.getParameter("topic");
-        String content = request.getParameter("content");
-        createQuestion(token, topic, content);
+        String name = request.getParameter("first_name") + " " + request.getParameter("last_name");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        createUser(name, email, password);
         processRequest(request, response);
     }
 
@@ -92,13 +92,11 @@ public class CreateQuestionServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int createQuestion(java.lang.String token, java.lang.String topic, java.lang.String content) {
+    private int createUser(java.lang.String name, java.lang.String email, java.lang.String password) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.createQuestion(token, topic, content);
+        UserWS.UserWS port = service.getUserWSPort();
+        return port.createUser(name, email, password);
     }
-
-    
 
 }

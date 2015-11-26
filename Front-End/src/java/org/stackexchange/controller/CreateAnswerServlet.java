@@ -74,10 +74,10 @@ public class CreateAnswerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int uid = Integer.parseInt(request.getParameter("uid"));
+        String token = request.getParameter("token");
         int qid = Integer.parseInt(request.getParameter("qid"));
         String content = request.getParameter("content");
-        createAnswer(uid, qid, content);
+        createAnswer(token, qid, content);
         processRequest(request, response);
     }
 
@@ -91,11 +91,10 @@ public class CreateAnswerServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int createAnswer(int uid, int qid, java.lang.String content) {
+    private int createAnswer(java.lang.String token, int qid, java.lang.String content) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         AnswerWS.AnswerWS port = service.getAnswerWSPort();
-        return port.createAnswer(uid, qid, content);
+        return port.createAnswer(token, qid, content);
     }
-
 }

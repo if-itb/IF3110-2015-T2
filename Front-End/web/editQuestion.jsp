@@ -1,10 +1,13 @@
 <%-- 
-    Document   : register.jsp
-    Created on : Nov 17, 2015, 2:10:26 PM
+    Document   : addQuestion.jsp
+    Created on : Nov 17, 2015, 1:40:13 PM
     Author     : Vincent
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@ page import="QuestionWS.Question" %>
+<%@ page import="java.util.List" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +27,7 @@
       <ul class="right hide-on-med-and-down">
         <li><a href="about.jsp">About Us</a></li>
         <li><a href="login.jsp">Log In</a></li>
-        <li class="active"><a href="register.jsp">Sign Up</a></li>
+        <li><a href="register.jsp">Sign Up</a></li>
       </ul>
     </div>
   </nav>
@@ -35,43 +38,38 @@
         <br><br>
         <h1 class="header center white-text">StackExchange</h1>
         <div class="row center">
-          <h5 class="header col s12 light">Register your account</h5>
+          <h5 class="header col s12 light">Edit Your Question</h5>
         </div>
       </div>
     </div>
     <div class="parallax"><img src="images/background1.jpg" alt="Unsplashed background img 1"></div>
   </div>
-
-  <form method="post" action="register">
+  
+  <% Question question = (Question)request.getAttribute("question");%>
+  <form action="submitEdit" method="post">  
+  <input name="token" type="hidden" value="1">
+  <input name="qid" type ="hidden" value="<%= question.getQuestionid() %>">
   <div class="container">
     <div class="section">
-        <h2 class="header center blue-text text-darken-4">Register</h2>
+        <h2 class="header center blue-text text-darken-4">Question</h2>        
           <div class="row">
             <div class="col s12">
               <div class="row">
-                <div class="input-field col s6">
-                  <input name="first_name" type="text" class="validate">
-                  <label for="first_name">First Name</label>
-                </div>
-                <div class="input-field col s6">
-                  <input name="last_name" type="text" class="validate">
-                  <label for="last_name">Last Name</label>
-                </div>
-              </div>
-              <div class="row">
                 <div class="input-field col s12">
-                  <input name="email" type="email" class="validate">
-                  <label for="email">Email</label>
+                  <input name="topic" type="text" class="validate" value="<%= question.getTopic() %>">
+                  <label for="topic">Question Topic</label>
                 </div>
               </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input name="password" type="password" class="validate">
-                  <label for="password">Password</label>
+                <div class="row">
+                  <div class="col s12">
+                      <div class="input-field col s12">
+                        <textarea name="content" class="materialize-textarea"><%= question.getContent() %></textarea>
+                        <label for="content">Content</label>
+                      </div>
+                  </div>
                 </div>
-              </div>
             </div>
-          </div>
+          </div>              
         <br>
     </div>
   </div>
@@ -79,13 +77,13 @@
   <div class="container">
     <div class="section">
         <div class="row right">
-          <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action">Submit
+          <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action">Post
             <i class="material-icons right">send</i>
           </button>
         </div>
     </div>
   </div>
-  </form>
+</form>
   <br><br><br><br>
 
   <footer class="page-footer black">
