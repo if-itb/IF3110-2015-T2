@@ -44,6 +44,10 @@
         <servlet-name>VoteController</servlet-name>
         <servlet-class>controllers.VoteController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchController</servlet-name>
+        <servlet-class>controllers.SearchController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>QuestionController</servlet-name>
         <url-pattern>/QuestionController</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>VoteController</servlet-name>
         <url-pattern>/vote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchController</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

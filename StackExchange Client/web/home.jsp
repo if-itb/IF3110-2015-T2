@@ -11,9 +11,9 @@
 	<div class="container">
             <div class="center">
                     <div id="search">
-                            <form action="search.jsp" method="GET">
+                            <form action="search" method="GET">
                                     <fieldset class="clearfix">
-                                            <input type="search" name="search" placeholder="Type your search-keywords here...">
+                                            <input type="search" name="keyword" placeholder="Type your search-keywords here...">
                                             <input type="submit" value="Search" class="button">
                                     </fieldset>
                             </form>
