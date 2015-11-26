@@ -2,6 +2,7 @@ package com.yangnormal.sstackex.ws;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.jws.WebService;
 import com.yangnormal.sstackex.ws.classes.*;
 import org.json.*;
@@ -15,17 +16,16 @@ public class WebServiceImpl implements WebServiceInterface{
     final String USER="root";
     final String PASS="";
 
-    public int checkToken(int uid, String token) throws Exception{
-        int status = 0;
+    public int checkToken(String token) throws Exception{
+        int status = 1;
         HttpConnection http = new HttpConnection();
-        JSONObject obj = new JSONObject(http.sendGet("http://localhost:8083/v1/check?token="+token+"&uid="+uid));
-        System.out.println(obj.get("status").toString());
-        return (int)obj.get("status");
+        JSONObject obj = new JSONObject(http.sendGet("http://localhost:8083/v1/check?token="+token));
+        return Integer.parseInt((String)obj.get("uid"));
     }
 
     @Override
     public int register(String name, String email, String password) {
-        int status = 0;
+        int status = 1;
         Connection conn = null;
         Statement stmt = null;
         Statement stmt2 = null;
@@ -37,8 +37,6 @@ public class WebServiceImpl implements WebServiceInterface{
             // Query
             String check= "SELECT COUNT(id) as cnt FROM user WHERE email = '"+email+"'";
             String query = "INSERT INTO user (fullname, email, password) " + "VALUES ('"+name+"','"+email+"',"+"MD5('"+password+"'))";
-            System.out.println(query);
-            System.out.println(check);
             stmt = conn.createStatement();
             stmt2 = conn.createStatement();
             ResultSet c = stmt2.executeQuery(check);
@@ -67,85 +65,124 @@ public class WebServiceImpl implements WebServiceInterface{
     }
 
     @Override
-    public int postQuestion(int uid, String token, String title, String content) throws Exception{
-        if (checkToken(uid, token) == 1){
-            Connection conn = null;
-            Statement stmt = null;
-            try{
-                // Register JDBC driver
-                Class.forName("com.mysql.jdbc.Driver");
-                // Open a connection
-                conn = DriverManager.getConnection(DB_URL,USER,PASS);
-                // Query
-                String query = "INSERT INTO question (vote, topic, content, date, uid) VALUES (0,'"+title+"','"+content+"',CURRENT_TIMESTAMP,"+uid+")";
-                stmt = conn.createStatement();
-                // Result Set
-                stmt.executeUpdate(query);
+    public int postQuestion(String token, String title, String content) throws Exception{
+
+        Connection conn = null;
+        Statement stmt = null;
+        int uid=-1;
+        try{
+            // Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Open a connection
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            // Query
+            String query = "SELECT uid FROM token WHERE token= '"+token+"'";
+            stmt = conn.createStatement();
+            // Result Set
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()){
+                uid=rs.getInt("uid");
             }
-            catch (SQLException se){
-                se.printStackTrace();
-                System.out.println("SQL post question Error");
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
+            query = "INSERT INTO question (vote, topic, content, date, uid) VALUES (0,'"+title+"','"+content+"',CURRENT_TIMESTAMP,"+uid+")";
+            stmt = conn.createStatement();
+            // Result Set
+            stmt.executeUpdate(query);
         }
-        System.out.println(checkToken(uid, token));
-        return (checkToken(uid, token));
+        catch (SQLException se){
+            se.printStackTrace();
+            System.out.println("SQL post question Error");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return 1;
     }
 
     @Override
-    public int postAnswer(int qid, int uid, String token, String content) throws Exception{
-        if (checkToken(uid, token) == 1){
-            Connection conn = null;
-            Statement stmt = null;
-            try{
-                // Register JDBC driver
-                Class.forName("com.mysql.jdbc.Driver");
-                // Open a connection
-                conn = DriverManager.getConnection(DB_URL,USER,PASS);
-                // Query
-                String query = "INSERT INTO answer (vote, content, date, uid, qid) VALUES (0,'"+content+"',CURRENT_TIMESTAMP,"+uid+","+qid+")";
-                stmt = conn.createStatement();
-                // Result Set
-                stmt.executeUpdate(query);
+    public int postAnswer(int qid, String token, String content) throws Exception{
+
+        Connection conn = null;
+        Statement stmt = null;
+        int uid=-1;
+        try{
+            // Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Open a connection
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            // Query
+            String query = "SELECT uid FROM token WHERE token= '"+token+"'";
+            stmt = conn.createStatement();
+            // Result Set
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()){
+                uid=rs.getInt("uid");
             }
-            catch (SQLException se){
-                se.printStackTrace();
-                System.out.println("SQL post answer Error");
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
+            query = "INSERT INTO answer (vote, content, date, uid, qid) VALUES (0,'"+content+"',CURRENT_TIMESTAMP,"+uid+","+qid+")";
+            stmt = conn.createStatement();
+            // Result Set
+            stmt.executeUpdate(query);
         }
-        return (checkToken(uid, token));
+        catch (SQLException se){
+            se.printStackTrace();
+            System.out.println("SQL post answer Error");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return 1;
     }
 
+
     @Override
-    public int deleteQuestion(int qid, int uid, String token) throws Exception{
-        if (checkToken(uid, token) == 1){
-            Connection conn = null;
-            Statement stmt = null;
-            try{
-                // Register JDBC driver
-                Class.forName("com.mysql.jdbc.Driver");
-                // Open a connection
-                conn = DriverManager.getConnection(DB_URL,USER,PASS);
-                // Query
-                String query = "DELETE from question WHERE id="+qid;
+    public int deleteQuestion(int qid, String token) throws Exception{
+        Connection conn = null;
+        Statement stmt = null;
+        int uid=-1;
+        int status=0;
+        try {
+            // Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Open a connection
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            // Query
+            // Cari user yang memiliki hak akses untuk question ini
+            String query = "SELECT uid FROM question WHERE id= " + qid;
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                uid = rs.getInt("uid");
+            }
+            // Cari waktu expired token
+            query = "SELECT expired FROM token WHERE token= '"+token+"'";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+            Date expired = null;
+            while (rs.next()) {
+                expired = rs.getDate("expired");
+            }
+            java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); //Waktu sekarang
+            if (checkToken(token) != uid) { //ini berarti tokennya bukan punya yang punya question ini
+                status = 0;
+            } else if (date.after(expired)) { //kalo expired, kasih status -1
+                status = -1;
+            } else { //berhasil, update deh!
+                query = "DELETE FROM question WHERE id= "+qid;
                 stmt = conn.createStatement();
                 // Result Set
                 stmt.executeUpdate(query);
-            }
-            catch (SQLException se){
-                se.printStackTrace();
-                System.out.println("SQL delete question Error");
-            }
-            catch (Exception e){
-                e.printStackTrace();
+                status = 1;
             }
         }
-        return (checkToken(uid, token));
+        catch (SQLException se){
+            se.printStackTrace();
+            System.out.println("SQL post question Error");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return status;
     }
 
     @SuppressWarnings("ValidExternallyBoundObject")
@@ -242,7 +279,7 @@ public class WebServiceImpl implements WebServiceInterface{
             // Open a connection
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             // Query
-            String query = "SELECT question.topic,question.vote,question.content,question.date,question.uid,fullname,count(answer.qid) as answerSum " +
+            String query = "SELECT question.id,question.topic,question.vote,question.content,question.date,question.uid,fullname,count(answer.qid) as answerSum " +
                     "FROM question LEFT JOIN user ON (question.uid = user.id) LEFT JOIN answer ON (question.id = answer.id) " +
                     "GROUP BY question.id, question.topic, question.content, question.vote, question.date";
             stmt = conn.createStatement();
@@ -251,6 +288,7 @@ public class WebServiceImpl implements WebServiceInterface{
             // Put result into array
             while (rs.next()) {
                 Question q = new Question();
+                q.setId(rs.getInt("question.id"));
                 q.setContent(rs.getString("content"));
                 q.setTopic(rs.getString("topic"));
                 q.getUser().setName(rs.getString("fullname"));
@@ -415,19 +453,27 @@ public class WebServiceImpl implements WebServiceInterface{
     }
 
     @Override
-    public int vote(int type, int id, int direction, int uid, String token) throws Exception{
-        if (checkToken(uid, token) == 1){
+    public int vote(int type, int id, int direction, String token) throws Exception{
+
             Connection conn = null;
             Statement stmt = null;
             Statement stmt2 = null;
             String query = "";
             String query2 = "";
+            int uid=-1;
             try{
                 // Register JDBC driver
                 Class.forName("com.mysql.jdbc.Driver");
                 // Open a connection
                 conn = DriverManager.getConnection(DB_URL,USER,PASS);
                 // Query
+                String queryq = "SELECT uid FROM token WHERE token= '"+token+"'";
+                stmt = conn.createStatement();
+                // Result Set
+                ResultSet rs = stmt.executeQuery(queryq);
+                while (rs.next()){
+                    uid=rs.getInt("uid");
+                }
                 if (type == 0) { // vote question
                     if (direction == 1) { // up
                         query = "UPDATE question SET vote = vote + 1 WHERE id=" + id;
@@ -458,60 +504,61 @@ public class WebServiceImpl implements WebServiceInterface{
             catch (Exception e){
                 e.printStackTrace();
             }
-        }
-        return (checkToken(uid, token));
+        return 1;
     }
 
     @Override
-    public int updateQuestion(int qid, int uid, String token, String title, String content) throws Exception{
-        if (checkToken(uid, token) == 1){
-            Connection conn = null;
-            Statement stmt = null;
-            try{
-                // Register JDBC driver
-                Class.forName("com.mysql.jdbc.Driver");
-                // Open a connection
-                conn = DriverManager.getConnection(DB_URL,USER,PASS);
-                // Query
-                String query = "UPDATE question (vote, topic, content, date, uid) VALUES (0,'"+title+"','"+content+"',CURRENT_TIMESTAMP,"+uid+")";
+    public int updateQuestion(int qid, String token, String title, String content) throws Exception{
+
+        Connection conn = null;
+        Statement stmt = null;
+        int uid=-1;
+        int status=0;
+        try {
+            // Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Open a connection
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            // Query
+            // Cari user yang memiliki hak akses untuk question ini
+            String query = "SELECT uid FROM question WHERE id= " + qid;
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                uid = rs.getInt("uid");
+            }
+            // Cari waktu expired token
+            query = "SELECT expired FROM token WHERE token= '"+token+"'";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+
+            Date expired = null;
+            while (rs.next()) {
+                expired = rs.getDate("expired");
+            }
+            java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); //Waktu sekarang
+
+            if (checkToken(token) != uid) { //ini berarti tokennya bukan punya yang punya question ini
+                status = 0;
+            } else if (date.after(expired)) { //kalo expired, kasih status -1
+                status = -1;
+            } else { //berhasil, update deh!
+                query = "UPDATE question SET topic='" + title + "',content='" + content + "',date=CURRENT_TIMESTAMP,uid=" + uid + " WHERE id ="+qid;
                 stmt = conn.createStatement();
                 // Result Set
                 stmt.executeUpdate(query);
-            }
-            catch (SQLException se){
-                se.printStackTrace();
-                System.out.println("SQL post question Error");
-            }
-            catch (Exception e){
-                e.printStackTrace();
+                status = 1;
             }
         }
-        return (checkToken(uid, token));
-    }
-    @Override
-    public int updateAnswer(int aid, int qid, int uid, String token, String content) throws Exception{
-        if (checkToken(uid, token) == 1){
-            Connection conn = null;
-            Statement stmt = null;
-            try{
-                // Register JDBC driver
-                Class.forName("com.mysql.jdbc.Driver");
-                // Open a connection
-                conn = DriverManager.getConnection(DB_URL,USER,PASS);
-                // Query
-                String query = "INSERT INTO answer (vote, content, date, uid, qid) VALUES (0,'"+content+"',CURRENT_TIMESTAMP,"+uid+","+qid+")";
-                stmt = conn.createStatement();
-                // Result Set
-                stmt.executeUpdate(query);
-            }
-            catch (SQLException se){
-                se.printStackTrace();
-                System.out.println("SQL post answer Error");
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
+        catch (SQLException se){
+            se.printStackTrace();
+            System.out.println("SQL post question Error");
         }
-        return (checkToken(uid, token));
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return status;
     }
+
 }

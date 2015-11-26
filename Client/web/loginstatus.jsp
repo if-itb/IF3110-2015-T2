@@ -9,25 +9,57 @@
 	<div class="container">
 		<a class="homelink" href="index.jsp"><h1 id="title">My StackExchange</h1></a>
 		<div class="content">
-			<h1>
-			<%
-				int status = (int) (request.getAttribute("status"));
-				if (status==0) {
-					out.println("Login Success");
-					String token=request.getAttribute("token")
+			<h1 class="center">
+				<%@ page import="org.json.JSONObject" %>
+				<%@ page import="java.io.*" %>
+				<%@ page import="org.apache.http.impl.client.HttpClientBuilder" %>
+				<%@ page import="org.apache.http.client.methods.HttpPost" %>
+				<%@ page import="org.apache.http.entity.StringEntity" %>
+				<%@ page import="org.apache.http.HttpResponse" %>
+				<%@ page import="org.apache.http.client.HttpClient" %>
+				<%
 
-				} else {
-					out.println("Login Failed, check your email or password");
-				}
-				try {
-				    Thread.sleep(1000);
-				} catch(InterruptedException ex) {
-				    Thread.currentThread().interrupt();
-				}
-				response.sendRedirect("index.jsp");
-			%>
+					String email = request.getParameter("email");
+					String password = request.getParameter("password");
+					if ((email!=null)&&(password!=null))
+					{
+
+						HttpClient httpClient = HttpClientBuilder.create().build(); //Use this instead
+
+						try {
+							HttpPost req = new HttpPost("http://localhost:8083/v1/login");
+							StringEntity params =new StringEntity("{\"email\":\""+email+"\",\"password\":\""+password+"\"} ");
+							req.addHeader("content-type", "application/x-www-form-urlencoded");
+							req.setEntity(params);
+							HttpResponse res = httpClient.execute(req);
+							BufferedReader br = new BufferedReader(new
+									InputStreamReader(res.getEntity().getContent()));
+							String line;
+							StringBuffer sb = new StringBuffer();
+							while ((line = br.readLine()) != null) {
+								sb.append(line);
+								sb.append('\r');
+							}
+							String responseString = new String(sb);
+							JSONObject responseJSON = new JSONObject(responseString);
+							int status = Integer.parseInt((String)responseJSON.get("status"));
+							if (status==1){
+								String token = (String) responseJSON.get("token");
+								Cookie TokenCookie = new Cookie("token",token);
+								TokenCookie.setMaxAge(3500);
+								response.addCookie(TokenCookie);
+								out.println("Login Success!");
+							} else {
+								out.println("Login Failed, redirecting to login page");
+								response.sendRedirect("login.jsp");
+							}
+						}catch (Exception ex) {
+						}
+					} else {
+						response.sendRedirect("index.jsp");
+					}
+				%>
 			</h1>
-			<h2>Login 
 		</div>	
 	</div>
 	<script type="text/javascript" src="js/script.js"></script>

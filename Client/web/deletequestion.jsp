@@ -4,16 +4,24 @@
 <%
 
 	String id = request.getParameter("id");
-	String token = request.getCookies()[0].getValue();
-	if (id!=null) {
+	String token = "";
+	Cookie[] cookies = request.getCookies();
+	for (int i=0;i<cookies.length;i++){
+		if (cookies[i].getName().equals("token")){
+			token = cookies[i].getValue();
+		}
+	}
+	if ((id!=null)&&!(token.equals(""))) {
 		URL url = new URL("http://localhost:8082/ws/stackexchange?wsdl");
 		QName qname = new QName("http://ws.sstackex.yangnormal.com/", "WebServiceImplService");
 		WebServiceImplService webService = new WebServiceImplService(url, qname);
 		WebServiceInterface ws = webService.getWebServiceImplPort();
-		int status = ws.deleteQuestion(1,Integer.parseInt(id),token);
+		int status = ws.deleteQuestion(Integer.parseInt(id),token);
 		request.setAttribute("status",status);
 		request.setAttribute("name","Delete Question");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("status.jsp");
 		dispatcher.forward(request,response);
+	} else {
+		response.sendRedirect("index.jsp");
 	}
 %>

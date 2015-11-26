@@ -13,7 +13,7 @@
 		<%
 			int status = (Integer)request.getAttribute("status");
 			String name = (String) request.getAttribute("name");
-			if (status==0){
+			if (status==1){
 				out.println(name+" Success!");
 			} else {
 				out.println(name+" Failed!");

@@ -28,7 +28,6 @@ public class HttpConnection {
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
         con.setRequestMethod("GET");
-
         con.setRequestProperty("User-Agent", USER_AGENT);
 
         //int responseCode = con.getResponseCode();
@@ -44,7 +43,6 @@ public class HttpConnection {
         in.close();
 
         //print result
-        System.out.println(response.toString());
         return response.toString();
     }
 

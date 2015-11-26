@@ -29,7 +29,13 @@
 
 		String topic = request.getParameter("topic");
 		String content = request.getParameter("content");
-		String token = request.getCookies()[0].getValue();
+		String token = "";
+		Cookie[] cookies = request.getCookies();
+		for (int i=0;i<cookies.length;i++){
+			if (cookies[i].getName().equals("token")){
+				token = cookies[i].getValue();
+			}
+		}
 		if ((topic!=null)&&(content!=null)){
 			URL url = new URL ("http://localhost:8082/ws/stackexchange?wsdl");
 			QName qname = new QName("http://ws.sstackex.yangnormal.com/","WebServiceImplService");

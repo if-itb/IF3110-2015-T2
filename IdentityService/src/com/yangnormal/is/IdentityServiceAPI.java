@@ -82,13 +82,11 @@ public class IdentityServiceAPI extends HttpServlet {
         serve((request, out) -> {
             try {
                 Map<String, String> queryStringMap = splitQuery(req.getQueryString());
-                PreparedStatement stmt=conn.prepareStatement("SELECT COUNT(*) as count FROM token WHERE uid = ? AND token = ?");
-                stmt.setString(1,queryStringMap.get("uid"));
-                stmt.setString(2,queryStringMap.get("token"));
-
+                PreparedStatement stmt=conn.prepareStatement("SELECT uid FROM token WHERE token = ?");
+                stmt.setString(1,queryStringMap.get("token"));
                 ResultSet result = stmt.executeQuery();
                 result.next();
-                out.print("{\"status\":"+result.getInt("count")+"}");
+                out.print("{\"uid\":\""+result.getInt("uid")+"\"}");
                 out.flush();
             } catch (Exception e) {
                 res.setStatus(500);
@@ -103,24 +101,23 @@ public class IdentityServiceAPI extends HttpServlet {
             StringBuffer postBody = new StringBuffer();
 
             try {
-//                ObjectMapper mapper = new ObjectMapper();
-//                Map<String, Object> map = new HashMap<String, Object>();
-//                map = mapper.readValue(request.getReader(), new TypeReference<Map<String, String>>(){});
-
-
-                String email = req.getParameter("email");
-                String password = req.getParameter("password");
-
-                // Ambil id
-                PreparedStatement stmt=conn.prepareStatement("SELECT id FROM user WHERE email = ?");
-                stmt.setString(1, email);
-                ResultSet result = stmt.executeQuery();
-                result.next();
-                int uid = result.getInt("id");
+                ObjectMapper mapper = new ObjectMapper();
+                Map<String, Object> map = new HashMap<String, Object>();
+                map = mapper.readValue(request.getReader(), new TypeReference<Map<String, String>>(){});
+                String email = (String)map.get("email");
+                String password = (String)map.get("password");
+                /*String email = request.getParameter("email");
+                String password = request.getParameter("password");*/
 
                 if (checkAuthentication(email, password)) {
+                    // Ambil id
+                    PreparedStatement stmt=conn.prepareStatement("SELECT id FROM user WHERE email = ?");
+                    stmt.setString(1, email);
+                    ResultSet result = stmt.executeQuery();
+                    result.next();
+                    int uid = result.getInt("id");
                     String token = issueAuthorization(uid);
-                    out.print("{\"status\":\"1\", \"token\":\""+ token + "\", \"uid\":\""+uid+"\"}");
+                    out.print("{\"status\":\"1\", \"token\":\""+ token + "\"}");
                 } else {
                     out.print("{\"status\":\"0\"}");
                 }
@@ -129,6 +126,7 @@ public class IdentityServiceAPI extends HttpServlet {
             } catch (Exception e) {
                 res.setStatus(500);
                 out.print("{\"error\":\""+e.getMessage()+"\"}");
+                e.printStackTrace();
                 out.flush();
             }
 

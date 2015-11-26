@@ -30,7 +30,7 @@ public class Client{
         System.out.println("register Test");
         System.out.println(wsi.register("john", "john@abc.com","abc"));*/
         System.out.println("Post Question Test");
-        wsi.postQuestion(4,"f41ea9be-218c-46ce-b56a-2d66a7698bfb","HAHA", "HAHAHAHAHA");
+        //wsi.postQuestion(4,"f41ea9be-218c-46ce-b56a-2d66a7698bfb","HAHA", "HAHAHAHAHA");
         /*System.out.println("Post Answer");
         wsi.postAnswer(1,1,"a", "HAHAHAHAHA");
         System.out.println("Vote Question Up Test");

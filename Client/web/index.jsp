@@ -10,7 +10,14 @@
 	WebServiceImplService webService = new WebServiceImplService(url,qname);
 	WebServiceInterface ws = webService.getWebServiceImplPort();
 	QuestionArray qList=ws.getQuestionList();
-	String token = request.getCookies()[0].getValue();
+	// Get an array of Cookies associated with this domain
+	String token = "";
+	Cookie[] cookies = request.getCookies();
+	for (int i=0;i<cookies.length;i++){
+		if (cookies[i].getName().equals("token")){
+			token = cookies[i].getValue();
+		}
+	}
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 					<html>
@@ -27,22 +34,27 @@
 									<input type="text" id="searchbar" name="searchbar">
 									<input type="submit" id="searchsubmit" value="Search">
 								</form>
-								<br>
-								Can't find what you are looking for? <a href="ask.jsp">Ask here!</a>
-								<% if (token==null) { %>
+								<% if (token=="") { %>
 									<br>
 									You are not logged in, please <a href="login.jsp">Login</a>
-								<% } %>
+								<% } else {%>
+									<br>
+									You are logged in, <a href="logout.jsp">Logout?</a>
+									<br>
+									Can't find what you are looking for? <a href="ask.jsp">Ask here!</a>
+								<%
+									}
+								%>
 							</div>
 							<div class="content">
-								<% for (Question q : qList.getItem()) { %>
 								<h2>Recently Asked Questions</h2>
 								<hr>
+								<% for (Question q : qList.getItem()) { %>
 									<div class="stack">
 									<div class="votes"><div><% out.println(q.getVote());%></div>Votes</div>
 									<div class="answers"><div><% out.println(q.getAnswerSum());%></div>Answers</div>
 									<div class="questiontitle"><a href="question.jsp?id=<%out.println(q.getId());%>"><% out.println(q.getTopic());%></a></div>
-									<div class="detail">asked by <% out.println(q.getUser().getName()); %> <a class="linkname"></a> @<% out.println(q.getDate());%>| <a class="linkedit" href="">edit</a> | <a class="linkdelete" onclick="return validatedelete()" href="">delete</a></div>
+									<div class="detail">asked by <% out.println(q.getUser().getName()); %> <a class="linkname"></a> @<% out.println(q.getDate());%>| <a class="linkedit" href="editpost.jsp?id=<%out.println(q.getId());%>">edit</a> | <a class="linkdelete" onclick="" href="deletequestion.jsp?id=<%out.println(q.getId());%>">delete</a></div>
 									<hr>
 								</div>
 								<% } %>
