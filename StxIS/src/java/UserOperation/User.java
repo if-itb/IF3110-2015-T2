@@ -3,22 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package handler;
+package UserOperation;
 
 /**
  *
  * @author Aidin
  */
-public class user {
+
+public class User {
     
     private String email;
     private String pass;
     
-    public user(){
+    public User(){
         email= pass= "";
     }
     
-    public user(String _email, String _pass){
+    public User(String _email, String _pass){
         
         email = _email;
         pass =_pass;
@@ -42,7 +43,7 @@ public class user {
         pass=_pass;
     }
     
-    public boolean isEqual(user A){
+    public boolean isEqual(User A){
         return ( email.equals(A.email) && pass.equals(A.pass));
     }
     

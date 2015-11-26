@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package handler;
 
+package UserOperation;
+
+import UserOperation.User;
 import java.sql.*;
-import java.util.ArrayList;
 
 /**
  *
  * @author Aidin
  */
-public class adapterDB {
+public class UserAdapter {
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
     static final String DB_URL = "jdbc:mysql://localhost:3306/stackexchange";
@@ -21,27 +22,25 @@ public class adapterDB {
     static final String USER = "root";
     static final String PASS = "";
     
-    public int RES;
-    
-    public adapterDB(){
-        RES=100;
+    public UserAdapter(){
+        
     }
    
-    public void getUser(String email, ArrayList users)throws Exception {
+    public User getUser(String email)throws Exception {
+        User user=new User();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
-        try{;
+        try{
             Class.forName(JDBC_DRIVER).newInstance();
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             stmt = conn.prepareStatement("SELECT * FROM user WHERE email=?");
             stmt.setString(1, email);
             rs = stmt.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 String _email = rs.getString("email");
                 String _pass = rs.getString("password");
-                users.add(new user(_email, _pass));
             }
             //test=rs.toString();            
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
@@ -49,5 +48,7 @@ public class adapterDB {
           if(rs!= null) rs.close();
           if(stmt!= null) stmt.close();
         }
+        return user;
     }
+    
 }
