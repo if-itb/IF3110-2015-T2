@@ -33,9 +33,12 @@
                 <c:forEach items="${result}" var="question">
                    <ul class="list-inline">
                        <li>
-                           VOTE COUNT:
+                           VOTE 
                        </li>
-                       <li><a href=""><h4>${question.getQuestionTopic()}</h4></a></li>
+                       <li>
+                           ANSWERS 
+                       </li>
+                       <li><a href="<c:url value="/viewpost?qid=${question.getQuestionId()}"></c:url>"><h4>${question.getQuestionTopic()}</h4></a></li>
                    </ul>
                    ${question.getQuestionContent()}<br>
                 </c:forEach> 

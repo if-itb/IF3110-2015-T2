@@ -5,24 +5,24 @@
  */
 package Container;
 
+import answer.AnswersWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import javax.servlet.http.Cookie;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
-import question.QuestionsWS_Service;
 
 /**
  *
  * @author mochamadtry
  */
-public class home extends HttpServlet {
+public class addanswer extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/QuestionsWS.wsdl")
-    private QuestionsWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/AnswersWS.wsdl")
+    private AnswersWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,15 +35,26 @@ public class home extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       java.util.List<question.Question> result = getAllQuestions(); 
-       request.setAttribute("result", result); 
-       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp"); 
-       dispatcher.forward(request, response); 
+        int qid = Integer.parseInt(request.getParameter("qid"));
+        boolean found = false;
+        int i=0;
+        int ins;
+        Cookie[] cookies = null;
+        cookies = request.getCookies();
+        if (cookies != null) {
+            while (!found && i < cookies.length){
+                if (cookies[i].getName().equals("token_cookie")) {
+                    String token = cookies[i].getValue();
+                    String content = request.getParameter("content");
+                    ins = insertAnswer(token, qid ,content);
+                    found = true;
+                }
+                i++;
+            }
+        }
+        response.sendRedirect("viewpost?id="+qid);
     }
-
- 
     
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -82,11 +93,12 @@ public class home extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    private java.util.List<question.Question> getAllQuestions() {
+
+    private int insertAnswer(java.lang.String token, int qId, java.lang.String content) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        question.QuestionsWS port = service.getQuestionsWSPort();
-        return port.getAllQuestions();
+        answer.AnswersWS port = service.getAnswersWSPort();
+        return port.insertAnswer(token, qId, content);
     }
+    
 }

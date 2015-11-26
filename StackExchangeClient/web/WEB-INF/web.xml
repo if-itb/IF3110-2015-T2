@@ -32,6 +32,10 @@
         <servlet-name>home</servlet-name>
         <servlet-class>Container.home</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addanswer</servlet-name>
+        <servlet-class>Container.addanswer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>home</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addanswer</servlet-name>
+        <url-pattern>/addanswer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

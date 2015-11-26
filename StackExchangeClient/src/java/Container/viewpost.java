@@ -40,11 +40,18 @@ public class viewpost extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String paramqid = request.getParameter("qid"); 
+        
+       String paramqid = request.getParameter("qid");
        request.setAttribute("qid", Integer.parseInt(paramqid));
+       
        java.util.List<answer.Answer> answers = getAnswersByQid(Integer.parseInt(paramqid));
+       request.setAttribute("answers", answers);
+       
+       question.Question result = getQuestionById(Integer.parseInt(paramqid)); 
+       request.setAttribute("result", result); 
+       
        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/viewpost.jsp"); 
-       dispatcher.include(request, response);
+       dispatcher.forward(request, response);
         
     }
 
@@ -94,5 +101,14 @@ public class viewpost extends HttpServlet {
         answer.AnswersWS port = service_1.getAnswersWSPort();
         return port.getAnswersByQid(qid);
     }
+
+    private Question getQuestionById(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        question.QuestionsWS port = service.getQuestionsWSPort();
+        return port.getQuestionById(qid);
+    }
+    
+    
     
 }
