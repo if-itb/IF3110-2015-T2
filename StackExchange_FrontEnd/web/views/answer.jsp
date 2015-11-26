@@ -23,9 +23,6 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
 </head>
 <body>
-${response2}
-${questions}
-${answers}
 <nav class="blue" role="navigation" ng-controller="LoginController">
     <div class="nav-wrapper"><a id="logo-container" href="/" class="brand-logo">Stack Exchange</a>
         <ul class="right hide-on-med-and-down" ng-if="!isLogin">
