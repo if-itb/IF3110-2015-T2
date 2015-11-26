@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="mainstyle.css" rel="stylesheet">
+    <link href="css/mainstyle.css" rel="stylesheet">
   </head>
   <body>
     <header id="top" class="header">
@@ -30,8 +30,7 @@
           </div>
         </form>
         <%
-          String result =  request.getParameter("res");
-          if (result.equals("1")) {
+          if (request.getParameter("res") != null) {
         %>
         <p>Email is exist, choose another one!</p>
         <%

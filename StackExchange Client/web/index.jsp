@@ -17,7 +17,7 @@
             <h1 class="center">
                 <a href="index.jsp?token=<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>">Simple StackExchange</a>
             </h1>
-            <div class="content">
+            <div class="row">
                 <%! String name; %>
                 Welcome, 
                 <%
@@ -32,6 +32,12 @@
                 }
                 %>
                 !
+                <div class="right">
+                    <a href="login.jsp">Logout</a>
+                </div>
+            </div>
+            <br>
+            <div>
                 <h2>
                     <a href="ask.jsp?token=<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>">Ask a question!</a>
                 </h2>

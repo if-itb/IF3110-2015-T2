@@ -35,10 +35,14 @@
                     <hr>
                     <div class="row">
                         <div class= "vote col">
+                            <a href=" <% out.print("qvoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid")); %>" >
                             <img src="img/upvote.png" width ="30" height="30"><br>
-                            <span id="question-vote-count-"><%= result.getVote() %></span><br>
+                            </a>
+                            <span id="question-vote-count-<%= result.getUserId() %>"><%= result.getVote() %></span><br>
+                            <a href=" <% out.print("qvoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid")); %>">  
                             <img src="img/downvote.png" width="30" height="30">
-                        </div>
+                            </a>
+                            </div>
                         <div class = "col-content">
                             <p>
                                 <%= result.getContent() %>
@@ -69,14 +73,18 @@
                                     <div class="answer underline" id="answer-">
                                         <div class="row">
                                             <div class="col vote">
+                                                <a href=" <% out.print("qvoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid") + "&aid=" +result.get(i).getAnswerId()); %>">
                                                 <img src="img/upvote.png" width="35" height="35">
+                                                </a>
                                                 <br>
                                                 <span id="answer-vote-count-<%= result.get(i).getAnswerId() %>">
                                                     <%= result.get(i).getVote() %>
                                                 </span>
                                                 <br>
+                                                <a href=" <% out.print("qvoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid") + "&aid=" +result.get(i).getAnswerId()); %>">
                                                 <img src="img/downvote.png" width="35" height="35">
-                                            </div>
+                                                </a>
+                                                </div>
                                             <div class="col content">
                                                 <p>
                                                     <%= result.get(i).getContent() %>
@@ -99,13 +107,12 @@
                         %>		
                         <div class="section" id="form-answer">
                             <h2>Your Answer</h2>
-                            <form class="block" action="question.php?id=" method="POST" onsubmit="return validateAnswerForm(this);">
+                            <form class="block" action="createanswer.jsp?token=<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>" method="POST" onsubmit="return validateAnswerForm(this);">
                                 <input type="text" placeholder="Name" name="name">
                                 <input type="text" placeholder="Email" name="email">
                                 <textarea name="content" placeholder="Content"></textarea>
                                 <input type="submit" value="Post">
-                                <input type="hidden" name="type" value="answer">
-                                <input type="hidden" name="question_id" value="">
+                                <input type="hidden" name="qid" value="<%= request.getParameter("qid") %>">
                             </form>
                         </div>
                     </div>
@@ -113,5 +120,6 @@
             </div>
         </div>
     </div>
+
  </body>
  </html>
