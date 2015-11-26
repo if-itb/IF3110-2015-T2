@@ -14,7 +14,15 @@
     <body>
         <div class="header">
             <div class="container">
-                <p><a href="index1.jsp">Simple StackExchange</a></p> 
+                <%
+                    String token = request.getParameter("token");
+                    if (token != null) {
+                        out.println("<p><a href='index1.jsp?token="+token+"'>Simple StackExchange</a></p> ");
+                    }
+                    else
+                        out.println("<p><a href='index1.jsp'>Simple StackExchange</a></p> ");
+
+                %>
             </div>
         </div>
 
