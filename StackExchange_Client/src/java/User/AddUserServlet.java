@@ -42,8 +42,15 @@ public class AddUserServlet extends HttpServlet {
         newUser.setName(name);
         newUser.setEmail(email);
         newUser.setPassword(password);
-        addUser(newUser);
-        response.sendRedirect("login.jsp");
+        int id = getIDbyEmail(email);
+        if (id == -1){
+            //user doen't exist
+            addUser(newUser);
+            response.sendRedirect("login.jsp");
+        } else {
+            //email already registered
+            response.sendRedirect("register.jsp");
+        }
     }
 
     private void addUser(User u) {
@@ -51,4 +58,8 @@ public class AddUserServlet extends HttpServlet {
         port.addUser(u);
     }
 
+    private int getIDbyEmail(String email) {
+        model.user.UserWS port = service.getUserWSPort();
+        return port.getIDbyEmail(email);
+    }
 }
