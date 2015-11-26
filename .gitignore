@@ -7,3 +7,5 @@
 *.ipr
 Client/src/com/
 Client/Client.iml
+.idea/artifacts/Client_war_exploded.xml
+IdentityService/IdentityService.iml
