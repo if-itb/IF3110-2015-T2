@@ -63,7 +63,8 @@
                 out.println("<p>" + q.getContent() + "</p>");
                 out.println("</div>");
                 out.println("<div class='card-action'>");
-                out.println("<a class='left' href='#'>Asked by " + names.get(i) + "</a>");
+                String name = names.get(i);
+                out.println("<a class='left' href='questionbyID?name=" + name + "'>Asked by " + names.get(i) + "</a>");
                 out.println("<a class='left' style='padding-left:5px'>" + q.getVote() + "</a>");
                 out.println("<a class='left'>Votes</a>");
                 out.println("<a class='right' href='edit.jsp?qid=" + q.getId() + "'>Edit</a>");
@@ -80,7 +81,7 @@
     <footer class="page-footer deep-purple darken-2">
       <div class="footer-copyright">
         <div class="container">
-          Â© 2015 Created by 3xcelsi0r
+          © 2015 Created by 3xcelsi0r
         </div>
       </div>
     </footer>

@@ -1,5 +1,5 @@
 <%-- 
-    Document   : home
+    Document   : questionbyID
     Created on : Nov 18, 2015, 9:40:20 AM
     Author     : Gerry
 --%>
@@ -18,6 +18,7 @@
       <div class="nav-wrapper container">
         <a id="logo-container" href="#" class="brand-logo">Stack Exchange</a>
         <ul class="right hide-on-med-and-down">
+            <li><a href="index.jsp">Home</a></li>
           <li><a href="register.jsp">Register</a></li>
           <li><a href="login.jsp">Login</a></li>
         </ul>
@@ -55,22 +56,26 @@
             List<String> names = (List<String>)request.getAttribute("names");
             int i = 0;
             for (Question q : questions) {
-                out.println("<div class='row center'>");
-                out.println("<div class='container'>");
-                out.println("<div class='card deep-purple darken-2'>");
-                out.println("<div class='card-content white-text'>");
-                out.println("<span class='card-title'><a href='questionpage.jsp?qid=" + q.getId() + "'>" + q.getTopic() + "</a></span>");
-                out.println("<p>" + q.getContent() + "</p>");
-                out.println("</div>");
-                out.println("<div class='card-action'>");
-                String name = names.get(i);
-                out.println("<a class='left' href='questionbyID?name=" + name + "'>Asked by " + names.get(i) + "</a>");
-                out.println("<a class='left' style='padding-left:5px'>" + q.getVote() + "</a>");
-                out.println("<a class='left'>Votes</a>");
-                out.println("<a class='right' href='edit.jsp?qid=" + q.getId() + "'>Edit</a>");
-                out.println("<a class='right' href='delete?qid=" + q.getId() + "'>Delete</a>");
-                out.println("</div></div></div></div>");
-                i++;
+                if(names.get(i).equals(request.getParameter("name"))){
+                    out.println("<div class='row center'>");
+                    out.println("<div class='container'>");
+                    out.println("<div class='card deep-purple darken-2'>");
+                    out.println("<div class='card-content white-text'>");
+                    out.println("<span class='card-title'><a href='questionpage.jsp?qid=" + q.getId() + "'>" + q.getTopic() + "</a></span>");
+                    out.println("<p>" + q.getContent() + "</p>");
+                    out.println("</div>");
+                    out.println("<div class='card-action'>");
+                    out.println("<a class='left' href='questionbyID.jsp?=" + names.get(i) + "'>Asked by " + names.get(i) + "</a>");
+                    out.println("<a class='left' style='padding-left:5px'>" + q.getVote() + "</a>");
+                    out.println("<a class='left'>Votes</a>");
+                    out.println("<a class='right' href='edit.jsp?qid=" + q.getId() + "'>Edit</a>");
+                    out.println("<a class='right' href='delete?qid=" + q.getId() + "'>Delete</a>");
+                    out.println("</div></div></div></div>");
+                    i++;
+                } else {
+                    i++;
+                }
+                
             }            
         %>    
     </div>
