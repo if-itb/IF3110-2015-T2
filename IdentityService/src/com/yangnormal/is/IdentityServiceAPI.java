@@ -67,7 +67,7 @@ public class IdentityServiceAPI extends HttpServlet {
     protected void show404(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("application/json");
         PrintWriter out = res.getWriter();
-        out.print("{\"message\": \"Not Found\"}");
+        out.print("{\"message\": \"404 Not Found\"}");
         out.flush();
     }
 
@@ -103,12 +103,13 @@ public class IdentityServiceAPI extends HttpServlet {
             StringBuffer postBody = new StringBuffer();
 
             try {
-                ObjectMapper mapper = new ObjectMapper();
-                Map<String, Object> map = new HashMap<String, Object>();
-                map = mapper.readValue(request.getReader(), new TypeReference<Map<String, String>>(){});
+//                ObjectMapper mapper = new ObjectMapper();
+//                Map<String, Object> map = new HashMap<String, Object>();
+//                map = mapper.readValue(request.getReader(), new TypeReference<Map<String, String>>(){});
 
-                String email = (String)map.get("email");
-                String password = (String)map.get("password");
+
+                String email = req.getParameter("email");
+                String password = req.getParameter("password");
 
                 // Ambil id
                 PreparedStatement stmt=conn.prepareStatement("SELECT id FROM user WHERE email = ?");
@@ -158,7 +159,7 @@ public class IdentityServiceAPI extends HttpServlet {
 
 
     private boolean checkAuthentication(String email, String password) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) as count FROM user WHERE email=? AND password=?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) as count FROM user WHERE email=? AND password=MD5(?)");
         stmt.setString(1, email);
         stmt.setString(2, password);
         ResultSet result = stmt.executeQuery();

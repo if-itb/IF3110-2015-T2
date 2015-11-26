@@ -16,9 +16,9 @@ public class WebServiceImpl implements WebServiceInterface{
     final String PASS="";
 
     public int checkToken(int uid, String token) throws Exception{
-        int status = 1;
+        int status = 0;
         HttpConnection http = new HttpConnection();
-        JSONObject obj = new JSONObject(http.sendGet("http://localhost:8080/check?token="+token+"&uid="+uid));
+        JSONObject obj = new JSONObject(http.sendGet("http://localhost:8083/v1/check?token="+token+"&uid="+uid));
         System.out.println(obj.get("status").toString());
         return (int)obj.get("status");
     }
@@ -90,6 +90,7 @@ public class WebServiceImpl implements WebServiceInterface{
                 e.printStackTrace();
             }
         }
+        System.out.println(checkToken(uid, token));
         return (checkToken(uid, token));
     }
 
