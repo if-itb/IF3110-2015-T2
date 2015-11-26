@@ -40,8 +40,8 @@ public class Login extends HttpServlet {
       String PASS = "";
       // Set response content type
       response.setContentType("text/html");
-      /*PrintWriter out = response.getWriter();
-      String title = "Authentication";
+      PrintWriter out = response.getWriter();
+      /*String title = "Authentication";
       String docType =
         "<!doctype html public \"-//w3c//dtd html 4.0 " +
          "transitional//en\">\n";
@@ -88,12 +88,10 @@ public class Login extends HttpServlet {
                 Cookie accessToken = new Cookie("access_token",token);
                 accessToken.setMaxAge(60*60*24);
                 response.addCookie(accessToken);
-                response.setStatus(response.SC_MOVED_TEMPORARILY);
-                response.setHeader("Location", "TokenValidator"); 
+                out.println("authentication success");
             }
          }else{
-            response.setStatus(response.SC_MOVED_TEMPORARILY);
-            response.setHeader("Location", "Login"); 
+            out.println("authentication error");
          }
          // Clean-up environment
          rs.close();

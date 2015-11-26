@@ -45,18 +45,15 @@ public class TokenValidator extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
+            /*out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Authentication</title>");            
             out.println("</head>");
-            out.println("<body>");
+            out.println("<body>");*/
             
             if( cookies != null ){
-                out.println("<h2> Found Cookies Name and Value</h2>");
                 cookie = cookies[0];
-                out.print("Name : " + cookie.getName( ) + ",  ");
-                out.print("Value: " + cookie.getValue( )+" <br/>");
                 
                 try {
                     // Register JDBC driver
@@ -67,14 +64,16 @@ public class TokenValidator extends HttpServlet {
 
                     // Execute SQL query
                     Statement stmt = conn.createStatement();
-                    String sql = "SELECT COUNT(*) as rowcount from token where AccessToken = '"+cookie.getValue()+"'";
+                    String sql = "SELECT UserID from token where AccessToken = '"+cookie.getValue()+"'";
                     ResultSet rs = stmt.executeQuery(sql);
-                    rs.next();
-                    if (rs.getInt("rowcount") != 0){
-                        out.println("Access Token is Valid");
+                    int userid = 0;
+                    while (rs.next()){
+                        userid = rs.getInt("UserID");
+                    }
+                    if (userid != 0){
+                        out.println(userid);
                     } else {
-                        out.println("Not Valid");
-                        response.sendError(response.SC_BAD_REQUEST, "Access Token is not Valid");
+                        out.println("access token not valid");
                     }
                     
                     // Clean-up environment
@@ -89,10 +88,9 @@ public class TokenValidator extends HttpServlet {
                     e.printStackTrace();
                 }
             }else{
-                response.sendError(response.SC_BAD_REQUEST, "expired token");
+                out.println("access token error");
             }
-            out.println("</body>");
-            out.println("</html>");
+            //out.println("</body></html>");
         }
     }
 
