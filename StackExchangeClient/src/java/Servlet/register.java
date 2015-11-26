@@ -1,7 +1,6 @@
 package Servlet;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +18,9 @@ public class register extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmpassword = request.getParameter("confirmpassword");
-        createAccount(username,password,email,name);
-        response.sendRedirect("index.jsp");
+        if (password.equals(confirmpassword))
+            createAccount(username,password,email,name);
+        response.sendRedirect("index");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

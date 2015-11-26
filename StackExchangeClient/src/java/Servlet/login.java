@@ -1,9 +1,7 @@
 package Servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.StringReader;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +21,7 @@ import org.xml.sax.InputSource;
 public class login extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         response.setContentType("text/html;charset=UTF-8");
         String uname = request.getParameter("user");
         String pass = request.getParameter("pass");
@@ -36,26 +35,25 @@ public class login extends HttpServlet {
         
         try {
             String result = client.target(url).request(MediaType.APPLICATION_XML).post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED), String.class);
-            
+           
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(new InputSource(new StringReader(result)));
             Element rootElement = document.getDocumentElement();
             String token = rootElement.getAttribute("token");
             
-            Cookie tokenCookie = new Cookie("tokenCookie", token);
-            tokenCookie.setMaxAge(60*60*6);
-            response.addCookie(tokenCookie);
-            Cookie usernameCookie = new Cookie("usernameCookie", token);
-            usernameCookie.setMaxAge(60*60*6);
-            response.addCookie(usernameCookie);
+            if (!token.equals("Failed")) {
+                Cookie tokenCookie = new Cookie("tokenCookie", "initokenasalasalan");
+                tokenCookie.setMaxAge(6*60*60);
+                tokenCookie.setPath("/");
+                response.addCookie(tokenCookie);
+
+                Cookie usernameCookie = new Cookie("usernameCookie", "ica");
+                usernameCookie.setMaxAge(6*60*60);
+                usernameCookie.setPath("/");
+                response.addCookie(usernameCookie);
+            }
             response.sendRedirect("index");
-            
-           
-            
-            //request.setAttribute("token", result);
-            //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index");
-            //dispatcher.forward(request, response);
         }
         catch (Exception e) {}
     }
