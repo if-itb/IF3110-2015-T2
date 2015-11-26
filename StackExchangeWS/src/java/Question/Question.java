@@ -50,75 +50,44 @@ public class Question {
         question_timestamp = _timestamp;
     }
 
-//    /**
-//     * @return the question_id
-//     */
-//    public int getQuestion_id() {
-//        return question_id;
-//    }
-//
-//    /**
-//     * @param question_id the question_id to set
-//     */
-//    public void setQuestion_id(int question_id) {
-//        this.question_id = question_id;
-//    }
-//
-//    /**
-//     * @return the question_uid
-//     */
-//    public int getQuestion_uid() {
-//        return question_uid;
-//    }
-//
-//    /**
-//     * @param question_uid the question_uid to set
-//     */
-//    public void setQuestion_uid(int question_uid) {
-//        this.question_uid = question_uid;
-//    }
-//
-//    /**
-//     * @return the question_topic
-//     */
-//    public String getQuestion_topic() {
-//        return question_topic;
-//    }
-//
-//    /**
-//     * @param question_topic the question_topic to set
-//     */
-//    public void setQuestion_topic(String question_topic) {
-//        this.question_topic = question_topic;
-//    }
-//
-//    /**
-//     * @return the question_content
-//     */
-//    public String getQuestion_content() {
-//        return question_content;
-//    }
-//
-//    /**
-//     * @param question_content the question_content to set
-//     */
-//    public void setQuestion_content(String question_content) {
-//        this.question_content = question_content;
-//    }
-//
-//    /**
-//     * @return the question_timestamp
-//     */
-//    public String getQuestion_timestamp() {
-//        return question_timestamp;
-//    }
-//
-//    /**
-//     * @param question_timestamp the question_timestamp to set
-//     */
-//    public void setQuestion_timestamp(String question_timestamp) {
-//        this.question_timestamp = question_timestamp;
-//    }
+    /**
+     * @return the question_id
+     */
+    public int getQuestion_id() {
+        return question_id;
+    }
+
+
+    /**
+     * @return the question_uid
+     */
+    public int getQuestion_uid() {
+        return question_uid;
+    }
+
+
+    /**
+     * @return the question_topic
+     */
+    public String getQuestion_topic() {
+        return question_topic;
+    }
+
+
+    /**
+     * @return the question_content
+     */
+    public String getQuestion_content() {
+        return question_content;
+    }
+
+
+    /**
+     * @return the question_timestamp
+     */
+    public String getQuestion_timestamp() {
+        return question_timestamp;
+    }
 
     
 }

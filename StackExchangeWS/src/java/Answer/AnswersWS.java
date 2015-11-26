@@ -78,8 +78,8 @@ public class AnswersWS {
      * @return 
      */
     @WebMethod(operationName = "getAnswersByQid")
-    @WebResult(name = "Answers")
-    public List getAnswersByQid(@WebParam(name = "qid") int qid) {
+    @WebResult(name = "Answer")
+    public List<Answer> getAnswersByQid(@WebParam(name = "qid") int qid) {
         //TODO write your implementation code here:
         List<Answer> answers = new ArrayList<>();
         
@@ -143,7 +143,8 @@ public class AnswersWS {
             Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return res;       }
+        return res;
+    }
 
     /**
      * Web service operation
@@ -155,15 +156,14 @@ public class AnswersWS {
         
         try (Statement st = connAns.createStatement()) { 
                 String query;
-                query = "SELECT SUM(value) FROM vote_answers WHERE aid = ?";
+                query = "SELECT value FROM vote_answers WHERE aid = ?";
                 // set the prepared statement by the query and enter the value of where clause
                 try (PreparedStatement pst = connAns.prepareStatement(query)){
                     pst.setInt(1, aid);
                     // execuResultSette select
                     ret = pst.executeQuery();
                     while (ret.next()) {
-                        int temp = ret.getInt(1);
-                        res = res + temp;
+                        res += ret.getInt("value");
                     }
                 }
                 

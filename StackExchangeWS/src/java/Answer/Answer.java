@@ -48,24 +48,10 @@ public class Answer {
     }
 
     /**
-     * @param answer_id the answer_id to set
-     */
-    public void setAnswer_id(int answer_id) {
-        this.answer_id = answer_id;
-    }
-
-    /**
      * @return the answer_uid
      */
     public int getAnswer_uid() {
         return answer_uid;
-    }
-
-    /**
-     * @param answer_uid the answer_uid to set
-     */
-    public void setAnswer_uid(int answer_uid) {
-        this.answer_uid = answer_uid;
     }
 
     /**
@@ -76,13 +62,6 @@ public class Answer {
     }
 
     /**
-     * @param answer_qid the answer_qid to set
-     */
-    public void setAnswer_qid(int answer_qid) {
-        this.answer_qid = answer_qid;
-    }
-
-    /**
      * @return the answer_content
      */
     public String getAnswer_content() {
@@ -90,24 +69,10 @@ public class Answer {
     }
 
     /**
-     * @param answer_content the answer_content to set
-     */
-    public void setAnswer_content(String answer_content) {
-        this.answer_content = answer_content;
-    }
-
-    /**
      * @return the answer_timestamp
      */
     public String getAnswer_timestamp() {
         return answer_timestamp;
-    }
-
-    /**
-     * @param answer_timestamp the answer_timestamp to set
-     */
-    public void setAnswer_timestamp(String answer_timestamp) {
-        this.answer_timestamp = answer_timestamp;
     }
 
 }

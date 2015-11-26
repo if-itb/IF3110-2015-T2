@@ -5,6 +5,7 @@
  */
 package User;
 
+import Validation.ValidationToken;
 import database.DB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebResult;
 
 /**
  *
@@ -64,5 +66,70 @@ public class UserWS {
         }
         
         return res;
-    }    
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "logoutUser")
+    public int logoutUser(@WebParam(name = "token") String token) {
+        int res = ValidationToken.AUTH_ERROR;       // initialize result with error first (assumption)
+        int user_id = ValidationToken.validateToken(token); // validate token and get the user id
+        
+        // token is valid if user_id value is not -1
+        if (user_id != -1) {
+        
+            try (Statement st = conn.createStatement()) {
+
+                String query = "DELETE FROM `tokens` WHERE uid = ?";
+
+                // set the prepared statement by the query and enter the value of where clause
+                try (PreparedStatement pst = conn.prepareStatement(query)) {
+                    pst.setInt(1, user_id);
+                    // execute update
+                    res = pst.executeUpdate();
+                    if (res > 0)
+                        res = ValidationToken.AUTH_VALID;
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            // else: token is invalid, deny request
+            res = ValidationToken.AUTH_INVALID;
+        }
+        
+        return res;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUser")
+    @WebResult(name = "User")
+    public User getUser(@WebParam(name = "user_id") int user_id) {
+        User user = null;
+        
+        try (Statement st = conn.createStatement()) { 
+            String query = "SELECT * FROM users WHERE uid = ?";
+                
+            // set the prepared statement by the query and enter the value of where clause
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setInt(1, user_id);
+            
+            // create a new question object with the result
+            try (ResultSet res = pst.executeQuery()) {
+                if (res.next())
+                    user = new User(res.getInt("uid"), res.getString("name"), res.getString("email"));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return user;
+    }
+    
+    
 }

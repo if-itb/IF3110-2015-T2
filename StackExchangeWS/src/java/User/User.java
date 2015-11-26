@@ -20,8 +20,6 @@ public class User {
     private String name;
     @XmlElement(name="email", required=true)
     private String email;
-    @XmlElement(name="password", required=true)
-    private String password;
     
     /**
      * Constructor for Register
@@ -30,11 +28,10 @@ public class User {
        uid = 0;
     }
     
-    public User(int _id, String _name, String _email, String _password) {
+    public User(int _id, String _name, String _email) {
         uid = _id;
         name = _name;
         email = _email;
-        password = _password; 
     }
 
     /**
@@ -45,13 +42,6 @@ public class User {
     }
 
     /**
-     * @param uid the uid to set
-     */
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
-    /**
      * @return the name
      */
     public String getName() {
@@ -59,37 +49,9 @@ public class User {
     }
 
     /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * @return the email
      */
     public String getEmail() {
         return email;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

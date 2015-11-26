@@ -261,19 +261,17 @@ public class QuestionsWS {
     @WebMethod(operationName = "getquestionvote")
     public int getquestionvote(@WebParam(name = "qid") int qid) {
         int res = 0;
-        ResultSet ret;
-        
+
         try (Statement st = conn.createStatement()) { 
                 String query;
-                query = "SELECT SUM(value) FROM vote_questions WHERE qid = ?";
+                query = "SELECT value FROM vote_questions WHERE qid = ?";
                 // set the prepared statement by the query and enter the value of where clause
                 try (PreparedStatement pst = conn.prepareStatement(query)){
                     pst.setInt(1, qid);
                     // execuResultSette select
-                    ret = pst.executeQuery();
+                    ResultSet ret = pst.executeQuery();
                     while (ret.next()) {
-                        int temp = ret.getInt(1);
-                        res = res + temp;
+                        res += ret.getInt("value");
                     }
                 }
                 

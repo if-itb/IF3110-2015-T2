@@ -71,9 +71,9 @@ public class ValidationToken {
             JSONObject object = (JSONObject) parser.parse(sb.toString());
             
                 // get the attributes and add the cookie
-            boolean isAuth = (boolean) object.get("auth");
+            int isAuth = (int) object.get("auth");
                 
-            if (isAuth)
+            if (isAuth > 0)
                 user_id = (int) object.get("user_id");
             
             conn.disconnect();
