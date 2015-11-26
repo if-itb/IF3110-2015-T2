@@ -43,10 +43,6 @@
     } catch (Exception ex) {
 	// TODO handle custom exceptions here
     }
-    
-    /*String site = "question.jsp?id=" + request.getParameter("id") + "&token=" + request.getParameter("token");
-    response.setStatus(response.SC_MOVED_TEMPORARILY);
-    response.setHeader("Location", site);*/
     %>
     <%-- end web service invocation --%><hr/>
   

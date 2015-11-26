@@ -94,15 +94,15 @@ and open the template in the editor.
 	}
 	#color-blue{
 		text-decoration: none;
-		color: blue;
+		color: dodgerblue;
 	}
 	#color-red{
 		text-decoration: none;
-		color: red;
+		color: orangered;
 	}
 	#color-black{
 		text-decoration: none;
-		color: black;
+		color: orange;
 	}
 	#color-grey{
 		text-decoration: none;
@@ -230,3 +230,5 @@ and open the template in the editor.
 		text-align: center;
 		float:center;
 	}
+        
+        

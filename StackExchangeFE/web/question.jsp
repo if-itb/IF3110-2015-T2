@@ -127,8 +127,6 @@
             // TODO handle custom exceptions here
         }
         %>
-        
-        <% out.write("<br><br>");%>
 
         <%
         try {
@@ -193,26 +191,7 @@
             // TODO handle custom exceptions here
         }
         %>
-        <% out.write("<br><br>"); %>
         <%
-        /*String answerForm =
-                "<h2 class='header center orange-text'>Answer here!</h2>"
-                +"<br><br>"
-                +"<div class='row'>"
-                    +"<form class='col s12' name='answerForm' action='createAnswer.jsp?id="+ request.getParameter("id") +"&token=" + request.getParameter("token") +"' onsubmit='' method='post'>"
-                            +"<input type='hidden' name='question_id' value=' " + Integer.parseInt(request.getParameter("id")) + "'>"
-                        +"<div class='row'>"  
-                            +"<input placeholder='The content goes here...' name='content' id='content' type='text' required>"
-                            +"<label for='content' data-error='wrong' data-success='right'>Content</label>"
-                        +"</div>"
-                        +"<button class='btn waves-effect waves-light' type='submit' name='action'>ask"
-                            +"<i class='material-icons right'>answer</i>"
-                        +"</button>"
-                    +"</form>"
-                +"</div>"
-              
-        ;
-        out.write(answerForm);*/
         %>
         <div class="container">
             <br><br>
@@ -224,11 +203,11 @@
             <%out.write("<input type='hidden' name='question_id' value='"+ request.getParameter("id") +"'>");%>  
             <div class="row">
                 <div class="input-field col s12">
-                  <input placeholder="The content goes here..." name="content" id="content" type="text" required>
-                  <label for="content" data-error="wrong" data-success="right">Content</label> 
+                  <textarea id="textarea1" class="materialize-textarea" placeholder="The content goes here..." name="content" type="text" required></textarea>
+                   <label for="textarea1" data-error="wrong" data-success="right">Content</label>
                 </div>
               </div>
-              <button class="btn waves-effect waves-light" type="submit" name="action">ask
+              <button class="btn waves-effect waves-light" type="submit" name="action">answer
                 <i class="material-icons right">send</i>
             </button>
             </form>

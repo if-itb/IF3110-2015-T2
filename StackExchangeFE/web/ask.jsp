@@ -79,7 +79,7 @@
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                   <textarea id="textarea1" class="materialize-textarea" placeholder="The content goes here..." name="content" type="text" required> </textarea>
+                   <textarea id="textarea1" class="materialize-textarea" placeholder="The content goes here..." name="content" type="text" required></textarea>
                    <label for="textarea1" data-error="wrong" data-success="right">Content</label>
                 </div>
               </div>
