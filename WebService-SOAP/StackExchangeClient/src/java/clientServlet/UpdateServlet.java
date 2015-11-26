@@ -21,7 +21,7 @@ import stackexchangews.StackExchangeWS_Service;
  */
 @WebServlet(name = "UpdateServlet", urlPatterns = {"/UpdateServlet"})
 public class UpdateServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchangeWS/StackExchangeWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/StackExchangeWS.wsdl")
     private StackExchangeWS_Service service;
 
     /**

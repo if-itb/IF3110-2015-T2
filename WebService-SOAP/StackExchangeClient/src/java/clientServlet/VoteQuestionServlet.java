@@ -21,7 +21,7 @@ import stackexchangews.StackExchangeWS_Service;
  */
 @WebServlet(name = "VoteQuestionServlet", urlPatterns = {"/votequestion"})
 public class VoteQuestionServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchangeWS/StackExchangeWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/StackExchangeWS.wsdl")
     private StackExchangeWS_Service service;
 
     /**
