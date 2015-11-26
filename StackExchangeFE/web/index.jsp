@@ -22,7 +22,7 @@
         <nav class="light-blue lighten-1" role="navigation">
             <div class="nav-wrapper container">
                 
-            <% out.write("<a id='logo-container' href='index.jsp?token="+ request.getParameter("token") +"' class='brand-logo'>Home</a>");%>
+            <% out.write("<a id='logo-container' href='index.jsp?token="+ request.getParameter("token") +"' class='brand-logo'>LeeMinCha©</a>");%>
             <%
                 if (request.getParameter("token").equals("null")){
                     String border = "<ul class='right hide-on-med-and-down'>"

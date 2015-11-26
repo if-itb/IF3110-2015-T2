@@ -39,7 +39,18 @@
                     com.wbd.rgs.RegisterWS port = service.getRegisterWSPort();
                     java.lang.String accessToken = request.getParameter("token");
                     java.lang.String result = port.getUsername(accessToken);
-                    String border = "<ul class='right hide-on-med-and-down'>"
+                    String border;
+                    if (request.getParameter("id").equals("-2")){
+                         border = "<ul class='right hide-on-med-and-down'>"
+                                        + "<li><a href='login.jsp'>Login</a></li>"
+                                        + "<li><a href='register.jsp'>Register</a></li>"
+                                    + " </ul>" + 
+                                    "<ul id='nav-mobile' class='side-nav'>"
+                                        + "<li><a href='login.jsp'>Login</a></li>"
+                                        + "<li><a href='register.jsp'>Register</a></li>"
+                                    + " </ul>";
+                    } else {
+                    border = "<ul class='right hide-on-med-and-down'>"
                                         + "<li>" + result + "</li>"
                                         + "<li><a href='index.jsp?token=null'>Sign Out</a></li>" //Jelek, ntar diganti
                                     + " </ul>" + 
@@ -47,6 +58,7 @@
                                         + "<li>" + result + "</li>"
                                         + "<li><a href='index.jsp?token=null'>Sign Out</a></li>" //Jelek, ntar diganti
                                     + " </ul>";
+                    }
                     out.write(border);
                 }
             %>
@@ -69,7 +81,7 @@
                 out.println("<h2 class='header center orange-text'>Oops! You're not logged in yet!<br><br></h2><h4 class='center orange-text'>Please login or register</h4>");
             } else if (request.getParameter("id").equals("-2")){
                 out.println("<h2 class='header center orange-text'>Oops! Your session has expired!<br><br></h2><h4 class='center orange-text'>Please login again</h4>");
-                } else if (request.getParameter("id").equals("3")){
+            } else if (request.getParameter("id").equals("3")){
                 out.println("<h2 class='header center orange-text'>Oops! You're not authorized to access that!</h4>");
             } else if (request.getParameter("id").equals("11")){
                 out.println("<h2 class='header center orange-text'>Something went wrong! :( Check the Server Log</h4>");
