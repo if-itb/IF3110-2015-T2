@@ -94,7 +94,7 @@ public class LoginServlet extends HttpServlet {
 
                     String updateQuery = "INSERT INTO token(value, user_Email, expiration_date) values('" + token + "', '" + request.getParameter("email") + "', '" + df.format(expirationDate) + "')";
                     statement.execute(updateQuery);
-                    response.sendRedirect("http://localhost:8082/Front-End/index.jsp?token=" + token);
+                    response.sendRedirect("http://localhost:8082/Front-End/index?token=" + token);
                 }
                 else {
                     rs = statement.executeQuery(query2);

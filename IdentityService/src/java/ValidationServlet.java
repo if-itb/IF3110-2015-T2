@@ -40,6 +40,7 @@ public class ValidationServlet extends HttpServlet {
      */
     DBConnection db = new DBConnection();
     Connection conn = db.getConn();
+    Statement statement;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -80,6 +81,12 @@ public class ValidationServlet extends HttpServlet {
                   } else {
                       try {
                           obj.put("message", "valid");
+                          String query = "SELECT * from user natural join (SELECT * from token where value ='" + token + "') as t WHERE user.Email = t.user_Email";
+                          statement = conn.createStatement();
+                          ResultSet rd = statement.executeQuery(query);
+                          int uid = rd.getInt("User_ID");
+                          obj.put("User_ID", uid);
+                      
                       } catch (JSONException ex) {
                           Logger.getLogger(ValidationServlet.class.getName()).log(Level.SEVERE, null, ex);
                       }
