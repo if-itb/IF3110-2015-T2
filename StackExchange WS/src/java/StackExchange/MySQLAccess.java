@@ -220,18 +220,17 @@ public class MySQLAccess {
         }
     }
 	
-    /*
     public int getMaxId()
     {
         int id = 0;
         open();
         try {
-            preparedStatement = connect.prepareStatement("SELECT `id post` FROM `simpleblog`.`post` ORDER BY `id post` DESC LIMIT 1;");
+            preparedStatement = connect.prepareStatement("SELECT 'id' FROM 'stackexchange'.'question ORDER BY 'id' DESC LIMIT 1;");
             resultSet = preparedStatement.executeQuery();
 
             while(resultSet.next())
             {
-                id = resultSet.getInt("id post");
+                id = resultSet.getInt("id");
             }
             close();
         } catch (SQLException e) {
@@ -240,7 +239,7 @@ public class MySQLAccess {
         }
         return id;
     }
-    
+    /*
     public int getUserID(String username)
     {
         int id = 0;
