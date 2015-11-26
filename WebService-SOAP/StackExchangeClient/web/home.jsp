@@ -57,7 +57,7 @@
                 out.println("<div class='container'>");
                 out.println("<div class='card deep-purple darken-2'>");
                 out.println("<div class='card-content white-text'>");
-                out.println("<span class='card-title'><a href='answer.jsp'>" + q.getTopic() + "</a></span>");
+                out.println("<span class='card-title'><a href='questionpage.jsp?qid=" + q.getId() + "'>" + q.getTopic() + "</a></span>");
                 out.println("<p>" + q.getContent() + "</p>");
                 out.println("</div>");
                 out.println("<div class='card-action'>");

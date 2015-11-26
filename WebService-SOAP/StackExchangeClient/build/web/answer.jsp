@@ -4,6 +4,9 @@
     Author     : Gerry
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="stackexchangews.Answer"%>
+<%@page import="stackexchangews.Question"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +42,38 @@
       </nav>
     </div>
     <br><br>
-
+    
+    <div class="section white">
+        <%
+            Question q = (Question)request.getAttribute("question");
+            out.println("<div class='row center'>");
+            out.println("<div class='container'>");
+            out.println("<div class='card deep-purple darken-2'>");
+            out.println("<div class='card-content white-text'>");
+            out.println("<span class='card-title'>" + q.getTopic() + "</a></span>");
+            out.println("<p>" + q.getContent() + "</p>");
+            out.println("</div>");
+            out.println("<div class='card-action'>");
+            out.println("<a class='left' href='#'>Asked by " + q.getUserId() + "</a>");
+            out.println("<a class='right' href='#'>Edit</a>");
+            out.println("<a class='right' href='#'>Delete</a>");
+            out.println("</div></div></div></div>");
+            
+            List<Answer> answers = (List<Answer>)request.getAttribute("answers");
+            for (Answer a : answers) {
+                out.println("<div class='row center'>");
+                out.println("<div class='container'>");
+                out.println("<div class='card deep-purple darken-2'>");
+                out.println("<div class='card-content white-text'>");
+                out.println("<p>" + a.getContent() + "</p>");
+                out.println("</div>");
+                out.println("<div class='card-action'>");
+                out.println("<a class='left' href='#'>Answered by " + a.getUserId() + "</a>");
+                out.println("</div></div></div></div>");
+            }
+        %>    
+    </div>
+    
     <div class="row container">
       <form class="col s12 m8">
         <div class="row">
