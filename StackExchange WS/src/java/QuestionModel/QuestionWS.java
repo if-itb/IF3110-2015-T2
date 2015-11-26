@@ -30,7 +30,7 @@ public class QuestionWS {
         //2a.Jika access token kadaluarsa, respons expired token
         //2b.Jika access token tidak valid, respons error
         //2c.Jika access token valid, ambil user ID
-        int userID = 0;
+        int userID = 8;
         try {
             stmt = conn.createStatement();
             String sql = "INSERT INTO question VALUES (0,?,?,?,0,?,0)";
@@ -164,7 +164,7 @@ public class QuestionWS {
 
         try {
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM question";
+            String sql = "SELECT * FROM question ORDER BY DateTime DESC";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();

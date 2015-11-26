@@ -22,7 +22,7 @@
             <br>
             <h2>What's your question?</h2>
             <hr>
-            <form name="askForm" action="" method="post" onsubmit="">
+            <form name="askForm" action="CreateQuestionServlet" method="post" onsubmit="">
                 <input name="topic" class="text" type="text" placeholder="Question Topic"><br>
                 <textarea name="content" placeholder="Content"></textarea>
                 <input class="button" type="submit" value="Post"><br>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,6 +20,11 @@
                 <a class="white" href="register.jsp">Register</a> |
                 <a class="white" href="login.jsp">Login</a>
             </b>
+        </div>
+        <div>
+            <c:set var="qid" value="${param.qid}" scope="request" />
+            <jsp:include page="/QuestionByQIDServlet"/>
+            <jsp:include page="/AnswerByQIDServlet"/>
         </div>
         <div class="main">
             <br>
@@ -89,7 +95,8 @@
                 </tr>
             </table>
             <hr>
-
+        </div>
+        <div class="main">
             <h2>
                 Your Answer
             </h2>

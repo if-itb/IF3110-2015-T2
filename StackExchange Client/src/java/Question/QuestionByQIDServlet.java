@@ -1,8 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Question;
 
 import QuestionWS.Question;
 import QuestionWS.QuestionWS_Service;
-import UserWS.User;
 import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,7 +21,8 @@ import javax.xml.ws.WebServiceRef;
  *
  * @author M. Fauzan Naufan
  */
-public class QuestionListServlet extends HttpServlet {
+public class QuestionByQIDServlet extends HttpServlet {
+
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/UserWS.wsdl")
     private UserWS_Service service_1;
 
@@ -35,59 +40,63 @@ public class QuestionListServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int qid = Integer.valueOf((String)request.getAttribute("qid"));
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            List<Question> questions = getAllQuestion();
-            for (int i = 0; i < questions.size(); i++) {
-                out.println("<table>\n"
+            List<Question> question = getQuestionByQID(qid);
+            for (int i = 0; i < question.size(); i++) {
+                out.println("<div class=\"main\">\n"
+                        + "            <br>\n"
+                        + "            <h2>");
+                out.println(question.get(i).getTopic());
+                out.println("</h2>\n"
+                        + "            <hr>\n"
+                        + "            <table>\n"
                         + "                <tr>\n"
-                        + "                    <td class=\"Votes\" rowspan=\"2\">\n"
-                        + "                        <b>");
-                out.println(questions.get(i).getVotes());
-                out.println("<br>\n"
-                        + "                            Votes\n"
-                        + "                        </b>\n"
+                        + "                    <td class=\"VotesQA\">\n"
+                        + "                        <a onclick=\"\">\n"
+                        + "                            <img src=\"img/vote-up.png\">\n"
+                        + "                        </a>\n"
+                        + "                        <div id=\"VotesQ\">");
+                out.println(question.get(i).getVotes());
+                out.println("</div>\n"
+                        + "                        <a onclick=\"\">\n"
+                        + "                            <img src=\"img/vote-down.png\">\n"
+                        + "                        </a>\n"
                         + "                    </td>\n"
-                        + "                    <td class=\"Answers\" rowspan=\"2\">\n"
-                        + "                        <b>");
-                out.println(questions.get(i).getAnswers());
-                out.println("<br>\n"
-                        + "                            Answers\n"
-                        + "                        </b>\n"
-                        + "                    </td>\n"
-                        + "                    <td>\n"
-                        + "                        <p class=\"topic\">\n"
-                        + "                            <a href=\"question.jsp?qid=");
-                out.println(questions.get(i).getQID());
-                out.println("\">");
-                out.println(questions.get(i).getTopic());
-                out.println("</a>\n"
-                        + "                        </p>\n"
-                        + "                        <p class=\"content\">");
-                out.println(questions.get(i).getContent());
-                out.println("</p>\n"
-                        + "                        <br>\n"
-                        + "                    </td>\n"
+                        + "                    <td>");
+                out.println(question.get(i).getContent());
+                out.println("</td>\n"
                         + "                </tr>\n"
                         + "                <tr>\n"
+                        + "                    <td></td>\n"
                         + "                    <td class=\"Asker\">\n"
-                        + "                        asked by\n"
-                        + "                        <p class=\"blue\">");
-                out.println(getUser(questions.get(i).getUserID()).get(0).getEmail());
-                out.println("</p> | \n"
-                        + "                        <a class=\"gold\" href=\"edit.jsp?qid=");
-                out.println(questions.get(i).getQID());
+                        + "                        asked by ");
+                out.println(getUser(question.get(i).getUserID()).get(0).getEmail());
+                out.println(" at ");
+                out.println(question.get(i).getDateTime());
+                out.println(" | \n"
+                        + "                        <a class=\"gold\" href=\"");
+                out.println("edit.jsp?qid=" + qid);
                 out.println("\">\n"
                         + "                            edit\n"
                         + "                        </a> | \n"
-                        + "                        <a class=\"red\" href=\"delete.jsp?qid=");
-                out.println(questions.get(i).getQID());
-                out.println("\">\n"
+                        + "                        <a class=\"red\" href=\"");
+                out.println("delete.jsp?qid=" + qid);
+                out.println("\" onclick=\"\" >\n"
                         + "                            delete\n"
                         + "                        </a>\n"
                         + "                    </td>\n"
                         + "                </tr>\n"
                         + "            </table>\n"
+                        + "\n"
+                        + "            <br>\n"
+                        + "            <h2>");
+                out.println(question.get(i).getAnswers() + " Answer");
+                if (question.get(i).getAnswers() != 1) {
+                    out.println("s");
+                }
+                out.println("</h2>\n"
                         + "            <hr>");
             }
         }
@@ -132,11 +141,11 @@ public class QuestionListServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private java.util.List<QuestionWS.Question> getAllQuestion() {
+    private java.util.List<QuestionWS.Question> getQuestionByQID(int qid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.getAllQuestion();
+        return port.getQuestionByQID(qid);
     }
 
     private java.util.List<UserWS.User> getUser(int userID) {
@@ -145,4 +154,5 @@ public class QuestionListServlet extends HttpServlet {
         UserWS.UserWS port = service_1.getUserWSPort();
         return port.getUser(userID);
     }
+
 }
