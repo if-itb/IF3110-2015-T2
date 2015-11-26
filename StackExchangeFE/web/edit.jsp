@@ -10,17 +10,64 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href='css/style.css'/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">    
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>    
+        <nav class="light-blue lighten-1" role="navigation">
+            <div class="nav-wrapper container">
+                
+            <% out.write("<a id='logo-container' href='index.jsp?token="+ request.getParameter("token") +"' class='brand-logo'>Home</a>");%>
+            <%
+                if (request.getParameter("token").equals("null")){
+                    String border = "<ul class='right hide-on-med-and-down'>"
+                                        + "<li><a href='login.jsp'>Login</a></li>"
+                                        + "<li><a href='register.jsp'>Register</a></li>"
+                                    + " </ul>" + 
+                                    "<ul id='nav-mobile' class='side-nav'>"
+                                        + "<li><a href='login.jsp'>Login</a></li>"
+                                        + "<li><a href='register.jsp'>Register</a></li>"
+                                    + " </ul>";
+                    out.write(border);
+                } else {
+                    com.wbd.rgs.RegisterWS_Service service = new com.wbd.rgs.RegisterWS_Service();
+                    com.wbd.rgs.RegisterWS port = service.getRegisterWSPort();
+                    java.lang.String accessToken = request.getParameter("token");
+                    java.lang.String result = port.getUsername(accessToken);
+                    String border = "<ul class='right hide-on-med-and-down'>"
+                                        + "<li>Welcome, " + result + "</li>"
+                                        + "<li><a href='index.jsp?token=null'>Sign Out</a></li>" //Jelek, ntar diganti
+                                    + " </ul>" + 
+                                    "<ul id='nav-mobile' class='side-nav'>"
+                                        + "<li>Welcome, " + result + "</li>"
+                                        + "<li><a href='index.jsp?token=null'>Sign Out</a></li>" //Jelek, ntar diganti
+                                    + " </ul>";
+                    out.write(border);
+                }
+            %>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+            </div>
+        </nav>  
+        <script>
+            $(document).ready(function(){
+
+              // Initialize collapse button
+              $(".button-collapse").sideNav();
+            });
+        </script>
         <title>Simple StackExchange</title>
     </head>
     <body>
-	<div class="link-normalizer"><a class='title' href="index.jsp">Simple StackExchange</a></div>
-	<br>
-	<br>
-	<br>
-	<br>
-	<div class="subtitle">What's your question?</div>
-	<hr class='line'>
-
+        <div class="container">
+            <br><br>
+            <h1 class="header center orange-text">Update your Request!</h1>
+            <br><br>
+        </div>
+       
     <%
     try {
 	com.wbd.qst.QuestionWS_Service service = new com.wbd.qst.QuestionWS_Service();
@@ -36,12 +83,17 @@
             topicLama = result.get(0).getQuestionTopic();
             contentLama = result.get(0).getContent();
         }
-        String askForm =        
+        String askForm =  
+            "<div class='row'>" +
             "<form name='editForm' action='updateQuestion.jsp?id=" + question_idLama + "&token="+ request.getParameter("token")+"' onsubmit='return validateQuestion()' method='post'>"
                 +"<input value='"+question_idLama+"' type='hidden' name='question_id'>"
+                + "<div class='row'><div class='input-field col s12'>" 
                 +"<input value='"+topicLama+"' type='text' class='form-text' name='topic' placeholder='Question Topic' required><br>"
-                +"<textarea name='content' class='form-textarea' placeholder='Content' required>" + contentLama +"</textarea><br>"
-                +"<button class='button-post' type='submit'> Submit </button>"
+                + "<label for='topic' data-error='wrong' data-success='right'>Question Topic</label></div></div>"
+                + "<div class='row'><div class='input-field col s12'>" 
+                +"<textarea name='content' class='materialize-textarea' placeholder='Content' required>" + contentLama +"</textarea><br>"
+                + "<label for='textarea' data-error='wrong' data-success='right'>Content</label> </div> </div>"
+                +"<button class='button-post btn waves-effect waves-light' type='submit'>Edit<i class='material-icons right'>send</i></button>"
             +"</form>"
         ;
         out.write(askForm);
@@ -50,7 +102,7 @@
 	// TODO handle custom exceptions here
     }
     %>
-    
+
     </body>
 </html>
 

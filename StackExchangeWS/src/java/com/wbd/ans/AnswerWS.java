@@ -52,6 +52,7 @@ public class AnswerWS {
             
             rs.close();
             stmt.close();
+            conn.close();
         } catch (SQLException ex){
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -114,6 +115,7 @@ public class AnswerWS {
                     pstmt.executeUpdate();
                     conn.commit();
                     message = 1;
+                    conn.close();
                 }
                 else{
                     //Jika ada vote di database, gak bisa vote lagi
@@ -187,6 +189,7 @@ public class AnswerWS {
                     pstmt.executeUpdate();
                     conn.commit();
                     message = 1;
+                    conn.close();
                 }
                 else{
                     //Jika ada vote di database, gak bisa vote lagi
@@ -233,6 +236,7 @@ public class AnswerWS {
                 dbStatement.executeUpdate();
                 stmt.close();
                 message = 1;
+                conn.close();
             }else{
                 //Wrong identity. Something wrong
                 message = -1;                
@@ -269,6 +273,7 @@ public class AnswerWS {
             }
             rs.close();
             stmt.close();
+            conn.close();
         } catch (SQLException ex){
             
         }

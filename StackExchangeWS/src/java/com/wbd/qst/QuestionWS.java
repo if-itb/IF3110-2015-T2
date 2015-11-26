@@ -53,6 +53,7 @@ public class QuestionWS {
             
             rs.close();
             stmt.close();
+            conn.close();
         } catch (SQLException ex){
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -83,6 +84,7 @@ public class QuestionWS {
             
             rs.close();
             stmt.close();
+            conn.close();
         } catch (SQLException ex){
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -114,10 +116,12 @@ public class QuestionWS {
                 dbStatement.executeUpdate();
                 stmt.close();
                 message = 1;
+                conn.close();
             }else{
                 //Wrong identity. Something wrong
                 message = -1;                
             } 
+            
         } catch (Exception ex){
             ex.printStackTrace();
 
@@ -162,12 +166,14 @@ public class QuestionWS {
                     pstmt.executeUpdate();
                     conn.commit();
                     message = 1;
+                    conn.close();
                 } else {
                     message = -3; //It's your not Question. Not authorize!
                 }
             } else {
                 message = -1; //Wrong identity. Something wrong
             }
+            conn.close();
         }
        catch (Exception e) {
             // Any error is grounds for rollback
@@ -232,6 +238,7 @@ public class QuestionWS {
                     pstmt.setInt(1, qid);
                     pstmt.executeUpdate();
                     message = 1;
+                    conn.close();
                 } else {
                     message = -3; //It's your not Question. Not authorize!
                 }
@@ -297,6 +304,7 @@ public class QuestionWS {
                         pstmt.executeUpdate();
                         conn.commit();
                         message = 1;
+                        conn.close();
                 }
                 else{
                     //Jika ada vote di database, gak bisa vote lagi
@@ -370,6 +378,7 @@ public class QuestionWS {
                     pstmt.executeUpdate();
                     conn.commit();
                     message = 1;
+                    conn.close();
                 }
                 else{
                     //Jika ada vote di database, gak bisa vote lagi
@@ -409,6 +418,7 @@ public class QuestionWS {
             }
             rs.close();
             stmt.close();
+            conn.close();
         } catch (SQLException ex){
             
         }
@@ -438,6 +448,7 @@ public class QuestionWS {
             
             rs.close();
             stmt.close();
+            conn.close();
         } catch (SQLException ex){
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
