@@ -93,7 +93,7 @@
                 + "<div class='row'><div class='input-field col s12'>" 
                 +"<textarea name='content' class='materialize-textarea' placeholder='Content' required>" + contentLama +"</textarea><br>"
                 + "<label for='textarea' data-error='wrong' data-success='right'>Content</label> </div> </div>"
-                +"<button class='button-post btn waves-effect waves-light' type='submit'>Edit<i class='material-icons right'>send</i></button>"
+                +"<button id='button-post' class='btn waves-effect waves-light' type='submit'>Edit<i class='material-icons right'>send</i></button>"
             +"</form>"
         ;
         out.write(askForm);
