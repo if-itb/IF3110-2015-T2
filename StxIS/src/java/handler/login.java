@@ -7,10 +7,14 @@ package handler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.*;
 
 /**
  *
@@ -74,27 +78,49 @@ public class login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name, email, pass;
-        name = request.getParameter("name");
+        String email, pass;
         email = request.getParameter("email");
         pass = request.getParameter("pass");
         
+        user clientUsr = new user(email,pass);
+        ArrayList<user> users = new ArrayList();
+        adapterDB adb = new adapterDB();
         
-        
-        response.setContentType("text/xml");
-        PrintWriter printWriter;
         try {
-            printWriter = response.getWriter();
-            printWriter.print("<p>Teks: ");
-            printWriter.print(name);
-            printWriter.print(email);
-            printWriter.print(pass);
-            printWriter.print("</p>"); 
-        } catch (IOException e) {
-            e.printStackTrace();
+            adb.getUser(email, users);
+            if(users.size()==0){
+                response.sendError(404, "email not found");
+            } else {
+                if(!clientUsr.isEqual(users.get(0))){
+                    response.sendError(404, "email and password do not match");
+                } else {
+                    response.setContentType("application/xml");
+                    PrintWriter printWriter;
+                    try {
+                        printWriter = response.getWriter();
+                        printWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+                        printWriter.println("<root>");            
+                        printWriter.print("<email>");
+                        printWriter.print(email);
+                        printWriter.println("</email>");
+                        printWriter.print("<pass>");
+                        printWriter.print(pass);
+                        printWriter.println("</pass>");
+                        printWriter.println("</root>");                      
+                        printWriter.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        //processRequest(request, response);
+        
+        
+       
     }
 
     /**

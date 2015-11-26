@@ -10,18 +10,21 @@ package handler;
  * @author Aidin
  */
 public class user {
-    private String name;
+    
     private String email;
     private String pass;
     
     public user(){
-     name = email= pass= "";
+        email= pass= "";
     }
     
-    public String getName(){
-       return name;
+    public user(String _email, String _pass){
+        
+        email = _email;
+        pass =_pass;
     }
     
+
     public String getEmail(){
         return email;
     } 
@@ -30,7 +33,18 @@ public class user {
         return pass;
     }
     
-    public boolean isEqual(user A){
-        
+    
+    public void setEmail(String _email){
+        email=_email;
     }
+    
+    public void setPass(String _pass){
+        pass=_pass;
+    }
+    
+    public boolean isEqual(user A){
+        return ( email.equals(A.email) && pass.equals(A.pass));
+    }
+    
+    
 }
