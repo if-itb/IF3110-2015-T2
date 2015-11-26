@@ -12,13 +12,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.WebServiceRef;
+import webservice.SimpleStackExchangeWS_Service;
 
 /**
  *
  * @author mfikria
  */
-@WebServlet(name = "QuestionDelete", urlPatterns = {"/QuestionDelete"})
+@WebServlet(name = "QuestionDelete", urlPatterns = {"/delete"})
 public class QuestionDelete extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/SimpleStackExchange_WS.wsdl")
+    private SimpleStackExchangeWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,6 +37,12 @@ public class QuestionDelete extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        int qid = Integer.parseInt(request.getParameter("qid"));
+//        int uid = Integer.parseInt(request.getParameter("uid"));
+        
+//        if(tool.Util.isAuthUser(request, uid))
+            deleteQuestion(tool.Util.getTokenCookie(request), qid);
+        response.sendRedirect("");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -72,5 +83,12 @@ public class QuestionDelete extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private Boolean deleteQuestion(java.lang.String token, int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        return port.deleteQuestion(token, qid);
+    }
 
 }

@@ -418,4 +418,59 @@ public class SimpleStackExchange_WS {
         return (Integer)em.createQuery("SELECT a FROM Answer a WHERE a.qid=:qid", Integer.class)
                 .setParameter("qid", qid).getResultList().size();
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "updateQuestion")
+    public Boolean updateQuestion(@WebParam(name = "token") String token, @WebParam(name = "qid") int qid, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+        
+        Question q = em.find(Question.class, qid);
+        em.getTransaction().begin();
+        try {
+            
+            q.setTopic(topic);
+            q.setContent(content);
+            q.setCreatedtime( new Date());
+            
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
+        
+        emf.close();
+        return true;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deleteQuestion")
+    public Boolean deleteQuestion(@WebParam(name = "token") String token, @WebParam(name = "qid") int qid) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SimpleStackExchange_WebServicePU");
+        EntityManager em = emf.createEntityManager();
+        
+        Question question = em.find(Question.class, qid);
+        
+        em.getTransaction().begin();
+        try {
+            
+            em.remove(question);
+            
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
+        
+        emf.close();
+        return true;
+    }
 }

@@ -42,12 +42,13 @@ public class QuestionShow extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int qid = Integer.parseInt(request.getParameter("qid"));
+        webservice.Question q = getQuestion(qid);
         Pair<webservice.Question, String> que;
-        webservice.Registereduser ru = getUserById(qid);
+        webservice.Registereduser ru = getUserById(q.getUid());
         if(ru == null)
-            que = new Pair(getQuestion(qid), "Invalid User");
+            que = new Pair(q, "Invalid User");
         else
-            que = new Pair(getQuestion(qid), ru.getName());
+            que = new Pair(q, ru.getName());
         request.setAttribute("question", que);
         
         
@@ -57,9 +58,9 @@ public class QuestionShow extends HttpServlet {
         for(webservice.Answer a : ans) {
             webservice.Registereduser aru = getUserById(a.getUid());
             if(aru == null)
-                answers.add(new Pair(a, "Deleted User"));
+                answers.add(new Pair(a, "Invalid User"));
             else
-                answers.add(new Pair(a, ru.getName()));
+                answers.add(new Pair(a, aru.getName()));
         }
         request.setAttribute("answers", answers);
         

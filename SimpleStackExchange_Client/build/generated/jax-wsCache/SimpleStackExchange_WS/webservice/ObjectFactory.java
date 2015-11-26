@@ -37,6 +37,8 @@ public class ObjectFactory {
     private final static QName _DeleteAllVoteAnswerResponse_QNAME = new QName("http://webservice/", "deleteAllVoteAnswerResponse");
     private final static QName _DeleteAllVoteQuestion_QNAME = new QName("http://webservice/", "deleteAllVoteQuestion");
     private final static QName _DeleteAllVoteQuestionResponse_QNAME = new QName("http://webservice/", "deleteAllVoteQuestionResponse");
+    private final static QName _DeleteQuestion_QNAME = new QName("http://webservice/", "deleteQuestion");
+    private final static QName _DeleteQuestionResponse_QNAME = new QName("http://webservice/", "deleteQuestionResponse");
     private final static QName _GetAnswers_QNAME = new QName("http://webservice/", "getAnswers");
     private final static QName _GetAnswersResponse_QNAME = new QName("http://webservice/", "getAnswersResponse");
     private final static QName _GetCountAnswer_QNAME = new QName("http://webservice/", "getCountAnswer");
@@ -59,6 +61,8 @@ public class ObjectFactory {
     private final static QName _Registereduser_QNAME = new QName("http://webservice/", "registereduser");
     private final static QName _SearchQuestion_QNAME = new QName("http://webservice/", "searchQuestion");
     private final static QName _SearchQuestionResponse_QNAME = new QName("http://webservice/", "searchQuestionResponse");
+    private final static QName _UpdateQuestion_QNAME = new QName("http://webservice/", "updateQuestion");
+    private final static QName _UpdateQuestionResponse_QNAME = new QName("http://webservice/", "updateQuestionResponse");
     private final static QName _VoteAnswer_QNAME = new QName("http://webservice/", "voteAnswer");
     private final static QName _VoteAnswerResponse_QNAME = new QName("http://webservice/", "voteAnswerResponse");
     private final static QName _VoteQuestion_QNAME = new QName("http://webservice/", "voteQuestion");
@@ -173,6 +177,22 @@ public class ObjectFactory {
      */
     public DeleteAllVoteQuestionResponse createDeleteAllVoteQuestionResponse() {
         return new DeleteAllVoteQuestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteQuestion }
+     * 
+     */
+    public DeleteQuestion createDeleteQuestion() {
+        return new DeleteQuestion();
+    }
+
+    /**
+     * Create an instance of {@link DeleteQuestionResponse }
+     * 
+     */
+    public DeleteQuestionResponse createDeleteQuestionResponse() {
+        return new DeleteQuestionResponse();
     }
 
     /**
@@ -352,6 +372,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link UpdateQuestion }
+     * 
+     */
+    public UpdateQuestion createUpdateQuestion() {
+        return new UpdateQuestion();
+    }
+
+    /**
+     * Create an instance of {@link UpdateQuestionResponse }
+     * 
+     */
+    public UpdateQuestionResponse createUpdateQuestionResponse() {
+        return new UpdateQuestionResponse();
+    }
+
+    /**
      * Create an instance of {@link VoteAnswer }
      * 
      */
@@ -498,6 +534,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice/", name = "deleteAllVoteQuestionResponse")
     public JAXBElement<DeleteAllVoteQuestionResponse> createDeleteAllVoteQuestionResponse(DeleteAllVoteQuestionResponse value) {
         return new JAXBElement<DeleteAllVoteQuestionResponse>(_DeleteAllVoteQuestionResponse_QNAME, DeleteAllVoteQuestionResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteQuestion }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "deleteQuestion")
+    public JAXBElement<DeleteQuestion> createDeleteQuestion(DeleteQuestion value) {
+        return new JAXBElement<DeleteQuestion>(_DeleteQuestion_QNAME, DeleteQuestion.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteQuestionResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "deleteQuestionResponse")
+    public JAXBElement<DeleteQuestionResponse> createDeleteQuestionResponse(DeleteQuestionResponse value) {
+        return new JAXBElement<DeleteQuestionResponse>(_DeleteQuestionResponse_QNAME, DeleteQuestionResponse.class, null, value);
     }
 
     /**
@@ -696,6 +750,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice/", name = "searchQuestionResponse")
     public JAXBElement<SearchQuestionResponse> createSearchQuestionResponse(SearchQuestionResponse value) {
         return new JAXBElement<SearchQuestionResponse>(_SearchQuestionResponse_QNAME, SearchQuestionResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateQuestion }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "updateQuestion")
+    public JAXBElement<UpdateQuestion> createUpdateQuestion(UpdateQuestion value) {
+        return new JAXBElement<UpdateQuestion>(_UpdateQuestion_QNAME, UpdateQuestion.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateQuestionResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice/", name = "updateQuestionResponse")
+    public JAXBElement<UpdateQuestionResponse> createUpdateQuestionResponse(UpdateQuestionResponse value) {
+        return new JAXBElement<UpdateQuestionResponse>(_UpdateQuestionResponse_QNAME, UpdateQuestionResponse.class, null, value);
     }
 
     /**

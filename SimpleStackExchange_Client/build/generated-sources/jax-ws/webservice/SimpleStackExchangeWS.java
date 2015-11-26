@@ -198,6 +198,30 @@ public interface SimpleStackExchangeWS {
 
     /**
      * 
+     * @param topic
+     * @param qid
+     * @param content
+     * @param token
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "updateQuestion", targetNamespace = "http://webservice/", className = "webservice.UpdateQuestion")
+    @ResponseWrapper(localName = "updateQuestionResponse", targetNamespace = "http://webservice/", className = "webservice.UpdateQuestionResponse")
+    @Action(input = "http://webservice/SimpleStackExchange_WS/updateQuestionRequest", output = "http://webservice/SimpleStackExchange_WS/updateQuestionResponse")
+    public Boolean updateQuestion(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "qid", targetNamespace = "")
+        int qid,
+        @WebParam(name = "topic", targetNamespace = "")
+        String topic,
+        @WebParam(name = "content", targetNamespace = "")
+        String content);
+
+    /**
+     * 
      * @param qid
      * @return
      *     returns java.lang.Integer
@@ -208,6 +232,24 @@ public interface SimpleStackExchangeWS {
     @ResponseWrapper(localName = "getCountAnswerResponse", targetNamespace = "http://webservice/", className = "webservice.GetCountAnswerResponse")
     @Action(input = "http://webservice/SimpleStackExchange_WS/getCountAnswerRequest", output = "http://webservice/SimpleStackExchange_WS/getCountAnswerResponse")
     public Integer getCountAnswer(
+        @WebParam(name = "qid", targetNamespace = "")
+        int qid);
+
+    /**
+     * 
+     * @param qid
+     * @param token
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "deleteQuestion", targetNamespace = "http://webservice/", className = "webservice.DeleteQuestion")
+    @ResponseWrapper(localName = "deleteQuestionResponse", targetNamespace = "http://webservice/", className = "webservice.DeleteQuestionResponse")
+    @Action(input = "http://webservice/SimpleStackExchange_WS/deleteQuestionRequest", output = "http://webservice/SimpleStackExchange_WS/deleteQuestionResponse")
+    public Boolean deleteQuestion(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
         @WebParam(name = "qid", targetNamespace = "")
         int qid);
 

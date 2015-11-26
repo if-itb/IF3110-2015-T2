@@ -90,10 +90,10 @@
                       <c:set var="uid" value="${question.getKey().getUid()}"/>
                     <% if(Util.isAuthUser(request,(Integer)pageContext.getAttribute("uid"))){ %>  
                       <button type="button" class="btn btn-warning " aria-label="Edit">
-                        <a class="glyphicon glyphicon-pencil white" aria-hidden="true"></a>
+                        <a class="glyphicon glyphicon-pencil white" aria-hidden="true" href="edit?qid=${question.getKey().getQid()}&save=0"></a>
                       </button>
                       <button type="button" class="btn btn-danger" aria-label="Delete">
-                        <a class="glyphicon glyphicon-trash white" aria-hidden="true"></a>
+                        <a class="glyphicon glyphicon-trash white" aria-hidden="true" href="delete?qid=${question.getKey().getQid()}"></a>
                       </button>
                   <% }%>
                   </span>
