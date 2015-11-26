@@ -21,10 +21,10 @@
     <body>
        <div class = "container">
 		<h2> What's Your Question? <hr> </h2>
-		<form method="POST" name="Form" action="/Stack_Exchange_Client/AddQuestion" onsubmit="return validateFormQuestion()">
-			<input type="text" name="question_topic" id="question_topic" placeholder="Question Topic">
+		<form method="POST" name="Form" action="/Stack_Exchange_Client/EditQuestion?qid=${question.id}">
+			<input type="text" name="question_topic" id="question_topic" value="${question.topic}">
 			<br>
-			<textarea name="question_content" id="question_content" rows="15" placeholder="Content"></textarea>
+			<textarea name="question_content" id="question_content" rows="15" placeholder="Content">${question.content}</textarea>
 			<br>
 			<input type="submit" id="submit_question" name="submit_question" value="Post">
 		</form>

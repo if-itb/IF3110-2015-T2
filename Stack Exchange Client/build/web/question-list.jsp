@@ -14,6 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="StyleSheet" href="style.css" type="text/css">
+        <script src="script.js"></script>
         <title>Simple Stack Exchage</title>
     </head>
     
@@ -51,7 +52,7 @@
 		</div>
 					
 		<div class = "edit-delete">
-                    <p> <c:out value="${question.userId}"/> | <a href="#" style="color:#FFA500"> edit </a> | <a href="#" style="color:#FF0000"> delete </a></p>
+                    <p> <c:out value="${question.userId}"/> | <a href="/Stack_Exchange_Client/GetQuestion?qid=${question.id}" style="color:#FFA500"> edit </a> | <a href="#" style="color:#FF0000"> delete </a></p>
 		</div>
 
             </div>
