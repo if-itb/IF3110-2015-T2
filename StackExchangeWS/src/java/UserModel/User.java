@@ -15,10 +15,8 @@ import javax.xml.bind.annotation.*;
 public class User {
     @XmlElement(name="userid", required=true)
     private int userID;
-    @XmlElement(name="firstname", required=true)
-    private String first_name;
-    @XmlElement(name="lastname", required=true)
-    private String last_name;
+    @XmlElement(name="name", required=true)
+    private String name;
     @XmlElement(name="email", required=true)
     private String email;
     @XmlElement(name="password", required=true)
@@ -28,60 +26,10 @@ public class User {
         userID = 0;
     }
     
-    public User(int uid, String fname, String lname, String email, String pw) {
+    public User(int uid, String name, String email, String pw) {
         userID = uid;
-        first_name = fname;
-        last_name = lname;
+        this.name = name;
         this.email = email;
         password = pw;
     }
-    /*
-    public void setUser(int uid, String fname, String lname, String email, String pw) {
-        userID = uid;
-        first_name = fname;
-        last_name = lname;
-        this.email = email;
-        password = pw;
-    }
-    
-    public void setUID(int uid) {
-        userID = uid;
-    }
-    
-    public void setFirstName(String fname) {        
-        first_name = fname;
-    }
-    
-    public void setLastName(String lname) {
-        last_name = lname;
-    }
-    
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
-    public void setPassword(String pw) {
-        password = pw;
-    }
-    
-    public int getUID() {
-        return userID;
-    }
-    
-    public String getFirstName() {        
-        return first_name;
-    }
-    
-    public String getLastName() {
-        return last_name;
-    }
-    
-    public String getEmail() {
-        return email;
-    }
-    
-    public String getPassword() {
-        return password;
-    }
-    */
 }

@@ -39,7 +39,7 @@ public class QuestionWS {
         try {
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM questions where question_id = ?";
+            sql = "SELECT * FROM question where Q_ID = ?";
             
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, qid);
@@ -47,14 +47,24 @@ public class QuestionWS {
             ResultSet rs = dbStatement.executeQuery();
             
             rs.next();
-            question = new Question(rs.getInt("question_id"), 
-                                    rs.getInt("user_id"),                     
-                                    rs.getString("topic"),
-                                    rs.getString("content"),
-                                    rs.getInt("vote"),
-                                    rs.getString("time"),
-                                    rs.getInt("answer_count")
-                                    );                
+            int uid = rs.getInt("User_ID");
+            int vote = rs.getInt("Vote");
+            int answer = rs.getInt("Answer_Count");
+            String time = rs.getString("Time");
+            String topic = rs.getString("Title");
+            String content = rs.getString("Content");
+            
+            sql = "SELECT Name FROM user where User_ID = ?";
+            
+            dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, uid);
+            
+            rs = dbStatement.executeQuery();
+            
+            rs.next();
+            String uname = rs.getString("Name");
+            
+            question = new Question(qid, uname, topic, content, vote, time, answer);
             
             rs.close();
             stmt.close();
@@ -75,22 +85,33 @@ public class QuestionWS {
         try {
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM questions";
+            sql = "SELECT * FROM question";
             
             PreparedStatement dbStatement = conn.prepareStatement(sql);            
             ResultSet rs = dbStatement.executeQuery();
             
-           int i = 0;
+            int i = 0;
             while (rs.next()) {
-            questions.add(new Question(rs.getInt("question_id"), 
-                                    rs.getInt("user_id"),                     
-                                    rs.getString("topic"),
-                                    rs.getString("content"),
-                                    rs.getInt("vote"),
-                                    rs.getString("time"),
-                                    rs.getInt("answer_count")
-                                    ));                
-                ++i;
+                int qid = rs.getInt("Q_ID");
+                int uid = rs.getInt("User_ID");
+                int vote = rs.getInt("Vote");
+                int answer = rs.getInt("Answer_Count");
+                String time = rs.getString("Time");
+                String topic = rs.getString("Title");
+                String content = rs.getString("Content");
+                
+                String retrieveName;
+                retrieveName = "SELECT * FROM user where User_ID = ?";
+                
+                PreparedStatement ps  = conn.prepareStatement(retrieveName);
+                ps.setInt(1, uid);
+            
+                ResultSet rset = ps.executeQuery();
+                rset.next();
+                
+                String uname = rset.getString("Name");         
+                
+                questions.add(new Question(qid, uname, topic, content, vote, time, answer));     
             }
             
             rs.close();
@@ -105,14 +126,15 @@ public class QuestionWS {
     
     @WebMethod(operationName = "createQuestion")    
     @WebResult(name="QuestionID")
-    public int createQuestion(@WebParam(name = "uid") int uid, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
+    public int createQuestion(@WebParam(name = "token") String token, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
         int qid = 0;
         // Call Identity Service
+        int uid = Integer.parseInt(token); // temporary        
         
         try {
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "INSERT INTO questions(user_id,topic,content,vote,answer_count) VALUES (?,?,?,0,0)";
+            sql = "INSERT INTO question(User_ID,Title,Content,Vote,Answer_Count) VALUES (?,?,?,0,0)";
             
             PreparedStatement dbStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             dbStatement.setInt(1, uid);
@@ -137,13 +159,16 @@ public class QuestionWS {
         
     @WebMethod(operationName = "updateQuestion")    
     @WebResult(name="QuestionID")
-    public int updateQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content, @WebParam(name = "uid") int uid) {
+    public int updateQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content, @WebParam(name = "token") String token) {
+        
+        // Call Identity Service
+        int uid = Integer.parseInt(token); // temporary    
+        
         try {
-            // Call Identity Service
             Statement stmt = conn.createStatement();
             
             String isSameUser;
-            isSameUser = "SELECT user_id FROM questions WHERE question_id = ?";
+            isSameUser = "SELECT User_ID FROM question WHERE Q_ID = ?";
             
             PreparedStatement dbStatement = conn.prepareStatement(isSameUser);
             dbStatement.setInt(1, qid);
@@ -151,12 +176,12 @@ public class QuestionWS {
             ResultSet rsSameUser = dbStatement.executeQuery();
             rsSameUser.next();
             
-            int questionUID = rsSameUser.getInt("user_id");
+            int questionUID = rsSameUser.getInt("User_ID");
             
             if (questionUID == uid) {
                 try {                            
                     String sql;
-                    sql = "UPDATE questions SET topic = ?, content = ? WHERE question_id = ?";
+                    sql = "UPDATE question SET Title = ?, Content = ? WHERE Q_ID = ?";
                     
                     dbStatement = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
                     dbStatement.setString(1, topic);
@@ -191,7 +216,7 @@ public class QuestionWS {
             Statement stmt = conn.createStatement();
                                     
             String sql;
-            sql = "UPDATE questions SET vote = vote + ? WHERE question_id = ?";
+            sql = "UPDATE question SET Vote = Vote + ? WHERE Q_ID = ?";
                     
             PreparedStatement dbStatement = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             dbStatement.setInt(1, vote);
@@ -216,13 +241,16 @@ public class QuestionWS {
 
     @WebMethod(operationName = "deleteQuestion")    
     @WebResult(name="QuestionID")
-    public int deleteQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "uid") int uid) {
+    public int deleteQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "token") String token) {
+        
+        // Call Identity Service
+        int uid = Integer.parseInt(token); // temporary
+        
         try {
-            // Call Identity Service
             Statement stmt = conn.createStatement();
             
             String isSameUser;
-            isSameUser = "SELECT user_id FROM questions WHERE question_id = ?";
+            isSameUser = "SELECT User_ID FROM question WHERE Q_ID = ?";
             
             PreparedStatement dbStatement = conn.prepareStatement(isSameUser);
             dbStatement.setInt(1, qid);
@@ -230,12 +258,12 @@ public class QuestionWS {
             ResultSet rsSameUser = dbStatement.executeQuery();
             rsSameUser.next();
             
-            int questionUID = rsSameUser.getInt("user_id");
+            int questionUID = rsSameUser.getInt("User_ID");
             
             if (questionUID == uid) {
                 try {                            
                     String sql;
-                    sql = "DELETE FROM questions WHERE question_id = ?";
+                    sql = "DELETE FROM question WHERE Q_ID = ?";
                     
                     dbStatement = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
                     dbStatement.setInt(1, qid);
@@ -246,7 +274,7 @@ public class QuestionWS {
                         qid = rs.getInt(1);
                     }
                     
-                    sql = "DELETE FROM answers WHERE question_id = ?";
+                    sql = "DELETE FROM answer WHERE Q_ID = ?";
                     dbStatement = conn.prepareStatement(sql);
                     dbStatement.setInt(1, qid);                    
                     dbStatement.executeUpdate();

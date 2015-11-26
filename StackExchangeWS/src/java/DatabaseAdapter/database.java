@@ -20,7 +20,7 @@ public class database {
         Connection conn = null;
         
         try {
-            String url = "jdbc:mysql://localhost:3306/stackexchangews?zeroDateTimeBehavior=convertToNull";
+            String url = "jdbc:mysql://localhost:3306/restingsoapdb?zeroDateTimeBehavior=convertToNull";
             String username = "root";
             String password = "";
             Class.forName("com.mysql.jdbc.Driver");

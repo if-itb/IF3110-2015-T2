@@ -35,7 +35,7 @@ public class AnswerWS {
         try {
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM answers where question_id = ?";
+            sql = "SELECT * FROM answer where Q_ID = ?";
             
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, qid);
@@ -44,13 +44,24 @@ public class AnswerWS {
             
             int i = 0;
             while (rs.next()) {
-                answers.add(new Answer(rs.getInt("answer_id"), 
-                                        rs.getInt("question_id"), 
-                                        rs.getInt("user_id"), 
-                                        rs.getString("content"),
-                                        rs.getInt("vote"),
-                                        rs.getString("time")
-                                        ));
+                int aid = rs.getInt("A_ID");
+                String content = rs.getString("Content");
+                int uid = rs.getInt("User_ID");
+                int vote = rs.getInt("Vote");
+                String time = rs.getString("Time");
+                
+                String retrieveName;
+                retrieveName = "SELECT * FROM user where User_ID = ?";
+                
+                PreparedStatement ps  = conn.prepareStatement(retrieveName);
+                ps.setInt(1, uid);
+            
+                ResultSet rset = ps.executeQuery();
+                rset.next();
+                
+                String uname = rset.getString("Name");         
+                
+                answers.add(new Answer(aid, qid, uname, content, vote, time));
                 ++i;
             }
             
@@ -66,14 +77,15 @@ public class AnswerWS {
 
     @WebMethod(operationName = "createAnswer")    
     @WebResult(name="AnswerID")
-    public int createAnswer(@WebParam(name = "uid") int uid, @WebParam(name = "qid") int qid, @WebParam(name = "content") String content) {
+    public int createAnswer(@WebParam(name = "token") String token, @WebParam(name = "qid") int qid, @WebParam(name = "content") String content) {
         int aid = 0;
         // Call Identity Service
+        int uid = Integer.parseInt(token); // temporary        
         
         try {
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "INSERT INTO answers(question_id,user_id,content,vote) VALUES (?,?,?,0)";
+            sql = "INSERT INTO answer(Q_ID,User_ID,Content,Vote) VALUES (?,?,?,0)";
             
             PreparedStatement dbStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             dbStatement.setInt(1, qid);
@@ -86,7 +98,7 @@ public class AnswerWS {
             }            
             
             String updateAnsCount;
-            updateAnsCount = "UPDATE questions SET answer_count = answer_count + 1 WHERE question_id = ?";
+            updateAnsCount = "UPDATE question SET Answer_Count = Answer_Count + 1 WHERE Q_ID = ?";
             dbStatement = conn.prepareStatement(updateAnsCount);
             dbStatement.setInt(1, qid);            
             dbStatement.executeUpdate();
@@ -108,7 +120,7 @@ public class AnswerWS {
             Statement stmt = conn.createStatement();
                                     
             String sql;
-            sql = "UPDATE answers SET vote = vote + ? WHERE answer_id = ?";
+            sql = "UPDATE answer SET Vote = Vote + ? WHERE A_ID = ?";
                     
             PreparedStatement dbStatement = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             dbStatement.setInt(1, vote);
