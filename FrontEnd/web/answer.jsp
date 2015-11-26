@@ -44,10 +44,9 @@
                      }
                      }
                      }*/
-                    token = request.getParameter("access_token");
+                    token = request.getParameter("token");
                     out.println(token);
                     int qidFromURL = Integer.parseInt(request.getParameter("id"));
-
                     //take the first question
                     try {
                         questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();
@@ -58,13 +57,19 @@
                             out.println("<div>");
                             out.println("<h2>" + result.get(i).getTopic() + "</h2>");
                             out.println("<div class='columnsmall left'>");
-                            out.println("<a href='upQues.jsp?id=" + qidFromURL + "'>");
-                            out.println("<img src='up.png' alt='up' height='42' width='42' >");
-                            out.println("</a>");
+                            //hide if token is not validated 
+                            if (token !=null){
+                                out.println("<a href='upQues.jsp?id=" + qidFromURL + "&token=" + token + "'>");
+                                out.println("<img src='up.png' alt='up' height='42' width='42' >");
+                                out.println("</a>");
+                            }
+                            //print number of votes
                             out.println("<p>" + result.get(i).getVotes() + "</p>");
-                            out.println("<a href='downQues.jsp?id=" + qidFromURL + "'>");
-                            out.println("<img src='down.png' alt='up' height='42' width='42' >");
-                            out.println("</a>");
+                            if (token != null){
+                                out.println("<a href='downQues.jsp?id=" + qidFromURL + "&token=" + token + "'>");
+                                out.println("<img src='down.png' alt='up' height='42' width='42' >");
+                                out.println("</a>");
+                            }
                             out.println("</div>");
 
                             out.println("<div class='columnlargest center'>");
@@ -92,13 +97,19 @@
                             out.println("<div class='answer'>");
 
                             out.println("<div class='columnsmall left' >");
-                            out.println("<a href='upAns.jsp?id=" + result.get(i).getAnswerID() + "&qid="+qidFromURL+"'>");
-                            out.println("<img src='up.png' alt='up' height='42' width='42' >");
-                            out.println("</a>");
+                            //hide if token is not validated 
+                            if (token !=null){
+                                out.println("<a href='upAns.jsp?id=" + result.get(i).getAnswerID() + "&qid="+qidFromURL + "&token=" + token + "'>");
+                                out.println("<img src='up.png' alt='up' height='42' width='42' >");
+                                out.println("</a>");
+                            }
                             out.println("<p>" + result.get(i).getVotes() + "</p>");
-                            out.println("<a href='downAns.jsp?id=" + result.get(i).getAnswerID()+ "&qid="+qidFromURL+ "'>");
-                            out.println("<img src='down.png' alt='up' height='42' width='42' >");
-                            out.println("</a>");
+                            //hide if token is not validated 
+                            if (token !=null){
+                                out.println("<a href='downAns.jsp?id=" + result.get(i).getAnswerID()+ "&qid="+qidFromURL + "&token=" + token + "'>");
+                                out.println("<img src='down.png' alt='up' height='42' width='42' >");
+                                out.println("</a>");
+                            }
                             out.println("</div>");
 
                             out.println("<div class='columnlargest center'>");
@@ -120,12 +131,18 @@
                 <%-- end web service invocation --%><hr/>
                 <div>
                     <h3>Your Answer</h3>
-                    <% out.println("<form name='answer' action='insertanswer.jsp?id="+qidFromURL+ "' method='post' class='form'>"); %>
-                    <input type="text" maxlength="12" name="name" placeholder="Name"><br>
-                    <input type="text" name="email" maxlength="30" placeholder="Email"><br>
-                    <textarea name="content" placeholder="Content" maxlength="1500"></textarea>
-                    <input type="submit" value="Post">
-                    </form>
+                    <%
+                        //Check if the token is null then hide form
+                        if(token != null){
+                            out.println("<form name='answer' action='insertanswer.jsp?id="+qidFromURL+ "' method='post' class='form'>");
+                            out.println("<input type='text' maxlength='12' name='name' placeholder='Name'><br>");
+                            out.println("<input type='text' name='email' maxlength='30' placeholder='Email'><br>");
+                            out.println("<textarea name='content' placeholder='Content' maxlength='1500'></textarea>");
+                            out.println("<input type='submit' value='Post'>");
+                            out.println("</form>");
+                        }                   
+                    %>
+                    
                 </div>
             </div>
         </div>

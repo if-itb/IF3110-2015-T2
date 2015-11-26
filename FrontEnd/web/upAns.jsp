@@ -18,14 +18,16 @@
 	answermodel.AnswerWS port = service.getAnswerWSPort();
 	 // TODO initialize WS operation arguments here
 	int ansId = Integer.parseInt(request.getParameter("id"));
+        String token = request.getParameter("token");
+        
 	// TODO process result here
-	int result = port.upAnswer(ansId);
+	String result = port.upAnswer(ansId,token);
 	out.println("Result = "+result);
     } catch (Exception ex) {
 	// TODO handle custom exceptions here
     }
     
-    String site = "answer.jsp?id="+Integer.parseInt(request.getParameter("qid"));
+    String site = "answer.jsp?id="+Integer.parseInt(request.getParameter("qid")) +"&token=" + request.getParameter("token");
     response.setStatus(response.SC_MOVED_TEMPORARILY);
     response.setHeader("Location", site);
     %>
