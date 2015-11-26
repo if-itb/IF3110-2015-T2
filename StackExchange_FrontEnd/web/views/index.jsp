@@ -72,7 +72,7 @@
                         </span>
                         <div class="divider"></div>
                         <br/>
-                        <p>${question.title}</p>
+                        <p>${question.content}</p>
                     </div>
 
                     <div class="fixed-action-btn horizontal click-to-toggle">
