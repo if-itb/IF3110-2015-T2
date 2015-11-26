@@ -59,23 +59,28 @@ public class ServiceAuth extends HttpServlet {
             if (res.next()) {
                 DateFormat dformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date dt = (Date) dformat.parse(res.getString("lifetime"));
+                System.out.println(dt);
                 // check if the token lifetime has expired
                 Date cur = new Date();
-                if (cur.after(dt)) {
+                System.out.println(cur);
+                if (cur.before(dt)) {
                     object.put("auth", 1);
                     object.put("messsage", "Token Valid");
                     object.put("user_id", res.getInt("uid"));
+                    out.print(object);
                 } else {
                     object.put("auth", 0);
                     object.put("message", "Token Expired");
+                    out.print(object);
                 }
             } else {
                 object.put("auth", 0);
                 object.put("message", "Token Invalid");
+                out.print(object);
             }
             
-            out.print(object);
-        } catch (SQLException | ParseException ex) {
+        } catch (Exception ex) {
+            System.out.println(ex);
             Logger.getLogger(ServiceAuth.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
