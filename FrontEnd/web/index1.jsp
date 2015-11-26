@@ -24,7 +24,7 @@
 
             try {
 
-                Timestamp result = port.getExpiredDate(token);
+                Timestamp result = new Timestamp(port.getExpiredDate(token));
                 Timestamp ts = new Timestamp(System.currentTimeMillis());
                 out.println(ts);
                 out.println(result);

@@ -425,9 +425,9 @@ public class QuestionWS {
     }
 
     @WebMethod(operationName = "getExpiredDate")
-    public java.sql.Timestamp getExpiredDate(@WebParam(name = "token") String token) {
+    public long getExpiredDate(@WebParam(name = "token") String token) {
         Auth auth = new Auth();
-        return auth.getExpiredDate(token);
+        return auth.getExpiredDate(token).getTime();
 
     }
 
