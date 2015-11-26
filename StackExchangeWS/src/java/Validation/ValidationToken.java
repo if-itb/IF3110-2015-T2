@@ -38,8 +38,8 @@ public class ValidationToken {
      * @param token
      * @return 
      */
-    public static int validateToken(String token) {
-        int user_id = -1;
+    public static long validateToken(String token) {
+        long user_id = -1;
         
         try {
             // establish a connection with the identity service that handles login
@@ -71,10 +71,10 @@ public class ValidationToken {
             JSONObject object = (JSONObject) parser.parse(sb.toString());
             
                 // get the attributes and add the cookie
-            int isAuth = (int) object.get("auth");
+            long isAuth = (Long) object.get("auth");
                 
             if (isAuth > 0)
-                user_id = (int) object.get("user_id");
+                user_id = (Long) object.get("user_id");
             
             conn.disconnect();
         } catch (IOException | ParseException ex) {
