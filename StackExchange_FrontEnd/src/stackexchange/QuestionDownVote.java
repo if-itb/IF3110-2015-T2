@@ -33,16 +33,18 @@ public class QuestionDownVote extends HttpServlet {
         String requestResponse = HttpRequest.executeMethod("voteDownQuestion", requestParams);
 
         // Get soap response
-        boolean isSuccess = XmlParser.isSuccessResponse(requestResponse);
+        String responseCode = XmlParser.checkResponse(requestResponse);
 
-        System.out.println(requestResponse);
-
-        if (isSuccess == true){
+        if (responseCode.equals("success")){
             response.setContentType("text/html;charset=UTF-8");
             response.sendRedirect("/?token=" + request.getParameter("token"));
 //            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
             return;
+        } else if (responseCode.equals("expired")){
+            response.sendRedirect("/login");
+            return;
         }
+
 
         if (!request.getParameter("token").isEmpty()){
             response.setContentType("text/html;charset=UTF-8");

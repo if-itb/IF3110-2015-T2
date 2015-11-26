@@ -55,7 +55,7 @@ public class XmlParser {
         return out;
     }
 
-    public static boolean isSuccessResponse(String requestResponse){
+    public static String checkResponse(String requestResponse){
 
         String returns = "";
 
@@ -73,10 +73,16 @@ public class XmlParser {
 
         System.out.println(requestResponse);
 
-        if (returns.equals("-1") || returns.equalsIgnoreCase("error")) {
-            return false;
-        } else {
-            return true;
+        if (returns.equalsIgnoreCase("success") || (!returns.equalsIgnoreCase("error") && Integer.parseInt(returns) >= 0)) {
+            return "success";
+        } else if (returns.equals("-1")) {
+            return "expired";
+        } else if (returns.equals("-2")) {
+            return "invalid";
+        } else if (returns.equalsIgnoreCase("ERROR") || returns.equals("-3")) {
+            return "error";
         }
+
+        return "";
     }
 }

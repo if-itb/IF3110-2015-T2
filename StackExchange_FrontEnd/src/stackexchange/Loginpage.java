@@ -29,8 +29,6 @@ public class Loginpage extends HttpServlet {
         String requestResponse = HttpRequest.createJsonPost("http://localhost:9000/Identity_Service/Request", requestParams);
         String token = "";
 
-
-
         try {
             JSONObject responseObject = new JSONObject(requestResponse);
             token = responseObject.getString("token");

@@ -30,12 +30,16 @@ public class QuestionDelete extends HttpServlet {
         String requestResponse = HttpRequest.executeMethod("deleteQuestion", requestParams);
 
         // Get soap response
-        boolean isSuccess = XmlParser.isSuccessResponse(requestResponse);
+        String responseCode = XmlParser.checkResponse(requestResponse);
+        String message = null;
 
-        if (isSuccess == true){
+        if (responseCode.equals("success")){
             response.setContentType("text/html;charset=UTF-8");
             response.sendRedirect("/?token=" + request.getParameter("token"));
 //            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
+            return;
+        } else if (responseCode.equals("expired")){
+            response.sendRedirect("/login");
             return;
         }
 

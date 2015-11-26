@@ -32,14 +32,18 @@ public class QuestionEdit extends HttpServlet {
         String requestResponse = HttpRequest.executeMethod("editQuestion", requestParams);
 
         // Get soap response
-        boolean isSuccess = XmlParser.isSuccessResponse(requestResponse);
+        String responseCode = XmlParser.checkResponse(requestResponse);
 
-        if (isSuccess == true){
+        if (responseCode.equals("success")){
             response.setContentType("text/html;charset=UTF-8");
             response.sendRedirect("/?token=" + request.getParameter("token"));
 //            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
             return;
+        } else if (responseCode.equals("expired")){
+            response.sendRedirect("/login");
+            return;
         }
+
 
         if (request.getParameter("token") != null && !request.getParameter("token").isEmpty()){
             response.setContentType("text/html;charset=UTF-8");

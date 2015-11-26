@@ -31,9 +31,9 @@ public class Registerpage extends HttpServlet {
         String requestResponse = HttpRequest.executeMethod("registerUser", requestParams);
 
         // Get soap response
-        boolean isSuccess = XmlParser.isSuccessResponse(requestResponse);
+        String responseCode = XmlParser.checkResponse(requestResponse);
 
-        if (isSuccess == true){
+        if (responseCode.equals("success")){
             response.sendRedirect("/");
             return;
         }
