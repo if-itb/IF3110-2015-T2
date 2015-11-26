@@ -49,9 +49,9 @@
                 <tbody>
                     <tr>
                         <td>
-                            <a class="vote-up" href="update_vote_question.jsp?id=<%=question.getId()%>&vote=1">Up</a>
+                            <%if(name != null && !question.isHasVote()){%><a class="vote-up" href="update_vote_question.jsp?id=<%=question.getId()%>&vote=1">Up</a><%}%>
                             <div class="vote" id="votes"><%=question.getVote()%></div>
-                            <a class="vote-down" href="update_vote_question.jsp?id=<%=question.getId()%>&vote=-1">Down</a>
+                            <%if(name != null && !question.isHasVote()){%><a class="vote-down" href="update_vote_question.jsp?id=<%=question.getId()%>&vote=-1">Down</a><%}%>
                         </td>
                         <td>
                             <table>
@@ -75,9 +75,9 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <a class="vote-up" href="update_vote_answer.jsp?id=<%=question.getId()%>&id_answer=<%=answer.getIdAnswer()%>&vote=1">Up</a>
+                                        <%if(name != null && !answer.isHasVote()){%><a class="vote-up" href="update_vote_answer.jsp?id=<%=question.getId()%>&id_answer=<%=answer.getIdAnswer()%>&vote=1">Up</a><%}%>
                                         <div class="vote" id="votes<%=answer.getIdAnswer()%>"><%=answer.getVote()%></div>
-                                        <a class="vote-down" href="update_vote_answer.jsp?id=<%=question.getId()%>&id_answer=<%=answer.getIdAnswer()%>&vote=-1">Down</a>
+                                        <%if(name != null && !answer.isHasVote()){%><a class="vote-down" href="update_vote_answer.jsp?id=<%=question.getId()%>&id_answer=<%=answer.getIdAnswer()%>&vote=-1">Down</a><%}%>
                                     </td>
                                     <td>
                                         <table>
