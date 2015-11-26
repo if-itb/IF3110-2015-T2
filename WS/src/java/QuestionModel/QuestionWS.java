@@ -404,12 +404,4 @@ public class QuestionWS {
         return questions;
     }
 
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "getEmail")
-    public String getEmail(@WebParam(name = "token") String token) {
-        
-    }
-
 }
