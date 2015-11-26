@@ -216,8 +216,8 @@ public class QuestionWS {
   
   
   @WebMethod(operationName = "voteQuestion")
-  public boolean voteQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "token") String token, @WebParam(name = "vote") String vote) {
-    boolean isVoted = false;
+  public int voteQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "token") String token, @WebParam(name = "vote") String vote) {
+    int isVoted = -1;
     int uid = 0;
     UserWS user = new UserWS();
     
@@ -260,13 +260,15 @@ public class QuestionWS {
           dbStatement3.setInt(2, uid);
           dbStatement3.executeUpdate();
 
-          isVoted = true;
+          isVoted = 1;
           rs.close();
           stmt.close();
 
         } catch (SQLException ex) {
           Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
+      } else {
+        isVoted = 0;
       }
     }
     return isVoted;

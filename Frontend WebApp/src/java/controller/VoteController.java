@@ -53,6 +53,22 @@ public class VoteController extends HttpServlet {
       } else {
         response.sendRedirect("log-in.jsp");
       }
+    } else if ("question-up".contains(request.getParameter("name"))) {
+      int qid = Integer.parseInt(request.getParameter("qid"));
+      int voteSuccess = voteQuestion(qid, request.getParameter("token"), "up");
+      if ((voteSuccess == 1) || (voteSuccess == 0)) {
+        response.sendRedirect("QuestionDetailController?token=" + request.getParameter("token") + "&qid=" + request.getParameter("qid"));
+      } else {
+        response.sendRedirect("log-in.jsp");
+      }
+    } else if ("question-down".contains(request.getParameter("name"))) {
+      int qid = Integer.parseInt(request.getParameter("qid"));
+      int voteSuccess = voteQuestion(qid, request.getParameter("token"), "down");
+      if ((voteSuccess == 1) || (voteSuccess == 0)) {
+        response.sendRedirect("QuestionDetailController?token=" + request.getParameter("token") + "&qid=" + request.getParameter("qid"));
+      } else {
+        response.sendRedirect("log-in.jsp");
+      }
     }
     
   }
@@ -101,5 +117,12 @@ public class VoteController extends HttpServlet {
     // If the calling of port operations may lead to race condition some synchronization is required.
     AnswerWS.AnswerWS port = service.getAnswerWSPort();
     return port.voteAnswer(aid, vote, token);
+  }
+
+  private int voteQuestion(int qid, java.lang.String token, java.lang.String vote) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
+    return port.voteQuestion(qid, token, vote);
   }
 }

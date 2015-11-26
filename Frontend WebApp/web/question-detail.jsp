@@ -22,7 +22,11 @@ Author:
   <body>
     <!-- Title -->
     <div class="title">
-      <a href="index.jsp">
+        <% if ((request.getParameter("token") == null) || (request.getParameter("token") == "not-valid")) { %>
+        <a href="IndexController">
+        <% } else { %>
+        <a href="IndexController?token=<%= request.getParameter("token") %>">
+        <% } %>
         StackExchange
       </a>
     </div>
@@ -43,11 +47,11 @@ Author:
         <!-- Questions Content -->
         <div class="same-height-row border-bottom">
           <div class="vote-number">
-            <img class="small-icon" src="img/up.png" name="question-up" onclick="QuestionDetailController?qid=<%= questions.get(i).getIdQuestion()%>&token=<%= request.getParameter("token") %>"/><br>
+              <a href = 'VoteController?name=question-up&qid=<%= questions.get(i).getIdQuestion()%>&token=<%= request.getParameter("token") %>'><img class="small-icon" src="img/up.png" name="question-up" /><br></a>
             <div class="big-number" id="question-1">
                 <%= questions.get(i).getVoteNum() %>
             </div>
-            <img class="small-icon" src="img/down.png" name="question-down" onclick="QuestionDetailController?qid=<%= questions.get(i).getIdQuestion()%>&token=<%= request.getParameter("token") %>"/><br>
+              <a href = 'VoteController?name=question-down&qid=<%= questions.get(i).getIdQuestion()%>&token=<%= request.getParameter("token") %>'><img class="small-icon" src="img/down.png" name="question-down"/><br></a>
           </div>
           <div class="right-position">
             <div class="answer-question-detail">
