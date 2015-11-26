@@ -81,7 +81,8 @@ public class SubmitEditServlet extends HttpServlet {
         String topic = request.getParameter("topic");
         String content = request.getParameter("content");
         updateQuestion(qid, topic, content, token);
-        processRequest(request, response);
+//        processRequest(request, response);
+        request.getRequestDispatcher("/index").forward(request, response);
     }
 
     /**

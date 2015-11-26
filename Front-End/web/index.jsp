@@ -21,7 +21,7 @@
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="index" class="brand-logo">StackExchange</a>
+      <a id="logo-container" href="index" class="brand-logo">RestingSOAP</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="about.jsp">About Us</a></li>
         <li><a href="login.jsp">Log In</a></li>
@@ -95,9 +95,9 @@
                         <p><%= question.getContent() %></p>
                     </div>
                     <div class="card-action">
-                        <p class="orange-text text-lighten-1 right">Asked by <%= question.getUsername() %> at <%= question.getTimestamp() %></p>
+                        <p class="blue-text text-lighten-1 right">Asked by <%= question.getUsername() %> at <%= question.getTimestamp() %></p>
                         <a href="editQuestion?qid=<%= question.getQuestionid() %>&token=1">Edit</a>
-                        <a href="delete?qid=<%= question.getQuestionid() %>&token=1">Delete</a>
+                        <a class="red-text" href="delete?qid=<%= question.getQuestionid() %>&token=1">Delete</a>
                     </div>
                 </div>
             </div>

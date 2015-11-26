@@ -52,7 +52,8 @@ public class DeleteServlet extends HttpServlet {
         int qid = Integer.parseInt(request.getParameter("qid"));
         String token = request.getParameter("token");
         deleteQuestion(qid,token);
-        processRequest(request, response);
+//        processRequest(request, response);
+        request.getRequestDispatcher("/index").forward(request, response);
     }
 
     /**

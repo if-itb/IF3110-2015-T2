@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /IdentityService/nbproject/private/
 /WebService/nbproject/private/
 /WebService/build/
@@ -8,7 +7,6 @@
 /StackExchange WS/dist/
 /StackExchangeWS/build/
 /StackExchangeWS/dist/
-=======
 /Front-End/build/
->>>>>>> origin/master
 /Front-End/dist/
+/IdentityService/dist/

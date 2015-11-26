@@ -20,7 +20,7 @@
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="index" class="brand-logo">StackExchange</a>
+      <a id="logo-container" href="index" class="brand-logo">RestingSOAP</a>
       <ul class="right hide-on-med-and-down">
         <li class="active"><a href="about.jsp">About Us</a></li>
         <li><a href="login.jsp">Log In</a></li>
