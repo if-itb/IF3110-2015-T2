@@ -6,6 +6,7 @@
 package User;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,12 +45,14 @@ public class AddUserServlet extends HttpServlet {
         newUser.setPassword(password);
         int id = getIDbyEmail(email);
         if (id == -1){
-            //user doen't exist
+            //user doesn't exist
             addUser(newUser);
             response.sendRedirect("login.jsp");
         } else {
-            //email already registered
             response.sendRedirect("register.jsp");
+            try (PrintWriter out = response.getWriter()) {
+                out.println("Failed: email already registered");
+            }
         }
     }
 

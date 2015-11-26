@@ -16,6 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.jws.WebResult;
+import org.json.JSONObject;
 
 /**
  *
@@ -114,55 +116,88 @@ public class VoteWS {
      * Web service operation
      */
     @WebMethod(operationName = "voteQuestion")
-    @Oneway
-    public void voteQuestion(@WebParam(name = "question_id") int question_id, @WebParam(name = "user_id") int user_id, @WebParam(name = "vote") int vote) {
-        if (!hasVotedQuestion(question_id,user_id)) {
-            try {
-                String sql = "UPDATE question SET vote = vote+? WHERE question_id = ?";
-                PreparedStatement stmt1 = conn.prepareStatement(sql);
-                stmt1.setInt(1, vote);
-                stmt1.setInt(2,question_id);
-                int i = stmt1.executeUpdate();
-                stmt1.close();
-                if (i>0) {
-                    sql = "INSERT INTO vote_question (question_id, user_id) VALUES (?,?)";
-                    PreparedStatement stmt2 = conn.prepareStatement(sql);
-                    stmt2.setInt(1,question_id);
-                    stmt2.setInt(2,user_id);
-                    stmt2.executeUpdate();
-                    stmt2.close();
+    @WebResult (name="Integer")
+    public int voteQuestion(@WebParam(name = "token") String token, @WebParam(name = "question_id") int question_id, @WebParam(name = "vote") int vote) {
+        int result = -1;
+        
+        // Send token to IS connector
+        
+        // Get response in json format
+        JSONObject jo = new JSONObject();
+        
+        // Parse json
+        int uid = jo.getInt("id");
+        int status = jo.getInt("status");
+        
+        // if status ok, insert answer into db, select answer_id
+        if (status == 1){
+            result = 1;
+            if (!hasVotedQuestion(question_id,uid)) {
+                try {
+                    String sql = "UPDATE question SET vote = vote+? WHERE question_id = ?";
+                    PreparedStatement stmt1 = conn.prepareStatement(sql);
+                    stmt1.setInt(1, vote);
+                    stmt1.setInt(2,question_id);
+                    int i = stmt1.executeUpdate();
+                    stmt1.close();
+                    if (i>0) {
+                        sql = "INSERT INTO vote_question (question_id, user_id) VALUES (?,?)";
+                        PreparedStatement stmt2 = conn.prepareStatement(sql);
+                        stmt2.setInt(1,question_id);
+                        stmt2.setInt(2,uid);
+                        stmt2.executeUpdate();
+                        stmt2.close();
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(VoteWS.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(VoteWS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        return result;
     }
     
     /**
      * Web service operation
      */
     @WebMethod(operationName = "voteAnswer")
-    @Oneway
-    public void voteAnswer(@WebParam(name = "answer_id") int answer_id, @WebParam(name = "user_id") int user_id, @WebParam(name = "vote") int vote) {
-        if (!hasVotedAnswer(answer_id,user_id)) {
-            try {
-                String sql = "UPDATE answer SET vote = vote+? WHERE answer_id = ?";
-                PreparedStatement stmt1 = conn.prepareStatement(sql);
-                stmt1.setInt(1, vote);
-                stmt1.setInt(2,answer_id);
-                int i = stmt1.executeUpdate();
-                stmt1.close();
-                if (i>0) {
-                    sql = "INSERT INTO vote_answer (answer_id, user_id) VALUES (?,?)";
-                    PreparedStatement stmt2 = conn.prepareStatement(sql);
-                    stmt2.setInt(1,answer_id);
-                    stmt2.setInt(2,user_id);
-                    stmt2.executeUpdate();
-                    stmt2.close();
+    @WebResult(name="Integer")
+    public int voteAnswer(@WebParam(name = "token") String token, @WebParam(name = "answer_id") int answer_id, @WebParam(name = "vote") int vote) {
+        int result = -1;
+        
+        // Send token to IS connector
+        
+        // Get response in json format
+        JSONObject jo = new JSONObject();
+        
+        // Parse json
+        int uid = jo.getInt("id");
+        int status = jo.getInt("status");
+        
+        // if status ok, insert answer into db, select answer_id
+        if (status == 1){
+            result = 1;
+            if (!hasVotedAnswer(answer_id,uid)) {
+                try {
+                    String sql = "UPDATE answer SET vote = vote+? WHERE answer_id = ?";
+                    PreparedStatement stmt1 = conn.prepareStatement(sql);
+                    stmt1.setInt(1, vote);
+                    stmt1.setInt(2,answer_id);
+                    int i = stmt1.executeUpdate();
+                    stmt1.close();
+                    if (i>0) {
+                        sql = "INSERT INTO vote_answer (answer_id, user_id) VALUES (?,?)";
+                        PreparedStatement stmt2 = conn.prepareStatement(sql);
+                        stmt2.setInt(1,answer_id);
+                        stmt2.setInt(2,uid);
+                        stmt2.executeUpdate();
+                        stmt2.close();
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(VoteWS.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(VoteWS.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return result;
     }
 }

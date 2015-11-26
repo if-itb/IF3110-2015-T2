@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import javax.jws.Oneway;
 import javax.jws.WebParam;
+import org.json.*;
 
 /**
  *
@@ -78,55 +79,117 @@ public class QuestionWS {
      * Web service operation
      */
     @WebMethod(operationName = "addQuestion")
-    @Oneway
-    public void addQuestion(@WebParam(name = "q") Question q) {
-        try {
-            String sql = "INSERT INTO question(topic,content,user_id) VALUES (?,?,?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, q.getTopic());
-            stmt.setString(2, q.getContent());
-            stmt.setInt(3,q.getUserID());
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+    @WebResult(name="Integer")
+    public int addQuestion(@WebParam(name = "token") String token, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
+        int qid = -1;
+        
+        // Send token to IS connector
+        
+        // Get response in json format
+        JSONObject jo = new JSONObject();
+        
+        // Parse json
+        int uid = jo.getInt("id");
+        int status = jo.getInt("status");
+        
+        // if status ok, insert question into db, select question_id
+        if (status == 1){
+            try {
+                String sql = "INSERT INTO question(topic,content,user_id) VALUES (?,?,?)";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, topic);
+                stmt.setString(2, content);
+                stmt.setInt(3, uid);
+                stmt.executeUpdate();
+                stmt.close();
+                
+                String sql2 = "SELECT question_id FROM question WHERE topic=? AND content=? AND user_id=?";
+                PreparedStatement stmt2 = conn.prepareStatement(sql2);
+                stmt2.setString(1, topic);
+                stmt2.setString(2, content);
+                stmt2.setInt(3, uid);
+                ResultSet rs = stmt2.executeQuery();
+                
+                while (rs.next()) {
+                    qid = rs.getInt("question_id");
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            // alert: fail to add question
         }
+
+        return qid;
     }
 
     /**
      * Web service operation
      */
     @WebMethod(operationName = "editQuestion")
-    @Oneway
-    public void editQuestion(@WebParam(name = "q") Question q) {
-        try {
-            String sql = "UPDATE question SET topic = ?, content = ? WHERE question_id = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, q.getTopic());
-            stmt.setString(2, q.getContent());
-            stmt.setInt(3, q.getQuestionID());
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+    @WebResult(name="Integer")
+    public int editQuestion(@WebParam(name = "token") String token, @WebParam(name = "question_id") int qid, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
+        // Send token to IS connector
+        
+        // Get response in json format
+        JSONObject jo = new JSONObject();
+        
+        // Parse json
+        int uid = jo.getInt("id");
+        int status = jo.getInt("status");
+        
+        // if status ok, update question into db, select qid
+        if (status == 1){
+            try {
+                String sql = "UPDATE question SET topic = ?, content = ? WHERE question_id = ?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, topic);
+                stmt.setString(2, content);
+                stmt.setInt(3, qid);
+                stmt.executeUpdate();
+                stmt.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            qid = -1;
         }
+        
+        return qid;
     }
     
     /**
      * Web service operation
      */
     @WebMethod(operationName = "deleteQuestion")
-    @Oneway
-    public void deleteQuestion(@WebParam(name = "question_id") int question_id) {
-        try {
-            String sql = "DELETE FROM question WHERE question_id = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, question_id);
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+    @WebResult(name="Integer")
+    public int deleteQuestion(@WebParam(name = "token") String token, @WebParam(name = "question_id") int question_id) {
+        // Send token to IS connector
+        
+        // Get response in json format
+        JSONObject jo = new JSONObject();
+        
+        // Parse json
+        int uid = jo.getInt("id");
+        int status = jo.getInt("status");
+        
+        // if status ok, update question into db, select qid
+        if (status == 1){
+            try {
+                String sql = "DELETE FROM question WHERE question_id = ?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, question_id);
+                stmt.executeUpdate();
+                stmt.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            question_id = -1;
         }
+        
+        return question_id;
     }
     /**
      * Web service operation

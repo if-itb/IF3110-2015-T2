@@ -18,6 +18,8 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
+import org.json.*;
+
 /**
  *
  * @author Venny
@@ -123,19 +125,48 @@ public class AnswerWS {
      * Web service operation
      */
     @WebMethod(operationName = "addAnswer")
-    @Oneway
-    public void addAnswer (@WebParam(name = "a") Answer a) {
-        try{
-            String sql = "INSERT INTO answer (question_id,user_id,content) VALUES (?,?,?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1,a.getQuestionID());
-            stmt.setInt(2,a.getUserID());
-            stmt.setString(3, a.getContent());
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(AnswerWS.class.getName()).log
-            (Level.SEVERE, null, ex);
+    @WebResult (name="Integer")
+    public int addAnswer (@WebParam(name = "token") String token, @WebParam(name = "question_id") int qid, @WebParam(name = "content") String content) {
+        int aid = -1;
+        
+        // Send token to IS connector
+        
+        // Get response in json format
+        JSONObject jo = new JSONObject();
+        
+        // Parse json
+        int uid = jo.getInt("id");
+        int status = jo.getInt("status");
+        
+        // if status ok, insert answer into db, select answer_id
+        if (status == 1){
+            try{
+                String sql = "INSERT INTO answer (question_id,user_id,content) VALUES (?,?,?)";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1,qid);
+                stmt.setInt(2,uid);
+                stmt.setString(3, content);
+                stmt.executeUpdate();
+                stmt.close();
+                
+                String sql2 = "SELECT answer_id FROM answer WHERE question_id=? AND content=? AND user_id=?";
+                PreparedStatement stmt2 = conn.prepareStatement(sql2);
+                stmt2.setInt(1, qid);
+                stmt2.setString(2, content);
+                stmt2.setInt(3, uid);
+                ResultSet rs = stmt2.executeQuery();
+                
+                while (rs.next()) {
+                    aid = rs.getInt("answer_id");
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(AnswerWS.class.getName()).log
+                (Level.SEVERE, null, ex);
+            }
+        } else {
+            // alert: fail to add answer
         }
+        return aid;
     }
 }
