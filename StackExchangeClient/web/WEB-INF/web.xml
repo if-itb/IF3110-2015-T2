@@ -53,13 +53,12 @@
         <servlet-class>Container.voteanswer</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>deletequestion</servlet-name>
         <servlet-class>Container.deletequestion</servlet-class>
-=======
+    </servlet>
+    <servlet>
         <servlet-name>Logout</servlet-name>
         <servlet-class>Login.Logout</servlet-class>
->>>>>>> 8580b5db320d2b5f555f581c4df5234042e3b2c6
     </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
@@ -114,13 +113,12 @@
         <url-pattern>/voteanswer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>deletequestion</servlet-name>
         <url-pattern>/deletequestion</url-pattern>
-=======
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
->>>>>>> 8580b5db320d2b5f555f581c4df5234042e3b2c6
     </servlet-mapping>
     <session-config>
         <session-timeout>
