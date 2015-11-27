@@ -13,7 +13,9 @@ import javax.jws.WebParam;
 import org.stackexchange.Answer;
 import org.stackexchange.Question;
 import org.stackexchange.webservice.dao.AnswerDao;
+import org.stackexchange.webservice.dao.AnswerVoteDao;
 import org.stackexchange.webservice.dao.QuestionDao;
+import org.stackexchange.webservice.dao.QuestionVoteDao;
 
 /**
  *
@@ -64,10 +66,26 @@ public class AnswerWS {
     @WebMethod(operationName = "upvoteAnswer")
     public boolean upvoteAnswer(@WebParam(name = "id") long id, @WebParam(name = "token") String token) {
         TokenService tokenService = new TokenService();
+        AnswerDao answerDao = new AnswerDao();
+        AnswerVoteDao answerVoteDao = new AnswerVoteDao();
         if (tokenService.isTokenValid(token)) {
-            AnswerDao answerDao = new AnswerDao();
-
-            answerDao.upvote(id);
+            long userId = tokenService.getUserId(token);
+                    
+            if (answerVoteDao.existsByQuestionIdUserId(id, userId)) {
+                long vote = answerVoteDao.getVoteCountByAnswerIdUserId(id, userId);
+                
+                if (vote == -1) {
+                    answerDao.upvote(id);
+                    answerDao.upvote(id);
+                } else if (vote == 0) {
+                    answerDao.upvote(id);
+                }
+                answerVoteDao.update(id, userId, 1);
+            } else {
+                answerVoteDao.insert(id, userId, 1);
+                answerDao.upvote(id);
+            }
+            
             return true;
         } else {
             return false;
@@ -80,10 +98,26 @@ public class AnswerWS {
     @WebMethod(operationName = "downvoteAnswer")
     public boolean downvoteAnswer(@WebParam(name = "id") long id, @WebParam(name = "token") String token) {
         TokenService tokenService = new TokenService();
+        AnswerDao answerDao = new AnswerDao();
+        AnswerVoteDao answerVoteDao = new AnswerVoteDao();
         if (tokenService.isTokenValid(token)) {
-            AnswerDao answerDao = new AnswerDao();
-
-            answerDao.downvote(id);
+            long userId = tokenService.getUserId(token);
+                    
+            if (answerVoteDao.existsByQuestionIdUserId(id, userId)) {
+                long vote = answerVoteDao.getVoteCountByAnswerIdUserId(id, userId);
+                
+                if (vote == 1) {
+                    answerDao.downvote(id);
+                    answerDao.downvote(id);
+                } else if (vote == 0) {
+                    answerDao.downvote(id);
+                }
+                answerVoteDao.update(id, userId, -1);
+            } else {
+                answerVoteDao.insert(id, userId, -1);
+                answerDao.downvote(id);
+            }
+            
             return true;
         } else {
             return false;

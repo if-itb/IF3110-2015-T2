@@ -16,6 +16,7 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import org.stackexchange.Question;
 import org.stackexchange.webservice.dao.QuestionDao;
+import org.stackexchange.webservice.dao.QuestionVoteDao;
 import org.stackexchange.webservice.dao.UserDao;
 
 /**
@@ -87,10 +88,26 @@ public class QuestionWS {
     @WebMethod(operationName = "upvote")
     public boolean upvote(@WebParam(name = "id") long id, @WebParam(name = "token") String token) {
         TokenService tokenService = new TokenService();
+        QuestionDao questionDao = new QuestionDao();
+        QuestionVoteDao questionVoteDao = new QuestionVoteDao();
         if (tokenService.isTokenValid(token)) {
-            QuestionDao questionDao = new QuestionDao();
-
-            questionDao.upvote(id);
+            long userId = tokenService.getUserId(token);
+                    
+            if (questionVoteDao.existsByQuestionIdUserId(id, userId)) {
+                long vote = questionVoteDao.getVoteCountByQuestionIdUserId(id, userId);
+                
+                if (vote == -1) {
+                    questionDao.upvote(id);
+                    questionDao.upvote(id);
+                } else if (vote == 0) {
+                    questionDao.upvote(id);
+                }
+                questionVoteDao.update(id, userId, 1);
+            } else {
+                questionVoteDao.insert(id, userId, 1);
+                questionDao.upvote(id);
+            }
+            
             return true;
         } else {
             return false;
@@ -103,10 +120,26 @@ public class QuestionWS {
     @WebMethod(operationName = "downvote")
     public boolean downvote(@WebParam(name = "id") long id, @WebParam(name = "token") String token) {
         TokenService tokenService = new TokenService();
+        QuestionDao questionDao = new QuestionDao();
+        QuestionVoteDao questionVoteDao = new QuestionVoteDao();
         if (tokenService.isTokenValid(token)) {
-            QuestionDao questionDao = new QuestionDao();
-
-            questionDao.downvote(id);
+            long userId = tokenService.getUserId(token);
+                    
+            if (questionVoteDao.existsByQuestionIdUserId(id, userId)) {
+                long vote = questionVoteDao.getVoteCountByQuestionIdUserId(id, userId);
+                
+                if (vote == 1) {
+                    questionDao.downvote(id);
+                    questionDao.downvote(id);
+                } else if (vote == 0) {
+                    questionDao.downvote(id);
+                }
+                questionVoteDao.update(id, userId, -1);
+            } else {
+                questionVoteDao.insert(id, userId, -1);
+                questionDao.downvote(id);
+            }
+            
             return true;
         } else {
             return false;

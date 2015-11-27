@@ -1,5 +1,9 @@
 package org.stackexchange.identityservice.controller;
 
+import org.stackexchange.identityservice.dao.UserDao;
+import org.stackexchange.identityservice.model.Token;
+import org.stackexchange.identityservice.model.User;
+import org.stackexchange.identityservice.services.IdentityService;
 import org.stackexchange.identityservice.services.UserService;
 
 import javax.servlet.ServletException;
@@ -24,6 +28,8 @@ public class LoginServlet extends HttpServlet{
         String password = request.getParameter("password");
 
         UserService userService = new UserService();
+        UserDao userDao = new UserDao();
+        IdentityService identityService = new IdentityService();
         if (!userService.emailExist(email)) {
             request.setAttribute("flash", "Email is not registered");
             request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -31,7 +37,9 @@ public class LoginServlet extends HttpServlet{
             request.setAttribute("flash", "Invalid password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-
+            User user = userDao.getByEmail(email);
+            Token token = identityService.generateToken(user.getId());
+            response.sendRedirect("http://localhost:8080/index?token=" + token.getToken());
         }
     }
 }
