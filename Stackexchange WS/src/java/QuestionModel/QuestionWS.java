@@ -214,6 +214,37 @@ public class QuestionWS {
   }
   
   
+  @WebMethod(operationName = "getQuestionsSearched")
+  public ArrayList<Question> getQuestionsSearched(@WebParam(name = "keyword") String keyword) {
+    ArrayList<Question> question = new ArrayList<Question>();
+    
+    try {
+      // Connect database
+      Connection connection = database.connectDatabase();
+      Statement statement = connection.createStatement();
+      
+      // Menjalankan query
+      String query = "SELECT * FROM question WHERE (topic LIKE '%" + keyword + "%' OR content LIKE '%" + keyword + "%')";
+      ResultSet result = statement.executeQuery(query);
+      
+      // Mengambil data hasil eksekusi query
+      while (result.next()) {
+        question.add(new Question( result.getInt("id_question"),
+                                    result.getString("topic"),
+                                    result.getString("content"),
+                                    result.getString("datetime"),
+                                    result.getInt("id_user"),
+                                    result.getInt("vote_num")));
+      }
+      
+      result.close();
+      statement.close();
+    } catch (SQLException ex) {
+      Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    return question;
+  }
   
   @WebMethod(operationName = "voteQuestion")
   public int voteQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "token") String token, @WebParam(name = "vote") String vote) {

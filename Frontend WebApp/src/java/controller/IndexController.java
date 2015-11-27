@@ -44,10 +44,18 @@ public class IndexController extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
-    // Memperoleh list semua pertanyaan
-    java.util.List<QuestionWS.Question> questions = getQuestions();
-    request.setAttribute("questions", questions);
-    
+    // Memperoleh pertanyaan yang dicari
+    java.util.List<QuestionWS.Question> questions;
+    if (request.getParameter("keyword") != null) {
+      String keyword = request.getParameter("keyword");
+      questions = getQuestionsSearched(keyword);
+      request.setAttribute("questions", questions);
+      
+    } else {
+      // Memperoleh list semua pertanyaan
+      questions = getQuestions();
+      request.setAttribute("questions", questions);
+    }
     // Memperoleh list jumlah jawaban semua pertanyaan
     int countAnswers[] = new int [questions.size()];
     for (int i = 0; i < questions.size(); i++) {
@@ -142,4 +150,11 @@ public class IndexController extends HttpServlet {
         UserWS.UserWS port = service_2.getUserWSPort();
         return port.getUserByToken(token, urlString);
     }
+
+  private java.util.List<QuestionWS.Question> getQuestionsSearched(java.lang.String keyword) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    QuestionWS.QuestionWS port = service.getQuestionWSPort();
+    return port.getQuestionsSearched(keyword);
+  }
 }

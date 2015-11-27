@@ -30,6 +30,9 @@ Author:
       <div class="user-identity">
         Hi <span class="user-name blue"></span>
       </div>
+      <ul class="nav-bar">
+        <li><a href="IndexController">Logout</a></li>
+      </ul>
     <% } %>
     <!-- Title -->
     <div class="title">

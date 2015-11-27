@@ -30,6 +30,9 @@ Author:
       <div class="user-identity">
         Hi <span class="user-name blue"></span>
       </div>
+      <ul class="nav-bar">
+        <li><a href="IndexController">Logout</a></li>
+      </ul>
     <% } %>
     <!-- Title -->
     <div class="title">
@@ -45,7 +48,7 @@ Author:
     <div class="content">
       <!-- Search Bar -->
       <div class="stacked" id="search-section">
-        <form id="search-form" name="search-form" action="" method="post" onsubmit="return searchFormValidation()">
+        <form id="search-form" name="search-form" action="IndexController?keyword=<%= request.getParameter("search-key") %>" method="post" onsubmit="return searchFormValidation()">
           <input id="search-key" name="search-key" type="text">
           <input class="button" name="search-submit" type="submit" value="Search">
         </form>
@@ -102,8 +105,8 @@ Author:
                   <div class="question-content">
                     <%
                       String questionPrint = questions.get(i).getContent();
-                      if (questionPrint.length() > 400) {
-                        questionPrint = questionPrint.substring(0, 100) + "...";
+                      if (questionPrint.length() > 300) {
+                        questionPrint = questionPrint.substring(0, 300) + "...";
                       }
                     %>
                     <%= questionPrint %>
@@ -137,7 +140,9 @@ Author:
               } else {
           %>
           <!-- If no questions: Sorry, no questions found. -->
-          Sorry, no questions found
+          <div id="no-questions">
+            Sorry, no questions found.
+          </div>
           <%
               }
             }
