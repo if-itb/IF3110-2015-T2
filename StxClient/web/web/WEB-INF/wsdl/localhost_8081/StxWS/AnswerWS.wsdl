@@ -4,17 +4,11 @@
 <xsd:import namespace="http://AnsOperation/" schemaLocation="http://localhost:8081/StxWS/AnswerWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="postAns">
-<part name="parameters" element="tns:postAns"/>
+<message name="getAnsVote">
+<part name="parameters" element="tns:getAnsVote"/>
 </message>
-<message name="postAnsResponse">
-<part name="parameters" element="tns:postAnsResponse"/>
-</message>
-<message name="voteAns">
-<part name="parameters" element="tns:voteAns"/>
-</message>
-<message name="voteAnsResponse">
-<part name="parameters" element="tns:voteAnsResponse"/>
+<message name="getAnsVoteResponse">
+<part name="parameters" element="tns:getAnsVoteResponse"/>
 </message>
 <message name="getAnswers">
 <part name="parameters" element="tns:getAnswers"/>
@@ -25,53 +19,50 @@
 <message name="Exception">
 <part name="fault" element="tns:Exception"/>
 </message>
+<message name="postAns">
+<part name="parameters" element="tns:postAns"/>
+</message>
+<message name="postAnsResponse">
+<part name="parameters" element="tns:postAnsResponse"/>
+</message>
 <message name="deleteAns">
 <part name="parameters" element="tns:deleteAns"/>
 </message>
 <message name="deleteAnsResponse">
 <part name="parameters" element="tns:deleteAnsResponse"/>
 </message>
-<message name="getAnsVote">
-<part name="parameters" element="tns:getAnsVote"/>
+<message name="voteAns">
+<part name="parameters" element="tns:voteAns"/>
 </message>
-<message name="getAnsVoteResponse">
-<part name="parameters" element="tns:getAnsVoteResponse"/>
+<message name="voteAnsResponse">
+<part name="parameters" element="tns:voteAnsResponse"/>
 </message>
 <portType name="AnswerWS">
-<operation name="postAns">
-<input wsam:Action="http://AnsOperation/AnswerWS/postAnsRequest" message="tns:postAns"/>
-<output wsam:Action="http://AnsOperation/AnswerWS/postAnsResponse" message="tns:postAnsResponse"/>
-</operation>
-<operation name="voteAns">
-<input wsam:Action="http://AnsOperation/AnswerWS/voteAnsRequest" message="tns:voteAns"/>
-<output wsam:Action="http://AnsOperation/AnswerWS/voteAnsResponse" message="tns:voteAnsResponse"/>
+<operation name="getAnsVote">
+<input wsam:Action="http://AnsOperation/AnswerWS/getAnsVoteRequest" message="tns:getAnsVote"/>
+<output wsam:Action="http://AnsOperation/AnswerWS/getAnsVoteResponse" message="tns:getAnsVoteResponse"/>
 </operation>
 <operation name="getAnswers">
 <input wsam:Action="http://AnsOperation/AnswerWS/getAnswersRequest" message="tns:getAnswers"/>
 <output wsam:Action="http://AnsOperation/AnswerWS/getAnswersResponse" message="tns:getAnswersResponse"/>
 <fault message="tns:Exception" name="Exception" wsam:Action="http://AnsOperation/AnswerWS/getAnswers/Fault/Exception"/>
 </operation>
+<operation name="postAns">
+<input wsam:Action="http://AnsOperation/AnswerWS/postAnsRequest" message="tns:postAns"/>
+<output wsam:Action="http://AnsOperation/AnswerWS/postAnsResponse" message="tns:postAnsResponse"/>
+</operation>
 <operation name="deleteAns">
 <input wsam:Action="http://AnsOperation/AnswerWS/deleteAnsRequest" message="tns:deleteAns"/>
 <output wsam:Action="http://AnsOperation/AnswerWS/deleteAnsResponse" message="tns:deleteAnsResponse"/>
 </operation>
-<operation name="getAnsVote">
-<input wsam:Action="http://AnsOperation/AnswerWS/getAnsVoteRequest" message="tns:getAnsVote"/>
-<output wsam:Action="http://AnsOperation/AnswerWS/getAnsVoteResponse" message="tns:getAnsVoteResponse"/>
+<operation name="voteAns">
+<input wsam:Action="http://AnsOperation/AnswerWS/voteAnsRequest" message="tns:voteAns"/>
+<output wsam:Action="http://AnsOperation/AnswerWS/voteAnsResponse" message="tns:voteAnsResponse"/>
 </operation>
 </portType>
 <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="postAns">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="voteAns">
+<operation name="getAnsVote">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -92,6 +83,15 @@
 <soap:fault name="Exception" use="literal"/>
 </fault>
 </operation>
+<operation name="postAns">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="deleteAns">
 <soap:operation soapAction=""/>
 <input>
@@ -101,7 +101,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getAnsVote">
+<operation name="voteAns">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

@@ -19,7 +19,7 @@
             java.lang.String topic = request.getParameter("Topik");
             java.lang.String content = request.getParameter("Konten");
             // TODO process result here
-            int result = port.post(name, email, topic, content);
+            int result = port.post(session.getAttribute("token").toString(), topic, content);
             site = "../index.jsp";
         } else {
             QuestionWS.QuestionWS_Service service = new QuestionWS.QuestionWS_Service();
@@ -31,7 +31,7 @@
             java.lang.String topic = request.getParameter("Topik");
             java.lang.String content = request.getParameter("Konten");
             // TODO process result here
-            int result = port.update(id, name, email, topic, content);
+            int result = port.update(id, session.getAttribute("token").toString(), topic, content);
             site = "../view-question.jsp?id="+q_id;
         }  
         response.setStatus(response.SC_MOVED_TEMPORARILY);

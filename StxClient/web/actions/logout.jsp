@@ -9,7 +9,7 @@
 <% 
         session.setAttribute("sessionName", null);
         session.setAttribute("sessionEmail", null);
-        session.setAttribute("sessionPass", null);
+        session.setAttribute("token", null);
         response.setStatus(response.SC_MOVED_TEMPORARILY);
         response.setHeader("Location", "../login.jsp");
 %>

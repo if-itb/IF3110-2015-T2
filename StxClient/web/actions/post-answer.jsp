@@ -23,7 +23,7 @@
 	java.lang.String email = session.getAttribute("sessionEmail").toString();
 	java.lang.String content = request.getParameter("Jawaban");
 	// TODO process result here
-	int result = port.postAns(qid, name, email, content);
+	int result = port.postAns(qid, session.getAttribute("token").toString(), content);
         
 	out.println("Result = "+result);
         String site = "../view-question.jsp?id="+qid;

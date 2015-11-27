@@ -24,21 +24,6 @@
 
 <xs:element name="voteAnsResponse" type="tns:voteAnsResponse"/>
 
-<xs:complexType name="postAns">
-<xs:sequence>
-<xs:element name="qid" type="xs:int"/>
-<xs:element name="name" type="xs:string" minOccurs="0"/>
-<xs:element name="email" type="xs:string" minOccurs="0"/>
-<xs:element name="content" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="postAnsResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="getAnswers">
 <xs:sequence>
 <xs:element name="q_id" type="xs:int"/>
@@ -68,6 +53,20 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="postAns">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
+<xs:element name="content" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="postAnsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="deleteAns">
 <xs:sequence>
 <xs:element name="id" type="xs:int"/>
@@ -80,20 +79,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="voteAns">
-<xs:sequence>
-<xs:element name="id" type="xs:int"/>
-<xs:element name="usermail" type="xs:string" minOccurs="0"/>
-<xs:element name="value" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="voteAnsResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="getAnsVote">
 <xs:sequence>
 <xs:element name="id" type="xs:int"/>
@@ -101,6 +86,20 @@
 </xs:complexType>
 
 <xs:complexType name="getAnsVoteResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="voteAns">
+<xs:sequence>
+<xs:element name="id" type="xs:int"/>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
+<xs:element name="value" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="voteAnsResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
 </xs:sequence>
