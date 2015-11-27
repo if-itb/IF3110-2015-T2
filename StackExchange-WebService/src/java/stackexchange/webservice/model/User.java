@@ -23,7 +23,9 @@ public class User {
     @XmlElement(name="password", required=true)
     private String password;
     
-    public User(){}
+    public User(){
+        id = -1;
+    }
     
     public User(String name, String email, String password){
         this.name = name;

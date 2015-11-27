@@ -5,6 +5,7 @@
  */
 package stackexchange.webservice.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import javax.xml.bind.*;
 import javax.xml.bind.annotation.*;
@@ -28,26 +29,23 @@ public class Answer {
     @XmlElement(name="content", required=true)
     private String content;
     @XmlElement(name="dateMade", required=true)
-    private Date dateMade;
-    @XmlElement(name="errorMessage", required=true)
-    private String errorMessage;
+    private Timestamp dateMade;
     @XmlElement(name="vote", required=true)
     private int vote;
     
     public Answer(){}
     
-    public Answer(int userid, int questionId, String name, String email, String content, Date dateMade, String errorMessage, int vote){
+    public Answer(int userid, int questionId, String name, String email, String content, Timestamp dateMade, int vote){
         this.userid = userid;
         this.questionId = questionId;
         this.name = name;
         this.email = email;
         this.content = content;
         this.dateMade = dateMade;
-        this.errorMessage = errorMessage;
         this.vote = vote;
     } 
     
-    public Answer(int id, int userid, int questionId, String name, String email, String content, Date dateMade, String errorMessage, int vote){
+    public Answer(int id, int userid, int questionId, String name, String email, String content, Timestamp dateMade, int vote){
         this.id = id;
         this.userid = userid;
         this.questionId = questionId;
@@ -55,7 +53,6 @@ public class Answer {
         this.email = email;
         this.content = content;
         this.dateMade = dateMade;
-        this.errorMessage = errorMessage;
         this.vote = vote;
     }
 
@@ -104,15 +101,8 @@ public class Answer {
     /**
      * @return the dateMade
      */
-    public Date getDateMade() {
+    public Timestamp getDateMade() {
         return dateMade;
-    }
-
-    /**
-     * @return the errorMessage
-     */
-    public String getErrorMessage() {
-        return errorMessage;
     }
 
     /**

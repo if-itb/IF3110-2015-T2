@@ -5,7 +5,7 @@
  */
 package stackexchange.webservice.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import javax.xml.bind.*;
 import javax.xml.bind.annotation.*;
 
@@ -28,7 +28,7 @@ public class Question {
     @XmlElement(name="content", required=true)
     private String content;
     @XmlElement(name="dateMade", required=true)
-    private Date dateMade;
+    private Timestamp dateMade;
     @XmlElement(name="vote", required=true)
     private int vote;
     @XmlElement(name="answer", required=true)
@@ -36,7 +36,7 @@ public class Question {
 
     public Question(){}
     
-    public Question(int userid, String name, String email, String topic, String content, Date dateMade, int vote, int answer){
+    public Question(int userid, String name, String email, String topic, String content, java.sql.Timestamp dateMade, int vote, int answer){
         this.userid = userid;
         this.name = name;
         this.email = email;
@@ -47,7 +47,7 @@ public class Question {
         this.answer = answer;
     }
     
-    public Question(int id, int userid, String name, String email, String topic, String content, Date dateMade, int vote, int answer){
+    public Question(int id, int userid, String name, String email, String topic, String content, java.sql.Timestamp dateMade, int vote, int answer){
         this.id = id;
         this.userid = userid;
         this.name = name;
@@ -104,7 +104,7 @@ public class Question {
     /**
      * @return the dateMade
      */
-    public Date getDateMade() {
+    public java.sql.Timestamp getDateMade() {
         return dateMade;
     }
 
