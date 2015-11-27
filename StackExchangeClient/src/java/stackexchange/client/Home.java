@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import stackexchange.ISConnector.IdentityServiceConnector;
 import stackexchangews.services.Question;
 import stackexchangews.services.SQLException_Exception;
 
@@ -40,8 +41,6 @@ public class Home extends HttpServlet {
         
         String token = request.getParameter("token");
         int userId = IdentityServiceConnector.getUID(token);
-        
-        System.out.println(userId);
         
         if(userId >= 0){
             List<Question> questions = null;
