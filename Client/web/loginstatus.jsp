@@ -46,7 +46,7 @@
 							if (status==1){
 								String token = (String) responseJSON.get("token");
 								Cookie TokenCookie = new Cookie("token",token);
-								TokenCookie.setMaxAge(3500);
+								TokenCookie.setMaxAge(1800);
 								response.addCookie(TokenCookie);
 								out.println("Login Success!");
 							} else {

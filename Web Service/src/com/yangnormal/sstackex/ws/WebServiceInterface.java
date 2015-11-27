@@ -27,13 +27,7 @@ public interface WebServiceInterface {
     @WebMethod
     Answer[] getAnswerList(int qid);
     @WebMethod
-    String[][] getQuestionListArray();
-    @WebMethod
-    String[][] getAnswerListArray(int qid);
-    @WebMethod
     int vote(int type, int id, int direction, String token) throws Exception;
-    @WebMethod
-    String[] getQuestionArray(int qid);
     @WebMethod
     int updateQuestion(int qid, String token, String title, String content) throws Exception;
 }
