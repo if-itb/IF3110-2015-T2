@@ -34,8 +34,15 @@
                         ${result.getQuestionContent()}
                     </div>
                     <div class="content-footer">
-                        asked by <span class="user-question">${asker}</span> at ${result.getQuestionTimestamp()} | <a href="<c:url value="/editquestion" >
-                         <c:param name="qid" value="${result.getQuestionId()}"/></c:url>">Edit</a> | <a href="deletequestion?qid=${result.getQuestionId()}">Delete</a>
+                        <c:choose>
+                            <c:when test="${name == asker}">
+                            asked by <span class="user-question">${asker}</span> at ${result.getQuestionTimestamp()} | <a href="<c:url value="/editquestion" >
+                            <c:param name="qid" value="${result.getQuestionId()}"/></c:url>">Edit</a> | <a href="deletequestion?qid=${result.getQuestionId()}">Delete</a>
+                            </c:when>
+                            <c:otherwise>
+                            asked by <span class="user-question">${asker}</span> at ${result.getQuestionTimestamp()}
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>  
@@ -77,11 +84,20 @@
                 <div class="content-header">
                     <h2>Your Answer</h2>
                 </div>
-                <form role="form" onsubmit="return validateAnswerForm()" action="/StackExchangeClient/addanswer" method="post" id="the-form">
-                    <input type="hidden" name="qid" value="${result.getQuestionId()}">
-                    <textarea name="content" form="the-form" placeholder="Your Answer Content" id="content"></textarea><br>
-                    <input type="submit" value="Post" name="post" id="post">
-                </form>
+                <c:choose>
+                    <c:when test="${name != null}">
+                        <form role="form" onsubmit="return validateAnswerForm()" action="/StackExchangeClient/addanswer" method="post" id="the-form">
+                            <input type="hidden" name="qid" value="${result.getQuestionId()}">
+                            <textarea name="content" form="the-form" placeholder="Your Answer Content" id="content"></textarea><br>
+                            <input type="submit" value="Post" name="post" id="post">
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <br>
+                        <p>Please login to add answer to this question!</p>
+                    </c:otherwise>
+                </c:choose>
+                
             </div>
         </div>
 

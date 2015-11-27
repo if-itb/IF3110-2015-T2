@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2015 at 11:36 AM
--- Server version: 5.6.20
--- PHP Version: 5.5.15
+-- Generation Time: 27 Nov 2015 pada 17.19
+-- Versi Server: 5.6.21
+-- PHP Version: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `answers`
+-- Struktur dari tabel `answers`
 --
 
 CREATE TABLE IF NOT EXISTS `answers` (
@@ -32,20 +32,33 @@ CREATE TABLE IF NOT EXISTS `answers` (
   `qid` int(10) NOT NULL,
   `content` text NOT NULL,
   `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `answers`
+-- Dumping data untuk tabel `answers`
 --
 
 INSERT INTO `answers` (`id`, `uid`, `qid`, `content`, `timestamp`) VALUES
 (1, 7, 4, 'doni larang aku makan ikan', '2015-11-24 05:01:23'),
-(2, 7, 4, 'doni larang aku makan ikan', '2015-11-24 05:02:15');
+(2, 7, 4, 'doni larang aku makan ikan', '2015-11-24 05:02:15'),
+(3, 1, 2, ' Duel otak\r\n', '2015-11-26 21:24:56'),
+(4, 21, 4, ' Java swing', '2015-11-26 21:27:38'),
+(5, 1, 2, ' adsfasfdsaddsafd', '2015-11-26 21:39:05'),
+(6, 1, 4, ' dasjfildjadsfjdsa', '2015-11-26 21:57:55'),
+(7, 1, 4, ' dsafdasfas', '2015-11-26 21:58:52'),
+(8, 1, 2, ' OMG it works!', '2015-11-26 22:02:04'),
+(9, 21, 1, ' test coba', '2015-11-27 06:24:49'),
+(10, 21, 31, ' test coba', '2015-11-27 09:23:09'),
+(11, 1, 35, ' kenapa lelah', '2015-11-27 16:19:13'),
+(12, 1, 28, ' asdfqwerty', '2015-11-27 19:47:43'),
+(13, 1, 37, 'dafasdfafdsafd', '2015-11-27 21:34:02'),
+(14, 1, 40, 'siapa yaaaa', '2015-11-27 23:00:46'),
+(15, 1, 41, 'asfafdsa', '2015-11-27 23:10:39');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `questions`
+-- Struktur dari tabel `questions`
 --
 
 CREATE TABLE IF NOT EXISTS `questions` (
@@ -54,10 +67,10 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `topic` varchar(150) NOT NULL,
   `content` text NOT NULL,
   `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `questions`
+-- Dumping data untuk tabel `questions`
 --
 
 INSERT INTO `questions` (`id`, `uid`, `topic`, `content`, `timestamp`) VALUES
@@ -86,16 +99,21 @@ INSERT INTO `questions` (`id`, `uid`, `topic`, `content`, `timestamp`) VALUES
 (23, 15, 'sapien quis libero nullam sit amet turpis', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', '2015-11-23 11:04:49'),
 (24, 9, 'ut odio cras mi pede malesuada in imperdiet et', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.\n\nCras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', '2015-11-23 11:04:49'),
 (25, 16, 'neque sapien placerat ante nulla justo aliquam', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', '2015-11-23 11:04:49'),
-(26, 1, 'pede posuere nonummy integer non velit donec diam', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\n\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', '2015-11-23 11:04:49'),
+(26, 1, 'pede posuere nonummy integer non velit donec diam ', ' Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\r\n\r\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus. ', '2015-11-23 11:04:49'),
 (27, 9, 'condimentum neque sapien placerat ante nulla justo aliquam quis turpis', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', '2015-11-23 11:04:49'),
 (28, 3, 'praesent blandit nam nulla integer', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', '2015-11-23 11:04:50'),
 (29, 15, 'nulla pede ullamcorper augue a suscipit nulla elit ac nulla', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', '2015-11-23 11:04:50'),
-(30, 20, 'curabitur gravida nisi at nibh in hac habitasse platea', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.\n\nDuis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.\n\nMauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', '2015-11-23 11:04:50');
+(30, 20, 'curabitur gravida nisi at nibh in hac habitasse platea', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.\n\nDuis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.\n\nMauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', '2015-11-23 11:04:50'),
+(31, 21, 'lalal  ', '  lakaoxsaink  \r\nOMG OMG OMG \r\nyeayy\r\n', '2015-11-27 06:22:40'),
+(33, 23, 'lala', 'lalalala ', '2015-11-27 10:13:38'),
+(37, 1, 'Marvin Gaye  asdfafds  fdsafsa', '    You got the feeling that i want  Cause Marvin Gaye had it all\r\n dsafdsafdaf afdsafdsafdsa ', '2015-11-27 19:26:05'),
+(40, 1, 'HMIF Merdu', 'Siapa anggota HMIF yang suaranya paling merdu ? ', '2015-11-27 22:12:43'),
+(41, 1, 'dfafd', ' afdafdsafdsaf fdafda', '2015-11-27 23:02:24');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tokens`
+-- Struktur dari tabel `tokens`
 --
 
 CREATE TABLE IF NOT EXISTS `tokens` (
@@ -104,18 +122,10 @@ CREATE TABLE IF NOT EXISTS `tokens` (
   `lifetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tokens`
---
-
-INSERT INTO `tokens` (`uid`, `token_str`, `lifetime`) VALUES
-(1, '8mfob0p1shdsp0d4lckvefucn0', '2015-11-24 20:09:48'),
-(1, '9eofhbalqcoj60aaako693jgr3', '2015-11-25 10:21:41');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -123,10 +133,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`uid`, `name`, `email`, `password`) VALUES
@@ -150,12 +160,16 @@ INSERT INTO `users` (`uid`, `name`, `email`, `password`) VALUES
 (18, 'Christina', 'cwhiteh@sfgate.com', 'sapien'),
 (19, 'Ronald', 'rthompsoni@howstuffworks.com', 'sit'),
 (20, 'Kevin', 'kfisherj@howstuffworks.com', 'gravida'),
-(21, 'Pamel', 'set@an.com', 'setancom');
+(21, 'Pamel', 'set@an.com', 'setancom'),
+(22, 'Ahmad', 'ahmadnf@gmail.com', 'ahmadnf'),
+(23, 'Bimo', 'bimo@yahoo.com', 'bimo'),
+(26, 'gungun', 'apiunggun@gmail.com', 'apiunggun'),
+(27, 'Koala', 'koala@yahoo.com', 'koala');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vote_answers`
+-- Struktur dari tabel `vote_answers`
 --
 
 CREATE TABLE IF NOT EXISTS `vote_answers` (
@@ -164,10 +178,20 @@ CREATE TABLE IF NOT EXISTS `vote_answers` (
   `value` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `vote_answers`
+--
+
+INSERT INTO `vote_answers` (`uid`, `aid`, `value`) VALUES
+(1, 12, 1),
+(1, 3, 1),
+(1, 13, 1),
+(1, 14, -1);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vote_questions`
+-- Struktur dari tabel `vote_questions`
 --
 
 CREATE TABLE IF NOT EXISTS `vote_questions` (
@@ -175,6 +199,19 @@ CREATE TABLE IF NOT EXISTS `vote_questions` (
   `qid` int(10) NOT NULL,
   `value` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `vote_questions`
+--
+
+INSERT INTO `vote_questions` (`uid`, `qid`, `value`) VALUES
+(26, 34, 1),
+(1, 35, 1),
+(1, 34, -1),
+(1, 4, 1),
+(1, 28, 1),
+(1, 37, 1),
+(1, 40, 1);
 
 --
 -- Indexes for dumped tables
@@ -212,17 +249,17 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `uid` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+MODIFY `uid` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

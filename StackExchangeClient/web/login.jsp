@@ -21,12 +21,19 @@
             </div>
 		
             <div class="child-content">
+                <c:choose>
+                    
+                <c:when test="${error != null}">
+                    <br>
+                    <p class="bg-warning">${error}</p>
+                </c:when>
+                </c:choose>
                 <form name="LoginForm" action="/StackExchangeClient/Login" method="POST"> 
                     <input type="text" name="email" placeholder="Email"> <br>
                     <input type="password" name="password" placeholder="Password"> <br>
                     <input type="submit" value="Log In" style="height:50px">
-
                 </form>
+                
             </div>
 
 	   </div>

@@ -14,6 +14,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -89,17 +90,20 @@ public class Login extends HttpServlet {
                 tokenCookie.setMaxAge(5 * 60);
                 response.addCookie(tokenCookie);
                 redirectUrl += "/home";
+                response.sendRedirect(redirectUrl);
             } else {
                 String error = (String) object.get("error");
                 request.setAttribute("error", error);
-
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp"); 
+                dispatcher.forward(request, response); 
+                
             }
 
             conn.disconnect();
         } catch (IOException | ParseException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        response.sendRedirect(redirectUrl);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
