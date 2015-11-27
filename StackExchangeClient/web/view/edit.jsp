@@ -16,6 +16,7 @@
 		<hr>
 		<form name='askForm' action='UpdateQuestion' method = 'post'>
 		  	<input type="hidden" name="questionId" value="${question.questionId}">
+                        <input type="hidden" name="token" value="${token}">
 			<input type='text' name='topic' class='formInput' placeholder='Question Topic' value='${question.topic}'>
 			<textarea name='content' class='formInput' placeholder='Content' rows='10'>${question.content}</textarea>
 			<div class='right'><button type='submit'>Post</button></div>

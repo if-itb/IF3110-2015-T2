@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import stackexchange.ISConnector.IdentityServiceConnector;
 import stackexchangews.services.Question;
 import stackexchangews.services.SQLException_Exception;
 
@@ -46,15 +47,17 @@ public class EditQuestion extends HttpServlet {
         }
         
         
+        String token = request.getParameter("token");
+        int userId = IdentityServiceConnector.getUID(token);
         
-        int loggedInUserId = 1; // Get From token
-        
-        if(loggedInUserId == question.getAskerId()){
+        if(userId == question.getAskerId()){
             request.setAttribute("question", question);
+            request.setAttribute("token", token);
             request.getRequestDispatcher("view/edit.jsp").forward(request, response);
         }
         else{
             // Not your post
+            response.sendRedirect("");
         }
     }
 

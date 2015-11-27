@@ -32,7 +32,7 @@
 					<p>${question.content}</p>
 					<p class='right'>
 						asked by <span class='name'>${question.askerEmail}</span> at ${question.time} | 
-						<a href='#' class='yellow' onclick="editQuestion( ${question.questionId} )">edit</a> | 
+						<a href='EditQuestion?id=${question.questionId}&token=${token}' class='yellow' onclick="editQuestion( ${question.questionId} )">edit</a> | 
 						<a href='#' class='red' onclick="deleteQuestion( ${question.questionId} )">delete</a>
 					</p>
 				</div>

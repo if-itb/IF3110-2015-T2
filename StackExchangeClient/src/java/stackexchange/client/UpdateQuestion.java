@@ -60,7 +60,8 @@ public class UpdateQuestion extends HttpServlet {
             Logger.getLogger(UpdateQuestion.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        response.sendRedirect("ViewQuestion?id=" + questionId);
+        String token = request.getParameter("token");
+        response.sendRedirect("ViewQuestion?id=" + questionId + "&token=" + token);
         
     }
     
