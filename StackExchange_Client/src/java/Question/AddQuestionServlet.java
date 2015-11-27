@@ -21,7 +21,7 @@ import model.question.QuestionWS_Service;
  *
  * @author ASUS X202E
  */
-@WebServlet(name = "LoginIS", urlPatterns = {"/addQuestion"})
+@WebServlet(name = "AddQuestionServlet", urlPatterns = {"/addQuestion"})
 public class AddQuestionServlet extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/QuestionWS.wsdl")
     private QuestionWS_Service service;
@@ -44,7 +44,7 @@ public class AddQuestionServlet extends HttpServlet {
         boolean found = false;
         int i=0;
         while (i<cookies.length && !found) {
-            if (cookies[i].getName() == "stackexchange_token") {
+            if ("stackexchange_token".equals(cookies[i].getName())) {
                 token_id = cookies[i].getValue();
                 found = true;
             } else {
@@ -61,7 +61,7 @@ public class AddQuestionServlet extends HttpServlet {
             }
         }
         if (!found || question_id==-1) {
-            request.setAttribute("message","Session expired. please login again.");
+            request.setAttribute("message",token_id);
             RequestDispatcher dispatcher = request.getRequestDispatcher("login");
             dispatcher.forward(request,response);
         }  

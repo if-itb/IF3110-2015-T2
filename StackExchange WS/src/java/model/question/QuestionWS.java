@@ -89,10 +89,12 @@ public class QuestionWS {
         org.json.simple.JSONObject jo = ConnectionIS.requestAuth(token);
         
         // Parse json
-        String str_uid = (String) jo.get("id");
+        int uid = (int) (long)jo.get("id");
+        int status = (int) (long) jo.get("status");
+        /*String str_uid = (String) jo.get("id");
         String str_status = (String) jo.get("status");
         int uid = Integer.parseInt(str_uid);
-        int status = Integer.parseInt(str_status);
+        int status = Integer.parseInt(str_status);*/
         
         // if status ok, insert question into db, select question_id
         if (status == 1){
