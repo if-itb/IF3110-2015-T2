@@ -371,29 +371,30 @@ public class WebServiceImpl implements WebServiceInterface{
                 stmt = conn.createStatement();
                 // Result Set
                 ResultSet rs = stmt.executeQuery(queryq);
-                while (rs.next()){
-                    uid=rs.getInt("uid");
-                }
+                rs.next();
+                uid=rs.getInt("uid");
                 if (type == 0) { // vote question
+                    String querycount = "SELECT COUNT(id) AS count FROM vote_question WHERE qid="+id + " AND uid="+uid;
                     querycheck= "SELECT qid,vote FROM vote_question WHERE uid="+uid+" AND qid= "+id;
                     stmt = conn.createStatement();
-                    rs = stmt.executeQuery(querycheck);
-                    while (rs.next()){
-                        idCheck=rs.getInt("qid");
-                        voteCheck=rs.getInt("vote");
-                    }
-                    if (idCheck==id){ //udah pernah ngevote
-                        if (voteCheck!=direction){
-                            if (direction==1){
-                                query = "UPDATE question SET vote = vote + 2 WHERE id=" + id;
-                            } else if (direction==-1){
-                                query = "UPDATE question SET vote = vote - 2 WHERE id=" + id;
-                            }
-                            query2 = "UPDATE vote_question SET vote="+direction;
-                        } else {
-                            query = "UPDATE question SET vote = vote WHERE 1=0";
-                            query2 = "UPDATE vote_question SET vote=vote WHERE 1=0";
-                        }
+                    rs = stmt.executeQuery(querycount);
+                    rs.next();
+                    int stat = rs.getInt("count");
+                    System.out.println("Stat: " + stat);
+                    if (stat==1){ //udah pernah ngevote
+                        query = "UPDATE question SET vote = vote WHERE id=" + id;
+                        query2 = "UPDATE question SET vote = vote WHERE id=" + id;
+//                        if (voteCheck!=direction){
+//                            if (direction==1){
+//                                query = "UPDATE question SET vote = vote + 2 WHERE id=" + id;
+//                            } else if (direction==-1){
+//                                query = "UPDATE question SET vote = vote - 2 WHERE id=" + id;
+//                            }
+//                            query2 = "UPDATE vote_question SET vote="+direction;
+//                        } else {
+//                            query = "UPDATE question SET vote = vote WHERE 1=0";
+//                            query2 = "UPDATE vote_question SET vote=vote WHERE 1=0";
+//                        }
                     } else {
                         if (direction==1){
                             query = "UPDATE question SET vote = vote + 1 WHERE id=" + id;
@@ -429,7 +430,7 @@ public class WebServiceImpl implements WebServiceInterface{
                         } else if (direction==-1){
                             query = "UPDATE answer SET vote = vote - 1 WHERE id=" + id;
                         }
-                        query2 = "INSERT INTO vote_answer (qid, uid, vote) VALUES ("+id+","+uid+","+direction+")";
+                        query2 = "INSERT INTO vote_answer (aid, uid, vote) VALUES ("+id+","+uid+","+direction+")";
                     }
                 }
 
