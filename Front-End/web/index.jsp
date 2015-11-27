@@ -47,18 +47,20 @@
     <div class="parallax"><img src="images/background1.jpg" alt="Unsplashed background img 1"></div>
   </div>
 
+  <form action="searchServlet" method="POST">
+  <input name="token" type="hidden" value="<%= request.getParameter("token") %>">
   <div class="container">
     <div class="section">
         <h2 class="header center blue-text text-darken-4">Search Question</h2>
         <nav>
           <div class="nav-wrapper">
-              <form action="index" method="POST">
+              
               <div class="input-field indigo darken-4">
-                <input id="search" type="search" required name="keyword">
+                <input id="search" type="search" name="keyword">
                 <label for="search"><i class="material-icons">search</i></label>
                 <i class="material-icons">close</i>
               </div>
-            </form>
+            
           </div>
         </nav>
         <br>
@@ -69,6 +71,7 @@
         </div>
     </div>
   </div>
+  </form>
   <br><br>
 
   <div class="parallax-container valign-wrapper">

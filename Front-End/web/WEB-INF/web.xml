@@ -44,6 +44,10 @@
         <servlet-name>voteDownAnswerServlet</servlet-name>
         <servlet-class>org.stackexchange.controller.voteDownAnswerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>searchServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.searchServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/index</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>voteDownAnswerServlet</servlet-name>
         <url-pattern>/voteDownAnswerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>searchServlet</servlet-name>
+        <url-pattern>/searchServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
