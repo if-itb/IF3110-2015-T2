@@ -24,7 +24,7 @@ Diharapkan dengan tugas ini anda dapat mengerti:
 
 ### Link Laporan
 
-*Masukkan link laporan anda di sini*
+https://www.dropbox.com/s/6ggkn4hrh2ayifd/Laporan%20Tugas%20Besar%20II%20-%20WBD.pdf?dl=0
 
 ### Arsitektur Umum Server
 

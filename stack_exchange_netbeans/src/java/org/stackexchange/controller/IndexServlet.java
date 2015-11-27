@@ -75,6 +75,7 @@ public class IndexServlet extends HttpServlet {
         Type listType = new TypeToken<List<Question>>() {}.getType();
         List<Question> questionListFromJson = gson.fromJson(json, listType);
         request.setAttribute("QList",questionListFromJson);
+        request.setAttribute("token", request.getParameter("token"));
         request.getRequestDispatcher("index.jsp").forward(request, response);
         processRequest(request, response);
     }

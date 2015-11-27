@@ -52,12 +52,12 @@
           </div>
           <div class="card-action">
             <div class="left">
-                <a href="http://localhost:8080/stack_exchange_netbeans/UpVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc&from=index"><img src="assets/image/up.png" alt="Unsplashed background img 1" width="25" height="25"></a>
-                <a href="http://localhost:8080/stack_exchange_netbeans/DownVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc&from=index"><img src="assets/image/down.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+                <a href="http://localhost:8080/stack_exchange_netbeans/UpVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=index"><img src="assets/image/up.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+                <a href="http://localhost:8080/stack_exchange_netbeans/DownVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=index"><img src="assets/image/down.png" alt="Unsplashed background img 1" width="25" height="25"></a>
             </div>
             <div class="right-align">
-                <a href="http://localhost:8080/stack_exchange_netbeans/EditQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc">Edit</a>
-                <a href="http://localhost:8080/stack_exchange_netbeans/DeleteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc">Delete</a>
+                <a href="http://localhost:8080/stack_exchange_netbeans/EditQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>">Edit</a>
+                <a href="http://localhost:8080/stack_exchange_netbeans/DeleteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>">Delete</a>
             </div> 
           </div>
         </div>
@@ -91,8 +91,8 @@
               <div class="row" style="margin-bottom:0px">
                   <div class ="col s6">
             <div class="left">
-                <a href="http://localhost:8080/stack_exchange_netbeans/UpVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc&from=index"><img src="assets/image/up.png" alt="Unsplashed background img 1" width="25" height="25"></a>
-                <a href="http://localhost:8080/stack_exchange_netbeans/DownVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc&from=index"><img src="assets/image/down.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+                <a href="http://localhost:8080/stack_exchange_netbeans/UpVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=index"><img src="assets/image/up.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+                <a href="http://localhost:8080/stack_exchange_netbeans/DownVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=index"><img src="assets/image/down.png" alt="Unsplashed background img 1" width="25" height="25"></a>
             </div>
                   </div>
               </div>
@@ -110,11 +110,11 @@
 
     <div class="col m6">
             <div class="row">
-                <form class="col s12">
+                <form class="col s12" method="POST">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="first_name" type="text" class="validate">
-                             <label for="first_name">Content</label>
+                            <input id="first_name" type="text" class="validate" name="content">
+                            <label for="first_name">Content</label>
                         </div>
                     </div>
              
@@ -122,7 +122,7 @@
                         
                         <div class="col m12">
                             <p class="center-align">
-                                <button class="btn btn-large waves-effect waves-light" type="button" name="action" style="align-items: center">Post</button>
+                                <button type="submit" class="btn btn-large waves-effect waves-light" type="button" name="action" style="align-items: center">Post</button>
                             </p>
                         </div>
                        
