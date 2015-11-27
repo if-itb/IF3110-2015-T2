@@ -1,33 +1,39 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package UserModel;
 
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import javax.jws.WebResult;
+import javax.ejb.Stateless;
 
+/**
+ *
+ * @author adek
+ */
 @WebService(serviceName = "UserWS")
+@Stateless()
 public class UserWS {
-    private static final String USERNAME="root";
-    private static final String PASSWORD="";
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; 
-    private static final String CONN_STRING="jdbc:mysql://localhost/dadakanDB";
+
+    /**
+     * Web service operation
+     */
     @WebMethod(operationName = "getUserbyID")
-    @WebResult(name="User")
     public String getUserbyID(@WebParam(name = "id") int id) {
         String user="";
         try {
             Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        java.sql.Connection conn;
-        try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dadakandb?zeroDateTimeBehavior=convertToNull","root","");
-        
+            java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
             Statement stmt = conn.createStatement();
             String sql = "SELECT name FROM users WHERE id = ?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
@@ -40,7 +46,7 @@ public class UserWS {
             }
             result.close();
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
         }
         return user;

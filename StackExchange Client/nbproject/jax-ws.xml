@@ -34,10 +34,10 @@
         </wsimport-option>
       </wsimport-options>
     </client>
-    <client name="AnswerWS">
-      <wsdl-url>http://localhost:8088/StackExchange_WS/AnswerWS?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8088/StackExchange_WS/AnswerWS.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">AnswerWS</package-name>
+    <client name="UserWS">
+      <wsdl-url>http://localhost:8081/UserWS/UserWS?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8081/UserWS/UserWS.wsdl</local-wsdl-file>
+      <package-name>usermodel</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -54,7 +54,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8088/StackExchange_WS/AnswerWS?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:8081/UserWS/UserWS?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -63,17 +63,13 @@
         <wsimport-option>
           <wsimport-option-name>xendorsed</wsimport-option-name>
           <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>AnswerWS</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>
     <client name="QuestionWS">
-      <wsdl-url>http://localhost:8088/StackExchange_WS/QuestionWS?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8088/StackExchange_WS/QuestionWS.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">QuestionWS</package-name>
+      <wsdl-url>http://localhost:8081/StackExchange_WS/QuestionWS?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8081/StackExchange_WS/QuestionWS.wsdl</local-wsdl-file>
+      <package-name>questionmodel</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -90,7 +86,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8088/StackExchange_WS/QuestionWS?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:8081/StackExchange_WS/QuestionWS?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -99,17 +95,13 @@
         <wsimport-option>
           <wsimport-option-name>xendorsed</wsimport-option-name>
           <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>QuestionWS</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>
-    <client name="UserWS">
-      <wsdl-url>http://localhost:8088/StackExchange_WS/UserWS?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8088/StackExchange_WS/UserWS.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">UserWS</package-name>
+    <client name="AnswerWS">
+      <wsdl-url>http://localhost:8081/StackExchange_WS/AnswerWS?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8081/StackExchange_WS/AnswerWS.wsdl</local-wsdl-file>
+      <package-name>answermodel</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -126,7 +118,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8088/StackExchange_WS/UserWS?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:8081/StackExchange_WS/AnswerWS?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -135,10 +127,6 @@
         <wsimport-option>
           <wsimport-option-name>xendorsed</wsimport-option-name>
           <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>UserWS</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

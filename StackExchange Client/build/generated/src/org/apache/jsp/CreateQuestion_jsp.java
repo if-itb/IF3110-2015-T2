@@ -65,18 +65,15 @@ public final class CreateQuestion_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("\t <div class=\"mediumbaru\">\n");
       out.write("\t <div id=\"m1\">What's your question?</div>\n");
       out.write("\t <form name=\"makequestion\" method=\"post\" action=\"CreateQuestion.jsp\" >\n");
-      out.write("\t\t<input type=\"text\" name=\"name\" placeholder=\"Name\" class=\"medium\">\n");
-      out.write("\t\t<input type=\"email\" name=\"email\" placeholder=\"Email\" class=\"medium\">\n");
       out.write("\t\t<input type=\"text\" name=\"question\" placeholder=\"Question Topic\" class=\"medium\">\n");
       out.write("\t\t<textarea name=\"content\" placeholder=\"Content\" class=\"medium\" id=\"content\"></textarea> \n");
       out.write("\t\t<input type=\"submit\" value=\"Post\" id=\"button\">\n");
       out.write("\t </form></div>\n");
       out.write("         ");
 
-            String email = request.getParameter("email");
             String title = request.getParameter("question");
             String content = request.getParameter("content");            
-            if(email!=null && email!="") {
+            if(title!=null && title!="") {
                 String token = "";
                 Cookie[] cookies = request.getCookies();
                 if(cookies==null) {      
@@ -85,7 +82,8 @@ public final class CreateQuestion_jsp extends org.apache.jasper.runtime.HttpJspB
                 else {                
                     for(Cookie cookie : cookies) {
                         if("token".equals(cookie.getName())) { 
-                            token = cookie.getName();
+                            token = cookie.getValue();
+                            System.out.println(token);
                             break;
                         }   
                     }
@@ -94,7 +92,7 @@ public final class CreateQuestion_jsp extends org.apache.jasper.runtime.HttpJspB
                     questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();
                     questionmodel.QuestionWS port = service.getQuestionWSPort();
                     int result = port.createQuestion(token, title, content);
-                    if(result>0) 
+                    if(result==1) 
                         response.sendRedirect(request.getContextPath() + "/CreateQuestion.jsp");
                     else if(result==0)
                         response.sendRedirect(request.getContextPath() + "/LogInPage.jsp");

@@ -60,7 +60,7 @@ public class CheckLogin extends HttpServlet {
                 Cookie cookie = new Cookie("token",token);
                 cookie.setMaxAge(5*60);
                 response.addCookie(cookie);
-                response.sendRedirect(request.getContextPath() + "/CreateQuestion.jsp");
+                response.sendRedirect(request.getContextPath() + "/ShowQuestionServlet");
             } else if(message.equals("invalid")) {
                 response.sendRedirect(request.getContextPath() + "/LoginPage.jsp");
             }

@@ -9,7 +9,6 @@ package QuestionModel;
  *
  * @author Scemo
  */
-import javax.xml.bind.*;
 import javax.xml.bind.annotation.*;
 @XmlRootElement(name="Question")
 public class Question {

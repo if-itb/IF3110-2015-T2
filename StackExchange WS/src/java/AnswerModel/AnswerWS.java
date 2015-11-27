@@ -19,50 +19,44 @@ import org.json.simple.parser.ParseException;
 
 @WebService(serviceName = "AnswerWS")
 public class AnswerWS {
-    private static final String USERNAME="root";
-    private static final String PASSWORD="";
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; 
-    private static final String CONN_STRING="jdbc:mysql://localhost/dadakanDB";
     @WebMethod(operationName = "getAnswerByQID")
     @WebResult(name="Answer")
     public ArrayList<Answer> getAnswerByQID(@WebParam(name = "qid") int qid) {
-        ArrayList<Answer> answers = new ArrayList<>();
+        ArrayList<Answer> answers = new ArrayList<Answer>();
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        java.sql.Connection conn;
-        try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dadakandb?zeroDateTimeBehavior=convertToNull","root","");
-        
-
+            Class.forName("com.mysql.jdbc.Driver"); 
+            java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
             Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM answers WHERE id_question = ?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1,qid);
-            ResultSet result = dbStatement.executeQuery();
+            ResultSet rs = dbStatement.executeQuery();
             int i = 0;
-            while(result.next()) {
-                answers.add(new Answer(result.getInt("id"),
-                    result.getInt("id_question"),
-                    result.getInt("id_user"),
-                    result.getString("content"),
-                    result.getString("timestamp"),
-                    result.getInt("votes")
-                ));
+            while(rs.next()) {
+                answers.add(new Answer(
+                                    rs.getInt("id"),
+                                    rs.getInt("id_question"),
+                                    rs.getInt("id_user"),
+                                    rs.getString("content"),
+                                    rs.getString("timestamp"),
+                                    rs.getInt("vote")
+                                )       
+                );
                 ++i;
             }
-            result.close();
+            rs.close();
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(AnswerWS.class.getName()).log(Level.SEVERE, null, ex);
         }
         return answers;
     }
-    
+
+    /**
+     * Web service operation
+     */
     @WebMethod(operationName = "createAnswer")
-    public int createAnswer(@WebParam(name = "idQuestion") int idQuestion,@WebParam(name = "token") String token, @WebParam(name = "content") String content) throws ParseException {
+    public int createAnswer(@WebParam(name = "token") String token, @WebParam(name = "question_id") int question_id, @WebParam(name = "content") String content) throws ParseException {
         Form form = new Form();
         form.param("token",token);
         Client client = ClientBuilder.newClient();
@@ -79,8 +73,8 @@ public class AnswerWS {
             try {         
                 System.out.println("success!!");
                 Class.forName("com.mysql.jdbc.Driver");
-                java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dadakandb?zeroDateTimeBehavior=convertToNull","root","");
-                String sql = "INSERT INTO answers(id_user,id_question,content) VALUES ((select userid from tokens where token='"+token+"'),'"+idQuestion+"','"+content+"')";
+                java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
+                String sql = "INSERT INTO answers(id_user,id_question,content,vote) VALUES ((select id_user from questions where id="+question_id+"),"+question_id+",'"+content+"',0)";
                 java.sql.Statement stmt = conn.createStatement();
                 stmt.executeUpdate(sql);
                 ret = 1;
@@ -94,6 +88,6 @@ public class AnswerWS {
                 System.out.println("invalid!");
             ret = -1;
         }
-        return ret;
+        return ret;        
     }
 }

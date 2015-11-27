@@ -1,43 +1,38 @@
-package controller;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package controller;
 
-import AnswerWS.AnswerWS_Service;
+import answermodel.AnswerWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import QuestionWS.Question;
-import QuestionWS.QuestionWS_Service;
-import UserWS.UserWS_Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
+import questionmodel.Question;
+import questionmodel.QuestionWS_Service;
+import usermodel.UserWS_Service;
 
 /**
  *
- * @author Scemo
+ * @author adek
  */
-@WebServlet(name="ShowQuestionServlet", urlPatterns = {""})
 public class ShowQuestionServlet extends HttpServlet {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/QuestionWS.wsdl")
+    private QuestionWS_Service service_2;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/AnswerWS.wsdl")
+    private AnswerWS_Service service_1;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/UserWS/UserWS.wsdl")
+    private UserWS_Service service;
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8088/StackExchange_WS/UserWS.wsdl")
-    private UserWS_Service service_2;
-
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8088/StackExchange_WS/QuestionWS.wsdl")
-    private QuestionWS_Service service_1;
-
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8088/StackExchange_WS/AnswerWS.wsdl")
-    private AnswerWS_Service service;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -51,7 +46,6 @@ public class ShowQuestionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             List<Question> Questions = getAllQuestion();
             Map<Integer, Integer> count_answer = new HashMap();
             Map<Integer, String> asker = new HashMap();
@@ -62,10 +56,8 @@ public class ShowQuestionServlet extends HttpServlet {
             request.setAttribute("questions", Questions);
             request.setAttribute("answers", count_answer);
             request.setAttribute("askers", asker);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Index.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
             dispatcher.forward( request, response ); 
-            
-            //request.getRequestDispatcher("WEB-INF/Index.jsp").forward(request, response);
         }
     }
 
@@ -108,25 +100,25 @@ public class ShowQuestionServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private java.util.List<AnswerWS.Answer> getAnswerByQID(int qid) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        AnswerWS.AnswerWS port = service.getAnswerWSPort();
-        return port.getAnswerByQID(qid);
-    }
-
-    private java.util.List<QuestionWS.Question> getAllQuestion() {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
-        return port.getAllQuestion();
-    }
-
     private String getUserbyID(int id) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        UserWS.UserWS port = service_2.getUserWSPort();
+        usermodel.UserWS port = service.getUserWSPort();
         return port.getUserbyID(id);
+    }
+
+    private java.util.List<answermodel.Answer> getAnswerByQID(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        answermodel.AnswerWS port = service_1.getAnswerWSPort();
+        return port.getAnswerByQID(qid);
+    }
+
+    private java.util.List<questionmodel.Question> getAllQuestion() {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        questionmodel.QuestionWS port = service_2.getQuestionWSPort();
+        return port.getAllQuestion();
     }
 
 }

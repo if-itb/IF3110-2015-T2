@@ -4,25 +4,25 @@
         <servlet-name>CheckLogin</servlet-name>
         <servlet-class>com.client.login.CheckLogin</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>CheckLogin</servlet-name>
-        <url-pattern>/CheckLogin</url-pattern>
-    </servlet-mapping>
     <servlet>
         <servlet-name>ShowQuestionServlet</servlet-name>
         <servlet-class>controller.ShowQuestionServlet</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>ShowQuestionServlet</servlet-name>
-        <url-pattern></url-pattern>
-    </servlet-mapping>
     <servlet>
         <servlet-name>AnswerServlet</servlet-name>
         <servlet-class>controller.AnswerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
+        <servlet-name>CheckLogin</servlet-name>
+        <url-pattern>/CheckLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowQuestionServlet</servlet-name>
+        <url-pattern>/ShowQuestionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AnswerServlet</servlet-name>
-        <url-pattern>/Answer</url-pattern>
+        <url-pattern>/AnswerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

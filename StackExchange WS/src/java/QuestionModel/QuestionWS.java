@@ -5,7 +5,6 @@
  */
 package QuestionModel;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,7 +51,7 @@ public class QuestionWS {
                 System.out.println("success!!");
                 Class.forName("com.mysql.jdbc.Driver");
                 java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
-                String sql = "INSERT INTO questions(id_user,title,content) VALUES ((select userid from tokens where token='"+token+"'),'"+title+"','"+content+"')";
+                String sql = "INSERT INTO questions(id_user,title,content,vote) VALUES ((select userid from tokens where token='"+token+"'),'"+title+"','"+content+"',0)";
                 java.sql.Statement stmt = conn.createStatement();
                 stmt.executeUpdate(sql);
                 ret = 1;
@@ -68,15 +67,16 @@ public class QuestionWS {
         }
         return ret;
     }
-    
+
+    /**
+     * Web service operation
+     */
     @WebMethod(operationName = "GetAllQuestion")
-    @WebResult(name="Question")
     public java.util.ArrayList<Question> GetAllQuestion() {
         ArrayList<Question> Questions = new ArrayList<>();
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dadakandb?zeroDateTimeBehavior=convertToNull","root","");
-          
+            java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
             Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM questions";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
@@ -89,7 +89,7 @@ public class QuestionWS {
                     results.getString("title"),
                     results.getString("content"),
                     results.getString("timestamp"),
-                    results.getInt("votes")
+                    results.getInt("vote")
                 ));
                 ++i;
             }
@@ -97,18 +97,20 @@ public class QuestionWS {
             stmt.close();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
-            
         }
         return Questions;
     }
-    
+
+    /**
+     * Web service operation
+     */
     @WebMethod(operationName = "GetQuestionByID")
     @WebResult(name="QuestionByID")
-    public Question GetQuestionByID(@WebParam(name = "id") final int id) {
+    public Question GetQuestionByID(@WebParam(name = "id") int id) {
         Question q = new Question();
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dadakandb?zeroDateTimeBehavior=convertToNull","root","");
+            java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
           
             Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM questions WHERE id=?";
@@ -121,14 +123,13 @@ public class QuestionWS {
                     results.getString("title"),
                     results.getString("content"),
                     results.getString("timestamp"),
-                    results.getInt("votes")
+                    results.getInt("vote")
                 ));
             }
             results.close();
             stmt.close();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
-            
         }
         return q;
     }

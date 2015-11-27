@@ -5,40 +5,48 @@
  */
 package controller;
 
-import AnswerWS.AnswerWS_Service;
-import AnswerWS.ParseException_Exception;
-import QuestionWS.Question;
-import QuestionWS.QuestionWS_Service;
-import UserWS.UserWS_Service;
+import answermodel.AnswerWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
+import questionmodel.Question;
+import questionmodel.QuestionWS_Service;
+import usermodel.UserWS_Service;
 
 /**
  *
- * @author Scemo
+ * @author adek
  */
-@WebServlet(name = "AnswerServlet", urlPatterns = {"/Answer"})
 public class AnswerServlet extends HttpServlet {
-
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8088/StackExchange_WS/UserWS.wsdl")
-    private UserWS_Service service_2;
-
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8088/StackExchange_WS/AnswerWS.wsdl")
-    private AnswerWS_Service service_1;
-
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8088/StackExchange_WS/QuestionWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/AnswerWS.wsdl")
+    private AnswerWS_Service service_2;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/UserWS/UserWS.wsdl")
+    private UserWS_Service service_1;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/QuestionWS.wsdl")
     private QuestionWS_Service service;
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -52,9 +60,9 @@ public class AnswerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        AnswerWS.AnswerWS port2 = service_1.getAnswerWSPort();
-        UserWS.UserWS port3 = service_2.getUserWSPort();
+        questionmodel.QuestionWS port = service.getQuestionWSPort();
+        answermodel.AnswerWS port2 = service_2.getAnswerWSPort();
+        usermodel.UserWS port3 = service_1.getUserWSPort();
         String Id = request.getParameter("id");
         Question question = null;
         if (Id != null) {
@@ -68,12 +76,12 @@ public class AnswerServlet extends HttpServlet {
             //User user = (User) request.getAttribute("user");
             request.setAttribute("question", question);
             //request.setAttribute("asker", port.getUser(question.getIdUser()));
-            java.util.List<AnswerWS.Answer> answers = port2.getAnswerByQID(question.getId());
+            java.util.List<answermodel.Answer> answers = port2.getAnswerByQID(question.getId());
             Map<Integer, String> answerers = new HashMap<>();
             Map<Integer, Integer> count_answer = new HashMap();
             count_answer.put(question.getId(), port2.getAnswerByQID(question.getId()).size());
             //Map<Integer, Integer> answerStates = new HashMap<>();
-            for (AnswerWS.Answer answer: answers) {
+            for (answermodel.Answer answer: answers) {
                 answerers.put(answer.getId(), port3.getUserbyID(answer.getIdUser()));  
                 //System.out.println(port3.getUserbyID(answer.getIdUser()));
                 //answerStates.put(answer.getId(), user == null? 0: port.getAnswerVoteState(user.getId(), answer.getId()));
@@ -84,7 +92,7 @@ public class AnswerServlet extends HttpServlet {
             request.setAttribute("answerers", answerers);
             //request.setAttribute("question_state", user == null? 0: port.getQuestionVoteState(user.getId(), question.getId()));
             //request.setAttribute("answer_states", answerStates);
-            request.getRequestDispatcher("WEB-INF/answers.jsp").forward(request, response);
+            request.getRequestDispatcher("/AnswersPage.jsp").forward(request, response);
         }
         else
             response.sendRedirect(request.getContextPath());
@@ -101,28 +109,7 @@ public class AnswerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String content = request.getParameter("Content");
-        int id = Integer.valueOf(request.getParameter("id"));
-        AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
-        String token = "";
-        Cookie[] cookies = request.getCookies();
-        if(cookies==null) {      
-            System.out.println("COOKIES NULL");
-        }else {                
-            for(Cookie cookie : cookies) {
-                if("token".equals(cookie.getName())) { 
-                    token = cookie.getValue();
-                    System.out.println(token);
-                    break;
-                }   
-            }
-        }
-        try {
-            int result = port.createAnswer(id, token, content);
-        } catch (ParseException_Exception ex) {
-            Logger.getLogger(AnswerServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        doGet(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -134,28 +121,5 @@ public class AnswerServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-
-
-    private java.util.List<AnswerWS.Answer> getAnswerByQID(int qid) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
-        return port.getAnswerByQID(qid);
-    }
-
-    private Question getQuestionByID(int id) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.getQuestionByID(id);
-    }
-
-    private String getUserbyID(int id) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        UserWS.UserWS port = service_2.getUserWSPort();
-        return port.getUserbyID(id);
-    }
 
 }

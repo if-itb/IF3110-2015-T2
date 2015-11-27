@@ -16,17 +16,14 @@
 	 <div class="mediumbaru">
 	 <div id="m1">What's your question?</div>
 	 <form name="makequestion" method="post" action="CreateQuestion.jsp" >
-		<input type="text" name="name" placeholder="Name" class="medium">
-		<input type="email" name="email" placeholder="Email" class="medium">
 		<input type="text" name="question" placeholder="Question Topic" class="medium">
 		<textarea name="content" placeholder="Content" class="medium" id="content"></textarea> 
 		<input type="submit" value="Post" id="button">
 	 </form></div>
          <%
-            String email = request.getParameter("email");
             String title = request.getParameter("question");
             String content = request.getParameter("content");            
-            if(email!=null && email!="") {
+            if(title!=null && title!="") {
                 String token = "";
                 Cookie[] cookies = request.getCookies();
                 if(cookies==null) {      
@@ -42,8 +39,8 @@
                     }
                 }
                 try {
-                    QuestionWS.QuestionWS_Service service = new QuestionWS.QuestionWS_Service();
-                    QuestionWS.QuestionWS port = service.getQuestionWSPort();
+                    questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();
+                    questionmodel.QuestionWS port = service.getQuestionWSPort();
                     int result = port.createQuestion(token, title, content);
                     if(result==1) 
                         response.sendRedirect(request.getContextPath() + "/CreateQuestion.jsp");

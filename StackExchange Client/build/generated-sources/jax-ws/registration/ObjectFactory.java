@@ -24,22 +24,14 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _Register_QNAME = new QName("http://Registration/", "register");
     private final static QName _RegisterResponse_QNAME = new QName("http://Registration/", "registerResponse");
+    private final static QName _Register_QNAME = new QName("http://Registration/", "register");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: registration
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link Register }
-     * 
-     */
-    public Register createRegister() {
-        return new Register();
     }
 
     /**
@@ -51,12 +43,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Register }{@code >}}
+     * Create an instance of {@link Register }
      * 
      */
-    @XmlElementDecl(namespace = "http://Registration/", name = "register")
-    public JAXBElement<Register> createRegister(Register value) {
-        return new JAXBElement<Register>(_Register_QNAME, Register.class, null, value);
+    public Register createRegister() {
+        return new Register();
     }
 
     /**
@@ -66,6 +57,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://Registration/", name = "registerResponse")
     public JAXBElement<RegisterResponse> createRegisterResponse(RegisterResponse value) {
         return new JAXBElement<RegisterResponse>(_RegisterResponse_QNAME, RegisterResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Register }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Registration/", name = "register")
+    public JAXBElement<Register> createRegister(Register value) {
+        return new JAXBElement<Register>(_Register_QNAME, Register.class, null, value);
     }
 
 }
