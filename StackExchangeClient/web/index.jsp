@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html> 
 <head> 
@@ -63,8 +65,9 @@
                        </li>
                        <li><a href="<c:url value="/viewpost?qid=${question.getQuestionId()}"></c:url>"><h4>${question.getQuestionTopic()}</h4></a></li>
                    </ul>
-                   ${question.getQuestionContent()}<br>
-                    
+                   <c:set var="questioncontent" value="${question.getQuestionContent()}" />
+                   <c:set var="questionoverview" value="${fn:substring(questioncontent, 0, 150)}" /><br>
+                   ${questionoverview}
                     <c:choose>
                         <c:when test="${name == askmap.get(question.getQuestionId())}">
                             Asked by: ${askmap.get(question.getQuestionId())} | <a href="<c:url value="/editquestion" >
