@@ -24,7 +24,7 @@ Diharapkan dengan tugas ini anda dapat mengerti:
 
 ### Link Laporan
 
-*Masukkan link laporan anda di sini*
+https://www.dropbox.com/s/04mf798cm2t096n/laporan%20tubes%202%20wbd.pdf?dl=0
 
 ### Arsitektur Umum Server
 
