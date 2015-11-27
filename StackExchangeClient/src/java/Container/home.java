@@ -5,10 +5,13 @@
  */
 package Container;
 
+import answer.AnswersWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import java.util.HashMap;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +26,9 @@ import user.UserWS_Service;
  * @author mochamadtry
  */
 public class home extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/AnswersWS.wsdl")
+    private AnswersWS_Service service_2;
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/UserWS.wsdl")
     private UserWS_Service service_1;
@@ -57,17 +63,45 @@ public class home extends HttpServlet {
                     
                 }
             }
+            
+       
+       HashMap<Integer, Integer> hmap = new HashMap<Integer, Integer>();
+       HashMap<Integer, Integer> answermap = new HashMap<Integer, Integer>();
+       HashMap<Integer, String> askmap = new HashMap<Integer, String>();
+
+       int j = 0;
        String keyword = request.getParameter("keyword");
        if (keyword == null){
             java.util.List<question.Question> result = getAllQuestions(); 
             request.setAttribute("result", result); 
+            
+            for (j = 0;j<result.size();j++){
+                hmap.put(result.get(j).getQuestionId(), getquestionvote(result.get(j).getQuestionId()));
+                answermap.put(result.get(j).getQuestionId(), getAnswersByQid(result.get(j).getQuestionId()).size());
+                askmap.put(result.get(j).getQuestionId(), getUser(result.get(j).getQuestionUid()).getName());
+
+            }
+            request.setAttribute("hmap", hmap); 
+            request.setAttribute("answermap", answermap); 
+            request.setAttribute("askmap", askmap); 
+            
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp"); 
             dispatcher.forward(request, response); 
        }
        else {
            java.util.List<question.Question> result = searchQuestions(keyword); 
            request.setAttribute("result", result); 
-           RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp"); 
+           
+           for (j = 0;j<result.size();j++){
+                hmap.put(result.get(j).getQuestionId(), getquestionvote(result.get(j).getQuestionId()));
+                answermap.put(result.get(j).getQuestionId(), getAnswersByQid(result.get(j).getQuestionId()).size());
+                askmap.put(result.get(j).getQuestionId(), getUser(result.get(j).getQuestionUid()).getName());
+           }
+            request.setAttribute("hmap", hmap); 
+            request.setAttribute("answermap", answermap); 
+            request.setAttribute("askmap", askmap); 
+
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp"); 
            dispatcher.forward(request, response); 
        }
     }
@@ -121,7 +155,12 @@ public class home extends HttpServlet {
         return port.getAllQuestions();
     }
 
-  
+    private User getUserByToken(java.lang.String token) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        user.UserWS port = service_1.getUserWSPort();
+        return port.getUserByToken(token);
+    }
 
     private java.util.List<question.Question> searchQuestions(java.lang.String keyword) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
@@ -130,10 +169,27 @@ public class home extends HttpServlet {
         return port.searchQuestions(keyword);
     }
 
-    private User getUserByToken(java.lang.String token) {
+    private java.util.List<answer.Answer> getAnswersByQid(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        answer.AnswersWS port = service_2.getAnswersWSPort();
+        return port.getAnswersByQid(qid);
+    }
+
+    private User getUser(int userId) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         user.UserWS port = service_1.getUserWSPort();
-        return port.getUserByToken(token);
+        return port.getUser(userId);
     }
+
+    private int getquestionvote(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        question.QuestionsWS port = service.getQuestionsWSPort();
+        return port.getquestionvote(qid);
+    }
+    
+    
+    
 }

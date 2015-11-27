@@ -32,7 +32,7 @@
                 </div>
             </c:when>
             <c:otherwise>
-                You are log in as ${name} <button onclick="window.location.href = 'Logout';">Logout</button>
+                You are log in as ${name} <button onclick="window.location.href = '/StackExchangeClient/Logout';">Logout</button>
             </c:otherwise>
         </c:choose>
     
@@ -44,22 +44,39 @@
                             <input class="btn" type="submit" id="searchbutton" value="Search" name="search">
 			</form>
 
-                    <div class="col-md"><p>Cannot find what you are looking for? <a href="/StackExchangeClient/askquestion.jsp" style="color:pink">Ask here</a></p></div>
-		</div>
+                    
+                    <div class="col-md-4"><p>Cannot find what you are looking for? <a href="/StackExchangeClient/askquestion.jsp" style="color:pink">Ask here</a></p></div>
+                        
+                    <div class="col-md-12">${error}</div>
+                        
+                </div>
                 <div class="col-md-2" id="main3"><h3>Recently Asked Questions</h3></div>
                    
                 <div class="col-md-8">
                 <c:forEach items="${result}" var="question">
                    <ul class="list-inline">
                        <li>
-                           VOTE 
+                           ${hmap.get(question.getQuestionId())} VOTE 
                        </li>
                        <li>
-                           ANSWERS 
+                           ${answermap.get(question.getQuestionId())} ANSWERS 
                        </li>
                        <li><a href="<c:url value="/viewpost?qid=${question.getQuestionId()}"></c:url>"><h4>${question.getQuestionTopic()}</h4></a></li>
                    </ul>
                    ${question.getQuestionContent()}<br>
+                    
+                    <c:choose>
+                        <c:when test="${name == askmap.get(question.getQuestionId())}">
+                            Asked by: ${askmap.get(question.getQuestionId())} | <a href="<c:url value="/editquestion" >
+                                         <c:param name="qid" value="${question.getQuestionId()}"/>
+                                               </c:url>">edit
+                                        </a> | <a href="deletequestion?qid=${question.getQuestionId()}">Delete</a>
+                        </c:when>
+                        <c:otherwise>
+                            Asked by: ${askmap.get(question.getQuestionId())}
+                        </c:otherwise>
+                    </c:choose>
+
                 </c:forEach> 
                    </div>
 

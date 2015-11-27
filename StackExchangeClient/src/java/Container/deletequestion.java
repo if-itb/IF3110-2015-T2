@@ -13,13 +13,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
+import question.Question;
 import question.QuestionsWS_Service;
+import user.User;
+import user.UserWS_Service;
 
 /**
  *
  * @author Bimo
  */
 public class deletequestion extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/UserWS.wsdl")
+    private UserWS_Service service_1;
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/QuestionsWS.wsdl")
     private QuestionsWS_Service service;
@@ -38,6 +44,7 @@ public class deletequestion extends HttpServlet {
         
         int questionid = Integer.parseInt(request.getParameter("qid"));
         
+        question.Question tanya = getQuestionById(questionid);
         boolean found = false;
         int i=0;
         Cookie[] cookies;
@@ -47,7 +54,10 @@ public class deletequestion extends HttpServlet {
             while (!found && i < cookies.length){
                 if (cookies[i].getName().equals("token_cookie")) {
                     String token = cookies[i].getValue();
-                    ins = deleteQuestion(token, questionid);
+                    if (getUserByToken(token).getUid() == tanya.getQuestionUid() ){
+                        ins = deleteQuestion(token, questionid);
+                    }
+                    
                     found = true;
                 }
                 i++;
@@ -101,6 +111,20 @@ public class deletequestion extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         question.QuestionsWS port = service.getQuestionsWSPort();
         return port.deleteQuestion(token, qid);
+    }
+
+    private User getUserByToken(java.lang.String token) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        user.UserWS port = service_1.getUserWSPort();
+        return port.getUserByToken(token);
+    }
+
+    private Question getQuestionById(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        question.QuestionsWS port = service.getQuestionsWSPort();
+        return port.getQuestionById(qid);
     }
 
 }

@@ -18,30 +18,33 @@
     </head>
     <body>
         <h1 class="col-md-11 col-md-offset-1">Stack exchange?</h1>
-            <h1 class="col-md-1">${questionvote}</h1>
-            <h1 class="col-md-1"><small><a href="<c:url value="/votequestion?qid=${result.getQuestionId()}&jlhvote=1"></c:url>">UP</a></small></h1>
-            <h1 class="col-md-1"><small><a href="<c:url value="/votequestion?qid=${result.getQuestionId()}&jlhvote=-1"></c:url>">DOWN</a></small></h1>
+            <h3 class="col-md-1">${questionvote}</h3>
+            <h1 class="col-sm-1"><small><a href="<c:url value="/votequestion?qid=${result.getQuestionId()}&jlhvote=1"></c:url>">UP</a></small></h1>
+            <h1 class="col-sm-1"><small><a href="<c:url value="/votequestion?qid=${result.getQuestionId()}&jlhvote=-1"></c:url>">DOWN</a></small></h1>
         
         <h1 class="col-md-9"><small>${result.getQuestionTopic()}</small></h1>
-        <p class="col-md-8 col-md-offset-3"> ${result.getQuestionContent()}</p>
-        <br>
-        <p class="col-md-3 col-md-offset-7"><small>Asked by: ${username.getName()}</small></p>
-        <p class="col-md-3 col-md-offset-7"><small><a href="<c:url value="/deletequestion?qid=${result.getQuestionId()}"></c:url>">Delete</a></small></p>
+        <p class="col-md-6 col-md-offset-3"> ${result.getQuestionContent()}</p>
         
         <br>
-        <h2 class="col-md-offset-5">${answers.size()} Answers</h2>
+        Asked by: ${asker} | <a href="<c:url value="/editquestion" >
+                                         <c:param name="qid" value="${result.getQuestionId()}"/>
+                                               </c:url>">edit
+                                        </a> | <a href="deletequestion?qid=${result.getQuestionId()}">Delete</a>        
+        <br>
+        <h2 class="col-md-offset-2 col-md-3">${answers.size()} Answers</h2>
         <div class="col-md-8">  
             <c:forEach items="${answers}" var="answer">
-                <div class="">
-                    
-                    <h1 class="col-md-1"><small><a href="<c:url value="/voteanswer?aid=${answer.getAnswerId()}&qid=${result.getQuestionId()}&jlhvote=1"></c:url>">UP</a></small></h1>
-                    <h1 class="col-md-1"><small><a href="<c:url value="/voteanswer?aid=${answer.getAnswerId()}&qid=${result.getQuestionId()}&jlhvote=-1"></c:url>">DOWN</a></small></h1>
-                    <div class="col-md-6 col-md-offset-3">${answer.getAnswerContent()}</div>
-                    <div class="col-md-6 col-md-offset-3"><small>Answered by: ${hmap.get(answer.getAnswerId())}</small></div>
-                </div>
-                
-            </c:forEach>
-         </div>
+                                    <br>
+                    <p>${ansvotemap.get(answer.getAnswerId())}</p>
+                    <p class="col-md-1 col-md-offset-3"><small><a href="<c:url value="/voteanswer?aid=${answer.getAnswerId()}&qid=${result.getQuestionId()}&jlhvote=1"></c:url>">UP</a></small></p>
+                    <p class="col-md-1"><small><a href="<c:url value="/voteanswer?aid=${answer.getAnswerId()}&qid=${result.getQuestionId()}&jlhvote=-1"></c:url>">DOWN</a></small></p>
+                    <div class="col-md-6"><h4>${answer.getAnswerContent()}</h4></div>
+                    <div class="col-md-5"></div>
+
+                    <div class="col-md-6"><small>Answered by: ${hmap.get(answer.getAnswerId())}</small></div>
+                    <br>
+                </c:forEach>
+         </div>     
         <div class="col-md-6 col-md-offset-2">
             <form action="addanswer" method="POST">				
                 <textarea name="content" placeholder="Content" class="form-control" required> </textarea> <br>

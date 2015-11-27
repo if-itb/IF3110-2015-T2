@@ -53,16 +53,20 @@ public class viewpost extends HttpServlet {
        java.util.List<answer.Answer> answers = getAnswersByQid(Integer.parseInt(paramqid));
        request.setAttribute("answers", answers);
        
+       question.Question result = getQuestionById(Integer.parseInt(paramqid)); 
+       request.setAttribute("result", result); 
+       request.setAttribute("asker", getUser(result.getQuestionUid()).getName()); 
+
        HashMap<Integer, String> hmap = new HashMap<Integer, String>();
+       HashMap<Integer, Integer> ansvotemap = new HashMap<Integer, Integer>();
        int i = 0;
        for (i = 0;i<answers.size();i++){
            hmap.put(answers.get(i).getAnswerId(), getUser(answers.get(i).getAnswerUid()).getName());
+           ansvotemap.put(answers.get(i).getAnswerId(), getanswervote(answers.get(i).getAnswerId()));
        }
        request.setAttribute("hmap", hmap);
-       
-       question.Question result = getQuestionById(Integer.parseInt(paramqid)); 
-       request.setAttribute("result", result); 
-       
+              request.setAttribute("ansvotemap", ansvotemap);
+
        User username = getUser(result.getQuestionUid());
        request.setAttribute("username", username); 
 
@@ -140,6 +144,13 @@ public class viewpost extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         user.UserWS port = service_2.getUserWSPort();
         return port.getUser(userId);
+    }
+
+    private int getanswervote(int aid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        answer.AnswersWS port = service_1.getAnswersWSPort();
+        return port.getanswervote(aid);
     }
     
     

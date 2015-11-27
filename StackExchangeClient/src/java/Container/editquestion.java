@@ -44,7 +44,7 @@ public class editquestion extends HttpServlet {
             throws ServletException, IOException {
         
         int qid = Integer.parseInt(request.getParameter("qid"));
-        
+
         String token = ""; 
         boolean found = false; 
         int i = 0; 
@@ -65,20 +65,18 @@ public class editquestion extends HttpServlet {
             Question question = getQuestionById(qid);
             if (question.getQuestionUid() == user.getUid()) {
                 // if the question is edited by the same user, proceed
-                request.setAttribute("topic", question.getQuestionTopic());
-                request.setAttribute("content", question.getQuestionContent());
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/editquestion.jsp?qid=" + qid); 
+                request.setAttribute("question", question);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/editquestion.jsp"); 
                 dispatcher.forward(request, response);
+
             } else {
                 request.setAttribute("error", "You're not the owner!");
-                RequestDispatcher dispatcher = getServletContext()
-                                                .getRequestDispatcher(request.getRequestURL().toString()); 
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + request.getRequestURL().toString()); 
                 dispatcher.forward(request, response);
             }
         } else {
             request.setAttribute("error", "You have to log in first!");
-            RequestDispatcher dispatcher = getServletContext()
-                                            .getRequestDispatcher(request.getRequestURL().toString()); 
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + request.getRequestURL().toString()); 
             dispatcher.forward(request, response);
         }
     }
