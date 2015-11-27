@@ -24,6 +24,7 @@ import stackexchange.webservice.model.Answer;
 import stackexchange.webservice.model.Question;
 import stackexchange.webservice.model.User;
 import stackexchange.webservice.util.Database;
+import stackexchange.webservice.util.Vote;
 
 /**
  *
@@ -70,7 +71,7 @@ public class AnswerWS {
         List<Answer> answers = new ArrayList<Answer>();
         Database db = new Database();
         try{
-            String sql="select * from answers where questionId=" + questionId;
+            String sql="select * from answers where questionId=" + questionId+ " order by vote desc";
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -161,30 +162,33 @@ public class AnswerWS {
     @WebMethod(operationName = "voteAnswer")
     @Oneway
     public void voteAnswer(@WebParam(name = "answer") Answer answer, @WebParam(name = "inc") boolean inc, @WebParam(name = "token") String token) {
+        Database db = new Database();
     	Auth auth = new Auth();
     	int ret = auth.check(answer.getEmail(),token);
     	if(ret == 1 || ret == 0){
-    		Database db = new Database();
-	        try{
-	            int val=0;
-	            if (inc) {
-	                val++;
-	            }else{
-	                val--;
-	            }
-	            int id = answer.getId();
-	            int questionId = answer.getQuestionId();
-	            String values="";
-	            values+= "vote=val+("+ val + ")";
-	            String sql="update answers set " + values + " where id=" + id + "and questionId=" + questionId;
-	            PreparedStatement ps = db.getConnection().prepareStatement(sql);
-	            ps.executeUpdate();
-	        }catch(Exception e){
-	            
-	        }finally{
-	            db.closeConnection();
-	            //db = null;
-	        }	
+            Vote vote = new Vote();
+            if(vote.voting(answer, inc)){
+                try{
+                    String val;
+                    if (inc) {
+                        val = "+";
+                    }else{
+                        val = "-";
+                    }
+                    int id = answer.getId();
+                    int questionId = answer.getQuestionId();
+                    String values="";
+                    values+= "vote = vote "+ val +" 1";
+                    String sql="update answers set " + values + " where id=" + id + " and questionId=" + questionId;
+                    PreparedStatement ps = db.getConnection().prepareStatement(sql);
+                    ps.executeUpdate();
+                }catch(Exception e){
+
+                }finally{
+                    db.closeConnection();
+                    db = null;
+                }
+            }
     	}
     }
 
