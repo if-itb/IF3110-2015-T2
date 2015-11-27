@@ -8,6 +8,7 @@ package Container;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,11 +18,16 @@ import javax.xml.ws.WebServiceRef;
 import question.Question;
 import question.QuestionsWS_Service;
 import answer.AnswersWS_Service;
+import user.User;
+import user.UserWS_Service;
 /**
  *
  * @author Bimo
  */
 public class viewpost extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/UserWS.wsdl")
+    private UserWS_Service service_2;
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/AnswersWS.wsdl")
     private AnswersWS_Service service_1;
@@ -42,14 +48,24 @@ public class viewpost extends HttpServlet {
             throws ServletException, IOException {
         
        String paramqid = request.getParameter("qid");
-       request.setAttribute("qid", Integer.parseInt(paramqid));
+       request.setAttribute("qid", Integer.parseInt(paramqid));       
        
        java.util.List<answer.Answer> answers = getAnswersByQid(Integer.parseInt(paramqid));
        request.setAttribute("answers", answers);
        
+       HashMap<Integer, String> hmap = new HashMap<Integer, String>();
+       int i = 0;
+       for (i = 0;i<answers.size();i++){
+           hmap.put(answers.get(i).getAnswerId(), getUser(answers.get(i).getAnswerUid()).getName());
+       }
+       request.setAttribute("hmap", hmap);
+       
        question.Question result = getQuestionById(Integer.parseInt(paramqid)); 
        request.setAttribute("result", result); 
        
+       User username = getUser(result.getQuestionUid());
+       request.setAttribute("username", username); 
+
        int questionvote = getquestionvote(Integer.parseInt(paramqid));
        request.setAttribute("questionvote", questionvote); 
        
@@ -117,6 +133,13 @@ public class viewpost extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         question.QuestionsWS port = service.getQuestionsWSPort();
         return port.getquestionvote(qid);
+    }
+
+    private User getUser(int userId) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        user.UserWS port = service_2.getUserWSPort();
+        return port.getUser(userId);
     }
     
     

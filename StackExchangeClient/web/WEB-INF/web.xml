@@ -44,6 +44,10 @@
         <servlet-name>voteanswer</servlet-name>
         <servlet-class>Container.voteanswer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>deletequestion</servlet-name>
+        <servlet-class>Container.deletequestion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>voteanswer</servlet-name>
         <url-pattern>/voteanswer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deletequestion</servlet-name>
+        <url-pattern>/deletequestion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
