@@ -6,7 +6,6 @@
 package Container;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +33,7 @@ public class registers extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      String name = request.getParameter("name");
+        String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password"); 
         addUser(name, email, password);

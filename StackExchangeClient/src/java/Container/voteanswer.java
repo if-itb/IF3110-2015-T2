@@ -62,7 +62,6 @@ public class voteanswer extends HttpServlet {
         answer.AnswersWS port = service.getAnswersWSPort();
         return port.voteanswers(token, aid, value);
     }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
