@@ -24,7 +24,7 @@ h1, h2, h3, h4 {
 
 }
 
-hr {
+hr.border {
     border: 3px solid;
     color: #FF9F1C;
 }

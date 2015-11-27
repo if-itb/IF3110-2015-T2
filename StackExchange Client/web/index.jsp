@@ -97,7 +97,7 @@
             <div id="main-page" onload="function() {document.getElementById('autofocus').focus();}">
                 <div class="questions">
                     <h2>Recently Asked Questions</h2>
-                    <hr>
+                    <hr class="border">
                     <% 
                     try {
                         questionWS.QuestionWebService_Service service = new questionWS.QuestionWebService_Service();
