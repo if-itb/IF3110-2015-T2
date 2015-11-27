@@ -67,7 +67,7 @@ public class ISConnector {
         JSONObject response = null;
         try {
             String utf8 = java.nio.charset.StandardCharsets.UTF_8.name();
-            String query = String.format("token%s",
+            String query = String.format("token=%s",
                     URLEncoder.encode(accessToken, utf8));
             response = processRequest("/auth", query.getBytes());
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public class ISConnector {
         JSONObject response = null;
         try {
             String utf8 = java.nio.charset.StandardCharsets.UTF_8.name();
-            String query = String.format("email=%s& password%s",
+            String query = String.format("email=%s&password=%s",
                     URLEncoder.encode(email, utf8),
                     URLEncoder.encode(password, utf8));
             response = processRequest("/login", query.getBytes());

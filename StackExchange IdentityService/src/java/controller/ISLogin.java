@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.UUID;
 import java.util.Calendar;
 import java.util.Date;
@@ -62,25 +64,29 @@ public class ISLogin extends HttpServlet {
                         time.setTime(new Date());
                         time.add(Calendar.HOUR, 2);
                         
+                        
                         conn.setAutoCommit(false);
                         
                         String delete = "DELETE from token WHERE u_id = ?";
-                        String insert = "INSERT INTO token (access_token, u_id, expiry_date) VALUES (?, ?, ?)";
-                        
+                        String insert = "INSERT INTO token (access_token, u_id, expiry_date)"
+                                + "VALUES (?, ?, ?)";
                         
                         try (
                             PreparedStatement deleteStatement = conn.prepareStatement(delete);
                             PreparedStatement insertStatement = conn.prepareStatement(insert);){
+                            
                             deleteStatement.setInt(1, u_id);
                             
+                            Timestamp timestamp = new Timestamp(time.getTimeInMillis());
                             insertStatement.setString(1, uuid);
                             insertStatement.setInt(2, u_id);
-                            insertStatement.setString(3, time.getTime().toString());
+                            insertStatement.setTimestamp(3, timestamp);
                             
                             deleteStatement.execute();
                             insertStatement.execute();
                             
                             object.put("token", uuid);
+                            object.put("expiry_date", timestamp.getTime());
                             conn.commit();
                         }   
                         finally {
@@ -95,6 +101,8 @@ public class ISLogin extends HttpServlet {
                 catch (SQLException e) {
                     e.printStackTrace();
                 }
+            } else {
+                object.put("error", "Empty email or password");
             }
             
             out.println(object.toString());

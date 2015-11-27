@@ -9,6 +9,8 @@
 <!DOCTYPE html>
 <jsp:include page="/views/header.jsp" flush="true"/>
 <jsp:useBean id="questions" type="java.util.List<QuestionWS.Question>" scope="request"/>
+Message: <c:out value="${status}"/> <br>
+User: <c:out value="${user}"/>
 	<div class="container">
             <div class="center">
                     <div id="search">
