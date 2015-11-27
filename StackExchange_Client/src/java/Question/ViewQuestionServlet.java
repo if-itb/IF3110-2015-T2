@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,6 +45,30 @@ public class ViewQuestionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cookie cookies[] = request.getCookies();
+
+        String token_id = "";
+        boolean found = false;
+        int i=0;
+        int uid=-1;
+        while (i<cookies.length && !found) {
+            if ("stackexchange_token".equals(cookies[i].getName())) {
+                token_id = cookies[i].getValue();
+                found = true;
+            } else {
+                i++;
+            }
+        }
+        
+        if (found) {
+            org.json.simple.JSONObject jo = ConnectionIS.ConnectionIS.requestAuth(token_id);
+            uid = (int)(long) jo.get("id");
+            int status = (int) (long) jo.get("status");
+
+            if (status!=1) {
+                uid = -1;
+            }
+        }
         Question q = getQuestionByID(Integer.parseInt(request.getParameter("id")));
         model.user.User q_user = getUserByID(q.getUserId());
         java.util.List<Answer> answerList = getAnswersByQID(Integer.parseInt(request.getParameter("id")));
@@ -53,6 +78,7 @@ public class ViewQuestionServlet extends HttpServlet {
             userMap.put(a.getAnswerId(), getUserByID(a.getUserId()));
         }
         
+        request.setAttribute("uid",uid);
         request.setAttribute("question",q);
         request.setAttribute("answers",answerList);
         request.setAttribute("q_user", q_user);

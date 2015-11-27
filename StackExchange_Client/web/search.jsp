@@ -8,18 +8,8 @@
 <jsp:useBean id="questions" type="java.util.List<model.question.Question>" scope="request"/>
 <jsp:useBean id="users" type="java.util.Map<Integer,model.user.User>" scope="request"/>
 <jsp:useBean id="answers" type="java.util.Map<Integer,Integer>" scope="request"/>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Simple StackExchange</title>
-        <link href="style.css" rel="stylesheet" type="text/css"/>
-        <link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Dosis:500' rel='stylesheet' type='text/css'>
-    </head>
-    <body>
-        <div class="container">
-            <h1><a href="index">Simple StackExchange</a></h1>
+<jsp:useBean id="uid" type="Integer" scope="request"/>
+<jsp:include page="header.jsp" flush="true"/>
             <form action="search" method="get">
 		<input class="searchBox" type="text" name="q">
 		<input type="submit" class="submitButton" value="Search">
@@ -53,8 +43,10 @@
                     <% model.user.User user = users.get(question.getQuestionId()); %>
                     <div class="details">
                         asked by
-                        <span class="name"><%= user.getName() %> (<%= user.getEmail() %>)</span><a class="edit" href="edit?id=<%= question.getQuestionId() %>">edit</a><a class="delete" href="delete?id=<%= question.getQuestionId() %>" onclick="return confirm('Are you sure you want delete this question?')">delete</a></span></div>    
-                </div>
+                        <span class="name"><%= user.getName() %> (<%= user.getEmail() %>)</span>
+                        <% if (question.getUserId() == uid) { %><a class="edit" href="edit?id=<%= question.getQuestionId() %>">edit</a><a class="delete" href="delete?id=<%= question.getQuestionId() %>" onclick="return confirm('Are you sure you want delete this question?')">delete</a></span></div><% } %>
+                    </div>
+        </div>
         <% } %>
         <% if (questions.isEmpty()) {%>
             No results found.

@@ -67,11 +67,6 @@ public class VoteServlet extends HttpServlet {
                 }
             }
         }
-        if (!found || success==-1) {
-            request.setAttribute("message","Session expired. please login again.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-            dispatcher.forward(request,response);
-        }  
        
     }
 

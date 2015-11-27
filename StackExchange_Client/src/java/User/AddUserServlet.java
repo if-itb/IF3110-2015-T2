@@ -6,6 +6,7 @@
 package User;
 
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,10 +47,13 @@ public class AddUserServlet extends HttpServlet {
         if (id == -1){
             //user doen't exist
             addUser(newUser);
-            response.sendRedirect("login");
+            request.setAttribute("message","Register successful. Please login to continue.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login");
+            dispatcher.forward(request,response);
         } else {
-            //email already registered
-            response.sendRedirect("register.jsp");
+            request.setAttribute("message","Email already registered. Please try again.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
+            dispatcher.forward(request,response);
         }
     }
 

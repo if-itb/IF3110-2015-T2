@@ -9,17 +9,9 @@
 <jsp:useBean id="answers" type="java.util.List<model.answer.Answer>" scope="request"/>
 <jsp:useBean id="q_user" type="model.user.User" scope="request"/>
 <jsp:useBean id="a_user" type="java.util.Map<Integer, model.user.User>" scope="request"/>
+<jsp:useBean id="uid" type="Integer" scope="request"/>
+<jsp:include page="header.jsp" flush="true"/>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-	<title>Simple StackExchange: Question</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
-    </head>
-    <body>
-        <div class="container">
-            <a href="http://localhost:8080/StackExchange_Client/"><h1>Simple StackExchange</h1></a>
             <div class="content">
                 <h2><%= question.getTopic() %></h2>
                 <div class="voting">
@@ -31,9 +23,8 @@
                     <p><%= question.getContent() %></p>
 		</div>
 		<div class="question-sign">
-                    <p>asked by <font color="#008080"><%= q_user.getName() %> (<%= q_user.getEmail() %>)</font> at <%= question.getCreateTime() %> <a class="edit">edit</a> |
-			<a class="delete" href="delete?id=<%= question.getQuestionId() %>" onclick="return confirm('Are you sure you want delete this question?')">delete</a></p>
-		</div>
+                    <p>asked by <font color="#008080"><%= q_user.getName() %> (<%= q_user.getEmail() %>)</font> at <%= question.getCreateTime() %><br> 
+                    <% if (question.getUserId() == uid) { %><a class="edit" href="edit?id=<%= question.getQuestionId() %>">edit</a><a class="delete" href="delete?id=<%= question.getQuestionId() %>" onclick="return confirm('Are you sure you want delete this question?')">delete</a></span></div><% } %>
             </div>
 			
             <div class="content">
@@ -58,8 +49,8 @@
             </div>
 
             <div class="content" style="margin-top:30px;">
-		<div class="grey-title">Your Answer</div>
-                <form method="post" name="saveanswer" action="addAnswer">
+		<h1>Your Answer</h1>
+                <form class="inputform" method="post" name="saveanswer" action="addAnswer">
                     <input type="hidden" name="question_id" value="<%= question.getQuestionId() %>">
                     <textarea placeholder="Content" rows="5" name="content"></textarea>
                     <div class="button-bottom">

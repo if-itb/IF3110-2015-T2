@@ -17,6 +17,7 @@ import model.question.QuestionWS_Service;
 import model.user.User;
 import model.user.UserWS_Service;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 
 /**
  *
@@ -42,6 +43,36 @@ public class QuestionListServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cookie cookies[] = request.getCookies();
+
+        String token_id = "";
+        boolean found = false;
+        int i=0;
+        int uid=-1;
+        while (i<cookies.length && !found) {
+            if ("stackexchange_token".equals(cookies[i].getName())) {
+                token_id = cookies[i].getValue();
+                found = true;
+            } else {
+                i++;
+            }
+        }
+        
+        if (found) {
+            org.json.simple.JSONObject jo = ConnectionIS.ConnectionIS.requestAuth(token_id);
+            uid = (int)(long) jo.get("id");
+            int status = (int) (long) jo.get("status");
+
+            if (status!=1) {
+                uid = -1;
+            } else {
+                String uname = getUserByID(uid).getName();
+                request.setAttribute("uname",uname);
+            }
+        }
+
+        
+
         java.util.List<model.question.Question> questionList = getAllQuestions();
         java.util.Map<Integer,User> userMap = new java.util.HashMap<>();
         java.util.Map<Integer,Integer> answerMap = new java.util.HashMap<>();
@@ -50,6 +81,7 @@ public class QuestionListServlet extends HttpServlet {
             answerMap.put(q.getQuestionId(),getAnswerCount(q.getQuestionId()));
         }
 
+        request.setAttribute("uid",uid);
         request.setAttribute("questions",questionList);
         request.setAttribute("users",userMap);
         request.setAttribute("answers",answerMap);

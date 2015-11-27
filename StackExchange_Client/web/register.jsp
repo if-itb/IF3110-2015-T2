@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="message" class="java.lang.String" scope="request"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -18,6 +19,9 @@
         <div class="container">
             <h1><a href="index">Simple StackExchange</a></h1>
             <div class="login">
+                <% if (message!=null) { %>
+                    <h5><%= message %></h5>
+                <% } %>
                 <form method="post" action="addUser" name="register">
                     <input type="text" class="input-group" placeholder="Name" name="name">
                     <input type="text" class="input-group" placeholder="Email" name="email">

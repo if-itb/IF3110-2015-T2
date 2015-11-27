@@ -7,6 +7,7 @@ package Question;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -49,19 +50,22 @@ public class UpdateQuestionServlet extends HttpServlet {
                 i++;
             }
         }
+        int success = -1;
         if (found) {
             int question_id = Integer.parseInt(request.getParameter("question_id"));
             String topic = request.getParameter("topic");
             String content = request.getParameter("content");
-            int success = editQuestion(token_id,question_id,topic,content);
+            success = editQuestion(token_id,question_id,topic,content);
             if (success > 0) {
                 response.sendRedirect("view?id="+question_id);
-            } else {
-                response.sendRedirect("login");
             }
-        } else {
-            response.sendRedirect("login");
         }
+        
+        if (!found || success==-1) {
+            request.setAttribute("message","Session expired. please login again.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login");
+            dispatcher.forward(request,response);
+        }  
     }
 
     private int editQuestion(java.lang.String token, int questionId, java.lang.String topic, java.lang.String content) {
