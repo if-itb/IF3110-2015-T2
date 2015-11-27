@@ -6,6 +6,7 @@ import org.stackexchange.identityservice.model.Token;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class TokenDao extends MySQLDao {
 
@@ -67,9 +68,13 @@ public class TokenDao extends MySQLDao {
             boolean exist = false;
             long id = 0;
             long userId = 0;
+
+            String date = "";
+
             while (rs.next()) {
                 id = rs.getInt("id");
                 userId = rs.getInt("user_id");
+                date = rs.getString("expire");
                 exist = true;
             }
 
@@ -77,7 +82,7 @@ public class TokenDao extends MySQLDao {
             statement.close();
             closeConnection();
             if (exist) {
-                return new Token(id, token, userId);
+                return new Token(id, token, userId, date);
             } else {
                 return null;
             }
@@ -87,8 +92,10 @@ public class TokenDao extends MySQLDao {
         }
     }
 
-    public Token insert(long userId, String token) {
-        String query = "INSERT INTO `token` (`user_id`, `token`) VALUES (" + userId + ", '" + token + "')";
+    public Token insert(long userId, String token, Date expire) {
+        java.sql.Timestamp sqlDate = new java.sql.Timestamp(expire.getTime());
+        String query = "INSERT INTO `token` (`user_id`, `token`, `expire`) VALUES (" + userId + ", '" + token + "', '" + sqlDate + "')";
+        System.out.println(query);
         Statement statement;
 
         try {
@@ -102,7 +109,7 @@ public class TokenDao extends MySQLDao {
                 insertedId = rs.getInt(1);
             }
 
-            Token insertedToken = new Token(insertedId, token, userId);
+            Token insertedToken = new Token(insertedId, token, userId, sqlDate.toString());
 
             rs.close();
             statement.close();
