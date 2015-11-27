@@ -5,7 +5,6 @@
  */
 package DBConnect;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -21,7 +20,7 @@ public class DBConnect {
     Connection conn;
     
     public DBConnect() {
-        host= "jdbc:mysql://localhost:3306/dazzlesquad";
+        host= "jdbc:mysql://localhost:3307/dazzlesquad";
         username="root";
         pass = "password";
              

@@ -24,8 +24,8 @@
         <div class = "container">
             <div class="loginbox">
                 <h3> Login <hr> </h3>
-                    <form method="POST" name="Form" action="question-list.jsp" onsubmit="return validateFormQuestion()">
-                            <input type="text" name="username" id="username" placeholder="Name"/>
+                    <form method="POST" name="Form" action="http://localhost:8082/Stack_Exchange_IS/Login" onsubmit="return validateFormQuestion()">
+                            <input type="text" name="email" id="username" placeholder="Email"/>
                             <br>
                             <input type="password" name="password" id="password" placeholder="Password"/>
                             <br> 

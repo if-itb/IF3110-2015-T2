@@ -21,6 +21,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -73,7 +74,7 @@ public class Login extends HttpServlet {
 
                     DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-                    String sql = "INSERT INTO tokenlist (user_id, token, exp_date) VALUES (?, ?, ?)";
+                    String sql = "REPLACE INTO tokenlist (user_id, token, exp_date) VALUES (?, ?, ?)";
                     dbStatement = conn.prepareStatement(sql);
                     dbStatement.setInt(1, result.getInt("id"));
                     dbStatement.setString(2, token);
@@ -83,20 +84,30 @@ public class Login extends HttpServlet {
 
                     statement.close();
 
-                    obj.put("access_token", token);
+                    obj.put("token", token);
                     obj.put("exp_date", df.format(exp_date));
 
                     out.print(obj);
+                    Cookie cookie = new Cookie("token",token);
+                    cookie.setMaxAge(60*5); //5 minutes
+                    cookie.setPath("/Stack_Exchange_Client");
+                    response.addCookie(cookie);
+                    
           
                 } else {
                     obj.put("error", "invalid email or password");  
                     out.print(obj);        
                 }
+                
+                
+                
             } catch (SQLException ex) {
                 obj.put("error", ex);  
                 out.print(obj);        
             }  
+            response.sendRedirect("http://localhost:8083/Stack_Exchange_Client/QuestionServlet");
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
