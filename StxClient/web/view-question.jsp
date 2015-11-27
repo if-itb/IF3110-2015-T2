@@ -48,7 +48,7 @@
 		</div>
 		<div class = "row info" align = "right">
 			Ditanyakan oleh <span class="name"><% out.print(Q.getName());%></span> 
-                        <% if (session.getAttribute("sessionName").toString() == Q.getName()) { %>
+                        <% if ((session.getAttribute("sessionName") != null) && (session.getAttribute("sessionName").toString().equals(Q.getName()))) { %>
                             | <span class="link edit"> <a href= "question.jsp?id=<%out.print(id);%>">Edit</a> </span> | 
                             <span class="link delete"> <a href= "javascript:delete_question(<% out.print(id);%>)" >Delete</a></span>
                         <% } %>
