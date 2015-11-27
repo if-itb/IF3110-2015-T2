@@ -80,11 +80,10 @@
                 <div class="listquestion">
 
                     <%                        String search = request.getParameter("key");
-
+                        java.lang.String check = port.getName(token);
                         if (search == null) {
                             try {
 
-                                java.lang.String check = port.getName(token);
                                 // TODO process result here
                                 java.util.List<questionmodel.Question> result = port.getallQuestions();
                                 for (int i = 0; i < result.size(); i++) {
@@ -124,7 +123,7 @@
 
                             try {
 
-                                java.lang.String check = port.getName(token);
+                                
                                 // TODO initialize WS operation arguments here
                                 // TODO process result here
                                 java.util.List<questionmodel.Question> result = port.getQuestionSearch(search);
@@ -148,13 +147,13 @@
                                         }
                                     }
 
-                                    if (result.get(i).getName() == check) {
+                                    if (result.get(i).getName().equals(check)) {
                                         out.println("<div class='columnlarge right'>'<p>asked by <span class='name'>"
                                                 + result.get(i).getName() + "</span>|<a class='edit' href='question.jsp?id="
                                                 + result.get(i).getQuestionID() + "&token=" + token + "'>edit</a> | <a class='delete' href='delete.jsp?id=" + result.get(i).getQuestionID() + "&token=" + token + "'>delete</a></p></div></div>");
                                     } else {
                                         out.println("<div class='columnlarge right'>'<p>asked by <span class='name'>"
-                                                + result.get(i).getName() + "</span>");
+                                                + result.get(i).getName() + "</span></p></div></div>");
                                     }
                                 }
                             } catch (Exception ex) {
