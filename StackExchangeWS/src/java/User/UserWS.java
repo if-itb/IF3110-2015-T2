@@ -130,6 +130,33 @@ public class UserWS {
         
         return user;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUserByToken")
+    public User getUserByToken(@WebParam(name = "token") String token) {
+        User user = null;
+        
+        try (Statement st = conn.createStatement()) { 
+            String query = "SELECT * FROM tokens WHERE token_str = ?";
+                
+            // set the prepared statement by the query and enter the value of where clause
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1, token);
+            
+            // create a new question object with the result
+            try (ResultSet res = pst.executeQuery()) {
+                if (res.next())
+                    user = new User(res.getInt("uid"), res.getString("name"), res.getString("email"));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return user;
+    }
     
     
 }
