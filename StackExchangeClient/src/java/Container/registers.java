@@ -19,7 +19,7 @@ import user.UserWS_Service;
  */
 public class registers extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_41585/StackExchangeWS/UserWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/UserWS.wsdl")
     private UserWS_Service service;
 
     /**
@@ -37,7 +37,7 @@ public class registers extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password"); 
         addUser(name, email, password);
-        response.sendRedirect("home.jsp");
+        response.sendRedirect("home");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

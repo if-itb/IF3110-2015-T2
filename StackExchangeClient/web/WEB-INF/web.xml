@@ -86,7 +86,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>home</servlet-name>
-        <url-pattern>/home</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>addanswer</servlet-name>
