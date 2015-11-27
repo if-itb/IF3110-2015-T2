@@ -94,6 +94,28 @@ public class UserService {
         }
     }
     
+    public int getUserIDFromToken(String token){
+        String query = "SELECT * FROM token WHERE value='"+ token +"'";
+        PreparedStatement statement;
+        int user_id = -1;
+        DatabaseConnect dbc = new DatabaseConnect();
+        try{
+            statement =  dbc.getConn().prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+           
+            if(rs.next()){
+                user_id = rs.getInt("user_id"); 
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException se){
+            se.printStackTrace();
+	}
+        finally{
+            return user_id;
+        }
+    }
+    
     public void executeQuery(String query){
         PreparedStatement statement;
         DatabaseConnect dbc = new DatabaseConnect();

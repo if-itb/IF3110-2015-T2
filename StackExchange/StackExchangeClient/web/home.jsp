@@ -67,7 +67,7 @@
                 out.println("</div>");
                 out.println("<div class='card-action'>");
                 String name = names.get(i);
-                out.println("<a class='left' href='questionbyID?name=" + name + "'>Asked by " + names.get(i) + "</a>");
+                out.println("<a class='left' href='questionbyID?name=" + name + "&token=" + token + "'>Asked by " + names.get(i) + "</a>");
                 out.println("<a class='left' style='padding-left:5px'>" + q.getVote() + "</a>");
                 out.println("<a class='left'>Votes</a>");
                 out.println("<a class='right' href='edit.jsp?qid=" + q.getId() + "&token=" + token + "'>Edit</a>");

@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
         out.println(password);
         UserService user = new UserService();  
         try {
-            if((user.emailExist(email)) || (user.passwordValid(email, password))){
+            if((user.emailExist(email)) && (user.passwordValid(email, password))){
                 String token = user.getTokenFromUserID(user.getUserIDFromEmail(email));
                 out.println(token);
                 if (token == null){
@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
                     token = tokenGenerator.toString();
                     java.util.Date dt = new java.util.Date();
                     java.text.SimpleDateFormat sdf = 
-                                     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                     new java.text.SimpleDateFormat("yyyyMMddHHmmss");
 
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(dt);
@@ -56,6 +56,20 @@ public class LoginServlet extends HttpServlet {
                     String lifetime = sdf.format(cal.getTime());
                     String query = "INSERT INTO token (value,user_id,lifetime) "
                             + "VALUES ('"+token+"','"+user.getUserIDFromEmail(email)+"','"+lifetime+"')";
+                    user.executeQuery(query);
+                }
+                else{
+                    UUID tokenGenerator = UUID.randomUUID();
+                    token = tokenGenerator.toString();
+                    java.util.Date dt = new java.util.Date();
+                    java.text.SimpleDateFormat sdf = 
+                                     new java.text.SimpleDateFormat("yyyyMMddHHmmss");
+
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(dt);
+                    cal.add(Calendar.MINUTE, 2);
+                    String lifetime = sdf.format(cal.getTime());
+                    String query = "UPDATE token SET value='"+token+"', lifetime='"+lifetime+"' WHERE user_id="+user.getUserIDFromEmail(email);
                     user.executeQuery(query);
                 }
                 response.sendRedirect("http://localhost:8081/StackExchangeClient/login.jsp?valid=1&token="+token);

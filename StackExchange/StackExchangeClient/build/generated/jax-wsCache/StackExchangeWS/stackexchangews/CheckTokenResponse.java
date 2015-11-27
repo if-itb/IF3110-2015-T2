@@ -3,7 +3,6 @@ package stackexchangews;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -17,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="valid" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -28,27 +27,26 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "checkTokenResponse", propOrder = {
-    "_return"
+    "valid"
 })
 public class CheckTokenResponse {
 
-    @XmlElement(name = "return")
-    protected boolean _return;
+    protected boolean valid;
 
     /**
-     * Gets the value of the return property.
+     * Gets the value of the valid property.
      * 
      */
-    public boolean isReturn() {
-        return _return;
+    public boolean isValid() {
+        return valid;
     }
 
     /**
-     * Sets the value of the return property.
+     * Sets the value of the valid property.
      * 
      */
-    public void setReturn(boolean value) {
-        this._return = value;
+    public void setValid(boolean value) {
+        this.valid = value;
     }
 
 }

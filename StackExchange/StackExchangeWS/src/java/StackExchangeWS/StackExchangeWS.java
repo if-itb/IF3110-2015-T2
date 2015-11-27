@@ -6,7 +6,6 @@
 package StackExchangeWS;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -20,7 +19,6 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
-import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -149,11 +147,12 @@ public class StackExchangeWS {
 
     @WebMethod(operationName = "insertQuestion")
     @Oneway
-    public void insertQuestion(@WebParam(name = "token") String token, @WebParam(name = "userId") int userId, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {        
+    public void insertQuestion(@WebParam(name = "token") String token, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {        
         if (checkToken(token)) {
             try {
                 String sql = "INSERT INTO question(userId, topic, content) VALUES(?, ?, ?)";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
+                int userId = getIdByToken(token);
                 dbStatement.setInt(1, userId);
                 dbStatement.setString(2, topic);
                 dbStatement.setString(3, content);
@@ -170,13 +169,21 @@ public class StackExchangeWS {
     public void updateQuestion(@WebParam(name = "token") String token, @WebParam(name = "qid") int qid, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
         if (checkToken(token)) {
             try {
-                String sql = "UPDATE question SET topic = ?, content = ? WHERE id = ?";
+                String sql = "SELECT userId FROM question WHERE id=?";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setString(1, topic);
-                dbStatement.setString(2, content);
-                dbStatement.setInt(3, qid);
-
-                dbStatement.executeUpdate();
+                dbStatement.setInt(1, qid);
+                ResultSet rs = dbStatement.executeQuery();
+                rs.next();
+                int userId = rs.getInt("userId");
+                
+                if (getIdByToken(token) == userId) {
+                    sql = "UPDATE question SET topic = ?, content = ? WHERE id = ?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setString(1, topic);
+                    dbStatement.setString(2, content);
+                    dbStatement.setInt(3, qid);
+                    dbStatement.executeUpdate();
+                }
             }
             catch(SQLException ex) {
             }
@@ -185,11 +192,12 @@ public class StackExchangeWS {
     
     @WebMethod(operationName = "insertAnswer")
     @Oneway
-    public void insertAnswer(@WebParam(name = "token") String token, @WebParam(name = "qid") int qid, @WebParam(name = "userId") int userId, @WebParam(name = "content") String content) {
+    public void insertAnswer(@WebParam(name = "token") String token, @WebParam(name = "qid") int qid, @WebParam(name = "content") String content) {
         if (checkToken(token)) {
             try {
                 String sql = "INSERT INTO answer(questionId, userId, content) VALUES(?, ?, ?)";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
+                int userId = getIdByToken(token);
                 dbStatement.setInt(1, qid);
                 dbStatement.setInt(2, userId);
                 dbStatement.setString(3, content);
@@ -209,10 +217,18 @@ public class StackExchangeWS {
     public void deleteQuestion(@WebParam(name = "token") String token, @WebParam(name = "qid") int qid) {
         if (checkToken(token)) {
             try {
-                String sql = "DELETE FROM question WHERE id=?";
+                String sql = "SELECT userId FROM question WHERE id=?";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
                 dbStatement.setInt(1, qid);
-                dbStatement.executeUpdate();
+                ResultSet rs = dbStatement.executeQuery();
+                rs.next();
+                int userId = rs.getInt("userId");
+                if (getIdByToken(token) == userId) {
+                    sql = "DELETE FROM question WHERE id=?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, qid);
+                    dbStatement.executeUpdate();
+                }
             }
             catch (SQLException ex) {
             }
@@ -221,11 +237,12 @@ public class StackExchangeWS {
 
     @WebMethod(operationName = "voteUpQuestion")
     @Oneway
-    public void voteUpQuestion(@WebParam(name = "token") String token, @WebParam(name = "userId") int userId, @WebParam(name = "id") int id) {
+    public void voteUpQuestion(@WebParam(name = "token") String token, @WebParam(name = "id") int id) {
         if (checkToken(token)) {
             try {
                 String sql = "SELECT * FROM questionvote WHERE userid=? AND questionid=?";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
+                int userId = getIdByToken(token);
                 dbStatement.setInt(1, userId);
                 dbStatement.setInt(2, id);
                 ResultSet rs = dbStatement.executeQuery();
@@ -339,11 +356,12 @@ public class StackExchangeWS {
     
     @WebMethod(operationName = "voteDownQuestion")
     @Oneway
-    public void voteDownQuestion(@WebParam(name = "token") String token, @WebParam(name = "userId") int userId, @WebParam(name = "id") int id) {
+    public void voteDownQuestion(@WebParam(name = "token") String token, @WebParam(name = "id") int id) {
         if (checkToken(token)) {
             try {
                 String sql = "SELECT * FROM questionvote WHERE userid=? AND questionid=?";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
+                int userId = getIdByToken(token);
                 dbStatement.setInt(1, userId);
                 dbStatement.setInt(2, id);
                 ResultSet rs = dbStatement.executeQuery();
@@ -457,11 +475,12 @@ public class StackExchangeWS {
     
     @WebMethod(operationName = "voteUpAnswer")
     @Oneway
-    public void voteUpAnswer(@WebParam(name = "token") String token, @WebParam(name = "userId") int userId, @WebParam(name = "id") int id) {
+    public void voteUpAnswer(@WebParam(name = "token") String token, @WebParam(name = "id") int id) {
         if (checkToken(token)) {
             try {
                 String sql = "SELECT * FROM answervote WHERE userid=? AND answerid=?";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
+                int userId = getIdByToken(token);
                 dbStatement.setInt(1, userId);
                 dbStatement.setInt(2, id);
                 ResultSet rs = dbStatement.executeQuery();
@@ -575,11 +594,12 @@ public class StackExchangeWS {
     
     @WebMethod(operationName = "voteDownAnswer")
     @Oneway
-    public void voteDownAnswer(@WebParam(name = "token") String token, @WebParam(name = "userId") int userId, @WebParam(name = "id") int id) {
+    public void voteDownAnswer(@WebParam(name = "token") String token, @WebParam(name = "id") int id) {
         if (checkToken(token)) {
             try {
                 String sql = "SELECT * FROM answervote WHERE userid=? AND answerid=?";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
+                int userId = getIdByToken(token);
                 dbStatement.setInt(1, userId);
                 dbStatement.setInt(2, id);
                 ResultSet rs = dbStatement.executeQuery();
@@ -710,6 +730,7 @@ public class StackExchangeWS {
     }
 
     @WebMethod(operationName = "checkToken")
+    @WebResult(name = "valid")
     public boolean checkToken(@WebParam(name = "token") String token) {
         try {
             HttpURLConnection connection = null;
@@ -737,6 +758,35 @@ public class StackExchangeWS {
         catch (IOException ex) {
             Logger.getLogger(StackExchangeWS.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        }
+    }
+    
+    @WebMethod(operationName = "getIdByToken")
+    @WebResult(name = "userId")
+    public int getIdByToken(@WebParam(name = "token") String token) {
+        try {
+            HttpURLConnection connection = null;
+            URL url = new URL("http://localhost:8082/IdentityService/GetIDServlet?token=" + token);
+            connection = (HttpURLConnection)url.openConnection();
+            connection.setRequestMethod("GET");
+            
+            InputStream is = connection.getInputStream();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+            StringBuffer response = new StringBuffer();
+            String line;
+            while((line = rd.readLine()) != null) {
+              response.append(line);
+            }
+            rd.close();
+            return Integer.parseInt(response.toString());
+        }
+        catch (MalformedURLException ex) {
+            Logger.getLogger(StackExchangeWS.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+        catch (IOException ex) {
+            Logger.getLogger(StackExchangeWS.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         }
     }
 }

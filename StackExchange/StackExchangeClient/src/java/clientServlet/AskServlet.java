@@ -39,8 +39,8 @@ public class AskServlet extends HttpServlet {
         String topic = request.getParameter("topic");
         String content = request.getParameter("content");
         String token = request.getParameter("token");
-        insertQuestion(token, 3, topic, content);
-        response.sendRedirect("index.jsp");
+        insertQuestion(token, topic, content);
+        response.sendRedirect("index.jsp?token="+token);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,10 +82,10 @@ public class AskServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void insertQuestion(java.lang.String token, int userId, java.lang.String topic, java.lang.String content) {
+    private void insertQuestion(java.lang.String token, java.lang.String topic, java.lang.String content) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         stackexchangews.StackExchangeWS port = service.getStackExchangeWSPort();
-        port.insertQuestion(token, userId, topic, content);
-    }
+        port.insertQuestion(token, topic, content);
+    }    
 }

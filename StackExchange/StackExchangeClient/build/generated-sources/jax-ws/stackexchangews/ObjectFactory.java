@@ -39,6 +39,7 @@ public class ObjectFactory {
     private final static QName _VoteUpQuestion_QNAME = new QName("http://StackExchangeWS/", "voteUpQuestion");
     private final static QName _Register_QNAME = new QName("http://StackExchangeWS/", "register");
     private final static QName _VoteUpAnswer_QNAME = new QName("http://StackExchangeWS/", "voteUpAnswer");
+    private final static QName _GetIdByTokenResponse_QNAME = new QName("http://StackExchangeWS/", "getIdByTokenResponse");
     private final static QName _VoteDownQuestion_QNAME = new QName("http://StackExchangeWS/", "voteDownQuestion");
     private final static QName _GetQuestion_QNAME = new QName("http://StackExchangeWS/", "getQuestion");
     private final static QName _GetRecentQuestions_QNAME = new QName("http://StackExchangeWS/", "getRecentQuestions");
@@ -46,6 +47,7 @@ public class ObjectFactory {
     private final static QName _GetQuestionResponse_QNAME = new QName("http://StackExchangeWS/", "getQuestionResponse");
     private final static QName _CheckTokenResponse_QNAME = new QName("http://StackExchangeWS/", "checkTokenResponse");
     private final static QName _CheckToken_QNAME = new QName("http://StackExchangeWS/", "checkToken");
+    private final static QName _GetIdByToken_QNAME = new QName("http://StackExchangeWS/", "getIdByToken");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: stackexchangews
@@ -108,6 +110,14 @@ public class ObjectFactory {
      */
     public CheckToken createCheckToken() {
         return new CheckToken();
+    }
+
+    /**
+     * Create an instance of {@link GetIdByToken }
+     * 
+     */
+    public GetIdByToken createGetIdByToken() {
+        return new GetIdByToken();
     }
 
     /**
@@ -220,6 +230,14 @@ public class ObjectFactory {
      */
     public VoteUpAnswer createVoteUpAnswer() {
         return new VoteUpAnswer();
+    }
+
+    /**
+     * Create an instance of {@link GetIdByTokenResponse }
+     * 
+     */
+    public GetIdByTokenResponse createGetIdByTokenResponse() {
+        return new GetIdByTokenResponse();
     }
 
     /**
@@ -366,6 +384,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetIdByTokenResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "getIdByTokenResponse")
+    public JAXBElement<GetIdByTokenResponse> createGetIdByTokenResponse(GetIdByTokenResponse value) {
+        return new JAXBElement<GetIdByTokenResponse>(_GetIdByTokenResponse_QNAME, GetIdByTokenResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VoteDownQuestion }{@code >}}
      * 
      */
@@ -426,6 +453,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "checkToken")
     public JAXBElement<CheckToken> createCheckToken(CheckToken value) {
         return new JAXBElement<CheckToken>(_CheckToken_QNAME, CheckToken.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetIdByToken }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StackExchangeWS/", name = "getIdByToken")
+    public JAXBElement<GetIdByToken> createGetIdByToken(GetIdByToken value) {
+        return new JAXBElement<GetIdByToken>(_GetIdByToken_QNAME, GetIdByToken.class, null, value);
     }
 
 }

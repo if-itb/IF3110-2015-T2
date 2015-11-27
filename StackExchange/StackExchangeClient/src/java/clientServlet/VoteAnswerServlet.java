@@ -40,9 +40,9 @@ public class VoteAnswerServlet extends HttpServlet {
         int aid = Integer.parseInt(request.getParameter("aid"));
         String token = request.getParameter("token");
         if (type == 1)
-            voteUpAnswer(token, 1, aid);
+            voteUpAnswer(token, aid);
         else
-            voteDownAnswer(token, 1, aid);
+            voteDownAnswer(token, aid);
         response.sendRedirect("questionpage.jsp?qid=" + qid + "&token=" + token);
     }
 
@@ -85,18 +85,17 @@ public class VoteAnswerServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void voteUpAnswer(java.lang.String token, int userId, int id) {
+    private void voteUpAnswer(java.lang.String token, int id) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         stackexchangews.StackExchangeWS port = service.getStackExchangeWSPort();
-        port.voteUpAnswer(token, userId, id);
+        port.voteUpAnswer(token, id);
     }
 
-    private void voteDownAnswer(java.lang.String token, int userId, int id) {
+    private void voteDownAnswer(java.lang.String token, int id) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         stackexchangews.StackExchangeWS port = service.getStackExchangeWSPort();
-        port.voteDownAnswer(token, userId, id);
+        port.voteDownAnswer(token, id);
     }
-
 }

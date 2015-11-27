@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "insertAnswer", namespace = "http://StackExchangeWS/", propOrder = {
     "token",
     "qid",
-    "userId",
     "content"
 })
 public class InsertAnswer {
@@ -21,8 +20,6 @@ public class InsertAnswer {
     private String token;
     @XmlElement(name = "qid", namespace = "")
     private int qid;
-    @XmlElement(name = "userId", namespace = "")
-    private int userId;
     @XmlElement(name = "content", namespace = "")
     private String content;
 
@@ -60,24 +57,6 @@ public class InsertAnswer {
      */
     public void setQid(int qid) {
         this.qid = qid;
-    }
-
-    /**
-     * 
-     * @return
-     *     returns int
-     */
-    public int getUserId() {
-        return this.userId;
-    }
-
-    /**
-     * 
-     * @param userId
-     *     the value for the userId property
-     */
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     /**

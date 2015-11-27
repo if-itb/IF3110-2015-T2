@@ -12,25 +12,25 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "checkTokenResponse", namespace = "http://StackExchangeWS/")
 public class CheckTokenResponse {
 
-    @XmlElement(name = "return", namespace = "")
-    private boolean _return;
+    @XmlElement(name = "valid", namespace = "")
+    private boolean valid;
 
     /**
      * 
      * @return
      *     returns boolean
      */
-    public boolean isReturn() {
-        return this._return;
+    public boolean isValid() {
+        return this.valid;
     }
 
     /**
      * 
-     * @param _return
-     *     the value for the _return property
+     * @param valid
+     *     the value for the valid property
      */
-    public void setReturn(boolean _return) {
-        this._return = _return;
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 
 }

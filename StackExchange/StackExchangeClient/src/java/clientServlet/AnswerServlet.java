@@ -6,7 +6,6 @@
 package clientServlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,8 +38,8 @@ public class AnswerServlet extends HttpServlet {
         int qid = Integer.parseInt(request.getParameter("qid"));
         String content = request.getParameter("content");
         String token = request.getParameter("token");
-        insertAnswer(token, qid, 4, content);
-        response.sendRedirect("questionpage.jsp?qid=" + qid);
+        insertAnswer(token, qid, content);
+        response.sendRedirect("questionpage.jsp?qid=" + qid + "&token=" + token);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,11 +81,10 @@ public class AnswerServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void insertAnswer(java.lang.String token, int qid, int userId, java.lang.String content) {
+    private void insertAnswer(java.lang.String token, int qid, java.lang.String content) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         stackexchangews.StackExchangeWS port = service.getStackExchangeWSPort();
-        port.insertAnswer(token, qid, userId, content);
+        port.insertAnswer(token, qid, content);
     }
-
 }

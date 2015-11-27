@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "insertQuestion", namespace = "http://StackExchangeWS/", propOrder = {
     "token",
-    "userId",
     "topic",
     "content"
 })
@@ -19,8 +18,6 @@ public class InsertQuestion {
 
     @XmlElement(name = "token", namespace = "")
     private String token;
-    @XmlElement(name = "userId", namespace = "")
-    private int userId;
     @XmlElement(name = "topic", namespace = "")
     private String topic;
     @XmlElement(name = "content", namespace = "")
@@ -42,24 +39,6 @@ public class InsertQuestion {
      */
     public void setToken(String token) {
         this.token = token;
-    }
-
-    /**
-     * 
-     * @return
-     *     returns int
-     */
-    public int getUserId() {
-        return this.userId;
-    }
-
-    /**
-     * 
-     * @param userId
-     *     the value for the userId property
-     */
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     /**

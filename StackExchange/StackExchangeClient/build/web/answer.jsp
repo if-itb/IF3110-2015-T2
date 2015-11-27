@@ -17,12 +17,15 @@
     <link href="css/register-login.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   </head>
   
+  <%
+      String token = (String)request.getParameter("token");
+  %>
   <body>
     <nav class="deep-purple darken-2" role="navigation">
       <div class="nav-wrapper container">
         <a id="logo-container" href="#" class="brand-logo">Stack Exchange - Question</a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="index.jsp">Home</a></li>
+          <li><a href="index.jsp?token=<% out.print(token); %>">Home</a></li>
           <li><a href="register.jsp">Register</a></li>
         </ul>
       </div>
@@ -44,7 +47,6 @@
     <br><br>
     <div class="section white">
         <%
-            String token = (String)request.getParameter("token");
             Question q = (Question)request.getAttribute("question");
             String qname = (String)request.getAttribute("qname");
             out.println("<div class='container'>");
@@ -80,11 +82,11 @@
                 out.println("</div>");
                 out.println("<div class='card-action'>");
                 out.println("<a class='left' href='#'>Answered by " + anames.get(i) + "</a>");
-                out.println("<a href='voteanswer?qid=" + q.getId() + "&aid=" + a.getId() + "&type=1'>");
+                out.println("<a href='voteanswer?qid=" + q.getId() + "&aid=" + a.getId() + "&type=1&token=" + token + "'>");
                 out.println("<i class='left small deep-purple darken-2 material-icons' style='padding-left:20px'>thumb_up</i>");
                 out.println("</a>");
                 out.println("<a class='left' style='padding-left:5px'>" + a.getVote() + "</a>");
-                out.println("<a href='voteanswer?qid=" + q.getId() + "&aid=" + a.getId() + "&type=-1'>");
+                out.println("<a href='voteanswer?qid=" + q.getId() + "&aid=" + a.getId() + "&type=-1&token=" + token + "'>");
                 out.println("<i class='left small deep-purple darken-2 material-icons'>thumb_down</i>");
                 out.println("</a>");
                 out.println("</div></div></div>");
@@ -101,6 +103,7 @@
             <label for="content">Content</label>
             <%
                 out.println("<input name='qid' type='hidden' value='" + request.getParameter("qid") + "'>");
+                out.println("<input name='token' type='hidden' value='" + request.getParameter("token") + "'>");
             %>
           </div>
         </div>

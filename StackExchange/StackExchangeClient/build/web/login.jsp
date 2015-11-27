@@ -41,7 +41,7 @@
         try{
             int valid = Integer.parseInt(request.getParameter("valid"));
             if(valid == 0)
-                out.println("<br> Login unsuccessful, Incorrect Email or Password !");
+                out.println("<div class='center'><br> Login unsuccessful, Incorrect Email or Password ! </div>");
             else{
                 String token = request.getParameter("token");
                 response.sendRedirect("http://localhost:8081/StackExchangeClient/index.jsp?token="+token);

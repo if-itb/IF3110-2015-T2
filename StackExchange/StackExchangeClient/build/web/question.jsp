@@ -11,12 +11,15 @@
     <link href="css/register-login.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   </head>
   
+  <%
+      String token = (String)request.getParameter("token");
+  %>
   <body>
     <nav class="deep-purple darken-2" role="navigation">
       <div class="nav-wrapper container">
         <a id="logo-container" href="#" class="brand-logo">Stack Exchange - Question</a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="index.jsp">Home</a></li>
+          <li><a href="index.jsp?token=<%out.print(token);%>">Home</a></li>
           <li><a href="register.jsp">Register</a></li>
         </ul>
       </div>
@@ -49,9 +52,6 @@
             <label for="content">Content</label>
           </div>
         </div>
-        <%
-            String token = (String)request.getParameter("token");
-        %>
         <input name="token" type="hidden" value="<% out.print(token); %>">
         <div class="container center">
             <button class="btn waves-effect waves-light deep-purple darken-2">
