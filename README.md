@@ -24,7 +24,7 @@ Diharapkan dengan tugas ini anda dapat mengerti:
 
 ### Link Laporan
 
-*Masukkan link laporan anda di sini*
+https://bit.ly/tugas2wbd
 
 ### Arsitektur Umum Server
 
@@ -112,5 +112,4 @@ Perhatikan pemanggilan pada contoh ini seperti melakukan remote procedure call.
 
 #### Prosedur Demo
 Sebelum demo, asisten akan melakukan checkout ke hash commit terakhir yang dilakukan sebelum deadline. Hal ini digunakan untuk memastikan kode yang akan didemokan adalah kode yang terakhir disubmit sebelum deadline.
-
 
