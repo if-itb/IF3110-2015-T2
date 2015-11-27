@@ -51,10 +51,12 @@ User: <c:out value="${user}"/>
                 </c:choose>
                 <br><br>
                 <span class="question-info">
-                    asked by <span class="author"><c:out value="${q.getName()}"/></span> | 
-                    <a href="edit?q_id=<c:out value='${q.getQId()}'/>" class="edit-question">edit</a> | 
+                    asked by <span class="author"><c:out value="${q.getName()}"/></span>
+                    <c:if test="${user != null && user.getuId == question.getuId}">
+                    | <a href="edit?q_id=<c:out value='${q.getQId()}'/>" class="edit-question">edit</a> | 
                     <a href="delete?q_id=<c:out value='${q.getQId()}'/>" class="delete-question"
                     onclick="return deleteConfirmation(<c:out value='${q.getQId()}'/>)">delete</a>
+                    </c:if>
                    <br>
                 </span>
             </span> 
