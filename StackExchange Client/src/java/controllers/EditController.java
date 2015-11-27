@@ -93,7 +93,7 @@ public class EditController extends HttpServlet {
             String url = request.getContextPath() + "question?q_id=" + q_id;
             request.setAttribute("message", "Please log in first");
             request.setAttribute("url", url);
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login?st=0");
         }
     }
 

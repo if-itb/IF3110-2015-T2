@@ -13,7 +13,6 @@
             <hr>
             <br>
             <div class="center">
-                <!-- TODO: Ask Controller -->
                 <form name="ask" class="basic-grey" action="ask" 
                           onsubmit="return validateAskForm()" method="post">
                             <input type="text" id="topic" name="topic" placeholder="Question Topic"><br>

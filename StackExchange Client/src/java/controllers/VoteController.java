@@ -66,7 +66,7 @@ public class VoteController extends HttpServlet {
             String url = request.getContextPath() + "question?q_id=" + id;
             request.setAttribute("message", message);
             request.setAttribute("url", url);
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login?st=0");
         }
     }
 
