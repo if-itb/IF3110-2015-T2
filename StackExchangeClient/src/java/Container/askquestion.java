@@ -47,7 +47,7 @@ public class askquestion extends HttpServlet {
                      String token = cookies[i].getValue();
                      String topic = request.getParameter("topic");
                      String content = request.getParameter("content"); 
-                     createQuestion(token, topic, content);
+                     int suc = createQuestion(token, topic, content);
                      found = true; 
                 }
                 i++;

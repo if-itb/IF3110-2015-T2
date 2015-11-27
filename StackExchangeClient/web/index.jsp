@@ -32,7 +32,7 @@
                 </div>
             </c:when>
             <c:otherwise>
-                You are log in as ${name}
+                You are log in as ${name} <button onclick="window.location.href = 'Logout';">Logout</button>
             </c:otherwise>
         </c:choose>
     

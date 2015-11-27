@@ -41,7 +41,7 @@ public class home extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            /*boolean found = false; 
+            boolean found = false; 
             int i = 0; 
             Cookie[] cookies = null;
             cookies = request.getCookies();
@@ -56,7 +56,7 @@ public class home extends HttpServlet {
                     i++;
                     
                 }
-            }*/
+            }
        String keyword = request.getParameter("keyword");
        if (keyword == null){
             java.util.List<question.Question> result = getAllQuestions(); 
@@ -121,17 +121,19 @@ public class home extends HttpServlet {
         return port.getAllQuestions();
     }
 
-    private User getUserByToken(java.lang.String token) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        user.UserWS port = service_1.getUserWSPort();
-        return port.getUserByToken(token);
-    }
+  
 
     private java.util.List<question.Question> searchQuestions(java.lang.String keyword) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         question.QuestionsWS port = service.getQuestionsWSPort();
         return port.searchQuestions(keyword);
+    }
+
+    private User getUserByToken(java.lang.String token) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        user.UserWS port = service_1.getUserWSPort();
+        return port.getUserByToken(token);
     }
 }
