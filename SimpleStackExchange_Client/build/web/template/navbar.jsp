@@ -28,6 +28,7 @@
           </form>
             <% } else{%>
             <form class="navbar-form navbar-right" action="<%=response.encodeURL("UserLogout") %>" method="post">
+                <input type="hidden" name="confirm" value="logout"/>
                 <button type="submit" class="btn btn-danger">Logout</button>
             </form>
             <% } %>

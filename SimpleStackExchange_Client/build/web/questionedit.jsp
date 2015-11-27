@@ -13,7 +13,7 @@
     <meta name="author" content="">
     <link rel="icon" href="assets/img/favicon.ico">
 
-    <title>Signup to Simple Stack Exchange</title>
+    <title>Simple Stack Exchange</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -38,7 +38,7 @@
       <div class="container">
 
           <form class="form-signin" action="${pageContext.request.contextPath}/edit" method="POST">
-          <h2 class="form-signin-heading">Ask Your Question!<br/>
+          <h2 class="form-signin-heading">Update Your Question!<br/>
               <small></small></h2>
           <hr/>
           <div class="form-group">
@@ -53,7 +53,7 @@
           <input type="hidden" name="save" value="1" />
           
           <div class="form-group">
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Ask</button>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
           </div>
         </form>
 

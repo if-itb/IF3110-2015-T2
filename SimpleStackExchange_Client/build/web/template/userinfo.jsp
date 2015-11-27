@@ -1,3 +1,4 @@
+
 <%
     Boolean isLogin = false;
     if(request.getParameter("isLogin").equalsIgnoreCase("true")){
@@ -11,7 +12,7 @@
             <% if (!isLogin) { %>
             Guest!
             <% }else{%>
-            <%=request.getParameter("name")%>
+            <%=tool.Util.getNameByUid(tool.Util.getUid(request))%>
             <%}%>
         </h2>
         <div class="row">

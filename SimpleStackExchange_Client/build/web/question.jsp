@@ -30,10 +30,18 @@
     </jsp:include>
       
       <div class="container">
+        <c:if test="${statustoken == -1}" >
+            <div class="alert alert-danger" role="alert">Your token has been expired!</div>
+        </c:if>
+
+        <c:if test="${statustoken == 0}" >
+            <div class="alert alert-danger" role="alert">Your token is invalid!</div>
+        </c:if>
         <div class="row">
+             
             <div class="col-sm-12">
                 <h2>
-                    <a href="${pageContext.request.contextPath}/question/?qid=${question.getKey().getQid()}">
+                    <a href="${pageContext.request.contextPath}/question?qid=${question.getKey().getQid()}">
                     ${question.getKey().getTopic()}
                     </a>
                 </h2>
@@ -43,21 +51,37 @@
            
             <div class="question-item row">
             <div class="col-sm-1 ">
-                
-                    <% if (Util.isLogin(request)) { %>
+                <c:set var="uid" value="${question.getKey().getUid()}"/>
+                <c:set var="qid" value="${question.getKey().getQid()}"/>
+                <% if (Util.isLogin(request)) { %>
                     <div class="btn-group-vertical" role="group" aria-label="...">
                         <form action="QuestionVote" method="POST">
                         <input name="qid" type="hidden" value="${question.getKey().getQid()}" />
                         <input name="value" type="hidden" value="1" />
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success
+                                <% 
+                                int qid = (Integer)pageContext.getAttribute("qid");
+                                int uid = Util.getUid(request);
+                                if(Util.hasVotedQuestion(qid, uid, 1)) {
+                                out.print("disabled");
+                                }
+                                %>
+                                ">
                             <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                         </button>
                         </form>
+                        
                         <div class="text-center well-lg">${question.getKey().getCountvotes()}</div>
                         <form action="QuestionVote" method="POST">
                         <input name="qid" type="hidden" value="${question.getKey().getQid()}" />
                         <input name="value" type="hidden" value="-1" />
-                        <button type="submit" class="btn btn-danger">
+                        <button type="submit" class="btn btn-danger
+                                 <% 
+                                if(Util.hasVotedQuestion(qid, uid, -1)) {
+                                out.print("disabled");
+                                }
+                                %>
+                                ">
                             <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                         </button>
                         </form>
@@ -111,6 +135,7 @@
         <div class="row">
             <div class="col-sm-1 col-sm-offset-1">
                 
+                <c:set var="aid" value="${answer.getKey().getAid()}"/>
                 <% if (Util.isLogin(request)) { %>
                 
                     <div class="btn-group-vertical" role="group" aria-label="...">
@@ -118,7 +143,15 @@
                         <input type="hidden" name="aid" value="${answer.getKey().getAid()}" />
                         <input type="hidden" name="qid" value="${answer.getKey().getQid()}" />
                         <input type="hidden" name="value" value="1" />
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success
+                                <%
+                                int aid = (Integer)pageContext.getAttribute("aid");
+                                int uid = Util.getUid(request);
+                                if(Util.hasVotedAnswer(aid, uid, 1)) {
+                                out.print("disabled");
+                                }
+                                %>
+                                ">
                             <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                         </button>
                         </form>
@@ -127,7 +160,13 @@
                         <input type="hidden" name="aid" value="${answer.getKey().getAid()}" />
                         <input type="hidden" name="qid" value="${answer.getKey().getQid()}" />
                         <input type="hidden" name="value" value="-1" />
-                        <button type="submit" class="btn btn-danger">
+                        <button type="submit" class="btn btn-danger
+                                 <%
+                                if(Util.hasVotedAnswer(aid, uid, -1)) {
+                                out.print("disabled");
+                                }
+                                %>
+                                ">
                             <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                         </button>
                         </form>

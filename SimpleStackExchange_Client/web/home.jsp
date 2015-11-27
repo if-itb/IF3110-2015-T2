@@ -29,6 +29,14 @@
     </jsp:include>
     
     <div class="container">
+        <c:if test="${statustoken == -1}" >
+            <div class="alert alert-danger" role="alert">Your token has been expired!</div>
+        </c:if>
+            
+        <c:if test="${statustoken == 0}" >
+            <div class="alert alert-danger" role="alert">Your token is invalid!</div>
+        </c:if>
+            
         <div class="row">
             <form class="form-horizontal" action="${pageContext.request.contextPath}/search" method="GET">
             <div class="col-lg-12">
@@ -75,10 +83,10 @@
                        
                       <% if(Util.isAuthUser(request,(Integer)pageContext.getAttribute("uid"))){ %>
                       <button type="button" class="btn btn-warning " aria-label="Edit">
-                        <a class="glyphicon glyphicon-pencil white" aria-hidden="true"></a>
+                        <a class="glyphicon glyphicon-pencil white" aria-hidden="true" href="edit?qid=${item.getKey().getQid()}&save=0"></a>
                       </button>
                       <button type="button" class="btn btn-danger" aria-label="Delete">
-                        <a class="glyphicon glyphicon-trash white" aria-hidden="true"></a>
+                        <a class="glyphicon glyphicon-trash white" aria-hidden="true" href="delete?qid=${item.getKey().getQid()}"></a>
                       </button>
                           <% }%>
                   </span>
