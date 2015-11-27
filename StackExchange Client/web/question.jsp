@@ -38,7 +38,7 @@
                             <a href=" <% out.print("qvoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid")); %>" >
                             <img src="img/upvote.png" width ="30" height="30"><br>
                             </a>
-                            <span id="question-vote-count-<%= result.getUserId() %>"><%= result.getVote() %></span><br>
+                            <span id="question-vote-count<%= result.getUserId()%>"><%= result.getVote() %></span><br>
                             <a href=" <% out.print("qvoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid")); %>">  
                             <img src="img/downvote.png" width="30" height="30">
                             </a>
@@ -48,10 +48,11 @@
                                 <%= result.getContent() %>
                             </p>
                         </div>
+                         asked by <span class="name"><%= result.getAskerName()%></span>
                     </div>
-                    <div class="row">
-                        asked by <span class="name"><%= result.getAskerName()%></span>
-                    </div>
+                   
+                   
+                    
                     <hr>
                     <br>
                         <%
