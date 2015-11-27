@@ -167,7 +167,7 @@ Author:
         <div id="answer-form-title">
           Your Answer
         </div>
-        <form class="right" id="answer-form" name="answer-form" action="AddAnswerController" method="post" onsubmit="return questionFormValidation()">
+        <form class="right" id="answer-form" name="answer-form" action="AddAnswerController?token=<%= request.getParameter("token") %>&qid=<%= request.getParameter("qid") %>" method="post" onsubmit="return questionFormValidation()">
           <input class="full-length" id="answer-name" name="answer-name" type="text" placeholder="Name">
           <input class="full-length" id="answer-email" name="answer-email" type="text" placeholder="Email">
           <textarea class="full-length" id="answer-content" name="answer-content" placeholder="Content" rows="10" cols="50"></textarea>
