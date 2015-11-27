@@ -24,7 +24,7 @@ Diharapkan dengan tugas ini anda dapat mengerti:
 
 ### Link Laporan
 
-*Masukkan link laporan anda di sini*
+https://drive.google.com/file/d/0B1ZvRCyKhNpyUkNkZy04Vmg1WGc/view?usp=sharing
 
 ### Arsitektur Umum Server
 
@@ -51,7 +51,7 @@ Diharapkan dengan tugas ini anda dapat mengerti:
                      |
                    connect
                      |
-              *----------------------* 
+              *----------------------*
               |Web Browser           |
               |(chrome, firefox, dll)|
               *----------------------*
@@ -69,7 +69,7 @@ Anda diminta untuk membuat stackexchange seperti tugas 1.  Kebutuhan fungsional 
 1. Registrasi pengguna yang minimal terdiri dari nama, email, dan password. Anda harus melakukan validasi bahwa email yang sama tidak boleh digunakan untuk dua kali mendaftar.
 2. Login pengguna.
 3. List pertanyaan, seperti tugas 1.
-4. Bertanya, seperti tugas 1. Pengguna harus login terlebih dahulu untuk bertanya. 
+4. Bertanya, seperti tugas 1. Pengguna harus login terlebih dahulu untuk bertanya.
 5. Ubah pertanyaan, seperti tugas 1. Ubah pertanyaan hanya dapat dilakukan oleh si pembuat pertanyaan tersebut.
 6. Hapus pertanyaan, seperti tugas 1. Hapus pertanyaan hanya dapat dilakukan oleh si pembuat pertanyaan tersebut.
 7. Lihat pertanyaan.
@@ -80,7 +80,7 @@ Anda diminta untuk membuat stackexchange seperti tugas 1.  Kebutuhan fungsional 
 12. Tidak perlu memperhatikan aspek keamanan dan etika penyimpanan data.
 
 
-### Skenario 
+### Skenario
 
 Skenario ini adalah kebutuhan non fungsional yang harus dipenuhi.
 
@@ -112,5 +112,3 @@ Perhatikan pemanggilan pada contoh ini seperti melakukan remote procedure call.
 
 #### Prosedur Demo
 Sebelum demo, asisten akan melakukan checkout ke hash commit terakhir yang dilakukan sebelum deadline. Hal ini digunakan untuk memastikan kode yang akan didemokan adalah kode yang terakhir disubmit sebelum deadline.
-
-
