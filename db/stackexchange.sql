@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.4.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2015 at 01:58 PM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Generation Time: Nov 27, 2015 at 01:36 PM
+-- Server version: 5.6.26
+-- PHP Version: 5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `stackexchange`
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `answer` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `q_id` int(11) NOT NULL,
   `name` varchar(60) NOT NULL,
   `email` varchar(60) NOT NULL,
@@ -49,7 +49,7 @@ INSERT INTO `answer` (`id`, `q_id`, `name`, `email`, `content`, `vote`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `question` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(60) NOT NULL,
   `email` varchar(60) NOT NULL,
   `topic` varchar(140) NOT NULL,
@@ -65,6 +65,25 @@ INSERT INTO `question` (`id`, `name`, `email`, `topic`, `content`, `vote`) VALUE
 (2, 'muhtar', 'muhtar@gmail.com', 'halo', 'apa kabar ?', 5),
 (4, 'sfhsfhs', 'dsfsg', 'fksdjh', 'jajaja', 0),
 (5, 'muhtar', 'muhtar@gmail.com', 'sdaad', 'dwdqwfeefe', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `token`
+--
+
+CREATE TABLE IF NOT EXISTS `token` (
+  `email` varchar(60) NOT NULL,
+  `token_string` varchar(100) NOT NULL,
+  `expired_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `token`
+--
+
+INSERT INTO `token` (`email`, `token_string`, `expired_date`) VALUES
+('muhtarhartopo@gmail.com', '03803bc38b8a7c244e724fab81057bcc5c63d751', '2015-11-27 10:10:14');
 
 -- --------------------------------------------------------
 
@@ -113,25 +132,29 @@ INSERT INTO `uservote` (`id_mail`, `category`, `id`) VALUES
 -- Indexes for table `answer`
 --
 ALTER TABLE `answer`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id` (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `question`
 --
 ALTER TABLE `question`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id` (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
- ADD PRIMARY KEY (`email`), ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`email`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `uservote`
 --
 ALTER TABLE `uservote`
- ADD UNIQUE KEY `id_mail` (`id_mail`,`category`,`id`), ADD UNIQUE KEY `id_mail_2` (`id_mail`,`category`,`id`);
+  ADD UNIQUE KEY `id_mail` (`id_mail`,`category`,`id`),
+  ADD UNIQUE KEY `id_mail_2` (`id_mail`,`category`,`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -141,12 +164,12 @@ ALTER TABLE `uservote`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
