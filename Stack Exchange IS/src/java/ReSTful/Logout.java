@@ -80,6 +80,11 @@ public class Logout extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(Logout.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Cookie cookie = new Cookie("token", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/Stack_Exchange_Client");
+        response.addCookie(cookie);
+        
         response.sendRedirect("http://localhost:8081/Stack_Exchange_Client/QuestionServlet");
     }
 

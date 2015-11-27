@@ -14,9 +14,6 @@
         <title>Stack Exchange</title>
     </head>
     <body>
-        <div id="edit-delete" style="text-align:right">
-		<p> Logged in as <b><c:out value="guest"/></b> | <a href="login.jsp" style="color:#FFA500"> Log in </a> | <a href="register.jsp" style="color:#FF0000"> Register </a> </p>
-        </div>
         <div id="header">
             <h1> <a href ="/Stack_Exchange_Client/QuestionServlet" style="color:#000"> Simple Stack Exchange </a> </h1>
         </div>
