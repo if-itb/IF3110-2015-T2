@@ -12,7 +12,7 @@
 		<div class="content">
 			<h2>Register</h2>
 			<hr>
-			<form action="register.jsp", method="post" onsubmit="return validateRegistration()">
+			<form action="register.jsp", method="post" onsubmit="">
 			<input class="textbox" type="text", name="name", id="name" placeholder="Name">
 			<br>
 			<input class="textbox" type="text", name="email", id="email" placeholder="Email">

@@ -21,7 +21,10 @@
 		request.setAttribute("name","Delete Question");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("status.jsp");
 		dispatcher.forward(request,response);
-	} else {
+	} else if (token.equals("")){
+		response.sendRedirect("login.jsp");
+	}
+	else {
 		response.sendRedirect("index.jsp");
 	}
 %>

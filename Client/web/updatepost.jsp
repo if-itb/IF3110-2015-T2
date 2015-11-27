@@ -26,6 +26,8 @@
             request.setAttribute("name","Edit Question");
             RequestDispatcher dispatcher = request.getRequestDispatcher("status.jsp");
             dispatcher.forward(request,response);
+        } else if (token.equals("")){
+            response.sendRedirect("login.jsp");
         } else {
             response.sendRedirect("index.jsp");
         }

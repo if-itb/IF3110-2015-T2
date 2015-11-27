@@ -24,7 +24,7 @@
 					if ((email!=null)&&(password!=null))
 					{
 
-						HttpClient httpClient = HttpClientBuilder.create().build(); //Use this instead
+						HttpClient httpClient = HttpClientBuilder.create().build();
 
 						try {
 							HttpPost req = new HttpPost("http://localhost:8083/v1/login");

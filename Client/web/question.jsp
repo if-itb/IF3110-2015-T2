@@ -52,13 +52,10 @@
 				<div class="content question">
 					<h2 class="title2">Your Answer</h2>
 					<hr>
-					<form action="" method="post" onsubmit="">
-					<input class="textbox" type="text", name="name", id="name" placeholder="Name">
-					<br>
-					<input class="textbox" type="text", name="email", id="email" placeholder="Email">
-					<br>
+					<form action="postanswer.jsp" method="post" onsubmit="">
 					<textarea class="textarea", name="content", id="content" placeholder="Content" ></textarea>
 					<br>
+					<input type="hidden" id="id" name="id" value=<%out.println(id);%>>
 					<input type="submit" id="post" value="Post">
 					</form>	
 				</div>

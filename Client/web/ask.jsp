@@ -12,7 +12,7 @@
 		<div class="content">
 			<h2>What's your question?</h2>
 			<hr>
-			<form action="ask.jsp", method="post" onsubmit="return validatequestion()">
+			<form action="ask.jsp", method="post" onsubmit="">
 			<input class="textbox" type="text", name="topic", id="topic" placeholder="Question Topic">
 			<br>
 			<textarea class="textarea", name="content", id="content" placeholder="Content" ></textarea>
@@ -36,7 +36,7 @@
 				token = cookies[i].getValue();
 			}
 		}
-		if ((topic!=null)&&(content!=null)){
+		if ((topic!=null)&&(content!=null)&&!(token.equals(""))){
 			URL url = new URL ("http://localhost:8082/ws/stackexchange?wsdl");
 			QName qname = new QName("http://ws.sstackex.yangnormal.com/","WebServiceImplService");
 			WebServiceImplService webService = new WebServiceImplService(url,qname);
@@ -46,6 +46,8 @@
 			request.setAttribute("name","Ask Question");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("status.jsp");
 			dispatcher.forward(request,response);
+		} else if (token.equals("")){
+			response.sendRedirect("login.jsp");
 		}
 	%>
 </body>

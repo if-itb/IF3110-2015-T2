@@ -129,7 +129,7 @@ public class WebServiceImpl implements WebServiceInterface{
             stmt.setInt(2,uid);
             stmt.setInt(3,qid);
             // Result Set
-            stmt.executeUpdate(query);
+            stmt.executeUpdate();
         }
         catch (SQLException se){
             se.printStackTrace();
@@ -208,15 +208,15 @@ public class WebServiceImpl implements WebServiceInterface{
             // Open a connection
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             // Query
-            String query = "SELECT question.topic,question.vote,question.content,question.date,question.uid,fullname,count(answer.qid) as answerSum " +
+            String query = "SELECT question.topic,question.vote,question.content,question.date,question.uid,fullname,count(answer.id) as answerSum " +
                     "FROM question LEFT JOIN user ON (question.id = user.id) LEFT JOIN answer ON (question.id = answer.id) " +
-                    "WHERE question.id = "+qid+" " +
-                    "GROUP BY question.id, question.topic, question.content, question.vote, question.date";
+                    "WHERE question.id = "+qid;
             stmt = conn.createStatement();
             // Result Set
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()){
+                q.setId(qid);
                 q.setContent(rs.getString("content"));
                 q.setTopic(rs.getString("topic"));
                 q.getUser().setName(rs.getString("fullname"));
@@ -250,9 +250,7 @@ public class WebServiceImpl implements WebServiceInterface{
             // Open a connection
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             // Query
-            String query = "SELECT question.id,question.topic,question.vote,question.content,question.date,question.uid,fullname,count(answer.qid) as answerSum " +
-                    "FROM question LEFT JOIN user ON (question.uid = user.id) LEFT JOIN answer ON (question.id = answer.id) " +
-                    "GROUP BY question.id, question.topic, question.content, question.vote, question.date";
+            String query = "SELECT question.id,question.topic,question.vote,question.content,question.date,question.uid,fullname,count(answer.qid) as answerSum FROM question LEFT JOIN user ON (question.uid = user.id) LEFT JOIN answer ON (question.id = answer.qid) GROUP BY question.id";
             stmt = conn.createStatement();
             // Result Set
             ResultSet rs = stmt.executeQuery(query);

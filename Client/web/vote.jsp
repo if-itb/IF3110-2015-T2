@@ -22,6 +22,8 @@
             WebServiceInterface ws = webService.getWebServiceImplPort();
             int status = ws.vote(Integer.parseInt(type),Integer.parseInt(id),Integer.parseInt(spin),token);
             response.sendRedirect(request.getHeader("Referer"));
+        } else if (token.equals("")){
+            response.sendRedirect("login.jsp");
         } else {
             response.sendRedirect("index.jsp");
         }
