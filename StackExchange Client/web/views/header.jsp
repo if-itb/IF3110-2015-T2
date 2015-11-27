@@ -32,6 +32,10 @@
 	</div>
 	<br>
         <div style="text-align: right; margin-right: 20px">
-            <a href="login">Login</a> |
-            <a href="register">Register</a>
+            <c:if test="${status == 'Authentication succeed'}">
+                Welcome, <span class="author"><c:out value="${user.name}"/></span> | <a href="logout">Logout</a> 
+            </c:if>
+            <c:if test="${status != 'Authentication succeed'}">
+                <a href="login">Login</a> | <a href="register">Register</a>
+            </c:if>
         </div>

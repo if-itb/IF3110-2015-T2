@@ -60,14 +60,14 @@ public class RegisterController extends HttpServlet {
         if(status==1) { // Successfully registered
             message = "Success";
             request.setAttribute("message", message);
-            response.sendRedirect(request.getContextPath() + "/login?register=success");
+            response.sendRedirect(request.getContextPath() + "/login?st=1");
         } else {
             if (status==0) { //Email has already registered before
             message = "Duplicate";
             } else { //Register failed
                 message = "Failed";
             }
-            request.setAttribute("message", message);
+            request.setAttribute("stat", message);
             doGet(request, response);
         }
     }

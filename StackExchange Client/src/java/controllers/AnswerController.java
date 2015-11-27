@@ -74,11 +74,7 @@ public class AnswerController extends HttpServlet {
                 response.sendRedirect(request.getContextPath());
             }
         } else {
-            String message = "Please log in before ";
-            String url = request.getContextPath() + "question?q_id=" + q_id;
-            request.setAttribute("message", message);
-            request.setAttribute("url", url);
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login?st=0");
         }
         
     }

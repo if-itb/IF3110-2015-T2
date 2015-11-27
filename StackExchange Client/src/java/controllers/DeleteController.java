@@ -5,7 +5,9 @@
  */
 package controllers;
 
+import QuestionWS.Question;
 import QuestionWS.QuestionWS_Service;
+import UserWS.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -23,33 +25,6 @@ public class DeleteController extends HttpServlet {
     private QuestionWS_Service service;
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DeleteController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DeleteController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -60,12 +35,29 @@ public class DeleteController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int qId = Integer.parseInt(request.getParameter("q_id"));
-        int isSuccessful = deleteQuestion(qId);
-        if(isSuccessful==1) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/home");
-            dispatcher.forward(request, response);
+        User user = (User) request.getAttribute("user");
+        if (user != null) {
+            int qId = Integer.parseInt(request.getParameter("q_id"));
+            Question question = getQuestion(qId);
+            if (question.getUId()==user.getUId()) {
+                //Same user
+                int isSuccessful = deleteQuestion(qId);
+                if(isSuccessful==1) {
+                    request.setAttribute("message", "Question deleted sucessfully");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/home");
+                    dispatcher.forward(request, response);
+                } else {
+                    request.setAttribute("message", "Question cannot be deleted");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/home");
+                    dispatcher.forward(request, response);
+                }
+            } else {
+                response.sendRedirect(request.getContextPath());
+            }
+        } else {
+            response.sendRedirect(request.getContextPath());
         }
+        
    }
 
     /**
@@ -79,7 +71,8 @@ public class DeleteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        doGet(request, response);
     }
 
     /**
@@ -97,6 +90,13 @@ public class DeleteController extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
         return port.deleteQuestion(qId);
+    }
+
+    private Question getQuestion(int qId) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        return port.getQuestion(qId);
     }
 
 }
