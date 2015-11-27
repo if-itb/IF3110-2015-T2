@@ -84,7 +84,7 @@ public class AnswerWS {
     }
     //return value -1 = gagal, 0 = sudah divote, 1 = berhasil
     @WebMethod(operationName = "voteAns")
-    public int voteAns(@WebParam(name = "id") int id, @WebParam(name= "usermail") String mail) {
+    public int voteAns(@WebParam(name = "id") int id, @WebParam(name= "usermail") String mail, @WebParam(name="value") int val) {
         Connection conn = null;
         PreparedStatement ps = null;
         int executeUpdate = -1;
@@ -113,7 +113,7 @@ public class AnswerWS {
                     rs.next();
                     int currentVote = rs.getInt("vote");
                     ps = conn.prepareStatement("update Answer set vote = ? where id = ?");
-                    ps.setInt(1, currentVote+1);
+                    ps.setInt(1, currentVote+val);
                     ps.setInt(2, id);
                     executeUpdate = ps.executeUpdate();
                 }
