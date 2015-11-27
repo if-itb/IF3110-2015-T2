@@ -4,18 +4,41 @@
     Author     : yoga
 --%>
 
+<%@page import="java.sql.Timestamp"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
     <%-- start web service invocation --%><hr/>
     <%
+            String token = request.getParameter("token");
+            questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();
+            questionmodel.QuestionWS port = service.getQuestionWSPort();
+
+            try {
+
+                Timestamp result = new Timestamp(port.getExpiredDate(token));
+                Timestamp ts = new Timestamp(System.currentTimeMillis());
+                out.println(ts);
+                out.println(result);
+
+                if (ts.after(result)) {
+                    String site = "login.jsp?relog=1";
+                    response.setStatus(response.SC_MOVED_TEMPORARILY);
+                    response.setHeader("Location", site);
+                }
+
+            } catch (Exception ex) {
+                // TODO handle custom exceptions here
+            }
+        %>
+    <%
     try {
-	answermodel.AnswerWS_Service service = new answermodel.AnswerWS_Service();
-	answermodel.AnswerWS port = service.getAnswerWSPort();
+	answermodel.AnswerWS_Service service1 = new answermodel.AnswerWS_Service();
+	answermodel.AnswerWS port1 = service1.getAnswerWSPort();
 	 // TODO initialize WS operation arguments here
 	int qid = Integer.parseInt(request.getParameter("id"));
-	java.lang.String token = request.getParameter("token");
+	
 	java.lang.String content = request.getParameter("content");
 	// TODO process result here
-	int result = port.insertAnswer(qid, token, content);
+	int result = port1.insertAnswer(qid, token, content);
 	out.println("Result = "+result);
     } catch (Exception ex) {
 	// TODO handle custom exceptions here

@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="java.sql.Timestamp"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,10 +15,32 @@
         <title>Simple StackExchange</title>
     </head>
     <body>
+        <%
+            String token = request.getParameter("token");
+            questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();
+            questionmodel.QuestionWS port = service.getQuestionWSPort();
+
+            try {
+
+                Timestamp result = new Timestamp(port.getExpiredDate(token));
+                Timestamp ts = new Timestamp(System.currentTimeMillis());
+                out.println(ts);
+                out.println(result);
+
+                if (ts.after(result)) {
+                    String site = "login.jsp?relog=1";
+                    response.setStatus(response.SC_MOVED_TEMPORARILY);
+                    response.setHeader("Location", site);
+                }
+
+            } catch (Exception ex) {
+                // TODO handle custom exceptions here
+            }
+        %>
         <div class="header">
             <div class="container">
                 <%
-                    String token = request.getParameter("token");
+                    
                     if (token != null) {
                         out.println("<p><a href='index1.jsp?token=" + token + "'>Simple StackExchange</a></p> ");
                     } else {
@@ -36,8 +59,7 @@
 
                     //take the first question
                     try {
-                        questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();
-                        questionmodel.QuestionWS port = service.getQuestionWSPort();
+                        
                         java.lang.String check = port.getName(token);
                         // TODO process result here
                         java.util.List<questionmodel.Question> result = port.getQuestionbyID(qidFromURL);
@@ -83,10 +105,10 @@
 
                     //take all answer
                     try {
-                        answermodel.AnswerWS_Service service = new answermodel.AnswerWS_Service();
-                        answermodel.AnswerWS port = service.getAnswerWSPort();
+                        answermodel.AnswerWS_Service service1 = new answermodel.AnswerWS_Service();
+                        answermodel.AnswerWS port1 = service1.getAnswerWSPort();
                         // TODO process result here
-                        java.util.List<answermodel.Answer> result = port.getAnswerbyQID(qidFromURL);
+                        java.util.List<answermodel.Answer> result = port1.getAnswerbyQID(qidFromURL);
                         for (int i = 0; i < result.size(); i++) {
                             out.println("<div class='answer'>");
 
