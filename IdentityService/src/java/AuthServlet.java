@@ -5,16 +5,12 @@
  */
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
-import com.mysql.jdbc.Driver;
 import java.sql.*;
-import java.util.*;
-import java.security.*;
 
 /**
  *
@@ -34,7 +30,7 @@ public class AuthServlet extends HttpServlet {
     
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-    static final String DB_URL = "jdbc:mysql://localhost/wbd";
+    static final String DB_URL = "jdbc:mysql://localhost/wbd2";
 
     //  Database credentials
     static final String USER = "root";
@@ -71,13 +67,13 @@ public class AuthServlet extends HttpServlet {
             Token token = (Token) gson.fromJson(sb.toString(), Token.class);
  
             Connection conn = null;
-            Statement stmt = null;
+            //PreparedStatement preparedStatement = null;
             
             Class.forName("com.mysql.jdbc.Driver");
             
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             
-            String sql = "SELECT userID, tokenexpired FROM account WHERE token = ?";
+            String sql = "SELECT userID, tokenexpired FROM account WHERE token=?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, token.getAccessToken());
             ResultSet rs = preparedStatement.executeQuery();
@@ -90,11 +86,11 @@ public class AuthServlet extends HttpServlet {
                 long nowms = now.getTime();
                 long expms = tokenexpired.getTime();
                 
-                if (expms < nowms) {
+                if (nowms < expms) {
                     //token valid
                     int userid = rs.getInt("userID");
                     status.setSuccess(true);
-                    status.setDescription("token valid");
+                    status.setDescription("valid");
                     status.setUserID(userid);
                     
                     response.getOutputStream().print(gson.toJson(status));
@@ -102,10 +98,16 @@ public class AuthServlet extends HttpServlet {
                 }
                 else {
                     status.setSuccess(false);
-                    status.setDescription("token kadaluarsa");
+                    status.setDescription("expired");
                     response.getOutputStream().print(gson.toJson(status));
                     response.getOutputStream().flush();
                 }
+            }
+            else {
+                status.setSuccess(false);
+                status.setDescription("invalid");
+                response.getOutputStream().print(gson.toJson(status));
+                response.getOutputStream().flush();
             }
             
             rs.close();
@@ -129,7 +131,7 @@ public class AuthServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**
@@ -145,15 +147,4 @@ public class AuthServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

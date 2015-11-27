@@ -8,27 +8,40 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="stylesheet" type="text/css" href="style.css">
   <title>Simple StackExchange</title>
 </head>
 
 <body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" <% out.println("href=\"index.jsp?token=" + request.getParameter("token") + "\""); %> class="brand-logo">Stack Exchange</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="login.jsp">Login</a></li>
+        <li><a href="registration.jsp">Registration</a></li>
+      </ul>
+    </div>
+  </nav>
+  <br><br>
   <div id = "container">
     <div id = "header">
-      <p>${flash}</p>
-      <span id="Judul">Simple StackExchange</span>
- 
-      <div class ="userNavigation">
-          <span class="signIn">Sign In</span>
-          <span class="registration"><a href="registration.jsp">Register</a></span>
-      </div>
-      
-      
-      <form id="search" action ="index.php" method="get">
-        <input name = 'search' id="bar" type="text"/>
-        <input id="submitButton" type="submit" value="Search"/>
+     <div class="container">
+      <nav class="orange" role="navigation">
+        <div class="nav-wrapper">
+          <form>
+            <div class="input-field">
+              <input id="search" type="search" required>
+              <label for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+          </form>
+        </div>
+      </nav>
     </div>
-    <p align="center">Cannot find what you are looking for? <a style="color:red" href="addQuestion.jsp">Ask here</a>
+    </div>
+      <p align="center">Cannot find what you are looking for? <a style="color:red" <% if (request.getParameter("token") == null) { out.println("href=\"addQuestion.jsp\""); } else { out.println("href=\"addQuestion.jsp" + "?token=" + request.getParameter("token") + "\""); } %>>Ask here</a>
     <div id ="body">
       <h3>Recently Asked Questions</h3>
     <%-- start web service invocation --%>
@@ -62,7 +75,7 @@
                         </div>
 
                         <div class= questionMid>
-                            <a class ='questionTitle' href='questionAnswerPage.jsp?q_id=<%= allQuestionList.get(i).getQuestionId()%>'><% out.println(allQuestionList.get(i).getQuestionTitle()); %> <br></a>
+                            <a class ='questionTitle' <% out.println("href=\"questionAnswerPage.jsp"  + "?q_id=" + allQuestionList.get(i).getQuestionId() + "&token=" + request.getParameter("token") + "\""); %>> <%= allQuestionList.get(i).getQuestionTitle() %><br></a>
                             <div class =questionContent>
                                 <%
                                         String str = allQuestionList.get(i).getQuestionContent();
@@ -82,7 +95,7 @@
                                  // TODO initialize WS operation arguments here
                                 int userID = allQuestionList.get(i).getQuestionUserId();
                                 // TODO process result here
-                                java.lang.String q_UserName = port3.getAnswerUserName(userID);
+                                java.lang.String q_UserName = port3.getUserName(userID);
                             %>
                             <%-- end web service invocation --%>
      
@@ -90,7 +103,13 @@
                              
 
                         <div class= questionRight>
-                            asked by <font color='blue'> <% out.println(q_UserName);%> </font> |<a class='editQuestion' href='editQuestion.jsp?id=<%= allQuestionList.get(i).getQuestionId() %>'><font color='green'>edit</font> </a>|<a class='deleteQuestion' href = 'deleteQuestionProcess.jsp?id=<%= allQuestionList.get(i).getQuestionId() %>' onclick= "return confirm('are you sure?')"><font color='red'>delete</font> </a>
+                            asked by <font color='blue'> <% out.println(q_UserName);%> </font> |
+                            <a class='editQuestion' <% if (request.getParameter("token") == null) { out.println("href=\"editQuestion.jsp" + "?id=" + allQuestionList.get(i).getQuestionId() + "\""); } else { out.println("href=\"editQuestion.jsp"  + "?id=" + allQuestionList.get(i).getQuestionId() + "&token=" + request.getParameter("token") + "\""); } %>>
+                              <font color='green'>edit</font>
+                            </a>|
+                            <a class='deleteQuestion' <% if (request.getParameter("token") == null) { out.println("href=\"deleteQuestionProcess.jsp" + "?id=" + allQuestionList.get(i).getQuestionId() + "\""); } else { out.println("href=\"deleteQuestionProcess.jsp"  + "?id=" + allQuestionList.get(i).getQuestionId() + "&token=" + request.getParameter("token") + "\""); } %> onclick= "return confirm('are you sure?')">
+                                <font color='red'>delete</font> 
+                            </a>
                         </div>
 
                 </div>

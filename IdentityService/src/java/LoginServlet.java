@@ -5,15 +5,12 @@
  */
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
-import com.mysql.jdbc.Driver;
 import java.sql.*;
-import java.util.*;
 import java.security.*;
 
 /**
@@ -34,11 +31,13 @@ public class LoginServlet extends HttpServlet {
     
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-    static final String DB_URL = "jdbc:mysql://localhost/wbd";
+    static final String DB_URL = "jdbc:mysql://localhost/wbd2";
 
     //  Database credentials
     static final String USER = "root";
     static final String PASS = "";    
+    
+    public static final int LIFETIME = 300;
     
     class User {
         private String email;
@@ -50,13 +49,13 @@ public class LoginServlet extends HttpServlet {
     
     class Status {
         private boolean success;
-        private String description;
+        private String error_cause;
         private String access_token;
-        private int lifetime;
+        private Integer lifetime;
         public void setSuccess(boolean newSuccess) { success = newSuccess; };
-        public void setDescription(String newDescription) { description = newDescription; };
+        public void setErrorCause(String newErrorCause) { error_cause = newErrorCause; };
         public void setAccessToken(String newAccessToken) { access_token = newAccessToken; };
-        public void setLifetime(int newLifetime) { lifetime = newLifetime; };
+        public void setLifetime(int newLifetime) { lifetime = new Integer(newLifetime); };
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -65,7 +64,6 @@ public class LoginServlet extends HttpServlet {
         Gson gson = new Gson();
             
         try {
-            //System.out.println("this is debug message");
             //parsing json
             StringBuilder sb = new StringBuilder();
             String s;
@@ -92,39 +90,48 @@ public class LoginServlet extends HttpServlet {
             if (rs.next()) {
                 String password = rs.getString("password");
                 if (password.equals(user.getPassword())) {
-                    System.out.println("password cocok");
                     
                     String seed = "";
                     java.util.Date date = new java.util.Date();
                     long ms = date.getTime();
                     seed = seed.concat(user.getEmail() + user.getPassword() + ms);
-                    byte[] bytesOfMessage = seed.getBytes("UTF-8");
                     MessageDigest md = MessageDigest.getInstance("MD5");
-                    byte[] thedigest = md.digest(bytesOfMessage);
-                    String access_token = new String(thedigest, "UTF-8");
+                    md.update(seed.getBytes());
+                    byte[] digest = md.digest();
+                    StringBuilder access_token = new StringBuilder();
+                    for (byte b : digest) {
+                        access_token.append(String.format("%02x", b & 0xff));
+                    }
                     
-                    ms = ms + 300 * 1000;
-                    Object tokenexpired = new java.sql.Timestamp(ms);
+                    ms = ms + LIFETIME * 1000;
+                    java.sql.Timestamp tokenexpired = new java.sql.Timestamp(ms);
                     
                     int userid = rs.getInt("userID");
                     sql = "UPDATE account SET token=?, tokenexpired=? WHERE userID = ?";
                     preparedStatement = conn.prepareStatement(sql);
-                    preparedStatement.setString(1, access_token);
-                    preparedStatement.setObject(2, tokenexpired);
+                    preparedStatement.setString(1, access_token.toString());
+                    preparedStatement.setTimestamp(2, tokenexpired);
                     preparedStatement.setInt(3, userid);
-                    preparedStatement.executeQuery();
+                    preparedStatement.executeUpdate();
                     
                     status.setSuccess(true);
-                    status.setDescription("password cocok");
-                    status.setAccessToken(access_token);
-                    status.setLifetime(300);
+                    status.setAccessToken(access_token.toString());
+                    status.setLifetime(LIFETIME);
                     response.getOutputStream().print(gson.toJson(status));
                     response.getOutputStream().flush();
                 }
                 else {
-                    System.out.println("password tidak cocok");
+                    status.setSuccess(false);
+                    status.setErrorCause("password");
+                    response.getOutputStream().print(gson.toJson(status));
+                    response.getOutputStream().flush();
                 }
-                System.out.println(password);
+            }
+            else {
+                status.setSuccess(false);
+                status.setErrorCause("email");
+                response.getOutputStream().print(gson.toJson(status));
+                response.getOutputStream().flush();
             }
             
             rs.close();
@@ -147,7 +154,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**
@@ -163,15 +170,4 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

@@ -13,33 +13,58 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="addAnswer"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="question_id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="answerContent" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="userID" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="addAnswer">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="access_token" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="question_id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="answerContent" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "addAnswer", propOrder = {
+    "accessToken",
     "questionId",
-    "answerContent",
-    "userID"
+    "answerContent"
 })
 public class AddAnswer {
 
+    @XmlElement(name = "access_token")
+    protected String accessToken;
     @XmlElement(name = "question_id")
     protected int questionId;
     protected String answerContent;
-    protected int userID;
+
+    /**
+     * Gets the value of the accessToken property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    /**
+     * Sets the value of the accessToken property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAccessToken(String value) {
+        this.accessToken = value;
+    }
 
     /**
      * Gets the value of the questionId property.
@@ -79,22 +104,6 @@ public class AddAnswer {
      */
     public void setAnswerContent(String value) {
         this.answerContent = value;
-    }
-
-    /**
-     * Gets the value of the userID property.
-     * 
-     */
-    public int getUserID() {
-        return userID;
-    }
-
-    /**
-     * Sets the value of the userID property.
-     * 
-     */
-    public void setUserID(int value) {
-        this.userID = value;
     }
 
 }

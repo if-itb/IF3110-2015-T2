@@ -4,11 +4,17 @@
 <xsd:import namespace="http://WSModel/" schemaLocation="http://localhost:8081/StackExchange_WS/WS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getAnswerUserName">
-<part name="parameters" element="tns:getAnswerUserName"/>
+<message name="getUserName">
+<part name="parameters" element="tns:getUserName"/>
 </message>
-<message name="getAnswerUserNameResponse">
-<part name="parameters" element="tns:getAnswerUserNameResponse"/>
+<message name="getUserNameResponse">
+<part name="parameters" element="tns:getUserNameResponse"/>
+</message>
+<message name="addUser">
+<part name="parameters" element="tns:addUser"/>
+</message>
+<message name="addUserResponse">
+<part name="parameters" element="tns:addUserResponse"/>
 </message>
 <message name="addAnswer">
 <part name="parameters" element="tns:addAnswer"/>
@@ -28,23 +34,23 @@
 <message name="getAnswerByQIDResponse">
 <part name="parameters" element="tns:getAnswerByQIDResponse"/>
 </message>
-<message name="voteUpQuestion">
-<part name="parameters" element="tns:voteUpQuestion"/>
-</message>
-<message name="voteUpQuestionResponse">
-<part name="parameters" element="tns:voteUpQuestionResponse"/>
-</message>
-<message name="voteDownQuestion">
-<part name="parameters" element="tns:voteDownQuestion"/>
-</message>
-<message name="voteDownQuestionResponse">
-<part name="parameters" element="tns:voteDownQuestionResponse"/>
-</message>
 <message name="getSumAnswer">
 <part name="parameters" element="tns:getSumAnswer"/>
 </message>
 <message name="getSumAnswerResponse">
 <part name="parameters" element="tns:getSumAnswerResponse"/>
+</message>
+<message name="voteUpAnswer">
+<part name="parameters" element="tns:voteUpAnswer"/>
+</message>
+<message name="voteUpAnswerResponse">
+<part name="parameters" element="tns:voteUpAnswerResponse"/>
+</message>
+<message name="voteDownAnswer">
+<part name="parameters" element="tns:voteDownAnswer"/>
+</message>
+<message name="voteDownAnswerResponse">
+<part name="parameters" element="tns:voteDownAnswerResponse"/>
 </message>
 <message name="addQuestion">
 <part name="parameters" element="tns:addQuestion"/>
@@ -76,28 +82,26 @@
 <message name="deleteQuestionResponse">
 <part name="parameters" element="tns:deleteQuestionResponse"/>
 </message>
-<message name="addUser">
-<part name="parameters" element="tns:addUser"/>
+<message name="voteUpQuestion">
+<part name="parameters" element="tns:voteUpQuestion"/>
 </message>
-<message name="addUserResponse">
-<part name="parameters" element="tns:addUserResponse"/>
+<message name="voteUpQuestionResponse">
+<part name="parameters" element="tns:voteUpQuestionResponse"/>
 </message>
-<message name="voteUpAnswer">
-<part name="parameters" element="tns:voteUpAnswer"/>
+<message name="voteDownQuestion">
+<part name="parameters" element="tns:voteDownQuestion"/>
 </message>
-<message name="voteUpAnswerResponse">
-<part name="parameters" element="tns:voteUpAnswerResponse"/>
-</message>
-<message name="voteDownAnswer">
-<part name="parameters" element="tns:voteDownAnswer"/>
-</message>
-<message name="voteDownAnswerResponse">
-<part name="parameters" element="tns:voteDownAnswerResponse"/>
+<message name="voteDownQuestionResponse">
+<part name="parameters" element="tns:voteDownQuestionResponse"/>
 </message>
 <portType name="WS">
-<operation name="getAnswerUserName">
-<input wsam:Action="http://WSModel/WS/getAnswerUserNameRequest" message="tns:getAnswerUserName"/>
-<output wsam:Action="http://WSModel/WS/getAnswerUserNameResponse" message="tns:getAnswerUserNameResponse"/>
+<operation name="getUserName">
+<input wsam:Action="http://WSModel/WS/getUserNameRequest" message="tns:getUserName"/>
+<output wsam:Action="http://WSModel/WS/getUserNameResponse" message="tns:getUserNameResponse"/>
+</operation>
+<operation name="addUser">
+<input wsam:Action="http://WSModel/WS/addUserRequest" message="tns:addUser"/>
+<output wsam:Action="http://WSModel/WS/addUserResponse" message="tns:addUserResponse"/>
 </operation>
 <operation name="addAnswer">
 <input wsam:Action="http://WSModel/WS/addAnswerRequest" message="tns:addAnswer"/>
@@ -111,17 +115,17 @@
 <input wsam:Action="http://WSModel/WS/getAnswerByQIDRequest" message="tns:getAnswerByQID"/>
 <output wsam:Action="http://WSModel/WS/getAnswerByQIDResponse" message="tns:getAnswerByQIDResponse"/>
 </operation>
-<operation name="voteUpQuestion">
-<input wsam:Action="http://WSModel/WS/voteUpQuestionRequest" message="tns:voteUpQuestion"/>
-<output wsam:Action="http://WSModel/WS/voteUpQuestionResponse" message="tns:voteUpQuestionResponse"/>
-</operation>
-<operation name="voteDownQuestion">
-<input wsam:Action="http://WSModel/WS/voteDownQuestionRequest" message="tns:voteDownQuestion"/>
-<output wsam:Action="http://WSModel/WS/voteDownQuestionResponse" message="tns:voteDownQuestionResponse"/>
-</operation>
 <operation name="getSumAnswer">
 <input wsam:Action="http://WSModel/WS/getSumAnswerRequest" message="tns:getSumAnswer"/>
 <output wsam:Action="http://WSModel/WS/getSumAnswerResponse" message="tns:getSumAnswerResponse"/>
+</operation>
+<operation name="voteUpAnswer">
+<input wsam:Action="http://WSModel/WS/voteUpAnswerRequest" message="tns:voteUpAnswer"/>
+<output wsam:Action="http://WSModel/WS/voteUpAnswerResponse" message="tns:voteUpAnswerResponse"/>
+</operation>
+<operation name="voteDownAnswer">
+<input wsam:Action="http://WSModel/WS/voteDownAnswerRequest" message="tns:voteDownAnswer"/>
+<output wsam:Action="http://WSModel/WS/voteDownAnswerResponse" message="tns:voteDownAnswerResponse"/>
 </operation>
 <operation name="addQuestion">
 <input wsam:Action="http://WSModel/WS/addQuestionRequest" message="tns:addQuestion"/>
@@ -143,22 +147,27 @@
 <input wsam:Action="http://WSModel/WS/deleteQuestionRequest" message="tns:deleteQuestion"/>
 <output wsam:Action="http://WSModel/WS/deleteQuestionResponse" message="tns:deleteQuestionResponse"/>
 </operation>
-<operation name="addUser">
-<input wsam:Action="http://WSModel/WS/addUserRequest" message="tns:addUser"/>
-<output wsam:Action="http://WSModel/WS/addUserResponse" message="tns:addUserResponse"/>
+<operation name="voteUpQuestion">
+<input wsam:Action="http://WSModel/WS/voteUpQuestionRequest" message="tns:voteUpQuestion"/>
+<output wsam:Action="http://WSModel/WS/voteUpQuestionResponse" message="tns:voteUpQuestionResponse"/>
 </operation>
-<operation name="voteUpAnswer">
-<input wsam:Action="http://WSModel/WS/voteUpAnswerRequest" message="tns:voteUpAnswer"/>
-<output wsam:Action="http://WSModel/WS/voteUpAnswerResponse" message="tns:voteUpAnswerResponse"/>
-</operation>
-<operation name="voteDownAnswer">
-<input wsam:Action="http://WSModel/WS/voteDownAnswerRequest" message="tns:voteDownAnswer"/>
-<output wsam:Action="http://WSModel/WS/voteDownAnswerResponse" message="tns:voteDownAnswerResponse"/>
+<operation name="voteDownQuestion">
+<input wsam:Action="http://WSModel/WS/voteDownQuestionRequest" message="tns:voteDownQuestion"/>
+<output wsam:Action="http://WSModel/WS/voteDownQuestionResponse" message="tns:voteDownQuestionResponse"/>
 </operation>
 </portType>
 <binding name="WSPortBinding" type="tns:WS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getAnswerUserName">
+<operation name="getUserName">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="addUser">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -194,25 +203,25 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="voteUpQuestion">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="voteDownQuestion">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="getSumAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="voteUpAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="voteDownAnswer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -266,7 +275,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="addUser">
+<operation name="voteUpQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -275,16 +284,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="voteUpAnswer">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="voteDownAnswer">
+<operation name="voteDownQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

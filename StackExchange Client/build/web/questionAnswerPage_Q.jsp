@@ -26,13 +26,13 @@
     <div class ='questionAnswerBody'>
         <div class ='questionAnswerVote'>
             <div class='questionAnswerVoteUpArrow'>
-                <a  href='voteUpQuestion.jsp?q_id=<%= questionItem.getQuestionId() %>'><img src='icons/upArrow.png' width='30' height='30'></a> 
+                <a  <% out.println("href=\"voteUpQuestion.jsp?id=" + questionItem.getQuestionId() + "&token=" + request.getParameter("token") + "\"");%>><img src='icons/upArrow.png' width='30' height='30'></a> 
             </div>
             <div class='questionAnswerVoteNumber' id='voteQuestion'>
                  <% out.println(questionItem.getQuestionVote()); %>
             </div>
             <div class='questionAnswerVoteDownArrow'>
-                <a  href='voteDownQuestion.jsp?q_id=<%= questionItem.getQuestionId()%>' ><img src='icons/downArrow.png' width='30' height='30'></a>
+                <a  <% out.println("href=\"voteDownQuestion.jsp?id=" + questionItem.getQuestionId() + "&token=" + request.getParameter("token") + "\"");%>><img src='icons/downArrow.png' width='30' height='30'></a>
             </div>
         </div>
         <div class ='questionAnswerContent'>
@@ -47,11 +47,11 @@
                                  // TODO initialize WS operation arguments here
                                 int userID = questionItem.getQuestionUserId();
                                 // TODO process result here
-                                java.lang.String q_UserName = port3.getAnswerUserName(userID);
+                                java.lang.String q_UserName = port3.getUserName(userID);
                             %>
                             <%-- end web service invocation --%>
         
         
-    <span class='questionAnswerFooter'>asked by <% out.println(q_UserName); %> at <% out.println(questionItem.getQuestionDate()); %>|<a class='editQuestion' href='editQuestion.jsp?id=<%= questionItem.getQuestionId() %>'><font color='green'>edit</font> </a>|<a class='deleteQuestion' href = 'deleteQuestionProcess.jsp?id=<%= questionItem.getQuestionId() %> onclick= \"return confirm('Confirm Delete?');\'><font color='red'>delete</font> </a></span>
+    <span class='questionAnswerFooter'>asked by <% out.println(q_UserName); %> at <% out.println(questionItem.getQuestionDate()); %>|<a class='editQuestion' <% out.println("href=\'editQuestion.jsp?id=" + questionItem.getQuestionId() + "&token=" + request.getParameter("token") + "\'"); %>><font color='green'>edit</font> </a>|<a class='deleteQuestion' <% out.println("href = \'deleteQuestionProcess.jsp?id=" + questionItem.getQuestionId() + "&token=" + request.getParameter("token") + "\'"); %> onclick= \"return confirm('Confirm Delete?');\'><font color='red'>delete</font> </a></span>
  </div>
     

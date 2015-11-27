@@ -31,13 +31,13 @@
     <div class ='questionAnswerBody'>
         <div class ='questionAnswerVote'>
             <div class='questionAnswerVoteUpArrow'>
-                <a href='voteUpAnswer.jsp?a_id=<%=answerList.get(i).getAnswerId()%>&q_id=<%=questionId%>'><img src='icons/upArrow.png' width='30' height='30'></a> 
+                <a  <% out.println("href=\"voteUpAnswer.jsp?a_id=" + answerList.get(i).getAnswerId() + "&token=" + request.getParameter("token") + "&q_id=" + questionId+ "\"");%>><img src='icons/upArrow.png' width='30' height='30'></a> 
             </div>
             <div class='questionAnswerVoteNumber' <%--id='voteAnswer$answerId'--%>>
                 <% out.println(answerList.get(i).getAnswerVote()) ;%>
             </div>
             <div class='questionAnswerVoteDownArrow'>
-                <a href='voteDownAnswer.jsp?a_id=<%=answerList.get(i).getAnswerId()%>&q_id=<%=questionId%>'><img src='icons/downArrow.png' width='30' height='30'></a> 
+                <a  <% out.println("href=\"voteDownAnswer.jsp?a_id=" + answerList.get(i).getAnswerId() + "&token=" + request.getParameter("token") + "&q_id=" + questionId+ "\"");%>><img src='icons/downArrow.png' width='30' height='30'></a> 
             </div>
         </div>
         <div class ='questionAnswerContent'>
@@ -49,10 +49,9 @@
 	wsmodel.WS_Service service1 = new wsmodel.WS_Service();
 	wsmodel.WS port1 = service1.getWSPort();
 	 // TODO initialize WS operation arguments here
-	int userID = answerList.get(i).getAnswerId();
+	int userID = answerList.get(i).getAnswerUserId();
 	// TODO process result here
-	java.lang.String userName = port1.getAnswerUserName(userID);
-
+	java.lang.String userName = port1.getUserName(userID);
     %>
     <%-- end web service invocation --%>
 

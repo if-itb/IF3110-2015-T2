@@ -10,13 +10,14 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="checklogin.js"></script>
   <title> Simple StackExchange</title>
 </head>
 
 <body>
 <div id="container">
   <div id="header">
-    <span id="Judul">StackExchange</span>
+      <span id="Judul"><a <% out.println("href=\"index.jsp?token=" + request.getParameter("token") + "\""); %>>StackExchange</a></span>
   </div>
 
   <div id="body">
@@ -32,8 +33,9 @@
       <span id="yourAnswerWord">Your Answer</span>
       <div id="answerForm">
         <form name="myForm" action="addAnswerProcess.jsp" method="post">
-          <textarea name="answerContent" placeholder="Your answer"></textarea><br>
+          <textarea name="answerContent" placeholder="Your answer" onfocus="checkLogin(<% out.println(request.getParameter("token")); %>)"></textarea><br>
           <input type="hidden" name="questionId" value='<%= questionId %>'>
+          <input type="hidden" name="token" value='<%= request.getParameter("token") %>'>
           <div id="submitter">
             <input type="submit" value="Post">
           </div>

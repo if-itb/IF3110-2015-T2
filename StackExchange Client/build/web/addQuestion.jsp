@@ -9,30 +9,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <!--link rel="stylesheet" type="text/css" href="style.css"-->
+  <script type="text/javascript" src="checklogin.js"></script>
   <title>Simple StackExchange</title>
-  <script type = "text/javascript" src="validatorInputQuestionAnswer.js"></script>
 </head>
 
-<body>
+<body onload="checkLogin(<% out.println(request.getParameter("token")); %>)">
 <div id="container">
-  <div id="header_addQuestions">
-    <span id="Judul">Simple StackExchange</span>
-    <span id="what">What's your question?</span>
-  </div>
-
-
-  <div id="body">
-    <form name="myForm" action="addQuestionProcess.jsp" method="post">
-      <input type="text" name="questionTopic" placeholder="Question Topic"><br>
-      <textarea name="questionContent" placeholder="Content"></textarea><br>
-      <div id="submitter">
-        <input class="submitButton" name= "submitButton" type="submit" value=Submit>
-      </div>
-    </form>
-  </div>
-
+    <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" <% out.println("href=\"index.jsp?token=" + request.getParameter("token") + "\""); %> class="brand-logo">Stack Exchange</a>
+    </div>
+    </nav>
+    <br><br>
+    <div class="container" id="container">
+     <div id="body">
+       <div class="cotainer center">
+            <h5 id="what">What's Your Question ?</h5><br>
+            <div class="container divider" style="border: solid 1.5px; width:500px;"></div><br><br>
+            <form name="myForm" <% out.println("action=\"addQuestionProcess.jsp" + "?token=" + request.getParameter("token") + "\""); %> method="post">
+                <input type="text" name="questionTopic" placeholder="Question Topic" required><br>
+                <input type="text" name="questionContent" placeholder="Content" required><br><br><br><br>
+                <div id="submitter">
+                    <input id="download-button" class="btn-large waves-effect waves-light orange" name="submitButton" type="submit" value="Submit"/>                  
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
 </div>
-
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="../../bin/materialize.js"></script>
+    <script src="js/init.js"></script> 
 </body>
 </html>

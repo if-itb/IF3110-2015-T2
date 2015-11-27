@@ -26,9 +26,9 @@ public class WS {
      * Web service operation
      */
     @WebMethod(operationName = "addAnswer")
-    public Boolean addAnswer(@WebParam(name = "question_id") int question_id, @WebParam(name = "answerContent") String answerContent, @WebParam(name = "userID") int userID) {
+    public String addAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "question_id") int question_id, @WebParam(name = "answerContent") String answerContent) {
         //TODO write your implementation code here:
-        return Answer.addAnswer(question_id, answerContent, userID);
+        return Answer.addAnswer(access_token, question_id, answerContent);
     }
     
     /**
@@ -62,18 +62,18 @@ public class WS {
     }
 
      @WebMethod(operationName = "voteUpAnswer")
-    public Boolean voteUpAnswer(@WebParam(name = "answerId") int answerId, @WebParam(name = "questionId") int questionId, @WebParam(name = "userID") int userID) {
+    public String voteUpAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "answerId") int answerId, @WebParam(name = "questionId") int questionId) {
         //TODO write your implementation code here:
-        return Answer.voteUpAnswer(answerId, questionId, userID);
+        return Answer.voteUpAnswer(access_token, answerId, questionId);
     }
 
     /**
      * Web service operation
      */
     @WebMethod(operationName = "voteDownAnswer")
-    public Boolean voteDownAnswer(@WebParam(name = "answerId") int answerId, @WebParam(name = "questionId") int questionId, @WebParam(name = "userID") int userID) {
+    public String voteDownAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "answerId") int answerId, @WebParam(name = "questionId") int questionId) {
         //TODO write your implementation code here:
-        return Answer.voteDownAnswer(answerId, questionId, userID);
+        return Answer.voteDownAnswer(access_token, answerId, questionId);
     }
     
     /************************************ Question Class ****************************************/
@@ -81,9 +81,9 @@ public class WS {
      * Web service operation
      */
     @WebMethod(operationName = "addQuestion")
-    public Boolean addQuestion(@WebParam(name = "questionTitle") String questionTitle, @WebParam(name = "questionContent") String questionContent, @WebParam(name = "userID") int userID) {
+    public String addQuestion(@WebParam(name = "access_token") String access_token, @WebParam(name = "questionTitle") String questionTitle, @WebParam(name = "questionContent") String questionContent) {
         //TODO write your implementation code here:
-        return Question.addQuestion(questionTitle, questionContent, userID);
+        return Question.addQuestion(access_token, questionTitle, questionContent);
     }
 
     /**
@@ -108,36 +108,36 @@ public class WS {
      * Web service operation
      */
     @WebMethod(operationName = "updateQuestion")
-    public Boolean updateQuestion(@WebParam(name = "questionId") int questionId, @WebParam(name = "questionTitle") String questionTitle, @WebParam(name = "questionContent") String questionContent) {
+    public String updateQuestion(@WebParam(name = "access_token") String access_token, @WebParam(name = "questionId") int questionId, @WebParam(name = "questionTitle") String questionTitle, @WebParam(name = "questionContent") String questionContent) {
         //TODO write your implementation code here:
-        return Question.updateQuestion(questionId, questionTitle, questionContent);
+        return Question.updateQuestion(access_token, questionId, questionTitle, questionContent);
     }
 
     /**
      * Web service operation
      */
     @WebMethod(operationName = "deleteQuestion")
-    public Boolean deleteQuestion(@WebParam(name = "questionId") int questionId) {
+    public String deleteQuestion(@WebParam(name = "access_token") String access_token, @WebParam(name = "questionId") int questionId) {
         //TODO write your implementation code here:
-        return Question.deleteQuestion(questionId);
+        return Question.deleteQuestion(access_token, questionId);
     }
     
     /**
      * Web service operation
      */
     @WebMethod(operationName = "voteUpQuestion")
-    public Boolean voteUpQuestion(@WebParam(name = "questionId") int questionId, @WebParam(name = "userID") int userID) {
+    public String voteUpQuestion(@WebParam(name = "access_token") String access_token, @WebParam(name = "questionId") int questionId) {
         //TODO write your implementation code here:
-        return Question.voteUpQuestion(questionId, userID);
+        return Question.voteUpQuestion(access_token, questionId);
     }
 
     /**
      * Web service operation
      */
     @WebMethod(operationName = "voteDownQuestion")
-    public Boolean voteDownQuestion(@WebParam(name = "questionId") int questionId, @WebParam(name = "userID") int userID) {
+    public String voteDownQuestion(@WebParam(name = "access_token") String access_token, @WebParam(name = "questionId") int questionId) {
         //TODO write your implementation code here:
-        return Question.voteDownQuestion(questionId, userID);
+        return Question.voteDownQuestion(access_token, questionId);
     }
     
     /************************************ User Class ****************************************/
@@ -153,7 +153,7 @@ public class WS {
 	/**
      * Web service operation
      */
-    @WebMethod(operationName = "getAnswerUserName")
+    @WebMethod(operationName = "getUserName")
     public String getUserName(@WebParam(name = "userID") int userID) {
         //TODO write your implementation code here:
         return User.getUserName(userID);
