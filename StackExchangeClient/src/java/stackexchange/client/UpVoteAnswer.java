@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import stackexchange.ISConnector.IdentityServiceConnector;
 import stackexchangews.services.SQLException_Exception;
 
 /**
@@ -39,7 +40,8 @@ public class UpVoteAnswer extends HttpServlet {
         int answerId = Integer.parseInt(request.getParameter("id"));
         
         // Get User ID from token
-        int userId = 3;
+        String token = request.getParameter("token");
+        int userId = IdentityServiceConnector.getUID(token);
         
         if(userId>=0){
             try {
@@ -49,7 +51,7 @@ public class UpVoteAnswer extends HttpServlet {
             }
             
             int questionId = getQuestionId(answerId);
-            response.sendRedirect("ViewQuestion?id=" + questionId);
+            response.sendRedirect("ViewQuestion?id=" + questionId + "&token=" + token);
         }
         else
             response.sendRedirect("");

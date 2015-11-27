@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import stackexchange.ISConnector.IdentityServiceConnector;
 import stackexchangews.services.SQLException_Exception;
 
 /**
@@ -51,7 +52,8 @@ public class AskQuestion extends HttpServlet {
             throws ServletException, IOException {
         
         //Get userId using token
-        int userId = 1;
+        String token = request.getParameter("token");
+        int userId = IdentityServiceConnector.getUID(token);
         
         String topic = request.getParameter("topic");
         String content = request.getParameter("content");
@@ -62,7 +64,7 @@ public class AskQuestion extends HttpServlet {
             Logger.getLogger(AskQuestion.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        response.sendRedirect("Home");
+        response.sendRedirect("Home?token=" + token);
     }
     
     private static int askQuestion(int askerId, String topic, String content) throws SQLException_Exception {

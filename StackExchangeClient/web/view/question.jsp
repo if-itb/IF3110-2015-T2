@@ -23,9 +23,9 @@
 			<div class='question'>
 			<div class='row'>
 				<div class='col-1'>
-                                    <a href="UpVoteQuestion?id=${question.questionId}"><div class='arrow-up'"></div></a>
+                                    <a href="UpVoteQuestion?id=${question.questionId}&token=${token}"><div class='arrow-up'"></div></a>
                                     <b><p class='center' id='question${question.questionId}'>${question.votes}</p></b>
-                                    <a href="DownVoteQuestion?id=${question.questionId}"><div class='arrow-down'></div></a>
+                                    <a href="DownVoteQuestion?id=${question.questionId}&token=${token}"><div class='arrow-down'></div></a>
 				</div>
 				
 				<div class='col-8'>
@@ -44,9 +44,9 @@
 			<div class='answer'>
 				<div class='row'>
 					<div class='col-1'>
-                                            <a href="UpVoteAnswer?id=${answer.answerId}"><div class='arrow-up'></div></a>
+                                            <a href="UpVoteAnswer?id=${answer.answerId}&token=${token}"><div class='arrow-up'></div></a>
                                             <b><p class='center' id='answer${answer.answerId}'>${answer.votes}</p></b>
-                                            <a href="DownVoteAnswer?id=${answer.answerId}"><div class='arrow-down'></div></a>
+                                            <a href="DownVoteAnswer?id=${answer.answerId}&token=${token}"><div class='arrow-down'></div></a>
 					</div>
 					<div class='col-8'>
 					<p>${answer.content}</p>
@@ -63,6 +63,7 @@
 		<h1>Your Answer</h1>
 		<form name='answerForm' action="AddAnswer" method="post">
 			<input type="hidden" name="questionId" value="${question.questionId}">
+                        <input type="hidden" name="token" value="${token}">
 			<textarea name='content' class='formInput' placeholder='Content' rows='10'></textarea>
 			<div class='right'><button type='submit'>Post</button></div>
 		</form>

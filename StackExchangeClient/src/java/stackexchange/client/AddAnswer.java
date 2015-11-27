@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import stackexchange.ISConnector.IdentityServiceConnector;
 import stackexchangews.services.SQLException_Exception;
 
 /**
@@ -51,18 +52,23 @@ public class AddAnswer extends HttpServlet {
             throws ServletException, IOException {
     
         //Get userId using token
-        int userId = 1;
-        int questionId = Integer.parseInt(request.getParameter("questionId"));
-        String content = request.getParameter("content");
+        String token = request.getParameter("token");
+        int userId = IdentityServiceConnector.getUID(token);
         
-        try {
-            answerQuestion(questionId, userId, content);
-        } catch (SQLException_Exception ex) {
-            Logger.getLogger(AskQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        if(userId>=0){
+            int questionId = Integer.parseInt(request.getParameter("questionId"));
+            String content = request.getParameter("content");
+
+            try {
+                answerQuestion(questionId, userId, content);
+            } catch (SQLException_Exception ex) {
+                Logger.getLogger(AskQuestion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            response.sendRedirect("ViewQuestion?id=" + questionId + "&token=" + token);
         }
-        
-        response.sendRedirect("ViewQuestion?id=" + questionId);
-        
+        else
+            response.sendRedirect("");
     }
     
     private static int answerQuestion(int questionId, int answererId, String content) throws SQLException_Exception {

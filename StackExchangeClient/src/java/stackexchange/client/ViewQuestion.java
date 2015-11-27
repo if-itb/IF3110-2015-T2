@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import stackexchange.ISConnector.IdentityServiceConnector;
 import stackexchangews.services.Answer;
 import stackexchangews.services.Question;
 import stackexchangews.services.SQLException_Exception;
@@ -39,6 +40,9 @@ public class ViewQuestion extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        //Get userId using token
+        String token = request.getParameter("token");
+        int userId = IdentityServiceConnector.getUID(token);
         int questionId = Integer.parseInt(request.getParameter("id"));
         
         Question question = new Question();
@@ -57,6 +61,7 @@ public class ViewQuestion extends HttpServlet {
         
         request.setAttribute("question", question);
         request.setAttribute("answers", answers);
+        request.setAttribute("token", token);
         request.getRequestDispatcher("view/question.jsp").forward(request, response);    
     }
 

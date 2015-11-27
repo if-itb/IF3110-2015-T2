@@ -27,7 +27,7 @@ public class DbAnswerManager {
         
         public static ArrayList<Answer> getAllAnswers(int questionId) throws SQLException{
             conn = ConnectionManager.getInstance().getConnection();
-            String sql = "SELECT * FROM user, (SELECT answer.*, IFNULL(votes.countVotes,0) AS countVotes FROM answer LEFT JOIN (SELECT answerId, SUM(value) AS countVotes FROM votes_answer GROUP BY answerId) AS votes ON questionId = ? AND votes.answerId = answer.answerId) as A WHERE A.answererId = user.userId";
+            String sql = "SELECT * FROM answer, user WHERE questionId = ? AND userId = answererId";
             
             PreparedStatement pstmt = conn.prepareStatement(sql);
             
@@ -42,10 +42,22 @@ public class DbAnswerManager {
                 answer.setTime(rs.getString("time"));
                 answer.setAnswererId(rs.getInt("answererId"));
                 answer.setAnswererEmail(rs.getString("email"));
-                answer.setVotes(rs.getInt("countVotes"));
                 
                 answers.add(answer);
             }
+            
+            for(Answer a : answers){
+                sql = "SELECT SUM(value) AS countVotes FROM votes_answer WHERE answerId = ?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, a.getAnswerId());
+                
+                rs = pstmt.executeQuery();
+                
+                while(rs.next()){
+                   a.setVotes(rs.getInt("countVotes"));
+                }
+            }
+            
             ConnectionManager.getInstance().close();
             
             return answers;

@@ -18,7 +18,7 @@
 		</div>
 
 		<p class='center'>
-			Cannot find what you are looking for? <a href='askQuestion.jsp' class='yellow'>Ask here</a>
+			Cannot find what you are looking for? <a href='AskQuestionPage?token=${token}' class='yellow'>Ask here</a>
 		</p>
 
 		<h2>Recently Asked Questions</h2>
@@ -36,7 +36,7 @@
 				</div>
 				<div class='col-8'>
 					<p>	
-						<a href='ViewQuestion?id=${question.questionId}'> 
+						<a href='ViewQuestion?id=${question.questionId}&token=${token}'> 
 							${question.topic}
 						</a>
 					</p>
