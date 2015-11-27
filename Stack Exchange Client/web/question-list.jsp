@@ -34,7 +34,7 @@
                     <p>
                         <c:out value="Logged in as"/> 
                         <b><c:out value="${token}"/></b> | 
-                        <a href="login.jsp" style="color:#FFA500"> Log out </a> | 
+                        <a href="http://localhost:8082/Stack_Exchange_IS/Logout" style="color:#FFA500"> Log out </a> | 
                         <a href="register.jsp" style="color:#FF0000"> Register </a> 
                     </p>
                 </c:otherwise>

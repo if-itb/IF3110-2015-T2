@@ -29,9 +29,13 @@
 		<h2><c:out value="${question.topic}"/><hr></h2>
 	
 		<div class="vote">
-			<div class="arrow-up"></div>
-			<h3> <div id="question-vote"><c:out value="${question.vote}"/></div></h3>
-			<div class="arrow-down" ></div>
+                    <a href="/Stack_Exchange_Client/VoteQuestion?qid=${question.id}&flag=1">
+                        <div class="arrow-up"></div>
+                    </a>
+                    <h3> <div id="question-vote"><c:out value="${question.vote}"/></div></h3>
+                     <a href="/Stack_Exchange_Client/VoteQuestion?qid=${question.id}&flag=-1">
+                        <div class="arrow-down"></div>
+                    </a>
 		</div>
 
 		<div class="question-page-content">

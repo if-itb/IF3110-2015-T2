@@ -96,19 +96,18 @@ public class Login extends HttpServlet {
                     response.addCookie(cookie);
 
                     request.setAttribute("loginsuccessful", 1);
-                    request.getRequestDispatcher("/Stack_Exchange_Client/QuestionServlet").forward(request, response);
+                    response.sendRedirect("http://localhost:8081/Stack_Exchange_Client/QuestionServlet");
                 } else {
-                    request.setAttribute("loginsuccessful", 0);
-                    request.getRequestDispatcher("/Stack_Exchange_Client/login.jsp").forward(request, response);
+                    response.sendRedirect("http://localhost:8081/Stack_Exchange_Client/login.jsp?success=0");                    
                     obj.put("error", "invalid email or password");  
-                    out.print(obj);        
+                    out.print(obj);
                 }
                                 
             } catch (SQLException ex) {
                 obj.put("error", ex);  
                 out.print(obj);        
             }
-            response.sendRedirect("http://localhost:8083/Stack_Exchange_Client/QuestionServlet");
+            //response.sendRedirect("http://localhost:8081/Stack_Exchange_Client/QuestionServlet");
         }
         
     }

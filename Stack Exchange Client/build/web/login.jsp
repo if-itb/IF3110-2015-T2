@@ -33,6 +33,11 @@
                             <br><br>
                             <p style="float:right"> Don't have an account? <a href="register.jsp" style="color:#FFA500"> Register </a> </p>
                     </form>
+                    <c:if test="${success==0}">
+                    <br>
+                    <br>
+                    <p style="color:#FF0000; text-align:center"><c:out value="Login Error! Wrong username/password!"/><p>
+                    </c:if>
             </div>
             </div>
         </div>

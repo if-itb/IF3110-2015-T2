@@ -40,6 +40,26 @@ public interface QuestionWS {
 
     /**
      * 
+     * @param flag
+     * @param id
+     * @param token
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(name = "Success", targetNamespace = "")
+    @RequestWrapper(localName = "voteQuestion", targetNamespace = "http://question_package.dazzlesquad.com/", className = "QuestionWS.VoteQuestion")
+    @ResponseWrapper(localName = "voteQuestionResponse", targetNamespace = "http://question_package.dazzlesquad.com/", className = "QuestionWS.VoteQuestionResponse")
+    public int voteQuestion(
+        @WebParam(name = "id", targetNamespace = "")
+        int id,
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "flag", targetNamespace = "")
+        int flag);
+
+    /**
+     * 
      * @param id
      * @param token
      * @return

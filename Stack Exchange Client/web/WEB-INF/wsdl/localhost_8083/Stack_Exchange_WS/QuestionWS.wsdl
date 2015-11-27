@@ -10,6 +10,12 @@
 <message name="getAnswerByQuestionIdResponse">
 <part name="parameters" element="tns:getAnswerByQuestionIdResponse"/>
 </message>
+<message name="voteQuestion">
+<part name="parameters" element="tns:voteQuestion"/>
+</message>
+<message name="voteQuestionResponse">
+<part name="parameters" element="tns:voteQuestionResponse"/>
+</message>
 <message name="deleteQuestion">
 <part name="parameters" element="tns:deleteQuestion"/>
 </message>
@@ -57,6 +63,10 @@
 <input wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/getAnswerByQuestionIdRequest" message="tns:getAnswerByQuestionId"/>
 <output wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/getAnswerByQuestionIdResponse" message="tns:getAnswerByQuestionIdResponse"/>
 </operation>
+<operation name="voteQuestion">
+<input wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/voteQuestionRequest" message="tns:voteQuestion"/>
+<output wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/voteQuestionResponse" message="tns:voteQuestionResponse"/>
+</operation>
 <operation name="deleteQuestion">
 <input wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/deleteQuestionRequest" message="tns:deleteQuestion"/>
 <output wsam:Action="http://question_package.dazzlesquad.com/QuestionWS/deleteQuestionResponse" message="tns:deleteQuestionResponse"/>
@@ -89,6 +99,15 @@
 <binding name="QuestionWSPortBinding" type="tns:QuestionWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
 <operation name="getAnswerByQuestionId">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="voteQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

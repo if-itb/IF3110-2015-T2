@@ -3,36 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ReSTful;
+package com.dazzlesquad.servlet;
 
-import DBConnect.DBConnect;
+import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONObject;
+import javax.xml.ws.WebServiceRef;
 
 /**
  *
- * @author ryanyonata
+ * @author NithoAlif
  */
-public class Logout extends HttpServlet {
+public class VoteQuestion extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8083/Stack_Exchange_WS/QuestionWS.wsdl")
+    private QuestionWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,44 +33,29 @@ public class Logout extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    DBConnect db = new DBConnect();
-    Connection conn = db.connect();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException 
-    {
-        
-        Cookie[] cookies = request.getCookies();
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            int question_id = Integer.parseInt(request.getParameter("qid"));
+            int flag = Integer.parseInt(request.getParameter("flag"));
+            Cookie[] cookies = request.getCookies();
 
-        String token = "";
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    token = cookie.getValue();
-                    cookie.setValue(null);
-                    cookie.setMaxAge(0);
-                    cookie.setPath("/Stack_Exchange_Client");
-                    response.addCookie(cookie);
-                    break;
+            String token = "";
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("token")) {
+                        token = cookie.getValue();
+                        break;
+                    }
                 }
             }
+            
+            int vote = voteQuestion(question_id, token, flag);
+            String location = "/Stack_Exchange_Client/QuestionPage?id=" + question_id;
+            response.sendRedirect(location);
+            
         }
-        out.print(token);
-        
-        try {
-            Statement statement = conn.createStatement();
-            String sql;
-            sql = "DELETE FROM tokenlist WHERE token = ?";
-
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setString(1, token);
-            dbStatement.executeUpdate();
-
-            statement.close();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Logout.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        response.sendRedirect("http://localhost:8081/Stack_Exchange_Client/QuestionServlet");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -121,5 +96,12 @@ public class Logout extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private int voteQuestion(int id, java.lang.String token, int flag) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        return port.voteQuestion(id, token, flag);
+    }
 
 }
