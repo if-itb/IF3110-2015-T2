@@ -26,7 +26,7 @@ public class vote_answer extends HttpServlet {
             MySQLAccess SQL = new MySQLAccess();
             int id = Integer.parseInt(request.getParameter("id"));
             
-            SQL.voteAnswer(id, vote);
+            //SQL.voteAnswer(id, vote);
         
             //RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
             //rd.forward(request, response);

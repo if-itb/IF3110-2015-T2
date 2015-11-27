@@ -33,7 +33,7 @@ public class add_question extends HttpServlet {
                 else{ i++; }
             }
             
-            SQL.addQuestion(SQL.getUserID(cookies[i].getValue()), topic, content, timepost, false); //get user
+            //SQL.addQuestion(SQL.getUserID(cookies[i].getValue()), topic, content, timepost, false); //get user
             //
             RequestDispatcher rd=request.getRequestDispatcher("answer.jsp?id=" + SQL.getMaxId());
             rd.forward(request, response);

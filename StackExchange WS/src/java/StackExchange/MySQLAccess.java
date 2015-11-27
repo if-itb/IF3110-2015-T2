@@ -359,9 +359,9 @@ public class MySQLAccess {
     }
 	*/
 
-    com.mysql.jdbc.Statement createStatement() {
+    /*com.mysql.jdbc.Statement createStatement() {
        throw new UnsupportedOperationException("Not yet implemented");
-    }
+    }*/
 
     /*
     public String getRolebyUsername(String username) {
