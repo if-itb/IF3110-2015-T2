@@ -47,7 +47,7 @@ public class savequestion extends HttpServlet {
                          found = true; 
                          
                     }
-                    
+                    i++;
                 }
             }
             int qid = Integer.parseInt(request.getParameter("qid"));

@@ -29,7 +29,7 @@ import org.json.simple.parser.ParseException;
  * @author Ahmad Naufal Farhan
  */
 public class Login extends HttpServlet {
-    
+
     private static final String URL_LOGIN = "http://localhost:8082/StackExchangeIS/LoginAuth";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +45,10 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         String redirectUrl = request.getContextPath();
-        
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        
+
         try {
             // establish a connection with the identity service that handles login
             URL url = new URL(URL_LOGIN);
@@ -58,45 +58,43 @@ public class Login extends HttpServlet {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestProperty("charset", "utf-8");
-     
+
             String params = String.format("email=%s&password=%s",
                                             URLEncoder.encode(email, "UTF-8"),
                                             URLEncoder.encode(password, "UTF-8"));
-      
+
             try (OutputStream output = conn.getOutputStream()) {
                 output.write(params.getBytes("UTF-8"));
             }
-     
+
             BufferedReader in = new BufferedReader(new InputStreamReader(
                                                     conn.getInputStream()));
             StringBuilder sb = new StringBuilder();
-        
+
             String temp;
             while ((temp = in.readLine()) != null)
                 sb.append(temp);
-        
+
             // json parser needed to parse the string
             JSONParser parser = new JSONParser();
             JSONObject object = (JSONObject) parser.parse(sb.toString());
-            
+
                 // get the attributes and add the cookie
             String strToken = (String) object.get("token_str");
-            Cookie tokenCookie, idCookie, lifetimeCookie;
-                
+            Cookie tokenCookie;
+
             if (strToken != null) {
-                idCookie = new Cookie("id_cookie", (String) object.get("uid"));
                 tokenCookie = new Cookie("token_cookie", strToken);
-                lifetimeCookie = new Cookie("lifetime_cookie", (String) object.get("lifetime"));
-                response.addCookie(idCookie);
+                tokenCookie.setPath(request.getContextPath());
+                tokenCookie.setMaxAge(5 * 60);
                 response.addCookie(tokenCookie);
-                response.addCookie(lifetimeCookie);
                 redirectUrl += "/home";
             } else {
                 String error = (String) object.get("error");
                 request.setAttribute("error", error);
-                
+
             }
-            
+
             conn.disconnect();
         } catch (IOException | ParseException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
