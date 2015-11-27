@@ -23,11 +23,11 @@
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="index" class="brand-logo">RestingSOAP</a>
+      <a id="logo-container" href="index?token=<%= request.getParameter("token") %>" class="brand-logo">RestingSOAP</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="about.jsp">About Us</a></li>
-        <li><a href="login.jsp">Log In</a></li>
-        <li><a href="register.jsp">Sign Up</a></li>
+        <li><a href="about.jsp?token=<%= request.getParameter("token") %>">About Us</a></li>
+        <li><a href="login.jsp?token=<%= request.getParameter("token") %>">Log In</a></li>
+        <li><a href="register.jsp?token=<%= request.getParameter("token") %>">Sign Up</a></li>
       </ul>
     </div>
   </nav>
@@ -60,8 +60,8 @@
             </div>
             <div class="card-action">
               <p class="blue-text text-lighten-1 right">Asked by <%= question.getUsername() %> at <%= question.getTimestamp() %></p>
-              <a href="editQuestion?qid=<%= question.getQuestionid() %>&token=1">Edit</a>
-              <a class="red-text" href="delete?qid=<%= question.getQuestionid() %>&token=1">Delete</a>
+              <a href="editQuestion?qid=<%= question.getQuestionid() %>&token=<%= request.getParameter("token") %>">Edit</a>
+              <a class="red-text" href="delete?qid=<%= question.getQuestionid() %>&token=<%= request.getParameter("token") %>">Delete</a>
             </div>
           </div>
         </div>
@@ -100,7 +100,7 @@
  
   <form action="submitAnswer" method="post">
   <input name="qid" type="hidden" value="<%= question.getQuestionid() %>">
-  <input name="token" type="hidden" value="1">
+  <input name="token" type="hidden" value="<%= request.getParameter("token") %>">
   <div class="container">
     <div class="section">
         <h2 class="header center blue-text text-darken-4">Your Answer</h2>
