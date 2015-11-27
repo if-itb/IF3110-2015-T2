@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "delete_question", urlPatterns = {"/delete_question"})
-public class delete_question extends HttpServlet {
+@WebServlet(name = "register", urlPatterns = {"/register"})
+public class register extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -19,12 +19,14 @@ public class delete_question extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             MySQLAccess SQL = new MySQLAccess();
-            int id = Integer.parseInt(request.getParameter("id"));
+            String username = request.getParameter("username");
+			String email = request.getParameter("email");
+            String password = request.getParameter("password");
             
-            SQL.deleteQuestion(id);
-        
-            RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
-            rd.forward(request, response);
+            SQL.addUser(username, email, password);
+            
+            //RequestDispatcher rd=request.getRequestDispatcher("user_list.jsp");
+            //rd.forward(request, response);
         } finally {            
             out.close();
         }

@@ -299,13 +299,13 @@ public class MySQLAccess {
         }
     }
     
-	/*
-    public void addUser(String username, String password, String email, String role)
+
+    public void addUser(String username, String email, String password)
     {
         open();
         try {
             
-            String S = "INSERT INTO `simpleblog`.`user` (`username`,`password`,`email`,`role`) VALUES ('" + username + "', '"+ password +"', '"+email+"', '"+ role+"');";
+            String S = "INSERT INTO 'stackexchange'.'user' ('username','email','password') VALUES ('" + username + "', '"+ email +"', '"+password+"');";
             preparedStatement = connect.prepareStatement(S);
             statement.executeUpdate(S);
             close();
@@ -313,7 +313,7 @@ public class MySQLAccess {
             e.printStackTrace();
         }
     }
-    
+    /*
      public void updateUser(int id, String username, String password, String email, String role)
     {
         open();
