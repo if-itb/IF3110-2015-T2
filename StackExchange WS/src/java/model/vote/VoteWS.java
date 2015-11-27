@@ -5,6 +5,7 @@
  */
 package model.vote;
 
+import ConnectionIS.ConnectionIS;
 import java.sql.PreparedStatement;
 import javax.jws.Oneway;
 import javax.jws.WebService;
@@ -121,13 +122,14 @@ public class VoteWS {
         int result = -1;
         
         // Send token to IS connector
-        
         // Get response in json format
-        JSONObject jo = new JSONObject();
+        org.json.simple.JSONObject jo = ConnectionIS.requestAuth(token);
         
         // Parse json
-        int uid = jo.getInt("id");
-        int status = jo.getInt("status");
+        String str_uid = (String) jo.get("id");
+        String str_status = (String) jo.get("status");
+        int uid = Integer.parseInt(str_uid);
+        int status = Integer.parseInt(str_status);
         
         // if status ok, insert answer into db, select answer_id
         if (status == 1){
@@ -166,13 +168,14 @@ public class VoteWS {
         int result = -1;
         
         // Send token to IS connector
-        
         // Get response in json format
-        JSONObject jo = new JSONObject();
+        org.json.simple.JSONObject jo = ConnectionIS.requestAuth(token);
         
         // Parse json
-        int uid = jo.getInt("id");
-        int status = jo.getInt("status");
+        String str_uid = (String) jo.get("id");
+        String str_status = (String) jo.get("status");
+        int uid = Integer.parseInt(str_uid);
+        int status = Integer.parseInt(str_status);
         
         // if status ok, insert answer into db, select answer_id
         if (status == 1){

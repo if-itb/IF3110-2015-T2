@@ -1,5 +1,6 @@
 package model.question;
 
+import ConnectionIS.ConnectionIS;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -84,13 +85,14 @@ public class QuestionWS {
         int qid = -1;
         
         // Send token to IS connector
-        
         // Get response in json format
-        JSONObject jo = new JSONObject();
+        org.json.simple.JSONObject jo = ConnectionIS.requestAuth(token);
         
         // Parse json
-        int uid = jo.getInt("id");
-        int status = jo.getInt("status");
+        String str_uid = (String) jo.get("id");
+        String str_status = (String) jo.get("status");
+        int uid = Integer.parseInt(str_uid);
+        int status = Integer.parseInt(str_status);
         
         // if status ok, insert question into db, select question_id
         if (status == 1){
@@ -131,13 +133,14 @@ public class QuestionWS {
     @WebResult(name="Integer")
     public int editQuestion(@WebParam(name = "token") String token, @WebParam(name = "question_id") int qid, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
         // Send token to IS connector
-        
         // Get response in json format
-        JSONObject jo = new JSONObject();
+        org.json.simple.JSONObject jo = ConnectionIS.requestAuth(token);
         
         // Parse json
-        int uid = jo.getInt("id");
-        int status = jo.getInt("status");
+        String str_uid = (String) jo.get("id");
+        String str_status = (String) jo.get("status");
+        int uid = Integer.parseInt(str_uid);
+        int status = Integer.parseInt(str_status);
         
         // if status ok, update question into db, select qid
         if (status == 1){
@@ -166,13 +169,14 @@ public class QuestionWS {
     @WebResult(name="Integer")
     public int deleteQuestion(@WebParam(name = "token") String token, @WebParam(name = "question_id") int question_id) {
         // Send token to IS connector
-        
         // Get response in json format
-        JSONObject jo = new JSONObject();
+        org.json.simple.JSONObject jo = ConnectionIS.requestAuth(token);
         
         // Parse json
-        int uid = jo.getInt("id");
-        int status = jo.getInt("status");
+        String str_uid = (String) jo.get("id");
+        String str_status = (String) jo.get("status");
+        int uid = Integer.parseInt(str_uid);
+        int status = Integer.parseInt(str_status);
         
         // if status ok, update question into db, select qid
         if (status == 1){

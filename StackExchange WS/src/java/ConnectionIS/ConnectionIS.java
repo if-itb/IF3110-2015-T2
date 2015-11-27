@@ -52,21 +52,6 @@ public class ConnectionIS {
         return jo;
     }
 
-    public static JSONObject requestLogin(String email, String password) {
-        JSONObject jo = null;
-        try {
-            String charset = java.nio.charset.StandardCharsets.UTF_8.name();
-            String query = String.format(
-                    "email=%s&password=%s",
-                    URLEncoder.encode(email, charset),
-                    URLEncoder.encode(password, charset));
-            jo = request("/login", query.getBytes());
-        } catch (Exception ex) {
-            System.err.println(ex.getMessage());
-        }
-        return jo;
-    }
-
     public static JSONObject requestAuth(String token_id) {
         JSONObject jo = null;
         try {

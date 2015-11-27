@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Fitra Rahmamuliani
  */
+@WebServlet(name="auth", urlPatterns = "/auth")
 public class auth extends HttpServlet {
 
     /**
