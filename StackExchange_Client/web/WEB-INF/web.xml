@@ -93,10 +93,10 @@
         <servlet-name>UpdateQuestionServlet</servlet-name>
         <url-pattern>/updateQuestion</url-pattern>
     </servlet-mapping>
-    <servlet-mappign>
+    <servlet-mapping>
         <servlet-name>DeleteQuestionServlet</servlet-name>
         <url-pattern>/delete</url-pattern>
-    </servlet-mappign>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
