@@ -42,7 +42,7 @@
       </nav>
     </div>
     <div class="ask-question">
-      <p class="center"><a href="question.jsp"> Ask Your Question Here</a></p> 
+      <p class="center"><a href="question.jsp?token=<% out.print(token); %>"> Ask Your Question Here</a></p>
     </div>
     <br>
     <div class="container">

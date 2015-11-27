@@ -44,7 +44,7 @@
                 out.println("<div class='center'><br> Login unsuccessful, Incorrect Email or Password ! </div>");
             else{
                 String token = request.getParameter("token");
-                response.sendRedirect("http://localhost:8081/StackExchangeClient/index.jsp?token="+token);
+                response.sendRedirect("http://localhost:8080/StackExchangeClient/index.jsp?token="+token);
             }
         }catch(Exception ex){
             
@@ -54,11 +54,11 @@
       <form class="col s12 m8">
         <div class="row">
           <div class="input-field">
-            <input id="email" type="email" name="email" class="validate">
+            <input id="email" type="email" name="email" class="validate" required>
             <label for="email">Email</label>
           </div>
           <div class="input-field">
-            <input id="password" type="password" name="password" class="validate">
+            <input id="password" type="password" name="password" class="validate" required>
             <label for="password">Password</label>
           </div>
         </div>

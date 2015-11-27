@@ -41,19 +41,19 @@
       <form class="col s12 m8" action="RegisterServlet">
         <div class="row">
           <div class="input-field">
-            <input name="name" id="name" type="text" class="validate">
+            <input name="name" id="name" type="text" class="validate" required>
             <label for="name">Name</label>
           </div>
           <div class="input-field">
-            <input name="email" id="email" type="email" class="validate">
+            <input name="email" id="email" type="email" class="validate" required>
             <label for="email">Email</label>
           </div>
           <div class="input-field">
-            <input name="password" id="password" type="password" class="validate">
+            <input name="password" id="password" type="password" class="validate" required>
             <label for="password">Password</label>
           </div>
           <div class="input-field">
-            <input id="confirm-password" type="password" class="validate">
+            <input id="confirm-password" type="password" class="validate" required>
             <label for="confirm-password">Confirm Password</label>
           </div>
         </div>

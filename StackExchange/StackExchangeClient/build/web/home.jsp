@@ -14,28 +14,22 @@
   </head>
 
   <body>
-    <nav class="deep-purple darken-2" role="navigation">
-      <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo">Stack Exchange</a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="register.jsp">Register</a></li>
-          <li><a href="login.jsp">Login</a></li>
-        </ul>
-      </div>
-    </nav>
-    <br><br><br>
-    <div class="container">
-      <nav class="deep-purple darken-2" role="navigation">
-        <div class="nav-wrapper">
-          <form>
-            <div class="input-field">
-              <input id="search" type="search" required>
-              <label for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons">close</i>
-            </div>
-          </form>
-        </div>
-      </nav>
+     <nav class="deep-purple darken-2" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Stack Exchange</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="register.jsp">Register</a></li>
+        <li><a href="login.jsp">Login</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="register.jsp">Register</a></li>
+        <li><a href="login.jsp">Login</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+        
+        
     </div>
     <div class="ask-question">
         <%

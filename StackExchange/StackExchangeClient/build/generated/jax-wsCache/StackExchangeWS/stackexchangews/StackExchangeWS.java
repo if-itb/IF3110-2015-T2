@@ -61,54 +61,6 @@ public interface StackExchangeWS {
 
     /**
      * 
-     * @param token
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(name = "userId", targetNamespace = "")
-    @RequestWrapper(localName = "getIdByToken", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetIdByToken")
-    @ResponseWrapper(localName = "getIdByTokenResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetIdByTokenResponse")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/getIdByTokenRequest", output = "http://StackExchangeWS/StackExchangeWS/getIdByTokenResponse")
-    public int getIdByToken(
-        @WebParam(name = "token", targetNamespace = "")
-        String token);
-
-    /**
-     * 
-     * @param topic
-     * @param content
-     * @param token
-     */
-    @WebMethod
-    @Oneway
-    @RequestWrapper(localName = "insertQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.InsertQuestion")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/insertQuestion")
-    public void insertQuestion(
-        @WebParam(name = "token", targetNamespace = "")
-        String token,
-        @WebParam(name = "topic", targetNamespace = "")
-        String topic,
-        @WebParam(name = "content", targetNamespace = "")
-        String content);
-
-    /**
-     * 
-     * @param userId
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(name = "Name", targetNamespace = "")
-    @RequestWrapper(localName = "getNameById", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetNameById")
-    @ResponseWrapper(localName = "getNameByIdResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetNameByIdResponse")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/getNameByIdRequest", output = "http://StackExchangeWS/StackExchangeWS/getNameByIdResponse")
-    public String getNameById(
-        @WebParam(name = "userId", targetNamespace = "")
-        int userId);
-
-    /**
-     * 
      * @param qid
      * @param content
      * @param token
@@ -124,6 +76,66 @@ public interface StackExchangeWS {
         int qid,
         @WebParam(name = "content", targetNamespace = "")
         String content);
+
+    /**
+     * 
+     * @param id
+     * @param token
+     */
+    @WebMethod
+    @Oneway
+    @RequestWrapper(localName = "voteUpQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteUpQuestion")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/voteUpQuestion")
+    public void voteUpQuestion(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "id", targetNamespace = "")
+        int id);
+
+    /**
+     * 
+     * @param token
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(name = "valid", targetNamespace = "")
+    @RequestWrapper(localName = "checkToken", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.CheckToken")
+    @ResponseWrapper(localName = "checkTokenResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.CheckTokenResponse")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/checkTokenRequest", output = "http://StackExchangeWS/StackExchangeWS/checkTokenResponse")
+    public boolean checkToken(
+        @WebParam(name = "token", targetNamespace = "")
+        String token);
+
+    /**
+     * 
+     * @param qid
+     * @return
+     *     returns java.util.List<stackexchangews.Answer>
+     */
+    @WebMethod
+    @WebResult(name = "Answer", targetNamespace = "")
+    @RequestWrapper(localName = "getAnswer", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetAnswer")
+    @ResponseWrapper(localName = "getAnswerResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetAnswerResponse")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/getAnswerRequest", output = "http://StackExchangeWS/StackExchangeWS/getAnswerResponse")
+    public List<Answer> getAnswer(
+        @WebParam(name = "qid", targetNamespace = "")
+        int qid);
+
+    /**
+     * 
+     * @param qid
+     * @param token
+     */
+    @WebMethod
+    @Oneway
+    @RequestWrapper(localName = "deleteQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.DeleteQuestion")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/deleteQuestion")
+    public void deleteQuestion(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "qid", targetNamespace = "")
+        int qid);
 
     /**
      * 
@@ -148,29 +160,14 @@ public interface StackExchangeWS {
 
     /**
      * 
-     * @param token
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(name = "valid", targetNamespace = "")
-    @RequestWrapper(localName = "checkToken", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.CheckToken")
-    @ResponseWrapper(localName = "checkTokenResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.CheckTokenResponse")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/checkTokenRequest", output = "http://StackExchangeWS/StackExchangeWS/checkTokenResponse")
-    public boolean checkToken(
-        @WebParam(name = "token", targetNamespace = "")
-        String token);
-
-    /**
-     * 
      * @param id
      * @param token
      */
     @WebMethod
     @Oneway
-    @RequestWrapper(localName = "voteDownAnswer", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteDownAnswer")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/voteDownAnswer")
-    public void voteDownAnswer(
+    @RequestWrapper(localName = "voteDownQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteDownQuestion")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/voteDownQuestion")
+    public void voteDownQuestion(
         @WebParam(name = "token", targetNamespace = "")
         String token,
         @WebParam(name = "id", targetNamespace = "")
@@ -183,9 +180,9 @@ public interface StackExchangeWS {
      */
     @WebMethod
     @Oneway
-    @RequestWrapper(localName = "voteDownQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteDownQuestion")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/voteDownQuestion")
-    public void voteDownQuestion(
+    @RequestWrapper(localName = "voteDownAnswer", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteDownAnswer")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/voteDownAnswer")
+    public void voteDownAnswer(
         @WebParam(name = "token", targetNamespace = "")
         String token,
         @WebParam(name = "id", targetNamespace = "")
@@ -223,47 +220,50 @@ public interface StackExchangeWS {
 
     /**
      * 
-     * @param qid
+     * @param topic
+     * @param content
+     * @param token
+     */
+    @WebMethod
+    @Oneway
+    @RequestWrapper(localName = "insertQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.InsertQuestion")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/insertQuestion")
+    public void insertQuestion(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "topic", targetNamespace = "")
+        String topic,
+        @WebParam(name = "content", targetNamespace = "")
+        String content);
+
+    /**
+     * 
+     * @param userId
      * @return
-     *     returns java.util.List<stackexchangews.Answer>
+     *     returns java.lang.String
      */
     @WebMethod
-    @WebResult(name = "Answer", targetNamespace = "")
-    @RequestWrapper(localName = "getAnswer", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetAnswer")
-    @ResponseWrapper(localName = "getAnswerResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetAnswerResponse")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/getAnswerRequest", output = "http://StackExchangeWS/StackExchangeWS/getAnswerResponse")
-    public List<Answer> getAnswer(
-        @WebParam(name = "qid", targetNamespace = "")
-        int qid);
+    @WebResult(name = "Name", targetNamespace = "")
+    @RequestWrapper(localName = "getNameById", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetNameById")
+    @ResponseWrapper(localName = "getNameByIdResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetNameByIdResponse")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/getNameByIdRequest", output = "http://StackExchangeWS/StackExchangeWS/getNameByIdResponse")
+    public String getNameById(
+        @WebParam(name = "userId", targetNamespace = "")
+        int userId);
 
     /**
      * 
-     * @param qid
      * @param token
+     * @return
+     *     returns int
      */
     @WebMethod
-    @Oneway
-    @RequestWrapper(localName = "deleteQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.DeleteQuestion")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/deleteQuestion")
-    public void deleteQuestion(
+    @WebResult(name = "userId", targetNamespace = "")
+    @RequestWrapper(localName = "getIdByToken", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetIdByToken")
+    @ResponseWrapper(localName = "getIdByTokenResponse", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.GetIdByTokenResponse")
+    @Action(input = "http://StackExchangeWS/StackExchangeWS/getIdByTokenRequest", output = "http://StackExchangeWS/StackExchangeWS/getIdByTokenResponse")
+    public int getIdByToken(
         @WebParam(name = "token", targetNamespace = "")
-        String token,
-        @WebParam(name = "qid", targetNamespace = "")
-        int qid);
-
-    /**
-     * 
-     * @param id
-     * @param token
-     */
-    @WebMethod
-    @Oneway
-    @RequestWrapper(localName = "voteUpQuestion", targetNamespace = "http://StackExchangeWS/", className = "stackexchangews.VoteUpQuestion")
-    @Action(input = "http://StackExchangeWS/StackExchangeWS/voteUpQuestion")
-    public void voteUpQuestion(
-        @WebParam(name = "token", targetNamespace = "")
-        String token,
-        @WebParam(name = "id", targetNamespace = "")
-        int id);
+        String token);
 
 }

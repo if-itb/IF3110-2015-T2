@@ -44,11 +44,11 @@
       <form class="col s12 m8" action="AskServlet">
         <div class="row">
           <div class="input-field">
-            <input name="topic" id="topic-content" type="text" class="validate">
+            <input name="topic" id="topic-content" type="text" class="validate" required>
             <label for="topic-content">Topic Content</label>
           </div>
           <div class="input-field">
-            <input name="content" id="content" type="text" class="validate">
+            <input name="content" id="content" type="text" class="validate" required>
             <label for="content">Content</label>
           </div>
         </div>

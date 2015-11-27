@@ -72,10 +72,10 @@ public class LoginServlet extends HttpServlet {
                     String query = "UPDATE token SET value='"+token+"', lifetime='"+lifetime+"' WHERE user_id="+user.getUserIDFromEmail(email);
                     user.executeQuery(query);
                 }
-                response.sendRedirect("http://localhost:8081/StackExchangeClient/login.jsp?valid=1&token="+token);
+                response.sendRedirect("http://localhost:8080/StackExchangeClient/login.jsp?valid=1&token="+token);
             }
             else
-                response.sendRedirect("http://localhost:8081/StackExchangeClient/login.jsp?valid=0");
+                response.sendRedirect("http://localhost:8080/StackExchangeClient/login.jsp?valid=0");
         }catch (SQLException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -168,14 +168,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="insertQuestion">
-<xs:sequence>
-<xs:element name="token" type="xs:string" minOccurs="0"/>
-<xs:element name="topic" type="xs:string" minOccurs="0"/>
-<xs:element name="content" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="getQuestion">
 <xs:sequence>
 <xs:element name="qid" type="xs:int"/>
@@ -188,15 +180,11 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getIdByToken">
+<xs:complexType name="insertQuestion">
 <xs:sequence>
 <xs:element name="token" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getIdByTokenResponse">
-<xs:sequence>
-<xs:element name="userId" type="xs:int"/>
+<xs:element name="topic" type="xs:string" minOccurs="0"/>
+<xs:element name="content" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -209,6 +197,18 @@
 <xs:complexType name="checkTokenResponse">
 <xs:sequence>
 <xs:element name="valid" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getIdByToken">
+<xs:sequence>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getIdByTokenResponse">
+<xs:sequence>
+<xs:element name="userId" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>
