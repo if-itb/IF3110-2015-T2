@@ -109,7 +109,7 @@
                                 <div class="row">
                                     <div class="controls" align="right">
                                         asked by 
-                                        <span class="name"> <% out.println(result.get(i).getAskerName()); %></span>
+                                        <span class="name"> <% out.print(result.get(i).getAskerName()); %></span>
                                         <% 
                                         if(name.equals(result.get(i).getAskerName())) { 
                                         %>
