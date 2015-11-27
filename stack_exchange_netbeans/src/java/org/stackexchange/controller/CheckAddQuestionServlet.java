@@ -58,11 +58,12 @@ public class CheckAddQuestionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html");
         String token = request.getParameter("token");
+        request.setAttribute("token", token);
         if (token != null && !token.isEmpty()) {
-            request.getRequestDispatcher("addQuestion.jsp?token=sssc").forward(request, response);
+            request.getRequestDispatcher("addQuestion.jsp").forward(request, response);
         } else {
             request.setAttribute("flash", "You Need To Login First");
-            request.getRequestDispatcher("addQuestion.jsp").forward(request, response);
+            response.sendRedirect("http://localhost:7000/login");
         }
         processRequest(request, response);
     }

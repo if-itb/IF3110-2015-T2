@@ -63,16 +63,21 @@ public class DownVoteQuestionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = request.getServletPath();
-        request.setAttribute("url",url);
         String from = request.getParameter("from");
+        String token = request.getParameter("token");
         //request.setAttribute("curr",baseURL);
-        if (from.equals("index")){
-            downvote(Long.valueOf(request.getParameter("question_id")),request.getParameter("token"));
-            response.sendRedirect("/stack_exchange_netbeans/index?question_id=" + request.getParameter("question_id") + "&token=" + request.getParameter("token")+ "&from=" +from);
+        if (token != null && !token.isEmpty()) {
+            if (from.equals("index")){
+                downvote(Long.valueOf(request.getParameter("question_id")),request.getParameter("token"));
+                response.sendRedirect("/stack_exchange_netbeans/index?token=" + request.getParameter("token")+ "&from=" +from);
+            }
+            else{
+                downvote(Long.valueOf(request.getParameter("question_id")),request.getParameter("token"));
+                response.sendRedirect("/stack_exchange_netbeans/question?question_id=" + request.getParameter("question_id") + "&token=" + request.getParameter("token")+ "&from=" +from);
+            }
         }
         else{
-            downvote(Long.valueOf(request.getParameter("question_id")),request.getParameter("token"));
-            response.sendRedirect("/stack_exchange_netbeans/question?question_id=" + request.getParameter("question_id") + "&token=" + request.getParameter("token")+ "&from=" +from);
+            response.sendRedirect("http://localhost:7000/login");
         }
         processRequest(request, response);
     }

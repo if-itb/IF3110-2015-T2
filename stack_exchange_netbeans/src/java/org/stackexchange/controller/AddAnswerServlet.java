@@ -63,7 +63,8 @@ public class AddAnswerServlet extends HttpServlet {
         Map<String,String> userInfo = TS.getUserInfo(questionFromJson.getUserId());
         String question_email = userInfo.get("email") ;
         String question_name = userInfo.get("name");
-        
+        String token = request.getParameter("token");
+        int user_id = TS.getUserId(token);
         List<String> answerName = new ArrayList<>();
         List<String> answerEmail = new ArrayList<>();
         String answer_name;
@@ -82,8 +83,8 @@ public class AddAnswerServlet extends HttpServlet {
         request.setAttribute("answer", answerListFromJson);
         request.setAttribute("question_name",question_name);
         request.setAttribute("question_email",question_email);
-        String token = request.getParameter("token");
         request.setAttribute("token",token);
+        request.setAttribute("user_id",user_id);
         request.getRequestDispatcher("question.jsp").forward(request, response);
     }
     

@@ -46,9 +46,24 @@ public class UpVoteAnswerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        upvoteAnswer(Long.valueOf(request.getParameter("answer_id")),request.getParameter("token"));
-        response.sendRedirect("/stack_exchange_netbeans/question?question_id=" + request.getParameter("question_id") + "&token=" + request.getParameter("token"));
+        String from = request.getParameter("from");
+        String token = request.getParameter("token");
+        if (token != null && !token.isEmpty()) {
+            if (from.equals("index")){
+                upvoteAnswer(Long.valueOf(request.getParameter("answer_id")),request.getParameter("token"));
+                response.sendRedirect("/stack_exchange_netbeans/index?token=" + request.getParameter("token")+ "&from=" +from);
+            }
+            else{
+                upvoteAnswer(Long.valueOf(request.getParameter("answer_id")),request.getParameter("token"));
+                response.sendRedirect("/stack_exchange_netbeans/question?question_id=" + request.getParameter("question_id") + "&token=" + request.getParameter("token")+ "&from=" +from);
+            }
+        }
+        else{
+            response.sendRedirect("http://localhost:7000/login");
+        }
+       
     }
+      
 
     private boolean upvoteAnswer(long id, java.lang.String token) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.

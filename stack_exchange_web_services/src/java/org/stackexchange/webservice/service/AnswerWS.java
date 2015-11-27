@@ -68,6 +68,7 @@ public class AnswerWS {
         TokenService tokenService = new TokenService();
         AnswerDao answerDao = new AnswerDao();
         AnswerVoteDao answerVoteDao = new AnswerVoteDao();
+        System.out.println("test");
         if (tokenService.isTokenValid(token)) {
             long userId = tokenService.getUserId(token);
                     

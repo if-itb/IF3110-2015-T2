@@ -95,11 +95,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpVoteAnswer</servlet-name>
-        <url-pattern>/UpVoteAnswer</url-pattern>
+        <url-pattern>/UpVoteAnswerServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DownVoteAnswerServlet</servlet-name>
-        <url-pattern>/DownVoteAnswer</url-pattern>
+        <url-pattern>/DownVoteAnswerServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditQuestionServlet</servlet-name>

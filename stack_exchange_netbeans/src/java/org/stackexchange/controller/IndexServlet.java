@@ -22,6 +22,7 @@ import javax.xml.ws.WebServiceRef;
 import model.Question;
 import org.stackexchange.webservice.service.QuestionWS;
 import org.stackexchange.webservice.service.QuestionWS_Service;
+import org.stackexchange.webservice.service.TokenService;
 
 /**
  *
@@ -70,7 +71,9 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        String token = request.getParameter("token");
+        TokenService ts = new TokenService();
+        int user_id = ts.getUserId(token);
         String json = getAll();  
         Gson gson = new Gson();
 //        Question question = gson.fromJson(json, Question.class);
@@ -81,7 +84,8 @@ public class IndexServlet extends HttpServlet {
         }
         
         request.setAttribute("QList",questionListFromJson);
-        request.setAttribute("token", request.getParameter("token"));
+        request.setAttribute("token",token);
+        request.setAttribute("user_id",user_id);
         request.getRequestDispatcher("index.jsp").forward(request, response);
         processRequest(request, response);
     }

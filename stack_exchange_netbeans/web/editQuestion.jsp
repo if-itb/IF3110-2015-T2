@@ -8,11 +8,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-  <title>Stack Exchange</title>
-  <link rel="stylesheet" type="text/css" href="assets/css/question.css">
-<script type = "text/javascript" src="/assets/js/validatequestion.js"> </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <title>StackExchange</title>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/question.css">
 </head>
-
 <body class="cyan lighten-2">
     <nav class="white" role="navigation">
       <div class="nav-wrapper container">
@@ -54,9 +58,6 @@
             <button class="button">Post</Button>
           </div>
         </form>
-
     </div>
-  </form>
-</div>
 </body>
 </html>

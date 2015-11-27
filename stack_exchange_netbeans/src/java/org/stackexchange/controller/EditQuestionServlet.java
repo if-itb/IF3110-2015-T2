@@ -63,6 +63,8 @@ public class EditQuestionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String question_id = request.getParameter("question_id");
+        String token=request.getParameter("token");
+        request.setAttribute("token",token);
         String json = getById(Long.valueOf(request.getParameter("question_id")));
         Gson gson = new Gson();
         Question questionFromJson = gson.fromJson(json, Question.class);

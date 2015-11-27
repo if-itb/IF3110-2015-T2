@@ -17,8 +17,16 @@
 <body class="cyan lighten-2">
 <nav class="white" role="navigation">
   <div class="nav-wrapper container">
-    <a><img src="assets/image/Bicep.jpg" alt="Unsplashed background img 1" width="48" height="48"> </a>
-    <a id="logo-container" href="#" class="brand-logo">LEXCLE</a>
+    <c:choose>
+        <c:when test="${token==null}">
+            <a href="http://localhost:8080/stack_exchange_netbeans/index"><img src="assets/image/Bicep.jpg" alt="Unsplashed background img 1" width="48" height="48"> </a>
+            <a id="logo-container" href="http://localhost:8080/stack_exchange_netbeans/index" class="brand-logo">LEXCLE</a>
+        </c:when>    
+        <c:otherwise>
+            <a href="http://localhost:8080/stack_exchange_netbeans/index?token=<c:out value="${token}"/>"><img src="assets/image/Bicep.jpg" alt="Unsplashed background img 1" width="48" height="48"> </a>
+            <a id="logo-container" href="http://localhost:8080/stack_exchange_netbeans/index?token=<c:out value="${token}"/>" class="brand-logo">LEXCLE</a>
+        </c:otherwise>
+       </c:choose>
     <ul class="right hide-on-med-and-down">
       <li><a href="http://localhost:7000/login">Login</a></li>
       <li><a href="http://localhost:7000/register">Register</a></li>
@@ -51,14 +59,18 @@
               </div>
           </div>
           <div class="card-action">
+              <div class ="row" style="margin-bottom:0px">
+                <div class="col s6" >
             <div class="left">
-                <a href="http://localhost:8080/stack_exchange_netbeans/UpVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=index"><img src="assets/image/up.png" alt="Unsplashed background img 1" width="25" height="25"></a>
-                <a href="http://localhost:8080/stack_exchange_netbeans/DownVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=index"><img src="assets/image/down.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+                <a href="http://localhost:8080/stack_exchange_netbeans/UpVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=question"><img src="assets/image/up.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+                <a href="http://localhost:8080/stack_exchange_netbeans/DownVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=question"><img src="assets/image/down.png" alt="Unsplashed background img 1" width="25" height="25"></a>
             </div>
+                </div>
             <div class="right-align">
-                <a href="http://localhost:8080/stack_exchange_netbeans/EditQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>">Edit</a>
-                <a href="http://localhost:8080/stack_exchange_netbeans/DeleteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>">Delete</a>
+                <c:if test="${question.userId == user_id}"><a href="http://localhost:8080/stack_exchange_netbeans/EditQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>">Edit</a></c:if>
+                <c:if test="${question.userId == user_id}"><a href="http://localhost:8080/stack_exchange_netbeans/DeleteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>">Delete</a></c:if>
             </div> 
+              </div>
           </div>
         </div>
       </div>
@@ -91,8 +103,8 @@
               <div class="row" style="margin-bottom:0px">
                   <div class ="col s6">
             <div class="left">
-                <a href="http://localhost:8080/stack_exchange_netbeans/UpVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=index"><img src="assets/image/up.png" alt="Unsplashed background img 1" width="25" height="25"></a>
-                <a href="http://localhost:8080/stack_exchange_netbeans/DownVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=index"><img src="assets/image/down.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+                <a href="http://localhost:8080/stack_exchange_netbeans/UpVoteAnswerServlet?answer_id=<c:out value="${answers.id}"/>&question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=question"><img src="assets/image/up.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+                <a href="http://localhost:8080/stack_exchange_netbeans/DownVoteAnswerServlet?answer_id=<c:out value="${answers.id}"/>&question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=question"><img src="assets/image/down.png" alt="Unsplashed background img 1" width="25" height="25"></a>
             </div>
                   </div>
               </div>
