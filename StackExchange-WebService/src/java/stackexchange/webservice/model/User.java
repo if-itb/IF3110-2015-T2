@@ -25,6 +25,7 @@ public class User {
     
     public User(){
         id = -1;
+        email = "";
     }
     
     public User(String name, String email, String password){
