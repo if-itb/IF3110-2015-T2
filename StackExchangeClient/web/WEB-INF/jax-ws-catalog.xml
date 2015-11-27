@@ -4,4 +4,6 @@
     <system systemId="http://localhost:8080/StackExchangeWS/UserHandler?xsd=1" uri="wsdl/localhost_8080/StackExchangeWS/UserHandler.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/StackExchangeWS/QuestionHandler?wsdl" uri="wsdl/localhost_8080/StackExchangeWS/QuestionHandler.wsdl"/>
     <system systemId="http://localhost:8080/StackExchangeWS/QuestionHandler?xsd=1" uri="wsdl/localhost_8080/StackExchangeWS/QuestionHandler.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/StackExchangeWS/AnswerHandler?wsdl" uri="wsdl/localhost_8080/StackExchangeWS/AnswerHandler.wsdl"/>
+    <system systemId="http://localhost:8080/StackExchangeWS/AnswerHandler?xsd=1" uri="wsdl/localhost_8080/StackExchangeWS/AnswerHandler.xsd_1.xsd"/>
 </catalog>

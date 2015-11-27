@@ -103,6 +103,7 @@
 <xs:element name="askerEmail" type="xs:string" minOccurs="0"/>
 <xs:element name="askerId" type="xs:int"/>
 <xs:element name="content" type="xs:string" minOccurs="0"/>
+<xs:element name="countAnswers" type="xs:int"/>
 <xs:element name="questionId" type="xs:int"/>
 <xs:element name="time" type="xs:string" minOccurs="0"/>
 <xs:element name="topic" type="xs:string" minOccurs="0"/>
@@ -146,19 +147,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="votesDownQuestion">
-<xs:sequence>
-<xs:element name="questionId" type="xs:int"/>
-<xs:element name="voter" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="votesDownQuestionResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="votesUpQuestion">
 <xs:sequence>
 <xs:element name="questionId" type="xs:int"/>
@@ -167,6 +155,19 @@
 </xs:complexType>
 
 <xs:complexType name="votesUpQuestionResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="votesDownQuestion">
+<xs:sequence>
+<xs:element name="questionId" type="xs:int"/>
+<xs:element name="voter" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="votesDownQuestionResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
 </xs:sequence>

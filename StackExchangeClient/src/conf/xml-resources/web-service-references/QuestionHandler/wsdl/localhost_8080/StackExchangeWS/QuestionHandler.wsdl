@@ -4,32 +4,14 @@
 <xsd:import namespace="http://services.stackExchangeWS/" schemaLocation="http://localhost:8080/StackExchangeWS/QuestionHandler?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="askQuestion">
-<part name="parameters" element="tns:askQuestion"/>
-</message>
-<message name="askQuestionResponse">
-<part name="parameters" element="tns:askQuestionResponse"/>
-</message>
-<message name="SQLException">
-<part name="fault" element="tns:SQLException"/>
-</message>
-<message name="getQuestion">
-<part name="parameters" element="tns:getQuestion"/>
-</message>
-<message name="getQuestionResponse">
-<part name="parameters" element="tns:getQuestionResponse"/>
-</message>
-<message name="votesDownQuestion">
-<part name="parameters" element="tns:votesDownQuestion"/>
-</message>
-<message name="votesDownQuestionResponse">
-<part name="parameters" element="tns:votesDownQuestionResponse"/>
-</message>
 <message name="getAllQuestions">
 <part name="parameters" element="tns:getAllQuestions"/>
 </message>
 <message name="getAllQuestionsResponse">
 <part name="parameters" element="tns:getAllQuestionsResponse"/>
+</message>
+<message name="SQLException">
+<part name="fault" element="tns:SQLException"/>
 </message>
 <message name="countVotes">
 <part name="parameters" element="tns:countVotes"/>
@@ -43,6 +25,12 @@
 <message name="votesUpQuestionResponse">
 <part name="parameters" element="tns:votesUpQuestionResponse"/>
 </message>
+<message name="askQuestion">
+<part name="parameters" element="tns:askQuestion"/>
+</message>
+<message name="askQuestionResponse">
+<part name="parameters" element="tns:askQuestionResponse"/>
+</message>
 <message name="editQuestion">
 <part name="parameters" element="tns:editQuestion"/>
 </message>
@@ -55,22 +43,19 @@
 <message name="deleteQuestionResponse">
 <part name="parameters" element="tns:deleteQuestionResponse"/>
 </message>
+<message name="getQuestion">
+<part name="parameters" element="tns:getQuestion"/>
+</message>
+<message name="getQuestionResponse">
+<part name="parameters" element="tns:getQuestionResponse"/>
+</message>
+<message name="votesDownQuestion">
+<part name="parameters" element="tns:votesDownQuestion"/>
+</message>
+<message name="votesDownQuestionResponse">
+<part name="parameters" element="tns:votesDownQuestionResponse"/>
+</message>
 <portType name="QuestionHandler">
-<operation name="askQuestion">
-<input wsam:Action="http://services.stackExchangeWS/QuestionHandler/askQuestionRequest" message="tns:askQuestion"/>
-<output wsam:Action="http://services.stackExchangeWS/QuestionHandler/askQuestionResponse" message="tns:askQuestionResponse"/>
-<fault message="tns:SQLException" name="SQLException" wsam:Action="http://services.stackExchangeWS/QuestionHandler/askQuestion/Fault/SQLException"/>
-</operation>
-<operation name="getQuestion">
-<input wsam:Action="http://services.stackExchangeWS/QuestionHandler/getQuestionRequest" message="tns:getQuestion"/>
-<output wsam:Action="http://services.stackExchangeWS/QuestionHandler/getQuestionResponse" message="tns:getQuestionResponse"/>
-<fault message="tns:SQLException" name="SQLException" wsam:Action="http://services.stackExchangeWS/QuestionHandler/getQuestion/Fault/SQLException"/>
-</operation>
-<operation name="votesDownQuestion">
-<input wsam:Action="http://services.stackExchangeWS/QuestionHandler/votesDownQuestionRequest" message="tns:votesDownQuestion"/>
-<output wsam:Action="http://services.stackExchangeWS/QuestionHandler/votesDownQuestionResponse" message="tns:votesDownQuestionResponse"/>
-<fault message="tns:SQLException" name="SQLException" wsam:Action="http://services.stackExchangeWS/QuestionHandler/votesDownQuestion/Fault/SQLException"/>
-</operation>
 <operation name="getAllQuestions">
 <input wsam:Action="http://services.stackExchangeWS/QuestionHandler/getAllQuestionsRequest" message="tns:getAllQuestions"/>
 <output wsam:Action="http://services.stackExchangeWS/QuestionHandler/getAllQuestionsResponse" message="tns:getAllQuestionsResponse"/>
@@ -86,6 +71,11 @@
 <output wsam:Action="http://services.stackExchangeWS/QuestionHandler/votesUpQuestionResponse" message="tns:votesUpQuestionResponse"/>
 <fault message="tns:SQLException" name="SQLException" wsam:Action="http://services.stackExchangeWS/QuestionHandler/votesUpQuestion/Fault/SQLException"/>
 </operation>
+<operation name="askQuestion">
+<input wsam:Action="http://services.stackExchangeWS/QuestionHandler/askQuestionRequest" message="tns:askQuestion"/>
+<output wsam:Action="http://services.stackExchangeWS/QuestionHandler/askQuestionResponse" message="tns:askQuestionResponse"/>
+<fault message="tns:SQLException" name="SQLException" wsam:Action="http://services.stackExchangeWS/QuestionHandler/askQuestion/Fault/SQLException"/>
+</operation>
 <operation name="editQuestion">
 <input wsam:Action="http://services.stackExchangeWS/QuestionHandler/editQuestionRequest" message="tns:editQuestion"/>
 <output wsam:Action="http://services.stackExchangeWS/QuestionHandler/editQuestionResponse" message="tns:editQuestionResponse"/>
@@ -96,45 +86,19 @@
 <output wsam:Action="http://services.stackExchangeWS/QuestionHandler/deleteQuestionResponse" message="tns:deleteQuestionResponse"/>
 <fault message="tns:SQLException" name="SQLException" wsam:Action="http://services.stackExchangeWS/QuestionHandler/deleteQuestion/Fault/SQLException"/>
 </operation>
+<operation name="getQuestion">
+<input wsam:Action="http://services.stackExchangeWS/QuestionHandler/getQuestionRequest" message="tns:getQuestion"/>
+<output wsam:Action="http://services.stackExchangeWS/QuestionHandler/getQuestionResponse" message="tns:getQuestionResponse"/>
+<fault message="tns:SQLException" name="SQLException" wsam:Action="http://services.stackExchangeWS/QuestionHandler/getQuestion/Fault/SQLException"/>
+</operation>
+<operation name="votesDownQuestion">
+<input wsam:Action="http://services.stackExchangeWS/QuestionHandler/votesDownQuestionRequest" message="tns:votesDownQuestion"/>
+<output wsam:Action="http://services.stackExchangeWS/QuestionHandler/votesDownQuestionResponse" message="tns:votesDownQuestionResponse"/>
+<fault message="tns:SQLException" name="SQLException" wsam:Action="http://services.stackExchangeWS/QuestionHandler/votesDownQuestion/Fault/SQLException"/>
+</operation>
 </portType>
 <binding name="QuestionHandlerPortBinding" type="tns:QuestionHandler">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="askQuestion">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-<fault name="SQLException">
-<soap:fault name="SQLException" use="literal"/>
-</fault>
-</operation>
-<operation name="getQuestion">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-<fault name="SQLException">
-<soap:fault name="SQLException" use="literal"/>
-</fault>
-</operation>
-<operation name="votesDownQuestion">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-<fault name="SQLException">
-<soap:fault name="SQLException" use="literal"/>
-</fault>
-</operation>
 <operation name="getAllQuestions">
 <soap:operation soapAction=""/>
 <input>
@@ -171,6 +135,18 @@
 <soap:fault name="SQLException" use="literal"/>
 </fault>
 </operation>
+<operation name="askQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="SQLException">
+<soap:fault name="SQLException" use="literal"/>
+</fault>
+</operation>
 <operation name="editQuestion">
 <soap:operation soapAction=""/>
 <input>
@@ -184,6 +160,30 @@
 </fault>
 </operation>
 <operation name="deleteQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="SQLException">
+<soap:fault name="SQLException" use="literal"/>
+</fault>
+</operation>
+<operation name="getQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="SQLException">
+<soap:fault name="SQLException" use="literal"/>
+</fault>
+</operation>
+<operation name="votesDownQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

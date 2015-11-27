@@ -56,9 +56,13 @@ public class DbQuestionManager {
         
         public static ArrayList<Question> getAllQuestions() throws SQLException{
             conn = ConnectionManager.getInstance().getConnection();
-            String sql = "SELECT * FROM question, "
-                    + "(SELECT questionId, SUM(value) FROM votes_question GROUP BY questionId) AS votes,"
-                    + " user WHERE userId=askerId AND votes.questionId=question.questionId;";
+            String sql = 
+                    "SELECT question.*, user.*, c.countAnswers, c.votes FROM "
+                    + "user, question, (SELECT votes.*, IFNULL(countAnswers,0) AS countAnswers FROM "
+                        + "(SELECT questionId, SUM(value) AS votes FROM votes_question GROUP BY questionId) AS votes "
+                            + "LEFT JOIN "
+                        + "(SELECT questionId, COUNT(questionId) AS countAnswers FROM answer GROUP BY questionId) AS cAnswers ON votes.questionId =  cAnswers.questionId) AS c "
+                    + "WHERE c.questionId = question.questionId AND user.userId = question.askerId";
             
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
@@ -72,8 +76,9 @@ public class DbQuestionManager {
                 question.setTopic(rs.getString("topic"));
                 question.setContent(rs.getString("content"));
                 question.setTime(rs.getString("time"));
-                question.setVotes(rs.getInt("SUM(value)"));
+                question.setVotes(rs.getInt("votes"));
                 question.setAskerEmail(rs.getString("email"));
+                question.setCountAnswers(rs.getInt("countAnswers"));
                 
                 questions.add(question);
             }

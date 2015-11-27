@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form name="login" method="post" action="RegServlet">
+<form name="login" method="post" action="Login">
 <input type="hidden" name="pagename" value="login"/>
 <table>
 	<tr>

@@ -18,6 +18,15 @@ public class Question {
     private String topic;
     private String content;
     private String time;    
+    private int countAnswers;
+
+    public int getCountAnswers() {
+        return countAnswers;
+    }
+
+    public void setCountAnswers(int countAnswers) {
+        this.countAnswers = countAnswers;
+    }
     
     public int getAnswers() {
         return answers;

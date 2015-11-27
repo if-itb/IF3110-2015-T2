@@ -38,3 +38,9 @@ CREATE TABLE votes_answer(
 	FOREIGN KEY (answerId) REFERENCES answer(answerId),
 	FOREIGN KEY (voter) REFERENCES user(userId)
 );
+
+create table tokenlist ( 
+	userId int(11), 
+	token varchar(255), 
+	expdate timestamp 
+);

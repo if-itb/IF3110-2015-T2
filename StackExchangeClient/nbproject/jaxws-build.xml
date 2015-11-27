@@ -58,5 +58,21 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/stackexchangews/services"/>
         <delete dir="${build.generated.dir}/jax-wsCache/QuestionHandler"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-UserHandler, wsimport-client-QuestionHandler"/>
+    <target name="wsimport-client-AnswerHandler" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AnswerHandler"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AnswerHandler" destdir="${build.generated.dir}/jax-wsCache/AnswerHandler" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/AnswerHandler/wsdl/localhost_8080/StackExchangeWS/AnswerHandler.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/StackExchangeWS/AnswerHandler?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/AnswerHandler/wsdl/localhost_8080/StackExchangeWS/AnswerHandler.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AnswerHandler"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AnswerHandler">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-AnswerHandler" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/stackexchangews/services"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/AnswerHandler"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-UserHandler, wsimport-client-QuestionHandler, wsimport-client-AnswerHandler"/>
 </project>
