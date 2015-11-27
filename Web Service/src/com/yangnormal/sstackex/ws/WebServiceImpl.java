@@ -460,7 +460,10 @@ public class WebServiceImpl implements WebServiceInterface{
             Statement stmt2 = null;
             String query = "";
             String query2 = "";
+            String querycheck="";
             int uid=-1;
+            int idCheck=-1;
+            int voteCheck=0;
             try{
                 // Register JDBC driver
                 Class.forName("com.mysql.jdbc.Driver");
@@ -475,20 +478,62 @@ public class WebServiceImpl implements WebServiceInterface{
                     uid=rs.getInt("uid");
                 }
                 if (type == 0) { // vote question
-                    if (direction == 1) { // up
-                        query = "UPDATE question SET vote = vote + 1 WHERE id=" + id;
-                    } else if (direction == -1){ // down
-                        query = "UPDATE question SET vote = vote - 1 WHERE id=" + id;
+                    querycheck= "SELECT qid,vote FROM vote_question WHERE uid="+uid;
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(querycheck);
+                    while (rs.next()){
+                        idCheck=rs.getInt("qid");
+                        voteCheck=rs.getInt("vote");
                     }
-                    query2 = "INSERT INTO vote_question (qid, uid, vote) VALUES ("+id+","+uid+","+direction+")";
+                    if (idCheck==id){ //udah pernah ngevote
+                        if (voteCheck!=direction){
+                            if (direction==1){
+                                query = "UPDATE question SET vote = vote + 2 WHERE id=" + id;
+                            } else if (direction==-1){
+                                query = "UPDATE question SET vote = vote - 2 WHERE id=" + id;
+                            }
+                            query2 = "UPDATE vote_question SET vote="+direction;
+                        } else {
+                            query = "UPDATE question SET vote = vote WHERE 1=0";
+                            query2 = "UPDATE vote_question SET vote=vote WHERE 1=0";
+                        }
+                    } else {
+                        if (direction==1){
+                            query = "UPDATE question SET vote = vote + 1 WHERE id=" + id;
+                        } else if (direction==-1){
+                            query = "UPDATE question SET vote = vote - 1 WHERE id=" + id;
+                        }
+                        query2 = "INSERT INTO vote_question (qid, uid, vote) VALUES ("+id+","+uid+","+direction+")";
+                    }
                 }
                 else if (type == 1) { // vote answer
-                    if (direction == 1) { // up
-                        query = "UPDATE answer SET vote = vote + 1 WHERE id=" + id;
-                    } else if (direction == -1){ // down
-                        query = "UPDATE answer SET vote = vote - 1 WHERE id=" + id;
+                    querycheck= "SELECT aid,vote FROM vote_answer WHERE uid="+uid;
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(querycheck);
+                    while (rs.next()){
+                        idCheck=rs.getInt("aid");
+                        voteCheck=rs.getInt("vote");
                     }
-                    query2 = "INSERT INTO vote_answer (aid, uid, vote) VALUES ("+id+","+uid+","+direction+")";
+                    if (idCheck==id){ //udah pernah ngevote
+                        if (voteCheck!=direction){
+                            if (direction==1){
+                                query = "UPDATE answer SET vote = vote + 2 WHERE id=" + id;
+                            } else if (direction==-1){
+                                query = "UPDATE answer SET vote = vote - 2 WHERE id=" + id;
+                            }
+                            query2 = "UPDATE vote_answer SET vote="+direction;
+                        } else {
+                            query = "UPDATE answer SET vote = vote WHERE 1=0";
+                            query2 = "UPDATE vote_answer SET vote=vote WHERE 1=0";
+                        }
+                    } else {
+                        if (direction==1){
+                            query = "UPDATE answer SET vote = vote + 1 WHERE id=" + id;
+                        } else if (direction==-1){
+                            query = "UPDATE answer SET vote = vote - 1 WHERE id=" + id;
+                        }
+                        query2 = "INSERT INTO vote_answer (qid, uid, vote) VALUES ("+id+","+uid+","+direction+")";
+                    }
                 }
 
                 stmt = conn.createStatement();
