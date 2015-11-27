@@ -39,36 +39,6 @@ public interface UserWS {
 
     /**
      * 
-     * @param email
-     * @return
-     *     returns java.lang.Integer
-     */
-    @WebMethod
-    @WebResult(name = "Integer", targetNamespace = "")
-    @RequestWrapper(localName = "getIDbyEmail", targetNamespace = "http://user.model/", className = "model.user.GetIDbyEmail")
-    @ResponseWrapper(localName = "getIDbyEmailResponse", targetNamespace = "http://user.model/", className = "model.user.GetIDbyEmailResponse")
-    @Action(input = "http://user.model/UserWS/getIDbyEmailRequest", output = "http://user.model/UserWS/getIDbyEmailResponse")
-    public Integer getIDbyEmail(
-        @WebParam(name = "email", targetNamespace = "")
-        String email);
-
-    /**
-     * 
-     * @param token
-     * @return
-     *     returns model.user.User
-     */
-    @WebMethod
-    @WebResult(name = "User", targetNamespace = "")
-    @RequestWrapper(localName = "getUserByToken", targetNamespace = "http://user.model/", className = "model.user.GetUserByToken")
-    @ResponseWrapper(localName = "getUserByTokenResponse", targetNamespace = "http://user.model/", className = "model.user.GetUserByTokenResponse")
-    @Action(input = "http://user.model/UserWS/getUserByTokenRequest", output = "http://user.model/UserWS/getUserByTokenResponse")
-    public User getUserByToken(
-        @WebParam(name = "token", targetNamespace = "")
-        String token);
-
-    /**
-     * 
      * @param userId
      * @return
      *     returns model.user.User

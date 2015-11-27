@@ -7,7 +7,9 @@ package Vote;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,19 +36,41 @@ public class VoteServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        try (PrintWriter out = response.getWriter()) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            int uid = Integer.parseInt(request.getParameter("uid"));
-            int vote = Integer.parseInt(request.getParameter("vote"));
-            String db = request.getParameter("db");
-            if ("question".equals(db)) {
-                voteQuestion(id,uid,vote);
-                out.print(getQuestionVotes(id)+"");
-            } else if ("answer".equals(db)) {
-                voteAnswer(id,uid,vote);
-                out.print(getAnswerVotes(id)+"");
+        Cookie cookies[] = request.getCookies();
+
+        String token_id="";
+        boolean found = false;
+        int i=0;
+        while (i<cookies.length && !found) {
+            if (cookies[i].getName() == "stackexchange_token") {
+                token_id = cookies[i].getValue();
+                found = true;
+            } else {
+                i++;
             }
         }
+        
+        int success = -1;
+        if (found) {
+            try (PrintWriter out = response.getWriter()) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                int vote = Integer.parseInt(request.getParameter("vote"));
+                String db = request.getParameter("db");
+                if ("question".equals(db)) {
+                    success = voteQuestion(token_id,id,vote);
+                    if (success>0) out.print(getQuestionVotes(id)+"");
+                } else if ("answer".equals(db)) {
+                    success = voteAnswer(token_id,id,vote);
+                    if (success>0) out.print(getAnswerVotes(id)+"");
+                }
+            }
+        }
+        if (!found || success==-1) {
+            request.setAttribute("message","Session expired. please login again.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+            dispatcher.forward(request,response);
+        }  
+       
     }
 
     /**
@@ -72,13 +96,6 @@ public class VoteServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void voteQuestion(int questionId, int userId, int vote) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        model.vote.VoteWS port = service.getVoteWSPort();
-        port.voteQuestion(questionId, userId, vote);
-    }
-
     private int getQuestionVotes(int questionId) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
@@ -86,18 +103,26 @@ public class VoteServlet extends HttpServlet {
         return port.getQuestionVotes(questionId);
     }
 
-    private void voteAnswer(int answerId, int userId, int vote) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        model.vote.VoteWS port = service.getVoteWSPort();
-        port.voteAnswer(answerId, userId, vote);
-    }
 
     private int getAnswerVotes(int answerId) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         model.vote.VoteWS port = service.getVoteWSPort();
         return port.getAnswerVotes(answerId);
+    }
+
+    private int voteAnswer(java.lang.String token, int answerId, int vote) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        model.vote.VoteWS port = service.getVoteWSPort();
+        return port.voteAnswer(token, answerId, vote);
+    }
+
+    private int voteQuestion(java.lang.String token, int questionId, int vote) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        model.vote.VoteWS port = service.getVoteWSPort();
+        return port.voteQuestion(token, questionId, vote);
     }
 
 }

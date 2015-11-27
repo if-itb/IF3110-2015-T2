@@ -7,7 +7,6 @@ package Question;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -20,12 +19,11 @@ import model.question.QuestionWS_Service;
  *
  * @author ASUS X202E
  */
-public class AddQuestionServlet extends HttpServlet {
+public class UpdateQuestionServlet extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/QuestionWS.wsdl")
     private QuestionWS_Service service;
 
-   
-/**
+ /**
      * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
@@ -49,29 +47,26 @@ public class AddQuestionServlet extends HttpServlet {
                 i++;
             }
         }
-        int question_id = -1;
         if (found) {
+            int question_id = Integer.parseInt(request.getParameter("question_id"));
             String topic = request.getParameter("topic");
             String content = request.getParameter("content");
-            question_id = addQuestion(token_id,topic,content);
-            if (question_id > 0) {
+            int success = editQuestion(token_id,question_id,topic,content);
+            if (success > 0) {
                 response.sendRedirect("view?id="+question_id);
+            } else {
+                response.sendRedirect("login.jsp");
             }
+        } else {
+            response.sendRedirect("login.jsp");
         }
-        if (!found || question_id==-1) {
-            request.setAttribute("message","Session expired. please login again.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-            dispatcher.forward(request,response);
-        }  
     }
 
-    private int addQuestion(java.lang.String token, java.lang.String topic, java.lang.String content) {
+    private int editQuestion(java.lang.String token, int questionId, java.lang.String topic, java.lang.String content) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         model.question.QuestionWS port = service.getQuestionWSPort();
-        return port.addQuestion(token, topic, content);
+        return port.editQuestion(token, questionId, topic, content);
     }
-
-
 
 }

@@ -16,7 +16,7 @@
     </head>
     <body>
         <div class="container">
-            <h1><a href="index.jsp">Simple StackExchange</a></h1>
+            <h1><a href="index">Simple StackExchange</a></h1>
             <div class="login">
                 <form method="post" action="addUser" name="register">
                     <input type="text" class="input-group" placeholder="Name" name="name">

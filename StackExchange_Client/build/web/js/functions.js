@@ -26,7 +26,7 @@ function validateAnswerForm(){
         }    
 }
 
-function vote(id, uid, change, db) {
+function vote(id, change, db) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState === 4 && xhttp.status === 200) {
@@ -37,6 +37,6 @@ function vote(id, uid, change, db) {
             }
         }
     }
-    xhttp.open("GET", "vote?id="+id+"&uid="+uid+"&vote="+change+"&db="+db, true);
+    xhttp.open("GET", "vote?id="+id+"&vote="+change+"&db="+db, true);
     xhttp.send();
 } 

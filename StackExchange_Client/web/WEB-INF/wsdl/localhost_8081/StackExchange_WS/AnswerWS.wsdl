@@ -4,23 +4,17 @@
 <xsd:import namespace="http://answer.model/" schemaLocation="http://localhost:8081/StackExchange_WS/AnswerWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getAnswersByQID">
-<part name="parameters" element="tns:getAnswersByQID"/>
-</message>
-<message name="getAnswersByQIDResponse">
-<part name="parameters" element="tns:getAnswersByQIDResponse"/>
-</message>
-<message name="getAnswerByID">
-<part name="parameters" element="tns:getAnswerByID"/>
-</message>
-<message name="getAnswerByIDResponse">
-<part name="parameters" element="tns:getAnswerByIDResponse"/>
-</message>
 <message name="getAnswerCount">
 <part name="parameters" element="tns:getAnswerCount"/>
 </message>
 <message name="getAnswerCountResponse">
 <part name="parameters" element="tns:getAnswerCountResponse"/>
+</message>
+<message name="getAnswersByQID">
+<part name="parameters" element="tns:getAnswersByQID"/>
+</message>
+<message name="getAnswersByQIDResponse">
+<part name="parameters" element="tns:getAnswersByQIDResponse"/>
 </message>
 <message name="addAnswer">
 <part name="parameters" element="tns:addAnswer"/>
@@ -28,44 +22,32 @@
 <message name="addAnswerResponse">
 <part name="parameters" element="tns:addAnswerResponse"/>
 </message>
+<message name="getAnswerByID">
+<part name="parameters" element="tns:getAnswerByID"/>
+</message>
+<message name="getAnswerByIDResponse">
+<part name="parameters" element="tns:getAnswerByIDResponse"/>
+</message>
 <portType name="AnswerWS">
-<operation name="getAnswersByQID">
-<input wsam:Action="http://answer.model/AnswerWS/getAnswersByQIDRequest" message="tns:getAnswersByQID"/>
-<output wsam:Action="http://answer.model/AnswerWS/getAnswersByQIDResponse" message="tns:getAnswersByQIDResponse"/>
-</operation>
-<operation name="getAnswerByID">
-<input wsam:Action="http://answer.model/AnswerWS/getAnswerByIDRequest" message="tns:getAnswerByID"/>
-<output wsam:Action="http://answer.model/AnswerWS/getAnswerByIDResponse" message="tns:getAnswerByIDResponse"/>
-</operation>
 <operation name="getAnswerCount">
 <input wsam:Action="http://answer.model/AnswerWS/getAnswerCountRequest" message="tns:getAnswerCount"/>
 <output wsam:Action="http://answer.model/AnswerWS/getAnswerCountResponse" message="tns:getAnswerCountResponse"/>
+</operation>
+<operation name="getAnswersByQID">
+<input wsam:Action="http://answer.model/AnswerWS/getAnswersByQIDRequest" message="tns:getAnswersByQID"/>
+<output wsam:Action="http://answer.model/AnswerWS/getAnswersByQIDResponse" message="tns:getAnswersByQIDResponse"/>
 </operation>
 <operation name="addAnswer">
 <input wsam:Action="http://answer.model/AnswerWS/addAnswerRequest" message="tns:addAnswer"/>
 <output wsam:Action="http://answer.model/AnswerWS/addAnswerResponse" message="tns:addAnswerResponse"/>
 </operation>
+<operation name="getAnswerByID">
+<input wsam:Action="http://answer.model/AnswerWS/getAnswerByIDRequest" message="tns:getAnswerByID"/>
+<output wsam:Action="http://answer.model/AnswerWS/getAnswerByIDResponse" message="tns:getAnswerByIDResponse"/>
+</operation>
 </portType>
 <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getAnswersByQID">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getAnswerByID">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="getAnswerCount">
 <soap:operation soapAction=""/>
 <input>
@@ -75,7 +57,25 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="getAnswersByQID">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="addAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getAnswerByID">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

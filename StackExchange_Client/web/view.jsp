@@ -42,9 +42,9 @@
                     <% for (model.answer.Answer answer : answers) { %>
                     <div class="answer-list">
                         <div class="voting">
-                            <div class="arrow-up" onclick="return vote(<%= answer.getAnswerId() %>,1,1,'answer')"></div>
+                            <div class="arrow-up" onclick="return vote(<%= answer.getAnswerId() %>,1,'answer')"></div>
                             <div class="votenumber" id="vote-a<%= answer.getAnswerId() %>"><%= answer.getVote() %></div>
-                            <div class="arrow-down" onclick="return vote(<%= answer.getAnswerId() %>,2,-1,'answer')"></div>
+                            <div class="arrow-down" onclick="return vote(<%= answer.getAnswerId() %>,-1,'answer')"></div>
                         </div>
                         <div class="answer-content">
                             <p><%= answer.getContent() %></p>
@@ -61,7 +61,6 @@
 		<div class="grey-title">Your Answer</div>
                 <form method="post" name="saveanswer" action="addAnswer">
                     <input type="hidden" name="question_id" value="<%= question.getQuestionId() %>">
-                    <input type="hidden" name="user_id" value="1">
                     <textarea placeholder="Content" rows="5" name="content"></textarea>
                     <div class="button-bottom">
                         <button type="submit" name="saveanswer" value="Submit">Post</button>

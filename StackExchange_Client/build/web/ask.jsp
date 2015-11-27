@@ -21,7 +21,6 @@
             <div class="title">Simple StackExchange</div>
             <div class="subq black">What's your question?</div>
             <form class="formsearch createquestion" name="createquestion" method="post" onsubmit="return validateQuestionForm()" action="addQuestion">
-                <input type="hidden" name="user_id" value="1"/>
                 <input type="text" id="createtopic" name="topic" placeholder="Question Topic" />
                 <textarea placeholder="Content" rows="5" name="content"></textarea>
                     <button type="submit" name="submit">Post</button>
