@@ -1,1 +1,16 @@
-/StackExchange Client/dist/
+/StackExchange Client/
+/StackExchangeFE/build.xml
+/StackExchangeFE/nbproject
+/StackExchangeFE/test
+/StackExchangeFE/dist
+/StackExchangeFE/build
+/WBD_IS/build
+/WBD_IS/dist
+/WBD_IS/nbproject
+/WBD_IS/test
+/WBD_IS/build.xml
+/StackExchange WS/build
+/StackExchange WS/dist
+/StackExchange WS/nbproject
+/StackExchange WS/test
+/StackExchange WS/build.xml
