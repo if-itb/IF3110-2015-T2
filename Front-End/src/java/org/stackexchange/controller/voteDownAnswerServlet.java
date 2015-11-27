@@ -5,7 +5,7 @@
  */
 package org.stackexchange.controller;
 
-import QuestionWS.QuestionWS_Service;
+import AnswerWS.AnswerWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,10 +18,10 @@ import javax.xml.ws.WebServiceRef;
  *
  * @author user
  */
-public class voteQuestionServlet extends HttpServlet {
+public class voteDownAnswerServlet extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/QuestionWS.wsdl")
-    private QuestionWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/AnswerWS.wsdl")
+    private AnswerWS_Service service;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,18 +34,9 @@ public class voteQuestionServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet voteQuestionServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet voteQuestionServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        int aid = Integer.parseInt(request.getParameter("aid"));
+        voteAnswer(aid, -1);
+        request.getRequestDispatcher("/index").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,8 +65,7 @@ public class voteQuestionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        int qid = Integer.parseInt(request.getParameter("qid"));
+        processRequest(request, response);
     }
 
     /**
@@ -87,5 +77,12 @@ public class voteQuestionServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private int voteAnswer(int aid, int vote) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        AnswerWS.AnswerWS port = service.getAnswerWSPort();
+        return port.voteAnswer(aid, vote);
+    }
 
 }
