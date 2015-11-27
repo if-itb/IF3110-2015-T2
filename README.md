@@ -23,7 +23,7 @@ Diharapkan dengan tugas ini anda dapat mengerti:
 6. Pull request dari repository anda ke repository ini dengan format **Nama kelompok** - **NIM terkecil** - **Nama Lengkap dengan NIM terkecil** sebelum **Jumat, 20 November 2015 23.59**.
 
 ### Link Laporan
-https://www.dropbox.com/s/8ddsdi0uvsd7rsf/LaporanTuBES2WBD.pdf?dl=0
+https://www.dropbox.com/s/rql9rel77a8ydi5/LaporanTuBES2WBD.pdf?dl=0
 
 ### Arsitektur Umum Server
 
