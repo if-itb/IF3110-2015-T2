@@ -5,22 +5,24 @@
  */
 package Container;
 
+import answer.AnswersWS_Service;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
-import user.UserWS_Service;
 
 /**
  *
- * @author mochamadtry
+ * @author Bimo
  */
-public class registers extends HttpServlet {
+public class voteanswer extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_41585/StackExchangeWS/UserWS.wsdl")
-    private UserWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/AnswersWS.wsdl")
+    private AnswersWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,11 +35,32 @@ public class registers extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password"); 
-        addUser(name, email, password);
-        response.sendRedirect("home.jsp");
+        int qid = Integer.parseInt(request.getParameter("qid"));
+        int aid = Integer.parseInt(request.getParameter("aid"));
+        boolean found = false;
+        int i=0;
+        int ins;
+        Cookie[] cookies = null;
+        cookies = request.getCookies();
+        if (cookies != null) {
+            while (!found && i < cookies.length){
+                if (cookies[i].getName().equals("token_cookie")) {
+                    String token = cookies[i].getValue();
+                    int value = Integer.parseInt(request.getParameter("jlhvote"));
+                    ins = voteanswers(token, aid ,value);
+                    found = true;
+                }
+                i++;
+            }
+        }
+        response.sendRedirect("viewpost?qid="+qid);
+        }
+
+    private int voteanswers(java.lang.String token, int aid, int value) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        answer.AnswersWS port = service.getAnswersWSPort();
+        return port.voteanswers(token, aid, value);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,11 +102,12 @@ public class registers extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int addUser(java.lang.String name, java.lang.String email, java.lang.String password) {
+    private int getanswervote(int aid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        user.UserWS port = service.getUserWSPort();
-        return port.addUser(name, email, password);
+        answer.AnswersWS port = service.getAnswersWSPort();
+        return port.getanswervote(aid);
     }
 
+    
 }

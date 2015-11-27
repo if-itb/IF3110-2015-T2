@@ -50,6 +50,9 @@ public class viewpost extends HttpServlet {
        question.Question result = getQuestionById(Integer.parseInt(paramqid)); 
        request.setAttribute("result", result); 
        
+       int questionvote = getquestionvote(Integer.parseInt(paramqid));
+       request.setAttribute("questionvote", questionvote); 
+       
        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/viewpost.jsp"); 
        dispatcher.forward(request, response);
         
@@ -107,6 +110,13 @@ public class viewpost extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         question.QuestionsWS port = service.getQuestionsWSPort();
         return port.getQuestionById(qid);
+    }
+
+    private int getquestionvote(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        question.QuestionsWS port = service.getQuestionsWSPort();
+        return port.getquestionvote(qid);
     }
     
     
