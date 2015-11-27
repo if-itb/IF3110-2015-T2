@@ -10,14 +10,14 @@
     </head>
     <body>
         <div class="container">
-            <h1>Simple StackExchange</h1><br>
+            <a href="/StackExchangeClient/index"><h1>Simple StackExchange</h1></a><br>
             <h2>Register </h2><br>
-            <form name="RegisterForm" action="register" method="POST">
-		<input type="text" name="name" id="inputtext1" placeholder="Name"><br>
-		<input type="text" name="username" id="inputtext1" placeholder="Username"><br>
-		<input type="text" name="email" id="inputtext1" placeholder="Email"><br>
-		<input type="password" name="password" id="inputtext1" placeholder="Password"><br>
-		<input type="password" name="confirmpassword" id="inputtext1" placeholder="Confirm Password"><br><br>
+            <form name="RegisterForm" class="RegisterForm" action="register" method="POST">
+		<input type="text" name="name" placeholder="Name"><br>
+		<input type="text" name="username" placeholder="Username"><br>
+		<input type="text" name="email" placeholder="Email"><br>
+		<input type="password" name="password" placeholder="Password"><br>
+		<input type="password" name="confirmpassword" placeholder="Confirm Password"><br><br>
 		<input type="submit" value="Sign Up">
             </form>
         </div>

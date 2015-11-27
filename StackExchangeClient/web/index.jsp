@@ -33,7 +33,7 @@
                 </c:otherwise>
             </c:choose>
             
-            <h1>Simple StackExchange</h1><br>
+            <a href="/StackExchangeClient/index"><h1>Simple StackExchange</h1></a><br>
 
             <form class="search-box" action="/StackExchangeClient/index" method="POST">
 		<input type="text" name="keyword">
@@ -41,25 +41,25 @@
             </form>
             <br><p style="text-align:center">Cannot find what you are looking for? <a href="/StackExchangeClient/askquestion.jsp" style="color:orange">Ask here</a></p>
             <h3>Recently Asked Questions</h3>
-            <table style="table-layout: fixed">
-                
+
+            <table id="listQuestions">
                 <c:forEach items="${result}" var="question">                   
-                    <tr style="border-top: 2px solid #000; height: 80px;">
-                        <td style="width:10%; text-align:center">
+                    <tr>
+                        <td id="countanswer">
                             ${question.answer}<br>Answers
                         </td>
-                        <td style="width:10%; text-align:center">
+                        <td id="countvote">
                             ${question.vote}<br>Votes
                         </td>
-                        <td style="width:2%;">
+                        <td id="gap">
                         </td>
-                        <td style="vertical-align:top; padding-top:5px">
+                        <td id="display">
                             <a href="<c:url value="/viewpost" >
-                                <c:param name="id" value="${question.idQuestion}"/>
-                                </c:url>">${question.topic}
+                                        <c:param name="id" value="${question.idQuestion}"/>
+                                    </c:url>">${question.topic}
                             </a>
                             <br><br>${question.content}<br>
-                            
+
                             <c:choose>
                                 <c:when test="${question.username == username}">
                                     <p style="text-align:right">
@@ -71,7 +71,7 @@
                                         <a href="<c:url value="/deletequestion" >
                                                     <c:param name="id" value="${question.idQuestion}"/>
                                                 </c:url>"
-                                           onclick="return confirm('Are you sure you want to delete this item?')">delete
+                                            onclick="return confirm('Are you sure you want to delete this item?')">delete
                                         </a>
                                     </p>
                                 </c:when>
@@ -79,12 +79,10 @@
                                     <p style="text-align:right">asked by ${question.username}</p>
                                 </c:otherwise>
                             </c:choose>
-                            
-                            
+
                         </td>
                     </tr>
-                </c:forEach>
-                    
+                </c:forEach>       
             </table>
             
         </div>

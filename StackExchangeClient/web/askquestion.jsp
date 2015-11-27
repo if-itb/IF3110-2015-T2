@@ -45,10 +45,10 @@
                 }
             %>
                 
-            <h1>Simple StackExchange</h1><br>
+            <a href="/StackExchangeClient/index"><h1>Simple StackExchange</h1></a><br>
             <h2>What's your question? </h2><br>
             <form class="QuestionForm" action="askquestion" method="POST">
-		<input type="text" name="topic" id="inputtext1" placeholder="Question Topic"><br>
+		<input type="text" name="topic" placeholder="Question Topic"><br>
 		<textarea name="content" placeholder="Content"></textarea><br><br>
 		<input type="submit" value="Post">
             </form>

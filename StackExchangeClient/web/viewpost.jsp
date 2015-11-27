@@ -30,13 +30,13 @@
                 </c:otherwise>
             </c:choose>
 
-            <h1>Simple StackExchange</h1><br>
+            <a href="/StackExchangeClient/index"><h1>Simple StackExchange</h1></a><br>
             
             <c:forEach items="${result}" var="question">
                 <h2>${question.topic}</h2><br>  
-                <table>
+                <table id="question">
                     <tr>
-                        <td style="width:15%; text-align:center">
+                        <td id="countvote">
                             <a href="<c:url value="/votequestion" >
                                         <c:param name="id" value="${question.idQuestion}"/>
                                         <c:param name="type" value="1"/>
@@ -51,7 +51,7 @@
                                 <div class="arrow-down"></div>
                             </a><br>
                         </td>
-                        <td style="vertical-align:top">
+                        <td id="display">
                             ${question.content}<br>
                         </td>
                     </tr>
@@ -79,10 +79,10 @@
                 <h2>${count} Answer</h2><br>
             </c:forEach>
 
-            <table>
+            <table id="listAnswers">
                 <c:forEach items="${answers}" var="answer">
-                    <tr style="border-bottom:2px solid #000">
-                        <td style="width:15%; text-align:center; padding:20px">
+                    <tr>
+                        <td id="countvote">
                             <a href="<c:url value="/voteanswer" >
                                     <c:param name="id_answer" value="${answer.idAnswer}"/>
                                     <c:param name="id_question" value="${answer.idQuestion}"/>
@@ -99,7 +99,7 @@
                                 <div class="arrow-down"></div>
                             </a>
                         </td>
-                        <td style="vertical-align:top; padding:20px">${answer.content}<br>
+                        <td id="display">${answer.content}<br>
                             <p style="text-align:right">answered by ${answer.username} at ${answer.date}</p>
                         </td>
                     </tr>
@@ -107,7 +107,7 @@
             </table>
             
             <br><p style="font-size:30px; margin:0; color:grey"> Your Answer </p>
-            <form name="AnswerForm" action="addanswer" method="POST">
+            <form class="AnswerForm" action="addanswer" method="POST">
 		<textarea name="content" id="content" placeholder="Content"></textarea><br><br>
                 <input type="hidden" name="idQuestion" value="${result.get(0).idQuestion}" />
 		<input type="submit" value="Post">

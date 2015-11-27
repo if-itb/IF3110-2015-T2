@@ -15,7 +15,7 @@
             <c:forEach items="${result}" var="question">
                 <p style="text-align:right">You're log in as ${question.username} <button onclick="window.location.href='index';">Log out</button></p>
 
-                <h1>Simple StackExchange</h1><br>
+                <a href="/StackExchangeClient/index"><h1>Simple StackExchange</h1></a><br>
                 <h2>What's your question? </h2><br>
                 <form class="QuestionForm" action="saveeditedquestion" method="POST">
                     <input type="text" name="topic" id="inputtext1" value="${question.topic}"><br>
