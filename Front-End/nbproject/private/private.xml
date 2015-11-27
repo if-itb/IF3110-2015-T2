@@ -18,6 +18,8 @@
             <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/web/login.jsp</file>
             <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/src/java/org/stackexchange/controller/IndexServlet.java</file>
             <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/src/java/org/stackexchange/controller/RegisterServlet.java</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/src/conf/xml-resources/web-service-references/QuestionWS/wsdl/localhost_8081/StackExchangeWS/QuestionWS.wsdl</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/src/java/org/stackexchange/controller/voteUpQuestionServlet.java</file>
             <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/web/index.jsp</file>
             <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/src/java/org/stackexchange/controller/CreateAnswerServlet.java</file>
             <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/web/editQuestion.jsp</file>
@@ -26,6 +28,7 @@
             <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/web/WEB-INF/web.xml</file>
             <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/src/java/org/stackexchange/controller/SubmitEditServlet.java</file>
             <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/web/addQuestion.jsp</file>
+            <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/web/css/style.css</file>
             <file>file:/C:/xampp/htdocs/RestingSOAP/Front-End/src/java/org/stackexchange/controller/DeleteServlet.java</file>
         </group>
     </open-files>

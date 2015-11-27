@@ -14,6 +14,7 @@ import java.sql.Connection;
 import DatabaseAdapter.database;
 import java.sql.*;
 import java.util.logging.*;
+import IdentityServiceAdapter.IdentityValidator;
 
 /**
  *
@@ -80,7 +81,7 @@ public class AnswerWS {
     public int createAnswer(@WebParam(name = "token") String token, @WebParam(name = "qid") int qid, @WebParam(name = "content") String content) {
         int aid = 0;
         // Call Identity Service
-        int uid = Integer.parseInt(token); // temporary        
+        int uid = IdentityValidator.getUID(token);     
         
         try {
             Statement stmt = conn.createStatement();

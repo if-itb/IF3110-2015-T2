@@ -29,8 +29,20 @@
         <servlet-class>org.stackexchange.controller.SubmitEditServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>voteQuestionServlet</servlet-name>
-        <servlet-class>org.stackexchange.controller.voteQuestionServlet</servlet-class>
+        <servlet-name>voteUpQuestionServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.voteUpQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>voteDownQuestionServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.voteDownQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>voteUpAnswerServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.voteUpAnswerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>voteDownAnswerServlet</servlet-name>
+        <servlet-class>org.stackexchange.controller.voteDownAnswerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
@@ -61,8 +73,20 @@
         <url-pattern>/submitEdit</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>voteQuestionServlet</servlet-name>
-        <url-pattern>/voteQuestionServlet</url-pattern>
+        <servlet-name>voteUpQuestionServlet</servlet-name>
+        <url-pattern>/voteUpQuestionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>voteDownQuestionServlet</servlet-name>
+        <url-pattern>/voteDownQuestionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>voteUpAnswerServlet</servlet-name>
+        <url-pattern>/voteUpAnswerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>voteDownAnswerServlet</servlet-name>
+        <url-pattern>/voteDownAnswerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

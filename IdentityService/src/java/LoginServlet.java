@@ -88,7 +88,7 @@ public class LoginServlet extends HttpServlet {
 
                     Calendar date = Calendar.getInstance();
                     long t = date.getTimeInMillis();
-                    Date expirationDate = new Date(t + (5 * 60000));
+                    Date expirationDate = new Date(t + (15 * 60000));
                     DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 

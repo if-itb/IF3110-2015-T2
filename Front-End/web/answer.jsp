@@ -53,10 +53,10 @@
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
               <span class="card-title"><%= question.getTopic() %></span>
-                <p class="right vote">0 vote</p>
-                <a class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">thumb_down</i></a>
-                <a class="btn-floating btn-large waves-effect waves-light green right"><i class="material-icons">thumb_up</i></a>
-              <p><%= question.getContent() %></p>
+                <p class="right vote"><%= question.getVote()%> vote</p>
+                <a href="voteDownQuestionServlet?qid=<%= question.getQuestionid() %>" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">thumb_down</i></a>
+                <a href="voteUpQuestionServlet?qid=<%= question.getQuestionid() %>" class="btn-floating btn-large waves-effect waves-light green right"><i class="material-icons">thumb_up</i></a>
+                <p><%= question.getContent() %></p>
             </div>
             <div class="card-action">
               <p class="blue-text text-lighten-1 right">Asked by <%= question.getUsername() %> at <%= question.getTimestamp() %></p>
@@ -81,9 +81,9 @@
         <div class="col s12">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
-              <p class="right vote">0 vote</p>
-              <a class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">thumb_down</i></a>
-              <a class="btn-floating btn-large waves-effect waves-light green right"><i class="material-icons">thumb_up</i></a>
+              <p class="right vote"><%= answer.getVote()%> vote</p>
+              <a href="voteDownAnswerServlet?aid=<%= answer.getAnswerid() %>" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">thumb_down</i></a>
+              <a href="voteUpAnswerServlet?aid=<%= answer.getAnswerid() %>" class="btn-floating btn-large waves-effect waves-light green right"><i class="material-icons">thumb_up</i></a>
               <p><%= answer.getContent() %></p>
             </div>
             <div class="card-action">

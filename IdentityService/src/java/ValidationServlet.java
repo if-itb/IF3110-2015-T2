@@ -84,6 +84,7 @@ public class ValidationServlet extends HttpServlet {
                           String query = "SELECT * from user natural join (SELECT * from token where value ='" + token + "') as t WHERE user.Email = t.user_Email";
                           statement = conn.createStatement();
                           ResultSet rd = statement.executeQuery(query);
+                          rd.next();
                           int uid = rd.getInt("User_ID");
                           obj.put("User_ID", uid);
                       
@@ -102,13 +103,8 @@ public class ValidationServlet extends HttpServlet {
                   out.print(obj);
               }
 
-          } catch(SQLException ex) {
-              try {  
-                  obj.put("error", ex);
-              } catch (JSONException ex1) {
-                  Logger.getLogger(ValidationServlet.class.getName()).log(Level.SEVERE, null, ex1);
-              }
-              out.print(obj);
+          } catch(SQLException ex) {  
+               ex.printStackTrace();   
           }
         }
     }

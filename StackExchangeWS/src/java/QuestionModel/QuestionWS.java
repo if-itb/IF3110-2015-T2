@@ -6,6 +6,9 @@
 package QuestionModel;
 
 import DatabaseAdapter.database;
+import IdentityServiceAdapter.ConnectionHelper;
+import IdentityServiceAdapter.IdentityValidator;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -129,7 +132,7 @@ public class QuestionWS {
     public int createQuestion(@WebParam(name = "token") String token, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
         int qid = 0;
         // Call Identity Service
-        int uid = Integer.parseInt(token); // temporary        
+        int uid = IdentityValidator.getUID(token); 
         
         try {
             Statement stmt = conn.createStatement();
@@ -162,7 +165,7 @@ public class QuestionWS {
     public int updateQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content, @WebParam(name = "token") String token) {
         
         // Call Identity Service
-        int uid = Integer.parseInt(token); // temporary    
+        int uid = IdentityValidator.getUID(token);  
         
         try {
             Statement stmt = conn.createStatement();
@@ -244,7 +247,7 @@ public class QuestionWS {
     public int deleteQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "token") String token) {
         
         // Call Identity Service
-        int uid = Integer.parseInt(token); // temporary
+        int uid = IdentityValidator.getUID(token); 
         
         try {
             Statement stmt = conn.createStatement();
@@ -293,6 +296,5 @@ public class QuestionWS {
         }
         
         return qid;
-    }
-
+    }    
 }
