@@ -24,7 +24,7 @@ Diharapkan dengan tugas ini anda dapat mengerti:
 
 ### Link Laporan
 
-*Masukkan link laporan anda di sini*
+http://bit.ly/laporantugas2wbdidea-3
 
 ### Arsitektur Umum Server
 
