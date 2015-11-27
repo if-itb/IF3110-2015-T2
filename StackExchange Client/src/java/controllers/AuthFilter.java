@@ -43,12 +43,12 @@ public class AuthFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         Cookie[] cookies = httpRequest.getCookies();
-        String coba = "cookie ga ada";
+        String status = "No cookie";
         // Check cookie with name auth
         if (cookies != null) {
             String token = null;
             for (Cookie cookie : cookies) {
-                coba = cookie.getValue();
+                status = "No token cookie";
                 if (cookie.getName().equals("token")) {
                     token = cookie.getValue();
                     break;
@@ -57,27 +57,25 @@ public class AuthFilter implements Filter {
 
             // Check whether the auth token hasn't expired yet
             if (token != null) {
-                coba = "token ga null";
+                status = "Token cookie exists";
                 JSONObject obj = ISConnector.validateToken(token);
                 HttpServletRequest req = (HttpServletRequest) request;
                 HttpServletResponse res = (HttpServletResponse) response;
                 if (obj!=null && obj.containsKey("error")) { //Authorization failed, expired access token
-                    coba = "token auth gagal";
+                    status = "Authentication failed";
                     String uri = req.getRequestURI();
                     this.context.log("Requested Resource:: "+uri);
 
                     // Get session and set session
                     HttpSession session = req.getSession(false);
-                    session.setAttribute("status", "Authentication failed");
                     this.context.log("Unauthorized access request");
                     res.sendRedirect(req.getContextPath() + "/login");
                     return;
                 } else {
-                    coba = obj.toString();
+                    status = "Authentication succeed";
                     if (obj!=null && obj.containsKey("id")) {
                         long id = (long) obj.get("id");
                         int u_id = (int) id;
-                        coba = "idnya" + id;
                         UserWS.UserWS_Service service = new UserWS.UserWS_Service();
                         UserWS.UserWS port = service.getUserWSPort();
                         User user = (User) port.getUser(u_id);
@@ -87,10 +85,8 @@ public class AuthFilter implements Filter {
                     }
                 }
             } 
-        } else {
-            request.setAttribute("status", "No cookie");
         }
-        request.setAttribute("status", coba);
+        request.setAttribute("status", status);
         // Pass the request along the filter chain
         chain.doFilter(request, response);
     }

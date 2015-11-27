@@ -6,6 +6,7 @@
 package controllers;
 
 import AnswerWS.AnswerWS_Service;
+import UserWS.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -35,21 +36,8 @@ public class AnswerController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AnswerController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AnswerController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -61,7 +49,8 @@ public class AnswerController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        response.sendRedirect(request.getContextPath()); // Cannot access this link
     }
 
     /**
@@ -75,15 +64,25 @@ public class AnswerController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User user = (User) request.getAttribute("user");
         int q_id = Integer.parseInt(request.getParameter("q_id"));
         String content = request.getParameter("content");
-        int qId = addNewAnswer(1, content, q_id);
-        if (qId != -1 ) {
-            response.sendRedirect("question?q_id=" + qId);
+        if (user != null) {
+            int qId = addNewAnswer(user.getUId(), content, q_id);
+            if (qId != -1 ) {
+                response.sendRedirect("question?q_id=" + qId);
+            }
+            else {
+                response.sendRedirect(request.getContextPath());
+            }
+        } else {
+            String message = "Please log in before ";
+            String url = request.getContextPath() + "question?q_id=" + q_id;
+            request.setAttribute("message", message);
+            request.setAttribute("url", url);
+            response.sendRedirect(request.getContextPath() + "/login");
         }
-        else {
-            processRequest(request,response);
-        }
+        
     }
 
     /**

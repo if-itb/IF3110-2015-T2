@@ -1,165 +1,133 @@
--- phpMyAdmin SQL Dump
--- version 4.2.7.1
--- http://www.phpmyadmin.net
+-- MySQL dump 10.13  Distrib 5.6.16, for Win32 (x86)
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 24, 2015 at 03:14 PM
--- Server version: 5.6.20
--- PHP Version: 5.5.15
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: stackexchange_service
+-- ------------------------------------------------------
+-- Server version	5.6.16
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-
---
--- Database: `stackexchange_service`
---
-
--- --------------------------------------------------------
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `answer`
 --
 
-CREATE TABLE IF NOT EXISTS `answer` (
-`a_id` int(7) NOT NULL,
+DROP TABLE IF EXISTS `answer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `answer` (
+  `a_id` int(7) NOT NULL AUTO_INCREMENT,
   `u_id` int(7) NOT NULL,
   `content` text NOT NULL,
   `vote` int(10) NOT NULL DEFAULT '0',
   `date_created` datetime NOT NULL,
-  `q_id` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `q_id` int(10) NOT NULL,
+  PRIMARY KEY (`a_id`),
+  KEY `u_id` (`u_id`),
+  KEY `q_id` (`q_id`),
+  CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `user` (`u_id`) ON DELETE CASCADE,
+  CONSTRAINT `answer_ibfk_2` FOREIGN KEY (`q_id`) REFERENCES `question` (`q_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `answer`
+--
+
+LOCK TABLES `answer` WRITE;
+/*!40000 ALTER TABLE `answer` DISABLE KEYS */;
+INSERT INTO `answer` VALUES (3,1,'haha',0,'2015-11-27 15:38:18',1),(4,1,'hai',0,'2015-11-27 15:40:49',1),(5,16,'Aku suka kucing juga , Tif!',0,'2015-11-27 15:42:17',2);
+/*!40000 ALTER TABLE `answer` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `question`
 --
 
-CREATE TABLE IF NOT EXISTS `question` (
-`q_id` int(7) NOT NULL,
+DROP TABLE IF EXISTS `question`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `question` (
+  `q_id` int(7) NOT NULL AUTO_INCREMENT,
   `u_id` int(7) NOT NULL,
   `topic` varchar(250) NOT NULL,
   `content` text NOT NULL,
   `vote` int(10) NOT NULL DEFAULT '0',
   `date_created` datetime NOT NULL,
-  `date_edited` datetime DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `date_edited` datetime DEFAULT NULL,
+  PRIMARY KEY (`q_id`),
+  KEY `u_id` (`u_id`),
+  CONSTRAINT `question_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `user` (`u_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `question`
 --
 
-INSERT INTO `question` (`q_id`, `u_id`, `topic`, `content`, `vote`, `date_created`, `date_edited`) VALUES
-(1, 1, 'Kucing Terbang', 'Tahukah kamu bahwa kucing bisa terbang?', 0, '2015-11-16 21:42:25', NULL),
-(2, 1, 'Siapa Snowball?', 'Snowball adalaha salah satu kucing kesayangan', 0, '2015-11-16 22:04:40', NULL);
-
--- --------------------------------------------------------
+LOCK TABLES `question` WRITE;
+/*!40000 ALTER TABLE `question` DISABLE KEYS */;
+INSERT INTO `question` VALUES (1,1,'Kucing Terbang','Tahukah kamu bahwa kucing bisa terbang?',0,'2015-11-16 21:42:25',NULL),(2,1,'Siapa Snowball?','Snowball adalaha salah satu kucing kesayangan',1,'2015-11-16 22:04:40',NULL);
+/*!40000 ALTER TABLE `question` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `token`
 --
 
-CREATE TABLE IF NOT EXISTS `token` (
-  `access_token` binary(16) NOT NULL,
+DROP TABLE IF EXISTS `token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `token` (
+  `access_token` char(36) NOT NULL,
   `u_id` int(7) NOT NULL,
-  `expiry_date` datetime NOT NULL
+  `expiry_date` datetime NOT NULL,
+  PRIMARY KEY (`access_token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `token`
+--
+
+LOCK TABLES `token` WRITE;
+/*!40000 ALTER TABLE `token` DISABLE KEYS */;
+INSERT INTO `token` VALUES ('1e02d064b56144ed876f1c0ee7161d3e',16,'2015-11-27 17:43:14'),('81fcc876424a4725ba37e290a1fc5ed2',1,'2015-11-27 17:40:42');
+/*!40000 ALTER TABLE `token` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
-`u_id` int(7) NOT NULL,
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `u_id` int(7) NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `password` char(40) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+  `password` char(40) NOT NULL,
+  PRIMARY KEY (`u_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`u_id`, `email`, `name`, `password`) VALUES
-(1, 'tiffayumuyuka@gmail.com', 'Tifani Warnita', 'kucing'),
-(8, 'jessicaa.handayani@gmail.com', 'Jessica Handayani', '8cb2237d0679ca88db6464eac60da96345513964');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `answer`
---
-ALTER TABLE `answer`
- ADD PRIMARY KEY (`a_id`), ADD KEY `u_id` (`u_id`), ADD KEY `q_id` (`q_id`);
-
---
--- Indexes for table `question`
---
-ALTER TABLE `question`
- ADD PRIMARY KEY (`q_id`), ADD KEY `u_id` (`u_id`);
-
---
--- Indexes for table `token`
---
-ALTER TABLE `token`
- ADD PRIMARY KEY (`access_token`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
- ADD PRIMARY KEY (`u_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `answer`
---
-ALTER TABLE `answer`
-MODIFY `a_id` int(7) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `question`
---
-ALTER TABLE `question`
-MODIFY `q_id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-MODIFY `u_id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `answer`
---
-ALTER TABLE `answer`
-ADD CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `user` (`u_id`) ON DELETE CASCADE,
-ADD CONSTRAINT `answer_ibfk_2` FOREIGN KEY (`q_id`) REFERENCES `question` (`q_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `question`
---
-ALTER TABLE `question`
-ADD CONSTRAINT `question_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `user` (`u_id`) ON DELETE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'tiffayumuyuka@gmail.com','Tifani Warnita','9cafb1d6240635d5e435e0a60e738ced0334c109'),(8,'jessicaa.handayani@gmail.com','Jessica Handayani','8cb2237d0679ca88db6464eac60da96345513964'),(16,'vanyadeasy@gmail.com','Vanya Deasy Safrina','839fb980adb31f080ab0a7f7e3317744ebaa9c60'),(17,'tes@123.com','Tes','d1c056a983786a38ca76a05cda240c7b86d77136');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `vote_answer`
@@ -212,6 +180,17 @@ CREATE TABLE `vote_question` (
 
 LOCK TABLES `vote_question` WRITE;
 /*!40000 ALTER TABLE `vote_question` DISABLE KEYS */;
+INSERT INTO `vote_question` VALUES (2,1,1);
 /*!40000 ALTER TABLE `vote_question` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-11-27 16:08:44
