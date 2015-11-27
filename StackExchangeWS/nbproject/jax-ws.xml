@@ -7,6 +7,9 @@
     <service name="QuestionHandler">
       <implementation-class>stackExchangeWS.services.QuestionHandler</implementation-class>
     </service>
+    <service name="AnswerHandler">
+      <implementation-class>stackExchangeWS.services.AnswerHandler</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>

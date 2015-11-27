@@ -12,9 +12,36 @@ package stackExchangeWS.database;
 public class Question {
     private int questionId;
     private int askerId;
+    private int answers;
+    private int votes;
+    private String askerEmail;
     private String topic;
     private String content;
     private String time;    
+    
+    public int getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(int answers) {
+        this.answers = answers;
+    }
+
+    public int getVotes() {
+        return votes;
+    }
+
+    public void setVotes(int votes) {
+        this.votes = votes;
+    }
+
+    public String getAskerEmail() {
+        return askerEmail;
+    }
+
+    public void setAskerEmail(String askerEmail) {
+        this.askerEmail = askerEmail;
+    }
     
     public int getQuestionId() {
         return questionId;

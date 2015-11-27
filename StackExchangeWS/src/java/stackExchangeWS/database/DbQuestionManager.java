@@ -27,46 +27,56 @@ public class DbQuestionManager {
         
         public static Question selectQuestion(int questionId) throws SQLException{
             conn = ConnectionManager.getInstance().getConnection();
-            String sql = "SELECT * FROM question WHERE questionId = ?";
+            String sql = 
+                    "SELECT * FROM question, "
+                    + "(SELECT SUM(value) FROM votes_question WHERE questionId = ?) AS votes, user "
+                    + "WHERE questionId = ? AND userId=askerId;";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             
             pstmt.setInt(1, questionId);
+            pstmt.setInt(2, questionId);
             ResultSet rs = pstmt.executeQuery();
             
             Question question = new Question();
             while(rs.next()){
                 question.setQuestionId(rs.getInt("questionId"));
                 question.setAskerId(rs.getInt("askerId"));
-                question.setAskerId(rs.getInt("askerId"));
                 question.setTopic(rs.getString("topic"));
                 question.setContent(rs.getString("content"));
                 question.setTime(rs.getString("time"));
+                question.setVotes(rs.getInt("SUM(value)"));
+                question.setAskerEmail(rs.getString("email"));
             }
             
             ConnectionManager.getInstance().close();
+            
             
             return question;
         }
         
         public static ArrayList<Question> getAllQuestions() throws SQLException{
             conn = ConnectionManager.getInstance().getConnection();
-            String sql = "SELECT * FROM question";
+            String sql = "SELECT * FROM question, "
+                    + "(SELECT questionId, SUM(value) FROM votes_question GROUP BY questionId) AS votes,"
+                    + " user WHERE userId=askerId AND votes.questionId=question.questionId;";
+            
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             
             ArrayList<Question> questions = new ArrayList<Question>();
             while(rs.next()){
                 Question question = new Question();
-                question.setQuestionId(rs.getInt("questionId"));
-                question.setAskerId(rs.getInt("askerId"));
+                int questionId = rs.getInt("questionId");
+                question.setQuestionId(questionId);
                 question.setAskerId(rs.getInt("askerId"));
                 question.setTopic(rs.getString("topic"));
                 question.setContent(rs.getString("content"));
                 question.setTime(rs.getString("time"));
+                question.setVotes(rs.getInt("SUM(value)"));
+                question.setAskerEmail(rs.getString("email"));
                 
                 questions.add(question);
             }
-            
             ConnectionManager.getInstance().close();
             
             return questions;
