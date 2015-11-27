@@ -1,48 +1,80 @@
-function validateAskForm() {
-    var name = document.forms["ask"]["name"].value;
-    var email = document.forms["ask"]["email"].value;
-    var topic = document.forms["ask"]["topic"].value;
-    var content = document.forms["ask"]["content"].value;
-
-    if (name == null || name == "") {
+function validateRegisterForm() {
+   var name = document.forms["register"]["name"].value;
+    var email = document.forms["register"]["email"].value;
+    var pass = document.forms["register"]["pass"].value;
+    var passcheck = document.forms["register"]["passcheck"].value;
+  
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    
+    if (name === null || name === "") {
         alert("Name must be filled out.");
         return false;
-    } else if (email == null || email == "") {
+    } else if (email === null || email === "") {
         alert("Email must be filled out.");
         return false;
-    } else if (!validateEmail(email)) {
-        alert("Invalid email address.");
+    } else if (pass === null || pass === "") {
+        alert("Password must be filled out.");
         return false;
-    }else if (topic == null || topic == "") {
-        alert("Question topic must be filled out.");
+    } else if (passcheck === null || passcheck === "") {
+        alert("Please confirm the password.");
         return false;
-    } else if (content == null || content == "") {
-        alert("Question content must be filled out.");
+    }
+    else if (!filter.test(email)) {
+        alert('Please provide a valid email address');
         return false;
+    }
+        
+    else if (pass !== passcheck){
+        alert('Password does not match');
+        return false;
+    }
+    
+    else {
+        return true;
+    }
+}
+
+function validateLoginForm() {
+    var email = document.forms["login"]["email"].value;
+    var pass = document.forms["login"]["pass"].value;
+    
+    if (email === null || email === "") {
+        alert("Email must be filled out.");
+        return false;
+    } else if (pass === null || pass === "") {
+        alert("Password must be filled out.");
+        return false;
+    }
+    else {
+        return true;
     }
 }
 
 function validateAnswerForm() {
-    var name = document.forms["answer"]["name"].value;
-    var email = document.forms["answer"]["email"].value;
     var content = document.forms["answer"]["content"].value;
 
-    if (name == null || name == "") {
-        alert("Name must be filled out.");
+    if (content === null || content === "") {
+        alert("Answer content must be filled out.");
         return false;
-    } else if (email == null || email == "") {
-        alert("Email must be filled out.");
-        return false;
-    } else if (!validateEmail(email)) {
-        alert("Invalid email address.");
-        return false;
-    } else if (content == null || content == "") {
-        alert("Question content must be filled out.");
-        return false;
+    }
+    else {
+        return true;
     }
 }
 
-function validateEmail(email) {
-    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-    return re.test(email);
+function validateQuestionForm() {
+    var content = document.forms["question"]["content"].value;
+    var topic = document.forms["question"]["topic"].value;
+
+    if (content === null || content === "") {
+        alert("Question content must be filled out.");
+        return false;
+    }
+    else if (topic === null || topic === ""){
+        alert("Question topic must be filled out.");
+        return false;
+    }
+    else {
+        return true;
+    }
 }

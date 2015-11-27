@@ -17,11 +17,11 @@
                 <!-- TODO: Edit Controller -->
                 <form name="ask" class="basic-grey" action="edit" 
                         onsubmit="return validateAskForm()" method="post">
-                    <input type="hidden" name="q_id" value="<%= question.getQId() %>">
-                    <input type="text" id="topic" name="topic" placeholder="Question Topic" value="<%= question.getTopic()%>"><br>
-                    <textarea id="content" name="content" placeholder="Content"><%= question.getContent()%></textarea><br>
+                    <input type="hidden" name="q_id" value="<c:out value='${question.getQId()}'/>">
+                    <input type="text" id="topic" name="topic" placeholder="Question Topic" value="<c:out value='${question.getTopic()}'/>"><br>
+                    <textarea id="content" name="content" placeholder="Content"><c:out value="${question.getContent()}"/></textarea><br>
                     <div class="div-right-button">
-                            <input type="submit" class="right-button" value="Post">
+                        <input type="submit" class="right-button" value="Post">
                     </div>
                 </form>
             </div>
