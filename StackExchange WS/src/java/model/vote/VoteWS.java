@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebResult;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -126,10 +126,8 @@ public class VoteWS {
         org.json.simple.JSONObject jo = ConnectionIS.requestAuth(token);
         
         // Parse json
-        String str_uid = (String) jo.get("id");
-        String str_status = (String) jo.get("status");
-        int uid = Integer.parseInt(str_uid);
-        int status = Integer.parseInt(str_status);
+        int uid = (int) (long) jo.get("id");
+        int status = (int) (long) jo.get("status");
         
         // if status ok, insert answer into db, select answer_id
         if (status == 1){
@@ -172,10 +170,8 @@ public class VoteWS {
         org.json.simple.JSONObject jo = ConnectionIS.requestAuth(token);
         
         // Parse json
-        String str_uid = (String) jo.get("id");
-        String str_status = (String) jo.get("status");
-        int uid = Integer.parseInt(str_uid);
-        int status = Integer.parseInt(str_status);
+        int uid = (int) (long) jo.get("id");
+        int status = (int) (long) jo.get("status");
         
         // if status ok, insert answer into db, select answer_id
         if (status == 1){

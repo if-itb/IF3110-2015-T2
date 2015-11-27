@@ -7,6 +7,12 @@
 <message name="addUser">
 <part name="parameters" element="tns:addUser"/>
 </message>
+<message name="getUserByID">
+<part name="parameters" element="tns:getUserByID"/>
+</message>
+<message name="getUserByIDResponse">
+<part name="parameters" element="tns:getUserByIDResponse"/>
+</message>
 <message name="getIDbyEmail">
 <part name="parameters" element="tns:getIDbyEmail"/>
 </message>
@@ -19,15 +25,13 @@
 <message name="getUserByTokenResponse">
 <part name="parameters" element="tns:getUserByTokenResponse"/>
 </message>
-<message name="getUserByID">
-<part name="parameters" element="tns:getUserByID"/>
-</message>
-<message name="getUserByIDResponse">
-<part name="parameters" element="tns:getUserByIDResponse"/>
-</message>
 <portType name="UserWS">
 <operation name="addUser">
 <input wsam:Action="http://user.model/UserWS/addUser" message="tns:addUser"/>
+</operation>
+<operation name="getUserByID">
+<input wsam:Action="http://user.model/UserWS/getUserByIDRequest" message="tns:getUserByID"/>
+<output wsam:Action="http://user.model/UserWS/getUserByIDResponse" message="tns:getUserByIDResponse"/>
 </operation>
 <operation name="getIDbyEmail">
 <input wsam:Action="http://user.model/UserWS/getIDbyEmailRequest" message="tns:getIDbyEmail"/>
@@ -36,10 +40,6 @@
 <operation name="getUserByToken">
 <input wsam:Action="http://user.model/UserWS/getUserByTokenRequest" message="tns:getUserByToken"/>
 <output wsam:Action="http://user.model/UserWS/getUserByTokenResponse" message="tns:getUserByTokenResponse"/>
-</operation>
-<operation name="getUserByID">
-<input wsam:Action="http://user.model/UserWS/getUserByIDRequest" message="tns:getUserByID"/>
-<output wsam:Action="http://user.model/UserWS/getUserByIDResponse" message="tns:getUserByIDResponse"/>
 </operation>
 </portType>
 <binding name="UserWSPortBinding" type="tns:UserWS">
@@ -50,6 +50,15 @@
 <soap:body use="literal"/>
 </input>
 </operation>
+<operation name="getUserByID">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="getIDbyEmail">
 <soap:operation soapAction=""/>
 <input>
@@ -60,15 +69,6 @@
 </output>
 </operation>
 <operation name="getUserByToken">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getUserByID">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

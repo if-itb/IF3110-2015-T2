@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2015 at 07:03 AM
+-- Generation Time: Nov 27, 2015 at 10:44 AM
 -- Server version: 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -35,13 +35,6 @@ CREATE TABLE `answer` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `answer`
---
-
-INSERT INTO `answer` (`answer_id`, `question_id`, `user_id`, `content`, `vote`, `create_time`) VALUES
-(1, 1, 1, 'Bales bales sendiri~', 0, '2015-11-26 11:15:57');
-
 -- --------------------------------------------------------
 
 --
@@ -62,7 +55,7 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`question_id`, `topic`, `content`, `user_id`, `create_time`, `vote`) VALUES
-(1, 'Apasih?', 'Tubes mulu tubes mulu tubes mulu', 1, '2015-11-26 11:15:26', 0);
+(3, 'abc', 'def', 1, '2015-11-27 15:29:29', 0);
 
 -- --------------------------------------------------------
 
@@ -81,7 +74,7 @@ CREATE TABLE `token` (
 --
 
 INSERT INTO `token` (`token_id`, `user_id`, `token_expired`) VALUES
-('3b15caeb9d2f4a5487e4bddd2624a07b', 1, '2015-11-27 06:01:23');
+('3140bb5cbfa84122a505e9c3d725013e', 1, '2015-11-28 09:30:40');
 
 -- --------------------------------------------------------
 
@@ -170,17 +163,27 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `answer`
+--
+ALTER TABLE `answer`
+  ADD CONSTRAINT `deleteforeignkey` FOREIGN KEY (`question_id`) REFERENCES `answer` (`answer_id`) ON DELETE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -17,7 +17,7 @@
         <servlet-class>Question.ViewQuestionServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddAnswer</servlet-name>
+        <servlet-name>AddAnswerServlet</servlet-name>
         <servlet-class>Answer.AddAnswerServlet</servlet-class>
     </servlet>
     <servlet>
@@ -65,7 +65,7 @@
         <url-pattern>/view</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddAnswer</servlet-name>
+        <servlet-name>AddAnswerServlet</servlet-name>
         <url-pattern>/addAnswer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>

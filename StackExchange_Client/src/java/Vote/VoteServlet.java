@@ -44,7 +44,7 @@ public class VoteServlet extends HttpServlet {
         boolean found = false;
         int i=0;
         while (i<cookies.length && !found) {
-            if (cookies[i].getName() == "stackexchange_token") {
+            if ("stackexchange_token".equals(cookies[i].getName())) {
                 token_id = cookies[i].getValue();
                 found = true;
             } else {

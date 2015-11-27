@@ -29,21 +29,6 @@ public interface AnswerWS {
      * 
      * @param questionId
      * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(name = "Answer", targetNamespace = "")
-    @RequestWrapper(localName = "getAnswerCount", targetNamespace = "http://answer.model/", className = "model.answer.GetAnswerCount")
-    @ResponseWrapper(localName = "getAnswerCountResponse", targetNamespace = "http://answer.model/", className = "model.answer.GetAnswerCountResponse")
-    @Action(input = "http://answer.model/AnswerWS/getAnswerCountRequest", output = "http://answer.model/AnswerWS/getAnswerCountResponse")
-    public int getAnswerCount(
-        @WebParam(name = "question_id", targetNamespace = "")
-        int questionId);
-
-    /**
-     * 
-     * @param questionId
-     * @return
      *     returns java.util.List<model.answer.Answer>
      */
     @WebMethod
@@ -52,6 +37,36 @@ public interface AnswerWS {
     @ResponseWrapper(localName = "getAnswersByQIDResponse", targetNamespace = "http://answer.model/", className = "model.answer.GetAnswersByQIDResponse")
     @Action(input = "http://answer.model/AnswerWS/getAnswersByQIDRequest", output = "http://answer.model/AnswerWS/getAnswersByQIDResponse")
     public List<Answer> getAnswersByQID(
+        @WebParam(name = "question_id", targetNamespace = "")
+        int questionId);
+
+    /**
+     * 
+     * @param answerId
+     * @return
+     *     returns model.answer.Answer
+     */
+    @WebMethod
+    @WebResult(name = "Answer", targetNamespace = "")
+    @RequestWrapper(localName = "getAnswerByID", targetNamespace = "http://answer.model/", className = "model.answer.GetAnswerByID")
+    @ResponseWrapper(localName = "getAnswerByIDResponse", targetNamespace = "http://answer.model/", className = "model.answer.GetAnswerByIDResponse")
+    @Action(input = "http://answer.model/AnswerWS/getAnswerByIDRequest", output = "http://answer.model/AnswerWS/getAnswerByIDResponse")
+    public Answer getAnswerByID(
+        @WebParam(name = "answer_id", targetNamespace = "")
+        int answerId);
+
+    /**
+     * 
+     * @param questionId
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(name = "Answer", targetNamespace = "")
+    @RequestWrapper(localName = "getAnswerCount", targetNamespace = "http://answer.model/", className = "model.answer.GetAnswerCount")
+    @ResponseWrapper(localName = "getAnswerCountResponse", targetNamespace = "http://answer.model/", className = "model.answer.GetAnswerCountResponse")
+    @Action(input = "http://answer.model/AnswerWS/getAnswerCountRequest", output = "http://answer.model/AnswerWS/getAnswerCountResponse")
+    public int getAnswerCount(
         @WebParam(name = "question_id", targetNamespace = "")
         int questionId);
 
@@ -75,20 +90,5 @@ public interface AnswerWS {
         int questionId,
         @WebParam(name = "content", targetNamespace = "")
         String content);
-
-    /**
-     * 
-     * @param answerId
-     * @return
-     *     returns model.answer.Answer
-     */
-    @WebMethod
-    @WebResult(name = "Answer", targetNamespace = "")
-    @RequestWrapper(localName = "getAnswerByID", targetNamespace = "http://answer.model/", className = "model.answer.GetAnswerByID")
-    @ResponseWrapper(localName = "getAnswerByIDResponse", targetNamespace = "http://answer.model/", className = "model.answer.GetAnswerByIDResponse")
-    @Action(input = "http://answer.model/AnswerWS/getAnswerByIDRequest", output = "http://answer.model/AnswerWS/getAnswerByIDResponse")
-    public Answer getAnswerByID(
-        @WebParam(name = "answer_id", targetNamespace = "")
-        int answerId);
 
 }

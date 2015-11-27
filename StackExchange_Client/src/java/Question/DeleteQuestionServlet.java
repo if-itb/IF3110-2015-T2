@@ -36,7 +36,7 @@ public class DeleteQuestionServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int question_id = Integer.parseInt(request.getParameter("question_id"));
+        int question_id = Integer.parseInt(request.getParameter("id"));
         int status = -1;
         Cookie cookies[] = request.getCookies();
 
@@ -44,7 +44,7 @@ public class DeleteQuestionServlet extends HttpServlet {
         boolean found = false;
         int i=0;
         while (i<cookies.length && !found) {
-            if (cookies[i].getName() == "stackexchange_token") {
+            if ("stackexchange_token".equals(cookies[i].getName())) {
                 token_id = cookies[i].getValue();
                 found = true;
             } else {
@@ -56,7 +56,7 @@ public class DeleteQuestionServlet extends HttpServlet {
             String content = request.getParameter("content");
             status = deleteQuestion(token_id, question_id);
             if (status > 0) {
-                response.sendRedirect("view?id="+question_id);
+                response.sendRedirect("");
             }
         }
         if (!found || status==-1) {

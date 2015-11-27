@@ -19,13 +19,13 @@
     </head>
     <body>
         <div class="container">
-            <a href="index"><h1>Simple StackExchange</h1></a>
+            <a href="http://localhost:8080/StackExchange_Client/"><h1>Simple StackExchange</h1></a>
             <div class="content">
                 <h2><%= question.getTopic() %></h2>
                 <div class="voting">
-                    <div class="arrow-up" onclick="return vote(<%= question.getQuestionId() %>,1,1,'question')"></div>
+                    <div class="arrow-up" onclick="return vote(<%= question.getQuestionId() %>,1,'question')"></div>
                     <div class="votenumber" id="vote-q"><%= question.getVote() %></div>
-                    <div class="arrow-down" onclick="return vote(<%= question.getQuestionId() %>,2,-1,'question')"></div>
+                    <div class="arrow-down" onclick="return vote(<%= question.getQuestionId() %>,-1,'question')"></div>
 		</div>
 		<div class="question-content">
                     <p><%= question.getContent() %></p>

@@ -27,6 +27,24 @@ public interface QuestionWS {
 
     /**
      * 
+     * @param questionId
+     * @param token
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(name = "Integer", targetNamespace = "")
+    @RequestWrapper(localName = "deleteQuestion", targetNamespace = "http://question.model/", className = "model.question.DeleteQuestion")
+    @ResponseWrapper(localName = "deleteQuestionResponse", targetNamespace = "http://question.model/", className = "model.question.DeleteQuestionResponse")
+    @Action(input = "http://question.model/QuestionWS/deleteQuestionRequest", output = "http://question.model/QuestionWS/deleteQuestionResponse")
+    public int deleteQuestion(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "question_id", targetNamespace = "")
+        int questionId);
+
+    /**
+     * 
      * @return
      *     returns java.util.List<model.question.Question>
      */
@@ -36,21 +54,6 @@ public interface QuestionWS {
     @ResponseWrapper(localName = "getAllQuestionsResponse", targetNamespace = "http://question.model/", className = "model.question.GetAllQuestionsResponse")
     @Action(input = "http://question.model/QuestionWS/getAllQuestionsRequest", output = "http://question.model/QuestionWS/getAllQuestionsResponse")
     public List<Question> getAllQuestions();
-
-    /**
-     * 
-     * @param questionId
-     * @return
-     *     returns model.question.Question
-     */
-    @WebMethod
-    @WebResult(name = "Question", targetNamespace = "")
-    @RequestWrapper(localName = "getQuestionByID", targetNamespace = "http://question.model/", className = "model.question.GetQuestionByID")
-    @ResponseWrapper(localName = "getQuestionByIDResponse", targetNamespace = "http://question.model/", className = "model.question.GetQuestionByIDResponse")
-    @Action(input = "http://question.model/QuestionWS/getQuestionByIDRequest", output = "http://question.model/QuestionWS/getQuestionByIDResponse")
-    public Question getQuestionByID(
-        @WebParam(name = "question_id", targetNamespace = "")
-        int questionId);
 
     /**
      * 
@@ -75,6 +78,36 @@ public interface QuestionWS {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<model.question.Question>
+     */
+    @WebMethod
+    @WebResult(name = "Question", targetNamespace = "")
+    @RequestWrapper(localName = "searchQuestions", targetNamespace = "http://question.model/", className = "model.question.SearchQuestions")
+    @ResponseWrapper(localName = "searchQuestionsResponse", targetNamespace = "http://question.model/", className = "model.question.SearchQuestionsResponse")
+    @Action(input = "http://question.model/QuestionWS/searchQuestionsRequest", output = "http://question.model/QuestionWS/searchQuestionsResponse")
+    public List<Question> searchQuestions(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
+
+    /**
+     * 
+     * @param questionId
+     * @return
+     *     returns model.question.Question
+     */
+    @WebMethod
+    @WebResult(name = "Question", targetNamespace = "")
+    @RequestWrapper(localName = "getQuestionByID", targetNamespace = "http://question.model/", className = "model.question.GetQuestionByID")
+    @ResponseWrapper(localName = "getQuestionByIDResponse", targetNamespace = "http://question.model/", className = "model.question.GetQuestionByIDResponse")
+    @Action(input = "http://question.model/QuestionWS/getQuestionByIDRequest", output = "http://question.model/QuestionWS/getQuestionByIDResponse")
+    public Question getQuestionByID(
+        @WebParam(name = "question_id", targetNamespace = "")
+        int questionId);
+
+    /**
+     * 
      * @param questionId
      * @param topic
      * @param content
@@ -96,38 +129,5 @@ public interface QuestionWS {
         String topic,
         @WebParam(name = "content", targetNamespace = "")
         String content);
-
-    /**
-     * 
-     * @param questionId
-     * @param token
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(name = "Integer", targetNamespace = "")
-    @RequestWrapper(localName = "deleteQuestion", targetNamespace = "http://question.model/", className = "model.question.DeleteQuestion")
-    @ResponseWrapper(localName = "deleteQuestionResponse", targetNamespace = "http://question.model/", className = "model.question.DeleteQuestionResponse")
-    @Action(input = "http://question.model/QuestionWS/deleteQuestionRequest", output = "http://question.model/QuestionWS/deleteQuestionResponse")
-    public int deleteQuestion(
-        @WebParam(name = "token", targetNamespace = "")
-        String token,
-        @WebParam(name = "question_id", targetNamespace = "")
-        int questionId);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.util.List<model.question.Question>
-     */
-    @WebMethod
-    @WebResult(name = "Question", targetNamespace = "")
-    @RequestWrapper(localName = "searchQuestions", targetNamespace = "http://question.model/", className = "model.question.SearchQuestions")
-    @ResponseWrapper(localName = "searchQuestionsResponse", targetNamespace = "http://question.model/", className = "model.question.SearchQuestionsResponse")
-    @Action(input = "http://question.model/QuestionWS/searchQuestionsRequest", output = "http://question.model/QuestionWS/searchQuestionsResponse")
-    public List<Question> searchQuestions(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0);
 
 }

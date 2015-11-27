@@ -34,16 +34,15 @@ public class QuestionWS {
         
         try {
                 
-            Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM question";
-            
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                questions.add(new Question(rs.getInt("question_id"),rs.getString("topic"),rs.getString("content"),rs.getInt("user_id"),rs.getString("create_time"),rs.getInt("vote")));
+            try (Statement stmt = conn.createStatement()) {
+                String sql = "SELECT * FROM question";
+                
+                try (ResultSet rs = stmt.executeQuery(sql)) {
+                    while (rs.next()) {
+                        questions.add(new Question(rs.getInt("question_id"),rs.getString("topic"),rs.getString("content"),rs.getInt("user_id"),rs.getString("create_time"),rs.getInt("vote")));
+                    }
+                }
             }
-            
-            rs.close();
-            stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -91,10 +90,6 @@ public class QuestionWS {
         // Parse json
         int uid = (int) (long)jo.get("id");
         int status = (int) (long) jo.get("status");
-        /*String str_uid = (String) jo.get("id");
-        String str_status = (String) jo.get("status");
-        int uid = Integer.parseInt(str_uid);
-        int status = Integer.parseInt(str_status);*/
         
         // if status ok, insert question into db, select question_id
         if (status == 1){
@@ -139,10 +134,8 @@ public class QuestionWS {
         org.json.simple.JSONObject jo = ConnectionIS.requestAuth(token);
         
         // Parse json
-        String str_uid = (String) jo.get("id");
-        String str_status = (String) jo.get("status");
-        int uid = Integer.parseInt(str_uid);
-        int status = Integer.parseInt(str_status);
+        int uid = (int) (long)jo.get("id");
+        int status = (int) (long) jo.get("status");
         
         // if status ok, update question into db, select qid
         if (status == 1){
@@ -175,10 +168,8 @@ public class QuestionWS {
         org.json.simple.JSONObject jo = ConnectionIS.requestAuth(token);
         
         // Parse json
-        String str_uid = (String) jo.get("id");
-        String str_status = (String) jo.get("status");
-        int uid = Integer.parseInt(str_uid);
-        int status = Integer.parseInt(str_status);
+        int uid = (int) (long)jo.get("id");
+        int status = (int) (long) jo.get("status");
         
         // if status ok, update question into db, select qid
         if (status == 1){

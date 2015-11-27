@@ -91,7 +91,7 @@ public class UserWS {
         try{
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT user_id FROM user WHERE user_id = ?";
+            sql = "SELECT user_id FROM user WHERE email = ?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setString(1, email);
             ResultSet rs = dbStatement.executeQuery();

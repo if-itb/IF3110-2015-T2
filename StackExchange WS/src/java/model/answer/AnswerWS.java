@@ -134,10 +134,8 @@ public class AnswerWS {
         JSONObject jo = ConnectionIS.requestAuth(token);
         
         // Parse json
-        String str_uid = (String) jo.get("id");
-        String str_status = (String) jo.get("status");
-        int uid = Integer.parseInt(str_uid);
-        int status = Integer.parseInt(str_status);
+        int uid = (int) (long) jo.get("id");
+        int status = (int) (long) jo.get("status");
         // if status ok, insert answer into db, select answer_id
         if (status == 1){
             try{
@@ -148,18 +146,7 @@ public class AnswerWS {
                 stmt.setString(3, content);
                 stmt.executeUpdate();
                 stmt.close();
-                
-                String sql2 = "SELECT answer_id FROM answer WHERE question_id=? AND content=? AND user_id=?";
-                PreparedStatement stmt2 = conn.prepareStatement(sql2);
-                stmt2.setInt(1, qid);
-                stmt2.setString(2, content);
-                stmt2.setInt(3, uid);
-                ResultSet rs = stmt2.executeQuery();
-                
-                while (rs.next()) {
-                    aid = rs.getInt("answer_id");
-                }
-                
+                aid = 1;
             } catch (SQLException ex) {
                 Logger.getLogger(AnswerWS.class.getName()).log
                 (Level.SEVERE, null, ex);

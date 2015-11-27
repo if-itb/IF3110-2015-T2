@@ -42,7 +42,7 @@ public class UpdateQuestionServlet extends HttpServlet {
         boolean found = false;
         int i=0;
         while (i<cookies.length && !found) {
-            if (cookies[i].getName() == "stackexchange_token") {
+            if ("stackexchange_token".equals(cookies[i].getName())) {
                 token_id = cookies[i].getValue();
                 found = true;
             } else {
@@ -57,10 +57,10 @@ public class UpdateQuestionServlet extends HttpServlet {
             if (success > 0) {
                 response.sendRedirect("view?id="+question_id);
             } else {
-                response.sendRedirect("login.jsp");
+                response.sendRedirect("login");
             }
         } else {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("login");
         }
     }
 

@@ -22,7 +22,7 @@ import javax.servlet.annotation.WebServlet;
  *
  * @author ASUS X202E
  */
-@WebServlet (name = "QuestionListServlet", urlPatterns = "")
+@WebServlet (name = "QuestionListServlet", urlPatterns = {"","/index"})
 public class QuestionListServlet extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/QuestionWS.wsdl")
     private QuestionWS_Service service;
