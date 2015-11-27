@@ -66,8 +66,8 @@ public class ActiveuserFacadeREST extends AbstractFacade<Activeuser> {
         }catch(NoResultException | IllegalArgumentException | EntityNotFoundException | EJBException | IndexOutOfBoundsException e){
             return "false";
         }
-        return "true";
-        /*
+        
+        
         // Generate timestamp
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         Date date = new Date();
@@ -75,8 +75,13 @@ public class ActiveuserFacadeREST extends AbstractFacade<Activeuser> {
         long diff = date.getTime() - date2.getTime();
         long diffMinutes = diff / (60 * 1000) % 60;
         
-        return (diffMinutes <= 15); // check the different time between created time and current time
-*/
+        if (diffMinutes <= 2) { // check the different time between created time and current time
+            return "true";
+        }
+        else {
+            clear(token);
+            return "expired"; 
+        }
     }
     
     @GET
