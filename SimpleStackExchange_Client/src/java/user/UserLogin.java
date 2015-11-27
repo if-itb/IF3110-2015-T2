@@ -45,7 +45,6 @@ public class UserLogin extends HttpServlet {
         
         if(!token.equals("")){
             Cookie loginCookie = new Cookie("token", token); // Set cookie to track user's session
-            loginCookie.setMaxAge(30*60); // set cookie to expiry in 30 mins
             response.addCookie(loginCookie);
             
             response.sendRedirect(""); // redirect to homepage

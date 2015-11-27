@@ -36,14 +36,17 @@ public class ConsumerREST {
         webTarget = client.target(BASE_URI).path("user");
     }
     
-    public Boolean auth(String token) throws ClientErrorException {
+    public Integer auth(String token) throws ClientErrorException {
         webTarget = client.target(BASE_URI).path("activeuser");
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("auth/{0}", new Object[]{token}));
-        if(resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).get(String.class).equalsIgnoreCase("true"))
-            return true;
+        String result = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).get(String.class);
+        if(result.equalsIgnoreCase("true"))
+            return 1;
+        else if(result.equalsIgnoreCase("expired"))
+            return -1;
         else
-            return false;
+            return 0;
     }
     
     public Boolean clear(String token) throws ClientErrorException {

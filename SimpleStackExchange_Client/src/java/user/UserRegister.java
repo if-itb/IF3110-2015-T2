@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +22,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.WebServiceRef;
 import question.QuestionCreate;
 import tool.*;
-import webservice.SimpleStackExchangeWS_Service;
 
 /**
  *
@@ -32,8 +30,8 @@ import webservice.SimpleStackExchangeWS_Service;
 @WebServlet(name = "UserRegister", urlPatterns = {"/register"})
 public class UserRegister extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/SimpleStackExchange_WS.wsdl")
-    private SimpleStackExchangeWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/User_WS.wsdl")
+    private UserWS_Service service_1;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,13 +45,15 @@ public class UserRegister extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        if(Util.isLogin(request)) {
+        if(!Util.isLogin(request)) {
             String name = request.getParameter("name");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
+            String cpassword = request.getParameter("cpassword");
 
-            if(!checkEmailUser(email)) {
-                webservice.Registereduser user = new webservice.Registereduser();
+            if(password.equals(cpassword)) {
+                if(checkEmailUser(email)) {
+                user.Registereduser user = new user.Registereduser();
                 user.setName(name);
                 user.setEmail(email);
                 user.setPassword(password);
@@ -68,16 +68,29 @@ public class UserRegister extends HttpServlet {
                 user.setCreatedtime(date);
 
                 createUser(user);
-
+                PrintWriter out= response.getWriter();
+                out.println("<div class=\"alert alert-danger\" role=\"alert\">Email are not unique!</div>"); // pass the error message
+             
                 response.sendRedirect("");
+                }
+                else {
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/register.jsp"); // redirect to login page
+
+                    PrintWriter out= response.getWriter();
+                    out.println("<div class=\"alert alert-danger\" role=\"alert\">Email are not unique!</div>"); // pass the error message
+                    rd.include(request, response);
+                }
             }
             else {
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/register.jsp"); // redirect to login page
-            
+                
+                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/register.jsp"); // redirect to login page
+
                 PrintWriter out= response.getWriter();
-                out.println("<div class=\"alert alert-danger\" role=\"alert\">Email are not valid</div>"); // pass the error message
+                out.println("<div class=\"alert alert-danger\" role=\"alert\">Pasword is missmatch!</div>"); // pass the error message
                 rd.include(request, response);
+                
             }
+            
         }
         else {
             RequestDispatcher rd = getServletContext().getRequestDispatcher(""); // redirect to home page
@@ -130,15 +143,19 @@ public class UserRegister extends HttpServlet {
     private Boolean checkEmailUser(java.lang.String email) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        user.UserWS port = service_1.getUserWSPort();
         return port.checkEmailUser(email);
     }
 
-    private void createUser(webservice.Registereduser user) {
+    private void createUser(user.Registereduser user) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        user.UserWS port = service_1.getUserWSPort();
         port.createUser(user);
     }
+
+ 
+
+   
 
 }

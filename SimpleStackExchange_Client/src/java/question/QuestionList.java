@@ -6,19 +6,18 @@
 package question;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.util.Pair;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
-import webservice.Registereduser;
-import webservice.SimpleStackExchangeWS_Service;
-
+import user.Registereduser;
+import user.UserWS_Service;
 /**
  *
  * @author mfikria
@@ -26,8 +25,11 @@ import webservice.SimpleStackExchangeWS_Service;
 @WebServlet(name = "QuestionList", urlPatterns = {""})
 public class QuestionList extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/SimpleStackExchange_WS.wsdl")
-    private SimpleStackExchangeWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/Question_WS.wsdl")
+    private QuestionWS_Service service_1;
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/User_WS.wsdl")
+    private UserWS_Service service;
 
 
     /**
@@ -41,15 +43,21 @@ public class QuestionList extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<webservice.Question> que = listQuestion();
-        ArrayList<Pair<webservice.Question, String> > ques;
-        ques = new ArrayList<Pair<webservice.Question, String>>();
-        for(webservice.Question q : que) {
-            webservice.Registereduser ru = getUserById(q.getUid());
+        List<question.Question> que = listQuestion();
+        ArrayList<Pair<question.Question, String> > ques;
+        ques = new ArrayList<Pair<question.Question, String>>();
+        for(question.Question q : que) {
+            user.Registereduser ru = getUserById(q.getUid());
             if(ru == null)
                 ques.add(new Pair(q, "Deleted User"));
             else
                 ques.add(new Pair(q, ru.getName()));
+        }
+        try {
+            int statustoken = Integer.parseInt(request.getHeader("statustoken"));
+            request.setAttribute("statustoken", statustoken);
+        } catch (Exception e){
+            
         }
         request.setAttribute("questions", ques);
         request.getRequestDispatcher("home.jsp").forward(request, response);
@@ -94,18 +102,20 @@ public class QuestionList extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private java.util.List<webservice.Question> listQuestion() {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
-        return port.listQuestion();
-    }
-
     private Registereduser getUserById(int uid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        user.UserWS port = service.getUserWSPort();
         return port.getUserById(uid);
     }
+
+    private java.util.List<question.Question> listQuestion() {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        question.QuestionWS port = service_1.getQuestionWSPort();
+        return port.listQuestion();
+    }
+
+
 
 }

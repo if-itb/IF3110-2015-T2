@@ -3,25 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/src/java/question/QuestionCreate.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/src/java/user/UserRegister.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/src/java/answer/AnswerCreate.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/src/java/tool/Util.java</file>
             <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/web/login.jsp</file>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/src/java/question/QuestionShow.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/src/conf/xml-resources/web-service-references/SimpleStackExchange_WS/wsdl/localhost_8081/SimpleStackExchange_WebService/SimpleStackExchange_WS.wsdl</file>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/src/java/entity/Registereduser.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/web/questionform.jsp</file>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/src/java/tool/ConsumerREST.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/src/java/entity/Question.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/src/java/question/QuestionSearch.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/web/question.jsp</file>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/src/java/question/QuestionList.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/src/java/user/UserLogin.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/web/search.jsp</file>
             <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/web/template/navbar.jsp</file>
             <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/web/register.jsp</file>
+            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/web/questionedit.jsp</file>
             <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/web/template/userinfo.jsp</file>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/src/java/user/UserLogout.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/src/java/entity/Answer.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/web/questionform.jsp</file>
+            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/web/question.jsp</file>
+            <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/nbproject/build-impl.xml</file>
             <file>file:/D:/Documents/NetBeansProjects/SimpleStackExchange_Client/web/home.jsp</file>
         </group>
     </open-files>

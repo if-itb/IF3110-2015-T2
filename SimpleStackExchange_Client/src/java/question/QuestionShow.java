@@ -5,6 +5,7 @@
  */
 package question;
 
+import answer.AnswerWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -16,9 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
-import webservice.Question;
-import webservice.Registereduser;
-import webservice.SimpleStackExchangeWS_Service;
+import user.Registereduser;
+import user.UserWS_Service;
 
 /**
  *
@@ -27,8 +27,14 @@ import webservice.SimpleStackExchangeWS_Service;
 @WebServlet(name = "QuestionShow", urlPatterns = {"/question"})
 public class QuestionShow extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/SimpleStackExchange_WS.wsdl")
-    private SimpleStackExchangeWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/User_WS.wsdl")
+    private UserWS_Service service_2;
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/Answer_WS.wsdl")
+    private AnswerWS_Service service_1;
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/Question_WS.wsdl")
+    private QuestionWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,9 +48,9 @@ public class QuestionShow extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int qid = Integer.parseInt(request.getParameter("qid"));
-        webservice.Question q = getQuestion(qid);
-        Pair<webservice.Question, String> que;
-        webservice.Registereduser ru = getUserById(q.getUid());
+        question.Question q = getQuestion(qid);
+        Pair<question.Question, String> que;
+        user.Registereduser ru = getUserById(q.getUid());
         if(ru == null)
             que = new Pair(q, "Invalid User");
         else
@@ -52,18 +58,23 @@ public class QuestionShow extends HttpServlet {
         request.setAttribute("question", que);
         
         
-        List<webservice.Answer> ans = getAnswers(qid);
-        ArrayList<Pair<webservice.Question, String> > answers;
-        answers = new ArrayList<Pair<webservice.Question, String>>();
-        for(webservice.Answer a : ans) {
-            webservice.Registereduser aru = getUserById(a.getUid());
+        List<answer.Answer> ans = getAnswers(qid);
+        ArrayList<Pair<question.Question, String> > answers;
+        answers = new ArrayList<Pair<question.Question, String>>();
+        for(answer.Answer a : ans) {
+            user.Registereduser aru = getUserById(a.getUid());
             if(aru == null)
                 answers.add(new Pair(a, "Invalid User"));
             else
                 answers.add(new Pair(a, aru.getName()));
         }
+        try {
+            int statustoken = Integer.parseInt(request.getHeader("statustoken"));
+            request.setAttribute("statustoken", statustoken);
+        } catch (Exception e){
+            
+        }
         request.setAttribute("answers", answers);
-        
         request.getRequestDispatcher("question.jsp").forward(request, response);
     }
 
@@ -109,23 +120,24 @@ public class QuestionShow extends HttpServlet {
     private Question getQuestion(int qid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        question.QuestionWS port = service.getQuestionWSPort();
         return port.getQuestion(qid);
+    }
+
+    private java.util.List<answer.Answer> getAnswers(int qid) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        answer.AnswerWS port = service_1.getAnswerWSPort();
+        return port.getAnswers(qid);
     }
 
     private Registereduser getUserById(int uid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        user.UserWS port = service_2.getUserWSPort();
         return port.getUserById(uid);
     }
 
-    private java.util.List<webservice.Answer> getAnswers(int qid) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
-        return port.getAnswers(qid);
-    }
 
 
 }

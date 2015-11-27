@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -23,7 +24,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.WebServiceRef;
 import question.QuestionCreate;
 import tool.ConsumerREST;
-import webservice.SimpleStackExchangeWS_Service;
 
 /**
  *
@@ -32,8 +32,8 @@ import webservice.SimpleStackExchangeWS_Service;
 @WebServlet(name = "AnswerCreate", urlPatterns = {"/AnswerCreate"})
 public class AnswerCreate extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/SimpleStackExchange_WS.wsdl")
-    private SimpleStackExchangeWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/Answer_WS.wsdl")
+    private AnswerWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,7 +47,7 @@ public class AnswerCreate extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                     HttpSession session = request.getSession();
-            webservice.Answer a = new webservice.Answer();
+            answer.Answer a = new answer.Answer();
             
             String token = tool.Util.getTokenCookie(request);
             ConsumerREST r = new ConsumerREST(); // Create object for consumming REST Web service
@@ -66,8 +66,13 @@ public class AnswerCreate extends HttpServlet {
             a.setCreatedtime(date);
             
             // Pass token and object question to web service
-            if(createAnswer(token, a))
-                response.sendRedirect("question?qid="+request.getParameter("qid")); // redirect to homepage
+            
+            Integer res = createAnswer(token, a);
+            
+            // Pass token and object question to web service
+            String url = "question?qid="+request.getParameter("qid");
+            response.addHeader("statustoken", res.toString());
+            response.sendRedirect(url);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -109,11 +114,13 @@ public class AnswerCreate extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private Boolean createAnswer(java.lang.String token, webservice.Answer answer) {
+    private Integer createAnswer(java.lang.String token, answer.Answer answer) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        answer.AnswerWS port = service.getAnswerWSPort();
         return port.createAnswer(token, answer);
     }
+
+  
 
 }

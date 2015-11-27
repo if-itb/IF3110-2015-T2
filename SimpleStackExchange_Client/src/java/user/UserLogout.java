@@ -35,20 +35,22 @@ public class UserLogout extends HttpServlet {
             throws ServletException, IOException {
         ConsumerREST cr = new ConsumerREST();
         
-        // get token from user cookie
-        String token = new String();
-        Cookie[] cookies = request.getCookies();
-        if(cookies !=null){
-            for(Cookie cookie : cookies){
-                if(cookie.getName().equals("token")) token = cookie.getValue();
+        if(request.getParameter("confirm").equals("logout")) {
+            // get token from user cookie
+            String token = new String();
+            Cookie[] cookies = request.getCookies();
+            if(cookies !=null){
+                for(Cookie cookie : cookies){
+                    if(cookie.getName().equals("token")) token = cookie.getValue();
+                }
             }
-        }
-        
-        if(cr.clear(token)) {
-            Cookie cookie = new Cookie("token", null); 
-            cookie.setHttpOnly(true);
-            cookie.setMaxAge(0);
-            response.addCookie(cookie);
+
+            if(cr.clear(token)) {
+                Cookie cookie = new Cookie("token", null); 
+                cookie.setHttpOnly(true);
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+            }
         }
         response.sendRedirect(""); // redirect to homepage
     }

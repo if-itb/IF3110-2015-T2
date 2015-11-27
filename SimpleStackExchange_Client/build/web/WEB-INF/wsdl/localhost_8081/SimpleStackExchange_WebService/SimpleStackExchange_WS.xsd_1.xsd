@@ -38,6 +38,10 @@
 
 <xs:element name="getCountAnswerResponse" type="tns:getCountAnswerResponse"/>
 
+<xs:element name="getNameByUid" type="tns:getNameByUid"/>
+
+<xs:element name="getNameByUidResponse" type="tns:getNameByUidResponse"/>
+
 <xs:element name="getQuestion" type="tns:getQuestion"/>
 
 <xs:element name="getQuestionResponse" type="tns:getQuestionResponse"/>
@@ -206,6 +210,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getNameByUid">
+<xs:sequence>
+<xs:element name="uid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getNameByUidResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="createUser">
 <xs:sequence>
 <xs:element name="user" type="tns:registereduser" minOccurs="0"/>
@@ -254,6 +270,16 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="listQuestion">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="listQuestionResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="voteQuestion">
 <xs:sequence>
 <xs:element name="qid" type="xs:int"/>
@@ -265,16 +291,6 @@
 <xs:complexType name="voteQuestionResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="listQuestion">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="listQuestionResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -303,6 +319,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="deleteAllVoteQuestion">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteAllVoteQuestionResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="updateQuestion">
 <xs:sequence>
 <xs:element name="token" type="xs:string" minOccurs="0"/>
@@ -313,18 +341,6 @@
 </xs:complexType>
 
 <xs:complexType name="updateQuestionResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="deleteAllVoteQuestion">
-<xs:sequence>
-<xs:element name="qid" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="deleteAllVoteQuestionResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean" minOccurs="0"/>
 </xs:sequence>

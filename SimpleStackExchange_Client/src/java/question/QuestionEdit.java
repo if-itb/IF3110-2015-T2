@@ -6,22 +6,13 @@
 package question;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.WebServiceRef;
-import webservice.Question;
-import webservice.SimpleStackExchangeWS_Service;
-
 /**
  *
  * @author mfikria
@@ -29,8 +20,8 @@ import webservice.SimpleStackExchangeWS_Service;
 @WebServlet(name = "QuestionEdit", urlPatterns = {"/edit"})
 public class QuestionEdit extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/SimpleStackExchange_WS.wsdl")
-    private SimpleStackExchangeWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/Question_WS.wsdl")
+    private QuestionWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,18 +39,25 @@ public class QuestionEdit extends HttpServlet {
 //        int uid = Integer.parseInt(request.getParameter("uid"));
 //        if(tool.Util.isAuthUser(request, uid))
         if(save == 0) {
-            webservice.Question q = getQuestion(qid);
+            question.Question q = getQuestion(qid);
             request.setAttribute("question", q);
             request.getRequestDispatcher("questionedit.jsp").forward(request, response);
         }
         else {
-            updateQuestion(
+            
+            
+             Integer res = updateQuestion(
                     tool.Util.getTokenCookie(request), 
                     qid, 
                     request.getParameter("topic"), 
                     request.getParameter("content"));
             
-            response.sendRedirect("");
+            // Pass token and object question to web service
+            String url = "question?qid="+qid;
+            response.addHeader("statustoken", res.toString());
+            response.sendRedirect(url);
+            
+            
         }
     }
 
@@ -102,19 +100,21 @@ public class QuestionEdit extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+  
     private Question getQuestion(int qid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        question.QuestionWS port = service.getQuestionWSPort();
         return port.getQuestion(qid);
     }
 
-    private Boolean updateQuestion(java.lang.String token, int qid, java.lang.String topic, java.lang.String content) {
+    private Integer updateQuestion(java.lang.String token, int qid, java.lang.String topic, java.lang.String content) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        question.QuestionWS port = service.getQuestionWSPort();
         return port.updateQuestion(token, qid, topic, content);
     }
+
 
 
 }

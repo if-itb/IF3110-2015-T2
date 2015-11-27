@@ -21,7 +21,11 @@ public class Util {
         Cookie[] cookies = request.getCookies();
         if(cookies != null){
             for(Cookie cookie : cookies){
-                if(cookie.getName().equals("token") && qr.auth(cookie.getValue())) {
+                Integer res = qr.auth(cookie.getValue());
+                if(res == -1) {
+                    
+                }
+                if(cookie.getName().equals("token") && res == 1) {
                      return true;
                 }
             }
@@ -36,7 +40,7 @@ public class Util {
         Cookie[] cookies = request.getCookies();
         if(cookies != null){
             for(Cookie cookie : cookies){
-                if(cookie.getName().equals("token") && qr.auth(cookie.getValue())) {
+                if(cookie.getName().equals("token") && qr.auth(cookie.getValue()) == 1) {
                     int uid = qr.getUidByToken(cookie.getValue());
                    
                     if(uid != 0 && uid == theUid) {
@@ -48,11 +52,6 @@ public class Util {
         return false;
      }
 
-    public static Boolean hasVotedQuestion(int qid, int uid) {
-        webservice.SimpleStackExchangeWS_Service service = new webservice.SimpleStackExchangeWS_Service();
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
-        return port.hasVotedQuestion(qid, uid);
-    }
     
     public static Integer getUid(HttpServletRequest request) {
         ConsumerREST qr = new ConsumerREST();
@@ -60,8 +59,10 @@ public class Util {
          Cookie[] cookies = request.getCookies();
         if(cookies != null){
             for(Cookie cookie : cookies){
-                if(cookie.getName().equals("token") && qr.auth(cookie.getValue())) {
-                     return qr.getUidByToken(cookie.getValue());
+                if(cookie.getName().equals("token") && qr.auth(cookie.getValue()) == 1) {
+                     Integer uid =  qr.getUidByToken(cookie.getValue());
+                     if(uid > 0) return uid;
+                     else return null;
                 }
             }
         }
@@ -78,4 +79,27 @@ public class Util {
         }
         return token;
     }
+
+    public static String getNameByUid(int uid) {
+        user.UserWS_Service service = new user.UserWS_Service();
+        user.UserWS port = service.getUserWSPort();
+        return port.getNameByUid(uid);
+    }
+
+    public static Boolean hasVotedAnswer(int aid, int uid, int status) {
+        answer.AnswerWS_Service service = new answer.AnswerWS_Service();
+        answer.AnswerWS port = service.getAnswerWSPort();
+        return port.hasVotedAnswer(aid, uid, status);
+    }
+
+    public static Boolean hasVotedQuestion(int qid, int uid, int status) {
+        question.QuestionWS_Service service = new question.QuestionWS_Service();
+        question.QuestionWS port = service.getQuestionWSPort();
+        return port.hasVotedQuestion(qid, uid, status);
+    }
+
+
+
+
+
 }

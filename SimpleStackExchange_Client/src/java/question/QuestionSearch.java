@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
-import webservice.Registereduser;
-import webservice.SimpleStackExchangeWS_Service;
+import user.Registereduser;
+import user.UserWS_Service;
 
 /**
  *
@@ -26,8 +26,11 @@ import webservice.SimpleStackExchangeWS_Service;
 @WebServlet(name = "QuestionSearh", urlPatterns = {"/search"})
 public class QuestionSearch extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/SimpleStackExchange_WS.wsdl")
-    private SimpleStackExchangeWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/User_WS.wsdl")
+    private UserWS_Service service_1;
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/Question_WS.wsdl")
+    private QuestionWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,11 +44,11 @@ public class QuestionSearch extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<webservice.Question> que = searchQuestion(request.getParameter("q"));
-        ArrayList<Pair<webservice.Question, String> > ques;
-        ques = new ArrayList<Pair<webservice.Question, String>>();
-        for(webservice.Question q : que) {
-            webservice.Registereduser ru = getUserById(q.getUid());
+        List<question.Question> que = searchQuestion(request.getParameter("q"));
+        ArrayList<Pair<question.Question, String> > ques;
+        ques = new ArrayList<Pair<question.Question, String>>();
+        for(question.Question q : que) {
+            user.Registereduser ru = getUserById(q.getUid());
             if(ru == null)
                 ques.add(new Pair(q, "Deleted User"));
             else
@@ -94,18 +97,19 @@ public class QuestionSearch extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private java.util.List<webservice.Question> searchQuestion(java.lang.String keyword) {
+    private java.util.List<question.Question> searchQuestion(java.lang.String keyword) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        question.QuestionWS port = service.getQuestionWSPort();
         return port.searchQuestion(keyword);
     }
 
     private Registereduser getUserById(int uid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        user.UserWS port = service_1.getUserWSPort();
         return port.getUserById(uid);
     }
+
 
 }

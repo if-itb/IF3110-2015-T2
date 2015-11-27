@@ -6,14 +6,13 @@
 package answer;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
-import webservice.SimpleStackExchangeWS_Service;
 
 /**
  *
@@ -22,9 +21,9 @@ import webservice.SimpleStackExchangeWS_Service;
 @WebServlet(name = "AnswerVote", urlPatterns = {"/AnswerVote"})
 public class AnswerVote extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/SimpleStackExchange_WS.wsdl")
-    private SimpleStackExchangeWS_Service service;
-
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/Answer_WS.wsdl")
+    private AnswerWS_Service service;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,8 +37,16 @@ public class AnswerVote extends HttpServlet {
             throws ServletException, IOException {
         int aid = Integer.parseInt(request.getParameter("aid"));
         int uid = tool.Util.getUid(request);
-        voteAnswer(aid, uid, request.getParameter("value"));
-        response.sendRedirect("question?qid="+request.getParameter("qid"));
+        String token = tool.Util.getTokenCookie(request);
+        
+       
+        
+         Integer res = voteAnswer(token, aid, request.getParameter("value"));
+            
+        // Pass token and object question to web service
+        String url = "question?qid="+request.getParameter("qid");
+        response.addHeader("statustoken", res.toString());
+        response.sendRedirect(url);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -81,11 +88,10 @@ public class AnswerVote extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private Boolean voteAnswer(int aid, int uid, java.lang.String value) {
+    private Integer voteAnswer(java.lang.String token, int aid, java.lang.String value) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
-        return port.voteAnswer(aid, uid, value);
+        answer.AnswerWS port = service.getAnswerWSPort();
+        return port.voteAnswer(token, aid, value);
     }
-
 }

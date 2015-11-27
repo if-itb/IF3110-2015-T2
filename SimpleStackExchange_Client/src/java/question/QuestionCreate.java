@@ -21,9 +21,8 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import tool.ConsumerREST;
 import javax.jws.WebService;
+import javax.servlet.RequestDispatcher;
 import javax.xml.ws.WebServiceRef;
-import webservice.SimpleStackExchangeWS_Service;
-
 /**
  *
  * @author mfikria
@@ -31,9 +30,9 @@ import webservice.SimpleStackExchangeWS_Service;
 @WebServlet(name = "QuestionCreate", urlPatterns = {"/QuestionCreate"})
 public class QuestionCreate extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/SimpleStackExchange_WS.wsdl")
-    private SimpleStackExchangeWS_Service service;
-    
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/SimpleStackExchange_WebService/Question_WS.wsdl")
+    private QuestionWS_Service service;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,7 +46,7 @@ public class QuestionCreate extends HttpServlet {
             throws ServletException, IOException{
         
             HttpSession session = request.getSession();
-            webservice.Question q = new webservice.Question();
+            question.Question q = new question.Question();
             
             String token = new String();
             Cookie[] cookies = request.getCookies();
@@ -60,7 +59,7 @@ public class QuestionCreate extends HttpServlet {
             
             ConsumerREST r = new ConsumerREST(); // Create object for consumming REST Web service
             // Get data from user and data from session
-            q.setUid(1);
+            q.setUid(tool.Util.getUid(request));
             q.setTopic(request.getParameter("topic"));
             q.setContent(request.getParameter("content"));
         
@@ -73,9 +72,13 @@ public class QuestionCreate extends HttpServlet {
                     }
             q.setCreatedtime(date);
             
+            Integer res = createQuestion(token, q);
+            
             // Pass token and object question to web service
-            if(createQuestion(token, q))
-            response.sendRedirect(""); // redirect to homepage
+            String url = "";
+            request.setAttribute("statustoken", res);
+            response.sendRedirect(url);
+                
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -117,12 +120,15 @@ public class QuestionCreate extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private Boolean createQuestion(java.lang.String token, webservice.Question question) {
+    private Integer createQuestion(java.lang.String token, question.Question question) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        webservice.SimpleStackExchangeWS port = service.getSimpleStackExchangeWSPort();
+        question.QuestionWS port = service.getQuestionWSPort();
         return port.createQuestion(token, question);
     }
+
+  
+
 
 
 }
