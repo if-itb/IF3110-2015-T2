@@ -28,6 +28,10 @@
         <servlet-name>DelQuestion</servlet-name>
         <servlet-class>com.dazzlesquad.servlet.DelQuestion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Register</servlet-name>
+        <servlet-class>com.dazzlesquad.servlet.Register</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>QuestionServlet</servlet-name>
         <url-pattern>/QuestionServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>DelQuestion</servlet-name>
         <url-pattern>/DelQuestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/Register</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

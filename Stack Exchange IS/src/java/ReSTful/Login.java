@@ -66,13 +66,15 @@ public class Login extends HttpServlet {
 
                 ResultSet result = dbStatement.executeQuery();
                 if(result.next()){
-                    String token = email + 'a';
+                    //String token = email + 'a';
 
                     Calendar date = Calendar.getInstance();
                     long delta = date.getTimeInMillis();
                     Date exp_date = new Date(delta + (3 * 60000));
 
                     DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                   
+                    String token = email + exp_date.toString();
 
                     String sql = "REPLACE INTO tokenlist (user_id, token, exp_date) VALUES (?, ?, ?)";
                     dbStatement = conn.prepareStatement(sql);
@@ -92,19 +94,20 @@ public class Login extends HttpServlet {
                     cookie.setMaxAge(60*5); //5 minutes
                     cookie.setPath("/Stack_Exchange_Client");
                     response.addCookie(cookie);
-                    
-          
+
+                    request.setAttribute("loginsuccessful", 1);
+                    request.getRequestDispatcher("/Stack_Exchange_Client/QuestionServlet").forward(request, response);
                 } else {
+                    request.setAttribute("loginsuccessful", 0);
+                    request.getRequestDispatcher("/Stack_Exchange_Client/login.jsp").forward(request, response);
                     obj.put("error", "invalid email or password");  
                     out.print(obj);        
                 }
-                
-                
-                
+                                
             } catch (SQLException ex) {
                 obj.put("error", ex);  
                 out.print(obj);        
-            }  
+            }
             response.sendRedirect("http://localhost:8083/Stack_Exchange_Client/QuestionServlet");
         }
         

@@ -67,72 +67,48 @@ public class UserWS {
     
     
     @WebMethod(operationName = "registerUser")
-    @WebResult(name="NewUser")
+    @WebResult(name = "NewUser")
     public int registerUser(@WebParam(name = "user") User user) {
         int insertsuccessful = 1; // nanti diganti fungsi validasi
-        
-        if (insertsuccessful == 1) {
-            try {
-                Statement statement = conn.createStatement();
-                String sql;
-                sql = "INSERT INTO User (name, email, password) VALUES (?,?,?)";
 
-                PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setString(1,user.getUserName());
-                dbStatement.setString(2,user.getUserEmail());
-                dbStatement.setString(3,user.getUserPassword());
-
-                dbStatement.executeUpdate(); 
-
-                statement.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return insertsuccessful;
-    }
-    
-    @WebMethod(operationName = "getUserByToken")
-    @WebResult(name = "userResult")
-    public User getUserByToken(@WebParam(name = "token") String token) {
-        int userIdResult;
-        User userResult = null;
         try {
-            Statement statement = conn.createStatement();
-            String sql;
+            Statement statement1 = conn.createStatement();
+            String sql1;
+            sql1 = "SELECT id FROM User WHERE email=?";
 
-            sql = "SELECT user_id FROM tokenlist WHERE token = ?";
+            PreparedStatement dbStatement1 = conn.prepareStatement(sql1);
+            dbStatement1.setString(1, user.getUserEmail());
 
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setString(1, token);
-
-            ResultSet result = dbStatement.executeQuery();
-
+            ResultSet result = dbStatement1.executeQuery();
             if (result.next()) {
-                userIdResult = result.getInt("user_id");
+                insertsuccessful = 0;
             } else {
-                userIdResult = 0;
+                insertsuccessful = 1;
             }
 
-            String sql2 = "SELECT * FROM user WHERE id = ?";
-            PreparedStatement dbStatement2 = conn.prepareStatement(sql2);
-            dbStatement.setString(1, token);
+            statement1.close();
 
-            ResultSet result2 = dbStatement2.executeQuery();
+            if (insertsuccessful == 1) {
+                Statement statement2 = conn.createStatement();
+                String sql2;
+                sql2 = "INSERT INTO User (name, email, password) VALUES (?,?,?)";
 
-            if (result.next()) {
-                userResult = new User(result.getInt("id"), result.getString("name"), result.getString("email"), result.getString("password"));
-            } else {
-                userResult = new User();
+                PreparedStatement dbStatement2 = conn.prepareStatement(sql2);
+                dbStatement2.setString(1, user.getUserName());
+                dbStatement2.setString(2, user.getUserEmail());
+                dbStatement2.setString(3, user.getUserPassword());
+
+                dbStatement2.executeUpdate();
+
+                statement2.close();
             }
-
-            statement.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return userResult;
+        return insertsuccessful;
     }
+
     
 }

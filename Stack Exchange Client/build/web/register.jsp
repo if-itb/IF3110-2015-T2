@@ -25,7 +25,7 @@
         <div class = "container">
             <div class="loginbox">
                 <h3> Register <hr> </h3>
-                    <form method="POST" name="Form" action="question-list.jsp" onsubmit="return validateFormQuestion()">
+                    <form method="POST" name="Form" action="/Stack_Exchange_Client/Register" onsubmit="return validateFormQuestion()">
                             <input type="text" name="username" id="username" placeholder="Name"/>
                             <br>
                             <input type="text" name="email" id="username" placeholder="Email"/>
@@ -36,6 +36,11 @@
                             
                             
                     </form>
+                    <c:if test="${registrasi==0}">
+                    <br>
+                    <br>
+                    <p style="color:#FF0000; text-align:center"><c:out value="Register Error! Email has been used!"/><p>
+                    </c:if>
             </div>
             </div>
         </div>
