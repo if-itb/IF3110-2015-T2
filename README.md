@@ -24,8 +24,9 @@ Diharapkan dengan tugas ini anda dapat mengerti:
 
 ### Link Laporan
 
-[Link laporan](https://docs.google.com/document/d/1UOiWXWj-FgTQHzdf-m6TDevf57p-skRzqMz6Wb8pgcQ/edit?usp=sharing)
-Format PDF: https://drive.google.com/open?id=0B7kGIQxsPIv0LVN1X2Z2WFpSSE0
+[Link laporan (DOC)](https://docs.google.com/document/d/1UOiWXWj-FgTQHzdf-m6TDevf57p-skRzqMz6Wb8pgcQ/edit?usp=sharing)
+
+[Format PDF di sini](https://drive.google.com/file/d/0B7kGIQxsPIv0LVN1X2Z2WFpSSE0/view?usp=sharing)
 
 ### Arsitektur Umum Server
 
