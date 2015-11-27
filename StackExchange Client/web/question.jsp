@@ -63,7 +63,7 @@
                         <c:set var="acontent" value="${answer.getContent()}"/>
                         ${fn:replace(acontent,'\\n', ';')}
                         
-                    
+                        <c:if test="{user!=null}">
 			<br><br><br>
 			<span class="question-info">answered by
                             <span class="author">
@@ -71,6 +71,7 @@
                             </span>
                             at <c:out value="${answer.getDateCreated()}"/>
                         </span>
+                        </c:if>
                     </span>
                     <br><br><hr>
                 </c:forEach>

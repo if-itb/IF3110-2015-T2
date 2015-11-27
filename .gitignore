@@ -8,9 +8,6 @@
 StackExchange Client/nbproject/build-impl.xml
 StackExchange WebService/nbproject/build-impl.xml
 StackExchange IdentityService/nbproject/build-impl.xml
-StackExchange Client/nbproject/private/private.properties
-StackExchange Client/nbproject/private/private.properties
-StackExchange Client/nbproject/private/private.properties
 StackExchange Client/nbproject/private/private.xml
 StackExchange WebService/web/WEB-INF/mysql-connector-java-5.1.23-bin.jar
 StackExchange WebService/setup/sun-resources.xml
@@ -23,27 +20,4 @@ StackExchange WebService/nbproject/build-impl.xml
 StackExchange Client/src/conf/xml-resources/web-service-references/QuestionWS/wsdl/localhost_8081/StackExchange_WebService/QuestionWS.xsd_1.xsd
 StackExchange Client/src/conf/xml-resources/web-service-references/QuestionWS/wsdl/localhost_8081/StackExchange_WebService/QuestionWS.wsdl
 StackExchange Client/catalog.xml
-
-StackExchange Client/nbproject/build-impl.xml
-
-StackExchange Client/nbproject/build-impl.xml~
-
-StackExchange Client/nbproject/genfiles.properties
-
-StackExchange Client/nbproject/private/private.properties
-
-StackExchange Client/nbproject/private/private.xml
-
-StackExchange Client/nbproject/project.properties
-
-StackExchange Client/nbproject/project.xml
-
-StackExchange Client/web/WEB-INF/jax-ws-catalog.xml
-
-StackExchange IdentityService/nbproject/build-impl.xml
-
-StackExchange IdentityService/nbproject/genfiles.properties
-
-StackExchange IdentityService/nbproject/project.properties
-
-StackExchange IdentityService/nbproject/project.xml
+StackExchange IdentityService/nbproject/build-impl.xml~
