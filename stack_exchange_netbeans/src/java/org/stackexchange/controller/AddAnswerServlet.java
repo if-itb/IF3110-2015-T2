@@ -10,7 +10,9 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,12 +60,28 @@ public class AddAnswerServlet extends HttpServlet {
         Question questionFromJson = gson.fromJson(json, Question.class);
         
         TokenService TS = new TokenService();
-        String name = TS.getUserName("123");
-        //String email = TS.getEmail();
+        Map<String,String> userInfo = TS.getUserInfo(questionFromJson.getUserId());
+        String question_email = userInfo.get("email") ;
+        String question_name = userInfo.get("name");
+        
+        List<String> answerName = new ArrayList<>();
+        List<String> answerEmail = new ArrayList<>();
+        String answer_name;
+        String answer_email;
+        for(Answer a : answerListFromJson) {
+            userInfo = TS.getUserInfo(a.getUserId());
+            answer_name = userInfo.get("name");
+            answer_email = userInfo.get("email");
+            answerName.add(answer_name);
+            answerEmail.add(answer_email);
+        }
+            
+        request.setAttribute("answer_name", answerName);
+        request.setAttribute("answer_email", answerEmail);
         request.setAttribute("question", questionFromJson);
         request.setAttribute("answer", answerListFromJson);
-        request.setAttribute("question_name",name);
-//        request.setAttribute("question_email",email);
+        request.setAttribute("question_name",question_name);
+        request.setAttribute("question_email",question_email);
         String token = request.getParameter("token");
         request.setAttribute("token",token);
         request.getRequestDispatcher("question.jsp").forward(request, response);
@@ -71,24 +89,9 @@ public class AddAnswerServlet extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String json = getByQuestionId(Long.valueOf(request.getParameter("question_id")));
-        Gson gson = new Gson();
-        Type listType = new TypeToken<List<Answer>>() {}.getType();
-        List<Answer> answerListFromJson = gson.fromJson(json, listType);
         
-        json = getById(Long.valueOf(request.getParameter("question_id")));
-        gson = new Gson();
-        Question questionFromJson = gson.fromJson(json, Question.class);
-        
-        TokenService TS = new TokenService();
-        String name = TS.getUserName("123");
-        //String email = TS.getEmail();
-        request.setAttribute("question", questionFromJson);
-        request.setAttribute("answer", answerListFromJson);
-        request.setAttribute("question_name",name);
-//        request.setAttribute("question_email",email);
         insertAnswer(Long.valueOf(request.getParameter("question_id")),request.getParameter("content"),request.getParameter("token"));
-        request.getRequestDispatcher("question.jsp").forward(request, response);
+        response.sendRedirect("question?question_id=" + Long.valueOf(request.getParameter("question_id")) + "&token=" + request.getParameter("token") + "&from=question");
     }
     
     private String getByQuestionId(long questionId) {

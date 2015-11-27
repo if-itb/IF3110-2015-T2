@@ -5,92 +5,138 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>StackExchange</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>StackExchange</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
-<body>
-<div class="container">
-    <div class="header">
-        <h1 class="center">StackExchange</h1>
+<body class="cyan lighten-2">
+<nav class="white" role="navigation">
+  <div class="nav-wrapper container">
+    <a><img src="assets/image/Bicep.jpg" alt="Unsplashed background img 1" width="48" height="48"> </a>
+    <a id="logo-container" href="#" class="brand-logo">LEXCLE</a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="http://localhost:7000/login">Login</a></li>
+      <li><a href="http://localhost:7000/register">Register</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div id="index-banner" class="parallax-container">
+  <div class="section no-pad-bot">
+    <div class="container">
+        <br><br>
+        <h1 class="header center white-text text-lighten-2">Question</h1>
     </div>
-    <div id="question-page">
-        <h2 class="underline"><c:out value="${question.topic}"/></h2>
-        <div class="question" id="question-   ">
-            <div class="row">
-                <div class="col_vote">
-                    <a title="Click to Upvote" href="http://localhost:8080/stack_exchange_netbeans/UpVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc&from=question" onclick="   " id="increase-vote">
-                        <img src="assets/img/up.png" width="32" height="32"><br>
-                    </a>
-                    <span id="question-vote-count-    "><font size = "5" color ="blue"><c:out value="${question.vote}"/></font></span><br>
-                    <a title="Click to Downvote" href="http://localhost:8080/stack_exchange_netbeans/DownVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc&from=question" onclick="   " id="decrease-vote">
-                        <img src="assets/img/down.png" width="32" height="32">
-                    </a>
-                </div>
-                <div class="col_content">
-                    <p>
-                        <c:out value="${question.content}"/>
-                    </p>
-                </div>
+  </div>
+  <div class="parallax"></div>
+</div>
+
+     
+<div class="row">
+      <div class="col s10 offset-s1 l10">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+              <span class="card-title">${question.topic}</a></span>
+              <div class="right">
+                   <p style="font-size: 35px;margin:20px 28px 0 0">${question.vote}</p>
+              </div>
+            <p>${question.content}</p>
+              <div class="right-align">
+                  <p>Asked by ${question_name} < <c:out value="${question_email}"/> > at ${question.createdAt}</p>
+              </div>
+          </div>
+          <div class="card-action">
+            <div class="left">
+                <a href="http://localhost:8080/stack_exchange_netbeans/UpVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc&from=index"><img src="assets/image/up.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+                <a href="http://localhost:8080/stack_exchange_netbeans/DownVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc&from=index"><img src="assets/image/down.png" alt="Unsplashed background img 1" width="25" height="25"></a>
             </div>
-            <div class="controls" style="border-bottom:0px" align="right">
-                asked by <span class="name"><font color="blue"><c:out value="${question_name}"/></font></span> &lt;<span class="email">TES@GMAIL.COM></span>
-                at <span class="create-date"><c:out value="${question.createdAt}"/></span> |
-                <span class="link_edit"><a class="link_edit" title="Click here to edit" href="http://localhost:8080/stack_exchange_netbeans/EditQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc"">edit</a></span> |
-                <span class="link_delete"><a class="link_delete" title="Click here to delete" href="http://localhost:8080/stack_exchange_netbeans/DeleteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc" onclick="      ">delete</a></span>
-            </div>
+            <div class="right-align">
+                <a href="http://localhost:8080/stack_exchange_netbeans/EditQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc">Edit</a>
+                <a href="http://localhost:8080/stack_exchange_netbeans/DeleteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc">Delete</a>
+            </div> 
+          </div>
         </div>
-    </div>
-    
+      </div>
+</div>
+            
+       
     <c:set var="count" value="0" scope="page" />
     <c:forEach items="${answer}" var="answers">
         <c:set var="count" value="${count + 1}" scope="page"/>
     </c:forEach>
     
+    <c:set var="counts" value="0" scope="page" />
     <div class="answers">
-        <h2 class="underline"><c:out value="${count}"/> Answer<c:if test="${count > 1}">s</c:if></h2>
+        <h1 class="header center white-text text-lighten-2"><c:out value="${count}"/> Answer<c:if test="${count > 1}">s</c:if></h1>
             <c:forEach items="${answer}" var="answers">
-                
-		<div class="answer underline" style="width:100%" id="answer-  ">
-                	<div class="row">
-                		<div class="col_vote">
-        				<a title="Click to Upvote" href="http://localhost:8080/stack_exchange_netbeans/UpVoteAnswer?question_id=<c:out value="${question.id}"/>&answer_id=<c:out value="${answers.id}"/>&token=sssc" id="increase-vote">
-					<img src="assets/img/up.png" width="32" height="32"><br>
-					</a>
-                                    <span id="answer-vote-count-"><font size = "5" color ="blue"><c:out value="${answers.vote}"/></font></span><br>
-					<a title="Click to Downvote" href="http://localhost:8080/stack_exchange_netbeans/DownVoteAnswer?question_id=<c:out value="${question.id}"/>&answer_id=<c:out value="${answers.id}"/>&token=sssc" id="decrease-vote">
-					<img src="assets/img/down.png" width="32" height="32">
-					</a>
-				</div>
-				<div class="col_content">
-                                    <p>
-					<c:out value="${answers.content}"/>
-                                    </p>
-				</div>
-			</div>
-			<div class="controls" style="border-bottom:0px" align="right">
-                            answered by <span class="name"><font color="blue"><c:out value="${fullname}"/></font></span> &lt;<span class="email"><c:out value="${answers.userId}"/>&gt;</span>
-                            at <span class="create-date"><c:out value="${answers.createdAt}"/></span>
-			</div>
-		</div>
+<div class="row">
+      <div class="col s10 offset-s1 l10">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+              <div class="right">
+                   <p style="font-size: 35px;margin:20px 28px 0 0">${answers.vote}</p>
+              </div>
+            <p>${answers.content}</p>
+              <div class="right-align">
+                <p style="margin:47px 0 0 0">Asked by ${answer_name[counts]} < <c:out value="${answer_email[counts]}"/> > at ${answers.createdAt}</p>
+                <c:set var="count" value="${counts + 1}" scope="page"/>
+              </div>
+          </div>
+          <div class="card-action">
+              <div class="row" style="margin-bottom:0px">
+                  <div class ="col s6">
+            <div class="left">
+                <a href="http://localhost:8080/stack_exchange_netbeans/UpVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc&from=index"><img src="assets/image/up.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+                <a href="http://localhost:8080/stack_exchange_netbeans/DownVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc&from=index"><img src="assets/image/down.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+            </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+</div>
+          
 	     </c:forEach>
     </div>
         
-        
-           
-       
-    </div>
+        <h1 class="header center white-text text-lighten-2">Your Answer</h1>
 
 
-    <div class="answer_form">
-        <h2>Your Answer</h2>
-        <form method="POST" action="http://localhost:8080/stack_exchange_netbeans/question?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>">
-            <textarea class="form" name="content"  rows="5" placeholder="Content"></textarea>
-            <div class="right" style="margin-bottom:50px">
-                <input type="submit" value="Post">
+
+    <div class="col m6">
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="first_name" type="text" class="validate">
+                             <label for="first_name">Content</label>
+                        </div>
+                    </div>
+             
+                    <div class="row">
+                        
+                        <div class="col m12">
+                            <p class="center-align">
+                                <button class="btn btn-large waves-effect waves-light" type="button" name="action" style="align-items: center">Post</button>
+                            </p>
+                        </div>
+                       
+                    </div>
+                </form>
             </div>
-        </form>
     </div>
-</div>
+
+<!--  Scripts-->
+<script src="assets/js/jquery-2.1.1.min.js"></script>
+<script src="assets/js/materialize.js"></script>
+<script src="assets/js/init.js"></script>
+<script type="text/javascript" src="/assets/js/home.js"></script>
+
 </body>
 </html>
 
