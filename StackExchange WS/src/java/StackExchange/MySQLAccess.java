@@ -61,8 +61,11 @@ public class MySQLAccess {
 
     private void writeResultSet(ResultSet resultSet) throws SQLException{
         // resultSet is initialised before the first data set
-
+       /* open();
+        try{
+            int count=0;
         while (resultSet.next()){
+            count++;
             // it is possible to get the columns via name
             // also possible to get the columns via the column number
             // which starts at 1
@@ -72,8 +75,23 @@ public class MySQLAccess {
             String tag = resultSet.getString("tag");
             System.out.println("barcode: " + barcode);
             System.out.println("nama " + nama);
-            System.out.println("tag " + tag);*/
+            System.out.println("tag " + tag);
         }
+        if(count==0){
+            String S="INSERT INTO 'stackexchange'.'question' ('id', 'vote') VALUES ('"+ id + "', '"+ vote +"');";
+            preparedStatement = connect.prepareStatement(S);
+            statement.executeUpdate(S);
+            close();
+        }
+        else{
+            String S = "UPDATE 'stackexchange'.'question' SET 'vote' = '"+vote+"'  WHERE 'question'.'id' ="+id+";";
+            preparedStatement = connect.prepareStatement(S);
+            statement.executeUpdate(S);
+        }
+        }catch(SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }*/
     }
 
 	
@@ -342,7 +360,7 @@ public class MySQLAccess {
 	*/
 
     com.mysql.jdbc.Statement createStatement() {
-        throw new UnsupportedOperationException("Not yet implemented");
+       throw new UnsupportedOperationException("Not yet implemented");
     }
 
     /*
@@ -363,6 +381,81 @@ public class MySQLAccess {
                 e.printStackTrace();
         }
         return role; 
+    }*/
+
+    void voteQuestion(int id, int vote) {
+        open();
+            try {
+                int count=0;
+                preparedStatement = connect.prepareStatement("SELECT * FROM vote_question WHERE id_user = 'id_user' AND id_question = 'id_question';");
+                resultSet = preparedStatement.executeQuery();
+
+                while(resultSet.next())
+                {
+                    count++;
+                    //listquestion.add(new Question(resultSet.getInt("id"),resultSet.getInt("id_user"),resultSet.getString("topic"),resultSet.getString("content"),resultSet.getTimestamp("timepost")));
+                }
+                if(count==0){
+            String S="INSERT INTO 'stackexchange'.'question' ('id', 'vote') VALUES ('"+ id + "', '"+ vote +"');";
+        }
+        else{
+            String S = "UPDATE 'stackexchange'.'question' SET 'vote' = '"+vote+"'  WHERE 'question'.'id' ="+id+";";
+        }
+             close();  
+            }
+    catch (SQLException e) {    
+            e.printStackTrace();
+        }
+}
+    
+    void voteAnswer(int id, int vote) {
+        open();
+            try {
+                int count=0;
+                preparedStatement = connect.prepareStatement("SELECT * FROM vote_answer WHERE id_user = 'id_user' AND id_question = 'id_question' AND id = 'id';");
+                resultSet = preparedStatement.executeQuery();
+
+                while(resultSet.next())
+                {
+                    count++;
+                    //listquestion.add(new Question(resultSet.getInt("id"),resultSet.getInt("id_user"),resultSet.getString("topic"),resultSet.getString("content"),resultSet.getTimestamp("timepost")));
+                }
+                if(count==0){
+            String S="INSERT INTO 'stackexchange'.'answer' ('id', 'vote') VALUES ('"+ id + "', '"+ vote +"');";
+        }
+        else{
+            String S = "UPDATE 'stackexchange'.'answer' SET 'vote' = '"+vote+"'  WHERE 'question'.'id' ="+id+" AND 'answer'.'id'="+id+";";
+        }
+             close();  
+            }
+    catch (SQLException e) {    
+            e.printStackTrace();
+        }
+}
+    
+       /* try {
+            String S="INSERT INTO 'stackexchange'.'question' ('id', 'vote') VALUES ('"+ id + "', '"+ vote +"');";
+            preparedStatement = connect.prepareStatement(S);
+            statement.executeUpdate(S);
+
+            close();
+        } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        }
+    }*/
+
+    /*public void updateVote(int id, int vote)
+    {
+        open();
+        try {
+            String S = "UPDATE 'stackexchange'.'question' SET 'vote' = '"+vote+"'  WHERE 'question'.'id' ="+id+";";
+            preparedStatement = connect.prepareStatement(S);
+            statement.executeUpdate(S);
+            close();
+        } catch (SQLException e) {    
+            e.printStackTrace();
+        }
     }*/
     
 }
