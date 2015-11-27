@@ -20,7 +20,7 @@ import org.json.simple.parser.JSONParser;
  */
 public class ISConnector {
     // Path for the Identity Service
-    private final static String CONTEXT_PATH = "http://localhost:8082/Identity_Service";
+    private final static String CONTEXT_PATH = "http://localhost:8082/StackExchange_IdentityService";
     
     public static JSONObject processRequest(String servlet, byte[] query) {
         JSONObject response = null;
@@ -67,7 +67,7 @@ public class ISConnector {
         JSONObject response = null;
         try {
             String utf8 = java.nio.charset.StandardCharsets.UTF_8.name();
-            String query = String.format("auth%s",
+            String query = String.format("token%s",
                     URLEncoder.encode(accessToken, utf8));
             response = processRequest("/auth", query.getBytes());
         } catch (Exception e) {

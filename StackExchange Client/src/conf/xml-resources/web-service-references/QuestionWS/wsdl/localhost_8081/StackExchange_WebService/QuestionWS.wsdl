@@ -10,17 +10,11 @@
 <message name="getAllQuestionsResponse">
 <part name="parameters" element="tns:getAllQuestionsResponse"/>
 </message>
-<message name="getQuestion">
-<part name="parameters" element="tns:getQuestion"/>
+<message name="voteQuestion">
+<part name="parameters" element="tns:voteQuestion"/>
 </message>
-<message name="getQuestionResponse">
-<part name="parameters" element="tns:getQuestionResponse"/>
-</message>
-<message name="updateQuestion">
-<part name="parameters" element="tns:updateQuestion"/>
-</message>
-<message name="updateQuestionResponse">
-<part name="parameters" element="tns:updateQuestionResponse"/>
+<message name="voteQuestionResponse">
+<part name="parameters" element="tns:voteQuestionResponse"/>
 </message>
 <message name="addNewQuestion">
 <part name="parameters" element="tns:addNewQuestion"/>
@@ -28,11 +22,11 @@
 <message name="addNewQuestionResponse">
 <part name="parameters" element="tns:addNewQuestionResponse"/>
 </message>
-<message name="voteQuestion">
-<part name="parameters" element="tns:voteQuestion"/>
+<message name="getQuestion">
+<part name="parameters" element="tns:getQuestion"/>
 </message>
-<message name="voteQuestionResponse">
-<part name="parameters" element="tns:voteQuestionResponse"/>
+<message name="getQuestionResponse">
+<part name="parameters" element="tns:getQuestionResponse"/>
 </message>
 <message name="devoteQuestion">
 <part name="parameters" element="tns:devoteQuestion"/>
@@ -52,6 +46,12 @@
 <message name="getCountAnswerResponse">
 <part name="parameters" element="tns:getCountAnswerResponse"/>
 </message>
+<message name="updateQuestion">
+<part name="parameters" element="tns:updateQuestion"/>
+</message>
+<message name="updateQuestionResponse">
+<part name="parameters" element="tns:updateQuestionResponse"/>
+</message>
 <message name="searchQuestion">
 <part name="parameters" element="tns:searchQuestion"/>
 </message>
@@ -63,21 +63,17 @@
 <input wsam:Action="http://controllers/QuestionWS/getAllQuestionsRequest" message="tns:getAllQuestions"/>
 <output wsam:Action="http://controllers/QuestionWS/getAllQuestionsResponse" message="tns:getAllQuestionsResponse"/>
 </operation>
-<operation name="getQuestion">
-<input wsam:Action="http://controllers/QuestionWS/getQuestionRequest" message="tns:getQuestion"/>
-<output wsam:Action="http://controllers/QuestionWS/getQuestionResponse" message="tns:getQuestionResponse"/>
-</operation>
-<operation name="updateQuestion">
-<input wsam:Action="http://controllers/QuestionWS/updateQuestionRequest" message="tns:updateQuestion"/>
-<output wsam:Action="http://controllers/QuestionWS/updateQuestionResponse" message="tns:updateQuestionResponse"/>
+<operation name="voteQuestion">
+<input wsam:Action="http://controllers/QuestionWS/voteQuestionRequest" message="tns:voteQuestion"/>
+<output wsam:Action="http://controllers/QuestionWS/voteQuestionResponse" message="tns:voteQuestionResponse"/>
 </operation>
 <operation name="addNewQuestion">
 <input wsam:Action="http://controllers/QuestionWS/addNewQuestionRequest" message="tns:addNewQuestion"/>
 <output wsam:Action="http://controllers/QuestionWS/addNewQuestionResponse" message="tns:addNewQuestionResponse"/>
 </operation>
-<operation name="voteQuestion">
-<input wsam:Action="http://controllers/QuestionWS/voteQuestionRequest" message="tns:voteQuestion"/>
-<output wsam:Action="http://controllers/QuestionWS/voteQuestionResponse" message="tns:voteQuestionResponse"/>
+<operation name="getQuestion">
+<input wsam:Action="http://controllers/QuestionWS/getQuestionRequest" message="tns:getQuestion"/>
+<output wsam:Action="http://controllers/QuestionWS/getQuestionResponse" message="tns:getQuestionResponse"/>
 </operation>
 <operation name="devoteQuestion">
 <input wsam:Action="http://controllers/QuestionWS/devoteQuestionRequest" message="tns:devoteQuestion"/>
@@ -90,6 +86,10 @@
 <operation name="getCountAnswer">
 <input wsam:Action="http://controllers/QuestionWS/getCountAnswerRequest" message="tns:getCountAnswer"/>
 <output wsam:Action="http://controllers/QuestionWS/getCountAnswerResponse" message="tns:getCountAnswerResponse"/>
+</operation>
+<operation name="updateQuestion">
+<input wsam:Action="http://controllers/QuestionWS/updateQuestionRequest" message="tns:updateQuestion"/>
+<output wsam:Action="http://controllers/QuestionWS/updateQuestionResponse" message="tns:updateQuestionResponse"/>
 </operation>
 <operation name="searchQuestion">
 <input wsam:Action="http://controllers/QuestionWS/searchQuestionRequest" message="tns:searchQuestion"/>
@@ -107,16 +107,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getQuestion">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="updateQuestion">
+<operation name="voteQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -134,7 +125,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="voteQuestion">
+<operation name="getQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -162,6 +153,15 @@
 </output>
 </operation>
 <operation name="getCountAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="updateQuestion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

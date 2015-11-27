@@ -10,20 +10,20 @@
 <message name="registerResponse">
 <part name="parameters" element="tns:registerResponse"/>
 </message>
-<message name="getUserClass">
-<part name="parameters" element="tns:getUserClass"/>
+<message name="getUser">
+<part name="parameters" element="tns:getUser"/>
 </message>
-<message name="getUserClassResponse">
-<part name="parameters" element="tns:getUserClassResponse"/>
+<message name="getUserResponse">
+<part name="parameters" element="tns:getUserResponse"/>
 </message>
 <portType name="UserWS">
 <operation name="register">
 <input wsam:Action="http://controllers/UserWS/registerRequest" message="tns:register"/>
 <output wsam:Action="http://controllers/UserWS/registerResponse" message="tns:registerResponse"/>
 </operation>
-<operation name="getUserClass">
-<input wsam:Action="http://controllers/UserWS/getUserClassRequest" message="tns:getUserClass"/>
-<output wsam:Action="http://controllers/UserWS/getUserClassResponse" message="tns:getUserClassResponse"/>
+<operation name="getUser">
+<input wsam:Action="http://controllers/UserWS/getUserRequest" message="tns:getUser"/>
+<output wsam:Action="http://controllers/UserWS/getUserResponse" message="tns:getUserResponse"/>
 </operation>
 </portType>
 <binding name="UserWSPortBinding" type="tns:UserWS">
@@ -37,7 +37,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getUserClass">
+<operation name="getUser">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

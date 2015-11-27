@@ -6,6 +6,8 @@
 /StackExchange Client/dist/
 /StackExchange WebService/dist/
 StackExchange Client/nbproject/build-impl.xml
+StackExchange WebService/nbproject/build-impl.xml
+StackExchange IdentityService/nbproject/build-impl.xml
 StackExchange Client/nbproject/private/private.properties
 StackExchange Client/nbproject/private/private.properties
 StackExchange Client/nbproject/private/private.properties
@@ -18,3 +20,5 @@ StackExchange WebService/nbproject/build-impl.xml
 /StackExchange IdentityService/nbproject/private/
 /StackExchange IdentityService/build/
 /StackExchange IdentityService/dist/
+StackExchange Client/src/conf/xml-resources/web-service-references/QuestionWS/wsdl/localhost_8081/StackExchange_WebService/QuestionWS.xsd_1.xsd
+StackExchange Client/src/conf/xml-resources/web-service-references/QuestionWS/wsdl/localhost_8081/StackExchange_WebService/QuestionWS.wsdl
