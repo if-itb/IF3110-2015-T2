@@ -13,6 +13,8 @@ import java.util.ArrayList;
 @SOAPBinding(style = Style.RPC)
 public interface WebServiceInterface {
     @WebMethod
+    int getUid(String token);
+    @WebMethod
     int register(String name, String email, String password);
     @WebMethod
     int postQuestion(String token, String title, String content) throws Exception;

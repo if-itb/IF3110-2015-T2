@@ -24,6 +24,28 @@ public class WebServiceImpl implements WebServiceInterface{
     }
 
     @Override
+    public int getUid(String token){
+        Connection conn = null;
+        Statement stmt = null;
+        int uid = -999;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            // Open a connection
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            // Query
+            String check = "SELECT uid FROM token WHERE token = '" + token + "'";
+            stmt = conn.createStatement();
+            ResultSet c = stmt.executeQuery(check);
+            c.next();
+            uid = c.getInt("uid");
+            System.out.println(uid);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return uid;
+    }
+    @Override
     public int register(String name, String email, String password) {
         int status = 1;
         Connection conn = null;
@@ -209,7 +231,7 @@ public class WebServiceImpl implements WebServiceInterface{
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             // Query
             String query = "SELECT question.topic,question.vote,question.content,question.date,question.uid,fullname,count(answer.id) as answerSum " +
-                    "FROM question LEFT JOIN user ON (question.id = user.id) LEFT JOIN answer ON (question.id = answer.id) " +
+                    "FROM question LEFT JOIN user ON (question.uid = user.id) LEFT JOIN answer ON (question.id = answer.qid) " +
                     "WHERE question.id = "+qid;
             stmt = conn.createStatement();
             // Result Set
@@ -220,6 +242,9 @@ public class WebServiceImpl implements WebServiceInterface{
                 q.setContent(rs.getString("content"));
                 q.setTopic(rs.getString("topic"));
                 q.getUser().setName(rs.getString("fullname"));
+                System.out.println(q.getUser().getName());
+                q.getUser().setId(rs.getInt("uid"));
+                System.out.println("UID: " + rs.getInt("uid"));
                 q.setVote(rs.getInt("vote"));
                 q.setDate(rs.getString("date"));
                 q.setAnswerSum(rs.getInt("answerSum"));
@@ -261,6 +286,7 @@ public class WebServiceImpl implements WebServiceInterface{
                 q.setContent(rs.getString("content"));
                 q.setTopic(rs.getString("topic"));
                 q.getUser().setName(rs.getString("fullname"));
+                q.getUser().setId(rs.getInt("uid"));
                 q.setVote(rs.getInt("vote"));
                 q.setDate(rs.getString("date"));
                 q.setAnswerSum(rs.getInt("answerSum"));

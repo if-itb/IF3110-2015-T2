@@ -20,11 +20,11 @@ public class User {
         this.email = email;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -38,7 +38,7 @@ public class User {
 
     String name;
     String email;
-    String id;
+    int id;
     String password;
 
 }

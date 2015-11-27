@@ -18,6 +18,7 @@
 			token = cookies[i].getValue();
 		}
 	}
+	int uid = ws.getUid(token);
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 					<html>
@@ -50,11 +51,19 @@
 								<h2>Recently Asked Questions</h2>
 								<hr>
 								<% for (Question q : qList.getItem()) { %>
-									<div class="stack">
+
+								<div class="stack">
 									<div class="votes"><div><% out.println(q.getVote());%></div>Votes</div>
 									<div class="answers"><div><% out.println(q.getAnswerSum());%></div>Answers</div>
 									<div class="questiontitle"><a href="question.jsp?id=<%out.println(q.getId());%>"><% out.println(q.getTopic());%></a></div>
+									<% System.out.println(q.getUser().getId());
+										System.out.println(uid);
+										System.out.println(token);%>
+									<% if (uid != q.getUser().getId()) { %>
+									<div class="detail">asked by <% out.println(q.getUser().getName()); %> <a class="linkname"></a> @<% out.println(q.getDate());%></div>
+									<%} else { %>
 									<div class="detail">asked by <% out.println(q.getUser().getName()); %> <a class="linkname"></a> @<% out.println(q.getDate());%>| <a class="linkedit" href="editpost.jsp?id=<%out.println(q.getId());%>">edit</a> | <a class="linkdelete" onclick="" href="deletequestion.jsp?id=<%out.println(q.getId());%>">delete</a></div>
+									<%}%>
 									<hr>
 								</div>
 								<% } %>

@@ -2,6 +2,7 @@
 <%@page import= "java.net.URL,javax.xml.namespace.QName,javax.xml.ws.Service" %>
 <%@ page import="com.yangnormal.sstackex.*" %>
 <%
+	int uid = -999;
 	if (request.getParameter("id")!=null) {
 		URL url = new URL("http://localhost:8082/ws/stackexchange?wsdl");
 		QName qname = new QName("http://ws.sstackex.yangnormal.com/", "WebServiceImplService");
@@ -11,6 +12,15 @@
 		Question q = ws.getQuestion(id);
 		AnswerArray answerList = ws.getAnswerList(id);
 		String token = request.getParameter("token");
+		Cookie[] cookies = request.getCookies();
+		for (int i=0;i<cookies.length;i++){
+			if (cookies[i].getName().equals("token")){
+				token = cookies[i].getValue();
+			}
+		}
+		if (token != null){
+			uid = ws.getUid(token);
+		}
 
 %>
 <!DOCTYPE HTML>
@@ -31,7 +41,12 @@
 					<div class="stackquestion">
 						<div class="votes"><a href="vote.jsp?type=0&spin=1&id=<%out.println(id);%>"><div class="arrow-up" onclick=""></div></a><div id="votequestion"><% out.println(q.getVote());%></div><a href="vote.jsp?type=0&spin=-1&id=<%out.println(id);%>"><div class="arrow-down"  onclick=""></div></a></div>
 						<div class="content"><% out.println(q.getContent());%></div>
+						<% System.out.println(q.getUser().getId()); %>
+						<%if (uid == q.getUser().getId()){%>
 						<div class="detail">asked by <% out.println(q.getUser().getName()); %> <a class="linkname"></a> at <% out.println(q.getDate());%> | <a class="linkedit" href="editpost.jsp?id=<%out.println(q.getId());%>">edit</a> | <a class="linkdelete" onclick="" href="deletequestion.jsp?id=<%out.println(q.getId());%>">delete</a></div>
+						<%} else {%>
+						<div class="detail">asked by <% out.println(q.getUser().getName()); %> <a class="linkname"></a> at <% out.println(q.getDate());%></div>
+						<%}%>
 					</div>
 					<br>
 					<h2><% out.println(answerList.getItem().size());%> Answers</h2>
