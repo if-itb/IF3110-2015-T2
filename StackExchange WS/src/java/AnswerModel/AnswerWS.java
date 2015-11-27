@@ -94,12 +94,13 @@ public class AnswerWS {
             try {
                 Statement stmt = conn.createStatement();
                 String sql;
-                sql = "INSERT INTO answer (q_id, u_id, u_name, a_content) VALUES (?, ?, ?, ?)";
+                sql = "INSERT INTO answer (a_vote, q_id, u_id, u_name, a_email, a_content) VALUES (0, ?, ?, ?, ?, ?)";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
                 dbStatement.setInt(1, qid);
                 dbStatement.setInt(2, auth.getUserID(token));
-                dbStatement.setString(3, answer.getUName());
-                dbStatement.setString(4, content);
+                dbStatement.setString(3, auth.getUName(token));
+                dbStatement.setString(4, auth.getUEmail(token));
+                dbStatement.setString(5, content);
 
                 dbStatement.executeUpdate();
                 

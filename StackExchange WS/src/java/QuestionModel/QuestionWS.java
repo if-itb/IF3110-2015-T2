@@ -97,11 +97,11 @@ public class QuestionWS {
             try {
                 Statement stmt = conn.createStatement();
                 String sql;
-                sql = "INSERT INTO question (q_id, u_id, u_name, q_topic, q_content) VALUES (?, ?, ?, ?, ?)";
+                sql = "INSERT INTO question (u_id, u_name, q_email, q_vote, q_topic, q_content) VALUES (?, ?, ?, 0, ?, ?)";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setInt(1, question.getID());
-                dbStatement.setInt(2, auth.getUserID(token));
-                dbStatement.setString(3, question.getUName());
+                dbStatement.setInt(1, auth.getUserID(token));
+                dbStatement.setString(2, auth.getUName(token));
+                dbStatement.setString(3, auth.getUEmail(token));
                 dbStatement.setString(4, topic);
                 dbStatement.setString(5, content);
 

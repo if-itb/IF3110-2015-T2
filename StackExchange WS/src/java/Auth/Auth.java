@@ -123,4 +123,82 @@ public class Auth {
     return ret;
   }
   
+   public String getUName ( String token ) {
+    String ret = null;
+    int temp = -1;
+    DB db = new DB();
+    Connection conn = db.connect();  
+      try {
+          Statement stmt = conn.createStatement();
+          String sql;
+
+          sql = "SELECT * FROM token WHERE t_token = ?";
+          PreparedStatement dbStatement = conn.prepareStatement(sql);
+          dbStatement.setString(1, token);
+
+          ResultSet rs = dbStatement.executeQuery();
+
+          // Extract data from result set
+          while(rs.next()){        
+            temp = rs.getInt("u_id");
+          }
+
+          sql = "SELECT u_name FROM user WHERE u_id = ?";
+          dbStatement = conn.prepareStatement(sql);
+          dbStatement.setInt(1, temp);
+
+          rs = dbStatement.executeQuery();
+          
+          while(rs.next()){        
+            ret = rs.getString("u_name");
+          }
+          
+          
+          rs.close();
+          stmt.close();
+      } catch(SQLException ex) {
+          Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    return ret;
+  }
+  
+   public String getUEmail ( String token ) {
+    String ret = null;
+    int temp = -1;
+    DB db = new DB();
+    Connection conn = db.connect();  
+      try {
+          Statement stmt = conn.createStatement();
+          String sql;
+
+          sql = "SELECT * FROM token WHERE t_token = ?";
+          PreparedStatement dbStatement = conn.prepareStatement(sql);
+          dbStatement.setString(1, token);
+
+          ResultSet rs = dbStatement.executeQuery();
+
+          // Extract data from result set
+          while(rs.next()){        
+            temp = rs.getInt("u_id");
+          }
+
+          sql = "SELECT u_email FROM user WHERE u_id = ?";
+          dbStatement = conn.prepareStatement(sql);
+          dbStatement.setInt(1, temp);
+
+          rs = dbStatement.executeQuery();
+          
+          while(rs.next()){        
+            ret = rs.getString("u_email");
+          }
+          
+          
+          rs.close();
+          stmt.close();
+      } catch(SQLException ex) {
+          Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    return ret;
+  }
+   
 }
