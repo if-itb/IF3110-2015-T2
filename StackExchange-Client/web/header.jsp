@@ -1,3 +1,6 @@
+<%@page import="stackexchange.webservice.User"%>
+<%@page import="stackexchange.webservice.UserWS"%>
+<%@page import="stackexchange.webservice.UserWS_Service"%>
 <html>
 	<head>
 		<title>StackExchange</title>
@@ -15,13 +18,53 @@
 					<i class="material-icons md-18">menu</i>
 				</div>
 			</a>
-			<nav class="ut-nav">
-				<div class="nav-menu">
-					<a href="#"><h4><span>Sign In</span></h4></a>
+                    
+                        <%
+                            
+                            Cookie[] cookies;
+                            cookies = request.getCookies();
+                            String token = null, email = null;
+                            boolean isTokenEx = false, isEmailEx = false;
+                            if (cookies != null) {
+                                for (Cookie cookie: cookies) {
+                                    if (cookie.getName().equals("token")) {
+                                        isTokenEx = true;
+                                        token = cookie.getValue();
+                                    }else if(cookie.getName().equals("email")){
+                                        isEmailEx = true;
+                                        email = cookie.getValue();
+                                    }
+                                }
+                            }
+                            
+                            UserWS_Service userService = new UserWS_Service();
+                            UserWS port = userService.getUserWSPort();
+
+                            User user = port.getUser(email, token);
+                            if(user.getId()>-1){
+                            %>
+                        <nav class="ut-nav">
+                                <div class="nav-menu askhere">
+					<a href="logout"><h4>Logout</h4></a>
 				</div>
-			</nav>
-			<div>
-				<a href="index.jsp"><h1 class="brand">Stack<span>Exchange</span></h1></a>
+				<div class="nav-menu">
+					<a href="#"><h4>Hi, <span><%= user.getName() %></span></h4></a>
+				</div>
+				<div class="nav-menu askhere">
+					<a href="questionedit"><h4>Ask Here</h4></a>
+				</div>
+			</nav>   
+                            <% }else{ %>
+                        <nav class="ut-nav">
+                                <div class="nav-menu">
+					<a href="signIn"><h4><span>Sign In</span></h4></a>
+				</div>
+			</nav>    
+                            <% } %>
+                          
+                        
+                        <div>
+				<a href="home"><h1 class="brand">Stack<span>Exchange</span></h1></a>
 			</div>
 		</div>
 	</div>

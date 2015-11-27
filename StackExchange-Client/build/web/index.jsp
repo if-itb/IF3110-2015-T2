@@ -1,47 +1,21 @@
-<html>
-	<head>
-		<title>StackExchange</title>
-
-		<link href="css/style.css" rel="stylesheet">
-		<!-- Link berikut hanya merupakan import library icon -->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-	</head>
-	<body>
-	<div class="container-brand">
-		<div class="container-br-in">
-			<a href="../">
-				<div class="menu hvr-radial-out">
-					<i class="material-icons md-18">menu</i>
-				</div>
-			</a>
-			<nav class="ut-nav">
-				<div class="nav-menu">
-					<a href="signin.jsp"><h4><span>Sign In</span></h4></a>
-				</div>
-			</nav>
-			<div>
-				<a href="index.jsp"><h1 class="brand">Stack<span>Exchange</span></h1></a>
-			</div>
-		</div>
-	</div>
-	<div class="inner">
-
+<%@ include file="header.jsp" %>
+<jsp:useBean id="questions" type="java.util.List<stackexchange.webservice.Question>" scope="request" /> 
 		<div id="search">
-			<form>
-				<input class="textForm" type="text" name="search" />
-				<input class="submitButton" type="submit" value="Search" />
-			</form>
+                    <form method="get" action="home">
+                        <input class="textForm" type="text" name="query" />
+                        <input class="submitButton" type="submit" value="Search" />
+                    </form>
 		</div>
-		<p class="midText">Want to asking a question? Please <span><a class="submitButton" href="signup.jsp" >Sign Up</a></span></p>
-		<div id="recentAsk">
+                <% if(user.getId() <= -1){ %>
+		<p class="midText">Want to asking a question? Please <span><a class="submitButton" href="register?reg=true" >Sign Up</a></span></p>
+		<% } %>
+                <div id="recentAsk">
 			<h1 class="tag">Recently Asked Question</h1>
-			
-
-			<div id="question{{id}}" class="innerContent">
+			<% for(stackexchange.webservice.Question question: questions) {%>
+			<div id="question<%= question.getId() %>" class="innerContent">
 				<div class="col countVotes">
 					<div>
-						<span>0</span>
+						<span><%= question.getVote() %></span>
 					</div>
 					<div>
 						Votes
@@ -49,7 +23,7 @@
 				</div>
 				<div class="col countAnswers">
 					<div>
-						<span>0</span>
+						<span><%= question.getAnswer() %></span>
 					</div>
 					<div>
 						Answers
@@ -57,191 +31,31 @@
 				</div>
 				<div class="col topic">
 					<div>
-						<a class="link" href="question.jsp"><h3>Question Topic</h3></a>
+                                            <a class="link" href="singleQuestion?id=<%= question.getId() %>"><h3><%= question.getTopic() %></h3></a>
 					</div>
 					<div>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
+                                            <% if (question.getContent().length()>200) {%>
+                                                <p><%= question.getContent().substring(0, 200)+"..." %></p>
+                                            <% }else{ %>
+                                                <p><%= question.getContent() %></p>
+                                            <% } %>
 					</div>
 				</div>
 				<div class="col navPost">
+                                    <% if(user.getEmail().equals(question.getEmail())){ %>
 					<p>
-						asked by Fauzan <br> <a class="link edit" href="askhere.jsp?id={{id}}"> edit</a> <br> <a class="link delete" href="index.jsp?delete=true&id={{id}}" onclick="return validateDelete();"> delete </a>
+                                            asked by You <br> 
+                                            <a class="link edit" href="questionedit?id=<%= question.getId() %>"> edit</a> <br> 
+                                            <a class="link delete" href="questiondelete?id=<%= question.getId() %>" onclick="return validateDelete();"> delete </a>
 					</p>
+                                    <% }else{ %>
+                                        <p>
+                                            asked by <%= question.getName() %> <br> 
+                                        </p>
+                                    <% } %>
 				</div>
 			</div>
-
-			<div id="question{{id}}" class="innerContent">
-				<div class="col countVotes">
-					<div>
-						<span>0</span>
-					</div>
-					<div>
-						Votes
-					</div>
-				</div>
-				<div class="col countAnswers">
-					<div>
-						<span>0</span>
-					</div>
-					<div>
-						Answers
-					</div>
-				</div>
-				<div class="col topic">
-					<div>
-						<a class="link" href="question.jsp?id={{id}}"><h3>Question Topic</h3></a>
-					</div>
-					<div>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-					</div>
-				</div>
-				<div class="col navPost">
-					<p>
-						asked by Fauzan <br> <a class="link edit" href="askhere.jsp?id={{id}}"> edit</a> <br> <a class="link delete" href="index.jsp?delete=true&id={{id}}" onclick="return validateDelete();"> delete </a>
-					</p>
-				</div>
-			</div>
-
-			<div id="question{{id}}" class="innerContent">
-				<div class="col countVotes">
-					<div>
-						<span>0</span>
-					</div>
-					<div>
-						Votes
-					</div>
-				</div>
-				<div class="col countAnswers">
-					<div>
-						<span>0</span>
-					</div>
-					<div>
-						Answers
-					</div>
-				</div>
-				<div class="col topic">
-					<div>
-						<a class="link" href="question.jsp?id={{id}}"><h3>Question Topic</h3></a>
-					</div>
-					<div>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-					</div>
-				</div>
-				<div class="col navPost">
-					<p>
-						asked by Fauzan <br> <a class="link edit" href="askhere.jsp?id={{id}}"> edit</a> <br> <a class="link delete" href="index.jsp?delete=true&id={{id}}" onclick="return validateDelete();"> delete </a>
-					</p>
-				</div>
-			</div>
-
-			<div id="question{{id}}" class="innerContent">
-				<div class="col countVotes">
-					<div>
-						<span>0</span>
-					</div>
-					<div>
-						Votes
-					</div>
-				</div>
-				<div class="col countAnswers">
-					<div>
-						<span>0</span>
-					</div>
-					<div>
-						Answers
-					</div>
-				</div>
-				<div class="col topic">
-					<div>
-						<a class="link" href="question.jsp?id={{id}}"><h3>Question Topic</h3></a>
-					</div>
-					<div>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-					</div>
-				</div>
-				<div class="col navPost">
-					<p>
-						asked by Fauzan <br> <a class="link edit" href="askhere.jsp?id={{id}}"> edit</a> <br> <a class="link delete" href="index.jsp?delete=true&id={{id}}" onclick="return validateDelete();"> delete </a>
-					</p>
-				</div>
-			</div>
-
-			<div id="question{{id}}" class="innerContent">
-				<div class="col countVotes">
-					<div>
-						<span>0</span>
-					</div>
-					<div>
-						Votes
-					</div>
-				</div>
-				<div class="col countAnswers">
-					<div>
-						<span>0</span>
-					</div>
-					<div>
-						Answers
-					</div>
-				</div>
-				<div class="col topic">
-					<div>
-						<a class="link" href="question.jsp?id={{id}}"><h3>Question Topic</h3></a>
-					</div>
-					<div>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-					</div>
-				</div>
-				<div class="col navPost">
-					<p>
-						asked by Fauzan <br> <a class="link edit" href="askhere.jsp?id={{id}}"> edit</a> <br> <a class="link delete" href="index.jsp?delete=true&id={{id}}" onclick="return validateDelete();"> delete </a>
-					</p>
-				</div>
-			</div>
-
-			<div id="question{{id}}" class="innerContent">
-				<div class="col countVotes">
-					<div>
-						<span>0</span>
-					</div>
-					<div>
-						Votes
-					</div>
-				</div>
-				<div class="col countAnswers">
-					<div>
-						<span>0</span>
-					</div>
-					<div>
-						Answers
-					</div>
-				</div>
-				<div class="col topic">
-					<div>
-						<a class="link" href="question.jsp?id={{id}}"><h3>Question Topic</h3></a>
-					</div>
-					<div>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-					</div>
-				</div>
-				<div class="col navPost">
-					<p>
-						asked by Fauzan <br> <a class="link edit" href="askhere.jsp?id={{id}}"> edit</a> <br> <a class="link delete" href="index.jsp?delete=true&id={{id}}" onclick="return validateDelete();"> delete </a>
-					</p>
-				</div>
-			</div>
-
+                        <% } %>
 		</div>
 
-	</div>
-	<div class="footer">
-	
-	</div>
-	<script src="js/function.js"></script>
-	</body>
-</html>
+<%@ include file="footer.jsp" %>
