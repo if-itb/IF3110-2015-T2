@@ -50,4 +50,18 @@ public class UserWS {
     }
     return ret;
   }
+  
+  @WebMethod(operationName = "getUID")
+  @WebResult(name="getUID")
+  public int getUID(String token) {
+    String query = "SELECT `uid` FROM `token` WHERE `val`=" + token;
+    ResultSet rs = database.getResultQuery(query);
+    int uid = 0;
+    try {
+      rs.next();
+      uid = rs.getInt("uid");
+    } catch(Throwable e) {
+    }
+    return uid;
+  }
 }

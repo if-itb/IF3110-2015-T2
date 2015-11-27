@@ -26,8 +26,9 @@
       </form>
       <p class="text-right"><a href="login.jsp" class="link">Login</a> | <a href="register.jsp" class="link">Register</a></p>
 
-      <br> <br>
+      <p>Fill in the form to login into Overflow 48.</p><br>
         <div class="small_container">
+          <h5>Login into Overflow 48</h5><br>
           <form id="login" action="../controller/login.jsp" method="POST">
           <input id="email" placeholder="Email" class="form" type="text" name="email" value="">
           <input id="pass" placeholder="Password" class="form" type="text" name="pass" value="">

@@ -65,24 +65,12 @@ and open the template in the editor.
   text-align: right;
 }
 
-.form {
+.form, .box {
   display: block;
   margin: 0px 0;
   border: 1px solid pink;
   width: 100%;
-  padding: 3px 10px;
-  line-height: 3;
-  font-size: 16px;
-  box-sizing: border-box;
-  font-family: open-sans-light;
-}
-
-.box {
-  display: block;
-  margin: 0px;
-  border: 1px solid pink;
-  width: 100%;
-  padding: 3px 10px;
+  padding: 3px 3px;
   line-height: 2;
   font-size: 16px;
   box-sizing: border-box;
@@ -94,8 +82,8 @@ and open the template in the editor.
   color: white;
   border: 1px solid white;
   padding: 6px 12px;
-  height: 60px;
-  font-size: 24px;
+  height: 40px;
+  font-size: 16px;
   font-family: open-sans;
   cursor: pointer;
 }
@@ -121,7 +109,7 @@ h1, h1:link, h1:visited, h1:active {
   color: white;
   font-size: 300%;
   font-weight: 900;
-  height: 100px;
+  height: 70px;
   width: 900px;
   font-family: avant-garde;
   display: table-cell;
@@ -153,6 +141,14 @@ h4 {
   font-size: 16px;
   padding: 0px;
   margin: 0px;
+}
+
+h5 {
+  font-size: 16px;
+  margin: 0px;
+  padding: 0px;
+  font-family: open-sans;
+  color: red;
 }
 
 .link {

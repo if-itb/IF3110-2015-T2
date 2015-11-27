@@ -8,6 +8,10 @@
         <servlet-name>Test</servlet-name>
         <servlet-class>Answer.Test</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Coba</servlet-name>
+        <servlet-class>Answer.Coba</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>java</servlet-name>
         <url-pattern>/java</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Coba</servlet-name>
+        <url-pattern>/Coba</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
