@@ -1,22 +1,49 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>Stack Exchange</title>
-  <link rel="stylesheet" type="text/css" href="/assets/css/question.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <title>StackExchange</title>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/question.css">
 <script type = "text/javascript" src="/assets/js/validatequestion.js"> </script>
 </head>
-<body>
-<div class="container">
-  <h1 class="align-center margin-bot"><a class="text-link" href="index.jsp"><black>Simple StackExchange</black></a></h1>
-  <h2>What's Your Question?</h2>
-  <hr>
-  <form name="addQuestion" action="data-question.jsp" onsubmit="return validateForm()" method = "Post">
-    <input type="text" class="form" placeholder="Question Topic" name="Topic">
-    <textarea class="form" placeholder="Content" rows="5" name="Content"></textarea>
-    <div class="align-right">
-      <button class="button">Post</Button>
+<body class="cyan lighten-2">
+    <nav class="white" role="navigation">
+      <div class="nav-wrapper container">
+        <a><img src="assets/image/Bicep.jpg" alt="Unsplashed background img 1" width="48" height="48"> </a>
+        <a id="logo-container" href="#" class="brand-logo">LEXCLE</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#">Login</a></li>
+          <li><a href="#">Register</a></li>
+        </ul>
+        <a href="WEB-INF/web.xml"></a>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+    <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+          <div class="container">
+              <br><br>
+              <h1 class="header center white-text text-lighten-2">StackExchange</h1>
+              <div class="row center">
+                 <h5 class="header col s12 light">What's Your Question?</h5>
+              </div>
+          </div>
+        </div>
+        <div class="parallax"></div>
     </div>
-  </form>
-</div>
+    <div class="container">
+      <form name="addQuestion" action="http://localhost:8080/stack_exchange_netbeans/AddNewQuestionServlet?token=sssc" onsubmit="return validateForm()" method = "Post">
+        <input type="text" class="form white-text" placeholder="Question Topic" name="Topic">
+        <textarea class="form white-text" placeholder="Content" rows="5" name="Content"></textarea>
+        <div class="align-right">
+          <button class="button">Post</Button>
+        </div>
+      </form>
+    </div>
 </body>
 </html>
