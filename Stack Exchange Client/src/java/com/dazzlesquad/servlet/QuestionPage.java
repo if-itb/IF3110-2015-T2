@@ -12,6 +12,7 @@ import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,6 +41,20 @@ public class QuestionPage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        String token = "";
+        Cookie[] cookie = request.getCookies();
+        
+        for(Cookie obj : cookie){
+                //out.println(obj.getName());
+                if(obj.getName().equals("token")){
+                token = obj.getValue();
+                //out.println(obj.getValue());
+                break;
+            }
+	}
+        request.setAttribute("token",token);
+                
         int id = Integer.parseInt(request.getParameter("id"));
         Question question = getQuestionById(id);
         java.util.List<QuestionWS.Answer> answers = getAnswerByQuestionId(id);

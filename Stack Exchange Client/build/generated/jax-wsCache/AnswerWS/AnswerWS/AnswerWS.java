@@ -65,4 +65,24 @@ public interface AnswerWS {
         @WebParam(name = "answer", targetNamespace = "")
         Answer answer);
 
+    /**
+     * 
+     * @param flag
+     * @param id
+     * @param token
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(name = "Success", targetNamespace = "")
+    @RequestWrapper(localName = "voteAnswer", targetNamespace = "http://answer_package.dazzlesquad.com/", className = "AnswerWS.VoteAnswer")
+    @ResponseWrapper(localName = "voteAnswerResponse", targetNamespace = "http://answer_package.dazzlesquad.com/", className = "AnswerWS.VoteAnswerResponse")
+    public int voteAnswer(
+        @WebParam(name = "id", targetNamespace = "")
+        int id,
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "flag", targetNamespace = "")
+        int flag);
+
 }

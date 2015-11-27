@@ -50,7 +50,16 @@
 		<div>
 			<input type="submit" id="search_button" id="search_button" value="Search">
 			<input type="text" name="searchkey" id="searchkey">
-			<p style="text-align:center"> Cannot find what you are looking for? <a href="ask-question.jsp" style="color:#FFA500"> Ask Here </a> </p>
+                        <p style="text-align:center"> Cannot find what you are looking for?
+                            <c:choose>
+                                <c:when test="${token.length() != 0}">
+                                <a href="ask-question.jsp" style="color:#FFA500"> Ask Here </a>
+                                </c:when>
+                                <c:otherwise>
+                                <a href="login.jsp" style="color:#FFA500"> Log In First! </a>
+                                </c:otherwise>
+                            </c:choose>
+                           </p>      
 		</div>
 	</form>
         <h2> Recently Asked Question <hr> </h2>

@@ -10,6 +10,7 @@ import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +37,20 @@ public class Register extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            
+        String token = "";
+        Cookie[] cookie = request.getCookies();
+        
+        for(Cookie obj : cookie){
+                //out.println(obj.getName());
+                if(obj.getName().equals("token")){
+                token = obj.getValue();
+                //out.println(obj.getValue());
+                break;
+            }
+	}
+        request.setAttribute("token",token);
+            
             /* TODO output your page here. You may use following sample code. */
             String username= request.getParameter("username");
             String password= request.getParameter("password");

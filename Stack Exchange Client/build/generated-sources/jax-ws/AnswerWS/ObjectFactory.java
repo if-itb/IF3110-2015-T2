@@ -31,6 +31,8 @@ public class ObjectFactory {
     private final static QName _GetAnswerByIdResponse_QNAME = new QName("http://answer_package.dazzlesquad.com/", "getAnswerByIdResponse");
     private final static QName _InsertAnswer_QNAME = new QName("http://answer_package.dazzlesquad.com/", "insertAnswer");
     private final static QName _InsertAnswerResponse_QNAME = new QName("http://answer_package.dazzlesquad.com/", "insertAnswerResponse");
+    private final static QName _VoteAnswer_QNAME = new QName("http://answer_package.dazzlesquad.com/", "voteAnswer");
+    private final static QName _VoteAnswerResponse_QNAME = new QName("http://answer_package.dazzlesquad.com/", "voteAnswerResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: AnswerWS
@@ -96,6 +98,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link VoteAnswer }
+     * 
+     */
+    public VoteAnswer createVoteAnswer() {
+        return new VoteAnswer();
+    }
+
+    /**
+     * Create an instance of {@link VoteAnswerResponse }
+     * 
+     */
+    public VoteAnswerResponse createVoteAnswerResponse() {
+        return new VoteAnswerResponse();
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Answer }{@code >}}
      * 
      */
@@ -156,6 +174,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://answer_package.dazzlesquad.com/", name = "insertAnswerResponse")
     public JAXBElement<InsertAnswerResponse> createInsertAnswerResponse(InsertAnswerResponse value) {
         return new JAXBElement<InsertAnswerResponse>(_InsertAnswerResponse_QNAME, InsertAnswerResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link VoteAnswer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer_package.dazzlesquad.com/", name = "voteAnswer")
+    public JAXBElement<VoteAnswer> createVoteAnswer(VoteAnswer value) {
+        return new JAXBElement<VoteAnswer>(_VoteAnswer_QNAME, VoteAnswer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link VoteAnswerResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://answer_package.dazzlesquad.com/", name = "voteAnswerResponse")
+    public JAXBElement<VoteAnswerResponse> createVoteAnswerResponse(VoteAnswerResponse value) {
+        return new JAXBElement<VoteAnswerResponse>(_VoteAnswerResponse_QNAME, VoteAnswerResponse.class, null, value);
     }
 
 }

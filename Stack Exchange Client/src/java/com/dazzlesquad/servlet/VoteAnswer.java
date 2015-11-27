@@ -5,8 +5,7 @@
  */
 package com.dazzlesquad.servlet;
 
-import QuestionWS.Question;
-import QuestionWS.QuestionWS_Service;
+import AnswerWS.AnswerWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,11 +17,12 @@ import javax.xml.ws.WebServiceRef;
 
 /**
  *
- * @author zulvafachrina
+ * @author NithoAlif
  */
-public class GetQuestion extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8083/Stack_Exchange_WS/QuestionWS.wsdl")
-    private QuestionWS_Service service;
+public class VoteAnswer extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8083/Stack_Exchange_WS/AnswerWS.wsdl")
+    private AnswerWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,24 +36,34 @@ public class GetQuestion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String token = "";
-        Cookie[] cookie = request.getCookies();
-        
-        for(Cookie obj : cookie){
-                //out.println(obj.getName());
-                if(obj.getName().equals("token")){
-                token = obj.getValue();
-                //out.println(obj.getValue());
-                break;
+        try (PrintWriter out = response.getWriter()) {
+            int question_id = Integer.parseInt(request.getParameter("qid"));
+            int answer_id = Integer.parseInt(request.getParameter("aid"));
+            int flag = Integer.parseInt(request.getParameter("flag"));
+            Cookie[] cookies = request.getCookies();
+
+            String token = "";
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("token")) {
+                        token = cookie.getValue();
+                        break;
+                    }
+                }
             }
-	}
-        request.setAttribute("token",token);
-        
-        int question_id = Integer.parseInt(request.getParameter("qid"));
-        Question question = getQuestionById(question_id);
-        request.setAttribute("question", question);
-        request.getRequestDispatcher("/edit-question.jsp").forward(request, response);
+            
+            int vote = voteAnswer(answer_id, token, flag);
+            String location = "/Stack_Exchange_Client/QuestionPage?id=" + question_id;
+            response.sendRedirect(location);
+            
+        }
+        }
+
+    private int voteAnswer(int id, java.lang.String token, int flag) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        AnswerWS.AnswerWS port = service.getAnswerWSPort();
+        return port.voteAnswer(id, token, flag);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -94,12 +104,5 @@ public class GetQuestion extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private Question getQuestionById(int id) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.getQuestionById(id);
-    }
 
 }

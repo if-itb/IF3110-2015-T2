@@ -10,6 +10,7 @@ import AnswerWS.AnswerWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +36,20 @@ public class AddAnswer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        String token = "";
+        Cookie[] cookie = request.getCookies();
+        
+        for(Cookie obj : cookie){
+                //out.println(obj.getName());
+                if(obj.getName().equals("token")){
+                token = obj.getValue();
+                //out.println(obj.getValue());
+                break;
+            }
+	}
+        request.setAttribute("token",token);
+        
         int question_id = Integer.parseInt(request.getParameter("qid"));
         String answer_content= request.getParameter("answer_content");
         //int question_userid= Integer.parseInt(request.getParameter("question_userid"));

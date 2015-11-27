@@ -22,6 +22,12 @@
 <message name="insertAnswerResponse">
 <part name="parameters" element="tns:insertAnswerResponse"/>
 </message>
+<message name="voteAnswer">
+<part name="parameters" element="tns:voteAnswer"/>
+</message>
+<message name="voteAnswerResponse">
+<part name="parameters" element="tns:voteAnswerResponse"/>
+</message>
 <portType name="AnswerWS">
 <operation name="getAnswerById">
 <input wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/getAnswerByIdRequest" message="tns:getAnswerById"/>
@@ -34,6 +40,10 @@
 <operation name="insertAnswer">
 <input wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/insertAnswerRequest" message="tns:insertAnswer"/>
 <output wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/insertAnswerResponse" message="tns:insertAnswerResponse"/>
+</operation>
+<operation name="voteAnswer">
+<input wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/voteAnswerRequest" message="tns:voteAnswer"/>
+<output wsam:Action="http://answer_package.dazzlesquad.com/AnswerWS/voteAnswerResponse" message="tns:voteAnswerResponse"/>
 </operation>
 </portType>
 <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
@@ -57,6 +67,15 @@
 </output>
 </operation>
 <operation name="insertAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="voteAnswer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
