@@ -48,13 +48,11 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="searchQuestion">
-<xs:sequence>
-<xs:element name="arg0" type="xs:string" minOccurs="0"/>
-</xs:sequence>
+<xs:complexType name="getAllQuestion">
+<xs:sequence/>
 </xs:complexType>
 
-<xs:complexType name="searchQuestionResponse">
+<xs:complexType name="getAllQuestionResponse">
 <xs:sequence>
 <xs:element name="Question" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
@@ -72,11 +70,13 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getAllQuestion">
-<xs:sequence/>
+<xs:complexType name="searchQuestion">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getAllQuestionResponse">
+<xs:complexType name="searchQuestionResponse">
 <xs:sequence>
 <xs:element name="Question" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>

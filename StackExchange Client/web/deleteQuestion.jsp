@@ -14,7 +14,12 @@
       int id = Integer.parseInt(request.getParameter("id"));
       int qid= Integer.parseInt(request.getParameter("qid"));
       String result = port.deleteQuestion(token, qid, id);
-      response.sendRedirect("index.jsp?token=" + token + "&id=" + id);
+      if(result.equals("executed")) {
+          response.sendRedirect("index.jsp?token=" + token + "&id=" + id);
+      } else {
+          response.sendRedirect("error.jsp");
+      }
+      
   } catch (Exception ex) {
       out.println("Gagal");
   }

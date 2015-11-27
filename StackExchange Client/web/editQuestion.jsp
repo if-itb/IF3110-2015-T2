@@ -18,7 +18,11 @@
       userWebService.UserWebService_Service userService = new userWebService.UserWebService_Service();
       userWebService.UserWebService userPort = userService.getUserWebServicePort();
       String result = port.editQuestion(token, qid, topic, content, id);
-      response.sendRedirect("index.jsp?token=" + token + "&id=" + id);
+      if(result.equals("executed")) {
+          response.sendRedirect("index.jsp?token=" + token + "&id=" + id);
+      } else {
+          response.sendRedirect("error.jsp");
+      }
   } catch (Exception ex) {
       out.println("Gagal");
   }

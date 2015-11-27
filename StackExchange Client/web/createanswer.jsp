@@ -16,13 +16,17 @@
         java.lang.String token = request.getParameter("token");
         int qid = Integer.parseInt(request.getParameter("qid"));
 	java.lang.String content = request.getParameter("content");
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("uid"));
         User user = userPort.getUser(id);
 	java.lang.String result = port.addAnswer(token, qid, user.getName(), user.getEmail(), content, id);
-        out.println(result);
+        if(result.equals("executed")) {
+          response.sendRedirect("question.jsp?token=" + request.getParameter("token")
+                                        + "&id=" + request.getParameter("uid") + "&qid=" + request.getParameter("qid"));
+        } else {
+          response.sendRedirect("error.jsp");
+        }
     } catch (Exception ex) {
         out.println("gagal");
     }
-    response.sendRedirect("question.jsp?token=" + request.getParameter("token")
-                                        + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid"));
+    
     %>

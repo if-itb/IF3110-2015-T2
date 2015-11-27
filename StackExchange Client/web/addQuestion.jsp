@@ -19,7 +19,11 @@
       userWebService.UserWebService userPort = userService.getUserWebServicePort();
       User user = userPort.getUser(id);
       String result = port.addQuestion(token, user.getName(), user.getEmail(), topic, content, id);
-      response.sendRedirect("index.jsp?token=" + token + "&id=" + id);
+      if(result.equals("executed")) {
+        response.sendRedirect("index.jsp?token=" + token + "&id=" + id);
+      } else {
+        response.sendRedirect("error.jsp");
+      }
   } catch (Exception ex) {
       out.println("Gagal");
   }

@@ -15,9 +15,14 @@
 	int arg1 = Integer.parseInt(request.getParameter("qid"));
 	int arg2 = Integer.parseInt(request.getParameter("id"));
 	java.lang.String result = port.incrVote(arg0, arg1, arg2);
+        if(result.equals("executed")) {
+            response.sendRedirect("http://localhost:8080/StackExchange_Client/question.jsp?token=" + request.getParameter("token")
+                                                + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid"));
+        } else {
+            response.sendRedirect("error.jsp");
+        }
     } catch (Exception ex) {
         
     }
-    response.sendRedirect("http://localhost:8080/StackExchange_Client/question.jsp?token=" + request.getParameter("token")
-                                        + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid"));
+    
     %>

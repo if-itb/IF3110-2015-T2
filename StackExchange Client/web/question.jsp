@@ -15,10 +15,22 @@
 
 <body>
     <div id="wrapper">
-        <h1 class="center">
-            <a href="index.jsp?token=<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>">Simple StackExchange</a>
-        </h1>
-        <div id= "question_page">
+        <%
+            if(request.getParameter("token") != null && request.getParameter("id") != null){
+            %>
+            <h1 class="center">
+                <a href="index.jsp?token=<%= request.getParameter("token")%>&id=<%=request.getParameter("id")%>">Simple StackExchange</a>
+            </h1>
+            <%
+            } else {
+            %>
+            <h1 class="center">
+                <a href="index.jsp">Simple StackExchange</a>
+            </h1>
+            <%
+            }
+            %>
+            <div id= "question_page">
             <div class="section">
                 <h2 class="underlined">  </h2>
                 <div class="question" id="question-">
@@ -36,20 +48,20 @@
                     <div class="row">
                         <div class= "vote col">
                             <a href=" <% out.print("qvoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid")); %>" >
-                            <img src="img/upvote.png" width ="30" height="30"><br>
+                            <img src="img/upvote.png" width ="35" height="35"><br>
                             </a>
                             <span id="question-vote-count-<%= result.getUserId() %>"><%= result.getVote() %></span><br>
                             <a href=" <% out.print("qvoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid")); %>">  
-                            <img src="img/downvote.png" width="30" height="30">
+                            <img src="img/downvote.png" width="35" height="35">
                             </a>
-                            </div>
+                        </div>
                         <div class = "col-content">
-                            <p>
-                                <%= result.getContent() %>
-                            </p>
+                            <%
+                            out.println(result.getContent());
+                            %>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row info">
                         asked by <span class="name"><%= result.getAskerName()%></span>
                     </div>
                     <hr>
@@ -72,7 +84,7 @@
                                 <div class="section" id="answers">
                                     <div class="answer underline" id="answer-">
                                         <div class="row">
-                                            <div class="col vote">
+                                            <div class="vote col">
                                                 <a href=" <% out.print("avoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid") + "&aid=" +result.get(i).getAnswerId()); %>">
                                                 <img src="img/upvote.png" width="35" height="35">
                                                 </a>
@@ -85,7 +97,7 @@
                                                 <img src="img/downvote.png" width="35" height="35">
                                                 </a>
                                                 </div>
-                                            <div class="col content">
+                                            <div class="col-content">
                                                 <p>
                                                     <%= result.get(i).getContent() %>
                                                 </p>
@@ -110,7 +122,7 @@
                             <form class="block" action="createanswer.jsp" method="POST">
                                 <textarea name="content" placeholder="Content"></textarea>
                                 <input type="submit" value="Post">
-                                <input type="hidden" name="aid" value="<%= request.getParameter("qid") %>">
+                                <input type="hidden" name="qid" value="<%= request.getParameter("qid") %>">
                                 <input type="hidden" name="token" value="<%= request.getParameter("token")%>" />
                                 <input type="hidden" name="uid" value="<%= request.getParameter("id")%>" />
                             </form>

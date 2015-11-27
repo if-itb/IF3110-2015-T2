@@ -19,10 +19,13 @@
 	out.println(token);
         out.println(aid);
         out.println(uid);
-        out.println("Result = "+result);
+        if(result.equals("executed")) {
+          response.sendRedirect("question.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid"));
+        } else {
+          response.sendRedirect("error.jsp");
+        }
     } catch (Exception ex) {
         out.println("gagal");
     }
-        response.sendRedirect("question.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid"));
     %>
 
