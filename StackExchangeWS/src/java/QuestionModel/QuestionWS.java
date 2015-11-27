@@ -88,7 +88,7 @@ public class QuestionWS {
         try {
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM question";
+            sql = "SELECT * FROM question ORDER BY Time DESC";
             
             PreparedStatement dbStatement = conn.prepareStatement(sql);            
             ResultSet rs = dbStatement.executeQuery();
@@ -297,4 +297,54 @@ public class QuestionWS {
         
         return qid;
     }    
+    
+    @WebMethod(operationName = "getSearchQuestions")
+    @WebResult(name="Questions")
+    public ArrayList<Question> getSearchQuestions(@WebParam(name = "keyword") String keyword) {
+        
+        ArrayList<Question> questions = new ArrayList<>();
+        
+        try {
+            Statement stmt = conn.createStatement();
+            String sql;
+            sql = "SELECT * FROM question WHERE Title LIKE '%?%' OR Content LIKE '%?%' ORDER BY Time DESC";
+            
+            PreparedStatement dbStatement = conn.prepareStatement(sql);           
+            dbStatement.setString(1,keyword);
+            dbStatement.setString(2,keyword);
+            ResultSet rs = dbStatement.executeQuery();
+            
+            int i = 0;
+            while (rs.next()) {
+                int qid = rs.getInt("Q_ID");
+                int uid = rs.getInt("User_ID");
+                int vote = rs.getInt("Vote");
+                int answer = rs.getInt("Answer_Count");
+                String time = rs.getString("Time");
+                String topic = rs.getString("Title");
+                String content = rs.getString("Content");
+                
+                String retrieveName;
+                retrieveName = "SELECT * FROM user where User_ID = ?";
+                
+                PreparedStatement ps  = conn.prepareStatement(retrieveName);
+                ps.setInt(1, uid);
+            
+                ResultSet rset = ps.executeQuery();
+                rset.next();
+                
+                String uname = rset.getString("Name");         
+                
+                questions.add(new Question(qid, uname, topic, content, vote, time, answer));     
+            }
+            
+            rs.close();
+            stmt.close();
+            
+        } catch (SQLException ex) {
+           Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return questions;
+    }
 }

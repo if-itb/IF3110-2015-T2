@@ -10,6 +10,18 @@
 <message name="getQuestionByQIDResponse">
 <part name="parameters" element="tns:getQuestionByQIDResponse"/>
 </message>
+<message name="getAllQuestions">
+<part name="parameters" element="tns:getAllQuestions"/>
+</message>
+<message name="getAllQuestionsResponse">
+<part name="parameters" element="tns:getAllQuestionsResponse"/>
+</message>
+<message name="updateQuestion">
+<part name="parameters" element="tns:updateQuestion"/>
+</message>
+<message name="updateQuestionResponse">
+<part name="parameters" element="tns:updateQuestionResponse"/>
+</message>
 <message name="voteQuestion">
 <part name="parameters" element="tns:voteQuestion"/>
 </message>
@@ -22,28 +34,30 @@
 <message name="deleteQuestionResponse">
 <part name="parameters" element="tns:deleteQuestionResponse"/>
 </message>
-<message name="updateQuestion">
-<part name="parameters" element="tns:updateQuestion"/>
-</message>
-<message name="updateQuestionResponse">
-<part name="parameters" element="tns:updateQuestionResponse"/>
-</message>
-<message name="getAllQuestions">
-<part name="parameters" element="tns:getAllQuestions"/>
-</message>
-<message name="getAllQuestionsResponse">
-<part name="parameters" element="tns:getAllQuestionsResponse"/>
-</message>
 <message name="createQuestion">
 <part name="parameters" element="tns:createQuestion"/>
 </message>
 <message name="createQuestionResponse">
 <part name="parameters" element="tns:createQuestionResponse"/>
 </message>
+<message name="getSearchQuestions">
+<part name="parameters" element="tns:getSearchQuestions"/>
+</message>
+<message name="getSearchQuestionsResponse">
+<part name="parameters" element="tns:getSearchQuestionsResponse"/>
+</message>
 <portType name="QuestionWS">
 <operation name="getQuestionByQID">
 <input wsam:Action="http://QuestionModel/QuestionWS/getQuestionByQIDRequest" message="tns:getQuestionByQID"/>
 <output wsam:Action="http://QuestionModel/QuestionWS/getQuestionByQIDResponse" message="tns:getQuestionByQIDResponse"/>
+</operation>
+<operation name="getAllQuestions">
+<input wsam:Action="http://QuestionModel/QuestionWS/getAllQuestionsRequest" message="tns:getAllQuestions"/>
+<output wsam:Action="http://QuestionModel/QuestionWS/getAllQuestionsResponse" message="tns:getAllQuestionsResponse"/>
+</operation>
+<operation name="updateQuestion">
+<input wsam:Action="http://QuestionModel/QuestionWS/updateQuestionRequest" message="tns:updateQuestion"/>
+<output wsam:Action="http://QuestionModel/QuestionWS/updateQuestionResponse" message="tns:updateQuestionResponse"/>
 </operation>
 <operation name="voteQuestion">
 <input wsam:Action="http://QuestionModel/QuestionWS/voteQuestionRequest" message="tns:voteQuestion"/>
@@ -53,17 +67,13 @@
 <input wsam:Action="http://QuestionModel/QuestionWS/deleteQuestionRequest" message="tns:deleteQuestion"/>
 <output wsam:Action="http://QuestionModel/QuestionWS/deleteQuestionResponse" message="tns:deleteQuestionResponse"/>
 </operation>
-<operation name="updateQuestion">
-<input wsam:Action="http://QuestionModel/QuestionWS/updateQuestionRequest" message="tns:updateQuestion"/>
-<output wsam:Action="http://QuestionModel/QuestionWS/updateQuestionResponse" message="tns:updateQuestionResponse"/>
-</operation>
-<operation name="getAllQuestions">
-<input wsam:Action="http://QuestionModel/QuestionWS/getAllQuestionsRequest" message="tns:getAllQuestions"/>
-<output wsam:Action="http://QuestionModel/QuestionWS/getAllQuestionsResponse" message="tns:getAllQuestionsResponse"/>
-</operation>
 <operation name="createQuestion">
 <input wsam:Action="http://QuestionModel/QuestionWS/createQuestionRequest" message="tns:createQuestion"/>
 <output wsam:Action="http://QuestionModel/QuestionWS/createQuestionResponse" message="tns:createQuestionResponse"/>
+</operation>
+<operation name="getSearchQuestions">
+<input wsam:Action="http://QuestionModel/QuestionWS/getSearchQuestionsRequest" message="tns:getSearchQuestions"/>
+<output wsam:Action="http://QuestionModel/QuestionWS/getSearchQuestionsResponse" message="tns:getSearchQuestionsResponse"/>
 </operation>
 </portType>
 <binding name="QuestionWSPortBinding" type="tns:QuestionWS">
@@ -77,6 +87,24 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="getAllQuestions">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="updateQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="voteQuestion">
 <soap:operation soapAction=""/>
 <input>
@@ -95,25 +123,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="updateQuestion">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getAllQuestions">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="createQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getSearchQuestions">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

@@ -52,9 +52,9 @@
         <h2 class="header center blue-text text-darken-4">Search Question</h2>
         <nav>
           <div class="nav-wrapper">
-            <form>
+              <form action="index" method="POST">
               <div class="input-field indigo darken-4">
-                <input id="search" type="search" required>
+                <input id="search" type="search" required name="keyword">
                 <label for="search"><i class="material-icons">search</i></label>
                 <i class="material-icons">close</i>
               </div>
@@ -93,8 +93,8 @@
                     <div class="card-content white-text">
                         <span class="card-title"><a href="answer?qid=<%= question.getQuestionid() %>&token=<%= request.getParameter("token") %>" class="white-text"><%= question.getTopic() %></a></span>
                         <p class="right vote"><%= question.getVote()%> vote</p>
-                        <a href="voteDownQuestionServlet?qid=<%= question.getQuestionid() %>" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">thumb_down</i></a>
-                        <a href="voteUpQuestionServlet?qid=<%= question.getQuestionid() %>" class="btn-floating btn-large waves-effect waves-light green right"><i class="material-icons">thumb_up</i></a>
+                        <a href="voteDownQuestionServlet?qid=<%= question.getQuestionid() %>&token=<%= request.getParameter("token") %>" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">thumb_down</i></a>
+                        <a href="voteUpQuestionServlet?qid=<%= question.getQuestionid() %>&token=<%= request.getParameter("token") %>" class="btn-floating btn-large waves-effect waves-light green right"><i class="material-icons">thumb_up</i></a>
                         <p><%= question.getContent() %></p>
                     </div>
                     <div class="card-action">

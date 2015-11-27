@@ -16,6 +16,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
+import javax.xml.namespace.QName;
+import javax.xml.transform.Source;
+import javax.xml.ws.Dispatch;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.ws.Service;
+import java.io.StringReader;
 
 /**
  *
@@ -37,9 +43,18 @@ public class IndexServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {                
                 response.setContentType("text/html;charset=UTF-8");
-                List<Question> questions = getAllQuestions();
-                request.setAttribute("questions", questions);
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                
+                String keyword = request.getParameter("keyword");
+                if (keyword == null) {
+                    List<Question> questions = getAllQuestions();
+                    request.setAttribute("questions", questions);
+                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+                } else {
+                    List<Question> questions = getSearchQuestions(keyword);
+                    request.setAttribute("questions", questions);
+                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+                }
+                
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -88,4 +103,12 @@ public class IndexServlet extends HttpServlet {
         return port.getAllQuestions();
     }
 
+    private List<Question> getSearchQuestions(String keyword) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        QuestionWS.QuestionWS port = service.getQuestionWSPort();
+        return port.getSearchQuestions(keyword);
+    }
+
+    
 }
