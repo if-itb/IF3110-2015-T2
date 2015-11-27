@@ -97,7 +97,7 @@
 				</div>
 				<div class = "row info" align = "right">
 
-					<p>Dijawab oleh <span class = "name"><% out.print(Ans.getAnsEmail());%></span> </p>
+					<p>Dijawab oleh <span class = "name"><% out.print(Ans.getAnsName());%></span> </p>
 
 				</div>
 				<hr>
