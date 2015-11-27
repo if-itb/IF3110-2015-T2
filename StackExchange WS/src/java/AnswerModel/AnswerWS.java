@@ -9,6 +9,7 @@ import Auth.Auth;
 import DatabaseWS.DB;
 import QuestionModel.QuestionWS;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -119,7 +120,7 @@ public class AnswerWS {
     public int voteAnswer(@WebParam(name = "access_token") String token, 
                             @WebParam(name = "a_id") int a_id, 
                             @WebParam(name = "value") int value) 
-            throws ParseException {
+            throws ParseException, IOException {
         Auth auth = new Auth();
         Answer answer = new Answer();
         int Valid = auth.check(token);
