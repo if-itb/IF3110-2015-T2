@@ -75,7 +75,7 @@ public class QuestionsWS {
         
         try (Statement st = conn.createStatement()) {
             
-            String query = "SELECT * FROM `questions`";
+            String query = "SELECT * FROM `questions` ORDER BY timestamp DESC";
             // set the prepared statement by the query and enter the value of where clause
             PreparedStatement pst = conn.prepareStatement(query);
                
@@ -272,17 +272,17 @@ public class QuestionsWS {
         int res = 0;
 
         try (Statement st = conn.createStatement()) { 
-                String query;
-                query = "SELECT value FROM vote_questions WHERE qid = ?";
-                // set the prepared statement by the query and enter the value of where clause
-                try (PreparedStatement pst = conn.prepareStatement(query)){
-                    pst.setInt(1, qid);
-                    // execuResultSette select
-                    ResultSet ret = pst.executeQuery();
-                    while (ret.next()) {
-                        res += ret.getInt("value");
-                    }
+            String query = "SELECT value FROM vote_questions WHERE qid = ?";
+            
+            // set the prepared statement by the query and enter the value of where clause
+            try (PreparedStatement pst = conn.prepareStatement(query)){
+                pst.setInt(1, qid);
+                // execuResultSette select
+                ResultSet ret = pst.executeQuery();
+                while (ret.next()) {
+                    res += ret.getInt("value");
                 }
+            }
                 
         } catch (SQLException ex) {
             Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
