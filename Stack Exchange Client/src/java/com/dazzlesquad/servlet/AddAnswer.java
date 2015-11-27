@@ -65,7 +65,7 @@ public class AddAnswer extends HttpServlet {
             out.println(answer_content);
         }*/
          
-        int success = insertAnswer(answer);
+        int success = insertAnswer(answer, token);
         String location= "/Stack_Exchange_Client/QuestionPage?id=" + question_id;
         response.sendRedirect(location);
     }
@@ -109,11 +109,11 @@ public class AddAnswer extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int insertAnswer(AnswerWS.Answer answer) {
+    private int insertAnswer(AnswerWS.Answer answer, String token) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         AnswerWS.AnswerWS port = service.getAnswerWSPort();
-        return port.insertAnswer(answer);
+        return port.insertAnswer(answer, token);
     }
 
 }

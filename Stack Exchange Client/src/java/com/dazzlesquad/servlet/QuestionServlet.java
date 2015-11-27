@@ -133,11 +133,11 @@ public class QuestionServlet extends HttpServlet {
         return port.getQuestionById(id);
     }
 
-    private int insertQuestion(QuestionWS.Question question) {
+    private int insertQuestion(QuestionWS.Question question, String token) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
-        return port.insertQuestion(question);
+        return port.insertQuestion(question, token);
     }
 
     private java.util.List<QuestionWS.Question> showAllQuestion() {

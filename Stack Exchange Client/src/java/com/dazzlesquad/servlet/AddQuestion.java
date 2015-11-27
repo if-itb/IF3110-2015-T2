@@ -48,7 +48,7 @@ public class AddQuestion extends HttpServlet {
                 break;
             }
 	}
-        request.setAttribute("token",token);
+        request.setAttribute("token", token);
         
         String question_topic= request.getParameter("question_topic");
         String question_content= request.getParameter("question_content");
@@ -63,7 +63,7 @@ public class AddQuestion extends HttpServlet {
         question.setTopic(question_topic);
         question.setContent(question_content);
         
-        int success = insertQuestion(question);
+        int success = insertQuestion(question, token);
         response.sendRedirect("/Stack_Exchange_Client/QuestionServlet");
         
     }
@@ -107,11 +107,11 @@ public class AddQuestion extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int insertQuestion(QuestionWS.Question question) {
+    private int insertQuestion(QuestionWS.Question question, String token) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.insertQuestion(question);
+        return port.insertQuestion(question, token);
     }
     
 }

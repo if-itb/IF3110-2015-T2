@@ -19,8 +19,26 @@
     
     <body>
         <div id="edit-delete" style="text-align:right">
-		<p> Logged in as <b><c:out value="guest"/></b> | <a href="login.jsp" style="color:#FFA500"> Log in </a> | <a href="register.jsp" style="color:#FF0000"> Register </a> </p>
+            <c:choose>
+                <c:when test="${token.length()==0}">
+                    <p>
+                        <c:out value="Logged in as"/> 
+                        <b><c:out value="guest"/></b> | 
+                        <a href="login.jsp" style="color:#FFA500"> Log in </a> | 
+                        <a href="register.jsp" style="color:#FF0000"> Register </a> 
+                    </p>
+                </c:when>
+                <c:otherwise>
+                    <p>
+                        <c:out value="Logged in as"/> 
+                        <b><c:out value="${token}"/></b> | 
+                        <a href="http://localhost:8082/Stack_Exchange_IS/Logout" style="color:#FFA500"> Log out </a> | 
+                        <a href="register.jsp" style="color:#FF0000"> Register </a> 
+                    </p>
+                </c:otherwise>
+            </c:choose>
         </div>
+        
         <div id="header">
             <h1> <a href ="/Stack_Exchange_Client/QuestionServlet" style="color:#000"> Simple Stack Exchange </a> </h1>
         </div>

@@ -73,17 +73,39 @@ public class AnswerWS {
     
     @WebMethod(operationName = "insertAnswer")
     @WebResult(name="NewAnswer")
-    public int insertAnswer(@WebParam(name = "answer") Answer answer) {
-        int insertsuccessful = 1; // nanti diganti fungsi validasi
+    public int insertAnswer(@WebParam(name = "answer") Answer answer, @WebParam(name = "token") String token) {
+        int insertsuccessful = 1, tokenUserId = 0; // nanti diganti fungsi validasi
         
         if (insertsuccessful == 1) {
+            try {
+                String sql;
+                Statement statement = conn.createStatement();
+
+                sql = "SELECT user_id FROM tokenlist WHERE token = ? LIMIT 1";
+
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1, token);
+
+                ResultSet result = dbStatement.executeQuery();
+
+                tokenUserId = 0;
+                if (result.next()) {
+                    tokenUserId = result.getInt("user_id");
+                } else {
+                    tokenUserId = 0;
+                }
+                statement.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             try {
                 Statement statement = conn.createStatement();
                 String sql;
                 sql = "INSERT INTO Answer (user_id, question_id, content, vote, date) VALUES (?,?,?,0,now())";
 
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setInt(1,answer.getId());
+                dbStatement.setInt(1,tokenUserId);
                 dbStatement.setInt(2,answer.getQid());
                 dbStatement.setString(3,answer.getContent());
                 

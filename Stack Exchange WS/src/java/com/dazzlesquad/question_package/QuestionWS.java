@@ -188,17 +188,38 @@ public class QuestionWS {
     
     @WebMethod(operationName = "insertQuestion")
     @WebResult(name="Question")
-    public int insertQuestion(@WebParam(name = "Question") Question q) {
-        int insertsuccessful = 1; // nanti diganti fungsi validasi
+    public int insertQuestion(@WebParam(name = "Question") Question q, @WebParam(name = "token") String token) {
+        int insertsuccessful = 1, tokenUserId = 0; // nanti diganti fungsi validasi
             
         if (insertsuccessful == 1) {
+            try {
+                String sql;
+                Statement statement = conn.createStatement();
+
+                sql = "SELECT user_id FROM tokenlist WHERE token = ? LIMIT 1";
+
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1, token);
+
+                ResultSet result = dbStatement.executeQuery();
+
+                tokenUserId = 0;
+                if (result.next()) {
+                    tokenUserId = result.getInt("user_id");
+                } else {
+                    tokenUserId = 0;
+                }
+                statement.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+            }
             try {
                 Statement statement = conn.createStatement();
                 String sql;
                 sql = "INSERT INTO Question (user_id, topic, content, vote, date) VALUES (?,?,?,0,now())";
 
                 PreparedStatement dbStatement = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-                dbStatement.setInt(1,q.getQuestionUserId());
+                dbStatement.setInt(1,tokenUserId);
                 dbStatement.setString(2,q.getQuestionTopic());
                 dbStatement.setString(3,q.getQuestionContent());
 

@@ -103,6 +103,7 @@ public interface QuestionWS {
     /**
      * 
      * @param question
+     * @param token
      * @return
      *     returns int
      */
@@ -112,7 +113,9 @@ public interface QuestionWS {
     @ResponseWrapper(localName = "insertQuestionResponse", targetNamespace = "http://question_package.dazzlesquad.com/", className = "QuestionWS.InsertQuestionResponse")
     public int insertQuestion(
         @WebParam(name = "Question", targetNamespace = "")
-        Question question);
+        Question question,
+        @WebParam(name = "token", targetNamespace = "")
+        String token);
 
     /**
      * 

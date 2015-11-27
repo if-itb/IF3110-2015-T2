@@ -54,6 +54,7 @@ public interface AnswerWS {
     /**
      * 
      * @param answer
+     * @param token
      * @return
      *     returns int
      */
@@ -63,7 +64,9 @@ public interface AnswerWS {
     @ResponseWrapper(localName = "insertAnswerResponse", targetNamespace = "http://answer_package.dazzlesquad.com/", className = "AnswerWS.InsertAnswerResponse")
     public int insertAnswer(
         @WebParam(name = "answer", targetNamespace = "")
-        Answer answer);
+        Answer answer,
+        @WebParam(name = "token", targetNamespace = "")
+        String token);
 
     /**
      * 

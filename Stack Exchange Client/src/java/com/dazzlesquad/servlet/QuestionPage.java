@@ -134,11 +134,11 @@ public class QuestionPage extends HttpServlet {
         return port.getAnswerById(id);
     }
 
-    private int insertAnswer(AnswerWS.Answer answer) {
+    private int insertAnswer(AnswerWS.Answer answer, String token) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         AnswerWS.AnswerWS port = service_1.getAnswerWSPort();
-        return port.insertAnswer(answer);
+        return port.insertAnswer(answer, token);
     }   
     
 }
