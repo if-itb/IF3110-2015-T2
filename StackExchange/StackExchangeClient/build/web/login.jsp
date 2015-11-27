@@ -54,7 +54,7 @@
       <form class="col s12 m8">
         <div class="row">
           <div class="input-field">
-            <input id="email" type="text" name="email" class="validate">
+            <input id="email" type="email" name="email" class="validate">
             <label for="email">Email</label>
           </div>
           <div class="input-field">

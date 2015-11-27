@@ -44,7 +44,7 @@ public class RegisterServlet extends HttpServlet {
             register(name, email, password);
             
             RequestDispatcher rd;
-            rd = request.getRequestDispatcher("/register.jsp");
+            rd = request.getRequestDispatcher("/login.jsp");
             rd.forward(request, response);
         }
     }

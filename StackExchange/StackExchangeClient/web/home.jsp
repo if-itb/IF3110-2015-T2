@@ -60,7 +60,7 @@
             for (Question q : questions) {
                 out.println("<div class='row center'>");
                 out.println("<div class='container'>");
-                out.println("<div class='card deep-purple darken-2'>"); 
+                out.println("<div class='card deep-purple darken-2 materialboxed'>"); 
                 out.println("<div class='card-content white-text'>");
                 out.println("<span class='card-title'><a href='questionpage.jsp?qid=" + q.getId() + "&token=" + token +  "'>" + q.getTopic() + "</a></span>");
                 out.println("<p>" + q.getContent() + "</p>");
