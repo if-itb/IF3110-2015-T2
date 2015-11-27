@@ -23,6 +23,7 @@ import stackexchange.webservice.auth.Auth;
 import stackexchange.webservice.model.Question;
 import stackexchange.webservice.model.User;
 import stackexchange.webservice.util.Database;
+import stackexchange.webservice.util.Vote;
 
 /**
  *
@@ -41,6 +42,35 @@ public class QuestionWS {
         Database db = new Database();
         try{
             String sql="select * from questions";
+            PreparedStatement ps = db.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Question question = new Question(rs.getInt("id"), rs.getInt("userid"), rs.getString("name"), rs.getString("email"), rs.getString("topic"), rs.getString("content"), rs.getTimestamp("dateMade"), rs.getInt("vote"), rs.getInt("answer"));
+                questions.add(question);
+            }
+            return questions;
+        }catch(Exception e){
+            Question question = new Question();
+            questions.add(question);
+            return questions;
+        }finally{
+            db.closeConnection();
+            db = null;
+        }
+    }
+    
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getQuestions_2")
+    @RequestWrapper(className = "stackexchange.getQuestions_2")
+    @ResponseWrapper(className = "stackexchange.getQuestions_2Response")
+    @WebResult(name="Question")
+    public List<Question> getQuestions(String query) {
+        List<Question> questions = new ArrayList<Question>();
+        Database db = new Database();
+        try{
+            String sql="select * from questions where topic like '%"+query+"%' or content like '%"+query+"%' ";
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -170,24 +200,31 @@ public class QuestionWS {
     @Oneway
     public void voteQuestion(@WebParam(name = "question") Question question, @WebParam(name = "token")String token, @WebParam(name = "inc") boolean inc) {
         Database db = new Database();
-        try{
-            int val=0;
-            if (inc) {
-                val++;
-            }else{
-                val--;
+        Auth auth = new Auth();
+        int ret = auth.check(question.getEmail(), token);
+        if(ret == 1|| ret == 0){
+            Vote vote = new Vote();
+            if(vote.voting(question, inc)){
+                try{
+                    String val;
+                    if (inc) {
+                        val = "+";
+                    }else{
+                        val = "-";
+                    }
+                    int id = question.getId();
+                    String values="";
+                    values+= "vote = vote "+ val + " 1";
+                    String sql="update questions set " + values + " where id=" + id;
+                    PreparedStatement ps = db.getConnection().prepareStatement(sql);
+                    ps.executeUpdate();
+                }catch(Exception e){
+
+                }finally{
+                    db.closeConnection();
+                    db = null;
+                }
             }
-            int id = question.getId();
-            String values="";
-            values+= "vote=val+("+ val + ")";
-            String sql="update question set " + values + " where id=" + id;
-            PreparedStatement ps = db.getConnection().prepareStatement(sql);
-            ps.executeUpdate();
-        }catch(Exception e){
-            
-        }finally{
-            db.closeConnection();
-            db = null;
         }
     }
 
@@ -246,9 +283,7 @@ public class QuestionWS {
                     values+= "email='"+ newQuestion.getEmail() +"',";
                     values+= "topic='"+ newQuestion.getTopic() +"',";
                     values+= "content='"+ newQuestion.getContent() +"',";
-                    values+= "dateMade='"+ newQuestion.getDateMade() +"',";
-                    values+= "vote="+newQuestion.getVote() +",";
-                    values+= "answer="+newQuestion.getAnswer();
+                    values+= "dateMade='"+ newQuestion.getDateMade() +"'";
                     query="update questions set " + values + " where id=" + question.getId();
                     ps = conn.prepareStatement(query);
                     ps.executeUpdate();
