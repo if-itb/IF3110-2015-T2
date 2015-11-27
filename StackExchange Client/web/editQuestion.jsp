@@ -13,11 +13,11 @@
       String token = request.getParameter("token");
       String topic = request.getParameter("topic");
       String content = request.getParameter("content");
-      String id = request.getParameter("id");
+      int id = Integer.parseInt(request.getParameter("id"));
       int qid= Integer.parseInt(request.getParameter("qid"));
       userWebService.UserWebService_Service userService = new userWebService.UserWebService_Service();
       userWebService.UserWebService userPort = userService.getUserWebServicePort();
-      String result = port.editQuestion(token, qid, topic, content);
+      String result = port.editQuestion(token, qid, topic, content, id);
       response.sendRedirect("index.jsp?token=" + token + "&id=" + id);
   } catch (Exception ex) {
       out.println("Gagal");

@@ -4,11 +4,11 @@
 <xsd:import namespace="http://user/" schemaLocation="http://localhost:8081/StackExchange_WebService/UserWebService?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="addUser">
-<part name="parameters" element="tns:addUser"/>
+<message name="getUser">
+<part name="parameters" element="tns:getUser"/>
 </message>
-<message name="addUserResponse">
-<part name="parameters" element="tns:addUserResponse"/>
+<message name="getUserResponse">
+<part name="parameters" element="tns:getUserResponse"/>
 </message>
 <message name="getIdUserFromEmail">
 <part name="parameters" element="tns:getIdUserFromEmail"/>
@@ -16,11 +16,17 @@
 <message name="getIdUserFromEmailResponse">
 <part name="parameters" element="tns:getIdUserFromEmailResponse"/>
 </message>
-<message name="getUser">
-<part name="parameters" element="tns:getUser"/>
+<message name="addUser">
+<part name="parameters" element="tns:addUser"/>
 </message>
-<message name="getUserResponse">
-<part name="parameters" element="tns:getUserResponse"/>
+<message name="addUserResponse">
+<part name="parameters" element="tns:addUserResponse"/>
+</message>
+<message name="isPasswordRight">
+<part name="parameters" element="tns:isPasswordRight"/>
+</message>
+<message name="isPasswordRightResponse">
+<part name="parameters" element="tns:isPasswordRightResponse"/>
 </message>
 <message name="getAllUser">
 <part name="parameters" element="tns:getAllUser"/>
@@ -34,24 +40,22 @@
 <message name="isUserExistResponse">
 <part name="parameters" element="tns:isUserExistResponse"/>
 </message>
-<message name="isPasswordRight">
-<part name="parameters" element="tns:isPasswordRight"/>
-</message>
-<message name="isPasswordRightResponse">
-<part name="parameters" element="tns:isPasswordRightResponse"/>
-</message>
 <portType name="UserWebService">
-<operation name="addUser">
-<input wsam:Action="http://user/UserWebService/addUserRequest" message="tns:addUser"/>
-<output wsam:Action="http://user/UserWebService/addUserResponse" message="tns:addUserResponse"/>
+<operation name="getUser">
+<input wsam:Action="http://user/UserWebService/getUserRequest" message="tns:getUser"/>
+<output wsam:Action="http://user/UserWebService/getUserResponse" message="tns:getUserResponse"/>
 </operation>
 <operation name="getIdUserFromEmail">
 <input wsam:Action="http://user/UserWebService/getIdUserFromEmailRequest" message="tns:getIdUserFromEmail"/>
 <output wsam:Action="http://user/UserWebService/getIdUserFromEmailResponse" message="tns:getIdUserFromEmailResponse"/>
 </operation>
-<operation name="getUser">
-<input wsam:Action="http://user/UserWebService/getUserRequest" message="tns:getUser"/>
-<output wsam:Action="http://user/UserWebService/getUserResponse" message="tns:getUserResponse"/>
+<operation name="addUser">
+<input wsam:Action="http://user/UserWebService/addUserRequest" message="tns:addUser"/>
+<output wsam:Action="http://user/UserWebService/addUserResponse" message="tns:addUserResponse"/>
+</operation>
+<operation name="isPasswordRight">
+<input wsam:Action="http://user/UserWebService/isPasswordRightRequest" message="tns:isPasswordRight"/>
+<output wsam:Action="http://user/UserWebService/isPasswordRightResponse" message="tns:isPasswordRightResponse"/>
 </operation>
 <operation name="getAllUser">
 <input wsam:Action="http://user/UserWebService/getAllUserRequest" message="tns:getAllUser"/>
@@ -61,14 +65,10 @@
 <input wsam:Action="http://user/UserWebService/isUserExistRequest" message="tns:isUserExist"/>
 <output wsam:Action="http://user/UserWebService/isUserExistResponse" message="tns:isUserExistResponse"/>
 </operation>
-<operation name="isPasswordRight">
-<input wsam:Action="http://user/UserWebService/isPasswordRightRequest" message="tns:isPasswordRight"/>
-<output wsam:Action="http://user/UserWebService/isPasswordRightResponse" message="tns:isPasswordRightResponse"/>
-</operation>
 </portType>
 <binding name="UserWebServicePortBinding" type="tns:UserWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="addUser">
+<operation name="getUser">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -86,7 +86,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getUser">
+<operation name="addUser">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="isPasswordRight">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -105,15 +114,6 @@
 </output>
 </operation>
 <operation name="isUserExist">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="isPasswordRight">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

@@ -26,7 +26,11 @@ public class AnswerWebService {
     @WebMethod(operationName = "addAnswer")
     @WebResult(name="String")
     public String addAnswer(String token, int qid, String name, String email, String content, int userId) {
-        Auth auth = new Auth(token);
+        StringBuilder sb = new StringBuilder();
+        sb.append("");
+        sb.append(userId);
+        String uid = sb.toString();
+        Auth auth = new Auth(token, uid);
         if(auth.getResponse(url)){
             String query = "INSERT INTO answer (answer_id, answerer_name, answerer_email, answer_content, answer_vote, question_id, user_id)"
                     + "VALUES (NULL, '" + name + "', '" + email + "', '"+ content + "', 0, " + qid + ", " + userId + ")";
@@ -43,7 +47,11 @@ public class AnswerWebService {
     @WebMethod(operationName = "incrVote")
     @WebResult(name="String")
     public String incrVote(String token, int id, int qid, int userId) {
-        Auth auth = new Auth(token);
+        StringBuilder sb = new StringBuilder();
+        sb.append("");
+        sb.append(userId);
+        String uid = sb.toString();
+        Auth auth = new Auth(token, uid);
         if(auth.getResponse(url)){
             String sql = "SELECT * FROM answer_vote WHERE answer_id = " + id + " AND user_id = " + userId + " AND question_id = " + qid;
             String result;
@@ -71,7 +79,11 @@ public class AnswerWebService {
     @WebMethod(operationName = "decrVote")
     @WebResult(name="String")
     public String decrVote(String token, int id, int qid, int userId) {
-        Auth auth = new Auth(token);
+        StringBuilder sb = new StringBuilder();
+        sb.append("");
+        sb.append(userId);
+        String uid = sb.toString();
+        Auth auth = new Auth(token, uid);
         if(auth.getResponse(url)){
             String sql = "SELECT * FROM answer_vote WHERE answer_id = " + id + " AND user_id = " + userId + " AND question_id = " + qid;
             String result;
@@ -102,7 +114,7 @@ public class AnswerWebService {
         String query = "SELECT * FROM answer WHERE question_id = " + qid;
         Database database = new Database();
         database.connect(path);
-        ArrayList<Answer> tab = new ArrayList<Answer>();
+        ArrayList<Answer> tab = new ArrayList<>();
         ResultSet rs = database.fetchData(query);
         try {
             while(rs.next()) {

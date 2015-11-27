@@ -61,7 +61,7 @@
                     try {
                         questionWS.QuestionWebService_Service service = new questionWS.QuestionWebService_Service();
                         questionWS.QuestionWebService port = service.getQuestionWebServicePort();
-                        List<Question> result = new ArrayList<Question>();
+                        List<Question> result = new ArrayList<>();
                         if(request.getParameter("search") == null) {
                             result = port.getAllQuestion();
                         } else {

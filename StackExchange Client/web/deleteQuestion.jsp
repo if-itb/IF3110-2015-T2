@@ -11,9 +11,9 @@
       questionWS.QuestionWebService_Service service = new questionWS.QuestionWebService_Service();
       questionWS.QuestionWebService port = service.getQuestionWebServicePort();
       String token = request.getParameter("token");
-      String id = request.getParameter("id");
+      int id = Integer.parseInt(request.getParameter("id"));
       int qid= Integer.parseInt(request.getParameter("qid"));
-      String result = port.deleteQuestion(token, qid);
+      String result = port.deleteQuestion(token, qid, id);
       response.sendRedirect("index.jsp?token=" + token + "&id=" + id);
   } catch (Exception ex) {
       out.println("Gagal");

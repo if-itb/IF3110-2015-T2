@@ -32,7 +32,7 @@ public class QuestionWebService {
     @WebResult(name="Question")
     public ArrayList<Question> getAllQuestion() {
         String query = "SELECT * FROM question ";
-        ArrayList<Question> tab = new ArrayList<Question>();
+        ArrayList<Question> tab = new ArrayList<>();
         Database database = new Database();
         database.connect(path);
         ResultSet rs = database.fetchData(query);
@@ -87,7 +87,7 @@ public class QuestionWebService {
     @WebResult(name="Question")
     public List<Question> searchQuestion(String key) {
         Question question;
-        List<Question> result = new ArrayList<Question>();
+        List<Question> result = new ArrayList<>();
         String query = "SELECT * FROM question WHERE question_content LIKE '%" + key + "%' OR question_topic LIKE '%" + key + "%'";
         Database database = new Database();
         database.connect(path);
@@ -116,7 +116,11 @@ public class QuestionWebService {
     @WebMethod(operationName = "addQuestion")
     @WebResult(name="String")
     public String addQuestion(String token, String name, String email, String topic, String content, int userId) {
-        Auth auth = new Auth(token);
+        StringBuilder sb = new StringBuilder();
+        sb.append("");
+        sb.append(userId);
+        String uid = sb.toString();
+        Auth auth = new Auth(token, uid);
         if(auth.getResponse(url)){
             String query = "INSERT INTO question (question_id, asker_name, asker_email, question_topic, question_content, user_id) "
                     + "VALUES (NULL, '" + name + "', '" + email + "', '" + topic + "', '" + content + "', " + userId + ")";
@@ -130,11 +134,15 @@ public class QuestionWebService {
     
     @WebMethod(operationName = "editQuestion")
     @WebResult(name="String")
-    public String editQuestion(String token, int id, String topic, String content) {
-        Auth auth = new Auth(token);
+    public String editQuestion(String token, int id, String topic, String content, int userId) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("");
+        sb.append(userId);
+        String uid = sb.toString();
+        Auth auth = new Auth(token, uid);
         if(auth.getResponse(url)){
             String query = "UPDATE question SET question_topic='" + topic + "', question_content='"
-                    + content + "' WHERE question_id = " + id;
+                    + content + "' WHERE question_id = " + id + " AND user_id = " + userId;
             Database database = new Database();
             database.connect(path);
             database.changeData(query);
@@ -145,10 +153,14 @@ public class QuestionWebService {
     
     @WebMethod(operationName = "deleteQuestion")
     @WebResult(name="String")
-    public String deleteQuestion(String token, int id) {
-        Auth auth = new Auth(token);
+    public String deleteQuestion(String token, int id, int userId) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("");
+        sb.append(userId);
+        String uid = sb.toString();
+        Auth auth = new Auth(token, uid);
         if(auth.getResponse(url)){
-            String query = "DELETE FROM question WHERE question_id = " + id;
+            String query = "DELETE FROM question WHERE question_id = " + id + " AND user_id = " + userId;
             Database database = new Database();
             database.connect(path);
             database.changeData(query);
@@ -160,7 +172,11 @@ public class QuestionWebService {
     @WebMethod(operationName = "incrVote")
     @WebResult(name="String")
     public String incrVote(String token, int id, int userId) {
-        Auth auth = new Auth(token);
+        StringBuilder sb = new StringBuilder();
+        sb.append("");
+        sb.append(userId);
+        String uid = sb.toString();
+        Auth auth = new Auth(token, uid);
         if(auth.getResponse(url)){
             String sql = "SELECT * FROM question_vote WHERE question_id = " + id + " AND user_id = " + userId;
             String result;
@@ -188,7 +204,11 @@ public class QuestionWebService {
     @WebMethod(operationName = "decrVote")
     @WebResult(name="String")
     public String decrVote(String token, int id, int userId) {
-        Auth auth = new Auth(token);
+        StringBuilder sb = new StringBuilder();
+        sb.append("");
+        sb.append(userId);
+        String uid = sb.toString();
+        Auth auth = new Auth(token, uid);
         if(auth.getResponse(url)){
             String sql = "SELECT * FROM question_vote WHERE question_id = " + id + " AND user_id = " + userId;
             String result;

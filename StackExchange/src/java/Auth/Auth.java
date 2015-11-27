@@ -20,9 +20,11 @@ import java.util.logging.Logger;
  */
 public class Auth {
     String token = "";
+    String id = "";
     
-    public Auth(String token){
+    public Auth(String token, String id){
         this.token = token;
+        this.id = id;
     }
     
     public boolean getResponse(String url){
@@ -36,7 +38,7 @@ public class Auth {
     }
     
     public String servletResponse(String url)throws MalformedURLException, IOException{
-        String link = url + "?token=" + token;
+        String link = url + "?token=" + token + "&id=" + id;
         StringBuffer response1 = new StringBuffer();
         String USER_AGENT = "Chrome/46.0.2490.86";
         URL obj = new URL(link);
@@ -57,8 +59,6 @@ public class Auth {
             }
             in.close();
 
-            //print result
-            //System.out.println(response1.toString() + "<br>");
         } catch (Exception e){
 
         }

@@ -87,8 +87,9 @@ public class IdentityChecker extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String token = request.getParameter("token");
+            String id = request.getParameter("id");
             decodeToken(token);
-            if(isTokenValid()){
+            if(isTokenValid() && id.equals(getID())){
                 out.println("Successful");
             } else {
                 out.println("Failed");
