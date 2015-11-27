@@ -91,11 +91,13 @@ public class QuestionWS {
             @WebParam(name = "topic") String topic,
             @WebParam(name = "token") String token,
             @WebParam(name = "content") String content){
-        conn = db.connect();
+   
         Boolean status = true;
         String uname = auth.checkToken(token);
+        status = false;
         if(!uname.equals("-999")){
             try {
+                conn = db.connect();
                 Statement stmt;
                 stmt = conn.createStatement();
                 String sql;
@@ -375,11 +377,11 @@ public class QuestionWS {
             stmt = conn.createStatement();
             
             String sql;
-            sql="SELECT * FROM question WHERE topic LIKE '%?%' OR content LIKE '%?%' ORDER BY Date DESC";
+            sql="SELECT * FROM question WHERE topic LIKE ? OR content LIKE ? ORDER BY Date DESC";
             
             PreparedStatement dbStatement = conn.prepareStatement(sql);
-            dbStatement.setString(1, keyword);
-            dbStatement.setString(2, keyword);
+            dbStatement.setString(1, "%" + keyword + "%");
+            dbStatement.setString(2, "%" + keyword + "%");
 
             ResultSet rs;
             rs = dbStatement.executeQuery();
