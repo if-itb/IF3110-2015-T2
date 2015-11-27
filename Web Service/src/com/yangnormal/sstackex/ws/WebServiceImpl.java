@@ -478,7 +478,7 @@ public class WebServiceImpl implements WebServiceInterface{
                     uid=rs.getInt("uid");
                 }
                 if (type == 0) { // vote question
-                    querycheck= "SELECT qid,vote FROM vote_question WHERE uid="+uid;
+                    querycheck= "SELECT qid,vote FROM vote_question WHERE uid="+uid+" AND qid= "+id;
                     stmt = conn.createStatement();
                     rs = stmt.executeQuery(querycheck);
                     while (rs.next()){
@@ -507,7 +507,7 @@ public class WebServiceImpl implements WebServiceInterface{
                     }
                 }
                 else if (type == 1) { // vote answer
-                    querycheck= "SELECT aid,vote FROM vote_answer WHERE uid="+uid;
+                    querycheck= "SELECT aid,vote FROM vote_answer WHERE uid="+uid+" AND aid= "+id;
                     stmt = conn.createStatement();
                     rs = stmt.executeQuery(querycheck);
                     while (rs.next()){
