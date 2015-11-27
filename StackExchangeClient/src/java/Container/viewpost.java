@@ -18,6 +18,7 @@ import javax.xml.ws.WebServiceRef;
 import question.Question;
 import question.QuestionsWS_Service;
 import answer.AnswersWS_Service;
+import javax.servlet.http.Cookie;
 import user.User;
 import user.UserWS_Service;
 /**
@@ -46,6 +47,21 @@ public class viewpost extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       
+        boolean found = false;
+        int j=0;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            while (!found && j < cookies.length){
+                if (cookies[j].getName().equals("token_cookie")) {
+                    String token = cookies[j].getValue();
+                    User user = getUserByToken(token);
+                    request.setAttribute("name", user.getName());
+                    found = true;
+                }
+                j++;
+            }
+        }
         
        String paramqid = request.getParameter("qid");
        request.setAttribute("qid", Integer.parseInt(paramqid));       
@@ -151,6 +167,13 @@ public class viewpost extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         answer.AnswersWS port = service_1.getAnswersWSPort();
         return port.getanswervote(aid);
+    }
+
+    private User getUserByToken(java.lang.String token) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        user.UserWS port = service_2.getUserWSPort();
+        return port.getUserByToken(token);
     }
     
     

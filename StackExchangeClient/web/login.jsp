@@ -17,15 +17,14 @@
     <div class="main">
         <div class="wrapper" id="question-form">
             <div class="content-header">
-                <h2>Register Form</h2> 
+                <h2>Log In Now!</h2> 
             </div>
 		
             <div class="child-content">
-                <form name="RegisterForm" action="/StackExchangeClient/registers" method="POST"> 
-                    <input type="text" name="name" placeholder="Name"> <br>
+                <form name="LoginForm" action="/StackExchangeClient/Login" method="POST"> 
                     <input type="text" name="email" placeholder="Email"> <br>
                     <input type="password" name="password" placeholder="Password"> <br>
-                    <input type="submit" value="Sign Up" style="height:50px">
+                    <input type="submit" value="Log In" style="height:50px">
 
                 </form>
             </div>

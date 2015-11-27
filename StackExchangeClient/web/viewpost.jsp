@@ -4,53 +4,90 @@
     Author     : Bimo
 --%>
 
-<%@ page language ="java" contentType = "text/html ; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>View Post</title>
-        <link href="style.css" rel="stylesheet" type="text/css"/>
-        <style>
-            <%@include file="style.css"%>
-        </style>
-    </head>
-    <body>
-        <h1 class="col-md-11 col-md-offset-1">Stack exchange?</h1>
-            <h3 class="col-md-1">${questionvote}</h3>
-            <h1 class="col-sm-1"><small><a href="<c:url value="/votequestion?qid=${result.getQuestionId()}&jlhvote=1"></c:url>">UP</a></small></h1>
-            <h1 class="col-sm-1"><small><a href="<c:url value="/votequestion?qid=${result.getQuestionId()}&jlhvote=-1"></c:url>">DOWN</a></small></h1>
-        
-        <h1 class="col-md-9"><small>${result.getQuestionTopic()}</small></h1>
-        <p class="col-md-6 col-md-offset-3"> ${result.getQuestionContent()}</p>
-        
-        <br>
-        Asked by: ${asker} | <a href="<c:url value="/editquestion" >
-                                         <c:param name="qid" value="${result.getQuestionId()}"/>
-                                               </c:url>">edit
-                                        </a> | <a href="deletequestion?qid=${result.getQuestionId()}">Delete</a>        
-        <br>
-        <h2 class="col-md-offset-2 col-md-3">${answers.size()} Answers</h2>
-        <div class="col-md-8">  
-            <c:forEach items="${answers}" var="answer">
-                                    <br>
-                    <p>${ansvotemap.get(answer.getAnswerId())}</p>
-                    <p class="col-md-1 col-md-offset-3"><small><a href="<c:url value="/voteanswer?aid=${answer.getAnswerId()}&qid=${result.getQuestionId()}&jlhvote=1"></c:url>">UP</a></small></p>
-                    <p class="col-md-1"><small><a href="<c:url value="/voteanswer?aid=${answer.getAnswerId()}&qid=${result.getQuestionId()}&jlhvote=-1"></c:url>">DOWN</a></small></p>
-                    <div class="col-md-6"><h4>${answer.getAnswerContent()}</h4></div>
-                    <div class="col-md-5"></div>
 
-                    <div class="col-md-6"><small>Answered by: ${hmap.get(answer.getAnswerId())}</small></div>
-                    <br>
-                </c:forEach>
-         </div>     
-        <div class="col-md-6 col-md-offset-2">
-            <form action="addanswer" method="POST">				
-                <textarea name="content" placeholder="Content" class="form-control" required> </textarea> <br>
-                 <input type="hidden" name="qid" value="${result.getQuestionId()}" />
-                  <input type="submit" value="Submit" name="post" class="btn btn-default">
-            </form>
+<%@include file="includes/header.jsp" %>
+
+<div class="container">
+    <div id="header">
+        <a href="index.php"><h1>Simple StackExchange</h1></a>
+    </div>
+
+    <div class="main">
+
+        <div class="wrapper" id="the-question">
+            <div class="content-header">
+                <h2>${result.getQuestionTopic()}</h2>
+            </div>
+            <div class="child-content">
+                <div class="sidebar">
+                    <a href="<c:url value="/votequestion?qid=${result.getQuestionId()}&jlhvote=1"></c:url>"><div class="voteup"></div>
+                    </a>
+                    <div>${questionvote}</div>
+                    <a href="<c:url value="/votequestion?qid=${result.getQuestionId()}&jlhvote=-1"></c:url>"><div class="votedown"></div>
+                    </a>
+                </div>
+
+                <div class="list-content">
+                    <div class="thread-content">
+                        ${result.getQuestionContent()}
+                    </div>
+                    <div class="content-footer">
+                        asked by <span class="user-question">${asker}</span> at ${result.getQuestionTimestamp()} | <a href="<c:url value="/editquestion" >
+                         <c:param name="qid" value="${result.getQuestionId()}"/></c:url>">Edit</a> | <a href="deletequestion?qid=${result.getQuestionId()}">Delete</a>
+                    </div>
+                </div>
+            </div>  
         </div>
-    </body>
+        
+        <div class="wrapper" id="the-answers">
+            <div class="content-header">
+                <h2>${answers.size()} Answers</h2>
+            </div>
+
+            <c:forEach items="${answers}" var="answer">
+
+            <div class="child-content">
+                <div class="sidebar">
+                    <a href="<c:url value="/voteanswer?aid=${answer.getAnswerId()}&qid=${result.getQuestionId()}&jlhvote=1"></c:url>"><div class="voteup"></div>
+                    </a> 
+                    <div>
+                        ${ansvotemap.get(answer.getAnswerId())}
+                    </div>
+                    <a href="<c:url value="/voteanswer?aid=${answer.getAnswerId()}&qid=${result.getQuestionId()}&jlhvote=-1"></c:url>"><div class="votedown"></div>
+                    </a>
+                    
+                </div>
+                <div class="list-content">
+                    <div class="thread-content">
+                        ${answer.getAnswerContent()}
+                    </div>
+                    <div class="content-footer">
+                        answered by <span class="user-question">${hmap.get(answer.getAnswerId())} at ${answer.getAnswerTimestamp()}</span>
+                    </div>
+                </div>
+            </div>
+
+            </c:forEach>
+        </div>
+
+        <div class="wrapper" id="answer-form">
+            <div class="child-content">
+                <div class="content-header">
+                    <h2>Your Answer</h2>
+                </div>
+                <form role="form" onsubmit="return validateAnswerForm()" action="/StackExchangeClient/addanswer" method="post" id="the-form">
+                    <input type="hidden" name="qid" value="${result.getQuestionId()}">
+                    <textarea name="content" form="the-form" placeholder="Your Answer Content" id="content"></textarea><br>
+                    <input type="submit" value="Post" name="post" id="post">
+                </form>
+            </div>
+        </div>
+
+    </div>
+    
+</div>
+
+</body>
 </html>

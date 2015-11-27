@@ -66,6 +66,7 @@ public class editquestion extends HttpServlet {
             if (question.getQuestionUid() == user.getUid()) {
                 // if the question is edited by the same user, proceed
                 request.setAttribute("question", question);
+                request.setAttribute("name", user.getName());
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/editquestion.jsp"); 
                 dispatcher.forward(request, response);
 
@@ -125,13 +126,6 @@ public class editquestion extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         question.QuestionsWS port = service.getQuestionsWSPort();
         return port.getQuestionById(qid);
-    }
-
-    private java.util.List<question.Question> getAllQuestions() {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        question.QuestionsWS port = service.getQuestionsWSPort();
-        return port.getAllQuestions();
     }
 
     private User getUserByToken(java.lang.String token) {
