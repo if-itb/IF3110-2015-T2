@@ -91,8 +91,10 @@ public class AnswerWS {
     public String voteAnswer(@WebParam(name = "a_id") int a_id, @WebParam(name = "u_id") int u_id) {
         String vote = "null";
         try {
-            String sql = "SELECT vote FROM vote_answer WHERE a_id="+a_id+" and u_id="+u_id;
+            String sql = "SELECT vote FROM vote_answer WHERE a_id=? and u_id=?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, a_id);
+            dbStatement.setInt(2, u_id);
             ResultSet rs = dbStatement.executeQuery();
             boolean empty = true;
             while (rs.next()) {
@@ -135,8 +137,10 @@ public class AnswerWS {
     public String devoteAnswer(@WebParam(name = "a_id") int a_id, @WebParam(name = "u_id") int u_id) {
         String vote = "null";
         try {
-            String sql = "SELECT vote FROM vote_answer WHERE a_id="+a_id+" and u_id="+u_id;
+            String sql = "SELECT vote FROM vote_answer WHERE a_id=? and u_id=?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, a_id);
+            dbStatement.setInt(2, u_id);
             ResultSet rs = dbStatement.executeQuery();
             boolean empty = true;
             while (rs.next()) {
@@ -146,7 +150,7 @@ public class AnswerWS {
             if(!empty && (vote.equals("-1"))) return "null";
             sql = "UPDATE answer SET vote = vote-1 WHERE a_id=?";
             dbStatement = conn.prepareStatement(sql);
-            dbStatement.setInt(1, u_id);
+            dbStatement.setInt(1,a_id);
             dbStatement.executeUpdate();
             if(!empty) {
                 sql = "UPDATE vote_answer SET vote = vote-1 WHERE a_id=? and u_id=?";
@@ -156,7 +160,7 @@ public class AnswerWS {
             }
             dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1,a_id);
-            dbStatement.setInt(2,u_id);
+            dbStatement.setInt(2, u_id);
             dbStatement.executeUpdate();
             sql = "SELECT vote FROM answer WHERE a_id="+a_id;
             dbStatement = conn.prepareStatement(sql);
@@ -164,13 +168,11 @@ public class AnswerWS {
             while (rs.next()) {
                 vote = Integer.toString(rs.getInt("vote"));
             }
-            rs.close();
-            dbStatement.closeOnCompletion();
         } catch (SQLException e) {
             //Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
             return "null";
-        }
+        } 
         return vote;
     }
 }

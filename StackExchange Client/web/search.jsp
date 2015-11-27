@@ -11,7 +11,7 @@
 <jsp:useBean id="questions" type="java.util.List<QuestionWS.Question>" scope="request"/>
 	<div class="container">
             <br>
-            <h2>Search: <c:out value="${request.getParameter('keyword')}"/></h2>
+            <h2>Search: <c:out value="${param.keyword}"/></h2>
             <c:forEach items="${questions}" var="q">
             <hr>
             <span id="vote"><br>
