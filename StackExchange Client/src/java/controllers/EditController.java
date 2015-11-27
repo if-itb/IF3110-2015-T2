@@ -7,6 +7,7 @@ package controllers;
 
 import QuestionWS.Question;
 import QuestionWS.QuestionWS_Service;
+import UserWS.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -63,14 +64,36 @@ public class EditController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User user = (User)request.getAttribute("user");
         int q_id = Integer.parseInt(request.getParameter("q_id"));
-        String topic = request.getParameter("topic");
-        String content = request.getParameter("content");
-        //TODO: Username dan q id
-        int qId = updateQuestion(q_id, topic, content);
-        if (qId != -1 ) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/question?q_id"+qId);
-            dispatcher.forward(request, response);
+        if(user!=null) {
+            Question question = getQuestion(q_id);
+            if(user.getUId()==question.getUId()) {
+                String topic = request.getParameter("topic");
+                String content = request.getParameter("content");
+                int qId = updateQuestion(q_id, topic, content);
+                if (qId != -1 ) {
+                    request.setAttribute("message","Question edited successfully");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/question?q_id"+qId);
+                    dispatcher.forward(request, response);
+                }
+                else {
+                    request.setAttribute("message","Error: Question cannot be edited");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/question?q_id"+qId);
+                    dispatcher.forward(request, response);
+                }
+            }
+            else {
+                request.setAttribute("message","You have no right to edit");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/question?q_id"+q_id);
+                dispatcher.forward(request, response);
+            }
+        }
+        else {
+            String url = request.getContextPath() + "question?q_id=" + q_id;
+            request.setAttribute("message", "Please log in first");
+            request.setAttribute("url", url);
+            response.sendRedirect(request.getContextPath() + "/login");
         }
     }
 

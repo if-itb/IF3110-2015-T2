@@ -10,11 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebService;
@@ -39,7 +35,7 @@ public class QuestionWS {
     @WebMethod(operationName = "getAllQuestions")
     @WebResult(name="Question")
     public ArrayList<Question> getAllQuestions() {
-        ArrayList<Question> questions = new ArrayList<Question>();
+        ArrayList<Question> questions = new ArrayList<>();
         try {
             Statement stmt = conn.createStatement();
             String sql;

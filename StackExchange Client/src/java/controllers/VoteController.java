@@ -7,11 +7,8 @@ package controllers;
 
 import AnswerWS.AnswerWS_Service;
 import QuestionWS.QuestionWS_Service;
+import UserWS.User;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,28 +36,38 @@ public class VoteController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User user = (User) request.getAttribute("user");
         int id = Integer.parseInt(request.getParameter("id"));
         String type = request.getParameter("type");
         int vote = Integer.parseInt(request.getParameter("vote"));
         String q_id;
-        if(type.equals("q")) {
-            if(vote==1) {
-                q_id = voteQuestion(id,1);
+        if(user!=null) {
+            if(type.equals("q")) {
+                if(vote==1) {
+                    q_id = voteQuestion(id,user.getUId());
+                }
+                else { //vote==-1
+                    q_id = devoteQuestion(id,user.getUId());
+                }
             }
-            else { //vote==-1
-                q_id = devoteQuestion(id,1);
+            else { //type.equals("a")
+                if(vote==1) {
+                    q_id = voteAnswer(id,user.getUId());
+                }
+                else {
+                    q_id = devoteAnswer(id,user.getUId());
+                }
+                id = Integer.parseInt(request.getParameter("q_id"));
             }
+            response.sendRedirect("question?q_id="+id);
         }
-        else { //type.equals("a")
-            if(vote==1) {
-                q_id = voteAnswer(id,1);
-            }
-            else {
-                q_id = devoteAnswer(id,1);
-            }
-            id = Integer.parseInt(request.getParameter("q_id"));
+        else {
+            String message = "Please log in before ";
+            String url = request.getContextPath() + "question?q_id=" + id;
+            request.setAttribute("message", message);
+            request.setAttribute("url", url);
+            response.sendRedirect(request.getContextPath() + "/login");
         }
-        response.sendRedirect("question?q_id="+id);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -89,27 +96,7 @@ public class VoteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String type = request.getParameter("type");
-        int vote = Integer.parseInt(request.getParameter("vote"));
-        String q_id;
-        if(type.equals("q")) {
-            if(vote==1) {
-                q_id = voteQuestion(id,1);
-            }
-            else { //vote==-1
-                q_id = devoteQuestion(id,1);
-            }
-        }
-        else { //type.equals("a")
-            if(vote==1) {
-                q_id = voteAnswer(id,1);
-            }
-            else {
-                q_id = devoteAnswer(id,1);
-            }
-        }
-        response.sendRedirect("question?q_id=" + q_id);
+        processRequest(request, response);
     }
 
     /**
