@@ -4,15 +4,9 @@
     Author     : Fikri-PC
 --%>
 
-<%@page import="AnswerWS.Answer"%>
-<%@page import="AnswerWS.AnswerWS"%>
-<%@page import="AnswerWS.AnswerWS_Service"%>
-<%@page import="QuestionWS.QuestionWS"%>
-<%@page import="QuestionWS.QuestionWS_Service"%>
-<%@page import="QuestionWS.Question"%>
-
-
-
+<%@page import="Question.QuestionWS"%>
+<%@page import="Question.QuestionWS_Service"%>
+<%@page import="Question.Question"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -36,9 +30,9 @@
 		<div class="row">
 			<div class="col vote">
 				<div class = "vote-btn">
-                                <a href= actions/vote.jsp?c=q&id=<% out.print(id); %>&email=fg@gmail.com&val=1> up </a>
-                                    <p class = "number-vote" id="voteq<% out.print(id);%>"><% out.print(Q.getVote());%></p>
-				<a href= actions/vote.jsp?c=q&id=<% out.print(id); %>&email=fg@gmail.com&val=-1> dn </a>
+				<button type="button" onclick=""><i class="fa fa-chevron-up"></i></button>
+				<p class = "number-vote" id=""><% out.print(Q.getVote());%></p>
+				<button type="button" onclick=""><i class="fa fa-chevron-down"></i></button>
 				</div>
 			</div>
 			<div class="col content">
@@ -68,26 +62,25 @@
                     // TODO handle custom exceptions here
                 }
                 %>
-                
                     <%-- start web service invocation --%><hr/>
                 <%
-                    AnswerWS_Service service2 = new AnswerWS_Service();
-                    AnswerWS port2 = service2.getAnswerWSPort();
+                    Answer.AnswerWS_Service service2 = new Answer.AnswerWS_Service();
+                    Answer.AnswerWS port2 = service2.getAnswerWSPort();
                      // TODO initialize WS operation arguments here
                     int qId = id;
                     // TODO process result here
-                    java.util.List<Answer> result2 = port2.getAnswers(qId);
+                    java.util.List<Answer.Answer> result2 = port2.getAnswers(qId);
                    
                 %>
                 <%-- end web service invocation --%><hr/>
                 <%
-                    for(Answer Ans : result2) {
+                    for(Answer.Answer Ans : result2) {
                 %>
                     <div class = "row">
 				<div class = "col vote">
-					<a href= actions/vote.jsp?c=a&id=<%out.print(id);%>&q_id=<% out.print(Ans.getAnsId()); %>&email=fg@gmail.com&val=1> up </a>
-					<p class = "number-vote" id="voteq<% out.print(Ans.getAnsId());%>"><% out.print(Ans.getAnsVote());%></p>
-					<a href= actions/vote.jsp?c=a&id=<%out.print(id);%>&q_id=<% out.print(Ans.getAnsId()); %>&email=fg@gmail.com&val=-1> dn </a>
+					<button type="button" id = "vote-btn" onclick=""><i class="fa fa-chevron-up"></i></button>
+					<p class = "number-vote" id=""><% out.print(Ans.getAnsVote());%></p>
+					<button type="button" id = "vote-btn" onclick=""><i class="fa fa-chevron-down"></i></button>
 				</div>
 				<div class = "col content">
 					<p> <% out.print(Ans.getAnsContent());%></p>

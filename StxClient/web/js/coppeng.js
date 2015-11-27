@@ -1,4 +1,4 @@
-function getVote(category, id, email, val) {
+function getVote(category, id, val) {
 	if (window.XMLHttpRequest) {
 		// code for IE7+, Firefox, Chrome, Opera, Safari
 		xmlhttp=new XMLHttpRequest();
@@ -11,14 +11,14 @@ function getVote(category, id, email, val) {
 			document.getElementById(strid).innerHTML = xmlhttp.responseText;
 		}
 	}
-	str = "actions/vote.jsp?c=" + category + "&id=" + id + "&email=" + email + "&val=" + val;
+	str = "actions/vote.php?c=" + category + "&id=" + id + "&val=" + val;
 	xmlhttp.open('GET',str,true);
 	xmlhttp.send();
 }
 
 function delete_question(id) {
 	if(confirm('Apakah anda ingin menghapus pertanyaan ini ?')) {
-		window.location.href='actions/delete.jsp?id='+id;
+		window.location.href='actions/delete.php?id='+id;
 	}
 }
 

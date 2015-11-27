@@ -3,9 +3,9 @@
   <services/>
   <clients>
     <client name="AnswerWS">
-      <wsdl-url>http://localhost:8081/StxWS/AnswerWS?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8081/StxWS/AnswerWS.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">AnswerWS</package-name>
+      <wsdl-url>http://localhost:8081/StxWS1/AnswerWS?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8081/StxWS1/AnswerWS.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">Answer</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -22,7 +22,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8081/StxWS/AnswerWS?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:8081/StxWS1/AnswerWS?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -34,50 +34,14 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>AnswerWS</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </client>
-    <client name="userWS">
-      <wsdl-url>http://localhost:8081/StxWS/userWS?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8081/StxWS/userWS.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">userWS</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>fork</wsimport-option-name>
-          <wsimport-option-value>false</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8081/StxWS/userWS?wsdl</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xendorsed</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>userWS</wsimport-option-value>
+          <wsimport-option-value>Answer</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>
     <client name="QuestionWS">
-      <wsdl-url>http://localhost:8081/StxWS/QuestionWS?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8081/StxWS/QuestionWS.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">QuestionWS</package-name>
+      <wsdl-url>http://localhost:8081/StxWS1/QuestionWS?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8081/StxWS1/QuestionWS.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">Question</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -94,7 +58,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8081/StxWS/QuestionWS?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:8081/StxWS1/QuestionWS?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -106,7 +70,43 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>QuestionWS</wsimport-option-value>
+          <wsimport-option-value>Question</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
+    <client name="userWS">
+      <wsdl-url>http://localhost:8081/StxWS1/userWS?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8081/StxWS1/userWS.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">User</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>http://localhost:8081/StxWS1/userWS?wsdl</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>package</wsimport-option-name>
+          <wsimport-option-value>User</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

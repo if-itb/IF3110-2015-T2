@@ -16,6 +16,7 @@
 <body>
 <div id = "wrapper">
 	<h1 class = "center"><a href="index.jsp">Simple Stack Exchange</a></h1>
+       
         <%!
             class question
             {

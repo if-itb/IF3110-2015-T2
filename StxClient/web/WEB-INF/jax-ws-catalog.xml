@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="http://localhost:8082/StxWS/QuestionWS?wsdl" uri="wsdl/localhost_8082/StxWS/QuestionWS.wsdl"/>
-    <system systemId="http://localhost:8082/StxWS/QuestionWS?xsd=1" uri="wsdl/localhost_8082/StxWS/QuestionWS.xsd_1.xsd"/>
-    <system systemId="http://localhost:8082/StxWS/AnswerWS?wsdl" uri="wsdl/localhost_8082/StxWS/AnswerWS.wsdl"/>
-    <system systemId="http://localhost:8082/StxWS/AnswerWS?xsd=1" uri="wsdl/localhost_8082/StxWS/AnswerWS.xsd_1.xsd"/>
-    <system systemId="http://localhost:8082/StxWS/userWS?wsdl" uri="wsdl/localhost_8082/StxWS/userWS.wsdl"/>
-    <system systemId="http://localhost:8082/StxWS/userWS?xsd=1" uri="wsdl/localhost_8082/StxWS/userWS.xsd_1.xsd"/>
-    <system systemId="http://localhost:8081/StxWS/QuestionWS?wsdl" uri="wsdl/localhost_8081/StxWS/QuestionWS.wsdl"/>
-    <system systemId="http://localhost:8081/StxWS/QuestionWS?xsd=1" uri="wsdl/localhost_8081/StxWS/QuestionWS.xsd_1.xsd"/>
-    <system systemId="http://localhost:8081/StxWS/AnswerWS?wsdl" uri="wsdl/localhost_8081/StxWS/AnswerWS.wsdl"/>
-    <system systemId="http://localhost:8081/StxWS/AnswerWS?xsd=1" uri="wsdl/localhost_8081/StxWS/AnswerWS.xsd_1.xsd"/>
-    <system systemId="http://localhost:8081/StxWS/userWS?wsdl" uri="wsdl/localhost_8081/StxWS/userWS.wsdl"/>
-    <system systemId="http://localhost:8081/StxWS/userWS?xsd=1" uri="wsdl/localhost_8081/StxWS/userWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8081/StxWS1/AnswerWS?wsdl" uri="wsdl/localhost_8081/StxWS1/AnswerWS.wsdl"/>
+    <system systemId="http://localhost:8081/StxWS1/AnswerWS?xsd=1" uri="wsdl/localhost_8081/StxWS1/AnswerWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8081/StxWS1/QuestionWS?wsdl" uri="wsdl/localhost_8081/StxWS1/QuestionWS.wsdl"/>
+    <system systemId="http://localhost:8081/StxWS1/QuestionWS?xsd=1" uri="wsdl/localhost_8081/StxWS1/QuestionWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8081/StxWS1/userWS?wsdl" uri="wsdl/localhost_8081/StxWS1/userWS.wsdl"/>
+    <system systemId="http://localhost:8081/StxWS1/userWS?xsd=1" uri="wsdl/localhost_8081/StxWS1/userWS.xsd_1.xsd"/>
 </catalog>

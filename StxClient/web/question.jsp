@@ -3,10 +3,6 @@
     Created on : Nov 17, 2015, Nov 17, 2015 8:06:01 AM
     Author     : Fikri-PC
 --%>
-<%@page import="QuestionWS.Question"%>
-<%@page import="QuestionWS.QuestionWS"%>
-<%@page import="QuestionWS.QuestionWS_Service"%>
-
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,11 +14,14 @@
         %>
            
         <%
-                QuestionWS_Service service = new QuestionWS_Service();
-                QuestionWS port = service.getQuestionWSPort();
-                // TODO process result here
-                int id = Integer.parseInt(sid);
-                Question Q = port.getQuestionById(id);
+        
+            Question.QuestionWS_Service service = new Question.QuestionWS_Service();
+            Question.QuestionWS port = service.getQuestionWSPort();
+             // TODO initialize WS operation arguments here
+            
+             int id = Integer.parseInt(sid);
+            // TODO process result here
+            Question.Question Q = port.getQuestionById(id);
        
         %>
         
