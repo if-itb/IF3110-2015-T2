@@ -21,7 +21,11 @@
         
         <h1 class="col-md-9"><small>${result.getQuestionTopic()}</small></h1>
         <p class="col-md-8 col-md-offset-3"> ${result.getQuestionContent()}</p>
+        <br>
+        <p class="col-md-3 col-md-offset-7"><small>Asked by: ${username.getName()}</small></p>
+        <p class="col-md-3 col-md-offset-7"><small><a href="<c:url value="/deletequestion?qid=${result.getQuestionId()}"></c:url>">Delete</a></small></p>
         
+        <br>
         <h2 class="col-md-offset-5">${answers.size()} Answers</h2>
         <div class="col-md-8">  
             <c:forEach items="${answers}" var="answer">
@@ -30,6 +34,7 @@
                     <h1 class="col-md-1"><small><a href="<c:url value="/voteanswer?aid=${answer.getAnswerId()}&qid=${result.getQuestionId()}&jlhvote=1"></c:url>">UP</a></small></h1>
                     <h1 class="col-md-1"><small><a href="<c:url value="/voteanswer?aid=${answer.getAnswerId()}&qid=${result.getQuestionId()}&jlhvote=-1"></c:url>">DOWN</a></small></h1>
                     <div class="col-md-6 col-md-offset-3">${answer.getAnswerContent()}</div>
+                    <div class="col-md-6 col-md-offset-3"><small>Answered by: ${hmap.get(answer.getAnswerID())}</small></div>
                 </div>
                 
             </c:forEach>
