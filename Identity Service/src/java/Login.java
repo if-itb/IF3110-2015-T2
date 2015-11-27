@@ -33,12 +33,13 @@ public class Login extends HttpServlet {
         String USER = "root";
         String PASS = "";
         // Set response content type
-        response.setContentType("text/html");
+        //response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+        response.setContentType("application/xml;charset=UTF-8");
         try {
             // Register JDBC driver
             Class.forName("com.mysql.jdbc.Driver");
-
+            
             // Execute SQL query
             try ( // Open a connection
                     Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); // Execute SQL query
@@ -47,7 +48,6 @@ public class Login extends HttpServlet {
                 sql = "SELECT COUNT(*) as rowcount from user where Email = '" + request.getParameter("email") + "' and Password = '" + request.getParameter("password") + "'";
                 ResultSet rs = stmt.executeQuery(sql);
                 rs.next();
-
                 if (rs.getInt("rowcount") != 0) {
                     sql = "SELECT UserID from user where Email = '" + request.getParameter("email") + "'";
                     rs = stmt.executeQuery(sql);
@@ -73,10 +73,10 @@ public class Login extends HttpServlet {
                         Cookie accessToken = new Cookie("access_token", token);
                         accessToken.setMaxAge(60 * 60 * 24);
                         response.addCookie(accessToken);
-                        out.println("authentication success");
+                        out.println("authenticationsuccess");
                     }
                 } else {
-                    out.println("authentication error");
+                    out.println("authenticationerror");
                 }
                 // Clean-up environment
                 rs.close();

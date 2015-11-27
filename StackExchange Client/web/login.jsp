@@ -22,7 +22,7 @@
             <br>
             <h2>Log in to your account</h2>
             <hr>
-            <form>
+            <form action="Login">
                 <input class="text" name="email" type="text" placeholder="Email"><br>
                 <input class="text" name="password" type="password" placeholder="Password"><br>
                 <input type="submit" value="Login">

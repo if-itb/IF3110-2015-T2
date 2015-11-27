@@ -35,7 +35,7 @@ public class TokenValidator extends HttpServlet {
         Cookie cookie;
         Cookie[] cookies;
         cookies = request.getCookies();
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/xml;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             if (cookies != null) {
                 cookie = cookies[0];
@@ -57,7 +57,7 @@ public class TokenValidator extends HttpServlet {
                             if (userid != 0) {
                                 out.println(userid);
                             } else {
-                                out.println("access token not valid");
+                                out.println("accesstokennotvalid");
                             }
                             
                             // Clean-up environment
@@ -66,7 +66,7 @@ public class TokenValidator extends HttpServlet {
                 } catch (SQLException | ClassNotFoundException se) {
                 }
             } else {
-                out.println("access token error");
+                out.println("accesstokenerror");
             }
             //out.println("</body></html>");
         }
