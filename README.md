@@ -24,7 +24,8 @@ Diharapkan dengan tugas ini anda dapat mengerti:
 
 ### Link Laporan
 
-*Masukkan link laporan anda di sini*
+Laporan dalam tugas ini dapat dilihat pada link Google Docs berikut ini:
+[bit.ly/EverydayGelutT2](http://bit.ly/EverydayGelutT2)
 
 ### Arsitektur Umum Server
 
@@ -112,5 +113,3 @@ Perhatikan pemanggilan pada contoh ini seperti melakukan remote procedure call.
 
 #### Prosedur Demo
 Sebelum demo, asisten akan melakukan checkout ke hash commit terakhir yang dilakukan sebelum deadline. Hal ini digunakan untuk memastikan kode yang akan didemokan adalah kode yang terakhir disubmit sebelum deadline.
-
-
