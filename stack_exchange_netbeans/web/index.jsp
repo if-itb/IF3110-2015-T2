@@ -59,7 +59,7 @@
               </div>
             <p>${question.content}</p>
               <div class="right-align">
-                <p>Asked by ${question.userId}</p>
+                <p>Asked by ${question.getName()} created at ${question.getCreatedAt()}</p>
               </div>
           </div>
           <div class="card-action">
