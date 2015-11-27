@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -9,7 +10,6 @@
     <link href="assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link rel="stylesheet" type="text/css" href="assets/css/question.css">
-<script type = "text/javascript" src="/assets/js/validatequestion.js"> </script>
 </head>
 <body class="cyan lighten-2">
     <nav class="white" role="navigation">
@@ -37,7 +37,7 @@
         <div class="parallax"></div>
     </div>
     <div class="container">
-      <form name="addQuestion" action="http://localhost:8080/stack_exchange_netbeans/AddNewQuestionServlet?token=sssc" onsubmit="return validateForm()" method = "Post">
+      <form name="addQuestion" action="http://localhost:8080/stack_exchange_netbeans/AddNewQuestionServlet?token=<c:out value="${token}"/>" method = "Post">
         <input type="text" class="form white-text" placeholder="Question Topic" name="Topic">
         <textarea class="form white-text" placeholder="Content" rows="5" name="Content"></textarea>
         <div class="align-right">

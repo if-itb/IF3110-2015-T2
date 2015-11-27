@@ -18,8 +18,16 @@
 <body class="cyan lighten-2">
 <nav class="white" role="navigation">
   <div class="nav-wrapper container">
-    <a><img src="assets/image/Bicep.jpg" alt="Unsplashed background img 1" width="48" height="48"> </a>
-    <a id="logo-container" href="#" class="brand-logo">LEXCLE</a>
+      <c:choose>
+        <c:when test="${token==null}">
+            <a href="http://localhost:8080/stack_exchange_netbeans/index"><img src="assets/image/Bicep.jpg" alt="Unsplashed background img 1" width="48" height="48"> </a>
+            <a id="logo-container" href="http://localhost:8080/stack_exchange_netbeans/index" class="brand-logo">LEXCLE</a>
+        </c:when>    
+        <c:otherwise>
+            <a href="http://localhost:8080/stack_exchange_netbeans/index?token=<c:out value="${token}"/>"><img src="assets/image/Bicep.jpg" alt="Unsplashed background img 1" width="48" height="48"> </a>
+            <a id="logo-container" href="http://localhost:8080/stack_exchange_netbeans/index?token=<c:out value="${token}"/>" class="brand-logo">LEXCLE</a>
+        </c:otherwise>
+       </c:choose>
     <ul class="right hide-on-med-and-down">
       <li><a href="http://localhost:7000/login">Login</a></li>
       <li><a href="http://localhost:7000/register">Register</a></li>
@@ -33,7 +41,7 @@
         <br><br>
         <h1 class="header center white-text text-lighten-2">StackExchange</h1>
         <div class="row center">
-           <h5 class="header col s12 light">Cannot find what you are looking for?<a class ="orange-text" href="http://localhost:8080/stack_exchange_netbeans/CheckAddQuestionServlet?token=sssc">Ask Here</a></h5>
+           <h5 class="header col s12 light">Cannot find what you are looking for?<a class ="orange-text" href="http://localhost:8080/stack_exchange_netbeans/CheckAddQuestionServlet?token=<c:out value="${token}"/>">Ask Here</a></h5>
         </div>
     </div>
   </div>
@@ -45,7 +53,7 @@
       <div class="col s10 offset-s1 l10">
         <div class="card blue-grey darken-1">
           <div class="card-content white-text">
-              <span class="card-title"><a href = "http://localhost:8080/stack_exchange_netbeans/question?question_id=<c:out value="${question.id}"/>&token=sssc&from=question">${question.topic}</a></span>
+              <span class="card-title"><a href = "http://localhost:8080/stack_exchange_netbeans/question?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=question">${question.topic}</a></span>
               <div class="right">
                 <p style="font-size: 35px;margin:20px 28px 0 0">${question.vote}</p>
               </div>
@@ -55,14 +63,20 @@
               </div>
           </div>
           <div class="card-action">
-            <div class="left">
-                <a href="http://localhost:8080/stack_exchange_netbeans/UpVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc&from=index"><img src="assets/image/up.png" alt="Unsplashed background img 1" width="25" height="25"></a>
-                <a href="http://localhost:8080/stack_exchange_netbeans/DownVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc&from=index"><img src="assets/image/down.png" alt="Unsplashed background img 1" width="25" height="25"></a>
-            </div>
-            <div class="right-align">
-                <a href="http://localhost:8080/stack_exchange_netbeans/EditQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc">Edit</a>
-                <a href="http://localhost:8080/stack_exchange_netbeans/DeleteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=sssc">Delete</a>
-            </div> 
+              <div class ="row">
+                <div class="col s6">
+                    <div class="left">
+                        <a href="http://localhost:8080/stack_exchange_netbeans/UpVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=index"><img src="assets/image/up.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+                        <a href="http://localhost:8080/stack_exchange_netbeans/DownVoteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>&from=index"><img src="assets/image/down.png" alt="Unsplashed background img 1" width="25" height="25"></a>
+                    </div>
+                </div>    
+                <div class="col s6">
+                    <div class="right-align">
+                        <c:if test="${question.userId == user_id}"><a href="http://localhost:8080/stack_exchange_netbeans/EditQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>">Edit</a></c:if>
+                        <c:if test="${question.userId == user_id}"><a href="http://localhost:8080/stack_exchange_netbeans/DeleteQuestionServlet?question_id=<c:out value="${question.id}"/>&token=<c:out value="${token}"/>">Delete</a></c:if> 
+                    </div> 
+                </div> 
+              </div>
           </div>
         </div>
       </div>

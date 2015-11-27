@@ -84,7 +84,7 @@ public class AddNewQuestionServlet extends HttpServlet {
             //request.getRequestDispatcher("addQuestion.jsp").forward(request, response);
         } else {
             request.setAttribute("flash", "You Need To Login First");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("http://localhost:7000/login").forward(request, response);
         }
     }
 
