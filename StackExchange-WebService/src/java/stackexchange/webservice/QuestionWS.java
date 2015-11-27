@@ -5,9 +5,12 @@
  */
 package stackexchange.webservice;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.jws.Oneway;
 import javax.jws.WebService;
@@ -16,7 +19,9 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
+import stackexchange.webservice.auth.Auth;
 import stackexchange.webservice.model.Question;
+import stackexchange.webservice.model.User;
 import stackexchange.webservice.util.Database;
 
 /**
@@ -39,7 +44,7 @@ public class QuestionWS {
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Question question = new Question(rs.getInt("id"), rs.getInt("userid"), rs.getString("name"), rs.getString("email"), rs.getString("topic"), rs.getString("content"), rs.getDate("dateMade"), rs.getInt("vote"), rs.getInt("answer"));
+                Question question = new Question(rs.getInt("id"), rs.getInt("userid"), rs.getString("name"), rs.getString("email"), rs.getString("topic"), rs.getString("content"), rs.getTimestamp("dateMade"), rs.getInt("vote"), rs.getInt("answer"));
                 questions.add(question);
             }
             return questions;
@@ -68,7 +73,7 @@ public class QuestionWS {
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Question question = new Question(rs.getInt("id"), rs.getInt("userid"), rs.getString("name"), rs.getString("email"), rs.getString("topic"), rs.getString("content"), rs.getDate("dateMade"), rs.getInt("vote"), rs.getInt("answer"));
+                Question question = new Question(rs.getInt("id"), rs.getInt("userid"), rs.getString("name"), rs.getString("email"), rs.getString("topic"), rs.getString("content"), rs.getTimestamp("dateMade"), rs.getInt("vote"), rs.getInt("answer"));
                 questions.add(question);
             }
             return questions;
@@ -87,39 +92,66 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "addQuestion")
     @Oneway
-    public void addQuestion(@WebParam(name = "question") Question question) {
+    public void addQuestion(@WebParam(name = "question") Question question, @WebParam(name = "token")String token) {
+        Auth auth = new Auth();
+    	int ret = auth.check(question.getEmail(),token);
+        UserWS usrws = new UserWS();
+        User user = usrws.getUserByEmail(question.getEmail());
+        Timestamp currentTime = new Timestamp(Calendar.getInstance().getTime().getTime());
+        Question newQuestion = new Question(user.getId(), user.getName(), user.getEmail(), question.getTopic(), question.getContent(),currentTime, 0,0 );
+    	
         Database db = new Database();
-        try{
-            String values="(";
-            values+= "'"+ question.getName() +"',";
-            values+= "'"+ question.getEmail() +"',";
-            values+= "'"+ question.getTopic() +"',";
-            values+= "'"+ question.getContent() +"',";
-            values+= "'"+ question.getDateMade() +"',";
-            values+= question.getVote() +",";
-            values+= question.getAnswer() +")";
-            String sql="insert into questions values " + values;
-            PreparedStatement ps = db.getConnection().prepareStatement(sql);
-            ps.executeUpdate();
-        }catch(Exception e){
-            
-        }finally{
-            db.closeConnection();
-            db = null;
-        }
+        if(ret == 1 || ret == 0){
+            try{
+                String values="(";
+                values+=newQuestion.getUserid() + ",";
+                values+= "'"+ newQuestion.getName() +"',";
+                values+= "'"+ newQuestion.getEmail() +"',";
+                values+= "'"+ newQuestion.getTopic() +"',";
+                values+= "'"+ newQuestion.getContent() +"',";
+                values+= "'"+ newQuestion.getDateMade() +"',";
+                values+= newQuestion.getVote() +",";
+                values+= newQuestion.getAnswer() +")";
+                String sql="insert into questions (userid, name, email, topic, content, dateMade, vote, answer) values " + values;
+                PreparedStatement ps = db.getConnection().prepareStatement(sql);
+                ps.executeUpdate();
+            }catch(Exception e){
+                
+            }finally{
+                db.closeConnection();
+                db = null;
+            }
+    	}	
     }
-
+    
     /**
      * Web service operation
      */
     @WebMethod(operationName = "deleteQuestion")
     @Oneway
-    public void deleteQuestion(@WebParam(name = "id") int id) {
+    public void deleteQuestion(@WebParam(name = "id") int id, @WebParam(name = "email") String email, @WebParam(name = "token") String token) {
+    	Auth auth = new Auth();
+    	int ret = auth.check(email,token);
+        UserWS usrws = new UserWS();
+        User user = usrws.getUserByEmail(email);
         Database db = new Database();
         try{
-            String sql="delete from questions where id=" + id;
-            PreparedStatement ps = db.getConnection().prepareStatement(sql);
-            ps.executeUpdate();
+            String query = "select * from questions where id=" + id;
+            Connection conn = db.getConnection();
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                if((ret == 1 || ret == 0)&&user.getEmail().equals(rs.getString("email"))){
+                    query="delete from answers where questionId="+id;
+                    ps = conn.prepareStatement(query);
+                    ps.executeUpdate();
+                    
+                    query="delete from questions where id="+ id;
+                    ps = conn.prepareStatement(query);
+                    ps.executeUpdate();
+                }
+            }
+        
         }catch(Exception e){
             
         }finally{
@@ -130,10 +162,13 @@ public class QuestionWS {
 
     /**
      * Web service operation
+     * @param question
+     * @param token
+     * @param inc
      */
     @WebMethod(operationName = "voteQuestion")
     @Oneway
-    public void voteQuestion(@WebParam(name = "question") Question question, @WebParam(name = "inc") boolean inc) {
+    public void voteQuestion(@WebParam(name = "question") Question question, @WebParam(name = "token")String token, @WebParam(name = "inc") boolean inc) {
         Database db = new Database();
         try{
             int val=0;
@@ -158,6 +193,8 @@ public class QuestionWS {
 
     /**
      * Web service operation
+     * @param id
+     * @param inc
      */
     @WebMethod(operationName = "voteQuestion_1")
     @Oneway
@@ -176,6 +213,48 @@ public class QuestionWS {
             String sql="update question set " + values + " where id=" + id;
             PreparedStatement ps = db.getConnection().prepareStatement(sql);
             ps.executeUpdate();
+        }catch(Exception e){
+            
+        }finally{
+            db.closeConnection();
+            db = null;
+        }
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "updateQuestion")
+    public void updateQuestion(@WebParam(name = "question") Question question, @WebParam(name = "token") String token){
+        Auth auth = new Auth();
+    	int ret = auth.check(question.getEmail(),token);
+        UserWS usrws = new UserWS();
+        User user = usrws.getUserByEmail(question.getEmail());
+        Timestamp currentTime = new Timestamp(Calendar.getInstance().getTime().getTime());
+        Question newQuestion = new Question(user.getId(), user.getName(), user.getEmail(), question.getTopic(), question.getContent(),currentTime, 0,0 );
+    	Database db = new Database();
+        try{
+            String query = "select * from questions where id=" + question.getId();
+            Connection conn = db.getConnection();
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                if((ret == 1 || ret == 0)&&user.getEmail().equals(rs.getString("email"))){
+                    String values="";
+                    values+= "userid="+newQuestion.getUserid() + ",";
+                    values+= "name='"+ newQuestion.getName() +"',";
+                    values+= "email='"+ newQuestion.getEmail() +"',";
+                    values+= "topic='"+ newQuestion.getTopic() +"',";
+                    values+= "content='"+ newQuestion.getContent() +"',";
+                    values+= "dateMade='"+ newQuestion.getDateMade() +"',";
+                    values+= "vote="+newQuestion.getVote() +",";
+                    values+= "answer="+newQuestion.getAnswer();
+                    query="update questions set " + values + " where id=" + question.getId();
+                    ps = conn.prepareStatement(query);
+                    ps.executeUpdate();
+                }
+            }
+        
         }catch(Exception e){
             
         }finally{
