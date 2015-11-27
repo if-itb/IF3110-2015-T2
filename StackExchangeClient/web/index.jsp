@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Login Stack Exchange</title>
 </head>
 <body>
-<form name="login" method="post" action="localhost:8080/StackExchangeIS/Login">
+<form name="login" method="post" action="UserLogin">
 <table>
 	<tr>
 		<td>Email</td>

@@ -63,6 +63,8 @@ public class Validation extends HttpServlet {
                 ResultSet rs = dbStatement.executeQuery();
                 
                 if (rs.next()) {
+                    int userId = rs.getInt("userId");
+                     
                     Date expDate = null;
                     DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     try {
@@ -79,6 +81,7 @@ public class Validation extends HttpServlet {
                     }
                     else {
                         obj.put("result", "valid");
+                        obj.put("userId", userId);
                     }
                     
                     out.print(obj);
