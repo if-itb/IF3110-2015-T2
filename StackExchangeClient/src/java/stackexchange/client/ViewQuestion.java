@@ -7,6 +7,7 @@ package stackexchange.client;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import stackexchangews.services.Answer;
 import stackexchangews.services.Question;
 import stackexchangews.services.SQLException_Exception;
 
@@ -36,15 +38,25 @@ public class ViewQuestion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Question question = new Question();
+        
         int questionId = Integer.parseInt(request.getParameter("id"));
+        
+        Question question = new Question();
         try {
             question = getQuestion(questionId);
         } catch (SQLException_Exception ex) {
             Logger.getLogger(ViewQuestion.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        List<Answer> answers = null;
+        try {
+            answers = getAllAnswers(questionId);
+        } catch (SQLException_Exception ex) {
+            Logger.getLogger(ViewQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         request.setAttribute("question", question);
+        request.setAttribute("answers", answers);
         request.getRequestDispatcher("view/question.jsp").forward(request, response);    
     }
 
@@ -67,4 +79,11 @@ public class ViewQuestion extends HttpServlet {
         stackexchangews.services.QuestionHandler port = service.getQuestionHandlerPort();
         return port.getQuestion(questionId);
     }
+    
+    private static List<Answer> getAllAnswers(int questionId) throws SQLException_Exception {
+        stackexchangews.services.AnswerHandler_Service service = new stackexchangews.services.AnswerHandler_Service();
+        stackexchangews.services.AnswerHandler port = service.getAnswerHandlerPort();
+        return port.getAllAnswers(questionId);
+    }
+    
 }
