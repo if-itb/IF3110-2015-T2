@@ -3,28 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Container;
+package Login;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
-import question.QuestionsWS_Service;
-import javax.servlet.http.Cookie;
+import user.UserWS_Service;
 
 /**
  *
- * @author mochamadtry
+ * @author Ahmad Naufal Farhan
  */
-@WebServlet(name = "askquestion", urlPatterns = {"/askquestion"})
-public class askquestion extends HttpServlet {
+public class Logout extends HttpServlet {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/QuestionsWS.wsdl")
-    private QuestionsWS_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/UserWS.wsdl")
+    private UserWS_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,23 +35,31 @@ public class askquestion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String token =""; 
         boolean found = false; 
         int i = 0; 
-        Cookie[] cookies = null;
-        cookies = request.getCookies();
+        Cookie[] cookies = request.getCookies();
         if (cookies != null) {
-            while (!found && i < cookies.length){
+            while (!found && i < cookies.length) {
                 if (cookies[i].getName().equals("token_cookie")) {
-                     String token = cookies[i].getValue();
-                     String topic = request.getParameter("topic");
-                     String content = request.getParameter("content"); 
-                     createQuestion(token, topic, content);
-                     found = true; 
-                }
-                i++;
+                    token = cookies[i].getValue();
+                    found = true; 
+                } else
+                    i++;
             }
         }
-        response.sendRedirect("home");
+        
+        if (found) {
+            int res = logoutUser(token);
+            if (res > 0) {
+                Cookie cookie = new Cookie("token_cookie", null);
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+            }
+        }
+        
+        response.sendRedirect(request.getContextPath());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -95,11 +101,11 @@ public class askquestion extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int createQuestion(java.lang.String token, java.lang.String topic, java.lang.String content) {
+    private int logoutUser(java.lang.String token) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        question.QuestionsWS port = service.getQuestionsWSPort();
-        return port.createQuestion(token, topic, content);
+        user.UserWS port = service.getUserWSPort();
+        return port.logoutUser(token);
     }
 
 }

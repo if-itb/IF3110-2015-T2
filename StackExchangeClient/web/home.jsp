@@ -25,7 +25,7 @@
                             <input class="btn" type="submit" id="searchbutton" value="Search" name="search">
 			</form>
 
-                    <div class="col-md"><p>Cannot find what you are looking for? <a href="ask.php?req=new">Ask here</a></p></div>
+                    <div class="col-md"><p>Cannot find what you are looking for? <a href="/StackExchangeClient/askquestion.jsp" style="color:pink">Ask here</a></p></div>
 		</div>
                 <div class="col-md-2" id="main3"><h3>Recently Asked Questions</h3></div>
                    

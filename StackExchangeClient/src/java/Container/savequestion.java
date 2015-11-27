@@ -8,20 +8,18 @@ package Container;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
 import question.QuestionsWS_Service;
-import javax.servlet.http.Cookie;
 
 /**
  *
  * @author mochamadtry
  */
-@WebServlet(name = "askquestion", urlPatterns = {"/askquestion"})
-public class askquestion extends HttpServlet {
+public class savequestion extends HttpServlet {
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/QuestionsWS.wsdl")
     private QuestionsWS_Service service;
@@ -37,23 +35,26 @@ public class askquestion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        boolean found = false; 
-        int i = 0; 
-        Cookie[] cookies = null;
-        cookies = request.getCookies();
-        if (cookies != null) {
-            while (!found && i < cookies.length){
-                if (cookies[i].getName().equals("token_cookie")) {
-                     String token = cookies[i].getValue();
-                     String topic = request.getParameter("topic");
-                     String content = request.getParameter("content"); 
-                     createQuestion(token, topic, content);
-                     found = true; 
+            String token =""; 
+            boolean found = false; 
+            int i = 0; 
+            Cookie[] cookies = null;
+            cookies = request.getCookies();
+            if (cookies != null) {
+                while (!found && i < cookies.length){
+                    if (cookies[i].getName().equals("token_cookie")) {
+                         token = cookies[i].getValue();
+                         found = true; 
+                         
+                    }
+                    i++;
                 }
-                i++;
             }
-        }
-        response.sendRedirect("home");
+            int qid = Integer.parseInt(request.getParameter("qid"));
+            String newTopic = request.getParameter("topic");
+            String newContent = request.getParameter("content");
+            updateQuestion(token, qid, newTopic, newContent);
+            response.sendRedirect("home");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -95,11 +96,11 @@ public class askquestion extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int createQuestion(java.lang.String token, java.lang.String topic, java.lang.String content) {
+    private int updateQuestion(java.lang.String token, int qid, java.lang.String newTopic, java.lang.String newContent) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         question.QuestionsWS port = service.getQuestionsWSPort();
-        return port.createQuestion(token, topic, content);
+        return port.updateQuestion(token, qid, newTopic, newContent);
     }
 
 }

@@ -7,21 +7,26 @@ package Container;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
+import question.Question;
 import question.QuestionsWS_Service;
-import javax.servlet.http.Cookie;
+import user.User;
+import user.UserWS_Service;
 
 /**
  *
  * @author mochamadtry
  */
-@WebServlet(name = "askquestion", urlPatterns = {"/askquestion"})
-public class askquestion extends HttpServlet {
+public class editquestion extends HttpServlet {
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/UserWS.wsdl")
+    private UserWS_Service service_1;
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchangeWS/QuestionsWS.wsdl")
     private QuestionsWS_Service service;
@@ -37,23 +42,45 @@ public class askquestion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        int qid = Integer.parseInt(request.getParameter("qid"));
+        
+        String token = ""; 
         boolean found = false; 
         int i = 0; 
-        Cookie[] cookies = null;
-        cookies = request.getCookies();
+        Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             while (!found && i < cookies.length){
                 if (cookies[i].getName().equals("token_cookie")) {
-                     String token = cookies[i].getValue();
-                     String topic = request.getParameter("topic");
-                     String content = request.getParameter("content"); 
-                     createQuestion(token, topic, content);
-                     found = true; 
+                    token = cookies[i].getValue();
+                    found = true; 
                 }
                 i++;
             }
         }
-        response.sendRedirect("home");
+        
+        if (found) {
+            // get user and compare it with the token ID
+            User user = getUserByToken(token);
+            Question question = getQuestionById(qid);
+            if (question.getQuestionUid() == user.getUid()) {
+                // if the question is edited by the same user, proceed
+                request.setAttribute("topic", question.getQuestionTopic());
+                request.setAttribute("content", question.getQuestionContent());
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/editquestion.jsp?qid=" + qid); 
+                dispatcher.forward(request, response);
+            } else {
+                request.setAttribute("error", "You're not the owner!");
+                RequestDispatcher dispatcher = getServletContext()
+                                                .getRequestDispatcher(request.getRequestURL().toString()); 
+                dispatcher.forward(request, response);
+            }
+        } else {
+            request.setAttribute("error", "You have to log in first!");
+            RequestDispatcher dispatcher = getServletContext()
+                                            .getRequestDispatcher(request.getRequestURL().toString()); 
+            dispatcher.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -95,11 +122,25 @@ public class askquestion extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int createQuestion(java.lang.String token, java.lang.String topic, java.lang.String content) {
+    private Question getQuestionById(int qid) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         question.QuestionsWS port = service.getQuestionsWSPort();
-        return port.createQuestion(token, topic, content);
+        return port.getQuestionById(qid);
+    }
+
+    private java.util.List<question.Question> getAllQuestions() {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        question.QuestionsWS port = service.getQuestionsWSPort();
+        return port.getAllQuestions();
+    }
+
+    private User getUserByToken(java.lang.String token) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        user.UserWS port = service_1.getUserWSPort();
+        return port.getUserByToken(token);
     }
 
 }

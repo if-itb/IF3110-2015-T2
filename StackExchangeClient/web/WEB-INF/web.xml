@@ -37,6 +37,14 @@
         <servlet-class>Container.addanswer</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>savequestion</servlet-name>
+        <servlet-class>Container.savequestion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editquestion</servlet-name>
+        <servlet-class>Container.editquestion</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>votequestion</servlet-name>
         <servlet-class>Container.votequestion</servlet-class>
     </servlet>
@@ -45,8 +53,13 @@
         <servlet-class>Container.voteanswer</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>deletequestion</servlet-name>
         <servlet-class>Container.deletequestion</servlet-class>
+=======
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>Login.Logout</servlet-class>
+>>>>>>> 8580b5db320d2b5f555f581c4df5234042e3b2c6
     </servlet>
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
@@ -85,6 +98,14 @@
         <url-pattern>/addanswer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>savequestion</servlet-name>
+        <url-pattern>/savequestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editquestion</servlet-name>
+        <url-pattern>/editquestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>votequestion</servlet-name>
         <url-pattern>/votequestion</url-pattern>
     </servlet-mapping>
@@ -93,8 +114,13 @@
         <url-pattern>/voteanswer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>deletequestion</servlet-name>
         <url-pattern>/deletequestion</url-pattern>
+=======
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+>>>>>>> 8580b5db320d2b5f555f581c4df5234042e3b2c6
     </servlet-mapping>
     <session-config>
         <session-timeout>
