@@ -27,7 +27,7 @@ public class MySQLAccess {
 
             // setup the connection with the DB.
             connect = DriverManager.getConnection(
-                            "jdbc:mysql://127.0.0.1/stackexchange", "root",""); //....
+                            "jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root",""); //....
 
             statement = connect.createStatement();
         } catch (ClassNotFoundException e) {
@@ -178,13 +178,13 @@ public class MySQLAccess {
             return listanswer;
     }
     
-    public void addQuestion(int id, String topic, String content, String timepost)
+    public void addQuestion(int id, int id_user, String topic, String content, String timepost)
     {
         open();
         try {
             int i;
-            if(publish){i=1;}
-            else{i=0;}
+            //if(publish){i=1;}
+            //else{i=0;}
             String S = "INSERT INTO 'stackexchange'.'question' ('id', 'id_user', 'topic', 'content', 'timepost') VALUES (NULL, '"+id_user+"', '"+topic+"', '"+content+"', '"+timepost+"');";
             preparedStatement = connect.prepareStatement(S);
             statement.executeUpdate(S);
@@ -239,13 +239,13 @@ public class MySQLAccess {
         }
         return id;
     }
-    /*
+    
     public int getUserID(String username)
     {
         int id = 0;
         open();
         try {
-            preparedStatement = connect.prepareStatement("SELECT `id` FROM `simpleblog`.`user` WHERE username=\""+username+"\";");
+            preparedStatement = connect.prepareStatement("SELECT 'id' FROM 'stackexchange'.'user' WHERE username=\""+username+"\";");
             resultSet = preparedStatement.executeQuery();
 
             while(resultSet.next())
@@ -259,7 +259,7 @@ public class MySQLAccess {
         }
         return id;
     }
-    
+    /*
     public void publishPost(int idPost)
     {
         Post post = getPostId(idPost);
@@ -284,11 +284,11 @@ public class MySQLAccess {
     }
 	*/
     
-    public void addAnswer(int id_question, int id_user, String content, String timepost)
+    public void addAnswer(int id, int id_question, int id_user, String content, String timepost)
     {
         open();
         try {
-            String S="INSERT INTO 'stackexchange'.'answer' ('id', 'id_question', 'id_user', 'content', 'timepost') VALUES ('"+ NULL + "', '"+ id +"','"+ id_user +"', '"+ content +"', '"+timepost+"');";
+            String S="INSERT INTO 'stackexchange'.'answer' ('id', 'id_question', 'id_user', 'content', 'timepost') VALUES ('"+ id + "', '"+ id_question +"','"+ id_user +"', '"+ content +"', '"+timepost+"');";
             preparedStatement = connect.prepareStatement(S);
             statement.executeUpdate(S);
 

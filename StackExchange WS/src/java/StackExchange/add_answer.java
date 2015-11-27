@@ -1,3 +1,5 @@
+package StackExchange;
+
 import StackExchange.MySQLAccess;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,11 +18,13 @@ public class add_answer extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             int id= Integer.parseInt(request.getParameter("id"));
+            int id_question= Integer.parseInt(request.getParameter("id_question"));
+            int id_user= Integer.parseInt(request.getParameter("id_user"));
             String content = request.getParameter("content");
             String timepost = request.getParameter("timepost");
             
             MySQLAccess SQL = new MySQLAccess();
-            SQL.addAnswer(id, content, timepost);
+            SQL.addAnswer(id, id_question, id_user, content, timepost);
         } finally {            
             out.close();
         }
