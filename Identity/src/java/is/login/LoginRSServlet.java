@@ -35,7 +35,37 @@ public class LoginRSServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-        response.setHeader("asdf", "fdsa");
+        try {
+
+            /*final PrintWriter out = response.getWriter();
+             StringBuffer jb = new StringBuffer();
+             String line = null;
+             try {
+             BufferedReader reader = request.getReader();
+             while ((line = reader.readLine()) != null)
+             jb.append(line);
+             } catch (Exception e) {}
+             out.println(jb.toString());*/
+            response.setContentType("text/html");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
+            Statement stmt = conn.createStatement();
+            String sql = "DELETE FROM sessions WHERE AccessToken = ?"; // Login query validation
+
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1, request.getParameter("token"));
+            dbStatement.executeUpdate();
+            if (request.getParameter("logout") == null)
+                response.sendRedirect("http://localhost:8000/FrontEnd/login.jsp?relog=1");
+            else
+                response.sendRedirect("http://localhost:8000/FrontEnd/login.jsp");
+        } catch (SQLException ex) {
+
+            Logger.getLogger(LoginRSServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+
+            Logger.getLogger(LoginRSServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {}
     }
 
     @Override

@@ -31,7 +31,41 @@ import org.json.simple.parser.*;
 public class AuthRSServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    
+    @Override
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
 
+            /*final PrintWriter out = response.getWriter();
+             StringBuffer jb = new StringBuffer();
+             String line = null;
+             try {
+             BufferedReader reader = request.getReader();
+             while ((line = reader.readLine()) != null)
+             jb.append(line);
+             } catch (Exception e) {}
+             out.println(jb.toString());*/
+            response.setContentType("text/html");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
+            Statement stmt = conn.createStatement();
+            String sql = "UPDATE sessions SET ExpiredDate=NOW()+INTERVAL 5 MINUTE WHERE AccessToken = ?"; // Login query validation
+
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1, request.getParameter("token"));
+            dbStatement.executeUpdate();
+            //response.sendRedirect(request.getHeader("referer")+"&ret=true");
+        } catch (SQLException ex) {
+
+            Logger.getLogger(AuthRSServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+
+            Logger.getLogger(AuthRSServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {}
+    
+    }
+    
     /**
      * Handles the HTTP <code>POST</code> method.
      *

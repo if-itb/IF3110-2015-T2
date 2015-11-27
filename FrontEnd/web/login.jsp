@@ -116,7 +116,7 @@
     </head>
     <body>
         <div style = "width : 40%; margin : auto; text-align: center;">
-            <h1><a href="index1.jsp" id = "title">Simple StackExchange</a></h1>
+            <h1><a href="index.jsp" id = "title">Simple StackExchange</a></h1>
             <div class = "tabbutton" style="background-color : white;" onclick = "changetab('login')">Login</div><div class = "tabbutton" style="background-color : silver;" onclick = "changetab('register')">Create New Account</div>
             <div id ="formaccount">
                 <%
@@ -129,12 +129,15 @@
                             String token = request.getParameter("token");
                             response.setHeader("access_token", token);
                             out.println(token);
-                            response.sendRedirect("index1.jsp?token="+token);
+                            response.sendRedirect("index.jsp?token="+token);
                         }
+                        
                     } catch (Exception ex) {
                         
                     }
-                        
+                    if (request.getParameter("relog")!= null){
+                        out.println("<br>Session expired. You need to relog again.");
+                    }
                 %>
                 <form id = "loginform" method = "post" action = "http://localhost:8001/Identity/LoginRSServlet">
                     <br>
@@ -146,11 +149,6 @@
                     <input type ="hidden" name ="submitted" value ="yes">
                     <input type ="submit" value = "Login">
                 </form>
-                <%
-                   if (request.getParameter("relog")!=null){
-                      out.println("need to relog again");
-                   }
-                %>
             </div>
         </div>
 

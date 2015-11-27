@@ -21,7 +21,7 @@
     </head>
     <body>
         <div style = "width : 40%; margin : auto; text-align: center;">
-            <h1><a href="index1.php" id = "title">Simple StackExchange</a></h1>
+            <h1><a href="index.jsp" id = "title">Simple StackExchange</a></h1>
             <div class = "tabbutton" style="background-color : silver;" onclick = "changetab('login')">Login</div><div class = "tabbutton" style="background-color : white;" onclick = "changetab('register')">Create New Account</div>
             <div id ="formaccount">
                 <form method = "post" action = "register.jsp">

@@ -22,11 +22,11 @@
 
                 Timestamp result = new Timestamp(port.getExpiredDate(token));
                 Timestamp ts = new Timestamp(System.currentTimeMillis());
-                out.println(ts);
-                out.println(result);
+                /*out.println(ts);
+                out.println(result);*/
 
                 if (ts.after(result)) {
-                    String site = "login.jsp?relog=1";
+                    String site = "http://localhost:8001/Identity/LoginRSServlet?token="+request.getParameter("token");
                     response.setStatus(response.SC_MOVED_TEMPORARILY);
                     response.setHeader("Location", site);
                 }
@@ -36,13 +36,16 @@
             }
         %>
         <div class="header">
+            <%
+                out.println("<a href=\"http://localhost:8001/Identity/LoginRSServlet?token=" + request.getParameter("token") + "&logout=true\" style=\"margin-left: 71%;\">Logout</a>");
+            %>
             <div class="container">
                 <%
                     
                     if (token != null) {
-                        out.println("<p><a href='index1.jsp?token=" + token + "'>Simple StackExchange</a></p> ");
+                        out.println("<p><a href='index.jsp?token=" + token + "'>Simple StackExchange</a></p> ");
                     } else {
-                        out.println("<p><a href='index1.jsp'>Simple StackExchange</a></p> ");
+                        out.println("<p><a href='index.jsp'>Simple StackExchange</a></p> ");
                     }
 
                 %>

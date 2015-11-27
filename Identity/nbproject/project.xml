@@ -17,14 +17,6 @@
                     <file>${file.reference.json-simple-1.1.1.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library dirs="200">
-                    <file>${libs.eclipselink.classpath}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
-                    <file>${libs.eclipselinkmodelgen.classpath}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
@@ -35,7 +27,7 @@
             </test-roots>
         </data>
         <libraries xmlns="http://www.netbeans.org/ns/ant-project-libraries/1">
-            <definitions>D:\netbeans\NetBeans 8.0.1\ide\modules\ext\nblibraries.properties</definitions>
+            <definitions>C:\Program Files\NetBeans 8.0.2\ide\modules\lib\nblibraries.properties</definitions>
         </libraries>
     </configuration>
 </project>

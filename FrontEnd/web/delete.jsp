@@ -18,11 +18,11 @@
 
                 Timestamp result = new Timestamp(port.getExpiredDate(token));
                 Timestamp ts = new Timestamp(System.currentTimeMillis());
-                out.println(ts);
-                out.println(result);
+               /* out.println(ts);
+                out.println(result);*/
 
                 if (ts.after(result)) {
-                    String site = "login.jsp?relog=1";
+                    String site = "http://localhost:8001/Identity/LoginRSServlet?token="+request.getParameter("token");
                     response.setStatus(response.SC_MOVED_TEMPORARILY);
                     response.setHeader("Location", site);
                 }
@@ -44,7 +44,7 @@
 	// TODO handle custom exceptions here
     }
     
-    String site = "index1.jsp?token=" + token;
+    String site = "index.jsp?token=" + token;
     response.setStatus(response.SC_MOVED_TEMPORARILY);
     response.setHeader("Location", site); 
 %>

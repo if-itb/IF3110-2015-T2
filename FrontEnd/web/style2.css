@@ -23,8 +23,8 @@ and open the template in the editor.
 
 .main {
 	
-	margin-right : 400px;
-	margin-left : 400px;
+	margin-right : 25%;
+	margin-left : 25%;
 }
 
 .main h1 {
@@ -152,7 +152,7 @@ a{
 	color:purple;
 }
 .edit{
-	color:yellow;
+	color:#B08800;
 }
 .delete{
 	color:red;
