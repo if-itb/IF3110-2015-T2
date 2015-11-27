@@ -1,16 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import java.io.*;
-import java.util.*;
 import java.sql.*;
 
 /**
@@ -32,62 +25,47 @@ public class TokenValidator extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // JDBC driver name and database URL
-         String JDBC_DRIVER="com.mysql.jdbc.Driver";  
-        String DB_URL="jdbc:mysql://localhost:3306/stackexchange";
-    
+        String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+        String DB_URL = "jdbc:mysql://localhost:3306/stackexchange";
+
         //  Database credentials
         String USER = "root";
         String PASS = "";
-        
-        Cookie cookie = null;
-        Cookie[] cookies = null;
+
+        Cookie cookie;
+        Cookie[] cookies;
         cookies = request.getCookies();
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            /*out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Authentication</title>");            
-            out.println("</head>");
-            out.println("<body>");*/
-            
-            if( cookies != null ){
+            if (cookies != null) {
                 cookie = cookies[0];
-                
+
                 try {
                     // Register JDBC driver
                     Class.forName("com.mysql.jdbc.Driver");
 
-                    // Open a connection
-                    Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-
                     // Execute SQL query
-                    Statement stmt = conn.createStatement();
-                    String sql = "SELECT UserID from token where AccessToken = '"+cookie.getValue()+"'";
-                    ResultSet rs = stmt.executeQuery(sql);
-                    int userid = 0;
-                    while (rs.next()){
-                        userid = rs.getInt("UserID");
+                    try ( // Open a connection
+                            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); // Execute SQL query
+                            Statement stmt = conn.createStatement()) {
+                        String sql = "SELECT UserID from token where AccessToken = '" + cookie.getValue() + "'";
+                        try (ResultSet rs = stmt.executeQuery(sql)) {
+                            int userid = 0;
+                            while (rs.next()) {
+                                userid = rs.getInt("UserID");
+                            }
+                            if (userid != 0) {
+                                out.println(userid);
+                            } else {
+                                out.println("access token not valid");
+                            }
+                            
+                            // Clean-up environment
+                        }
                     }
-                    if (userid != 0){
-                        out.println(userid);
-                    } else {
-                        out.println("access token not valid");
-                    }
-                    
-                    // Clean-up environment
-                    rs.close();
-                    stmt.close();
-                    conn.close();
-                }catch(SQLException se){
-                    //Handle errors for JDBC
-                    se.printStackTrace();
-                }catch(Exception e){
-                    //Handle errors for Class.forName
-                    e.printStackTrace();
+                } catch (SQLException | ClassNotFoundException se) {
                 }
-            }else{
+            } else {
                 out.println("access token error");
             }
             //out.println("</body></html>");

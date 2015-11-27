@@ -1,10 +1,13 @@
 package AnswerModel;
 
 import DB.Database;
+import java.io.IOException;
+import java.net.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.jws.*;
+import javax.servlet.http.Cookie;
 
 /**
  *
@@ -59,15 +62,22 @@ public class AnswerWS {
      * @param qid
      * @param content
      * @return
+     * @throws java.net.MalformedURLException
      */
     @WebMethod(operationName = "createAnswer")
-    public String createAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") int qid, @WebParam(name = "content") String content) {
+    public String createAnswer(@WebParam(name = "access_token") String access_token, @WebParam(name = "qid") int qid, @WebParam(name = "content") String content) throws MalformedURLException, IOException {
         Connection conn = new Database().connect();
         Statement stmt;
         //1.HTTP Request connection ke Identity Service, untuk memastikan pemilik access_token
+        URL IS = new URL("http://localhost:8082/Identity_Service/TokenValidator");
+        HttpURLConnection connection = null;
+        connection = (HttpURLConnection)IS.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setDoInput(true);
+        connection.setDoOutput(true);
         //2a.Jika access token kadaluarsa, respons expired token
         //2b.Jika access token tidak valid, respons error
-        //2c.Jika access token valid, ambil user ID
+        //2c.Jika access token valid, ambil user ID 
         int userID = 8;
         try {
             stmt = conn.createStatement();
