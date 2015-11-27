@@ -19,13 +19,12 @@ import stackExchangeWS.database.DbAnswerManager;
  */
 @WebService(serviceName = "AnswerHandler")
 public class AnswerHandler {
-
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "answer")
-    public int answer(@WebParam(name = "questionId") int questionId, @WebParam(name = "answererId") int answererId, @WebParam(name = "content") String content) throws SQLException {
-        //TODO write your implementation code here:
+    @WebMethod(operationName = "answerQuestion")
+    public int answerQuestion(@WebParam(name = "questionId") int questionId, @WebParam(name = "answererId") int answererId, 
+            @WebParam(name = "content") String content) throws SQLException {
         Answer answer = new Answer();
         
         answer.setQuestionId(questionId);
@@ -36,10 +35,19 @@ public class AnswerHandler {
         
         return 1;
     }
-
-    
     
     /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getAllAnswers")
+    public ArrayList<Answer> getAllAnswers(@WebParam(name = "questionId") int questionId) throws SQLException {
+        //TODO write your implementation code here:
+        ArrayList<Answer> answers = DbAnswerManager.getAllAnswers(questionId);
+        
+        return answers;
+    }
+    
+        /**
      * Web service operation
      */
     @WebMethod(operationName = "votesUpAnswer")
@@ -60,6 +68,5 @@ public class AnswerHandler {
         
         return 1;
     }
-    
     
 }
