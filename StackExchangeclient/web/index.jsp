@@ -5,6 +5,24 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+  UserWS.UserWS_Service uservice = new UserWS.UserWS_Service();
+  UserWS.UserWS uport = uservice.getUserWSPort();
+  
+  String token = "";
+  Cookie[] cookies = null;
+  cookies = request.getCookies();
+  if(cookies != null) {
+    for(int i = 0; i < cookies.length; i++) {
+      Cookie cookie = cookies[i];
+      if(cookie.getName().equals("auth")) {
+        token = cookie.getValue();
+      }
+    }
+  }
+  int uid = uport.getUID(token);
+  String name = uport.getName(uid);
+%>  
 
 <!DOCTYPE html>
 <html>
@@ -24,7 +42,11 @@
         </tr>
         </table>
       </form>
+      <% if(uid == 0) { %>
       <p class="text-right"><a href="view/login.jsp" class="link">Login</a> | <a href="view/register.jsp" class="link">Register</a></p>
+      <% } else { %>
+      <p class="text-right"><%=name%> | <a href="controller/logout.jsp" class="link">Logout</a></p>
+      <% } %>
       
       <p class="text-center">Cannot find what you are looking for? <a href="view/ask.jsp" class="link">Ask here.</a></p>
 
@@ -71,7 +93,10 @@
               <p><a href="view/question.jsp?id=<%=q.getId()%>"><%=q.getContent()%></a></p>
             </div>
             <div class="text-right">
-              <p>asked by <%=q.getName()%> | <a href="view/ask.jsp?id=<%=q.getId()%>" class="link">edit</a> | <a href="controller/delete.jsp?id=<%=q.getId()%>" class="link">delete</a></p>
+              <p>asked by <%=q.getName()%>
+                <% if(uid == q.getUid()) { %>
+                | <a href="view/ask.jsp?id=<%=q.getId()%>" class="link">edit</a> | <a href="controller/delete.jsp?id=<%=q.getId()%>" class="link">delete</a></p>
+                <% } %>
             </div>
           </div>
         </div>

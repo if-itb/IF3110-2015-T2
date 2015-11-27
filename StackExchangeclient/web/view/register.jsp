@@ -16,7 +16,7 @@
   <body>
     <div class="container">
       <h1 class="text-center"><a href="/StackExchangeclient">OVERFLOW48</a></h1>
-      <form id="search" action="view/search.jsp" action="GET">
+      <form id="search" action="search.jsp" action="GET">
         <table>
         <tr>
           <td width="200%"> <input id="q" placeholder="What are you looking for?" type="text" class="form" name="q"></td>
@@ -36,8 +36,8 @@
           <div class="text-right">
               <button class="button" type="submit">Register</button>
           </div>
+          </form>
         </div>
-      </form>
       
     </div>
     

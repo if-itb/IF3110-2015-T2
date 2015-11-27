@@ -1,6 +1,6 @@
 <%-- 
-    Document   : login
-    Created on : Nov 16, 2015, 6:09:40 PM
+    Document   : done
+    Created on : Nov 27, 2015, 4:43:16 PM
     Author     : Luqman A. Siswanto
 --%>
 
@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Login | Overflow48</title>
+    <title>Register | Overflow48</title>
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
     <link rel="icon" type="image/png" href="../assets/white-icon.jpg">
     
@@ -26,18 +26,19 @@
       </form>
       <p class="text-right"><a href="login.jsp" class="link">Login</a> | <a href="register.jsp" class="link">Register</a></p>
 
-      <p>Fill in the form to login into Overflow 48.</p><br>
+      <p>Fill in the form to register into Overflow 48.</p><br>
         <div class="small_container">
-          <h5>Login into Overflow 48</h5><br>
-          <form id="login" action="../controller/login.jsp" method="POST">
+          <h5>Register in Overflow 48</h5><br>
+          <form id="login" action="../controller/register.jsp" method="POST">
+          <input id="name" placeholder="Name" class="form" type="text" name="name" value="">
           <input id="email" placeholder="Email" class="form" type="text" name="email" value="">
           <input id="pass" placeholder="Password" class="form" type="text" name="pass" value="">
           <div class="text-right">
-              <button class="button" type="submit">Login</button>
+              <button class="button" type="submit">Register</button>
           </div>
+          </form>
+          <p><div class="text-right">Email has been registered. Try again.</div></p>
         </div>
-      </form>
-      
     </div>
     
   </body>

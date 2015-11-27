@@ -5,13 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>JSP Page</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-  </body>
-</html>
+<%
+  Cookie cookie = new Cookie("auth", "overflow48");
+  cookie.setMaxAge(0);
+  cookie.setPath("/");
+  response.addCookie(cookie);
+  String url = "../";
+  response.sendRedirect(url);
+%>

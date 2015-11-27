@@ -47,7 +47,21 @@ public class AnswerWS {
       }
       return vote;
     }
-
+    
+    @WebMethod(operationName = "getAnswerUID")
+    @WebResult(name="getAnswerUID")
+    public int getAnswerUID(@WebParam(name="aid") int aid) {
+      String query = "SELECT uid FROM answer WHERE id=" + aid;
+      ResultSet rs = database.getResultQuery(query);
+      int uid = 0;
+      try {
+        rs.next();
+        uid = rs.getInt("uid");
+      } catch(Exception e) {
+      }
+      return uid;
+    }
+    
     @WebMethod(operationName = "setAnswerVote")
     @WebResult(name="stVote")
     public void setAnswerVote(@WebParam(name = "id") int id, @WebParam(name = "val") int val) {
@@ -105,5 +119,17 @@ public class AnswerWS {
       setAnswerVote(aid, vote + type);
     }
     
-    
+    @WebMethod(operationName = "numVoteAnswer")
+    @WebResult(name = "numVoteAnswer")
+    public int numVoteAnswer(@WebParam(name="uid") int uid, @WebParam(name="aid") int aid) {
+      String query = "SELECT type FROM vote_answer WHERE aid=" + aid + " AND uid=" + uid;
+      ResultSet rs = database.getResultQuery(query);
+      int num = 0;
+      try {
+        rs.next();
+        num = rs.getInt("type");
+      } catch(Exception e) {
+      }
+      return num;
+    }
 }

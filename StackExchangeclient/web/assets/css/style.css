@@ -159,11 +159,31 @@ h5 {
   color: black;
 }
 
-.arrow {
+.upvote, .downvote {
   font-size: 20px;
   margin: 0px;
   padding: 0px;
   cursor: pointer;
+}
+
+.voted {
+  font-size: 20px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.upvoted {
+  font-size: 20px;
+  margin: 0px;
+  padding: 0px;
+  color: lime;
+}
+
+.downvoted {
+  font-size: 20px;
+  margin: 0px;
+  padding: 0px;
+  color: red;
 }
 
 .item {

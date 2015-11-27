@@ -10,6 +10,10 @@
 
 <xs:element name="getAnswerQIDResponse" type="tns:getAnswerQIDResponse"/>
 
+<xs:element name="getAnswerUID" type="tns:getAnswerUID"/>
+
+<xs:element name="getAnswerUIDResponse" type="tns:getAnswerUIDResponse"/>
+
 <xs:element name="getAnswerVote" type="tns:getAnswerVote"/>
 
 <xs:element name="getAnswerVoteResponse" type="tns:getAnswerVoteResponse"/>
@@ -17,6 +21,10 @@
 <xs:element name="insertAnswer" type="tns:insertAnswer"/>
 
 <xs:element name="insertAnswerResponse" type="tns:insertAnswerResponse"/>
+
+<xs:element name="numVoteAnswer" type="tns:numVoteAnswer"/>
+
+<xs:element name="numVoteAnswerResponse" type="tns:numVoteAnswerResponse"/>
 
 <xs:element name="setAnswerVote" type="tns:setAnswerVote"/>
 
@@ -38,6 +46,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getAnswerUID">
+<xs:sequence>
+<xs:element name="aid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAnswerUIDResponse">
+<xs:sequence>
+<xs:element name="getAnswerUID" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="insertAnswer">
 <xs:sequence>
 <xs:element name="uid" type="xs:int"/>
@@ -47,17 +67,6 @@
 </xs:complexType>
 
 <xs:complexType name="insertAnswerResponse">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="setAnswerVote">
-<xs:sequence>
-<xs:element name="id" type="xs:int"/>
-<xs:element name="val" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="setAnswerVoteResponse">
 <xs:sequence/>
 </xs:complexType>
 
@@ -71,6 +80,17 @@
 <xs:sequence>
 <xs:element name="gtVote" type="xs:int"/>
 </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setAnswerVote">
+<xs:sequence>
+<xs:element name="id" type="xs:int"/>
+<xs:element name="val" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setAnswerVoteResponse">
+<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="getAnswerByQID">
@@ -94,6 +114,19 @@
 <xs:element name="content" type="xs:string"/>
 <xs:element name="date" type="xs:string"/>
 <xs:element name="vote" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="numVoteAnswer">
+<xs:sequence>
+<xs:element name="uid" type="xs:int"/>
+<xs:element name="aid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="numVoteAnswerResponse">
+<xs:sequence>
+<xs:element name="numVoteAnswer" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 

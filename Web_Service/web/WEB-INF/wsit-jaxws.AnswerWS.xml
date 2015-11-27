@@ -20,6 +20,10 @@
     <message name="getAnswerQIDResponse"/>
     <message name="getAnswerVote"/>
     <message name="getAnswerVoteResponse"/>
+    <message name="getAnswerUID"/>
+    <message name="getAnswerUIDResponse"/>
+    <message name="numVoteAnswer"/>
+    <message name="numVoteAnswerResponse"/>
     <portType name="AnswerWS">
         <operation name="insertAnswer">
             <input message="tns:insertAnswer"/>
@@ -45,6 +49,14 @@
             <input message="tns:getAnswerVote"/>
             <output message="tns:getAnswerVoteResponse"/>
         </operation>
+        <operation name="getAnswerUID">
+            <input message="tns:getAnswerUID"/>
+            <output message="tns:getAnswerUIDResponse"/>
+        </operation>
+        <operation name="numVoteAnswer">
+            <input message="tns:numVoteAnswer"/>
+            <output message="tns:numVoteAnswerResponse"/>
+        </operation>
     </portType>
     <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
         <operation name="insertAnswer">
@@ -68,6 +80,14 @@
             <output/>
         </operation>
         <operation name="getAnswerVote">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="getAnswerUID">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="numVoteAnswer">
             <input/>
             <output/>
         </operation>
@@ -208,6 +228,54 @@
         </wsp:ExactlyOne>
     </wsp:Policy>
     <wsp:Policy wsu:Id="AnswerWSPortBinding_getAnswerVote_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedParts>
+                    <sp:Body/>
+                </sp:EncryptedParts>
+                <sp:SignedParts>
+                    <sp:Body/>
+                </sp:SignedParts>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="AnswerWSPortBinding_getUID_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedParts>
+                    <sp:Body/>
+                </sp:EncryptedParts>
+                <sp:SignedParts>
+                    <sp:Body/>
+                </sp:SignedParts>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="AnswerWSPortBinding_getUID_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedParts>
+                    <sp:Body/>
+                </sp:EncryptedParts>
+                <sp:SignedParts>
+                    <sp:Body/>
+                </sp:SignedParts>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="AnswerWSPortBinding_numVoteQuestion_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedParts>
+                    <sp:Body/>
+                </sp:EncryptedParts>
+                <sp:SignedParts>
+                    <sp:Body/>
+                </sp:SignedParts>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="AnswerWSPortBinding_numVoteQuestion_Output_Policy">
         <wsp:ExactlyOne>
             <wsp:All>
                 <sp:EncryptedParts>

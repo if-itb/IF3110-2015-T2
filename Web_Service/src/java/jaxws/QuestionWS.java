@@ -89,6 +89,20 @@ public class QuestionWS {
       return Question.fetchQuestions(rs);
     }
     
+    @WebMethod(operationName = "getQuestionUID")
+    @WebResult(name="getQuestionUID")
+    public int getQuestionUID(@WebParam(name="qid") int qid) {
+      String query = "SELECT uid FROM question WHERE id=" + qid;
+      ResultSet rs = database.getResultQuery(query);
+      int uid = 0;
+      try {
+        rs.next();
+        uid = rs.getInt("uid");
+      } catch(Exception e) {
+      }
+      return uid;
+    }
+    
     /**
      * Web service operation
      * @param uid
@@ -143,5 +157,19 @@ public class QuestionWS {
       database.executeQuery(query);
       int vote = getQuestionVote(qid);
       setQuestionVote(qid, vote + type);
+    }
+    
+    @WebMethod(operationName = "numVoteQuestion")
+    @WebResult(name = "numVoteQuestion")
+    public int numVoteQuestion(@WebParam(name="uid") int uid, int qid) {
+      String query = "SELECT type FROM vote_question WHERE qid=" + qid + " AND uid=" + uid;
+      ResultSet rs = database.getResultQuery(query);
+      int num = 0;
+      try {
+        rs.next();
+        num = rs.getInt("type");
+      } catch(Exception e) {
+      }
+      return num;
     }
 }

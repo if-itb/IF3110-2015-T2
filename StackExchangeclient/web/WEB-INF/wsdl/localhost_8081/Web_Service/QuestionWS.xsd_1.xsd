@@ -22,6 +22,10 @@
 
 <xs:element name="getQuestionResponse" type="tns:getQuestionResponse"/>
 
+<xs:element name="getQuestionUID" type="tns:getQuestionUID"/>
+
+<xs:element name="getQuestionUIDResponse" type="tns:getQuestionUIDResponse"/>
+
 <xs:element name="getQuestionVote" type="tns:getQuestionVote"/>
 
 <xs:element name="getQuestionVoteResponse" type="tns:getQuestionVoteResponse"/>
@@ -29,6 +33,10 @@
 <xs:element name="insertQuestion" type="tns:insertQuestion"/>
 
 <xs:element name="insertQuestionResponse" type="tns:insertQuestionResponse"/>
+
+<xs:element name="numVoteQuestion" type="tns:numVoteQuestion"/>
+
+<xs:element name="numVoteQuestionResponse" type="tns:numVoteQuestionResponse"/>
 
 <xs:element name="setQuestionVote" type="tns:setQuestionVote"/>
 
@@ -121,6 +129,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getQuestionUID">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getQuestionUIDResponse">
+<xs:sequence>
+<xs:element name="getQuestionUID" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="deleteQuestion">
 <xs:sequence>
 <xs:element name="qid" type="xs:int"/>
@@ -152,5 +172,18 @@
 
 <xs:complexType name="voteQuestionResponse">
 <xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="numVoteQuestion">
+<xs:sequence>
+<xs:element name="uid" type="xs:int"/>
+<xs:element name="arg1" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="numVoteQuestionResponse">
+<xs:sequence>
+<xs:element name="numVoteQuestion" type="xs:int"/>
+</xs:sequence>
 </xs:complexType>
 </xs:schema>

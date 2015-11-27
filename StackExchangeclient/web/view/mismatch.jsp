@@ -1,6 +1,6 @@
 <%-- 
-    Document   : login
-    Created on : Nov 16, 2015, 6:09:40 PM
+    Document   : mismatch
+    Created on : Nov 27, 2015, 3:34:55 PM
     Author     : Luqman A. Siswanto
 --%>
 
@@ -35,9 +35,9 @@
           <div class="text-right">
               <button class="button" type="submit">Login</button>
           </div>
+          </form>
+          <p><div class="text-right">User and password mismatch. Try again.</div></p>
         </div>
-      </form>
-      
     </div>
     
   </body>

@@ -22,11 +22,11 @@
 <message name="setAnswerVoteResponse">
 <part name="parameters" element="tns:setAnswerVoteResponse"/>
 </message>
-<message name="setAnswerVote">
-<part name="parameters" element="tns:setAnswerVote"/>
+<message name="getAnswerByQID">
+<part name="parameters" element="tns:getAnswerByQID"/>
 </message>
-<message name="setAnswerVoteResponse">
-<part name="parameters" element="tns:setAnswerVoteResponse"/>
+<message name="getAnswerByQIDResponse">
+<part name="parameters" element="tns:getAnswerByQIDResponse"/>
 </message>
 <message name="insertAnswer">
 <part name="parameters" element="tns:insertAnswer"/>
@@ -40,23 +40,17 @@
 <message name="voteAnswerResponse">
 <part name="parameters" element="tns:voteAnswerResponse"/>
 </message>
-<message name="getAnswerVote">
-<part name="parameters" element="tns:getAnswerVote"/>
+<message name="getAnswerUID">
+<part name="parameters" element="tns:getAnswerUID"/>
 </message>
-<message name="getAnswerVoteResponse">
-<part name="parameters" element="tns:getAnswerVoteResponse"/>
+<message name="getAnswerUIDResponse">
+<part name="parameters" element="tns:getAnswerUIDResponse"/>
 </message>
-<message name="getAnswerByQID">
-<part name="parameters" element="tns:getAnswerByQID"/>
+<message name="numVoteAnswer">
+<part name="parameters" element="tns:numVoteAnswer"/>
 </message>
-<message name="getAnswerByQIDResponse">
-<part name="parameters" element="tns:getAnswerByQIDResponse"/>
-</message>
-<message name="getAnswerQID">
-<part name="parameters" element="tns:getAnswerQID"/>
-</message>
-<message name="getAnswerQIDResponse">
-<part name="parameters" element="tns:getAnswerQIDResponse"/>
+<message name="numVoteAnswerResponse">
+<part name="parameters" element="tns:numVoteAnswerResponse"/>
 </message>
 <portType name="AnswerWS">
 <operation name="getAnswerQID">
@@ -71,9 +65,9 @@
 <input wsam:Action="http://jaxws/AnswerWS/setAnswerVoteRequest" message="tns:setAnswerVote"/>
 <output wsam:Action="http://jaxws/AnswerWS/setAnswerVoteResponse" message="tns:setAnswerVoteResponse"/>
 </operation>
-<operation name="setAnswerVote">
-<input wsam:Action="http://jaxws/AnswerWS/setAnswerVoteRequest" message="tns:setAnswerVote"/>
-<output wsam:Action="http://jaxws/AnswerWS/setAnswerVoteResponse" message="tns:setAnswerVoteResponse"/>
+<operation name="getAnswerByQID">
+<input wsam:Action="http://jaxws/AnswerWS/getAnswerByQIDRequest" message="tns:getAnswerByQID"/>
+<output wsam:Action="http://jaxws/AnswerWS/getAnswerByQIDResponse" message="tns:getAnswerByQIDResponse"/>
 </operation>
 <operation name="insertAnswer">
 <input wsam:Action="http://jaxws/AnswerWS/insertAnswerRequest" message="tns:insertAnswer"/>
@@ -83,17 +77,13 @@
 <input wsam:Action="http://jaxws/AnswerWS/voteAnswerRequest" message="tns:voteAnswer"/>
 <output wsam:Action="http://jaxws/AnswerWS/voteAnswerResponse" message="tns:voteAnswerResponse"/>
 </operation>
-<operation name="getAnswerVote">
-<input wsam:Action="http://jaxws/AnswerWS/getAnswerVoteRequest" message="tns:getAnswerVote"/>
-<output wsam:Action="http://jaxws/AnswerWS/getAnswerVoteResponse" message="tns:getAnswerVoteResponse"/>
+<operation name="getAnswerUID">
+<input wsam:Action="http://jaxws/AnswerWS/getAnswerUIDRequest" message="tns:getAnswerUID"/>
+<output wsam:Action="http://jaxws/AnswerWS/getAnswerUIDResponse" message="tns:getAnswerUIDResponse"/>
 </operation>
-<operation name="getAnswerByQID">
-<input wsam:Action="http://jaxws/AnswerWS/getAnswerByQIDRequest" message="tns:getAnswerByQID"/>
-<output wsam:Action="http://jaxws/AnswerWS/getAnswerByQIDResponse" message="tns:getAnswerByQIDResponse"/>
-</operation>
-<operation name="getAnswerQID">
-<input wsam:Action="http://jaxws/AnswerWS/getAnswerQIDRequest" message="tns:getAnswerQID"/>
-<output wsam:Action="http://jaxws/AnswerWS/getAnswerQIDResponse" message="tns:getAnswerQIDResponse"/>
+<operation name="numVoteAnswer">
+<input wsam:Action="http://jaxws/AnswerWS/numVoteAnswerRequest" message="tns:numVoteAnswer"/>
+<output wsam:Action="http://jaxws/AnswerWS/numVoteAnswerResponse" message="tns:numVoteAnswerResponse"/>
 </operation>
 </portType>
 <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
@@ -125,7 +115,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="setAnswerVote">
+<operation name="getAnswerByQID">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -152,7 +142,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getAnswerVote">
+<operation name="getAnswerUID">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -161,16 +151,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getAnswerByQID">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getAnswerQID">
+<operation name="numVoteAnswer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

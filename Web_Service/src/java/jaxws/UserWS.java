@@ -10,6 +10,7 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import java.sql.ResultSet;
+import java.util.Random;
 
 /**
  *
@@ -51,10 +52,25 @@ public class UserWS {
     return ret;
   }
   
+  @WebMethod(operationName = "getUIDByEmail")
+  @WebResult(name="getUIDByEmail")
+  public int getUIDByEmail(@WebParam(name="email") String email) {
+    String query = "SELECT id FROM `user` WHERE email='" + email + "'";
+    ResultSet rs = database.getResultQuery(query);
+    int id = 0;
+    try {
+      rs.next();
+      id =  rs.getInt("id");
+    } catch(Throwable e) {
+      e.printStackTrace();
+    }
+    return id;
+  }
+  
   @WebMethod(operationName = "getUID")
   @WebResult(name="getUID")
-  public int getUID(String token) {
-    String query = "SELECT `uid` FROM `token` WHERE `val`=" + token;
+  public int getUID(@WebParam(name="token" )String token) {
+    String query = "SELECT `uid` FROM `token` WHERE `val`='" + token + "'";
     ResultSet rs = database.getResultQuery(query);
     int uid = 0;
     try {
@@ -63,5 +79,47 @@ public class UserWS {
     } catch(Throwable e) {
     }
     return uid;
+  }
+
+  String randomString( int len ){
+    final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    Random rnd = new Random();
+    StringBuilder sb = new StringBuilder( len );
+    for( int i = 0; i < len; i++ ) 
+      sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
+    return sb.toString();
+  }
+
+  @WebMethod(operationName = "createToken")
+  @WebResult(name="createToken")
+  public String createToken(@WebParam(name="id") int id) {
+    String random = randomString(50);
+    String query = "INSERT INTO `token` (`uid`, `val`, `expires`) VALUES ("+id+",'"+random+"', 0)";
+    database.executeQuery(query);
+    return random;
+  }
+  
+  @WebMethod(operationName = "match")
+  @WebResult(name="match")
+  public boolean match(String email, String pass) {
+    String query = "SELECT * FROM `user` WHERE `email`='" + email + "' AND `pass`='" + pass + "'";
+    ResultSet rs = database.getResultQuery(query);
+    try {
+      return rs.next();
+    } catch(Throwable e) {
+    }
+    return false; 
+  }
+  
+  @WebMethod(operationName = "emailDone")
+  @WebResult(name="emailDone")
+  public boolean emailDone(@WebParam(name="id") String email) {
+    String query = "SELECT * FROM user WHERE email='" + email + "'";
+    ResultSet rs = database.getResultQuery(query);
+    try {
+      return rs.next();
+    } catch(Throwable e) {
+    }
+    return false;
   }
 }

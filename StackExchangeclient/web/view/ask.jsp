@@ -5,6 +5,28 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+  UserWS.UserWS_Service uservice = new UserWS.UserWS_Service();
+  UserWS.UserWS uport = uservice.getUserWSPort();
+  
+  String token = "";
+  Cookie[] cookies = null;
+  cookies = request.getCookies();
+  if(cookies != null) {
+    for(Cookie cookie : cookies) {
+      if(cookie.getName().equals("auth")) {
+        token = cookie.getValue();
+      }
+    }
+  }
+  int uid = uport.getUID(token);
+  if(uid == 0) {
+    String url = "login.jsp";
+    response.sendRedirect(url);
+  } else {
+    String name = uport.getName(uid);
+%>  
+  
 <!DOCTYPE html>
 <html>
   <head>
@@ -16,7 +38,7 @@
   <body>
     <div class="container">
       <h1 class="text-center"><a href="/StackExchangeclient">OVERFLOW48</a></h1>
-      <form id="search" action="view/search.jsp" action="GET">
+      <form id="search" action="search.jsp" action="GET">
         <table>
         <tr>
           <td width="200%"> <input id="q" placeholder="What are you looking for?" type="text" class="form" name="q"></td>
@@ -24,8 +46,11 @@
         </tr>
         </table>
       </form>
+      <% if(uid == 0) { %>
       <p class="text-right"><a href="login.jsp" class="link">Login</a> | <a href="register.jsp" class="link">Register</a></p>
-
+      <% } else { %>
+      <p class="text-right"><%=name%> | <a href="../controller/logout.jsp" class="link">Logout</a></p>
+      <% } %>
       <h2>What's your question?</h2>
       <%
         QuestionWS.QuestionWS_Service service = new QuestionWS.QuestionWS_Service();
@@ -52,3 +77,7 @@
   </body>
   <footer> <br><br> </footer>
 </html>
+
+<%
+  }
+%>
