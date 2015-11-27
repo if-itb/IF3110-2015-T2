@@ -375,6 +375,7 @@ public class WebServiceImpl implements WebServiceInterface{
                 uid=rs.getInt("uid");
                 if (type == 0) { // vote question
                     String querycount = "SELECT COUNT(id) AS count FROM vote_question WHERE qid="+id + " AND uid="+uid;
+
                     querycheck= "SELECT qid,vote FROM vote_question WHERE uid="+uid+" AND qid= "+id;
                     stmt = conn.createStatement();
                     rs = stmt.executeQuery(querycount);
@@ -406,24 +407,27 @@ public class WebServiceImpl implements WebServiceInterface{
                 }
                 else if (type == 1) { // vote answer
                     querycheck= "SELECT aid,vote FROM vote_answer WHERE uid="+uid+" AND aid= "+id;
+                    String querycountans = "SELECT COUNT(id) AS count FROM vote_answer WHERE aid="+id + " AND uid="+uid;
                     stmt = conn.createStatement();
-                    rs = stmt.executeQuery(querycheck);
-                    while (rs.next()){
-                        idCheck=rs.getInt("aid");
-                        voteCheck=rs.getInt("vote");
-                    }
-                    if (idCheck==id){ //udah pernah ngevote
-                        if (voteCheck!=direction){
-                            if (direction==1){
-                                query = "UPDATE answer SET vote = vote + 2 WHERE id=" + id;
-                            } else if (direction==-1){
-                                query = "UPDATE answer SET vote = vote - 2 WHERE id=" + id;
-                            }
-                            query2 = "UPDATE vote_answer SET vote="+direction;
-                        } else {
-                            query = "UPDATE answer SET vote = vote WHERE 1=0";
-                            query2 = "UPDATE vote_answer SET vote=vote WHERE 1=0";
-                        }
+                    rs = stmt.executeQuery(querycountans);
+                    rs.next();
+                    int stat = rs.getInt("count");
+                    System.out.println("Stat: " + stat);
+
+                    if (stat == 1){ //udah pernah ngevote
+                        query = "UPDATE question SET vote = vote WHERE id=" + id;
+                        query2 = "UPDATE question SET vote = vote WHERE id=" + id;
+//                        if (voteCheck!=direction){
+//                            if (direction==1){
+//                                query = "UPDATE answer SET vote = vote + 2 WHERE id=" + id;
+//                            } else if (direction==-1){
+//                                query = "UPDATE answer SET vote = vote - 2 WHERE id=" + id;
+//                            }
+//                            query2 = "UPDATE vote_answer SET vote="+direction;
+//                        } else {
+//                            query = "UPDATE answer SET vote = vote WHERE 1=0";
+//                            query2 = "UPDATE vote_answer SET vote=vote WHERE 1=0";
+//                        }
                     } else {
                         if (direction==1){
                             query = "UPDATE answer SET vote = vote + 1 WHERE id=" + id;
