@@ -5,10 +5,12 @@
  */
 package controller;
 
+import QuestionWS.Question;
 import QuestionWS.QuestionWS_Service;
 import UserWS.UserWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +55,12 @@ public class EditController extends HttpServlet {
                 response.sendRedirect("log-in.jsp");
               }
             } else {
-                request.getServletContext().getRequestDispatcher("/ask-question.jsp").forward(request, response);
+              String qidString = request.getParameter("qid");
+              int qidInt = Integer.parseInt(qidString);
+              java.util.List<QuestionWS.Question> question = getQuestion(qidInt);
+              request.setAttribute("question-topic", question.get(0).getTopic());
+              request.setAttribute("question-content", question.get(0).getContent());
+              request.getServletContext().getRequestDispatcher("/ask-question.jsp").forward(request, response);
             }
         } else {
             response.sendRedirect("log-in.jsp");
@@ -111,5 +118,12 @@ public class EditController extends HttpServlet {
     // If the calling of port operations may lead to race condition some synchronization is required.
     QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
     return port.editQuestion(questionId, topic, content, token);
+  }
+
+  private java.util.List<QuestionWS.Question> getQuestion(int idQuestion) {
+    // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+    // If the calling of port operations may lead to race condition some synchronization is required.
+    QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
+    return port.getQuestion(idQuestion);
   }
 }

@@ -5,25 +5,21 @@
  */
 package controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.*;
-import org.json.simple.parser.*;
 import main.TokenExecutor;
+import org.json.simple.JSONObject;
 
 /**
- * @author Irene Wiliudarsan - 13513002
- * @author Angela Lynn - 13513032
- * @author Devina Ekawati - 13513088
+ *
+ * @author User
  */
-public class TokenController extends HttpServlet {
+public class UserIdentityController extends HttpServlet {
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,32 +31,29 @@ public class TokenController extends HttpServlet {
    * @throws IOException if an I/O error occurs
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {   
-    BufferedReader in = request.getReader();
-    String inputLine;
-    StringBuffer stringBuffer = new StringBuffer();
+          throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    response.setContentType("application/json");
+    response.setHeader("Cache-control", "no-cache, no-store");
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Expires", "-1");
     
-    while ((inputLine = in.readLine()) != null) {
-      stringBuffer.append(inputLine);
-    }
-    
-    JSONParser parser = new JSONParser();
-    try {
-      Object object = parser.parse(stringBuffer.toString());
-      JSONObject req = (JSONObject) object;
-      String token = (String)req.get("token");
-      
-      response.setContentType("application/json; charset=UTF-8");
-      PrintWriter writer = response.getWriter();
-      JSONObject resp = new JSONObject();
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    response.setHeader("Access-Control-Allow-Methods", "POST");
+    response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    response.setHeader("Access-Control-Max-Age", "86400");
+    String token = request.getParameter("token");
+    try (PrintWriter out = response.getWriter()) {
+      JSONObject obj = new JSONObject();
       TokenExecutor executor = new TokenExecutor(token);
+      ArrayList<String> identity = new ArrayList<String>();
+      identity = executor.getUserIdentity();
+      obj.put("user_name", identity.get(0));
+      obj.put("user_email", identity.get(1));
+      out.print(obj);
       executor.closeConnection();
-      resp.put("is_valid", executor.getIsValid());
-      resp.put("id_user", executor.getIdUser());
-      writer.println(resp);
-    } catch (ParseException ex) {
-      Logger.getLogger(TokenController.class.getName()).log(Level.SEVERE, null, ex);
-    }   
+      out.close();
+    }
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -101,4 +94,5 @@ public class TokenController extends HttpServlet {
   public String getServletInfo() {
     return "Short description";
   }// </editor-fold>
+
 }

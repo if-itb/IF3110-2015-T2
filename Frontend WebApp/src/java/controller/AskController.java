@@ -43,23 +43,22 @@ public class AskController extends HttpServlet {
         // Memperoleh user id berdasarkan token
         if ((request.getParameter("token") != "not-valid") && (request.getParameter("token") != null)) {
             int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
-            request.setAttribute("userId", userId);
             if (userId > 0) {
                 if (request.getParameter("name") == null) {
                     boolean addQuestion = addQuestion(request.getParameter("question-topic"), request.getParameter("question-content"), request.getParameter("token"));
                     if (addQuestion) {
                         response.sendRedirect("IndexController?token="+request.getParameter("token"));
                     } else {
-                        response.sendRedirect("log-in.jsp?id=3");
+                        response.sendRedirect("log-in.jsp");
                     }
                 } else {
                     request.getServletContext().getRequestDispatcher("/ask-question.jsp").forward(request, response);
                 }
             } else {
-                response.sendRedirect("log-in.jsp?id=2");
+                response.sendRedirect("log-in.jsp");
             }
         } else {
-            response.sendRedirect("log-in.jsp?id=1");
+            response.sendRedirect("log-in.jsp");
         }
     }
 

@@ -20,13 +20,19 @@ Author:
 
   </head>
   <body>
+    <% if ((request.getParameter("token") != null) && (request.getParameter("token") != "not-valid")) { %>
+      <!--User Identity-->
+      <div class="user-identity">
+        Hi <span class="user-name blue"></span>
+      </div>
+    <% } %>
     <!-- Title -->
     <div class="title">
-        <% if ((request.getParameter("token") == null) || (request.getParameter("token") == "not-valid")) { %>
+      <% if ((request.getParameter("token") == null) || (request.getParameter("token") == "not-valid")) { %>
         <a href="IndexController">
-        <% } else { %>
+      <% } else { %>
         <a href="IndexController?token=<%= request.getParameter("token") %>">
-        <% } %>
+      <% } %>
         StackExchange
       </a>
     </div>
@@ -166,11 +172,14 @@ Author:
         </form>
       </div>
       <% } else { %>
-      <a href="log-in.jsp">Login</a> or <a href="register.jsp">register</a> to answer this question
+      <a class="yellow" href="log-in.jsp">Login</a> or <a class="red" href="register.jsp">register</a> to answer this question
       <% } %>
     </div>
 
     <!-- JavaScript -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
     <script src="js/script.js"></script>
+    <script src="js/script-user-identity.js"></script>
   </body>
 </html>

@@ -11,7 +11,6 @@ import QuestionWS.QuestionWS_Service;
 import UserWS.User;
 import UserWS.UserWS_Service;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,32 +43,40 @@ public class QuestionDetailController extends HttpServlet {
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
-    if (request.getParameter("qid") != null) {
-      String temp = request.getParameter("qid");
-      int id = Integer.parseInt(temp);
-      java.util.List<QuestionWS.Question> questions = getQuestion(id);
-      UserWS.User u1 = getUserByIdQuestion(id);
-      java.util.List<AnswerWS.Answer> answers = getAnswerByQId(id);
-      java.util.List<UserWS.User> u2 = new ArrayList<UserWS.User>();
-      for (Answer answer : answers) {
-        u2.add(getUserByIdAnswer(answer.getIdAnswer()));
-      }
-      int count = getCountAnswerByQId(id);
-      
-      // Memperoleh user id berdasarkan token
-      if (request.getParameter("token") != null) {
+    String token = request.getParameter("token");
+    int idUser = 0;
+    if (token != null) {
+      idUser = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
+    }
+    if (idUser > 0 || token == null ) {
+      if (request.getParameter("qid") != null) {
+        String temp = request.getParameter("qid");
+        int id = Integer.parseInt(temp);
+        java.util.List<QuestionWS.Question> questions = getQuestion(id);
+        UserWS.User u1 = getUserByIdQuestion(id);
+        java.util.List<AnswerWS.Answer> answers = getAnswerByQId(id);
+        java.util.List<UserWS.User> u2 = new ArrayList<UserWS.User>();
+        for (Answer answer : answers) {
+          u2.add(getUserByIdAnswer(answer.getIdAnswer()));
+        }
+        int count = getCountAnswerByQId(id);
+
+        if (request.getParameter("token") != null) {
+          // Memperoleh user id berdasarkan token
           int userId = getUserByToken(request.getParameter("token"), "http://localhost:8082/Identity_Service/TokenController");
           request.setAttribute("userId", userId);
+        }
+
+        request.setAttribute("questions", questions);
+        request.setAttribute("u1", u1);
+        request.setAttribute("count", count);
+        request.setAttribute("answers", answers);
+        request.setAttribute("u2", u2);
+        request.getServletContext().getRequestDispatcher("/question-detail.jsp").forward(request, response);
       }
-      
-      request.setAttribute("questions", questions);
-      request.setAttribute("u1", u1);
-      request.setAttribute("count", count);
-      request.setAttribute("answers", answers);
-      request.setAttribute("u2", u2);
-      request.getServletContext().getRequestDispatcher("/question-detail.jsp").forward(request, response);
+    } else {
+      response.sendRedirect("log-in.jsp");
     }
-    
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

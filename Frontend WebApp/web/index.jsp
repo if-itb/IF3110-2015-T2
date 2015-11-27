@@ -25,8 +25,12 @@ Author:
       <li><a href="log-in.jsp">Log in</a></li>
       <li><a href="register.jsp">Register</a></li>
     </ul>
+    <% } else { %>
+      <!--User Identity-->
+      <div class="user-identity">
+        Hi <span class="user-name blue"></span>
+      </div>
     <% } %>
-      
     <!-- Title -->
     <div class="title">
         <% if ((request.getParameter("token") == null) || (request.getParameter("token") == "not-valid")) { %>
@@ -96,7 +100,13 @@ Author:
                     <%= questions.get(i).getTopic() %>
                   </div>
                   <div class="question-content">
-                    <%= questions.get(i).getContent() %>
+                    <%
+                      String questionPrint = questions.get(i).getContent();
+                      if (questionPrint.length() > 400) {
+                        questionPrint = questionPrint.substring(0, 100) + "...";
+                      }
+                    %>
+                    <%= questionPrint %>
                   </div>
                 </a>
               </div>
@@ -137,6 +147,9 @@ Author:
     </div>
 
     <!-- JavaScript -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
     <script src="js/script.js"></script>
+    <script src="js/script-user-name.js"></script>
   </body>
 </html>

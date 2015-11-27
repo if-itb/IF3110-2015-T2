@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -25,8 +26,6 @@ public class TokenExecutor {
   private int idUser;
   private boolean isValid;
   private Connection connection;
-  public String emailTest;
-  public String passwordTest;
   
   // Konstruktor
   public TokenExecutor(String email, String password) {
@@ -60,7 +59,6 @@ public class TokenExecutor {
         Database database = new Database();
         connection = database.connectDatabase();
         checkTokenValid();
-        connection.close();
       } catch (SQLException ex) {
         System.out.println(ex.getMessage());
       }
@@ -98,8 +96,6 @@ public class TokenExecutor {
     PreparedStatement dbStatement = connection.prepareStatement(query);
     dbStatement.setString(1, email);
     dbStatement.setString(2, password);
-    emailTest = email;
-    passwordTest = password;
     ResultSet result = dbStatement.executeQuery();
     if (result.next()) {
       // Email and password matched
@@ -111,7 +107,6 @@ public class TokenExecutor {
     return idUser;
   }
   private void checkTokenLifetimeExisted() throws SQLException {
-    // Menjalankan query
     try (Statement statement = connection.createStatement()) {
       // Menjalankan query
       String query = "SELECT id_user FROM user WHERE token = ? AND lifetime = ?";
@@ -129,7 +124,6 @@ public class TokenExecutor {
     }
   }
   private void checkTokenValid() throws SQLException {
-    // Menjalankan query
     try (Statement statement = connection.createStatement()) {
       // Menjalankan query
       String query = "SELECT id_user, lifetime FROM user WHERE token = '" + token.getAccessToken() + "'";
@@ -142,6 +136,7 @@ public class TokenExecutor {
           // Lifetime valid
           isValid = true;
         } else {
+          idUser = -999999;
           isValid = false;
         }
       } else {
@@ -150,6 +145,48 @@ public class TokenExecutor {
       }
       result.close();
       statement.close();
+    }
+  }
+  public String getUserName() {
+    String name = "not-valid";
+    try (Statement statement = connection.createStatement()) {
+      // Menjalankan query
+      String query = "SELECT name FROM user WHERE token = '" + token.getAccessToken() + "'";
+      ResultSet result = statement.executeQuery(query);
+      if (result.next()) {
+        // Nama user ditemukan
+        name = result.getString("name");
+      }
+      result.close();
+      statement.close();
+    } catch (SQLException ex) {
+      System.out.println(ex.getMessage());
+    }
+    return name;
+  }
+  public ArrayList<String> getUserIdentity() {
+    ArrayList<String> identity = new ArrayList<String>();
+    try (Statement statement = connection.createStatement()) {
+      // Menjalankan query
+      String query = "SELECT name, email FROM user WHERE token = '" + token.getAccessToken() + "'";
+      ResultSet result = statement.executeQuery(query);
+      if (result.next()) {
+        // Nama user ditemukan
+        identity.add(result.getString("name"));
+        identity.add(result.getString("email"));
+      }
+      result.close();
+      statement.close();
+    } catch (SQLException ex) {
+      System.out.println(ex.getMessage());
+    }
+    return identity;
+  }
+  public void closeConnection() {
+    try {
+      connection.close();
+    } catch (SQLException ex) {
+      System.out.println(ex.getMessage());
     }
   }
 }

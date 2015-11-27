@@ -8,6 +8,14 @@
         <servlet-name>FrontEndTokenController</servlet-name>
         <servlet-class>controller.FrontEndTokenController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserNameController</servlet-name>
+        <servlet-class>controller.UserNameController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserIdentityController</servlet-name>
+        <servlet-class>controller.UserIdentityController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TokenController</servlet-name>
         <url-pattern>/TokenController</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>FrontEndTokenController</servlet-name>
         <url-pattern>/FrontEndTokenController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserNameController</servlet-name>
+        <url-pattern>/UserNameController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserIdentityController</servlet-name>
+        <url-pattern>/UserIdentityController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

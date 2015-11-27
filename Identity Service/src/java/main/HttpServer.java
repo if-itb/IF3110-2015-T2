@@ -5,6 +5,7 @@
  */
 package main;
 
+import java.sql.SQLException;
 import java.util.UUID;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -17,9 +18,10 @@ import java.util.Date;
  * @author Devina Ekawati - 13513088
  */
 public class HttpServer {
-    public static void main (String[] args) {
-      TokenExecutor executor = new TokenExecutor("5fad7751-60c8-3fe6-a796-d86293d8b2af");
+    public static void main (String[] args) throws SQLException {
+      TokenExecutor executor = new TokenExecutor("41827cd9-b728-3de5-8045-1f95f73fb68c");
       Token token = executor.getToken();
       System.out.println(executor.getIdUser() + "\n" + executor.getIsValid());
+      System.out.println("Nama: " + executor.getUserName());
     }
 }
