@@ -8,7 +8,9 @@ package com.dazzlesquad.servlet;
 import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +37,23 @@ public class DelQuestion extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         int question_id = Integer.parseInt(request.getParameter("qid"));
-        int del = deleteQuestion(question_id);
+        
+        Cookie[] cookies = request.getCookies();
+        
+        String token = "";
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    token = cookie.getValue();
+                    //value can be retrieved using #cookie.getValue()
+                    //response.sendRedirect("/Stack_Exchange_Client/QuestionPage?id=1");
+                    break;
+                }
+            }
+        }
+        
+        
+        int del = deleteQuestion(question_id, token);
         response.sendRedirect("/Stack_Exchange_Client/QuestionServlet");
         
     }
@@ -79,11 +97,11 @@ public class DelQuestion extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int deleteQuestion(int id) {
+    private int deleteQuestion(int id, String token) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.deleteQuestion(id);
+        return port.deleteQuestion(id, token);
     }
 
 }

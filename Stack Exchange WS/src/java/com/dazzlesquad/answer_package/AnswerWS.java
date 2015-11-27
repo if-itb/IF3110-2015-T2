@@ -5,7 +5,7 @@
  */
 package com.dazzlesquad.answer_package;
 
-import com.dazzesquad.database_console.DBConnect;
+import com.dazzlesquad.database_console.DBConnect;
 import com.dazzlesquad.user_package.User;
 import com.dazzlesquad.user_package.UserWS;
 import java.sql.*;

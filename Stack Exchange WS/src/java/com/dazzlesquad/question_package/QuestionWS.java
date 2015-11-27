@@ -8,7 +8,7 @@ package com.dazzlesquad.question_package;
  *
  * @author ryanyonata
  */
-import com.dazzesquad.database_console.DBConnect;
+import com.dazzlesquad.database_console.DBConnect;
 import com.dazzlesquad.answer_package.*;
 import com.dazzlesquad.user_package.User;
 import com.dazzlesquad.user_package.UserWS;
@@ -26,7 +26,7 @@ import javax.jws.WebResult;
 public class QuestionWS {
 
     Connection conn; 
-
+    
     public QuestionWS() throws SQLException {
         DBConnect db = new DBConnect();
         conn = db.connect();
@@ -113,29 +113,78 @@ public class QuestionWS {
     
     @WebMethod(operationName = "deleteQuestion")
     @WebResult(name="Success")
-    public int deleteQuestion(@WebParam(name = "id") int id) {
-        int deletesuccessful = 1; // nanti diganti fungsi validasi
-        if (deletesuccessful == 1) {
-            try {
+    public int deleteQuestion(@WebParam(name = "id") int id, @WebParam(name = "token") String token) {
+        int deletesuccessful = 0, questionUserId = 0, tokenUserId = 0;
+        System.out.print(token);
+        try {
+            String sql;
+            Statement statement = conn.createStatement();
+
+            sql = "SELECT user_id FROM Question WHERE id = ? LIMIT 1";
+
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, id);
+
+            ResultSet result = dbStatement.executeQuery();
+
+            questionUserId = 0;
+            if (result.next()) {
+                questionUserId = result.getInt("user_id");
+            } else {
+                questionUserId = 0;
+            }
+            statement.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        try {
+            String sql;
+            Statement statement = conn.createStatement();
+
+            sql = "SELECT user_id FROM tokenlist WHERE token = ? LIMIT 1";
+
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1, token);
+
+            ResultSet result = dbStatement.executeQuery();
+
+            tokenUserId = 0;
+            if (result.next()) {
+                tokenUserId = result.getInt("user_id");
+            } else {
+                tokenUserId = 0;
+            }
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (questionUserId == tokenUserId) {
+            try{
                 String sql;
                 Statement statement = conn.createStatement();
 
                 sql = "DELETE FROM Question WHERE id=?";
 
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setInt(1,id);
-
-                dbStatement.executeUpdate(); 
+                dbStatement.setInt(1, id);
                 
+                dbStatement.executeUpdate();
+                
+                statement.close();
+                deletesuccessful = 1;
+
                 AnswerWS answers = new AnswerWS();
                 answers.deleteAnswer(id);
-                statement.close();
-                
             } catch (SQLException ex) {
                 Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
-        
+            
+                
         return deletesuccessful;
     }
     

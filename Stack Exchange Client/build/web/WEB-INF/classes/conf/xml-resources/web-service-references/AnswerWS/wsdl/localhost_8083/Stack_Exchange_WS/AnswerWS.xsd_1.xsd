@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><xs:schema xmlns:tns="http://answer_package.dazzlesquad.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://answer_package.dazzlesquad.com/">
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://answer_package.dazzlesquad.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://answer_package.dazzlesquad.com/">
 
 <xs:element name="Answer" type="tns:answer"/>
 
@@ -13,18 +13,6 @@
 <xs:element name="insertAnswer" type="tns:insertAnswer"/>
 
 <xs:element name="insertAnswerResponse" type="tns:insertAnswerResponse"/>
-
-<xs:complexType name="deleteAnswer">
-<xs:sequence>
-<xs:element name="qid" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="deleteAnswerResponse">
-<xs:sequence>
-<xs:element name="Success" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
 
 <xs:complexType name="getAnswerById">
 <xs:sequence>
@@ -48,6 +36,18 @@
 <xs:element name="date" type="xs:string"/>
 <xs:element name="username" type="xs:string"/>
 <xs:element name="answerUsername" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteAnswer">
+<xs:sequence>
+<xs:element name="qid" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteAnswerResponse">
+<xs:sequence>
+<xs:element name="Success" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 

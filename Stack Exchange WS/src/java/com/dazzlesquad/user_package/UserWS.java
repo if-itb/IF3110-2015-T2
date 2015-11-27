@@ -5,7 +5,7 @@
  */
 package com.dazzlesquad.user_package;
 
-import com.dazzesquad.database_console.DBConnect;
+import com.dazzlesquad.database_console.DBConnect;
 import com.dazzlesquad.answer_package.Answer;
 import java.sql.*;
 import java.util.*;
@@ -92,6 +92,47 @@ public class UserWS {
         return insertsuccessful;
     }
     
-    
+    @WebMethod(operationName = "getUserByToken")
+    @WebResult(name = "userResult")
+    public User getUserByToken(@WebParam(name = "token") String token) {
+        int userIdResult;
+        User userResult = null;
+        try {
+            Statement statement = conn.createStatement();
+            String sql;
+
+            sql = "SELECT user_id FROM tokenlist WHERE token = ?";
+
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1, token);
+
+            ResultSet result = dbStatement.executeQuery();
+
+            if (result.next()) {
+                userIdResult = result.getInt("user_id");
+            } else {
+                userIdResult = 0;
+            }
+
+            String sql2 = "SELECT * FROM user WHERE id = ?";
+            PreparedStatement dbStatement2 = conn.prepareStatement(sql2);
+            dbStatement.setString(1, token);
+
+            ResultSet result2 = dbStatement2.executeQuery();
+
+            if (result.next()) {
+                userResult = new User(result.getInt("id"), result.getString("name"), result.getString("email"), result.getString("password"));
+            } else {
+                userResult = new User();
+            }
+
+            statement.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return userResult;
+    }
     
 }
