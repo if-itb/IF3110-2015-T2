@@ -3,8 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/fauzanrifqy/NetBeansProjects/StackExchange-WebService/src/java/stackexchange/webservice/model/Answer.java</file>
-            <file>file:/Users/fauzanrifqy/NetBeansProjects/StackExchange-WebService/src/java/stackexchange/webservice/auth/Auth.java</file>
+            <file>file:/Users/fauzanrifqy/NetBeansProjects/StackExchange-WebService/src/java/stackexchange/webservice/UserWS.java</file>
+            <file>file:/Users/fauzanrifqy/NetBeansProjects/StackExchange-WebService/src/java/stackexchange/webservice/QuestionWS.java</file>
         </group>
     </open-files>
 </project-private>
