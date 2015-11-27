@@ -4,6 +4,12 @@
 <xsd:import namespace="http://services.stackExchangeWS/" schemaLocation="http://localhost:8080/StackExchangeWS/AnswerHandler?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="getQuestionId">
+<part name="parameters" element="tns:getQuestionId"/>
+</message>
+<message name="getQuestionIdResponse">
+<part name="parameters" element="tns:getQuestionIdResponse"/>
+</message>
 <message name="getAllAnswers">
 <part name="parameters" element="tns:getAllAnswers"/>
 </message>
@@ -32,6 +38,10 @@
 <part name="parameters" element="tns:answerQuestionResponse"/>
 </message>
 <portType name="AnswerHandler">
+<operation name="getQuestionId">
+<input wsam:Action="http://services.stackExchangeWS/AnswerHandler/getQuestionIdRequest" message="tns:getQuestionId"/>
+<output wsam:Action="http://services.stackExchangeWS/AnswerHandler/getQuestionIdResponse" message="tns:getQuestionIdResponse"/>
+</operation>
 <operation name="getAllAnswers">
 <input wsam:Action="http://services.stackExchangeWS/AnswerHandler/getAllAnswersRequest" message="tns:getAllAnswers"/>
 <output wsam:Action="http://services.stackExchangeWS/AnswerHandler/getAllAnswersResponse" message="tns:getAllAnswersResponse"/>
@@ -55,6 +65,15 @@
 </portType>
 <binding name="AnswerHandlerPortBinding" type="tns:AnswerHandler">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="getQuestionId">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="getAllAnswers">
 <soap:operation soapAction=""/>
 <input>

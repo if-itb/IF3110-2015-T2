@@ -68,5 +68,14 @@ public class AnswerHandler {
         
         return 1;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getQuestionId")
+    public int getQuestionId(@WebParam(name = "answerId") int answerId) throws SQLException {
+        //TODO write your implementation code here:
+        return DbAnswerManager.getQuestionId(answerId);
+    }
     
 }

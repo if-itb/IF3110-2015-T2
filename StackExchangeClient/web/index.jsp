@@ -7,8 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form name="login" method="post" action="Login">
-<input type="hidden" name="pagename" value="login"/>
+<form name="login" method="post" action="localhost:8080/StackExchangeIS/Login">
 <table>
 	<tr>
 		<td>Email</td>

@@ -10,6 +10,10 @@
 
 <xs:element name="getAllAnswersResponse" type="tns:getAllAnswersResponse"/>
 
+<xs:element name="getQuestionId" type="tns:getQuestionId"/>
+
+<xs:element name="getQuestionIdResponse" type="tns:getQuestionIdResponse"/>
+
 <xs:element name="votesDownAnswer" type="tns:votesDownAnswer"/>
 
 <xs:element name="votesDownAnswerResponse" type="tns:votesDownAnswerResponse"/>
@@ -87,6 +91,18 @@
 </xs:complexType>
 
 <xs:complexType name="votesUpAnswerResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getQuestionId">
+<xs:sequence>
+<xs:element name="answerId" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getQuestionIdResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
 </xs:sequence>

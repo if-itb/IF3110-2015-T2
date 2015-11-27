@@ -20,8 +20,8 @@ import stackexchangews.services.SQLException_Exception;
  *
  * @author davidkwan
  */
-@WebServlet(name = "UpVoteQuestion", urlPatterns = {"/UpVoteQuestion"})
-public class UpVoteQuestion extends HttpServlet {
+@WebServlet(name = "DownVoteQuestion", urlPatterns = {"/DownVoteQuestion"})
+public class DownVoteQuestion extends HttpServlet {
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -43,7 +43,7 @@ public class UpVoteQuestion extends HttpServlet {
         
         if(userId>=0){
             try {
-                votesUpQuestion(questionId, userId);
+                votesDownQuestion(questionId, userId);
             } catch (SQLException_Exception ex) {
                 Logger.getLogger(UpVoteQuestion.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -67,10 +67,11 @@ public class UpVoteQuestion extends HttpServlet {
 
     }
     
-    private static int votesUpQuestion(int questionId, int voter) throws SQLException_Exception {
+    private static int votesDownQuestion(int questionId, int voter) throws SQLException_Exception {
         stackexchangews.services.QuestionHandler_Service service = new stackexchangews.services.QuestionHandler_Service();
         stackexchangews.services.QuestionHandler port = service.getQuestionHandlerPort();
-        return port.votesUpQuestion(questionId, voter);
-    }  
+        return port.votesDownQuestion(questionId, voter);
+    }
+    
     
 }

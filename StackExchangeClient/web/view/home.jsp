@@ -18,7 +18,7 @@
 		</div>
 
 		<p class='center'>
-			Cannot find what you are looking for? <a href='../askquestion.php' class='yellow'>Ask here</a>
+			Cannot find what you are looking for? <a href='askQuestion.jsp' class='yellow'>Ask here</a>
 		</p>
 
 		<h2>Recently Asked Questions</h2>

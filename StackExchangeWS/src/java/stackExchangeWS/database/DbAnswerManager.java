@@ -88,5 +88,20 @@ public class DbAnswerManager {
             ConnectionManager.getInstance().close();
             
         }
+        
+        public static int getQuestionId(int answerId) throws SQLException{
+            conn = ConnectionManager.getInstance().getConnection();
+            String sql = "SELECT questionId FROM answer WHERE answerId = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, answerId);
+            
+            ResultSet rs = pstmt.executeQuery();
+            
+            int questionId = 0; 
+            while(rs.next()){
+                questionId = rs.getInt("questionId");
+            }
+            return questionId;
+        }
        
 }

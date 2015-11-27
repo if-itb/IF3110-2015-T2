@@ -20,8 +20,8 @@ import stackexchangews.services.SQLException_Exception;
  *
  * @author davidkwan
  */
-@WebServlet(name = "UpVoteQuestion", urlPatterns = {"/UpVoteQuestion"})
-public class UpVoteQuestion extends HttpServlet {
+@WebServlet(name = "UpVoteAnswer", urlPatterns = {"/UpVoteAnswer"})
+public class UpVoteAnswer extends HttpServlet {
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -36,18 +36,20 @@ public class UpVoteQuestion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int questionId = Integer.parseInt(request.getParameter("id"));
+        int answerId = Integer.parseInt(request.getParameter("id"));
         
         // Get User ID from token
         int userId = 3;
         
         if(userId>=0){
             try {
-                votesUpQuestion(questionId, userId);
+                votesUpAnswer(answerId, userId);
             } catch (SQLException_Exception ex) {
                 Logger.getLogger(UpVoteQuestion.class.getName()).log(Level.SEVERE, null, ex);
             }
-           response.sendRedirect("ViewQuestion?id=" + questionId);
+            
+            int questionId = getQuestionId(answerId);
+            response.sendRedirect("ViewQuestion?id=" + questionId);
         }
         else
             response.sendRedirect("");
@@ -67,10 +69,16 @@ public class UpVoteQuestion extends HttpServlet {
 
     }
     
-    private static int votesUpQuestion(int questionId, int voter) throws SQLException_Exception {
-        stackexchangews.services.QuestionHandler_Service service = new stackexchangews.services.QuestionHandler_Service();
-        stackexchangews.services.QuestionHandler port = service.getQuestionHandlerPort();
-        return port.votesUpQuestion(questionId, voter);
-    }  
+    private static int votesUpAnswer(int answerId, int answererId) throws SQLException_Exception {
+        stackexchangews.services.AnswerHandler_Service service = new stackexchangews.services.AnswerHandler_Service();
+        stackexchangews.services.AnswerHandler port = service.getAnswerHandlerPort();
+        return port.votesUpAnswer(answerId, answererId);
+    }
+    
+    private static int getQuestionId(int answerId) {
+        stackexchangews.services.AnswerHandler_Service service = new stackexchangews.services.AnswerHandler_Service();
+        stackexchangews.services.AnswerHandler port = service.getAnswerHandlerPort();
+        return port.getQuestionId(answerId);
+    }
     
 }

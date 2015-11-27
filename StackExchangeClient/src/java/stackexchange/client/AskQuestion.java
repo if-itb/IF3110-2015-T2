@@ -20,9 +20,8 @@ import stackexchangews.services.SQLException_Exception;
  *
  * @author davidkwan
  */
-@WebServlet(name = "UpVoteQuestion", urlPatterns = {"/UpVoteQuestion"})
-public class UpVoteQuestion extends HttpServlet {
-
+@WebServlet(name = "AskQuestion", urlPatterns = {"/AskQuestion"})
+public class AskQuestion extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -36,21 +35,7 @@ public class UpVoteQuestion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int questionId = Integer.parseInt(request.getParameter("id"));
         
-        // Get User ID from token
-        int userId = 3;
-        
-        if(userId>=0){
-            try {
-                votesUpQuestion(questionId, userId);
-            } catch (SQLException_Exception ex) {
-                Logger.getLogger(UpVoteQuestion.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           response.sendRedirect("ViewQuestion?id=" + questionId);
-        }
-        else
-            response.sendRedirect("");
     }
 
     /**
@@ -64,13 +49,26 @@ public class UpVoteQuestion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        //Get userId using token
+        int userId = 1;
+        
+        String topic = request.getParameter("topic");
+        String content = request.getParameter("content");
+        
+        try {
+            askQuestion(userId, topic, content);
+        } catch (SQLException_Exception ex) {
+            Logger.getLogger(AskQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        response.sendRedirect("Home");
     }
     
-    private static int votesUpQuestion(int questionId, int voter) throws SQLException_Exception {
+    private static int askQuestion(int askerId, String topic, String content) throws SQLException_Exception {
         stackexchangews.services.QuestionHandler_Service service = new stackexchangews.services.QuestionHandler_Service();
         stackexchangews.services.QuestionHandler port = service.getQuestionHandlerPort();
-        return port.votesUpQuestion(questionId, voter);
-    }  
-    
+        return port.askQuestion(askerId, topic, content);
+    }
+
 }

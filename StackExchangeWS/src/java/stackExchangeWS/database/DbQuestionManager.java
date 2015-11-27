@@ -56,14 +56,7 @@ public class DbQuestionManager {
         
         public static ArrayList<Question> getAllQuestions() throws SQLException{
             conn = ConnectionManager.getInstance().getConnection();
-            String sql = 
-                    "SELECT question.*, user.*, c.countAnswers, c.votes FROM "
-                    + "user, question, (SELECT votes.*, IFNULL(countAnswers,0) AS countAnswers FROM "
-                        + "(SELECT questionId, SUM(value) AS votes FROM votes_question GROUP BY questionId) AS votes "
-                            + "LEFT JOIN "
-                        + "(SELECT questionId, COUNT(questionId) AS countAnswers FROM answer GROUP BY questionId) AS cAnswers ON votes.questionId =  cAnswers.questionId) AS c "
-                    + "WHERE c.questionId = question.questionId AND user.userId = question.askerId";
-            
+            String sql = "SELECT * FROM question, user WHERE userId = askerId ORDER BY questionId DESC";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             
@@ -76,13 +69,29 @@ public class DbQuestionManager {
                 question.setTopic(rs.getString("topic"));
                 question.setContent(rs.getString("content"));
                 question.setTime(rs.getString("time"));
-                question.setVotes(rs.getInt("votes"));
+                //question.setVotes(rs.getInt("votes"));
                 question.setAskerEmail(rs.getString("email"));
-                question.setCountAnswers(rs.getInt("countAnswers"));
+                //question.setCountAnswers(rs.getInt("countAnswers"));
                 
                 questions.add(question);
             }
+            
+            for(Question q: questions){
+                sql = "SELECT COUNT(*) AS countAnswers FROM answer WHERE questionId = ?";
+                pstmt = conn.prepareStatement(sql);
+                
+                pstmt.setInt(1, q.getQuestionId());
+                rs = pstmt.executeQuery();
+                while(rs.next()){
+                    q.setCountAnswers(rs.getInt("countAnswers"));
+                }
+            }
+            
             ConnectionManager.getInstance().close();
+            
+            for(Question q: questions){
+                q.setVotes(countVoteQuestion(q.getQuestionId()));
+            }
             
             return questions;
         }
