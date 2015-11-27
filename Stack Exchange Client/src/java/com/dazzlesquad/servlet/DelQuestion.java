@@ -45,13 +45,10 @@ public class DelQuestion extends HttpServlet {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
                     token = cookie.getValue();
-                    //value can be retrieved using #cookie.getValue()
-                    //response.sendRedirect("/Stack_Exchange_Client/QuestionPage?id=1");
                     break;
                 }
             }
         }
-        
         
         int del = deleteQuestion(question_id, token);
         response.sendRedirect("/Stack_Exchange_Client/QuestionServlet");

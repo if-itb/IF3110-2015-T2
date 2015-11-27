@@ -9,6 +9,7 @@ import QuestionWS.QuestionWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,9 +40,27 @@ public class EditQuestion extends HttpServlet {
         //int question_userid= Integer.parseInt(request.getParameter("question_userid"));
         int question_id= Integer.parseInt(request.getParameter("qid"));
 
-        int edit = editQuestion(question_id,question_topic,question_content);
-        String location = "/Stack_Exchange_Client/QuestionPage?id=" + question_id;
-        response.sendRedirect(location);
+        Cookie[] cookies = request.getCookies();
+
+        String token = "";
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        
+        int edit = editQuestion(question_id,question_topic,question_content, token);
+        if (edit == 1){
+            String location = "/Stack_Exchange_Client/QuestionPage?id=" + question_id;
+            response.sendRedirect(location);
+        } else{
+            response.sendRedirect("/Stack_Exchange_Client/QuestionServlet");
+        }
+        
         
     }
 
@@ -84,11 +103,11 @@ public class EditQuestion extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private int editQuestion(int id, java.lang.String topic, java.lang.String content) {
+    private int editQuestion(int id, java.lang.String topic, java.lang.String content, java.lang.String token) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service.getQuestionWSPort();
-        return port.editQuestion(id, topic, content);
+        return port.editQuestion(id, topic, content, token);
     }
 
 }

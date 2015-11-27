@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="topic" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="content" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -31,13 +32,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "editQuestion", propOrder = {
     "id",
     "topic",
-    "content"
+    "content",
+    "token"
 })
 public class EditQuestion {
 
     protected int id;
     protected String topic;
     protected String content;
+    protected String token;
 
     /**
      * Gets the value of the id property.
@@ -101,6 +104,30 @@ public class EditQuestion {
      */
     public void setContent(String value) {
         this.content = value;
+    }
+
+    /**
+     * Gets the value of the token property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * Sets the value of the token property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setToken(String value) {
+        this.token = value;
     }
 
 }

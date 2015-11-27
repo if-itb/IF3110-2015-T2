@@ -127,6 +127,7 @@ public interface QuestionWS {
      * @param topic
      * @param id
      * @param content
+     * @param token
      * @return
      *     returns int
      */
@@ -140,6 +141,8 @@ public interface QuestionWS {
         @WebParam(name = "topic", targetNamespace = "")
         String topic,
         @WebParam(name = "content", targetNamespace = "")
-        String content);
+        String content,
+        @WebParam(name = "token", targetNamespace = "")
+        String token);
 
 }

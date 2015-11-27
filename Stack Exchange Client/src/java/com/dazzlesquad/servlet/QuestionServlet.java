@@ -112,11 +112,11 @@ public class QuestionServlet extends HttpServlet {
         return port.deleteQuestion(id, token);
     }
 
-    private int editQuestion(int id, java.lang.String topic, java.lang.String content) {
+    private int editQuestion(int id, java.lang.String topic, java.lang.String content, java.lang.String token) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         QuestionWS.QuestionWS port = service_1.getQuestionWSPort();
-        return port.editQuestion(id, topic, content);
+        return port.editQuestion(id, topic, content, token);
     }
 
     private java.util.List<QuestionWS.Answer> getAnswerByQuestionId(int id) {
