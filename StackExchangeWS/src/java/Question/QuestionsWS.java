@@ -220,13 +220,16 @@ public class QuestionsWS {
      * Web service operation
      */
     @WebMethod(operationName = "votequestion")
-    public int votequestion(@WebParam(name = "token") String token, @WebParam(name = "qid") int qid, @WebParam(name = "value") int value) {
+    public int votequestion(@WebParam(name = "token") String token,
+                            @WebParam(name = "qid") int qid,
+                            @WebParam(name = "value") int value) {
         //TODO write your implementation code here:
         int res = ValidationToken.AUTH_ERROR;       // initialize result with error first (assumption)
         long user_id = ValidationToken.validateToken(token); // validate token and get the user id
         
         // token is valid if user_id value is not -1
         if (user_id != -1) {
+            
             try (Statement st = conn.createStatement()) {
                 String query = "SELECT * FROM `vote_questions` WHERE uid = ? AND qid = ?";
                 try (PreparedStatement pstselect = conn.prepareStatement(query)) {
@@ -247,12 +250,10 @@ public class QuestionsWS {
                             if (res > 0)
                                 res = ValidationToken.AUTH_VALID;
                         }
-
                     } 
                 }
-
-            }
-            catch (SQLException ex) {
+                
+            } catch (SQLException ex) {
                 Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
@@ -288,6 +289,40 @@ public class QuestionsWS {
         }
         
         return res;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "searchQuestions")
+    @WebResult(name = "questions")
+    public List<Question> searchQuestions(@WebParam(name = "keyword") String keyword) {
+        List<Question> questions = new ArrayList<>();
+        
+        try (Statement st = conn.createStatement()) {
+            
+            String query = "SELECT * FROM `questions` WHERE topic LIKE ? OR content LIKE ?";
+            // set the prepared statement by the query and enter the value of where clause
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1, "%"+ keyword +"%");
+            pst.setString(2, "%"+ keyword +"%");
+               
+            try (ResultSet res = pst.executeQuery()) {
+                // get the questions
+                while (res.next()) {
+                    questions.add(new Question(res.getInt("id"),
+                            res.getInt("uid"),
+                            res.getString("topic"),
+                            res.getString("content"),
+                            res.getString("timestamp")));
+                }
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionsWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return questions;
     }
 
     
