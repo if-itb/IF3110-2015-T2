@@ -14,8 +14,16 @@
 <body class="cyan lighten-2">
     <nav class="white" role="navigation">
       <div class="nav-wrapper container">
-        <a><img src="assets/image/Bicep.jpg" alt="Unsplashed background img 1" width="48" height="48"> </a>
-        <a id="logo-container" href="#" class="brand-logo">LEXCLE</a>
+         <c:choose>
+        <c:when test="${token==null}">
+            <a href="http://localhost:8080/stack_exchange_netbeans/index"><img src="assets/image/Bicep.jpg" alt="Unsplashed background img 1" width="48" height="48"> </a>
+            <a id="logo-container" href="http://localhost:8080/stack_exchange_netbeans/index" class="brand-logo">LEXCLE</a>
+        </c:when>    
+        <c:otherwise>
+            <a href="http://localhost:8080/stack_exchange_netbeans/index?token=<c:out value="${token}"/>"><img src="assets/image/Bicep.jpg" alt="Unsplashed background img 1" width="48" height="48"> </a>
+            <a id="logo-container" href="http://localhost:8080/stack_exchange_netbeans/index?token=<c:out value="${token}"/>" class="brand-logo">LEXCLE</a>
+        </c:otherwise>
+       </c:choose>
         <ul class="right hide-on-med-and-down">
           <li><a href="#">Login</a></li>
           <li><a href="#">Register</a></li>

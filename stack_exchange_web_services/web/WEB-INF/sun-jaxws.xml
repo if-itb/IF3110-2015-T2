@@ -3,4 +3,7 @@
   <endpoint implementation="AnswerModel.AnswerWS2" name="AnswerWS2" url-pattern="/AnswerWS2"/>
   <endpoint implementation="org.stackexchange.webservice.service.AnswerWS" name="AnswerWS" url-pattern="/AnswerWS"/>
   <endpoint implementation="org.stackexchange.webservice.service.QuestionWS" name="QuestionWS" url-pattern="/QuestionWS"/>
+  <endpoint implementation="AnswerModel.AnswerWS2" name="AnswerWS2" url-pattern="/AnswerWS2"/>
+  <endpoint implementation="org.stackexchange.webservice.service.AnswerWS" name="AnswerWS" url-pattern="/AnswerWS"/>
+  <endpoint implementation="org.stackexchange.webservice.service.QuestionWS" name="QuestionWS" url-pattern="/QuestionWS"/>
 </endpoints>
