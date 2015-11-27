@@ -50,7 +50,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginIS</servlet-name>
-        <url-pattern>/LoginIS</url-pattern>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
      <servlet-mapping>
         <servlet-name>ConnectionIS</servlet-name>
@@ -58,8 +58,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>QuestionListServlet</servlet-name>
-        <url-pattern>/index</url-pattern>
-        <url-pattern> </url-pattern>
+        <url-pattern></url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewQuestionServlet</servlet-name>

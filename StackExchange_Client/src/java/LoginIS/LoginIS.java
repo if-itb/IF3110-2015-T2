@@ -27,7 +27,7 @@ import java.sql.Timestamp;
  *
  * @author HP
  */
-@WebServlet(name = "LoginIS", urlPatterns = {"/LoginIS"})
+@WebServlet(name = "LoginIS", urlPatterns = {"/login"})
 public class LoginIS extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/UserWS.wsdl")
     private UserWS_Service service;
