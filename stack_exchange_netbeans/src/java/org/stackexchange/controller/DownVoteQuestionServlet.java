@@ -1,3 +1,7 @@
+package org.stackexchange.controller;
+
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -60,14 +64,15 @@ public class DownVoteQuestionServlet extends HttpServlet {
             throws ServletException, IOException {
         String url = request.getServletPath();
         request.setAttribute("url",url);
+        String from = request.getParameter("from");
         //request.setAttribute("curr",baseURL);
-        if (url.contains("index")){
+        if (from.equals("index")){
             downvote(Long.valueOf(request.getParameter("question_id")),request.getParameter("token"));
-            response.sendRedirect("/stack_exchange_netbeans/index?question_id=" + request.getParameter("question_id") + "&token=" + request.getParameter("token"));
+            response.sendRedirect("/stack_exchange_netbeans/index?question_id=" + request.getParameter("question_id") + "&token=" + request.getParameter("token")+ "&from=" +from);
         }
         else{
             downvote(Long.valueOf(request.getParameter("question_id")),request.getParameter("token"));
-            response.sendRedirect("/stack_exchange_netbeans/question?question_id=" + request.getParameter("question_id") + "&token=" + request.getParameter("token"));
+            response.sendRedirect("/stack_exchange_netbeans/question?question_id=" + request.getParameter("question_id") + "&token=" + request.getParameter("token")+ "&from=" +from);
         }
         processRequest(request, response);
     }
