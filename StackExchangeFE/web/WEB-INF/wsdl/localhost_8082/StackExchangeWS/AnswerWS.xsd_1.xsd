@@ -4,8 +4,6 @@
 
 <xs:element name="Exception" type="tns:Exception"/>
 
-<xs:element name="IOException" type="tns:IOException"/>
-
 <xs:element name="ParseException" type="tns:ParseException"/>
 
 <xs:element name="getAVoteByAID" type="tns:getAVoteByAID"/>
@@ -16,17 +14,9 @@
 
 <xs:element name="getAnswerByQIDResponse" type="tns:getAnswerByQIDResponse"/>
 
-<xs:element name="getUserEmail" type="tns:getUserEmail"/>
-
-<xs:element name="getUserEmailResponse" type="tns:getUserEmailResponse"/>
-
 <xs:element name="getUserID" type="tns:getUserID"/>
 
 <xs:element name="getUserIDResponse" type="tns:getUserIDResponse"/>
-
-<xs:element name="getUserName" type="tns:getUserName"/>
-
-<xs:element name="getUserNameResponse" type="tns:getUserNameResponse"/>
 
 <xs:element name="insertAnswer" type="tns:insertAnswer"/>
 
@@ -36,26 +26,11 @@
 
 <xs:element name="voteAnswerResponse" type="tns:voteAnswerResponse"/>
 
-<xs:complexType name="getUserEmail">
-<xs:sequence>
-<xs:element name="token" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getUserEmailResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="insertAnswer">
 <xs:sequence>
 <xs:element name="access_token" type="xs:string" minOccurs="0"/>
 <xs:element name="qid" type="xs:int"/>
-<xs:element name="uid" type="xs:int"/>
 <xs:element name="content" type="xs:string" minOccurs="0"/>
-<xs:element name="name" type="xs:string" minOccurs="0"/>
-<xs:element name="email" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -94,12 +69,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="IOException">
-<xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="getAVoteByAID">
 <xs:sequence>
 <xs:element name="a_id" type="xs:int"/>
@@ -109,18 +78,6 @@
 <xs:complexType name="getAVoteByAIDResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getUserName">
-<xs:sequence>
-<xs:element name="token" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getUserNameResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

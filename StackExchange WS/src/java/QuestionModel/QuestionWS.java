@@ -88,7 +88,10 @@ public class QuestionWS {
     @WebResult(name = "insQuestion")
     public int insertQuestion(@WebParam(name = "access_token") String token,
                                     @WebParam(name = "topic") String topic,
-                                    @WebParam(name = "content") String content)
+                                    @WebParam(name = "content") String content,
+                                    @WebParam(name = "id") int id,
+                                    @WebParam(name = "name") String name,
+                                    @WebParam(name = "email") String email)
     throws Exception {
         // cek token (kasih IS)
         Question question = new Question();
@@ -100,9 +103,9 @@ public class QuestionWS {
                 String sql;
                 sql = "INSERT INTO question (u_id, u_name, q_email, q_vote, q_topic, q_content) VALUES (?, ?, ?, 0, ?, ?)";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setInt(1, auth.getUserID(token));
-                dbStatement.setString(2, auth.getUName(token));
-                dbStatement.setString(3, auth.getUEmail(token));
+                dbStatement.setInt(1, id);
+                dbStatement.setString(2, name);
+                dbStatement.setString(3, email);
                 dbStatement.setString(4, topic);
                 dbStatement.setString(5, content);
 
@@ -123,6 +126,7 @@ public class QuestionWS {
     @WebResult(name = "updQuestion")
     public int updateQuestion(@WebParam(name = "access_token") String token, 
                               @WebParam(name = "qid") int qid,
+                              @WebParam(name = "uid") int uid,
                               @WebParam(name = "topic") String topic, 
                               @WebParam(name = "content") String content) 
             throws Exception {
@@ -134,12 +138,11 @@ public class QuestionWS {
             try {
                 Statement stmt = conn.createStatement();
                 String sql;
-                sql = "UPDATE question SET (q_id = ? , u_id = ? , q_topic = ?, q_content = ?)";
+                sql = "UPDATE question SET q_topic = ?, q_content = ? WHERE q_id = ?";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setInt(1, qid);
-                dbStatement.setInt(2, auth.getUserID(token));
-                dbStatement.setString(3, topic);
-                dbStatement.setString(4, content);
+                dbStatement.setString(1, topic);
+                dbStatement.setString(2, content);
+                dbStatement.setInt(3, qid);
                 
                 dbStatement.executeUpdate();
                 
@@ -224,7 +227,7 @@ public class QuestionWS {
         try {
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT SUM(v_count) v_count FROM `vote` WHERE q_id = ?";
+            sql = "SELECT SUM(v_count) AS vote_count FROM vote WHERE q_id = ?";
             
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, q_id);
@@ -232,7 +235,7 @@ public class QuestionWS {
             ResultSet rs = dbStatement.executeQuery();
 
             while(rs.next()) {
-                vote_count += rs.getInt("v_count");
+                vote_count += rs.getInt("vote_count");
             }
             stmt.close();
         } catch(SQLException ex) {
@@ -282,7 +285,7 @@ public class QuestionWS {
         return res;
     }
 
-    /**
+     /**
      * Web service operation
      */
     @WebMethod(operationName = "voteQuestion")
@@ -298,6 +301,7 @@ public class QuestionWS {
             try {
                 int u_id = auth.getUserID(token);
                 int count = 0;
+                int qvote = 0;
                 
                 Statement stmt = conn.createStatement();
                 String sql;
@@ -313,7 +317,8 @@ public class QuestionWS {
                     ++count;
                 }
                 
-                if (count == 0){
+                if (count == 0){ // User belum vote pada question tersebut
+                    // Insert vote baru
                     sql = "INSERT INTO vote (u_id, a_id, q_id, v_count) VALUES (?, 0, ?, ?)";
                     dbStatement = conn.prepareStatement(sql);
                     dbStatement.setInt(1, u_id);
@@ -322,17 +327,33 @@ public class QuestionWS {
                     
                     dbStatement.executeUpdate();
                     
-                    sql = "UPDATE question SET q_vote = ?";
+                    // Update q_vote pada tabel question
+                    qvote = getQVoteByQID(q_id);
+                    sql = "UPDATE question SET q_vote = ? WHERE q_id = ?";
                     dbStatement = conn.prepareStatement(sql);
-                    dbStatement.setInt(1, (question.getQVote() + 1));
+		    dbStatement.setInt(1, qvote);
+                    dbStatement.setInt(2, q_id);
+                    
                     dbStatement.executeUpdate();
                     
-                } else {
+                } else { // user sudah vote
+                    // update vote sesuai value (like atau dislike)
                     sql = "UPDATE vote SET v_count = ? WHERE u_id = ? AND q_id = ?";
                     dbStatement = conn.prepareStatement(sql);
                     dbStatement.setInt(1, value);
                     dbStatement.setInt(2, u_id);
                     dbStatement.setInt(3, q_id);
+                    
+                    dbStatement.executeUpdate();
+                    
+                    // dapatkan q_vote pada answer sebelum user melakukan vote
+		    qvote = getQVoteByQID(q_id);
+                    
+                    // update jumlah q_vote
+                    sql = "UPDATE question SET q_vote = ? WHERE q_id = ?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, qvote);
+                    dbStatement.setInt(2, q_id);
                     
                     dbStatement.executeUpdate();
                     
@@ -345,4 +366,121 @@ public class QuestionWS {
         
         return Valid;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUserID")
+    public int getUserID(@WebParam(name = "token") String token) {
+        int ret = -1;
+        DB db = new DB();
+        Connection conn = db.connect();  
+          try {
+              Statement stmt = conn.createStatement();
+              String sql;
+
+              sql = "SELECT * FROM token WHERE t_token = ?";
+              PreparedStatement dbStatement = conn.prepareStatement(sql);
+              dbStatement.setString(1, token);
+
+              ResultSet rs = dbStatement.executeQuery();
+
+              // Extract data from result set
+              while(rs.next()){        
+                ret = rs.getInt("u_id");
+              }
+
+              rs.close();
+              stmt.close();
+          } catch(SQLException ex) {
+              Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        return ret;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUserName")
+    public String getUserName(@WebParam(name = "token") String token) {
+        String ret = null;
+        int temp = -1;
+        DB db = new DB();
+        Connection conn = db.connect();  
+          try {
+              Statement stmt = conn.createStatement();
+              String sql;
+
+              sql = "SELECT * FROM token WHERE t_token = ?";
+              PreparedStatement dbStatement = conn.prepareStatement(sql);
+              dbStatement.setString(1, token);
+
+              ResultSet rs = dbStatement.executeQuery();
+
+              // Extract data from result set
+              while(rs.next()){        
+                temp = rs.getInt("u_id");
+              }
+
+              sql = "SELECT name FROM user WHERE u_id = ?";
+              dbStatement = conn.prepareStatement(sql);
+              dbStatement.setInt(1, temp);
+
+              rs = dbStatement.executeQuery();
+
+              while(rs.next()){        
+                ret = rs.getString("name");
+              }
+
+
+              rs.close();
+              stmt.close();
+          } catch(SQLException ex) {
+              Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        return ret;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUserEmail")
+    public String getUserEmail(@WebParam(name = "token") String token) {
+        String ret = null;
+        int temp = -1;
+        DB db = new DB();
+        Connection conn = db.connect();  
+          try {
+              Statement stmt = conn.createStatement();
+              String sql;
+
+              sql = "SELECT * FROM token WHERE t_token = ?";
+              PreparedStatement dbStatement = conn.prepareStatement(sql);
+              dbStatement.setString(1, token);
+
+              ResultSet rs = dbStatement.executeQuery();
+
+              // Extract data from result set
+              while(rs.next()){        
+                temp = rs.getInt("u_id");
+              }
+
+              sql = "SELECT email FROM user WHERE u_id = ?";
+              dbStatement = conn.prepareStatement(sql);
+              dbStatement.setInt(1, temp);
+
+              rs = dbStatement.executeQuery();
+
+              while(rs.next()){        
+                ret = rs.getString("email");
+              }
+
+
+              rs.close();
+              stmt.close();
+          } catch(SQLException ex) {
+              Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        return ret;
+      }
 }
