@@ -36,7 +36,7 @@
                                             "<input type=\"submit\" name=\"login\" value=\"Login\">" +
                                         "</form>" +
                                         "<div class=\"login-help\">" +
-                                            "<a href=\"StackExchangeClient/register.jsp\">Register</a>" +
+                                            "<a href=\"register.jsp\">Register</a>" +
                                         "</div>" +
                                 "</div>");
                 }

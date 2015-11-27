@@ -144,6 +144,7 @@ form.search-box > input[type="submit"]{
 #question #countvote {
     width:15%;
     text-align:center;
+    padding: 20px;
 }
 #question #display {
     vertical-align:top;
