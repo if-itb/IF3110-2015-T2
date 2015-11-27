@@ -45,7 +45,6 @@
                         questionmodel.QuestionWS port = service.getQuestionWSPort();
                         // TODO process result here
                         java.util.List<questionmodel.Question> result = port.getQuestion();
-                        int id = port.getUserID(t);
                         for (int i=0;i<result.size();i++) 
                         {
                             if ( result.get(i).getQId() == Integer.valueOf(s))
@@ -57,16 +56,9 @@
                                 out.println("<table class='table1'>");
                                 out.println("<tr>");
                                 out.println("<td class='tdnumber2 text-center'>");
-                                if (id==result.get(i).getUId())
-                                {
-                                    out.println("<br><br>"+result.get(i).getQVote()+"<br><br>Votes");
-                                }
-                                else
-                                {
-                                    out.println("<a href='voteUpQue.jsp?id="+result.get(i).getQId()+"'><img class='image1' src='jpg/arrowup.jpg' alt='VoteUp'></a>");
-                                    out.println("<br><br>"+result.get(i).getQVote()+"<br><br>");
-                                    out.println("<a href='voteDownQue.jsp?id="+result.get(i).getQId()+"'><img class='image1' src='jpg/arrowdown.jpg' alt='VoteDown'><br>");
-                                }
+                                out.println("<a href='voteUpQue.jsp?id="+result.get(i).getQId()+"'><img class='image1' src='jpg/arrowup.jpg' alt='VoteUp'></a>");
+                                out.println("<br><br>"+result.get(i).getQVote()+"<br><br>");
+                                out.println("<a href='voteDownQue.jsp?id="+result.get(i).getQId()+"'><img class='image1' src='jpg/arrowdown.jpg' alt='VoteDown'><br>");
                                 out.println("</td>");
                                 out.println("<td class='tdtopic text-left'>");
                                 out.println(result.get(i).getQContent());
@@ -75,19 +67,12 @@
                                 out.println("<tr>");
                                 out.println("<td colspan='2' class='text-right'>");
                                 out.println("<p>");
-                                if (id==result.get(i).getUId())
-                                {
-                                    out.println("Asked by <span class='color-blue'>you</span>");
-                                    out.println(" at <span>"+result.get(i).getQDate()+"</span>");
-                                    out.println(" | ");
-                                    out.println("<a class'color-yellow' href='question.jsp?id="+result.get(i).getQId()+"'> edit </a>");
-                                    out.println(" | ");
-                                    out.println("<a class='color-red' href='deleteQuestion.jsp?id="+result.get(i).getQId()+"'> delete </a>");
-                                }
-                                else
-                                {
-                                    out.println("Asked by <span class='color-blue'>"+result.get(i).getUName()+"</span>");
-                                }
+                                out.println("Asked by <span class='color-blue'>"+result.get(i).getUName()+"</span>");
+                                out.println(" at <span>"+result.get(i).getQDate()+"</span>");
+                                out.println(" | ");
+                                out.println("<a class'color-yellow' href='Page2.jsp?id="+result.get(i).getQId()+"'> edit </a>");
+                                out.println(" | ");
+                                out.println("<a class='color-red' href='deleteQuestion.jsp?id="+result.get(i).getQId()+"'> delete </a>");
                                 out.println("</p>");
                                 out.println("<br><hr>");
                                 out.println("</tr>");
@@ -120,7 +105,6 @@
                             count++;
                         }
                     }
-                    int id = port.getUserID(t);
                     if (count>0)
                     {
                         out.println("<table class='table1'>");
@@ -133,16 +117,9 @@
                             {
                                 out.println("<tr>");
                                 out.println("<td class='tdnumber2 text-center'>");
-                                if (id==result.get(i).getUId())
-                                {
-                                    out.println("<br><br>"+result.get(i).getAVote()+"<br><br>Votes");
-                                }
-                                else
-                                {
-                                    out.println("<a href='voteUpAns.jsp?id="+result.get(i).getAId()+"'><img class='image1' src='jpg/arrowup.jpg' alt='VoteUp'></a>");
-                                    out.println("<br><br>"+result.get(i).getAVote()+"<br><br>");
-                                    out.println("<a href='voteDownAns.jsp?id="+result.get(i).getAId()+"'><img class='image1' src='jpg/arrowdown.jpg' alt='VoteUp'></a>");
-                                }
+                                out.println("<a href='voteUpAns.jsp?id="+result.get(i).getAId()+"'><img class='image1' src='jpg/arrowup.jpg' alt='VoteUp'></a>");
+                                out.println("<br><br>"+result.get(i).getAVote()+"<br><br>");
+                                out.println("<a href='voteDownAns.jsp?id="+result.get(i).getAId()+"'><img class='image1' src='jpg/arrowdown.jpg' alt='VoteUp'></a>");
                                 out.println("</td>");
                                 out.println("<td class='tdtopic text-left'>");
                                 out.println(result.get(i).getAContent());
@@ -151,19 +128,12 @@
                                 out.println("<tr>");
                                 out.println("<td colspan='2' class='text-right'>");
                                 out.println("<p>");
-                                if (id==result.get(i).getUId())
-                                {
-                                    out.println("Answered by <span class='color-blue'>you</span>");
-                                    out.println(" at <span>"+result.get(i).getADate()+"</span>");
-                                    out.println(" | ");
-                                    out.println("<a class'color-yellow' href='updateAnswer.jsp?id="+result.get(i).getQId()+"'> edit </a>");
-                                    out.println(" | ");
-                                    out.println("<a class='color-red' href='deleteAnswer.jsp?id="+result.get(i).getQId()+"'> delete </a>");
-                                }
-                                else
-                                {
-                                    out.println("Answered by <span class='color-blue'>"+result.get(i).getUName()+"</span>");
-                                }
+                                out.println("Answered by <span class='color-blue'>"+result.get(i).getUName()+"</span>");
+                                out.println(" at <span>"+result.get(i).getADate()+"</span>");
+                                out.println(" | ");
+                                out.println("<a class'color-yellow' href='updateAnswer.jsp?id="+result.get(i).getQId()+"'> edit </a>");
+                                out.println(" | ");
+                                out.println("<a class='color-red' href='deleteAnswer.jsp?id="+result.get(i).getQId()+"'> delete </a>");
                                 out.println("</p>");
                                 out.println("<br><hr>");
                                 out.println("</tr>");

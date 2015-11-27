@@ -24,6 +24,7 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -104,6 +105,9 @@ public class QuestionWS {
                 dbStatement.setString(4, topic);
                 dbStatement.setString(5, content);
 
+                dbStatement.executeUpdate();
+                
+                stmt.close();
             } catch (SQLException e){
                 Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -117,23 +121,28 @@ public class QuestionWS {
     @WebMethod(operationName = "updateQuestion")
     @WebResult(name = "updQuestion")
     public int updateQuestion(@WebParam(name = "access_token") String token, 
+                              @WebParam(name = "qid") int qid,
                               @WebParam(name = "topic") String topic, 
                               @WebParam(name = "content") String content) 
             throws Exception {
         // cek token (kasih IS)
         
         Auth auth = new Auth();
-        Question question = new Question();
         int Valid = auth.check(token);
         if (Valid == 1){
             try {
                 Statement stmt = conn.createStatement();
                 String sql;
-                sql = "UPDATE answer SET (q_id = ? , u_id = ? , a_content = ?)";
+                sql = "UPDATE question SET (q_id = ? , u_id = ? , q_topic = ?, q_content = ?)";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setInt(1, question.getID());
+                dbStatement.setInt(1, qid);
                 dbStatement.setInt(2, auth.getUserID(token));
-                dbStatement.setString(3, question.getQContent());
+                dbStatement.setString(3, topic);
+                dbStatement.setString(4, content);
+                
+                dbStatement.executeUpdate();
+                
+                stmt.close();
             } catch (SQLException e){
                 Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -270,5 +279,69 @@ public class QuestionWS {
             Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, ex);
         }
         return res;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "voteQuestion")
+    public int voteQuestion(@WebParam(name = "access_token") String token, 
+                            @WebParam(name = "q_id") int q_id, 
+                            @WebParam(name = "value") int value) 
+            throws ParseException {
+        Auth auth = new Auth();
+        Question question = new Question();
+        int Valid = auth.check(token);
+        
+        if (Valid == 1){
+            try {
+                int u_id = auth.getUserID(token);
+                int count = 0;
+                
+                Statement stmt = conn.createStatement();
+                String sql;
+                sql = "SELECT * FROM vote WHERE u_id = ? AND q_id = ?";
+                
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setInt(1, u_id);
+                dbStatement.setInt(2, q_id);
+                
+                ResultSet rs = dbStatement.executeQuery();
+                
+                while (rs.next()){
+                    ++count;
+                }
+                
+                if (count == 0){
+                    sql = "INSERT INTO vote (u_id, a_id, q_id, v_count) VALUES (?, 0, ?, ?)";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, u_id);
+                    dbStatement.setInt(2, q_id);
+                    dbStatement.setInt(3, value);
+                    
+                    dbStatement.executeUpdate();
+                    
+                    sql = "UPDATE question SET q_vote = ?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, (question.getQVote() + 1));
+                    dbStatement.executeUpdate();
+                    
+                } else {
+                    sql = "UPDATE vote SET v_count = ? WHERE u_id = ? AND q_id = ?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, value);
+                    dbStatement.setInt(2, u_id);
+                    dbStatement.setInt(3, q_id);
+                    
+                    dbStatement.executeUpdate();
+                    
+                }
+                stmt.close();
+            } catch (SQLException e){
+                Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        
+        return Valid;
     }
 }

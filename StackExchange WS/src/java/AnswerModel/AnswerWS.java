@@ -96,11 +96,14 @@ public class AnswerWS {
                 String sql;
                 sql = "INSERT INTO answer (q_id, u_id, u_name, a_content) VALUES (?, ?, ?, ?)";
                 PreparedStatement dbStatement = conn.prepareStatement(sql);
-                dbStatement.setInt(1, answer.getAID());
+                dbStatement.setInt(1, qid);
                 dbStatement.setInt(2, auth.getUserID(token));
                 dbStatement.setString(3, answer.getUName());
                 dbStatement.setString(4, content);
 
+                dbStatement.executeUpdate();
+                
+                stmt.close();
             } catch (SQLException e){
                 Logger.getLogger(QuestionWS.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -117,6 +120,7 @@ public class AnswerWS {
                             @WebParam(name = "value") int value) 
             throws ParseException {
         Auth auth = new Auth();
+        Answer answer = new Answer();
         int Valid = auth.check(token);
         
         if (Valid == 1){
@@ -145,6 +149,11 @@ public class AnswerWS {
                     dbStatement.setInt(2, a_id);
                     dbStatement.setInt(3, value);
                     
+                    dbStatement.executeUpdate();
+                    
+                    sql = "UPDATE answer SET a_vote = ?";
+                    dbStatement = conn.prepareStatement(sql);
+                    dbStatement.setInt(1, (answer.getAVote() + 1));
                     dbStatement.executeUpdate();
                     
                 } else {

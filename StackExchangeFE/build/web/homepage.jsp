@@ -69,7 +69,7 @@
                         // TODO handle custom exceptions here
                     }
                 %>
-                <%-- end web service invocation --%>
+                <%-- end web service invocation --%><hr/>
 
 
 
