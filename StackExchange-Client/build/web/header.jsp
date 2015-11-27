@@ -23,7 +23,7 @@
                             
                             Cookie[] cookies;
                             cookies = request.getCookies();
-                            String token = null, email = null;
+                            String token = "", email = "";
                             boolean isTokenEx = false, isEmailEx = false;
                             if (cookies != null) {
                                 for (Cookie cookie: cookies) {
@@ -39,8 +39,16 @@
                             
                             UserWS_Service userService = new UserWS_Service();
                             UserWS port = userService.getUserWSPort();
-
                             User user = port.getUser(email, token);
+                            String newToken = port.getToken();
+                            if(!newToken.equals("")){
+                                Cookie tokCook = new Cookie("token", newToken);
+                                Cookie emaCook = new Cookie("email", "test");
+                                tokCook.setMaxAge(60*35);
+                                emaCook.setMaxAge(60*35);
+                                response.addCookie(tokCook);
+                                response.addCookie(emaCook);
+                            }
                             if(user.getId()>-1){
                             %>
                         <nav class="ut-nav">

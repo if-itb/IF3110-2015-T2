@@ -4,11 +4,11 @@
 <xsd:import namespace="http://webservice.stackexchange/" schemaLocation="http://localhost:8081/StackExchange-WebService/UserWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="addUser">
-<part name="parameters" element="tns:addUser"/>
+<message name="getToken">
+<part name="parameters" element="tns:getToken"/>
 </message>
-<message name="addUserResponse">
-<part name="parameters" element="tns:addUserResponse"/>
+<message name="getTokenResponse">
+<part name="parameters" element="tns:getTokenResponse"/>
 </message>
 <message name="getUser">
 <part name="parameters" element="tns:getUser"/>
@@ -16,14 +16,11 @@
 <message name="getUserResponse">
 <part name="parameters" element="tns:getUserResponse"/>
 </message>
-<message name="getUserByEmail">
-<part name="parameters" element="tns:getUserByEmail"/>
+<message name="addUser">
+<part name="parameters" element="tns:addUser"/>
 </message>
-<message name="getUserByEmailResponse">
-<part name="parameters" element="tns:getUserByEmailResponse"/>
-</message>
-<message name="deleteUser">
-<part name="parameters" element="tns:deleteUser"/>
+<message name="addUserResponse">
+<part name="parameters" element="tns:addUserResponse"/>
 </message>
 <message name="getUsers">
 <part name="parameters" element="tns:getUsers"/>
@@ -31,40 +28,53 @@
 <message name="getUsersResponse">
 <part name="parameters" element="tns:getUsersResponse"/>
 </message>
+<message name="getUserByEmail">
+<part name="parameters" element="tns:getUserByEmail"/>
+</message>
+<message name="getUserByEmailResponse">
+<part name="parameters" element="tns:getUserByEmailResponse"/>
+</message>
 <message name="signOut">
 <part name="parameters" element="tns:signOut"/>
 </message>
 <message name="signOutResponse">
 <part name="parameters" element="tns:signOutResponse"/>
 </message>
+<message name="deleteUser">
+<part name="parameters" element="tns:deleteUser"/>
+</message>
 <portType name="UserWS">
-<operation name="addUser">
-<input wsam:Action="http://webservice.stackexchange/UserWS/addUserRequest" message="tns:addUser"/>
-<output wsam:Action="http://webservice.stackexchange/UserWS/addUserResponse" message="tns:addUserResponse"/>
+<operation name="getToken">
+<input wsam:Action="http://webservice.stackexchange/UserWS/getTokenRequest" message="tns:getToken"/>
+<output wsam:Action="http://webservice.stackexchange/UserWS/getTokenResponse" message="tns:getTokenResponse"/>
 </operation>
 <operation name="getUser">
 <input wsam:Action="http://webservice.stackexchange/UserWS/getUserRequest" message="tns:getUser"/>
 <output wsam:Action="http://webservice.stackexchange/UserWS/getUserResponse" message="tns:getUserResponse"/>
 </operation>
-<operation name="getUserByEmail">
-<input wsam:Action="http://webservice.stackexchange/UserWS/getUserByEmailRequest" message="tns:getUserByEmail"/>
-<output wsam:Action="http://webservice.stackexchange/UserWS/getUserByEmailResponse" message="tns:getUserByEmailResponse"/>
-</operation>
-<operation name="deleteUser">
-<input wsam:Action="http://webservice.stackexchange/UserWS/deleteUser" message="tns:deleteUser"/>
+<operation name="addUser">
+<input wsam:Action="http://webservice.stackexchange/UserWS/addUserRequest" message="tns:addUser"/>
+<output wsam:Action="http://webservice.stackexchange/UserWS/addUserResponse" message="tns:addUserResponse"/>
 </operation>
 <operation name="getUsers">
 <input wsam:Action="http://webservice.stackexchange/UserWS/getUsersRequest" message="tns:getUsers"/>
 <output wsam:Action="http://webservice.stackexchange/UserWS/getUsersResponse" message="tns:getUsersResponse"/>
 </operation>
+<operation name="getUserByEmail">
+<input wsam:Action="http://webservice.stackexchange/UserWS/getUserByEmailRequest" message="tns:getUserByEmail"/>
+<output wsam:Action="http://webservice.stackexchange/UserWS/getUserByEmailResponse" message="tns:getUserByEmailResponse"/>
+</operation>
 <operation name="signOut">
 <input wsam:Action="http://webservice.stackexchange/UserWS/signOutRequest" message="tns:signOut"/>
 <output wsam:Action="http://webservice.stackexchange/UserWS/signOutResponse" message="tns:signOutResponse"/>
 </operation>
+<operation name="deleteUser">
+<input wsam:Action="http://webservice.stackexchange/UserWS/deleteUser" message="tns:deleteUser"/>
+</operation>
 </portType>
 <binding name="UserWSPortBinding" type="tns:UserWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="addUser">
+<operation name="getToken">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -82,7 +92,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getUserByEmail">
+<operation name="addUser">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -91,13 +101,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="deleteUser">
+<operation name="getUsers">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
 </input>
+<output>
+<soap:body use="literal"/>
+</output>
 </operation>
-<operation name="getUsers">
+<operation name="getUserByEmail">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -114,6 +127,12 @@
 <output>
 <soap:body use="literal"/>
 </output>
+</operation>
+<operation name="deleteUser">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
 </operation>
 </binding>
 <service name="UserWS">

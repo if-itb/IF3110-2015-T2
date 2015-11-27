@@ -28,6 +28,8 @@ public class ObjectFactory {
     private final static QName _AddUser_QNAME = new QName("http://webservice.stackexchange/", "addUser");
     private final static QName _AddUserResponse_QNAME = new QName("http://webservice.stackexchange/", "addUserResponse");
     private final static QName _DeleteUser_QNAME = new QName("http://webservice.stackexchange/", "deleteUser");
+    private final static QName _GetToken_QNAME = new QName("http://webservice.stackexchange/", "getToken");
+    private final static QName _GetTokenResponse_QNAME = new QName("http://webservice.stackexchange/", "getTokenResponse");
     private final static QName _GetUser_QNAME = new QName("http://webservice.stackexchange/", "getUser");
     private final static QName _GetUserByEmail_QNAME = new QName("http://webservice.stackexchange/", "getUserByEmail");
     private final static QName _GetUserByEmailResponse_QNAME = new QName("http://webservice.stackexchange/", "getUserByEmailResponse");
@@ -74,6 +76,22 @@ public class ObjectFactory {
      */
     public DeleteUser createDeleteUser() {
         return new DeleteUser();
+    }
+
+    /**
+     * Create an instance of {@link GetToken }
+     * 
+     */
+    public GetToken createGetToken() {
+        return new GetToken();
+    }
+
+    /**
+     * Create an instance of {@link GetTokenResponse }
+     * 
+     */
+    public GetTokenResponse createGetTokenResponse() {
+        return new GetTokenResponse();
     }
 
     /**
@@ -174,6 +192,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.stackexchange/", name = "deleteUser")
     public JAXBElement<DeleteUser> createDeleteUser(DeleteUser value) {
         return new JAXBElement<DeleteUser>(_DeleteUser_QNAME, DeleteUser.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetToken }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.stackexchange/", name = "getToken")
+    public JAXBElement<GetToken> createGetToken(GetToken value) {
+        return new JAXBElement<GetToken>(_GetToken_QNAME, GetToken.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetTokenResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.stackexchange/", name = "getTokenResponse")
+    public JAXBElement<GetTokenResponse> createGetTokenResponse(GetTokenResponse value) {
+        return new JAXBElement<GetTokenResponse>(_GetTokenResponse_QNAME, GetTokenResponse.class, null, value);
     }
 
     /**

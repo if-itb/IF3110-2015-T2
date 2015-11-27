@@ -8,6 +8,10 @@
 
 <xs:element name="deleteUser" type="tns:deleteUser"/>
 
+<xs:element name="getToken" type="tns:getToken"/>
+
+<xs:element name="getTokenResponse" type="tns:getTokenResponse"/>
+
 <xs:element name="getUser" type="tns:getUser"/>
 
 <xs:element name="getUserByEmail" type="tns:getUserByEmail"/>
@@ -52,6 +56,16 @@
 <xs:complexType name="getUsersResponse">
 <xs:sequence>
 <xs:element name="User" type="tns:user" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getToken">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getTokenResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

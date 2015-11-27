@@ -60,10 +60,16 @@ public class Check extends HttpServlet {
                         SessionIdentifierGenerator sig = new SessionIdentifierGenerator();
                         String newToken = sig.nextSessionId();
                         
-                        java.sql.Timestamp currentTime = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
-                        currentTime.setMinutes(currentTime.getMinutes() + 30);
-                        sql = "update tokens set token='" + newToken +"' expdate='"+currentTime+"' where email='"+email+"'";
+                        sql = "delete from tokens where email='"+email+"'";
                         ps = conn.prepareStatement(sql);
+                        ps.executeUpdate();
+                        
+                        java.sql.Timestamp currentTime = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+                        sql = "insert into tokens (email,token,expdate) values (?,?,? + interval '30' minute)"; 
+                        ps = conn.prepareStatement(sql);
+                        ps.setString(1, email);
+                        ps.setString(2, newToken);
+                        ps.setTimestamp(3, currentTime);
                         ps.executeUpdate();
                         
                         json.put("token", newToken);

@@ -16,6 +16,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.Cookie;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -25,7 +26,12 @@ import org.json.simple.parser.ParseException;
  * @author fauzanrifqy
  */
 public class Auth {
+    public Auth(){ token=""; }
     private final String AuthURL = "http://localhost:8082/StackExchange-IdentityServices/Check";
+    private String token;
+    public String getToken(){
+        return token;
+    }
     
     public int check(String email, String token){
         int ret = -1;
@@ -59,7 +65,11 @@ public class Auth {
             while ((output = br.readLine()) != null) {
                 obj = parser.parse(output);
                 jobj = (JSONObject) obj;
-        
+                
+                String atoken = (String) jobj.get("token");
+                if ( atoken != null ) {
+                    token = atoken;
+                }
                 if (((String)jobj.get("status")).equals("accept")) {
                   return 1;
                 } else if (((String)jobj.get("status")).equals("expire")) {

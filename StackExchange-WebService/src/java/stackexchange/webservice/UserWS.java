@@ -15,6 +15,7 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
+import javax.servlet.http.Cookie;
 import stackexchange.webservice.auth.Auth;
 import stackexchange.webservice.model.Answer;
 import stackexchange.webservice.model.User;
@@ -26,7 +27,15 @@ import stackexchange.webservice.util.Database;
  */
 @WebService(serviceName = "UserWS")
 public class UserWS {
-
+    public UserWS(){
+        newToken = "";
+    }
+    private String newToken;
+    public String getToken(){
+        String a = newToken;
+        newToken = "";
+        return a;
+    }
      /**
      * Web service operation
      */
@@ -125,6 +134,9 @@ public class UserWS {
             if(t == 1||t == 0){
                 if (rs.next()) {
                     user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("password"));
+                }
+                if(t == 0){
+                    this.newToken = auth.getToken();
                 }
             }
             return user;

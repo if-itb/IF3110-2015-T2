@@ -28,18 +28,15 @@ public interface UserWS {
 
     /**
      * 
-     * @param user
      * @return
-     *     returns boolean
+     *     returns java.lang.String
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "addUser", targetNamespace = "http://webservice.stackexchange/", className = "stackexchange.webservice.AddUser")
-    @ResponseWrapper(localName = "addUserResponse", targetNamespace = "http://webservice.stackexchange/", className = "stackexchange.webservice.AddUserResponse")
-    @Action(input = "http://webservice.stackexchange/UserWS/addUserRequest", output = "http://webservice.stackexchange/UserWS/addUserResponse")
-    public boolean addUser(
-        @WebParam(name = "user", targetNamespace = "")
-        User user);
+    @RequestWrapper(localName = "getToken", targetNamespace = "http://webservice.stackexchange/", className = "stackexchange.webservice.GetToken")
+    @ResponseWrapper(localName = "getTokenResponse", targetNamespace = "http://webservice.stackexchange/", className = "stackexchange.webservice.GetTokenResponse")
+    @Action(input = "http://webservice.stackexchange/UserWS/getTokenRequest", output = "http://webservice.stackexchange/UserWS/getTokenResponse")
+    public String getToken();
 
     /**
      * 
@@ -61,30 +58,18 @@ public interface UserWS {
 
     /**
      * 
-     * @param email
+     * @param user
      * @return
-     *     returns stackexchange.webservice.User
+     *     returns boolean
      */
     @WebMethod
-    @WebResult(name = "User", targetNamespace = "")
-    @RequestWrapper(localName = "getUserByEmail", targetNamespace = "http://webservice.stackexchange/", className = "stackexchange.webservice.GetUserByEmail")
-    @ResponseWrapper(localName = "getUserByEmailResponse", targetNamespace = "http://webservice.stackexchange/", className = "stackexchange.webservice.GetUserByEmailResponse")
-    @Action(input = "http://webservice.stackexchange/UserWS/getUserByEmailRequest", output = "http://webservice.stackexchange/UserWS/getUserByEmailResponse")
-    public User getUserByEmail(
-        @WebParam(name = "email", targetNamespace = "")
-        String email);
-
-    /**
-     * 
-     * @param id
-     */
-    @WebMethod
-    @Oneway
-    @RequestWrapper(localName = "deleteUser", targetNamespace = "http://webservice.stackexchange/", className = "stackexchange.webservice.DeleteUser")
-    @Action(input = "http://webservice.stackexchange/UserWS/deleteUser")
-    public void deleteUser(
-        @WebParam(name = "id", targetNamespace = "")
-        int id);
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "addUser", targetNamespace = "http://webservice.stackexchange/", className = "stackexchange.webservice.AddUser")
+    @ResponseWrapper(localName = "addUserResponse", targetNamespace = "http://webservice.stackexchange/", className = "stackexchange.webservice.AddUserResponse")
+    @Action(input = "http://webservice.stackexchange/UserWS/addUserRequest", output = "http://webservice.stackexchange/UserWS/addUserResponse")
+    public boolean addUser(
+        @WebParam(name = "user", targetNamespace = "")
+        User user);
 
     /**
      * 
@@ -97,6 +82,21 @@ public interface UserWS {
     @ResponseWrapper(localName = "getUsersResponse", targetNamespace = "http://webservice.stackexchange/", className = "stackexchange.webservice.GetUsersResponse")
     @Action(input = "http://webservice.stackexchange/UserWS/getUsersRequest", output = "http://webservice.stackexchange/UserWS/getUsersResponse")
     public List<User> getUsers();
+
+    /**
+     * 
+     * @param email
+     * @return
+     *     returns stackexchange.webservice.User
+     */
+    @WebMethod
+    @WebResult(name = "User", targetNamespace = "")
+    @RequestWrapper(localName = "getUserByEmail", targetNamespace = "http://webservice.stackexchange/", className = "stackexchange.webservice.GetUserByEmail")
+    @ResponseWrapper(localName = "getUserByEmailResponse", targetNamespace = "http://webservice.stackexchange/", className = "stackexchange.webservice.GetUserByEmailResponse")
+    @Action(input = "http://webservice.stackexchange/UserWS/getUserByEmailRequest", output = "http://webservice.stackexchange/UserWS/getUserByEmailResponse")
+    public User getUserByEmail(
+        @WebParam(name = "email", targetNamespace = "")
+        String email);
 
     /**
      * 
@@ -115,5 +115,17 @@ public interface UserWS {
         String email,
         @WebParam(name = "token", targetNamespace = "")
         String token);
+
+    /**
+     * 
+     * @param id
+     */
+    @WebMethod
+    @Oneway
+    @RequestWrapper(localName = "deleteUser", targetNamespace = "http://webservice.stackexchange/", className = "stackexchange.webservice.DeleteUser")
+    @Action(input = "http://webservice.stackexchange/UserWS/deleteUser")
+    public void deleteUser(
+        @WebParam(name = "id", targetNamespace = "")
+        int id);
 
 }
