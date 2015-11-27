@@ -2,9 +2,9 @@
 
 <xs:element name="User" type="tns:user"/>
 
-<xs:element name="getUserClass" type="tns:getUserClass"/>
+<xs:element name="getUser" type="tns:getUser"/>
 
-<xs:element name="getUserClassResponse" type="tns:getUserClassResponse"/>
+<xs:element name="getUserResponse" type="tns:getUserResponse"/>
 
 <xs:element name="register" type="tns:register"/>
 
@@ -24,13 +24,13 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getUserClass">
+<xs:complexType name="getUser">
 <xs:sequence>
 <xs:element name="u_id" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getUserClassResponse">
+<xs:complexType name="getUserResponse">
 <xs:sequence>
 <xs:element name="User" type="tns:user" minOccurs="0"/>
 </xs:sequence>

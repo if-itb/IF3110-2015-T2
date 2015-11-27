@@ -13,6 +13,7 @@
             <center><h2>Log In</h2></center>
             <hr>
             <br>
+            <c:out value="${message}"/> <br>
             <c:choose>
                 <c:when test="${register == 'success'}">
                    Registration success.

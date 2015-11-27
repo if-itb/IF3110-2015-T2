@@ -10,8 +10,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <jsp:include page="/views/header.jsp" flush="true"/>
-<jsp:useBean id="question" type="QuestionWS.Question" scope="request"/>
-<jsp:useBean id="answers" type="java.util.List<AnswerWS.Answer>" scope="request"/>
 	<div class="container">
             <h2><a href="question?q_id=<c:out value='${question.getQId()}'/>" class="question-title-big">
                 <c:out value="${question.getTopic()}"/>
@@ -51,27 +49,27 @@
                         <br><br><br><hr><br>
                 </c:if>
                 
-		<c:forEach var="i" begin="0" end="1">
+		<c:forEach items="${answers}" var="answer">
                     <span id="question-vote"><br>
-                        <div onclick="location.href='vote?id=<c:out value="${answers.get(i).getAId()}"/>&type=a&vote=1&q_id=<c:out value="${question.getQId()}"/>';" class="arrow-up">
+                        <div onclick="location.href='vote?id=<c:out value="${answer.getAId()}"/>&type=a&vote=1&q_id=<c:out value="${question.getQId()}"/>';" class="arrow-up">
                         </div><br>
-			<span id="ansvote-<c:out value='${answers.get(i).getAId()}'/>" class="question-number">
-                            <c:out value="${answers.get(i).getVote()}"/></span><br>
+			<span id="ansvote-<c:out value='${answer.getAId()}'/>" class="question-number">
+                            <c:out value="${answer.getVote()}"/></span><br>
                         <br>
-                        <div onclick="location.href='vote?id=<c:out value="${answers.get(i).getAId()}"/>&type=a&vote=-1&q_id=<c:out value="${question.getQId()}"/>';" class="arrow-down"></div>
+                        <div onclick="location.href='vote?id=<c:out value="${answer.getAId()}"/>&type=a&vote=-1&q_id=<c:out value="${question.getQId()}"/>';" class="arrow-down"></div>
                         <br>
                     </span>
                     <span id="question-content">
-                        <c:set var="acontent" value="${answers.get(i).getContent()}"/>
+                        <c:set var="acontent" value="${answer.getContent()}"/>
                         ${fn:replace(acontent,'\\n', ';')}
                         
                     
 			<br><br><br>
 			<span class="question-info">answered by
                             <span class="author">
-                                <c:out value="${answers.get(i).getEmail()}"/>
+                                <c:out value="${answer.getEmail()}"/>
                             </span>
-                            at <c:out value="${answers.get(i).getDateCreated()}"/>
+                            at <c:out value="${answer.getDateCreated()}"/>
                         </span>
                     </span>
                     <br><br><hr>
