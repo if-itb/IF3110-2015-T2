@@ -50,7 +50,7 @@
                             <a href=" <% out.print("qvoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid")); %>" >
                             <img src="img/upvote.png" width ="35" height="35"><br>
                             </a>
-                            <span id="question-vote-count-<%= result.getUserId() %>"><%= result.getVote() %></span><br>
+                            <span id="question-vote-count<%= result.getUserId()%>"><%= result.getVote() %></span><br>
                             <a href=" <% out.print("qvoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid")); %>">  
                             <img src="img/downvote.png" width="35" height="35">
                             </a>
@@ -64,6 +64,9 @@
                     <div class="row info">
                         asked by <span class="name"><%= result.getAskerName()%></span>
                     </div>
+                    
+                   
+                    
                     <hr>
                     <br>
                         <%
@@ -87,15 +90,16 @@
                                             <div class="vote col">
                                                 <a href=" <% out.print("avoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid") + "&aid=" +result.get(i).getAnswerId()); %>">
                                                 <img src="img/upvote.png" width="35" height="35">
-                                                </a>
-                                                <br>
-                                                <span id="answer-vote-count-<%= result.get(i).getAnswerId() %>">
-                                                    <%= result.get(i).getVote() %>
-                                                </span>
-                                                <br>
+                                                </a><br>
+                                                
                                                 <a href=" <% out.print("avotedown.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid") + "&aid=" +result.get(i).getAnswerId()); %>">
                                                 <img src="img/downvote.png" width="35" height="35">
                                                 </a>
+                                            </div>
+                                                <div class = "col content">
+                                                    <span id="answer-vote-count-<%= result.get(i).getAnswerId() %>">
+                                                     <%= result.get(i).getVote() %>
+                                                    </span>
                                                 </div>
                                             <div class="col-content">
                                                 <p>
