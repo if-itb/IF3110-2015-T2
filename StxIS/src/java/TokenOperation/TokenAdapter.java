@@ -26,7 +26,7 @@ public class TokenAdapter {
 
     }
    
-    public Token getToken(String tokenStr)throws Exception {
+    public Token getTokenToken(String tokenStr)throws Exception {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -35,13 +35,14 @@ public class TokenAdapter {
         try{
             Class.forName(JDBC_DRIVER).newInstance();
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            stmt = conn.prepareStatement("SELECT * FROM Token WHERE token=?");
+            stmt = conn.prepareStatement("SELECT * FROM Token WHERE token_string=?");
             stmt.setString(1, tokenStr);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 String email = rs.getString("email");
                 Timestamp expiredDate = rs.getTimestamp("expired_date");
                 token.setEmail(email);
+                token.setTokenStr(tokenStr);
                 token.setExpired(expiredDate);
             }
             //test=rs.toString();            
@@ -54,6 +55,34 @@ public class TokenAdapter {
         return token;
     }
     
+    public Token getTokenEmail(String email)throws Exception {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Token token=new Token();
+        
+        try{
+            Class.forName(JDBC_DRIVER).newInstance();
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            stmt = conn.prepareStatement("SELECT * FROM Token WHERE email=?");
+            stmt.setString(1, email);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Timestamp expiredDate = rs.getTimestamp("expired_date");
+                String tokenStr = rs.getString("token_string");
+                token.setEmail(email);
+                token.setTokenStr(tokenStr);
+                token.setExpired(expiredDate);
+            }
+            //test=rs.toString();            
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+        } finally {
+          if(rs!= null) rs.close();
+          if(stmt!= null) stmt.close();
+        }
+        
+        return token;
+    }
     
     public int UpdateToken(Token token)throws Exception {
         Connection conn = null;

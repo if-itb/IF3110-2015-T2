@@ -4,25 +4,27 @@
  * and open the template in the editor.
  */
 
-
 import TokenOperation.Token;
 import TokenOperation.TokenAdapter;
-import UserOperation.UserAdapter;
 import UserOperation.User;
+import UserOperation.UserAdapter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 
 /**
  *
  * @author Aidin
  */
+@WebServlet(urlPatterns = {"/Handler"})
 public class Handler extends HttpServlet {
 
     /**
@@ -48,7 +50,40 @@ public class Handler extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        
+        String tokenStr = request.getParameter("token");
+        Token token= new Token();
+        TokenAdapter tadb = new TokenAdapter();
+        
+        try {
+            token = tadb.getTokenToken(tokenStr);
+            if((token.getEmail()).isEmpty()){//token tidak ditemukan
+                response.sendError(404, "token is invalid");
+            } else {//token ditemukan
+                Date current = new Date();
+                Date expired = new Date((token.getExpired()).getTime());
+                if(current.after(expired)){//token kadaluarsa
+                    response.sendError(404, "token is expired");                    
+                } else {//token masih available
+                    response.setContentType("application/xml");
+                    PrintWriter printWriter;
+                    try {
+                        printWriter = response.getWriter();
+                        printWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+                        printWriter.println("<root>");            
+                        printWriter.print("<email>");
+                        printWriter.print(token.getEmail());
+                        printWriter.println("</email>");
+                        printWriter.println("</root>");                      
+                        printWriter.flush();
+                    } catch (IOException e) {
+                    
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Handler.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -59,31 +94,45 @@ public class Handler extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
         String email, pass;
         email = request.getParameter("email");
         pass = request.getParameter("pass");
         
         User clientUser = new User(email,pass);
         User dbUser = new User();
-        Token token = new Token();
-       
         UserAdapter uadb = new UserAdapter();
+
+        Token token = new Token();       
         TokenAdapter tadb = new TokenAdapter();
+        int lifetime = 2;
         
         try {
             dbUser=uadb.getUser(email);
-            if((dbUser.getEmail()).isEmpty()){
+            if((dbUser.getEmail()).isEmpty()){//user tidak ditemukan
                 response.sendError(404, "email is not found");
-            } else {
-                if(!clientUser.isEqual(dbUser)){
+            } else {//user ditemukan
+                if(!clientUser.isEqual(dbUser)){//password tidak sesuai
                     response.sendError(404, "email and password do not match");
-                } else {
+                } else {//password sesuai
                     
+                    token=tadb.getTokenEmail(email);//mengambill token dari database
+                    
+                    
+                    //membuat token baru
+                    Date expiredDate = new Date();
+                    int minutes=expiredDate.getMinutes()+lifetime;
+                    expiredDate.setMinutes(minutes);
+                    Timestamp expired = new Timestamp(expiredDate.getTime());      
+                    Token newToken = new Token (email, expired);
+
+                    if((token.getEmail().isEmpty())){//token belum ada di database
+                        tadb.InsertToken(newToken);
+                    } else {//token sudah ada di database
+                        tadb.UpdateToken(newToken);
+                    }
                     
                     response.setContentType("application/xml");
                     PrintWriter printWriter;
@@ -92,10 +141,10 @@ public class Handler extends HttpServlet {
                         printWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
                         printWriter.println("<root>");            
                         printWriter.print("<token>");
-                       // printWriter.print(token);
+                        printWriter.print(newToken.getTokenStr());
                         printWriter.println("</token>");
                         printWriter.print("<lifetime>");
-                        //printWriter.print(lifetime);
+                        printWriter.print(lifetime);
                         printWriter.println("</lifetime>");
                         printWriter.println("</root>");                      
                         printWriter.flush();
@@ -104,14 +153,9 @@ public class Handler extends HttpServlet {
                     }
                 }
             }
-            
         } catch (Exception ex) {
             Logger.getLogger(Handler.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
-       
     }
 
     /**

@@ -41,6 +41,8 @@ public class UserAdapter {
             if (rs.next()) {
                 String _email = rs.getString("email");
                 String _pass = rs.getString("password");
+                user.setEmail(_email);
+                user.setPass(_pass);
             }
             //test=rs.toString();            
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {

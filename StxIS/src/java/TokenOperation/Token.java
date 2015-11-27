@@ -64,15 +64,12 @@ public class Token {
         email=_email;
         expiredDate=_date;
            
-           
-        String tkn="";
         try {
-            tkn=calculateRFC2104HMAC(email+expiredDate, secretKey);
+            tokenStr=calculateRFC2104HMAC(email+expiredDate, secretKey);
         } catch (SignatureException | NoSuchAlgorithmException | InvalidKeyException ex) {
             Logger.getLogger(Token.class.getName()).log(Level.SEVERE, null, ex);
         }
-        assert tkn.equals("104152c5bfdca07bc633eebd46199f0255c9f49d");
-        tokenStr=email+expiredDate+tkn;
+        assert tokenStr.equals("104152c5bfdca07bc633eebd46199f0255c9f49d");
     }
     
     public String getTokenStr(){
