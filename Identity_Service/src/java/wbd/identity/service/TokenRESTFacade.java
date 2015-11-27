@@ -46,7 +46,7 @@ public class TokenRESTFacade {
 
   public TokenRESTFacade() {
   }
-  
+
   @POST
   @Consumes({MediaType.APPLICATION_JSON})
   public Response create(Token entity) {

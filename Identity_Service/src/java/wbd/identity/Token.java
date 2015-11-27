@@ -6,9 +6,6 @@
 package wbd.identity;
 
 import java.io.Serializable;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import javax.crypto.spec.DESedeKeySpec;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,49 +46,18 @@ public class Token implements Serializable {
   @JoinColumn(name = "uid", referencedColumnName = "id")
   @ManyToOne(optional = false)
   private User uid;
-  public Token() {
-}
-  
-   public Token(String val) {
-     byte[] bytes = null;
-      try {
-          SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
-          random.setSeed(System.currentTimeMillis());
-          bytes = new byte[DESedeKeySpec.DES_EDE_KEY_LEN];
-          random.nextBytes(bytes);
-          
-       } catch (NoSuchAlgorithmException exs) {
-          exs.printStackTrace();
-        }
-      String s = new String(bytes);
-      setVal(s);
-  }
-  public Token(String val, int expires) {
-     byte[] bytes = null;
-      try {
-          SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
-          random.setSeed(System.currentTimeMillis());
-          bytes = new byte[DESedeKeySpec.DES_EDE_KEY_LEN];
-          random.nextBytes(bytes);
-          
-       } catch (NoSuchAlgorithmException exs) {
-          exs.printStackTrace();
-        }
-      String s = new String(bytes);
-      this.val=s;
-     long time = System.currentTimeMillis() / 1000;
-     this.expires=(int)time+5400;
-  }
- 
 
-//    public Token(String val) {
-//   this.val = val;
-//  }
-//
-//  public Token(String val, int expires) {
-//    this.val = val;
-//    this.expires = expires;
-//  }
+  public Token() {
+  }
+
+  public Token(String val) {
+    this.val = val;
+  }
+
+  public Token(String val, int expires) {
+    this.val = val;
+    this.expires = expires;
+  }
 
   public String getVal() {
     return val;
