@@ -9,6 +9,7 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="Stack_Exchange_IS" default="default" basedir=".">
     <description>Builds, tests, and runs the project Stack Exchange IS.</description>
+
     <import file="nbproject/build-impl.xml"/>
     <!--
 

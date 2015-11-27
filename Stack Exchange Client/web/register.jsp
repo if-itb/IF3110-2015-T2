@@ -18,20 +18,23 @@
 		<p> Logged in as <b><c:out value="guest"/></b> | <a href="login.jsp" style="color:#FFA500"> Log in </a> | <a href="register.jsp" style="color:#FF0000"> Register </a> </p>
         </div>
         <div id="header">
+            
             <h1> <a href ="/Stack_Exchange_Client/QuestionServlet" style="color:#000"> Simple Stack Exchange </a> </h1>
         </div>
     
         <div class = "container">
             <div class="loginbox">
-                <h3> Login <hr> </h3>
+                <h3> Register <hr> </h3>
                     <form method="POST" name="Form" action="question-list.jsp" onsubmit="return validateFormQuestion()">
                             <input type="text" name="username" id="username" placeholder="Name"/>
                             <br>
+                            <input type="text" name="email" id="username" placeholder="Email"/>
+                            <br>
                             <input type="password" name="password" id="password" placeholder="Password"/>
                             <br> 
-                            <input type="submit" id="submit_login" name="submit_login" value="Login"/>
-                            <br><br>
-                            <p style="float:right"> Don't have an account? <a href="register.jsp" style="color:#FFA500"> Register </a> </p>
+                            <input type="submit" id="submit_login" name="submit_login" value="Register"/>
+                            
+                            
                     </form>
             </div>
             </div>
