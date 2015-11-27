@@ -48,9 +48,11 @@
                                 <%= result.getContent() %>
                             </p>
                         </div>
+                    </div>
+                    <div class = "row info">
                          asked by <span class="name"><%= result.getAskerName()%></span>
                     </div>
-                   
+                    
                    
                     
                     <hr>
@@ -76,15 +78,16 @@
                                             <div class="col vote">
                                                 <a href=" <% out.print("avoteup.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid") + "&aid=" +result.get(i).getAnswerId()); %>">
                                                 <img src="img/upvote.png" width="35" height="35">
-                                                </a>
-                                                <br>
-                                                <span id="answer-vote-count-<%= result.get(i).getAnswerId() %>">
-                                                    <%= result.get(i).getVote() %>
-                                                </span>
-                                                <br>
+                                                </a><br>
+                                                
                                                 <a href=" <% out.print("avotedown.jsp?token=" + request.getParameter("token") + "&id=" + request.getParameter("id") + "&qid=" + request.getParameter("qid") + "&aid=" +result.get(i).getAnswerId()); %>">
                                                 <img src="img/downvote.png" width="35" height="35">
                                                 </a>
+                                            </div>
+                                                <div class = "col content">
+                                                    <span id="answer-vote-count-<%= result.get(i).getAnswerId() %>">
+                                                     <%= result.get(i).getVote() %>
+                                                    </span>
                                                 </div>
                                             <div class="col content">
                                                 <p>
