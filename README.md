@@ -23,8 +23,7 @@ Diharapkan dengan tugas ini anda dapat mengerti:
 6. Pull request dari repository anda ke repository ini dengan format **Nama kelompok** - **NIM terkecil** - **Nama Lengkap dengan NIM terkecil** sebelum **Jumat, 20 November 2015 23.59**.
 
 ### Link Laporan
-
-*Masukkan link laporan anda di sini*
+https://drive.google.com/file/d/0B7Wqh_zBmIdnVlJPZHVMdEpkSjQ/view?usp=sharing
 
 ### Arsitektur Umum Server
 
