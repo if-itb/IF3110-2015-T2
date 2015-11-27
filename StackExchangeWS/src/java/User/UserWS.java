@@ -135,11 +135,12 @@ public class UserWS {
      * Web service operation
      */
     @WebMethod(operationName = "getUserByToken")
+    @WebResult(name = "user")
     public User getUserByToken(@WebParam(name = "token") String token) {
         User user = null;
         
         try (Statement st = conn.createStatement()) { 
-            String query = "SELECT * FROM tokens WHERE token_str = ?";
+            String query = "SELECT * FROM tokens NATURAL JOIN users WHERE token_str = ?";
                 
             // set the prepared statement by the query and enter the value of where clause
             PreparedStatement pst = conn.prepareStatement(query);
