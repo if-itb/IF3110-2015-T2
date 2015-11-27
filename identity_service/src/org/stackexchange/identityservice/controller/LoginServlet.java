@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet{
         } else {
             User user = userDao.getByEmail(email);
             Token token = identityService.generateToken(user.getId());
-            response.sendRedirect("http://localhost:8080/stack_exchange_netbeans/index?token=" + token.getToken());
+            response.sendRedirect("http://localhost:8080/stack_exchange_netbeans/index?token=" + token.getToken() + "&from=index");
         }
     }
 }
