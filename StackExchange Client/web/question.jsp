@@ -4,6 +4,8 @@
     Author     : vanyadeasysafrina
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,68 +13,75 @@
 <jsp:useBean id="question" type="QuestionWS.Question" scope="request"/>
 <jsp:useBean id="answers" type="java.util.List<AnswerWS.Answer>" scope="request"/>
 	<div class="container">
-            <h2><a href="question?q_id=<%= question.getQId() %>" class="question-title-big">
-                   <%= question.getTopic() %>
+            <h2><a href="question?q_id=<c:out value='${question.getQId()}'/>" class="question-title-big">
+                <c:out value="${question.getTopic()}"/>
             </a></h2>
             <hr>
             <span id="question-vote"><br>
-                <div onclick="location.href='vote?id=<%= question.getQId() %>&type=q&vote=1';" class="arrow-up">
+                <div onclick="location.href='vote?id=<c:out value="${question.getQId()}"/>&type=q&vote=1';" class="arrow-up">
                 </div><br>
-                <span id="questvote" class="question-number"><%= question.getVote()%></span><br>
+                <span id="questvote" class="question-number"><c:out value="${question.getVote()}"/></span><br>
                 <br>
-		<div onclick="location.href='vote?id=<%= question.getQId() %>&type=q&vote=-1';" class="arrow-down">
+		<div onclick="location.href='vote?id=<c:out value="${question.getQId()}"/>&type=q&vote=-1';" class="arrow-down">
                 </div><br></span>
 		<span id="question-content">
-                    <%= question.getContent().replace("\n", "<br>") %>
+                    
+                    <c:set var="qcontent" value="${question.getContent()}"/>
+                    ${fn:replace(qcontent,'\\n', ';')}
+                    
+                    
                     <br><br><br>
                     <span class="question-info">asked by <span class="author">
-                            <%= question.getEmail() %>
-                    </span> at <%= question.getDateCreated()%> |
-                    <% if (question.getDateEdited()!=null) { %>
-                            <%= " edited at " + question.getDateEdited() + " " %>
-                    <% } %>
-                    <a href="edit?q_id=<%= question.getQId() %>" class="edit-question"> edit</a> | 
-                    <a href="delete?q_id=<%= question.getQId() %>" 
-                       class="delete-question" onclick="return deleteConfirmation(<%= question.getQId() %>)">
+                            <c:out value="${question.getEmail()}"/>
+                    </span> at <c:out value="${question.getDateCreated()}"/> |
+                    <c:if test="${question.getDateEdited()!=null}">
+                            <c:out value="edited at ${question.getDateEdited()} "/>
+                    </c:if>
+                    <a href="edit?q_id=<c:out value='${question.getQId()}'/>" class="edit-question"> edit</a> | 
+                    <a href="delete?q_id=<c:out value='${question.getQId()}'/>" 
+                       class="delete-question" onclick="return deleteConfirmation(<c:out value='${question.getQId()}'/>)">
                         delete
                     </a><br></span>
                 </span>
                 <br><br><br>
-		<h2><%= question.getAnswer() %> Answer(s)</h2><hr>
+		<h2><c:out value="${question.getAnswer()}"/> Answer(s)</h2><hr>
 		<br><br>
-                <%
-		if (question.getAnswer()==0) { %>
+                <c:if test="${question.getAnswer()==0}">
 			No answer.
                         <br><br><br><hr><br>
-                <%
-                }
-		for(int i = 0; i < question.getAnswer(); i++) { %>
+                </c:if>
+                
+		<c:forEach var="i" begin="0" end="1">
                     <span id="question-vote"><br>
-                        <div onclick="location.href='vote?id=<%= answers.get(i).getAId() %>&type=a&vote=1&q_id=<%= question.getQId() %>';" class="arrow-up">
+                        <div onclick="location.href='vote?id=<c:out value="${answers.get(i).getAId()}"/>&type=a&vote=1&q_id=<c:out value="${question.getQId()}"/>';" class="arrow-up">
                         </div><br>
-			<span id="ansvote-<%= answers.get(i).getAId() %>" class="question-number">
-                            <%= answers.get(i).getVote() %></span><br>
+			<span id="ansvote-<c:out value='${answers.get(i).getAId()}'/>" class="question-number">
+                            <c:out value="${answers.get(i).getVote()}"/></span><br>
                         <br>
-                        <div onclick="location.href='vote?id=<%= answers.get(i).getAId() %>&type=a&vote=-1&q_id=<%= question.getQId() %>';" class="arrow-down"></div>
+                        <div onclick="location.href='vote?id=<c:out value="${answers.get(i).getAId()}"/>&type=a&vote=-1&q_id=<c:out value="${question.getQId()}"/>';" class="arrow-down"></div>
                         <br>
                     </span>
                     <span id="question-content">
-                        <%= answers.get(i).getContent().replace("\n", "<br>") %>
+                        <c:set var="acontent" value="${answers.get(i).getContent()}"/>
+                        ${fn:replace(acontent,'\\n', ';')}
+                        
+                    
 			<br><br><br>
 			<span class="question-info">answered by
                             <span class="author">
-                                <%= answers.get(i).getEmail() %>
+                                <c:out value="${answers.get(i).getEmail()}"/>
                             </span>
-                            at <%= answers.get(i).getDateCreated() %>
+                            at <c:out value="${answers.get(i).getDateCreated()}"/>
                         </span>
                     </span>
                     <br><br><hr>
-                <% } %>
+                </c:forEach>
+      
                 
                 
 		<div class="center">
 			<form class="basic-grey" name= "answer" action="answer" onsubmit="return validateAnswerForm()" method="post">
-				<input type="hidden" name="q_id" value="<%= question.getQId() %>">
+				<input type="hidden" name="q_id" value="<c:out value='${question.getQId()}'/>">
 				<textarea id="content" name="content" placeholder="Content" ></textarea><br>
 				<div class="div-right-button">
 					<input type="submit" class="right-button" value="Post">
