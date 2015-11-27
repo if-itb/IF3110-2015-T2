@@ -3,6 +3,7 @@ package org.stackexchange.identityservice.controller;
 import org.stackexchange.identityservice.dao.TokenDao;
 import org.stackexchange.identityservice.dao.UserDao;
 import org.stackexchange.identityservice.model.User;
+import org.stackexchange.identityservice.services.IdentityService;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,12 +18,12 @@ public class TokenCheckApiServlet extends HttpServlet {
         String token = request.getParameter("token");
         response.setContentType("application/json");
 
-        TokenDao tokenDao = new TokenDao();
-        boolean exist = tokenDao.existByToken(token);
+        IdentityService identityService = new IdentityService();
+        boolean valid = identityService.tokenValid(token);
 
         try {
             PrintWriter out = response.getWriter();
-            out.print(String.valueOf(exist));
+            out.print(String.valueOf(valid));
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
