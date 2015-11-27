@@ -31,7 +31,7 @@
           <h5>Login into Overflow 48</h5><br>
           <form id="login" action="../controller/login.jsp" method="POST">
           <input id="email" placeholder="Email" class="form" type="text" name="email" value="">
-          <input id="pass" placeholder="Password" class="form" type="text" name="pass" value="">
+          <input id="pass" placeholder="Password" class="form" type="password" name="pass" value="">
           <div class="text-right">
               <button class="button" type="submit">Login</button>
           </div>

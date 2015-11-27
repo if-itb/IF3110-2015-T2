@@ -32,7 +32,7 @@
           <form id="login" action="../controller/register.jsp" method="POST">
           <input id="name" placeholder="Name" class="form" type="text" name="name" value="">
           <input id="email" placeholder="Email" class="form" type="text" name="email" value="">
-          <input id="pass" placeholder="Password" class="form" type="text" name="pass" value="">
+          <input id="pass" placeholder="Password" class="form" type="password" name="pass" value="">
           <div class="text-right">
               <button class="button" type="submit">Register</button>
           </div>
