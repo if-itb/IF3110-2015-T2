@@ -32,7 +32,7 @@
 		</div>
 		<div class="question-sign">
                     <p>asked by <font color="#008080"><%= q_user.getName() %> (<%= q_user.getEmail() %>)</font> at <%= question.getCreateTime() %> <a class="edit">edit</a> |
-			<a class="delete">delete</a></p>
+			<a class="delete" href="delete?id=<%= question.getQuestionId() %>" onclick="return confirm('Are you sure you want delete this question?')">delete</a></p>
 		</div>
             </div>
 			

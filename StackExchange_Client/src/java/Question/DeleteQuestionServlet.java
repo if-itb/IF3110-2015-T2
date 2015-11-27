@@ -6,7 +6,9 @@
 package Question;
 
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,8 +35,34 @@ public class DeleteQuestionServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int question_id = Integer.parseInt(request.getParameter("question_id"));
-        String token="";
-        int status = deleteQuestion(token, question_id);
+        int status = -1;
+        Cookie cookies[] = request.getCookies();
+
+        String token_id = "";
+        boolean found = false;
+        int i=0;
+        while (i<cookies.length && !found) {
+            if (cookies[i].getName() == "stackexchange_token") {
+                token_id = cookies[i].getValue();
+                found = true;
+            } else {
+                i++;
+            }
+        }
+        if (found) {
+            String topic = request.getParameter("topic");
+            String content = request.getParameter("content");
+            status = deleteQuestion(token_id, question_id);
+            if (status > 0) {
+                response.sendRedirect("view?id="+question_id);
+            }
+        }
+        if (!found || status==-1) {
+            request.setAttribute("message","Session expired. please login again.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login");
+            dispatcher.forward(request,response);
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -93,10 +93,17 @@
         <servlet-name>UpdateQuestionServlet</servlet-name>
         <url-pattern>/updateQuestion</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
     <servlet-mappign>
         <servlet-name>DeleteQuestionServlet</servlet-name>
         <url-pattern>/delete</url-pattern>
     </servlet-mappign>
+=======
+    <servlet-mapping>
+        <servlet-name>DeleteQuestionServlet</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+>>>>>>> 92ded38a42c8a0dc6f2a740a420afaeb5e3c788e
     <session-config>
         <session-timeout>
             30
