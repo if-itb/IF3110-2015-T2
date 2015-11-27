@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.24, for osx10.8 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.16, for Win32 (x86)
 --
 -- Host: localhost    Database: stackexchange_service
 -- ------------------------------------------------------
--- Server version	5.6.24
+-- Server version	5.6.16
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -34,7 +34,7 @@ CREATE TABLE `answer` (
   KEY `q_id` (`q_id`),
   CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `user` (`u_id`) ON DELETE CASCADE,
   CONSTRAINT `answer_ibfk_2` FOREIGN KEY (`q_id`) REFERENCES `question` (`q_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,18 +43,7 @@ CREATE TABLE `answer` (
 
 LOCK TABLES `answer` WRITE;
 /*!40000 ALTER TABLE `answer` DISABLE KEYS */;
-INSERT INTO `answer` (`a_id`, `u_id`, `content`, `vote`, `date_created`, `q_id`) VALUES
-(1, 1, 'Tralala', 1, '2015-11-17 17:15:35', 2),
-(2, 1, 'syubidam', -1, '2015-11-17 17:16:55', 2),
-(7, 1, 'Coba lagi', 2, '2015-11-17 19:20:40', 2),
-(9, 1, 'Huff', 3, '2015-11-17 19:41:04', 2),
-(11, 1, '1', 0, '2015-11-17 20:18:18', 2),
-(12, 1, 'HAIIII', 0, '2015-11-17 20:18:36', 2),
-(14, 1, 'Syubidam syalala kita tidak kobam', 0, '2015-11-17 22:46:49', 10),
-(16, 1, 'My mama dont like you she likes everyone', 1, '2015-11-17 22:48:51', 11),
-(17, 1, 'Test plis bisa', 0, '2015-11-17 23:02:04', 11),
-(18, 1, 'Syubidam', 0, '2015-11-18 03:32:21', 2),
-(19, 1, 'I left you here', 1, '2015-11-18 03:46:21', 11);
+INSERT INTO `answer` VALUES (3,1,'haha',0,'2015-11-27 15:38:18',1),(4,1,'hai',0,'2015-11-27 15:40:49',1),(5,16,'Aku suka kucing juga , Tif!',0,'2015-11-27 15:42:17',2);
 /*!40000 ALTER TABLE `answer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,11 +74,33 @@ CREATE TABLE `question` (
 
 LOCK TABLES `question` WRITE;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
-INSERT INTO `question` (`q_id`, `u_id`, `topic`, `content`, `vote`, `date_created`, `date_edited`) VALUES
-(2, 1, 'Siapa Snowball?', 'Snowball adalah salah satu kucing kesayangan', 5, '2015-11-16 22:04:40', NULL),
-(10, 1, '2', '2', 0, '2015-11-17 20:04:04', NULL),
-(11, 1, '2', '2', 0, '2015-11-17 20:04:08', NULL);
+INSERT INTO `question` VALUES (1,1,'Kucing Terbang','Tahukah kamu bahwa kucing bisa terbang?',0,'2015-11-16 21:42:25',NULL),(2,1,'Siapa Snowball?','Snowball adalaha salah satu kucing kesayangan',1,'2015-11-16 22:04:40',NULL);
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `token`
+--
+
+DROP TABLE IF EXISTS `token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `token` (
+  `access_token` char(36) NOT NULL,
+  `u_id` int(7) NOT NULL,
+  `expiry_date` datetime NOT NULL,
+  PRIMARY KEY (`access_token`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `token`
+--
+
+LOCK TABLES `token` WRITE;
+/*!40000 ALTER TABLE `token` DISABLE KEYS */;
+INSERT INTO `token` VALUES ('1e02d064b56144ed876f1c0ee7161d3e',16,'2015-11-27 17:43:14'),('81fcc876424a4725ba37e290a1fc5ed2',1,'2015-11-27 17:40:42');
+/*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -102,10 +113,10 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `u_id` int(7) NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
-  `password` varchar(25) NOT NULL,
   `name` varchar(50) NOT NULL,
+  `password` char(40) NOT NULL,
   PRIMARY KEY (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,7 +125,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'tiffayumuyuka@gmail.com','kucing','Tifani Warnita');
+INSERT INTO `user` VALUES (1,'tiffayumuyuka@gmail.com','Tifani Warnita','9cafb1d6240635d5e435e0a60e738ced0334c109'),(8,'jessicaa.handayani@gmail.com','Jessica Handayani','8cb2237d0679ca88db6464eac60da96345513964'),(16,'vanyadeasy@gmail.com','Vanya Deasy Safrina','839fb980adb31f080ab0a7f7e3317744ebaa9c60'),(17,'tes@123.com','Tes','d1c056a983786a38ca76a05cda240c7b86d77136');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,6 +180,7 @@ CREATE TABLE `vote_question` (
 
 LOCK TABLES `vote_question` WRITE;
 /*!40000 ALTER TABLE `vote_question` DISABLE KEYS */;
+INSERT INTO `vote_question` VALUES (2,1,1);
 /*!40000 ALTER TABLE `vote_question` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -181,4 +193,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-18 16:26:11
+-- Dump completed on 2015-11-27 16:08:44

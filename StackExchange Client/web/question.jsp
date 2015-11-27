@@ -31,12 +31,12 @@
                     <br><br><br>
                     <span class="question-info">asked by <span class="author">
                             <c:out value="${question.getEmail()}"/>
-                    </span> at <c:out value="${question.getDateCreated()}"/> |
+                    </span> at <c:out value="${question.getDateCreated()}"/>
                     <c:if test="${question.getDateEdited()!=null}">
-                            <c:out value="edited at ${question.getDateEdited()} "/>
+                            <c:out value=" | edited at ${question.getDateEdited()} "/>
                     </c:if>
                     <c:if test="${user != null && user.getUId() == question.getUId()}">
-                        <a href="edit?q_id=<c:out value='${question.getQId()}'/>" class="edit-question"> edit</a> | 
+                         |<a href="edit?q_id=<c:out value='${question.getQId()}'/>" class="edit-question"> edit</a> | 
                         <a href="delete?q_id=<c:out value='${question.getQId()}'/>" 
                            class="delete-question" onclick="return deleteConfirmation(<c:out value='${question.getQId()}'/>)">
                             delete
