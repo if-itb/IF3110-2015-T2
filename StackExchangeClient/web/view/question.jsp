@@ -61,15 +61,11 @@
 		<hr>
 
 		<h1>Your Answer</h1>
-		<form name='answerForm' action="tools/answer/addanswer.php" 
-		  method="post" onsubmit="return validateAnswerForm()">
+		<form name='answerForm' action="AddAnswer" method="post">
 			<input type="hidden" name="questionId" value="${question.questionId}">
 			<textarea name='content' class='formInput' placeholder='Content' rows='10'></textarea>
 			<div class='right'><button type='submit'>Post</button></div>
 		</form>
 	</div>
-	<script type='text/javascript' src='assets/js/validate.js'></script>
-	<script type='text/javascript' src='assets/js/question.js'></script>
-	<script type='text/javascript' src='assets/js/answer.js'></script>
 </body>
 </html>

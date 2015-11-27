@@ -7,8 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form name="login" method="post" action="localhost:8080/StackExchangeIS/Login">
+<form name="login" method="post" action="RegisterUser">
 <table>
+        <tr>
+		<td>Name</td>
+		<td><input type="text" name="name"/></td>
+	</tr>
 	<tr>
 		<td>Email</td>
 		<td><input type="text" name="email"/></td>
@@ -18,8 +22,7 @@
 		<td><input type="password" name="password"/></td>
 	</tr>
 		<tr>
-		<td><button type="submit">Login</button></td>
-                <td><a href="register.jsp">Register</a></td>
+		<td><button type="submit">Register</button></td>
 	</tr>
 </table>
 </form>
