@@ -14,8 +14,8 @@
             QuestionWS.QuestionWS_Service service = new QuestionWS.QuestionWS_Service();
             QuestionWS.QuestionWS port = service.getQuestionWSPort();
              // TODO initialize WS operation arguments here
-            java.lang.String name = request.getParameter("Nama");
-            java.lang.String email = request.getParameter("Email");
+            java.lang.String name = session.getAttribute("sessionName").toString();
+            java.lang.String email = session.getAttribute("sessionEmail").toString();
             java.lang.String topic = request.getParameter("Topik");
             java.lang.String content = request.getParameter("Konten");
             // TODO process result here
@@ -26,8 +26,8 @@
             QuestionWS.QuestionWS port = service.getQuestionWSPort();
              // TODO initialize WS operation arguments here
             int id = Integer.parseInt(q_id);
-            java.lang.String name = request.getParameter("Nama");
-            java.lang.String email = request.getParameter("Email");
+            java.lang.String name = session.getAttribute("sessionName").toString();
+            java.lang.String email = session.getAttribute("sessionEmail").toString();
             java.lang.String topic = request.getParameter("Topik");
             java.lang.String content = request.getParameter("Konten");
             // TODO process result here

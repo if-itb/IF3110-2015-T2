@@ -47,9 +47,11 @@
 			</div>
 		</div>
 		<div class = "row info" align = "right">
-			Ditanyakan oleh <span class="name"><% out.print(Q.getName());%></span> |
-			<span class="link edit"> <a href= "question.jsp?id=<%out.print(id);%>">Edit</a> </span> | 
-			<span class="link delete"> <a href= "javascript:delete_question(<% out.print(id);%>)" >Delete</a></span>
+			Ditanyakan oleh <span class="name"><% out.print(Q.getName());%></span> 
+                        <% if (session.getAttribute("sessionName").toString() == Q.getName()) { %>
+                            | <span class="link edit"> <a href= "question.jsp?id=<%out.print(id);%>">Edit</a> </span> | 
+                            <span class="link delete"> <a href= "javascript:delete_question(<% out.print(id);%>)" >Delete</a></span>
+                        <% } %>
 		</div>
 		<br>
 	</div>
@@ -108,8 +110,6 @@
 		<h2>Beri jawaban :</h2>
 		<form class = "block" action = 'actions/post-answer.jsp?id=<% out.print(id);%>' name = "myForm" method = 'POST' onsubmit = "return(validateAnswer());">
 			<ul>
-				<input type = 'text' name = 'Nama' placeholder="Nama" maxlength = '60'></input>
-				<input type = 'text' name = 'Email' placeholder="Email"  maxlength = '60'></input>
 				<textarea rows = '100' cols = '100' placeholder="Jawaban" name = 'Jawaban'></textarea>
 				<input type = 'submit' value = "Kirim"></input>
 			</ul>

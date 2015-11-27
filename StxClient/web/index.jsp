@@ -13,7 +13,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <%@include file = "include/header.jsp" %>
-<a href= "login.jsp">sign in</a> | <a href= "register.jsp">sign up</a>
+<% if (session.getAttribute("sessionName") == null){ %>
+    <a href= "login.jsp">sign in</a> | <a href= "register.jsp">sign up</a>
+<% } else { %>    
+    hello, <%= session.getAttribute("sessionName") %> | <a href="actions/logout.jsp"> logout </a>
+<% } %>
         <div id="main-page" onload="function() {document.getElementById('autofocus').focus();}">
                 <div id="main-search" class="center">
                 <form action = 'search.jsp' id = "main-search" method = 'GET'>
@@ -61,9 +65,11 @@
                      %></div>
                     </div>
                     <div class = "controls" align = "right">
-                        Ditanyakan oleh <span class="name"><% out.print(Q.getName()); %></span> |
-                        <span class="link edit"> <a href= "question.jsp?id=<% out.print(Q.getId()); %>">Edit</a> </span> | 
-                        <span class="link delete"> <a href= "javascript:delete_question(<% out.print(Q.getId()); %>)" >Delete</a></span>
+                        Ditanyakan oleh <span class="name"><% out.print(Q.getName()); %></span> 
+                        <% if (session.getAttribute("sessionName").toString().equals(Q.getName())) { %>
+                            | <span class="link edit"> <a href= "question.jsp?id=<% out.print(Q.getId()); %>">Edit</a> </span> | 
+                            <span class="link delete"> <a href= "javascript:delete_question(<% out.print(Q.getId()); %>)" >Delete</a></span>
+                        <% } %>
                     </div>
                 </div>
                 <br><hr>

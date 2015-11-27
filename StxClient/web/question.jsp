@@ -11,6 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@include file="include/header.jsp" %>
+<% if (session.getAttribute("sessionName") != null) { %>
         <h2>Apa pertanyaan anda ?</h2> <hr>
         <%
             String sid = request.getParameter("id");
@@ -28,8 +29,6 @@
         
         <form class="block" action = 'actions/post.jsp?id=<% out.print(id); %>' name = "myForm" method = 'POST' onsubmit = "return(validateQuestion());">
                 <ul>
-                        <input type = 'text' name = 'Nama' placeholder="Nama" value = "<% out.print(Q.getName()); %>" maxlength = '60'></input>
-                        <input type = 'text' name = 'Email' placeholder="Email" value = "<% out.print(Q.getEmail()); %>" maxlength = '60'></input>
                         <input type = 'text' name = 'Topik' placeholder="Topik" value = "<% out.print(Q.getTopic()); %>" maxlength = '140'></input>
                         <textarea rows = '100' cols = '100' placeholder="Konten" name = 'Konten' ><% out.print(Q.getContent()); %></textarea>
                         <input type = 'submit' value = "Update"></input>
@@ -38,12 +37,15 @@
         <% } else {%>
         <form class="block" action = 'actions/post.jsp' name = "myForm" method = 'POST' onsubmit = "return(validateQuestion());">
                 <ul>
-                        <input type = 'text' name = 'Nama' placeholder="Nama" maxlength = '60'></input>
-                        <input type = 'text' name = 'Email' placeholder="Email"  maxlength = '60'></input>
                         <input type = 'text' name = 'Topik' placeholder="Topik" maxlength = '140'></input>
                         <textarea rows = '100' cols = '100' placeholder="Konten" name = 'Konten' ></textarea>
                         <input type = 'submit' value ="Kirim"></input>
                 </ul>
         </form>
         <% } %>
+    <% } else {
+    response.setStatus(response.SC_MOVED_TEMPORARILY);
+    response.setHeader("Location", "login.jsp");
+}%>
+    
 <%@include file="include/footer.jsp" %>

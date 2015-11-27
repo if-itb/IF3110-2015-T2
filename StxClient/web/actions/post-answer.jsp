@@ -19,8 +19,8 @@
 	AnswerWS.AnswerWS port = service.getAnswerWSPort();
 	 // TODO initialize WS operation arguments here
 	int qid = Integer.parseInt(request.getParameter("id"));
-	java.lang.String name = request.getParameter("Nama");
-	java.lang.String email = request.getParameter("Email");
+	java.lang.String name = session.getAttribute("sessionName").toString();
+	java.lang.String email = session.getAttribute("sessionEmail").toString();
 	java.lang.String content = request.getParameter("Jawaban");
 	// TODO process result here
 	int result = port.postAns(qid, name, email, content);

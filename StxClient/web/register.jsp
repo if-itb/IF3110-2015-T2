@@ -8,13 +8,12 @@
 <!DOCTYPE html>
 <%@include file="include/header.jsp"  %>
 <h1>Sign up</h1>
-<form class="block" action="" name="LoginForm" method="POST">
+<form class="block" action="actions/sign-up.jsp" name="LoginForm" method="POST">
     <ul>
-        <input type='text' name = 'name' placeholder='name'></input>
+        <input type='text' name = 'Name' placeholder='nama'></input>
         <input type='text' name = 'Email' placeholder='email'></input>
         <input type='password' name = 'Password' placeholder='password'></input><br><br>
-        <input type='password' name = 'Password' placeholder='confirm password'></input><br><br>
-        <input type='submit' value='sign up'></input>
+        <input type='submit' value='sign in'></input>
     </ul>
 </form>
 <%@include file="include/footer.jsp" %>
