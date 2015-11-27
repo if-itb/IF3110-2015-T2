@@ -18,13 +18,19 @@
   %>
   <body>
     <nav class="deep-purple darken-2" role="navigation">
-      <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo">Stack Exchange</a>
+      <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Stack Exchange</a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="index.jsp?token=<%out.print(token);%>">Home</a></li>
+          <li><a href="index.jsp?token=<%out.print(token);%>">Home</a></li>
           <li><a href="register.jsp">Register</a></li>
           <li><a href="login.jsp">Login</a></li>
         </ul>
+
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="index.jsp?token=<%out.print(token);%>">Home</a></li>
+          <li><a href="register.jsp">Register</a></li>
+          <li><a href="login.jsp">Login</a></li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
       </div>
     </nav>
     <br><br><br>
@@ -68,7 +74,7 @@
                     out.println("<p>" + q.getContent() + "</p>");
                     out.println("</div>");
                     out.println("<div class='card-action'>");
-                    out.println("<a class='left' href='questionbyID.jsp?=" + names.get(i) + "&token=" + token + "'>Asked by " + names.get(i) + "</a>");
+                    out.println("<a class='left' href='questionbyID?name=" + names.get(i) + "&token=" + token + "'>Asked by " + names.get(i) + "</a>");
                     out.println("<a class='left' style='padding-left:5px'>" + q.getVote() + "</a>");
                     out.println("<a class='left'>Votes</a>");
                     out.println("<a class='right' href='edit.jsp?qid=" + q.getId() + "&token=" + token + "'>Edit</a>");

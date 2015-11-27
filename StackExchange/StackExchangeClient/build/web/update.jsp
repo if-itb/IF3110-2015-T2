@@ -15,12 +15,19 @@
   <% String token = (String)request.getAttribute("token"); %>
   <body>
     <nav class="deep-purple darken-2" role="navigation">
-      <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo">Stack Exchange - Question</a>
+      <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Stack Exchange - Question</a>
         <ul class="right hide-on-med-and-down">
           <li><a href="index.jsp?token=<%out.print(token);%>">Home</a></li>
           <li><a href="register.jsp">Register</a></li>
+          <li><a href="login.jsp">Login</a></li>
         </ul>
+
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="index.jsp?token=<%out.print(token);%>">Home</a></li>
+          <li><a href="register.jsp">Register</a></li>
+          <li><a href="login.jsp">Login</a></li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
       </div>
     </nav>
     <br><br><br>
@@ -39,8 +46,8 @@
     </div>
     <br><br>
 
-    <div class="row container">
-      <form class="col s12 m8" action="UpdateServlet">
+    <div class="container">
+      <form class="container center" action="UpdateServlet">
         <div class="row">
           <div class="input-field">
             <%
@@ -64,15 +71,15 @@
           </div>
         </div>
         <div class="container center">
-            <button class="btn waves-effect waves-light deep-purple darken-2">
-                <input type="submit">
-                <i class="material-icons right">send</i>
+            <button class="btn waves-effect waves-light deep-purple darken-2" type="submit">
+              Update
+              <i class="material-icons right">send</i>
             </button>
         </div>
       </form>
     </div>
     
-    
+    <br><br><br><br><br><br>
         
     <footer class="page-footer deep-purple darken-2">
       <div class="footer-copyright">

@@ -14,12 +14,17 @@
   
   <body>
     <nav class="deep-purple darken-2" role="navigation">
-      <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo">Stack Exchange - Login</a>
+      <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Stack Exchange - Login</a>
         <ul class="right hide-on-med-and-down">
           <li><a href="index.jsp">Home</a></li>
           <li><a href="register.jsp">Register</a></li>
         </ul>
+
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="index.jsp">Home</a></li>
+          <li><a href="register.jsp">Register</a></li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
       </div>
     </nav>
     <br><br><br>
@@ -50,8 +55,8 @@
             
         }
     %>
-    <div class="row container">
-      <form class="col s12 m8">
+    <div class="container">
+      <form class="container center">
         <div class="row">
           <div class="input-field">
             <input id="email" type="email" name="email" class="validate" required>
@@ -69,7 +74,9 @@
         </div>
       </form>
     </div>
-        
+    
+    <br><br><br><br><br><br>
+    
     <footer class="page-footer deep-purple darken-2">
       <div class="footer-copyright">
         <div class="container">

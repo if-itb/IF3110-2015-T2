@@ -13,19 +13,19 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="answer">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="questionId" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="content" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="vote" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="answer"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="questionId" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="content" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="vote" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
