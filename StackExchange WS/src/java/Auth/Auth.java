@@ -7,18 +7,26 @@ package Auth;
 
 import DatabaseWS.DB;
 import QuestionModel.QuestionWS;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.Cookie;
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 
@@ -28,36 +36,30 @@ import org.json.simple.parser.JSONParser;
  */
 public class Auth {
   
- private String ReST = "http://localhost:8082/WBD_IS/testrestservlet";
+  private String ReST = "http://localhost:8082/WBD_IS/connectws";
   
+ 
   public int check ( String token ) throws org.json.simple.parser.ParseException, IOException {
     int ret = -1;
-    JSONParser parser = new JSONParser();
-    try{
-        String charset = "UTF-8";
-        URL url = new URL(ReST);
-      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-      conn.setDoOutput(true);
-      conn.setRequestMethod("GET");
-      conn.setRequestProperty("Accept-Charset", charset);
-      conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
-    Object obj = parser.parse(new FileReader("C:\\xampp\\htdocs\\validation.json"));
-    
-    JSONObject jsonObject = (JSONObject) obj;
-    String message = (String) jsonObject.get("message");
-    if(message.equals("valid")){
-    ret = 1;
-    }
-    else if(message.equals("expired")){
-    ret = -1;
-    }
-    else {
-    ret= 0;
-    }
-    } catch(FileNotFoundException e){
-        e.printStackTrace();
-    }
-
+            HttpURLConnection connection = null;
+            URL url = new URL("http://localhost:8082/WBD_IS/testrestservlet");
+            connection = (HttpURLConnection)url.openConnection();
+            connection.setRequestMethod("GET");
+            
+            InputStream is = connection.getInputStream();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+            StringBuffer response = new StringBuffer();
+            String line;
+            while((line = rd.readLine()) != null) {
+              response.append(line);
+            }
+            rd.close();
+            if (response.toString().equals("valid"))
+            { ret= 1;}
+            else if (response.toString().equals("expired"))
+            {ret= -1;}
+            else
+            {ret= 0;}
     return ret;
   }
   

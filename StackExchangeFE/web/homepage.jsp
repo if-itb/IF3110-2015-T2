@@ -32,7 +32,7 @@
 			Recently Asked Question <br>
 		</h2>
                 
-
+                
                 <%-- start web service invocation --%><hr/>
                 <%
                 try {
@@ -69,7 +69,7 @@
                         // TODO handle custom exceptions here
                     }
                 %>
-                <%-- end web service invocation --%><hr/>
+                <%-- end web service invocation --%>
 
 
 

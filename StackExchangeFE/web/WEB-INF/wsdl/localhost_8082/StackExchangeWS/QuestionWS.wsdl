@@ -2,15 +2,9 @@
 <wsp:Policy wsu:Id="QuestionWSPortBindingPolicy"/>
 <types>
 <xsd:schema>
-<xsd:import namespace="http://QuestionModel/" schemaLocation="http://localhost:8081/StackExchangeWS/QuestionWS?xsd=1"/>
+<xsd:import namespace="http://QuestionModel/" schemaLocation="http://localhost:8082/StackExchangeWS/QuestionWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getUserName">
-<part name="parameters" element="tns:getUserName"/>
-</message>
-<message name="getUserNameResponse">
-<part name="parameters" element="tns:getUserNameResponse"/>
-</message>
 <message name="getQuestion">
 <part name="parameters" element="tns:getQuestion"/>
 </message>
@@ -65,26 +59,13 @@
 <message name="ParseException">
 <part name="fault" element="tns:ParseException"/>
 </message>
-<message name="IOException">
-<part name="fault" element="tns:IOException"/>
-</message>
 <message name="getUserID">
 <part name="parameters" element="tns:getUserID"/>
 </message>
 <message name="getUserIDResponse">
 <part name="parameters" element="tns:getUserIDResponse"/>
 </message>
-<message name="getUserEmail">
-<part name="parameters" element="tns:getUserEmail"/>
-</message>
-<message name="getUserEmailResponse">
-<part name="parameters" element="tns:getUserEmailResponse"/>
-</message>
 <portType name="QuestionWS">
-<operation name="getUserName">
-<input wsam:Action="http://QuestionModel/QuestionWS/getUserNameRequest" message="tns:getUserName"/>
-<output wsam:Action="http://QuestionModel/QuestionWS/getUserNameResponse" message="tns:getUserNameResponse"/>
-</operation>
 <operation name="getQuestion">
 <input wsam:Action="http://QuestionModel/QuestionWS/getQuestionRequest" message="tns:getQuestion"/>
 <output wsam:Action="http://QuestionModel/QuestionWS/getQuestionResponse" message="tns:getQuestionResponse"/>
@@ -120,29 +101,15 @@
 <input wsam:Action="http://QuestionModel/QuestionWS/voteQuestionRequest" message="tns:voteQuestion"/>
 <output wsam:Action="http://QuestionModel/QuestionWS/voteQuestionResponse" message="tns:voteQuestionResponse"/>
 <fault message="tns:ParseException" name="ParseException" wsam:Action="http://QuestionModel/QuestionWS/voteQuestion/Fault/ParseException"/>
-<fault message="tns:IOException" name="IOException" wsam:Action="http://QuestionModel/QuestionWS/voteQuestion/Fault/IOException"/>
 </operation>
 <operation name="getUserID">
 <input wsam:Action="http://QuestionModel/QuestionWS/getUserIDRequest" message="tns:getUserID"/>
 <output wsam:Action="http://QuestionModel/QuestionWS/getUserIDResponse" message="tns:getUserIDResponse"/>
 </operation>
-<operation name="getUserEmail">
-<input wsam:Action="http://QuestionModel/QuestionWS/getUserEmailRequest" message="tns:getUserEmail"/>
-<output wsam:Action="http://QuestionModel/QuestionWS/getUserEmailResponse" message="tns:getUserEmailResponse"/>
-</operation>
 </portType>
 <binding name="QuestionWSPortBinding" type="tns:QuestionWS">
 <wsp:PolicyReference URI="#QuestionWSPortBindingPolicy"/>
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getUserName">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="getQuestion">
 <soap:operation soapAction=""/>
 <input>
@@ -226,20 +193,8 @@
 <fault name="ParseException">
 <soap:fault name="ParseException" use="literal"/>
 </fault>
-<fault name="IOException">
-<soap:fault name="IOException" use="literal"/>
-</fault>
 </operation>
 <operation name="getUserID">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getUserEmail">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -251,7 +206,7 @@
 </binding>
 <service name="QuestionWS">
 <port name="QuestionWSPort" binding="tns:QuestionWSPortBinding">
-<soap:address location="http://localhost:8081/StackExchangeWS/QuestionWS"/>
+<soap:address location="http://localhost:8082/StackExchangeWS/QuestionWS"/>
 </port>
 </service>
 </definitions>
