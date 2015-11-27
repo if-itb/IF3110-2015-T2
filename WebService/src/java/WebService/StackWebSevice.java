@@ -6,16 +6,31 @@
 package WebService;
 
 import Class.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -198,28 +213,34 @@ public class StackWebSevice {
         }
         
         @WebMethod(operationName="addQuestion")
-        public int addQuestion(String at,String t,String c) {
-            int status = 0;
-            Random ran = new Random();
-            int r =ran.nextInt(2);
-            if (r!=0) {
-                
+        public int addQuestion(String at,String t,String c) {                
+            
+            int r=0;
+            System.out.println("adQuesiton--------");
+            try {
+                r = statusToken(at);
+            } catch (ParseException ex) {
+               r=0;
+            }
+            int status=r;
+            if (r>0) {                
                 Connection conn = null ; 
                 Statement stmt = null ;
-                ResultSet rs =null;          
+                ResultSet rs =null;     
+                String username = getTokenOwner(at);
                 try {
+                    
                     Class.forName("com.mysql.jdbc.Driver");                
                     conn = DriverManager.getConnection(DB_URL, USER,PASS);               
                     String sql1 = "SELECT MAX(id_q) as max FROM question" ;
                     stmt = conn.createStatement();
                     rs = stmt.executeQuery(sql1);
                     rs.next();
-                    int new_id = rs.getInt("max");
-                    System.out.println("new id before : "+new_id);
+                    int new_id = rs.getInt("max");                    
                     new_id++;
-                    System.out.println("after : "+new_id);
                     status=new_id;
-                    String sql2 = "INSERT INTO question (id_q,username,email,title,content,date,vote) VALUES ('"+new_id+"','test','test@yahoo.com','"+t+"','"+c+"', CURRENT_TIMESTAMP,0)";
+                    System.out.println("ID New  Question "+new_id);
+                    String sql2 = "INSERT INTO question (id_q,username,email,title,content,date,vote) VALUES ('"+new_id+"','"+username+"','','"+t+"','"+c+"', CURRENT_TIMESTAMP,0)";
                     stmt = conn.createStatement();
                     stmt.executeUpdate(sql2);
                     stmt.close();
@@ -234,10 +255,16 @@ public class StackWebSevice {
         
          @WebMethod(operationName="updateQuestion")
         public int updateQuestion(String at,int id,String t,String c) {
-            int status = 0;
-            Random ran = new Random();
-            int r = ran.nextInt(2);
-            if (r!=0) {
+           int r=0;
+            System.out.println("updateQuesiton--------");
+            try {
+                r = statusToken(at);
+            } catch (ParseException ex) {
+               r=0;
+            }
+            int status=r;
+            if (r>0) {                
+                String username = getTokenOwner(at);
                 status = 1 ;
                 Connection conn = null ; 
                 Statement stmt = null ;
@@ -260,10 +287,15 @@ public class StackWebSevice {
         
          @WebMethod(operationName="deleteQuestion")
         public int deleteQuestion(String at,int id) {
-         int status = 0;
-            Random ran = new Random();
-            int r = ran.nextInt(2);
-            if (r!=0) {
+            int r=0;
+            System.out.println("deleteQuesiton--------");
+            try {
+                r = statusToken(at);
+            } catch (ParseException ex) {
+               r=0;
+            }
+            int status=r;
+            if (r>0) {
                 status = 1 ;
                 Connection conn = null ; 
                 Statement stmt = null ;
@@ -287,17 +319,22 @@ public class StackWebSevice {
          @WebMethod(operationName="addAnswer")
         public int addAnswer(String at,int idq,int ida,String c) {
             int status = 0;
-            Random ran = new Random();
-            int r = ran.nextInt(2);
-            if (r!=0) {
-                status = 1;
+            int r=0;
+             try {
+                r = statusToken(at);
+            } catch (ParseException ex) {
+               r=0;
+            }
+            status=r;
+            if (r>0) {
                 Connection conn = null ; 
                 Statement stmt = null ;
                 ResultSet rs =null; 
+                String username = getTokenOwner(at) ;
                 try {
                     Class.forName("com.mysql.jdbc.Driver");                
                     conn = DriverManager.getConnection(DB_URL, USER,PASS);               
-                    String sql = "INSERT INTO `answer` (`id_a`, `q_id`, `content`, `date`, `vote`, `username`, `email`) VALUES ('"+ida+"','"+idq+"','"+c+"',CURRENT_TIMESTAMP,0,'test','test')";
+                    String sql = "INSERT INTO `answer` (`id_a`, `q_id`, `content`, `date`, `vote`, `username`, `email`) VALUES ('"+ida+"','"+idq+"','"+c+"',CURRENT_TIMESTAMP,0,'"+username+"','')";
                     stmt = conn.createStatement();                                    
                     stmt.executeUpdate(sql);
                     stmt.close();
@@ -377,27 +414,135 @@ public class StackWebSevice {
             Connection conn = null ; 
             Statement stmt = null ;
             ResultSet rs =null;
-            int status = 0 ;
-            Random ran = new Random();
-            int r = ran.nextInt(2);
+            int status = 0;
+            int r=0;
+             try {
+                r = statusToken(at);
+            } catch (ParseException ex) {
+               r=0;
+            }
+            status=r;
             String sql;
-            if (r!=0) {
-                status=1;
+            if (r>0) {
                 try {
                     Class.forName("com.mysql.jdbc.Driver");                
                     conn = DriverManager.getConnection(DB_URL, USER,PASS);  
-                    if (t.equals("q")) sql = "UPDATE question SET vote=(vote+"+num+") WHERE id_q="+id;
-                    else sql = "UPDATE answer SET vote=(vote++"+num+") WHERE id_a="+id;
+                    sql = "SELECT * FROM voted WHERE id_v="+id+" AND id_u="+r;
                     stmt= conn.createStatement();
-                    stmt.executeUpdate(sql);
-                    stmt.close();
-                    conn.close();
+                    rs = stmt.executeQuery(sql);
+                    rs.last();
+                    int size = rs.getRow();
+                    if (size==1) status=-999;
+                    else {                    
+                        if (t.equals("q")) sql = "UPDATE question SET vote=(vote+"+num+") WHERE id_q="+id;
+                        else sql = "UPDATE answer SET vote=(vote+"+num+") WHERE id_a="+id;
+                        stmt= conn.createStatement();
+                        stmt.executeUpdate(sql);
+                        String kode = String.valueOf(id)+"-"+String.valueOf(r);
+                        String sql2 = "INSERT INTO voted (kode,id_v,id_u) VALUES ('"+kode+"',"+id+","+r+")";
+                        stmt= conn.createStatement();
+                        stmt.executeUpdate(sql2);
+                        stmt.close();
+                        conn.close();
+                    }
                 }
                 catch (Exception e) {
                     e.printStackTrace() ;
                 }
             }
             return status ;
+        }
+        
+        @WebMethod(operationName="statusToken")
+        public int statusToken(String t) throws ParseException {
+        int ret = 0;
+        JSONParser parser = new JSONParser();  
+        String msg="";
+        try { 
+            URL url = new URL("http://localhost:39854/IdentityService/ISValid");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Accept-Charset","UTF-8");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+            String query = String.format("token=%s",URLEncoder.encode(t, "UTF-8"));
+            
+            try (OutputStream output = conn.getOutputStream()) {
+                output.write(query.getBytes("UTF-8"));
+            }
+            InputStream istream = conn.getInputStream();
+            System.out.println(istream);
+      
+            BufferedReader bufread = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+
+            String output;
+            Object obj;
+            JSONObject jsonobj;
+      
+            while ((output = bufread.readLine()) != null) {
+              obj = parser.parse(output);
+              jsonobj = (JSONObject) obj;
+              msg = String.valueOf(jsonobj.get("status"));
+              System.out.println("Status token (message) : |"+msg+"|");
+                }      
+                conn.disconnect();
+                } catch (MalformedURLException e) {
+                      e.printStackTrace();
+                } catch (IOException e) {
+                      e.printStackTrace();
+               }
+            ret = Integer.valueOf(msg);
+            System.out.println("Status token (return) : |"+ret+"|");
+            return ret;
+        }
+        
+        @WebMethod (operationName="deleteToken") 
+        public int deleteToken(String t) {
+            int ret = 0;
+             Connection conn = null ; 
+            Statement stmt = null ;
+            String sql="";
+            try {                
+                Class.forName("com.mysql.jdbc.Driver");
+                 conn = DriverManager.getConnection(DB_URL, USER,PASS); 
+                sql = "DELETE FROM token WHERE token='"+t+"'";
+                stmt = conn.createStatement();
+                stmt.executeUpdate(sql);
+                System.out.println("deleteToken : |"+t+"|");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(StackWebSevice.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(StackWebSevice.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("deleteToken return : "+ret);
+            return ret;
+        }
+        
+        public String getTokenOwner(String t) {
+             Connection conn =null;
+            String ret ="";
+            String sql ="";
+            Statement stmt = null;
+            ResultSet rs = null;
+        try {
+                Class.forName("com.mysql.jdbc.Driver");                
+                conn = DriverManager.getConnection(DB_URL, USER,PASS);               
+                sql = "SELECT username FROM token WHERE token='"+t+"'";
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery(sql);
+                rs.last() ;
+                int size =rs.getRow();
+                if (size!=0) {
+                    ret = rs.getString("username");
+                }
+                stmt.close();
+                conn.close();
+            }
+            catch (Exception e) {
+                e.printStackTrace() ;
+            }
+        System.out.println("getTokenOwner return :  |"+ret+"|");
+        return ret ;
         }
         
 }
