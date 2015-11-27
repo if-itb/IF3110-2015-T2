@@ -67,7 +67,7 @@ public class Login extends HttpServlet {
                 
                 //Generate Expired Time
                 Calendar nowTime = Calendar.getInstance();
-                long limitTime = 5 * 60 * 100; // 5 minutes
+                long limitTime = 5 * 60 * 1000; // 5 minutes
                 Date expiredTime = new Date(nowTime.getTimeInMillis() + limitTime);
                 DateFormat dForm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 
