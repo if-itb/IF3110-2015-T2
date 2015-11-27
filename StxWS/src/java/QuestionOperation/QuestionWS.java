@@ -201,7 +201,7 @@ public class QuestionWS {
         return res;
     }
     @WebMethod(operationName = "vote")
-    public int vote(@WebParam(name = "id") int id, @WebParam(name = "usermail") String mail) {
+    public int vote(@WebParam(name = "id") int id, @WebParam(name = "usermail") String mail, @WebParam(name = "value") int val) {
         Connection conn = null;
         PreparedStatement ps = null;
         int executeUpdate = -2;
@@ -232,7 +232,7 @@ public class QuestionWS {
                     rs.next();
                     int currentVote = rs.getInt("vote");
                     ps = conn.prepareStatement("update question set vote = ? where id = ?");
-                    ps.setInt(1, currentVote+1);
+                    ps.setInt(1, currentVote+val);
                     ps.setInt(2, id);
                     executeUpdate = ps.executeUpdate();
                 }

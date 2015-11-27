@@ -4,9 +4,11 @@
     Author     : Fikri-PC
 --%>
 
-<%@page import="Question.QuestionWS"%>
-<%@page import="Question.QuestionWS_Service"%>
-<%@page import="Question.Question"%>
+<%@page import="QuestionWS.Question"%>
+<%@page import="QuestionWS.QuestionWS"%>
+<%@page import="QuestionWS.QuestionWS_Service"%>
+
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
@@ -26,9 +28,6 @@
                 </div>
                 <div class = "question">
                 <span class = "page-title"><h3>Pertanyaan baru-baru ini</h3></span> <hr>
-                <% for(int i=0; i<10; i++) { %>
-                    
-                <% } %>
                     <%-- start web service invocation --%>
                 <%
                
