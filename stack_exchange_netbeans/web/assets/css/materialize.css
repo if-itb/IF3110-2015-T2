@@ -1856,6 +1856,12 @@ button, select {
  *    `input` and others.
  */
 /* 1 */
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #FFF;
+}
+input:-moz-placeholder, textarea:-moz-placeholder {
+  color: #FFF;
+}
 html input[type="button"], button, input[type="reset"], input[type="submit"] {
   -webkit-appearance: button;
   /* 2 */
