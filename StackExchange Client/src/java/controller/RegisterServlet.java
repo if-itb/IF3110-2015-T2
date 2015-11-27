@@ -21,9 +21,9 @@ import service.User;
  * @author Adz
  */
 public class RegisterServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange.wsdl")
     private StackExchange_Service service;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -70,10 +70,10 @@ public class RegisterServlet extends HttpServlet {
                 name = request.getParameter("name"),
                 email = request.getParameter("email"),
                 password = request.getParameter("password");
-        
+
         // get the result message
         String message = port.addUser(name, email, password);
-        
+
         // message handling by get method
         if(message.contains("Success")){ // SUCCESS
             request.setAttribute("success", message);

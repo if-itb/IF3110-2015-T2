@@ -25,8 +25,8 @@ import service.User;
  */
 @WebServlet(name = "EditServlet", urlPatterns = {"/edit"})
 public class EditServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
-    private StackExchange_Service service;        
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange.wsdl")
+    private StackExchange_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,7 +39,7 @@ public class EditServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,8 +63,8 @@ public class EditServlet extends HttpServlet {
                 request.setAttribute("question", question);
                 request.getRequestDispatcher("WEB-INF/view/ask.jsp").forward(request, response);
                 return;
-            }            
-        }        
+            }
+        }
         response.sendRedirect(request.getContextPath());
     }
 
@@ -79,7 +79,7 @@ public class EditServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         int id = Integer.parseInt(request.getParameter("id"));
         String
                 topic = request.getParameter("topic"),
@@ -88,7 +88,7 @@ public class EditServlet extends HttpServlet {
             response.sendRedirect(request.getRequestURI());
             return;
         }
-            
+
         User user = (User) request.getAttribute("user");
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
@@ -108,7 +108,7 @@ public class EditServlet extends HttpServlet {
                     doGet(request, response);
                 }
             }
-        }        
+        }
     }
 
     /**

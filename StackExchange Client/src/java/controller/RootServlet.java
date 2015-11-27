@@ -29,9 +29,9 @@ import service.*;
  */
 @WebServlet(name = "RootServlet", urlPatterns = {""})
 public class RootServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
-    private StackExchange_Service service;    
-    
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange.wsdl")
+    private StackExchange_Service service;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,19 +41,19 @@ public class RootServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {        
-        StackExchange port = service.getStackExchangePort();                
-        List<Question> questions = port.getQuestions();        
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        StackExchange port = service.getStackExchangePort();
+        List<Question> questions = port.getQuestions();
         Map<Integer, Integer> answers = new HashMap<>();
         Map<Integer, User> askers = new HashMap<>();
-        for (Question question: port.getQuestions()) {            
+        for (Question question: port.getQuestions()) {
             answers.put(question.getId(), port.getAnswers(question.getId()).size());
             askers.put(question.getId(), port.getUser(question.getIdUser()));
-        }                        
+        }
         request.setAttribute("questions", questions);
         request.setAttribute("answers", answers);
         request.setAttribute("askers", askers);
-        request.getRequestDispatcher("WEB-INF/view/index.jsp").forward(request, response);        
+        request.getRequestDispatcher("WEB-INF/view/index.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -94,5 +94,5 @@ public class RootServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-   
+
 }

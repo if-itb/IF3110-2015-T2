@@ -22,9 +22,9 @@ import service.*;
  * @author visat
  */
 public class QuestionServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange.wsdl")
     private StackExchange_Service service;
-    
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -36,16 +36,16 @@ public class QuestionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        StackExchange port = service.getStackExchangePort();        
+        StackExchange port = service.getStackExchangePort();
         String paramId = request.getParameter("id");
         Question question = null;
         if (paramId != null) {
-            try {                
+            try {
                 question = port.getQuestion(Integer.parseInt(paramId));
             }
-            catch (NumberFormatException ex) {                
+            catch (NumberFormatException ex) {
             }
-        }                
+        }
         if (question != null) {
             User user = (User) request.getAttribute("user");
             request.setAttribute("question", question);
@@ -54,7 +54,7 @@ public class QuestionServlet extends HttpServlet {
             Map<Integer, User> answerers = new HashMap<>();
             Map<Integer, Integer> answerStates = new HashMap<>();
             for (Answer answer: answers) {
-                answerers.put(answer.getId(), port.getUser(answer.getIdUser()));                
+                answerers.put(answer.getId(), port.getUser(answer.getIdUser()));
                 answerStates.put(answer.getId(), user == null? 0: port.getAnswerVoteState(user.getId(), answer.getId()));
             }
             request.setAttribute("answers", answers);

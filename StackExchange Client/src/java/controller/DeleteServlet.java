@@ -24,7 +24,7 @@ import service.User;
  * @author Adz
  */
 public class DeleteServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange.wsdl")
     private StackExchange_Service service;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,8 +52,8 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        StackExchange port = service.getStackExchangePort();        
+
+        StackExchange port = service.getStackExchangePort();
         try{
             int id = Integer.parseInt(request.getParameter("id"));
             User user = (User) request.getAttribute("user");
@@ -68,7 +68,7 @@ public class DeleteServlet extends HttpServlet {
             }
         }
         catch(Exception ex){
-            
+
         }
         response.sendRedirect(request.getContextPath());
     }

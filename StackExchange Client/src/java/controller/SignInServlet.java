@@ -27,7 +27,7 @@ import service.*;
 
 @WebServlet(name = "SignInServlet", urlPatterns = {"/signin"})
 public class SignInServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange.wsdl")
     private StackExchange_Service service;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,7 +39,7 @@ public class SignInServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {        
+            throws ServletException, IOException {
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,7 +79,7 @@ public class SignInServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
+
         User user = (User) request.getAttribute("user");
         if (user != null) { // user already login
             response.sendRedirect(request.getContextPath());
@@ -88,17 +88,17 @@ public class SignInServlet extends HttpServlet {
         else { // user can login
             String  email = request.getParameter("email"),
                     password = request.getParameter("password");
-            
+
             JSONObject object = null;
             if (email != null && password != null && (object = ISConnector.requestLogin(email, password)) != null) {
                 if (object.containsKey("auth")){
                     Cookie cookie = new Cookie("auth", (String)object.get("auth"));
                     cookie.setPath("/");
                     long age = -1;
-                    if (object.containsKey("expire_date")) {                        
+                    if (object.containsKey("expire_date")) {
                         age = new Timestamp(new Date().getTime()).getTime()-(long)object.get("expire_date");
-                        age /= 1000;                                                
-                    }                    
+                        age /= 1000;
+                    }
                     cookie.setMaxAge((int)age);
                     response.addCookie(cookie);
                     response.sendRedirect(request.getContextPath());
@@ -106,7 +106,7 @@ public class SignInServlet extends HttpServlet {
                 } else if (object.containsKey("error")) {
                     request.setAttribute("error", (String)object.get("error"));
                 }
-            }           
+            }
         }
         doGet(request, response);
 }

@@ -33,8 +33,8 @@ import service.*;
  */
 @WebServlet(name = "AskServlet", urlPatterns = {"/ask"})
 public class AskServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
-    private StackExchange_Service service;        
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange.wsdl")
+    private StackExchange_Service service;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -71,7 +71,7 @@ public class AskServlet extends HttpServlet {
             response.sendRedirect(request.getRequestURI());
             return;
         }
-            
+
         // check access token
         // forward to login page if access token is not set
         User user = (User) request.getAttribute("user");
@@ -90,7 +90,7 @@ public class AskServlet extends HttpServlet {
                 request.setAttribute("error", "Failed to create question");
                 doGet(request, response);
             }
-        }        
+        }
     }
 
     /**

@@ -25,7 +25,7 @@ import service.User;
  * @author Adz
  */
 public class SearchServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange.wsdl")
     private StackExchange_Service service;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,7 +53,7 @@ public class SearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         StackExchange port = service.getStackExchangePort();
-        
+
         String key = request.getParameter("key");
         List<Question> questions = port.search(key);
         Map<Integer, Integer> answers = new HashMap<>();
@@ -62,7 +62,7 @@ public class SearchServlet extends HttpServlet {
             for (Question question: questions) {
                 answers.put(question.getId(), port.getAnswers(question.getId()).size());
                 askers.put(question.getId(), port.getUser(question.getIdUser()));
-            }                        
+            }
             request.setAttribute("questions", questions);
             request.setAttribute("answers", answers);
             request.setAttribute("askers", askers);

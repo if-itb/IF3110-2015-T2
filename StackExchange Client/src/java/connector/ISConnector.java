@@ -9,12 +9,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -24,12 +21,14 @@ import org.json.simple.parser.ParseException;
  * @author visat
  */
 public class ISConnector {
-    private static final String CONTEXT_PATH = "http://localhost:8080/Identity_Service";
+    private static final String CONTEXT_PATH = "http://localhost:8082";
 
     private static JSONObject request(String servletPath, byte[] query) {
         JSONObject object = null;
         try {
-            if (servletPath != null && !servletPath.startsWith("/"))
+            if (servletPath == null)
+                return object;
+            if (!servletPath.startsWith("/"))
                 servletPath = "/" + servletPath;
             URLConnection connection = new URL(CONTEXT_PATH + servletPath).openConnection();
             connection.setDoOutput(true);

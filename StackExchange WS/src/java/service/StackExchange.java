@@ -71,7 +71,7 @@ public class StackExchange {
     public List<Question> getQuestions() {
         List<Question> questions = new ArrayList<>();        
         try {
-            String sql ="SELECT * FROM question";                                    
+            String sql ="SELECT * FROM question ORDER BY timestamp DESC";
             try (
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet result = statement.executeQuery()) {

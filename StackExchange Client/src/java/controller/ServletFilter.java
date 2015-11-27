@@ -31,7 +31,7 @@ import service.User;
  * @author visat
  */
 public class ServletFilter implements Filter {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange.wsdl")
     private StackExchange_Service service;
 
     @Override

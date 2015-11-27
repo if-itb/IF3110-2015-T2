@@ -22,7 +22,7 @@ import service.User;
  * @author visat
  */
 public class VoteServlet extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS/StackExchange.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange.wsdl")
     private StackExchange_Service service;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,7 +53,7 @@ public class VoteServlet extends HttpServlet {
                         if (action.equals("up"))
                             success = port.voteQuestionUp(user.getId(), id);
                         else if (action.equals("down"))
-                            success = port.voteQuestionDown(user.getId(), id);                        
+                            success = port.voteQuestionDown(user.getId(), id);
                         if (success)
                             jsonResponse.put("votes", port.getQuestion(id).getVotes());
                     }
@@ -64,7 +64,7 @@ public class VoteServlet extends HttpServlet {
                             success = port.voteAnswerDown(user.getId(), id);
                         if (success)
                             jsonResponse.put("votes", port.getAnswer(id).getVotes());
-                    }                    
+                    }
                 }
                 catch (NumberFormatException ex) {
                 }

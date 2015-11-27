@@ -32,8 +32,10 @@ public class DB {
       
       con = DriverManager.getConnection(url, user, password);
       
-    } catch (SQLException | ClassNotFoundException ex) {
-        
+    } catch (SQLException ex) {
+        System.out.println("asu " + ex.getMessage());
+    } catch (ClassNotFoundException ex) {
+        System.out.println("usa " + ex.getMessage());
     }
     
     return con;
