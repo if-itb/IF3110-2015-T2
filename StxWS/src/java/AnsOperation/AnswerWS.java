@@ -5,6 +5,7 @@
  */
 package AnsOperation;
 
+import Xml.InformationToken;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.jws.WebService;
@@ -57,10 +58,12 @@ public class AnswerWS {
     }
         
     @WebMethod(operationName = "postAns")
-    public int postAns(@WebParam(name = "qid") int qid, @WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "content") String content) {
+    public int postAns(@WebParam(name = "qid") int qid, @WebParam(name = "token") String token, @WebParam(name = "content") String content) {
         int res = -1;
         Connection conn = null;
         PreparedStatement ps = null;
+        InformationToken it = new InformationToken();
+        String email = it.getEmail(token);
         try {
                 //new com.mysql.jdbc.Driver();
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -69,6 +72,11 @@ public class AnswerWS {
                 String connectionUser = "root";
                 String connectionPassword = "";
                 conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
+                 ps = conn.prepareStatement("select name from user where email = ?");
+                ps.setString(1, email);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                String name = rs.getString("name");
                 ps = conn.prepareStatement("insert into Answer value(0,?,?,?,?,0)");
                 ps.setInt(1, qid);
                 ps.setString(2, name);
@@ -84,7 +92,7 @@ public class AnswerWS {
     }
     //return value -1 = gagal, 0 = sudah divote, 1 = berhasil
     @WebMethod(operationName = "voteAns")
-    public int voteAns(@WebParam(name = "id") int id, @WebParam(name= "usermail") String mail, @WebParam(name="value") int val) {
+    public int voteAns(@WebParam(name = "id") int id, @WebParam(name= "token") String token, @WebParam(name = "value") int val) {
         Connection conn = null;
         PreparedStatement ps = null;
         int executeUpdate = -1;
@@ -95,7 +103,10 @@ public class AnswerWS {
                 String connectionUrl = "jdbc:mysql://localhost:3306/stackexchange";
                 String connectionUser = "root";
                 String connectionPassword = "";
+                InformationToken it = new InformationToken();
+                String mail = it.getEmail(token);
                 conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
+                
                 ps = conn.prepareStatement("select * from uservote where id_mail = ? and category = 'a' and id = ?");
                 ps.setString(1, mail);
                 ps.setInt(2, id);

@@ -11,7 +11,7 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
-
+import Xml.*;
 /**
  *
  * @author Muhtar Hartopo
@@ -144,9 +144,11 @@ public class QuestionWS {
     }
     
     @WebMethod(operationName = "post")
-    public int post(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
+    public int post(@WebParam(name = "token") String token, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
         Connection conn = null;
         PreparedStatement ps = null;
+        InformationToken it = new InformationToken();
+        String email = it.getEmail(token);
         int res = -1;
         try {
                 //new com.mysql.jdbc.Driver();
@@ -156,6 +158,11 @@ public class QuestionWS {
                 String connectionUser = "root";
                 String connectionPassword = "";
                 conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
+                ps = conn.prepareStatement("select name from user where email = ?");
+                ps.setString(1, email);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                String name = rs.getString("name");
                 ps = conn.prepareStatement("insert into question values(0,?,?,?,?,0)");
                 ps.setString(1, name);
                 ps.setString(2, email);
@@ -172,11 +179,13 @@ public class QuestionWS {
     }
     
     @WebMethod(operationName = "update")
-    public int update(@WebParam(name = "id") int id, @WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
+    public int update(@WebParam(name = "id") int id, @WebParam(name = "token") String token, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) {
         
         Connection conn = null;
         PreparedStatement ps = null;
         int res = -1;
+        InformationToken it = new InformationToken();
+        String email = it.getEmail(token);
         try {
                 //new com.mysql.jdbc.Driver();
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -185,6 +194,11 @@ public class QuestionWS {
                 String connectionUser = "root";
                 String connectionPassword = "";
                 conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
+                ps = conn.prepareStatement("select name from user where email = ?");
+                ps.setString(1, email);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                String name = rs.getString("name");
                 ps = conn.prepareStatement("update question set name = ?, email = ?, topic = ?, content = ? where id = ?;");
                 ps.setString(1, name);
                 ps.setString(2, email);
@@ -201,10 +215,12 @@ public class QuestionWS {
         return res;
     }
     @WebMethod(operationName = "vote")
-    public int vote(@WebParam(name = "id") int id, @WebParam(name = "usermail") String mail, @WebParam(name = "value") int val) {
+    public int vote(@WebParam(name = "id") int id, @WebParam(name = "token") String token, @WebParam(name = "value") int val) {
         Connection conn = null;
         PreparedStatement ps = null;
         int executeUpdate = -2;
+        InformationToken it = new InformationToken();
+        String mail = it.getEmail(token);
         try {
                 //new com.mysql.jdbc.Driver();
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
