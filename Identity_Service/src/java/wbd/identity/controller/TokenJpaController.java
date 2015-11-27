@@ -36,8 +36,8 @@ public class TokenJpaController implements Serializable {
   public EntityManager getEntityManager() {
     return emf.createEntityManager();
   }
-
-  public void create(Token token) throws PreexistingEntityException, RollbackFailureException, Exception {
+  
+ public void create(Token token) throws PreexistingEntityException, RollbackFailureException, Exception {
     EntityManager em = null;
     try {
       utx.begin();
