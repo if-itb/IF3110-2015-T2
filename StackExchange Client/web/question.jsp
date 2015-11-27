@@ -35,11 +35,14 @@
                     <c:if test="${question.getDateEdited()!=null}">
                             <c:out value="edited at ${question.getDateEdited()} "/>
                     </c:if>
-                    <a href="edit?q_id=<c:out value='${question.getQId()}'/>" class="edit-question"> edit</a> | 
-                    <a href="delete?q_id=<c:out value='${question.getQId()}'/>" 
-                       class="delete-question" onclick="return deleteConfirmation(<c:out value='${question.getQId()}'/>)">
-                        delete
-                    </a><br></span>
+                    <c:if test="${user != null && user.getUId() == question.getUId()}">
+                        <a href="edit?q_id=<c:out value='${question.getQId()}'/>" class="edit-question"> edit</a> | 
+                        <a href="delete?q_id=<c:out value='${question.getQId()}'/>" 
+                           class="delete-question" onclick="return deleteConfirmation(<c:out value='${question.getQId()}'/>)">
+                            delete
+                        </a></c:if>
+                        <br></span>
+                    
                 </span>
                 <br><br><br>
 		<h2><c:out value="${question.getAnswer()}"/> Answer(s)</h2><hr>
@@ -87,6 +90,8 @@
 			</form>
 		</div>
                 </c:if>
+                    <c:if test="${user == null}"><center>Please <a href="login">login</a> before answering this question</center></c:if>
+            
 	</div>
 
 <script src="assets/js/confirmation.js"></script>

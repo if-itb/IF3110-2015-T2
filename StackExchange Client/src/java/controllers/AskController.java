@@ -39,7 +39,7 @@ public class AskController extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("ask.jsp");
             rd.forward(request, response);
         } else { // User not authorized to see this
-            response.sendRedirect("login");
+            response.sendRedirect("login?st=0");
         }
     }
 

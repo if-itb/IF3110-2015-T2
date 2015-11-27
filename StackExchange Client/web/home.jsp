@@ -8,9 +8,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <jsp:include page="/views/header.jsp" flush="true"/>
-<jsp:useBean id="questions" type="java.util.List<QuestionWS.Question>" scope="request"/>
-Message: <c:out value="${status}"/> <br>
-User: <c:out value="${user}"/>
 	<div class="container">
             <div class="center">
                     <div id="search">
@@ -22,7 +19,9 @@ User: <c:out value="${user}"/>
                             </form>
                     </div>
                     <br>
-                    Cannot find what you are looking for? <a href="ask">Ask here</a>
+                    Cannot find what you are looking for?
+                    <c:if test="${user != null}"><a href="ask">Ask here</a></c:if>
+                    <c:if test="${user == null}">Please <a href="login">login</a> before asking a new question</c:if>
             </div>
 
             <br>
@@ -52,7 +51,7 @@ User: <c:out value="${user}"/>
                 <br><br>
                 <span class="question-info">
                     asked by <span class="author"><c:out value="${q.getName()}"/></span>
-                    <c:if test="${user != null && user.getuId == question.getuId}">
+                    <c:if test="${user != null && user.getUId() == q.getUId()}">
                     | <a href="edit?q_id=<c:out value='${q.getQId()}'/>" class="edit-question">edit</a> | 
                     <a href="delete?q_id=<c:out value='${q.getQId()}'/>" class="delete-question"
                     onclick="return deleteConfirmation(<c:out value='${q.getQId()}'/>)">delete</a>

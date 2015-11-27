@@ -46,11 +46,19 @@ public class EditController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int qId = Integer.parseInt(request.getParameter("q_id"));
-        QuestionWS.Question question = getQuestion(qId);
-        request.setAttribute("question", question);
-        RequestDispatcher rd = request.getRequestDispatcher("edit.jsp");
-        rd.forward(request, response);
+        if (request.getParameter("q_id") != null) {
+            int qId = Integer.parseInt(request.getParameter("q_id"));
+            QuestionWS.Question question = getQuestion(qId);
+            if (question!= null) {
+                request.setAttribute("question", question);
+                RequestDispatcher rd = request.getRequestDispatcher("edit.jsp");
+                rd.forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/home");
+            }
+        } else {
+            response.sendRedirect(request.getContextPath());
+        }
     }
 
     /**
