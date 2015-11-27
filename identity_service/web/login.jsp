@@ -17,10 +17,12 @@
         <c:if test="${flash != null}">
           <h4 style="color:red">${flash}</h4>
         </c:if>
-        <input class="form" type="text" placeholder="username" name="username">
-        <input class="form" type="password" placeholder="password" name="password">
+        <form method="POST">
+          <input class="form" type="text" placeholder="email" name="email">
+          <input class="form" type="password" placeholder="password" name="password">
 
-        <button class="btn">Login</button>
+          <button class="btn">Login</button>
+        </form>
       </div>
     </div>
 

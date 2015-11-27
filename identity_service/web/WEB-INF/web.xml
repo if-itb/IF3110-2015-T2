@@ -40,6 +40,11 @@
         <servlet-name>Get User ID API</servlet-name>
         <servlet-class>org.stackexchange.identityservice.controller.UserIdApiServlet</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>Get Username By Id</servlet-name>
+        <servlet-class>org.stackexchange.identityservice.controller.UserInfoApiServlet</servlet-class>
+    </servlet>
     
     <servlet-mapping>
         <servlet-name>Login Page</servlet-name>
@@ -64,6 +69,11 @@
     <servlet-mapping>
         <servlet-name>Get User ID API</servlet-name>
         <url-pattern>/api/id/user</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Get Username By Id</servlet-name>
+        <url-pattern>/api/user/info</url-pattern>
     </servlet-mapping>
     
 </web-app>

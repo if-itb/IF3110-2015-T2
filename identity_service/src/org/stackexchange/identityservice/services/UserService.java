@@ -14,7 +14,7 @@ public class UserService {
         User user = userDao.getByEmail(email);
         if (user == null) {
             return false;
-        } else if(user.getPassword() == password) {
+        } else if(user.getPassword().equals(password)) {
             return true;
         } else {
             return false;

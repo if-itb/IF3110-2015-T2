@@ -1,8 +1,13 @@
 package org.stackexchange.webservice.service;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.stackexchange.webservice.helper.ConnectionHelper;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TokenService {
 
@@ -39,14 +44,17 @@ public class TokenService {
         }
     }
     
-    public String getAnswerUserName(String token) {
-        String test = new String();
-        return test;
+    public Map<String, String> getUserInfo(long userId) {
+        try {
+            String response = connectionHelper.executeGET("http://localhost:7000/api/user/info?id=" + userId);
+            Gson gson = new Gson();
+            Type mapType = new TypeToken<HashMap<String, String>>() {}.getType();
+            return gson.fromJson(response, mapType);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new HashMap<>();
+        }
     }
     
-    public String getEmail(String token) {
-        //Question & Answer
-        String test = new String();
-        return test;
-    }
+    
 }
