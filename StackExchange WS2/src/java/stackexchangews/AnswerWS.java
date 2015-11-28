@@ -30,11 +30,11 @@ public class AnswerWS {
     @WebResult(name="Answer")
     public java.util.ArrayList<Answer> getAnswerByQID
     (@WebParam(name = "qid") int qid) {
-        ArrayList<Answer> answers = new ArrayList<Answer>();
+        ArrayList<Answer> answer = new ArrayList<Answer>();
         try {
             Statement stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM answers WHERE id_question = ?";
+            sql = "SELECT * FROM answer WHERE id_question = ?";
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             dbStatement.setInt(1, qid);
 
@@ -43,11 +43,11 @@ public class AnswerWS {
              /* Get every data returned by SQL query */
             int i = 0;
             while(rs.next()){
-                answers.add(new Answer( rs.getInt("id"),
+                answer.add(new Answer(rs.getInt("id"),
                 rs.getInt("id_question"),
                 rs.getInt("id_user"),
                 rs.getString("content"),
-                rs.getString("timestamp")
+                rs.getString("timepost")
                 ));
                 ++i;
             }
@@ -58,7 +58,7 @@ public class AnswerWS {
             //Logger.getLogger(QuestionWS.class.getName()).log
              //(Level.SEVERE, null, ex);
         }
-        return answers;
+        return answer;
     }
 
     /**

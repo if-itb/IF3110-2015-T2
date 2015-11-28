@@ -18,8 +18,8 @@ public class Answer {
     private int idUser;
     @XmlElement(name="content", required=true)
     private String content;
-    @XmlElement(name="timestamp", required=true)
-    private String timestamp;
+    @XmlElement(name="timepost", required=true)
+    private String timepost;
     
     public Answer() {
         id =0;
@@ -27,12 +27,12 @@ public class Answer {
         idUser =0;
     }
     
-    public Answer(int id, int qid, int uid, String content, String timestamp)
+    public Answer(int id, int qid, int uid, String content, String timepost)
     {
         this.id =id;
         idQuestion = qid;
         idUser =uid;
         this.content=content;
-        this.timestamp =timestamp;
+        this.timepost =timepost;
     }
 }
