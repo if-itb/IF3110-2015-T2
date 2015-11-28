@@ -6,11 +6,14 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.WebServiceRef;
+import stackexchange.Question_Service;
 
 /**
  *
@@ -18,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/state"})
 public class state extends HttpServlet {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/StackExchange_WS2/Question.wsdl")
+    private Question_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,6 +38,8 @@ public class state extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            List<stackexchange.Question> qlist = getListQuestion();
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -40,6 +47,9 @@ public class state extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet state at " + request.getContextPath() + "</h1>");
+            for ( stackexchange.Question q : qlist) {
+                out.println(q.getContent()+"<br>");
+            }
             out.println("</body>");
             out.println("</html>");
         }
@@ -83,5 +93,12 @@ public class state extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private java.util.List<stackexchange.Question> getListQuestion() {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        stackexchange.QuestionWS port = service.getQuestionWSPort();
+        return port.getListQuestion();
+    }
 
 }
