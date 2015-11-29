@@ -12,8 +12,8 @@
         <title>Ask a Question!</title>
     </head>
     <body>
-        <center><h1>Simple Stack Exchange</h1>
-            <form name='question' action='answer.jsp'>
+        <center><a href='index.jsp'> <h1>Simple Stack Exchange</h1> </a>
+            <form name='question' action='ask' method='POST'>
                 <input type='text' name='topic' placeholder='Question Topic' size='80'><br><br>
                 <textarea name='qcontent' placeholder="Question" style="resize:none;width:500px;"></textarea><br><br>
                 <input type="submit" value="Submit">

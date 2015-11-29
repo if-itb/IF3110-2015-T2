@@ -12,10 +12,11 @@
         <title>Login</title>
     </head>
     <body>
-    <center><h1>Simple Stack Exchange</h1>
+    <center>
+        <a href='index.jsp'> <h1>Simple Stack Exchange</h1> </a>
         <h2>Login</h2>
         <div>
-        <form action="http://localhost:8082/StackExchange_IS/Login" method="POST">         
+        <form action="log" method="POST">         
             <input type='text' name='email' placeholder='Email' size='80'><br><br>
             <input type='text' name='password' placeholder='Password' size='80'><br><br>
             New here? <a href='register.jsp'>Sign Up!</a>          

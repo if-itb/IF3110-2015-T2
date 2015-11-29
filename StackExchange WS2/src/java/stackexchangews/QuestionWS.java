@@ -97,4 +97,5 @@ public class QuestionWS {
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
     }
+
 }

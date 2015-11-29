@@ -8,13 +8,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
+        <title>Register</title>
     </head>
     <body>
-        <center><h1>Simple Stack Exchange</h1>
-        <form name='login' action='ask.jsp'>
+        <center><a href='index.jsp'> <h1>Simple Stack Exchange</h1> </a>
+        <form name='login' action='reg' method="POST">
             <input type='text' name='name' placeholder='Name' size='80'><br><br>
-            <input type='text' name='mail' placeholder='Email' size='80'><br><br>
+            <input type='text' name='email' placeholder='Email' size='80'><br><br>
             <input type='text' name='pass' placeholder='Password' size='80'><br><br>
             <input type='submit' value='Register'>
             </center>
