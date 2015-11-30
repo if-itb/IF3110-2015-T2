@@ -72,7 +72,7 @@ public class Validation extends HttpServlet {
           
                 if(rs.next()) {
                     DateFormat dForm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    Date expiredTime = dForm.parse(rs.getString("expire_date"));
+                    Date expiredTime = dForm.parse(rs.getString("time_expire"));
                     Date nowTime = new Date();
               
                     if (nowTime.after(expiredTime)) {

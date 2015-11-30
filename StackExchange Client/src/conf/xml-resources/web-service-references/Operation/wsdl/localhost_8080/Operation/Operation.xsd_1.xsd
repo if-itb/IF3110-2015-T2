@@ -1,5 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><xs:schema xmlns:tns="http://stackexchangews/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://stackexchangews/">
 
+<xs:element name="Auth" type="tns:Auth"/>
+
+<xs:element name="AuthResponse" type="tns:AuthResponse"/>
+
+<xs:element name="IOException" type="tns:IOException"/>
+
+<xs:element name="MalformedURLException" type="tns:MalformedURLException"/>
+
+<xs:element name="ParseException" type="tns:ParseException"/>
+
+<xs:element name="UnsupportedEncodingException" type="tns:UnsupportedEncodingException"/>
+
 <xs:element name="canVote" type="tns:canVote"/>
 
 <xs:element name="canVoteResponse" type="tns:canVoteResponse"/>
@@ -19,6 +31,16 @@
 <xs:element name="createQuestion" type="tns:createQuestion"/>
 
 <xs:element name="createQuestionResponse" type="tns:createQuestionResponse"/>
+
+<xs:element name="deleteA" type="tns:deleteA"/>
+
+<xs:element name="deleteAResponse" type="tns:deleteAResponse"/>
+
+<xs:element name="deleteQ" type="tns:deleteQ"/>
+
+<xs:element name="deleteQResponse" type="tns:deleteQResponse"/>
+
+<xs:element name="editQ" type="tns:editQ"/>
 
 <xs:element name="getUIDbyToken" type="tns:getUIDbyToken"/>
 
@@ -49,6 +71,83 @@
 <xs:complexType name="createAnswerResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteQ">
+<xs:sequence>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
+<xs:element name="idq" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteQResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUserbyID">
+<xs:sequence>
+<xs:element name="id" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUserbyIDResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="countVote">
+<xs:sequence>
+<xs:element name="mode" type="xs:boolean"/>
+<xs:element name="id" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="countVoteResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Auth">
+<xs:sequence>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="AuthResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="UnsupportedEncodingException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="MalformedURLException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="IOException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ParseException">
+<xs:sequence>
+<xs:element name="errorType" type="xs:int"/>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+<xs:element name="position" type="xs:int"/>
+<xs:element name="unexpectedObject" type="xs:anyType" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -104,6 +203,19 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="deleteA">
+<xs:sequence>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
+<xs:element name="ida" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteAResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="createQuestion">
 <xs:sequence>
 <xs:element name="token" type="xs:string" minOccurs="0"/>
@@ -115,18 +227,6 @@
 <xs:complexType name="createQuestionResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getUserbyID">
-<xs:sequence>
-<xs:element name="id" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getUserbyIDResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -151,16 +251,12 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="countVote">
+<xs:complexType name="editQ">
 <xs:sequence>
-<xs:element name="mode" type="xs:boolean"/>
-<xs:element name="id" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="countVoteResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int"/>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:int"/>
+<xs:element name="topic" type="xs:string" minOccurs="0"/>
+<xs:element name="content" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

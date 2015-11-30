@@ -7,6 +7,15 @@ package stackexchangews;
 import java.io.IOException;
 import java.io.PrintWriter;
 import database.DB;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +26,10 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.ejb.Stateless;
 import javax.jws.Oneway;
+import javax.servlet.http.Cookie;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -57,8 +70,9 @@ public class Operation {
      * Web service operation
      */
     @WebMethod(operationName = "createQuestion")
-    public boolean createQuestion(@WebParam(name = "token") String token, @WebParam(name = "title") String title, @WebParam(name = "content") String content) {
+    public boolean createQuestion(@WebParam(name = "token") String token, @WebParam(name = "title") String title, @WebParam(name = "content") String content) throws MalformedURLException, IOException, UnsupportedEncodingException, ParseException {
         try {
+            if (Auth(token)>0) {
             Statement stmt = conn.createStatement();
             String sql;
             sql = "INSERT INTO QUESTION (id_user, topic, content) value (?,?,?)";
@@ -71,6 +85,7 @@ public class Operation {
             
             stmt.close();
             return true;
+            } else return false;
         }        
         catch (SQLException ex) {
             return false;    
@@ -82,8 +97,9 @@ public class Operation {
      * Web service operation
      */
     @WebMethod(operationName = "createAnswer")
-    public boolean createAnswer(@WebParam(name = "token") String token, @WebParam(name = "idq") String idq, @WebParam(name = "content") String content) {
+    public boolean createAnswer(@WebParam(name = "token") String token, @WebParam(name = "idq") String idq, @WebParam(name = "content") String content) throws MalformedURLException, IOException, UnsupportedEncodingException, ParseException {
         try {
+            if (Auth(token)>0) {
             Statement stmt = conn.createStatement();
             String sql;
             sql = "INSERT INTO ANSWER (id_user, content, id_question) value (?,?,?)";
@@ -96,6 +112,7 @@ public class Operation {
             
             stmt.close();
             return true;
+            } else return false;
         }        
         catch (SQLException ex) {
             return false;    
@@ -130,9 +147,9 @@ public class Operation {
      * Web service operation
      */
     @WebMethod(operationName = "vote")
-    @Oneway
-    public void vote(@WebParam(name = "token") String token, @WebParam(name = "mode") boolean mode, @WebParam(name = "idq") String idq, @WebParam(name = "val") int val) {
+    public void vote(@WebParam(name = "token") String token, @WebParam(name = "mode") boolean mode, @WebParam(name = "idq") String idq, @WebParam(name = "val") int val) throws IOException, UnsupportedEncodingException, MalformedURLException, ParseException {
         try {
+            if (Auth(token)>0) {
             Statement stmt = conn.createStatement();
             String sql;
             if (mode) {
@@ -148,7 +165,7 @@ public class Operation {
             dbStatement.executeUpdate();
 
             stmt.close();                  
-            
+            }
         }        
         catch (SQLException ex) {
              
@@ -170,18 +187,13 @@ public class Operation {
             }
             PreparedStatement dbStatement = conn.prepareStatement(sql);
             getUIDbyToken(idus);
-            dbStatement.setInt(1, getUIDbyToken(idus));            
+            dbStatement.setInt(1, Integer.parseInt(idus.trim()));            
             dbStatement.setInt(2, Integer.parseInt(idqa.trim()));
 
 
             ResultSet rs = dbStatement.executeQuery();
             
-            boolean temp;
-            if (!rs.next()) {
-                temp = true;
-            } else {
-                temp = false;
-            }
+            boolean temp = !rs.next();            
             
             stmt.close();                  
             
@@ -315,6 +327,137 @@ public class Operation {
         catch (SQLException ex) {
             return -1;   
         }
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deleteQ")
+    public boolean deleteQ(@WebParam(name = "token") String token, @WebParam(name = "idq") int idq) throws MalformedURLException, IOException, UnsupportedEncodingException, ParseException {
+        try {
+            if (Auth(token)>0) {
+            Statement stmt = conn.createStatement();
+            String sql;            
+            sql = "DELETE FROM ANSWER WHERE id_question = ?";                         
+
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, idq);                        
+
+            dbStatement.executeUpdate();
+
+            sql = "DELETE FROM question WHERE id = ?";                         
+
+            dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, idq);                        
+
+            dbStatement.executeUpdate();
+                                    
+            stmt.close();                  
+            return true;
+            } else 
+                return true;
+        }        
+        catch (SQLException ex) {
+             return false;
+        }      
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deleteA")
+    public boolean deleteA(@WebParam(name = "token") String token, @WebParam(name = "ida") int ida) throws MalformedURLException, ParseException, IOException {
+        if (Auth(token)>0) {
+        try {
+            Statement stmt = conn.createStatement();
+            String sql;            
+            sql = "DELETE FROM ANSWER WHERE id = ?";                         
+
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setInt(1, ida);                        
+
+            dbStatement.executeUpdate();
+
+            stmt.close();                  
+            return true;
+        }        
+        catch (SQLException ex) {
+             return false;
+        }   
+        } else
+            return false;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "editQ")
+    public void editQ(@WebParam(name = "token") String token, @WebParam(name = "id") int id, @WebParam(name = "topic") String topic, @WebParam(name = "content") String content) throws IOException, UnsupportedEncodingException, MalformedURLException, ParseException {
+        if (Auth(token)>0) {
+            try {
+                Statement stmt = conn.createStatement();
+                String sql;                     
+                sql = "UPDATE QUESTION SET topic = ?, content = ? where id = ?";                         
+
+                PreparedStatement dbStatement = conn.prepareStatement(sql);
+                dbStatement.setString(1, topic);                        
+                dbStatement.setString(2, content);                        
+                dbStatement.setInt(3, id);                        
+
+                dbStatement.executeUpdate();
+
+                stmt.close();                              
+            }        
+            catch (SQLException ex) {
+
+            }       
+        }
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "Auth")
+    public int Auth(@WebParam(name = "token") String token) throws UnsupportedEncodingException, MalformedURLException, IOException, ParseException {
+            
+            String url = "http://localhost:8080/StackExchange_IS/Validation";
+            String charset = "UTF-8";            ;                        
+            String query = String.format("token=%s", 
+                                    URLEncoder.encode(token, charset));
+            
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setDoOutput(true); // Triggers POST.
+            connection.setRequestProperty("Accept-Charset", charset);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+
+            try (OutputStream output = connection.getOutputStream()) {
+                output.write(query.getBytes(charset));
+            }
+
+            InputStream res = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader((connection.getInputStream())));            
+            JSONParser parser = new JSONParser();             
+            
+            String output;      
+            Object obj;
+            JSONObject jobj = null;
+            String acctoken = null ;
+            while ((output = br.readLine()) != null) {                              
+                obj = parser.parse(output);
+                jobj = (JSONObject) obj;                    
+                acctoken = (String) jobj.get("message");                       
+                  
+            }        
+                        
+
+            
+            connection.disconnect();     
+            if (acctoken.equals("valid"))
+                return 1;
+            else if (acctoken.equals("expired"))
+                return 0;
+            else
+                return -1;
     }
 
  

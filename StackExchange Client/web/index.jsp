@@ -17,9 +17,11 @@
             %>
 
             <%                            
-                cookies = request.getCookies();                
+                cookies = request.getCookies();    
+                token = null;
                 if (cookies != null) {
-                    for (Cookie cookie : cookies) {                        
+                    for (Cookie cookie : cookies) { 
+                        //out.println(cookie.getName());
                         if (cookie.getName().equals("user_token")) {
                             token = cookie.getValue();                             
                         }
@@ -50,7 +52,8 @@
             if (token==null) {
                 out.println("<a href='login.jsp'> Login </a>| <a href='register.jsp'> Sign Up</a>");
             } else {
-                out.println("Welcome, you are logged in as " + usname  );
+                out.println("Welcome, you are logged in as " + usname  + "<br>");
+                out.println("<a href='logout'> Logout </a>");
             }
                 %>
             
@@ -74,7 +77,11 @@
                 int nanswer = port2.countAnswer(Integer.toString(q.getId()));
                 int nvote = port2.countVote(true, Integer.toString(q.getId()));
                 String uname = port2.getUserbyID(q.getIdUser());
-                out.println(nanswer + " Answers | " + nvote + " Votes<br>" + uname + " | <a href='answer.jsp?id=" + q.getId() + "'>" +q.getTopic() + "</a> | " + q.getContent()+"<br>");         
+                out.println(nanswer + " Answers | " + nvote + " Votes<br>" + uname + " | <a href='answer.jsp?id=" + q.getId() + "'>" +q.getTopic() + "</a> | " + q.getContent());         
+                if (port2.getUIDbyToken(token)==q.getIdUser()) {
+                   out.println(" | <a href='edit.jsp?id="+ q.getId() +"'> Edit </a> | <a href='delete?mode=true&id="+ q.getId() +"'> Delete </a>");
+                }
+                out.println("<br>");
             }
         } else {
             out.println("<hr width='80%'>");

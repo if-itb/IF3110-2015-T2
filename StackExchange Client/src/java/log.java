@@ -93,6 +93,7 @@ public class log extends HttpServlet {
                     String acctoken = (String) jobj.get("user_token");                       
                     if (acctoken != null ) {
                       Cookie ck = new Cookie("user_token", acctoken);
+                      ck.setMaxAge(120);
                       response.addCookie(ck);
                     }
                   }

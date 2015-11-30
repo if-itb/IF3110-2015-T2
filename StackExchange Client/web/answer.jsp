@@ -49,9 +49,7 @@
         
         int nanswer = port2.countAnswer(Integer.toString(question.getId()));
         int nvote = port2.countVote(true, Integer.toString(question.getId()));
-        String uname = port2.getUserbyID(question.getIdUser());
-        
-        out.println(nvote +" Votes<br>");
+        String uname = port2.getUserbyID(question.getIdUser());     
         if (port2.canVote(Integer.toString(port2.getUIDbyToken(token)), true, Integer.toString(question.getId()))) {
             out.println("<a href='state?mode=true&id="+ question.getId() +"&val=1" + "'>Vote Up</a>");
             out.println(" | ");
@@ -88,7 +86,7 @@
                 java.lang.String uname = port2.getUserbyID(ans.getIdUser());  
                 out.println(nvote + " Votes <br>");
 
-                if (port2.canVote(Integer.toString(port2.getUIDbyToken(token)), true, Integer.toString(ans.getId()))) {
+                if (port2.canVote(Integer.toString(port2.getUIDbyToken(token)), !true, Integer.toString(ans.getId()))) {
                     out.println("<a href='state?mode=false&id="+ ans.getId() +"&val=1" + "'>Vote Up</a>");
                     out.println(" | ");
                     out.println("<a href='state?mode=false&id="+ ans.getId() +"&val=-1" + "'>Vote Down</a>");
