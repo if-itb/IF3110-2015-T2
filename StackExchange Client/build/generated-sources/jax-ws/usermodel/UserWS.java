@@ -39,4 +39,19 @@ public interface UserWS {
         @WebParam(name = "id", targetNamespace = "")
         int id);
 
+    /**
+     * 
+     * @param token
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getIDUserbyToken", targetNamespace = "http://UserModel/", className = "usermodel.GetIDUserbyToken")
+    @ResponseWrapper(localName = "getIDUserbyTokenResponse", targetNamespace = "http://UserModel/", className = "usermodel.GetIDUserbyTokenResponse")
+    @Action(input = "http://UserModel/UserWS/getIDUserbyTokenRequest", output = "http://UserModel/UserWS/getIDUserbyTokenResponse")
+    public int getIDUserbyToken(
+        @WebParam(name = "token", targetNamespace = "")
+        String token);
+
 }

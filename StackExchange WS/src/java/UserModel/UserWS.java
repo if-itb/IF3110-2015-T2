@@ -51,4 +51,30 @@ public class UserWS {
         }
         return user;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getIDUserbyToken")
+    public int getIDUserbyToken(@WebParam(name = "token") String token) {
+        int userid=0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT userid FROM tokens WHERE token = ?";
+            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            dbStatement.setString(1,token);
+            ResultSet result = dbStatement.executeQuery();
+            if(result.next()) {
+                userid = result.getInt("userid");
+            }
+            result.close();
+            stmt.close();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return userid;
+    }
+    
 }

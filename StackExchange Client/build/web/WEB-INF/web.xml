@@ -12,6 +12,14 @@
         <servlet-name>AnswerServlet</servlet-name>
         <servlet-class>controller.AnswerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditQuestionServlet</servlet-name>
+        <servlet-class>controller.EditQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteQuestionServlet</servlet-name>
+        <servlet-class>controller.DeleteQuestionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CheckLogin</servlet-name>
         <url-pattern>/CheckLogin</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>AnswerServlet</servlet-name>
         <url-pattern>/AnswerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditQuestionServlet</servlet-name>
+        <url-pattern>/EditQuestionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteQuestionServlet</servlet-name>
+        <url-pattern>/DeleteQuestionServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

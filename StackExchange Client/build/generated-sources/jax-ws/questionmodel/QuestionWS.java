@@ -28,6 +28,85 @@ public interface QuestionWS {
 
     /**
      * 
+     * @param qid
+     * @param token
+     * @return
+     *     returns int
+     * @throws ParseException_Exception
+     */
+    @WebMethod(operationName = "DeleteQuestion")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "DeleteQuestion", targetNamespace = "http://QuestionModel/", className = "questionmodel.DeleteQuestion")
+    @ResponseWrapper(localName = "DeleteQuestionResponse", targetNamespace = "http://QuestionModel/", className = "questionmodel.DeleteQuestionResponse")
+    @Action(input = "http://QuestionModel/QuestionWS/DeleteQuestionRequest", output = "http://QuestionModel/QuestionWS/DeleteQuestionResponse", fault = {
+        @FaultAction(className = ParseException_Exception.class, value = "http://QuestionModel/QuestionWS/DeleteQuestion/Fault/ParseException")
+    })
+    public int deleteQuestion(
+        @WebParam(name = "qid", targetNamespace = "")
+        int qid,
+        @WebParam(name = "token", targetNamespace = "")
+        String token)
+        throws ParseException_Exception
+    ;
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<questionmodel.Question>
+     */
+    @WebMethod(operationName = "GetAllQuestion")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "GetAllQuestion", targetNamespace = "http://QuestionModel/", className = "questionmodel.GetAllQuestion")
+    @ResponseWrapper(localName = "GetAllQuestionResponse", targetNamespace = "http://QuestionModel/", className = "questionmodel.GetAllQuestionResponse")
+    @Action(input = "http://QuestionModel/QuestionWS/GetAllQuestionRequest", output = "http://QuestionModel/QuestionWS/GetAllQuestionResponse")
+    public List<Question> getAllQuestion();
+
+    /**
+     * 
+     * @param id
+     * @return
+     *     returns questionmodel.Question
+     */
+    @WebMethod(operationName = "GetQuestionByID")
+    @WebResult(name = "QuestionByID", targetNamespace = "")
+    @RequestWrapper(localName = "GetQuestionByID", targetNamespace = "http://QuestionModel/", className = "questionmodel.GetQuestionByID")
+    @ResponseWrapper(localName = "GetQuestionByIDResponse", targetNamespace = "http://QuestionModel/", className = "questionmodel.GetQuestionByIDResponse")
+    @Action(input = "http://QuestionModel/QuestionWS/GetQuestionByIDRequest", output = "http://QuestionModel/QuestionWS/GetQuestionByIDResponse")
+    public Question getQuestionByID(
+        @WebParam(name = "id", targetNamespace = "")
+        int id);
+
+    /**
+     * 
+     * @param title
+     * @param qid
+     * @param content
+     * @param token
+     * @return
+     *     returns int
+     * @throws ParseException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "editQuestion", targetNamespace = "http://QuestionModel/", className = "questionmodel.EditQuestion")
+    @ResponseWrapper(localName = "editQuestionResponse", targetNamespace = "http://QuestionModel/", className = "questionmodel.EditQuestionResponse")
+    @Action(input = "http://QuestionModel/QuestionWS/editQuestionRequest", output = "http://QuestionModel/QuestionWS/editQuestionResponse", fault = {
+        @FaultAction(className = ParseException_Exception.class, value = "http://QuestionModel/QuestionWS/editQuestion/Fault/ParseException")
+    })
+    public int editQuestion(
+        @WebParam(name = "title", targetNamespace = "")
+        String title,
+        @WebParam(name = "content", targetNamespace = "")
+        String content,
+        @WebParam(name = "qid", targetNamespace = "")
+        int qid,
+        @WebParam(name = "token", targetNamespace = "")
+        String token)
+        throws ParseException_Exception
+    ;
+
+    /**
+     * 
      * @param title
      * @param content
      * @param token
@@ -51,32 +130,5 @@ public interface QuestionWS {
         String content)
         throws ParseException_Exception
     ;
-
-    /**
-     * 
-     * @param id
-     * @return
-     *     returns questionmodel.Question
-     */
-    @WebMethod(operationName = "GetQuestionByID")
-    @WebResult(name = "QuestionByID", targetNamespace = "")
-    @RequestWrapper(localName = "GetQuestionByID", targetNamespace = "http://QuestionModel/", className = "questionmodel.GetQuestionByID")
-    @ResponseWrapper(localName = "GetQuestionByIDResponse", targetNamespace = "http://QuestionModel/", className = "questionmodel.GetQuestionByIDResponse")
-    @Action(input = "http://QuestionModel/QuestionWS/GetQuestionByIDRequest", output = "http://QuestionModel/QuestionWS/GetQuestionByIDResponse")
-    public Question getQuestionByID(
-        @WebParam(name = "id", targetNamespace = "")
-        int id);
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<questionmodel.Question>
-     */
-    @WebMethod(operationName = "GetAllQuestion")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "GetAllQuestion", targetNamespace = "http://QuestionModel/", className = "questionmodel.GetAllQuestion")
-    @ResponseWrapper(localName = "GetAllQuestionResponse", targetNamespace = "http://QuestionModel/", className = "questionmodel.GetAllQuestionResponse")
-    @Action(input = "http://QuestionModel/QuestionWS/GetAllQuestionRequest", output = "http://QuestionModel/QuestionWS/GetAllQuestionResponse")
-    public List<Question> getAllQuestion();
 
 }

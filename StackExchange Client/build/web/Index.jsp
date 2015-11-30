@@ -39,10 +39,16 @@
                     <c:out value="${question.content}"/>
                     <br>
 		</div>
-					
+                <c:if test="${userid == question.idUser}">			
 		<div class=asked>
-                    asked by <span class=name>${askers[question.id]}</span> |<!-- <a href=\"Edit.php?id=".$row["Q_id"]."\"class=\"color_yellow\">edit<a> | <a onclick="return confirm_delete()\" href=\"Delete.php?id=".$row["Q_id"]."\"class=\"delete\">delete<a> -->
+                    asked by <span class=name>${askers[question.id]}</span> | <a href="EditQuestionServlet?qid=${question.id}&id=${userid}">edit</a> | <a href="DeleteQuestionServlet?qid=${question.id}&id=${userid}">delete</a>
 		</div>
+                </c:if>
+                <c:if test="${userid != question.idUser}">			
+		<div class=asked>
+                    asked by <span class=name>${askers[question.id]}</span>
+		</div>
+                </c:if>
             </c:forEach>
     </body>
 </html>

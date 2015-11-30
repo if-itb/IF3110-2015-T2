@@ -10,15 +10,34 @@
 <message name="getUserbyIDResponse">
 <part name="parameters" element="tns:getUserbyIDResponse"/>
 </message>
+<message name="getIDUserbyToken">
+<part name="parameters" element="tns:getIDUserbyToken"/>
+</message>
+<message name="getIDUserbyTokenResponse">
+<part name="parameters" element="tns:getIDUserbyTokenResponse"/>
+</message>
 <portType name="UserWS">
 <operation name="getUserbyID">
 <input wsam:Action="http://UserModel/UserWS/getUserbyIDRequest" message="tns:getUserbyID"/>
 <output wsam:Action="http://UserModel/UserWS/getUserbyIDResponse" message="tns:getUserbyIDResponse"/>
 </operation>
+<operation name="getIDUserbyToken">
+<input wsam:Action="http://UserModel/UserWS/getIDUserbyTokenRequest" message="tns:getIDUserbyToken"/>
+<output wsam:Action="http://UserModel/UserWS/getIDUserbyTokenResponse" message="tns:getIDUserbyTokenResponse"/>
+</operation>
 </portType>
 <binding name="UserWSPortBinding" type="tns:UserWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
 <operation name="getUserbyID">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getIDUserbyToken">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

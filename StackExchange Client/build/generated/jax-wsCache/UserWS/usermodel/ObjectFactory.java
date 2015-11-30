@@ -24,8 +24,10 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _GetIDUserbyToken_QNAME = new QName("http://UserModel/", "getIDUserbyToken");
     private final static QName _GetUserbyIDResponse_QNAME = new QName("http://UserModel/", "getUserbyIDResponse");
     private final static QName _GetUserbyID_QNAME = new QName("http://UserModel/", "getUserbyID");
+    private final static QName _GetIDUserbyTokenResponse_QNAME = new QName("http://UserModel/", "getIDUserbyTokenResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: usermodel
@@ -43,11 +45,36 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetIDUserbyToken }
+     * 
+     */
+    public GetIDUserbyToken createGetIDUserbyToken() {
+        return new GetIDUserbyToken();
+    }
+
+    /**
+     * Create an instance of {@link GetIDUserbyTokenResponse }
+     * 
+     */
+    public GetIDUserbyTokenResponse createGetIDUserbyTokenResponse() {
+        return new GetIDUserbyTokenResponse();
+    }
+
+    /**
      * Create an instance of {@link GetUserbyID }
      * 
      */
     public GetUserbyID createGetUserbyID() {
         return new GetUserbyID();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetIDUserbyToken }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://UserModel/", name = "getIDUserbyToken")
+    public JAXBElement<GetIDUserbyToken> createGetIDUserbyToken(GetIDUserbyToken value) {
+        return new JAXBElement<GetIDUserbyToken>(_GetIDUserbyToken_QNAME, GetIDUserbyToken.class, null, value);
     }
 
     /**
@@ -66,6 +93,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://UserModel/", name = "getUserbyID")
     public JAXBElement<GetUserbyID> createGetUserbyID(GetUserbyID value) {
         return new JAXBElement<GetUserbyID>(_GetUserbyID_QNAME, GetUserbyID.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetIDUserbyTokenResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://UserModel/", name = "getIDUserbyTokenResponse")
+    public JAXBElement<GetIDUserbyTokenResponse> createGetIDUserbyTokenResponse(GetIDUserbyTokenResponse value) {
+        return new JAXBElement<GetIDUserbyTokenResponse>(_GetIDUserbyTokenResponse_QNAME, GetIDUserbyTokenResponse.class, null, value);
     }
 
 }
