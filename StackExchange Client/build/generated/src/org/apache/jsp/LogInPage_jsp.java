@@ -41,24 +41,24 @@ public final class LogInPage_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
-      out.write("<!DOCTYPE html>\n");
-      out.write("<html>\n");
-      out.write("    <head>\n");
-      out.write("        <title>StackExchange Login</title>\n");
-      out.write("        <meta charset=\"UTF-8\">\n");
-      out.write("        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n");
-      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n");
-      out.write("    </head>\n");
-      out.write("    <body>\n");
-      out.write("        <div id=\"big\">StackExchange Login</div>\n");
-      out.write("        <div class=\"mediumbaru\">\n");
-      out.write("        <form action=\"CheckLogin\" name=\"user\" method=\"post\">\n");
-      out.write("\t\t<input type=\"email\" name=\"email\" placeholder=\"Email\" class=\"medium\">\n");
-      out.write("\t\t<input type=\"password\" name=\"password\" placeholder=\"Password\" class=\"medium\">\n");
-      out.write("\t\t<input type=\"submit\" value=\"Login\" id=\"button\">\n");
-      out.write("        </form> \n");
-      out.write("        </div>\n");
-      out.write("    </body>\n");
+      out.write("<!DOCTYPE html>\r\n");
+      out.write("<html>\r\n");
+      out.write("    <head>\r\n");
+      out.write("        <title>StackExchange Login</title>\r\n");
+      out.write("        <meta charset=\"UTF-8\">\r\n");
+      out.write("        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n");
+      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\r\n");
+      out.write("    </head>\r\n");
+      out.write("    <body>\r\n");
+      out.write("        <div id=\"big\">StackExchange Login</div>\r\n");
+      out.write("        <div class=\"mediumbaru\">\r\n");
+      out.write("        <form action=\"CheckLogin\" name=\"user\" method=\"post\">\r\n");
+      out.write("\t\t<input type=\"email\" name=\"email\" placeholder=\"Email\" class=\"medium\">\r\n");
+      out.write("\t\t<input type=\"password\" name=\"password\" placeholder=\"Password\" class=\"medium\">\r\n");
+      out.write("\t\t<input type=\"submit\" value=\"Login\" id=\"button\">\r\n");
+      out.write("        </form> \r\n");
+      out.write("        </div>\r\n");
+      out.write("    </body>\r\n");
       out.write("</html>");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){

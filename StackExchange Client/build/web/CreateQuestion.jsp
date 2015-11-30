@@ -43,7 +43,7 @@
                     questionmodel.QuestionWS port = service.getQuestionWSPort();
                     int result = port.createQuestion(token, title, content);
                     if(result==1) 
-                        response.sendRedirect(request.getContextPath() + "/CreateQuestion.jsp");
+                        response.sendRedirect(request.getContextPath() + "/ShowQuestionServlet");
                     else if(result==0)
                         response.sendRedirect(request.getContextPath() + "/LogInPage.jsp");
                     else

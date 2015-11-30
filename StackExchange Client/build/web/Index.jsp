@@ -12,7 +12,7 @@
 		<input type="text" name="search" placeholder="Type here" class="medium">
 		<input type="submit" value="search" id="button">
         </form> 
-        <p> Cannot find what you are looking for? Ask here <p>
+        <p> Cannot find what you are looking for? <a href="CreateQuestion.jsp">Ask here</a> <p>
         <h2> Recently Asked Questions </h2>
             <c:forEach items="${questions}" var="question">
             <hr>

@@ -3,6 +3,7 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.io.PrintWriter;
 
 public final class SignUpPage_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -41,25 +42,26 @@ public final class SignUpPage_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
-      out.write("<!DOCTYPE html>\n");
-      out.write("<html>\n");
-      out.write("    <head>\n");
-      out.write("        <title>StackExchange Sign Up</title>\n");
-      out.write("        <meta charset=\"UTF-8\">\n");
-      out.write("        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n");
-      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n");
-      out.write("    </head>\n");
-      out.write("    <body>\n");
-      out.write("        <div id=\"big\">Register</div>\n");
-      out.write("\t <div class=\"mediumbaru\">\n");
-      out.write("        <form action=\"SignUpPage.jsp\" name=\"newuser\" method=\"post\">\n");
-      out.write("\t\t<input type=\"text\" name=\"name\" placeholder=\"Name\" class=\"medium\">\n");
-      out.write("\t\t<input type=\"email\" name=\"email\" placeholder=\"Email\" class=\"medium\">\n");
-      out.write("\t\t<input type=\"password\" name=\"password\" placeholder=\"Password\" class=\"medium\">\n");
-      out.write("\t\t<input type=\"submit\" value=\"submit\">\n");
-      out.write("        </form> \n");
-      out.write("        </div>\n");
-      out.write("    </body>\n");
+      out.write("\r\n");
+      out.write("<!DOCTYPE html>\r\n");
+      out.write("<html>\r\n");
+      out.write("    <head>\r\n");
+      out.write("        <title>StackExchange Sign Up</title>\r\n");
+      out.write("        <meta charset=\"UTF-8\">\r\n");
+      out.write("        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n");
+      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\r\n");
+      out.write("    </head>\r\n");
+      out.write("    <body>\r\n");
+      out.write("        <div id=\"big\">StackExchange Register</div>\r\n");
+      out.write("\t <div class=\"mediumbaru\">\r\n");
+      out.write("        <form action=\"SignUpPage.jsp\" name=\"newuser\" method=\"post\">\r\n");
+      out.write("\t\t<input type=\"text\" name=\"name\" placeholder=\"Name\" class=\"medium\">\r\n");
+      out.write("\t\t<input type=\"email\" name=\"email\" placeholder=\"Email\" class=\"medium\">\r\n");
+      out.write("\t\t<input type=\"password\" name=\"password\" placeholder=\"Password\" class=\"medium\">\r\n");
+      out.write("\t\t<input type=\"submit\" value=\"Post\" id=\"button\">\r\n");
+      out.write("        </form> \r\n");
+      out.write("        </div>\r\n");
+      out.write("    </body>\r\n");
       out.write("    ");
 
         // TODO initialize WS operation arguments here
@@ -71,14 +73,14 @@ public final class SignUpPage_jsp extends org.apache.jasper.runtime.HttpJspBase
                 registration.RegistrationWS_Service service = new registration.RegistrationWS_Service();
                 registration.RegistrationWS port = service.getRegistrationWSPort();
                 boolean result = port.register(name, email, password);
-                if(result)
-                    out.println("Success!!");
+                if(result) 
+                    response.sendRedirect(request.getContextPath() + "/LogInPage.jsp");
                 else 
-                    out.println("Failed!!");
+                    response.sendRedirect(request.getContextPath() + "/SignUpPage.jsp");
             } catch (Exception ex) {}
         }
     
-      out.write("\n");
+      out.write("\r\n");
       out.write("</html>");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){

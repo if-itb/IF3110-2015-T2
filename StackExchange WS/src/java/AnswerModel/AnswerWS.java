@@ -74,7 +74,7 @@ public class AnswerWS {
                 System.out.println("success!!");
                 Class.forName("com.mysql.jdbc.Driver");
                 java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
-                String sql = "INSERT INTO answers(id_user,id_question,content,vote) VALUES ((select id_user from questions where id="+question_id+"),"+question_id+",'"+content+"',0)";
+                String sql = "INSERT INTO answers(id_user,id_question,content,vote) VALUES ((select userid from tokens where token='"+token+"'),"+question_id+",'"+content+"',0)";
                 java.sql.Statement stmt = conn.createStatement();
                 stmt.executeUpdate(sql);
                 ret = 1;
