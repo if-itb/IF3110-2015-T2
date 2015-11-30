@@ -12,6 +12,10 @@
 
 <xs:element name="getAnswerByQIDResponse" type="tns:getAnswerByQIDResponse"/>
 
+<xs:element name="voteAnswer" type="tns:voteAnswer"/>
+
+<xs:element name="voteAnswerResponse" type="tns:voteAnswerResponse"/>
+
 <xs:complexType name="createAnswer">
 <xs:sequence>
 <xs:element name="token" type="xs:string" minOccurs="0"/>
@@ -32,6 +36,21 @@
 <xs:element name="message" type="xs:string" minOccurs="0"/>
 <xs:element name="position" type="xs:int"/>
 <xs:element name="unexpectedObject" type="xs:anyType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="voteAnswer">
+<xs:sequence>
+<xs:element name="userid" type="xs:int"/>
+<xs:element name="aid" type="xs:int"/>
+<xs:element name="stat" type="xs:int"/>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="voteAnswerResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 

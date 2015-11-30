@@ -213,4 +213,77 @@ public class QuestionWS {
         return ret;
     }
 
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "voteQuestion")
+    public int voteQuestion(@WebParam(name = "userid") int userid, @WebParam(name = "qid") int qid, @WebParam(name = "stat") int stat, @WebParam(name = "token") String token) throws ParseException {
+        Form form = new Form();
+        form.param("token",token);
+        Client client = ClientBuilder.newClient();
+        String url = "http://localhost:8082/Identity_Service/CheckToken"; 
+        String result = client.target(url).request(MediaType.APPLICATION_JSON).
+                  post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED), String.class);
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(result);
+        JSONObject jobj = (JSONObject) obj;
+        String message = (String) jobj.get("message");
+        System.out.println(message);
+        int ret = 1;
+        if(message.equals("valid")) {
+            try {         
+                System.out.println("success vote!!");
+                Class.forName("com.mysql.jdbc.Driver");
+                java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
+                String sql = "SELECT id FROM voteQuestion WHERE id_user =" + userid + " && id_question = " + qid;
+                PreparedStatement dbs = conn.prepareStatement(sql);
+                ResultSet rs = dbs.executeQuery();
+                int id = 0,unicFlag=0;
+                if(!rs.next()) {
+                    unicFlag=1;
+                    sql = "INSERT INTO voteQuestion(id_user,id_question,status) VALUES ("+userid+","+qid+","+stat+")";
+                    java.sql.Statement stmt = conn.createStatement();
+                    stmt.executeUpdate(sql);
+                }
+                else {
+                    id = rs.getInt("id");
+                    sql = "SELECT id FROM voteQuestion WHERE id_user =" + userid + " && id_question = " + qid + "&& status = " + stat;
+                    dbs = conn.prepareStatement(sql);
+                    rs = dbs.executeQuery();
+                    if(!rs.isBeforeFirst()) {
+                        unicFlag=1;
+                        sql = "UPDATE voteQuestion SET status='"+stat+"' WHERE id="+id;
+                        java.sql.Statement stmt = conn.createStatement();
+                        stmt.executeUpdate(sql);
+                    }
+                }
+                if(unicFlag==1) {
+                    //get current vote value
+                    sql = "SELECT vote FROM questions WHERE id =" + qid;
+                    dbs = conn.prepareStatement(sql);
+                    rs = dbs.executeQuery();
+                    int vote =0;
+                    if(rs.next())
+                        vote = rs.getInt("vote")+stat;
+                    //update vote value
+                    sql = "UPDATE questions SET vote='"+vote+"' WHERE id="+qid;
+                    java.sql.Statement stmt = conn.createStatement();
+                    stmt.executeUpdate(sql);
+                }
+                ret = 1;
+            } catch(Exception e) {}   
+        }
+        else if(message.equals("expired")) {
+                System.out.println("expred!");
+            ret = 0;
+        }
+        else if(message.equals("invalid")) {
+                System.out.println("invalid!");
+            ret = -1;
+        }
+        return ret; 
+    }
+    
+    
+
 }

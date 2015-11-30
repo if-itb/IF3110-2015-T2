@@ -28,6 +28,35 @@ public interface QuestionWS {
 
     /**
      * 
+     * @param stat
+     * @param userid
+     * @param qid
+     * @param token
+     * @return
+     *     returns int
+     * @throws ParseException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "voteQuestion", targetNamespace = "http://QuestionModel/", className = "questionmodel.VoteQuestion")
+    @ResponseWrapper(localName = "voteQuestionResponse", targetNamespace = "http://QuestionModel/", className = "questionmodel.VoteQuestionResponse")
+    @Action(input = "http://QuestionModel/QuestionWS/voteQuestionRequest", output = "http://QuestionModel/QuestionWS/voteQuestionResponse", fault = {
+        @FaultAction(className = ParseException_Exception.class, value = "http://QuestionModel/QuestionWS/voteQuestion/Fault/ParseException")
+    })
+    public int voteQuestion(
+        @WebParam(name = "userid", targetNamespace = "")
+        int userid,
+        @WebParam(name = "qid", targetNamespace = "")
+        int qid,
+        @WebParam(name = "stat", targetNamespace = "")
+        int stat,
+        @WebParam(name = "token", targetNamespace = "")
+        String token)
+        throws ParseException_Exception
+    ;
+
+    /**
+     * 
      * @param qid
      * @param token
      * @return

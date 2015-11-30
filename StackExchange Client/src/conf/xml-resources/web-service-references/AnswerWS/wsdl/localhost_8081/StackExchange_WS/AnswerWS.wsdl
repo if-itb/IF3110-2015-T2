@@ -19,6 +19,12 @@
 <message name="ParseException">
 <part name="fault" element="tns:ParseException"/>
 </message>
+<message name="voteAnswer">
+<part name="parameters" element="tns:voteAnswer"/>
+</message>
+<message name="voteAnswerResponse">
+<part name="parameters" element="tns:voteAnswerResponse"/>
+</message>
 <portType name="AnswerWS">
 <operation name="getAnswerByQID">
 <input wsam:Action="http://AnswerModel/AnswerWS/getAnswerByQIDRequest" message="tns:getAnswerByQID"/>
@@ -28,6 +34,11 @@
 <input wsam:Action="http://AnswerModel/AnswerWS/createAnswerRequest" message="tns:createAnswer"/>
 <output wsam:Action="http://AnswerModel/AnswerWS/createAnswerResponse" message="tns:createAnswerResponse"/>
 <fault message="tns:ParseException" name="ParseException" wsam:Action="http://AnswerModel/AnswerWS/createAnswer/Fault/ParseException"/>
+</operation>
+<operation name="voteAnswer">
+<input wsam:Action="http://AnswerModel/AnswerWS/voteAnswerRequest" message="tns:voteAnswer"/>
+<output wsam:Action="http://AnswerModel/AnswerWS/voteAnswerResponse" message="tns:voteAnswerResponse"/>
+<fault message="tns:ParseException" name="ParseException" wsam:Action="http://AnswerModel/AnswerWS/voteAnswer/Fault/ParseException"/>
 </operation>
 </portType>
 <binding name="AnswerWSPortBinding" type="tns:AnswerWS">
@@ -42,6 +53,18 @@
 </output>
 </operation>
 <operation name="createAnswer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="ParseException">
+<soap:fault name="ParseException" use="literal"/>
+</fault>
+</operation>
+<operation name="voteAnswer">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

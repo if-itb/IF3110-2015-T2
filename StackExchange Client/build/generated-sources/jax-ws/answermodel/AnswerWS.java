@@ -67,4 +67,33 @@ public interface AnswerWS {
         throws ParseException_Exception
     ;
 
+    /**
+     * 
+     * @param stat
+     * @param userid
+     * @param aid
+     * @param token
+     * @return
+     *     returns int
+     * @throws ParseException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "voteAnswer", targetNamespace = "http://AnswerModel/", className = "answermodel.VoteAnswer")
+    @ResponseWrapper(localName = "voteAnswerResponse", targetNamespace = "http://AnswerModel/", className = "answermodel.VoteAnswerResponse")
+    @Action(input = "http://AnswerModel/AnswerWS/voteAnswerRequest", output = "http://AnswerModel/AnswerWS/voteAnswerResponse", fault = {
+        @FaultAction(className = ParseException_Exception.class, value = "http://AnswerModel/AnswerWS/voteAnswer/Fault/ParseException")
+    })
+    public int voteAnswer(
+        @WebParam(name = "userid", targetNamespace = "")
+        int userid,
+        @WebParam(name = "aid", targetNamespace = "")
+        int aid,
+        @WebParam(name = "stat", targetNamespace = "")
+        int stat,
+        @WebParam(name = "token", targetNamespace = "")
+        String token)
+        throws ParseException_Exception
+    ;
+
 }

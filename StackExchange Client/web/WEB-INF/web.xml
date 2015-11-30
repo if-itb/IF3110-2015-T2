@@ -20,6 +20,10 @@
         <servlet-name>DeleteQuestionServlet</servlet-name>
         <servlet-class>controller.DeleteQuestionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VoteServlet</servlet-name>
+        <servlet-class>controller.VoteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CheckLogin</servlet-name>
         <url-pattern>/CheckLogin</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>DeleteQuestionServlet</servlet-name>
         <url-pattern>/DeleteQuestionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VoteServlet</servlet-name>
+        <url-pattern>/VoteServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

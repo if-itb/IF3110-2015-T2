@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -86,6 +87,23 @@ public class AnswerServlet extends HttpServlet {
                 //System.out.println(port3.getUserbyID(answer.getIdUser()));
                 //answerStates.put(answer.getId(), user == null? 0: port.getAnswerVoteState(user.getId(), answer.getId()));
             }
+            //get userid from cookies using web service
+            String token = "";
+            Cookie[] cookies = request.getCookies();
+            if(cookies==null) {      
+                System.out.println("COOKIES NULL");
+            }
+            else {                
+                for(Cookie cookie : cookies) {
+                    if("token".equals(cookie.getName())) { 
+                        token = cookie.getValue();
+                        System.out.println(token);
+                        break;
+                    }   
+                }
+            }
+            int userid = port3.getIDUserbyToken(token);
+            request.setAttribute("userid", userid);
             request.setAttribute("asker", port3.getUserbyID(question.getIdUser()));
             request.setAttribute("count_answer", count_answer);
             request.setAttribute("answers", answers);

@@ -24,17 +24,19 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _GetQuestionByIDResponse_QNAME = new QName("http://QuestionModel/", "GetQuestionByIDResponse");
     private final static QName _DeleteQuestion_QNAME = new QName("http://QuestionModel/", "DeleteQuestion");
-    private final static QName _GetAllQuestion_QNAME = new QName("http://QuestionModel/", "GetAllQuestion");
     private final static QName _Question_QNAME = new QName("http://QuestionModel/", "Question");
     private final static QName _EditQuestion_QNAME = new QName("http://QuestionModel/", "editQuestion");
     private final static QName _ParseException_QNAME = new QName("http://QuestionModel/", "ParseException");
     private final static QName _CreateQuestion_QNAME = new QName("http://QuestionModel/", "createQuestion");
-    private final static QName _EditQuestionResponse_QNAME = new QName("http://QuestionModel/", "editQuestionResponse");
+    private final static QName _VoteQuestion_QNAME = new QName("http://QuestionModel/", "voteQuestion");
+    private final static QName _VoteQuestionResponse_QNAME = new QName("http://QuestionModel/", "voteQuestionResponse");
     private final static QName _GetQuestionByID_QNAME = new QName("http://QuestionModel/", "GetQuestionByID");
     private final static QName _DeleteQuestionResponse_QNAME = new QName("http://QuestionModel/", "DeleteQuestionResponse");
     private final static QName _GetAllQuestionResponse_QNAME = new QName("http://QuestionModel/", "GetAllQuestionResponse");
+    private final static QName _GetQuestionByIDResponse_QNAME = new QName("http://QuestionModel/", "GetQuestionByIDResponse");
+    private final static QName _GetAllQuestion_QNAME = new QName("http://QuestionModel/", "GetAllQuestion");
+    private final static QName _EditQuestionResponse_QNAME = new QName("http://QuestionModel/", "editQuestionResponse");
     private final static QName _CreateQuestionResponse_QNAME = new QName("http://QuestionModel/", "createQuestionResponse");
 
     /**
@@ -42,6 +44,46 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link CreateQuestionResponse }
+     * 
+     */
+    public CreateQuestionResponse createCreateQuestionResponse() {
+        return new CreateQuestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetQuestionByIDResponse }
+     * 
+     */
+    public GetQuestionByIDResponse createGetQuestionByIDResponse() {
+        return new GetQuestionByIDResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAllQuestion }
+     * 
+     */
+    public GetAllQuestion createGetAllQuestion() {
+        return new GetAllQuestion();
+    }
+
+    /**
+     * Create an instance of {@link EditQuestionResponse }
+     * 
+     */
+    public EditQuestionResponse createEditQuestionResponse() {
+        return new EditQuestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link VoteQuestionResponse }
+     * 
+     */
+    public VoteQuestionResponse createVoteQuestionResponse() {
+        return new VoteQuestionResponse();
     }
 
     /**
@@ -69,35 +111,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CreateQuestionResponse }
-     * 
-     */
-    public CreateQuestionResponse createCreateQuestionResponse() {
-        return new CreateQuestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetQuestionByIDResponse }
-     * 
-     */
-    public GetQuestionByIDResponse createGetQuestionByIDResponse() {
-        return new GetQuestionByIDResponse();
-    }
-
-    /**
      * Create an instance of {@link DeleteQuestion }
      * 
      */
     public DeleteQuestion createDeleteQuestion() {
         return new DeleteQuestion();
-    }
-
-    /**
-     * Create an instance of {@link GetAllQuestion }
-     * 
-     */
-    public GetAllQuestion createGetAllQuestion() {
-        return new GetAllQuestion();
     }
 
     /**
@@ -133,20 +151,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link EditQuestionResponse }
+     * Create an instance of {@link VoteQuestion }
      * 
      */
-    public EditQuestionResponse createEditQuestionResponse() {
-        return new EditQuestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionByIDResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://QuestionModel/", name = "GetQuestionByIDResponse")
-    public JAXBElement<GetQuestionByIDResponse> createGetQuestionByIDResponse(GetQuestionByIDResponse value) {
-        return new JAXBElement<GetQuestionByIDResponse>(_GetQuestionByIDResponse_QNAME, GetQuestionByIDResponse.class, null, value);
+    public VoteQuestion createVoteQuestion() {
+        return new VoteQuestion();
     }
 
     /**
@@ -156,15 +165,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://QuestionModel/", name = "DeleteQuestion")
     public JAXBElement<DeleteQuestion> createDeleteQuestion(DeleteQuestion value) {
         return new JAXBElement<DeleteQuestion>(_DeleteQuestion_QNAME, DeleteQuestion.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAllQuestion }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://QuestionModel/", name = "GetAllQuestion")
-    public JAXBElement<GetAllQuestion> createGetAllQuestion(GetAllQuestion value) {
-        return new JAXBElement<GetAllQuestion>(_GetAllQuestion_QNAME, GetAllQuestion.class, null, value);
     }
 
     /**
@@ -204,12 +204,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link EditQuestionResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link VoteQuestion }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://QuestionModel/", name = "editQuestionResponse")
-    public JAXBElement<EditQuestionResponse> createEditQuestionResponse(EditQuestionResponse value) {
-        return new JAXBElement<EditQuestionResponse>(_EditQuestionResponse_QNAME, EditQuestionResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://QuestionModel/", name = "voteQuestion")
+    public JAXBElement<VoteQuestion> createVoteQuestion(VoteQuestion value) {
+        return new JAXBElement<VoteQuestion>(_VoteQuestion_QNAME, VoteQuestion.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link VoteQuestionResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://QuestionModel/", name = "voteQuestionResponse")
+    public JAXBElement<VoteQuestionResponse> createVoteQuestionResponse(VoteQuestionResponse value) {
+        return new JAXBElement<VoteQuestionResponse>(_VoteQuestionResponse_QNAME, VoteQuestionResponse.class, null, value);
     }
 
     /**
@@ -237,6 +246,33 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://QuestionModel/", name = "GetAllQuestionResponse")
     public JAXBElement<GetAllQuestionResponse> createGetAllQuestionResponse(GetAllQuestionResponse value) {
         return new JAXBElement<GetAllQuestionResponse>(_GetAllQuestionResponse_QNAME, GetAllQuestionResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestionByIDResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://QuestionModel/", name = "GetQuestionByIDResponse")
+    public JAXBElement<GetQuestionByIDResponse> createGetQuestionByIDResponse(GetQuestionByIDResponse value) {
+        return new JAXBElement<GetQuestionByIDResponse>(_GetQuestionByIDResponse_QNAME, GetQuestionByIDResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAllQuestion }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://QuestionModel/", name = "GetAllQuestion")
+    public JAXBElement<GetAllQuestion> createGetAllQuestion(GetAllQuestion value) {
+        return new JAXBElement<GetAllQuestion>(_GetAllQuestion_QNAME, GetAllQuestion.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link EditQuestionResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://QuestionModel/", name = "editQuestionResponse")
+    public JAXBElement<EditQuestionResponse> createEditQuestionResponse(EditQuestionResponse value) {
+        return new JAXBElement<EditQuestionResponse>(_EditQuestionResponse_QNAME, EditQuestionResponse.class, null, value);
     }
 
     /**

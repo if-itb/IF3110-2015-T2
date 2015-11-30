@@ -26,7 +26,7 @@
             <div class="answer_question">
                 <div class="vote">
                     <div class="number">
-			<span>&#x25B2</span>
+                        <span><a href="VoteServlet?userid=${userid}&qid=${question.id}&type=q&stat=up">&#x25B2</a></span>
                     </div>
                     <br>
                     <div class="number">
@@ -34,7 +34,7 @@
                     </div>
                     <br>
                     <div class="number">
-                        <span>&#x25BC</span>
+                        <span><a href="VoteServlet?userid=${userid}&qid=${question.id}&type=q&stat=down">&#x25BC</a></span>
                     </div>		
 		</div>
                 <div class="answer_topic">
@@ -57,7 +57,7 @@
             <div class="answers">
 		<div class="vote">
                     <div class="number">
-                        <span>&#x25B2</span>
+                        <span><a href="VoteServlet?userid=${userid}&aid=${answers.id}&type=a&stat=up">&#x25B2</a></span>
                     </div>
                     <br>
                     <div class="number">
@@ -65,7 +65,7 @@
                     </div>
                     <br>
                     <div class="number">
-			<span>&#x25BC</span>
+                        <span><a href="VoteServlet?userid=${userid}&aid=${answers.id}&type=a&stat=down">&#x25BC</a></span>
                     </div>	
 		</div>
 		<div class="answer_topic">

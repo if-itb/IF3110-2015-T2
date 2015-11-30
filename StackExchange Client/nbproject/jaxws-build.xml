@@ -42,22 +42,6 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/registration"/>
         <delete dir="${build.generated.dir}/jax-wsCache/RegistrationWS"/>
     </target>
-    <target name="wsimport-client-AnswerWS" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/AnswerWS"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AnswerWS" destdir="${build.generated.dir}/jax-wsCache/AnswerWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/AnswerWS/wsdl/localhost_8081/StackExchange_WS/AnswerWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8081/StackExchange_WS/AnswerWS?wsdl" xnocompile="true" xendorsed="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/AnswerWS/wsdl/localhost_8081/StackExchange_WS/AnswerWS.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/AnswerWS"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/AnswerWS">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="wsimport-client-clean-AnswerWS" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/answermodel"/>
-        <delete dir="${build.generated.dir}/jax-wsCache/AnswerWS"/>
-    </target>
     <target name="wsimport-client-UserWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/UserWS"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/UserWS" destdir="${build.generated.dir}/jax-wsCache/UserWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/UserWS/wsdl/localhost_8081/UserWS/UserWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8081/UserWS/UserWS?wsdl" xnocompile="true" xendorsed="true">
@@ -73,6 +57,22 @@
     <target name="wsimport-client-clean-UserWS" depends="-init-project">
         <delete dir="${build.generated.sources.dir}/jax-ws/usermodel"/>
         <delete dir="${build.generated.dir}/jax-wsCache/UserWS"/>
+    </target>
+    <target name="wsimport-client-AnswerWS" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AnswerWS"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AnswerWS" destdir="${build.generated.dir}/jax-wsCache/AnswerWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/AnswerWS/wsdl/localhost_8081/StackExchange_WS/AnswerWS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8081/StackExchange_WS/AnswerWS?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/AnswerWS/wsdl/localhost_8081/StackExchange_WS/AnswerWS.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AnswerWS"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AnswerWS">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-AnswerWS" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/answermodel"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/AnswerWS"/>
     </target>
     <target name="wsimport-client-QuestionWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/QuestionWS"/>
@@ -90,5 +90,5 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/questionmodel"/>
         <delete dir="${build.generated.dir}/jax-wsCache/QuestionWS"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-RegistrationWS, wsimport-client-AnswerWS, wsimport-client-UserWS, wsimport-client-QuestionWS"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-RegistrationWS, wsimport-client-UserWS, wsimport-client-AnswerWS, wsimport-client-QuestionWS"/>
 </project>

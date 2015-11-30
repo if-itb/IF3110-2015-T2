@@ -4,14 +4,20 @@
 <xsd:import namespace="http://QuestionModel/" schemaLocation="http://localhost:8081/StackExchange_WS/QuestionWS?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="voteQuestion">
+<part name="parameters" element="tns:voteQuestion"/>
+</message>
+<message name="voteQuestionResponse">
+<part name="parameters" element="tns:voteQuestionResponse"/>
+</message>
+<message name="ParseException">
+<part name="fault" element="tns:ParseException"/>
+</message>
 <message name="DeleteQuestion">
 <part name="parameters" element="tns:DeleteQuestion"/>
 </message>
 <message name="DeleteQuestionResponse">
 <part name="parameters" element="tns:DeleteQuestionResponse"/>
-</message>
-<message name="ParseException">
-<part name="fault" element="tns:ParseException"/>
 </message>
 <message name="GetAllQuestion">
 <part name="parameters" element="tns:GetAllQuestion"/>
@@ -38,6 +44,11 @@
 <part name="parameters" element="tns:createQuestionResponse"/>
 </message>
 <portType name="QuestionWS">
+<operation name="voteQuestion">
+<input wsam:Action="http://QuestionModel/QuestionWS/voteQuestionRequest" message="tns:voteQuestion"/>
+<output wsam:Action="http://QuestionModel/QuestionWS/voteQuestionResponse" message="tns:voteQuestionResponse"/>
+<fault message="tns:ParseException" name="ParseException" wsam:Action="http://QuestionModel/QuestionWS/voteQuestion/Fault/ParseException"/>
+</operation>
 <operation name="DeleteQuestion">
 <input wsam:Action="http://QuestionModel/QuestionWS/DeleteQuestionRequest" message="tns:DeleteQuestion"/>
 <output wsam:Action="http://QuestionModel/QuestionWS/DeleteQuestionResponse" message="tns:DeleteQuestionResponse"/>
@@ -64,6 +75,18 @@
 </portType>
 <binding name="QuestionWSPortBinding" type="tns:QuestionWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="voteQuestion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="ParseException">
+<soap:fault name="ParseException" use="literal"/>
+</fault>
+</operation>
 <operation name="DeleteQuestion">
 <soap:operation soapAction=""/>
 <input>

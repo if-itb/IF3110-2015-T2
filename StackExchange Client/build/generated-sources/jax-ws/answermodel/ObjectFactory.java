@@ -25,11 +25,13 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _CreateAnswer_QNAME = new QName("http://AnswerModel/", "createAnswer");
+    private final static QName _VoteAnswerResponse_QNAME = new QName("http://AnswerModel/", "voteAnswerResponse");
     private final static QName _Answer_QNAME = new QName("http://AnswerModel/", "Answer");
     private final static QName _CreateAnswerResponse_QNAME = new QName("http://AnswerModel/", "createAnswerResponse");
     private final static QName _GetAnswerByQID_QNAME = new QName("http://AnswerModel/", "getAnswerByQID");
     private final static QName _GetAnswerByQIDResponse_QNAME = new QName("http://AnswerModel/", "getAnswerByQIDResponse");
     private final static QName _ParseException_QNAME = new QName("http://AnswerModel/", "ParseException");
+    private final static QName _VoteAnswer_QNAME = new QName("http://AnswerModel/", "voteAnswer");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: answermodel
@@ -63,6 +65,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link VoteAnswerResponse }
+     * 
+     */
+    public VoteAnswerResponse createVoteAnswerResponse() {
+        return new VoteAnswerResponse();
+    }
+
+    /**
      * Create an instance of {@link GetAnswerByQIDResponse }
      * 
      */
@@ -76,6 +86,14 @@ public class ObjectFactory {
      */
     public ParseException createParseException() {
         return new ParseException();
+    }
+
+    /**
+     * Create an instance of {@link VoteAnswer }
+     * 
+     */
+    public VoteAnswer createVoteAnswer() {
+        return new VoteAnswer();
     }
 
     /**
@@ -93,6 +111,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://AnswerModel/", name = "createAnswer")
     public JAXBElement<CreateAnswer> createCreateAnswer(CreateAnswer value) {
         return new JAXBElement<CreateAnswer>(_CreateAnswer_QNAME, CreateAnswer.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link VoteAnswerResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://AnswerModel/", name = "voteAnswerResponse")
+    public JAXBElement<VoteAnswerResponse> createVoteAnswerResponse(VoteAnswerResponse value) {
+        return new JAXBElement<VoteAnswerResponse>(_VoteAnswerResponse_QNAME, VoteAnswerResponse.class, null, value);
     }
 
     /**
@@ -138,6 +165,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://AnswerModel/", name = "ParseException")
     public JAXBElement<ParseException> createParseException(ParseException value) {
         return new JAXBElement<ParseException>(_ParseException_QNAME, ParseException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link VoteAnswer }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://AnswerModel/", name = "voteAnswer")
+    public JAXBElement<VoteAnswer> createVoteAnswer(VoteAnswer value) {
+        return new JAXBElement<VoteAnswer>(_VoteAnswer_QNAME, VoteAnswer.class, null, value);
     }
 
 }
