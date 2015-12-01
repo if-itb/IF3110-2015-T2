@@ -19,18 +19,36 @@ public class addanswer extends HttpServlet {
         int i=0;
         Cookie[] cookies = null;
         cookies = request.getCookies();
+        Boolean token_expired = false;
         if (cookies != null) {
             while (!found && i < cookies.length){
                 if (cookies[i].getName().equals("tokenCookie")) {
                     String token = cookies[i].getValue();
                     String content = request.getParameter("content");
-                    createAnswer(idQuestion,content,token);
+                    if (createAnswer(idQuestion,content,token)) {
+                        token_expired = true;
+                    }
                     found = true;
                 }
                 i++;
             }
         }
-        response.sendRedirect("viewpost?id="+idQuestion);
+        if (token_expired) {
+            int count = 0;
+            i = 0;
+            while (count<2 && i<cookies.length){
+                if (cookies[i].getName().equals("usernameCookie") || cookies[i].getName().equals("tokenCookie")) {
+                    cookies[i].setMaxAge(0);
+                    cookies[i].setPath("/");
+                    response.addCookie(cookies[i]);
+                    count++;
+                }
+                i++;
+            }
+            response.sendRedirect("index");
+        }
+        else
+            response.sendRedirect("viewpost?id="+idQuestion);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

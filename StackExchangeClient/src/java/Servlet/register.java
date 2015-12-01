@@ -1,6 +1,7 @@
 package Servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +19,26 @@ public class register extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmpassword = request.getParameter("confirmpassword");
-        if (password.equals(confirmpassword))
-            createAccount(username,password,email,name);
-        response.sendRedirect("index");
+        if (password.equals(confirmpassword)) {
+            if (createAccount(username,password,email,name)) {
+                PrintWriter out = response.getWriter();  
+                response.setContentType("text/html");  
+                out.println("<script type=\"text/javascript\">");  
+                out.println("alert('Username already exist');");
+                out.println("location='register.jsp';");
+                out.println("</script>");
+            }
+            else
+                response.sendRedirect("index");
+        }
+        else {
+            PrintWriter out = response.getWriter();  
+            response.setContentType("text/html");  
+            out.println("<script type=\"text/javascript\">");  
+            out.println("alert('Incorrect confirm password');");
+            out.println("location='register.jsp';");
+            out.println("</script>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

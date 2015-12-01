@@ -14,6 +14,7 @@ public class voteanswer extends HttpServlet {
     private AnswerWS_Service service;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String token = "";
         int id_answer = Integer.parseInt(request.getParameter("id_answer"));
         int id_question = Integer.parseInt(request.getParameter("id_question"));
         boolean found = false;
@@ -23,18 +24,34 @@ public class voteanswer extends HttpServlet {
         if (cookies != null) {
             while (!found && i < cookies.length){
                 if (cookies[i].getName().equals("tokenCookie")) {
-                    String token = cookies[i].getValue();
-                    int k = Integer.parseInt(request.getParameter("type"));
-                    if (k==1)
-                        voteUp(id_answer, token);
-                    else
-                        voteDown(id_answer,token);
+                    token = cookies[i].getValue();
                     found = true;
                 }
                 i++;
             }
         }
-        response.sendRedirect("viewpost?id="+id_question);
+        if (isValidToken(token)) {
+            int k = Integer.parseInt(request.getParameter("type"));
+            if (k==1)
+                voteUp(id_answer, token);
+            else
+                voteDown(id_answer,token);
+            response.sendRedirect("viewpost?id="+id_question);
+        }
+        else {
+            int count = 0;
+            i = 0;
+            while (count<2 && i<cookies.length){
+                if (cookies[i].getName().equals("usernameCookie") || cookies[i].getName().equals("tokenCookie")) {
+                    cookies[i].setMaxAge(0);
+                    cookies[i].setPath("/");
+                    response.addCookie(cookies[i]);
+                    count++;
+                }
+                i++;
+            }
+            response.sendRedirect("index");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -88,6 +105,13 @@ public class voteanswer extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         answermodel.AnswerWS port = service.getAnswerWSPort();
         return port.voteDown(aid, token);
+    }
+
+    private Boolean isValidToken(java.lang.String token) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        answermodel.AnswerWS port = service.getAnswerWSPort();
+        return port.isValidToken(token);
     }
 
 }

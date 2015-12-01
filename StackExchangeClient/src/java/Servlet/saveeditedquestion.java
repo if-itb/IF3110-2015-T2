@@ -31,10 +31,25 @@ public class saveeditedquestion extends HttpServlet {
             }
         }
         
+        Boolean token_expired = false;
         int id =  Integer.parseInt(request.getParameter("id"));
         String topic = request.getParameter("topic");
         String content = request.getParameter("content");
-        editQuestion(id,topic,token,content);
+        if (editQuestion(id,topic,token,content))
+            token_expired = true;
+        if (token_expired) {
+            int count = 0;
+            i = 0;
+            while (count<2 && i<cookies.length){
+                if (cookies[i].getName().equals("usernameCookie") || cookies[i].getName().equals("tokenCookie")) {
+                    cookies[i].setMaxAge(0);
+                    cookies[i].setPath("/");
+                    response.addCookie(cookies[i]);
+                    count++;
+                }
+                i++;
+            }
+        }
         response.sendRedirect("index");
     }
 

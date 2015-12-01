@@ -18,6 +18,7 @@ public class askquestion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean found = false;
         int i=0;
+        boolean token_expired = false;
         
         Cookie[] cookies = null;
         cookies = request.getCookies();
@@ -27,8 +28,23 @@ public class askquestion extends HttpServlet {
                     String token = cookies[i].getValue();
                     String topic = request.getParameter("topic");
                     String content = request.getParameter("content");
-                    createQuestion(topic,token,content);
+                    if (createQuestion(topic,token,content))
+                        token_expired = true;
                     found = true;
+                }
+                i++;
+            }
+        }
+        
+        if (token_expired) {
+            int count = 0;
+            i = 0;
+            while (count<2 && i<cookies.length){
+                if (cookies[i].getName().equals("usernameCookie") || cookies[i].getName().equals("tokenCookie")) {
+                    cookies[i].setMaxAge(0);
+                    cookies[i].setPath("/");
+                    response.addCookie(cookies[i]);
+                    count++;
                 }
                 i++;
             }
