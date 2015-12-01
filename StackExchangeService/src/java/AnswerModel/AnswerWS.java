@@ -324,4 +324,11 @@ public class AnswerWS {
         
         return count;
     }
+    
+    public Boolean isValidToken(@WebParam(name = "token") String token){
+        String username= auth.checkToken(token);
+        if(username.equals("-999"))
+              return false; 
+        else return true;
+    }
 }
