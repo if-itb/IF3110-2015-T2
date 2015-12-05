@@ -1,6 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package AnswerModel;
 
-import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,8 +26,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ *
+ * @author adek
+ */
 @WebService(serviceName = "AnswerWS")
 public class AnswerWS {
+
+    /**
+     * Web service operation
+     */
     @WebMethod(operationName = "getAnswerByQID")
     @WebResult(name="Answer")
     public ArrayList<Answer> getAnswerByQID(@WebParam(name = "qid") int qid) {
@@ -88,7 +105,7 @@ public class AnswerWS {
                 System.out.println("invalid!");
             ret = -1;
         }
-        return ret;        
+        return ret;      
     }
 
     /**

@@ -58,12 +58,13 @@ public class CheckLogin extends HttpServlet {
                 //create cookie
                 String token = (String) jobj.get("token");
                 Cookie cookie = new Cookie("token",token);
-                cookie.setMaxAge(5*60);
+                cookie.setMaxAge(20*60);
                 response.addCookie(cookie);
                 response.sendRedirect(request.getContextPath() + "/ShowQuestionServlet");
             } else if(message.equals("invalid")) {
                 response.sendRedirect(request.getContextPath() + "/LoginPage.jsp");
-            }
+            } else 
+                response.sendRedirect(request.getContextPath() + "/SignUpPage.jsp");
         }
     }
 

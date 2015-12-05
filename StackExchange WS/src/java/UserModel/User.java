@@ -5,10 +5,6 @@
  */
 package UserModel;
 
-/**
- *
- * @author Scemo
- */
 import javax.xml.bind.*;
 import javax.xml.bind.annotation.*;
 @XmlRootElement(name="User")
@@ -20,12 +16,10 @@ public class User {
     @XmlElement(name="password", required=true)
     private String password;
     @XmlElement(name="email", required=true)
-    private String email;
-    
+    private String email; 
     public User() {
         id = 0;
     }
-    
     public User(int id, String name, String password, String email) {
         this.id = id;
         this.name = name;

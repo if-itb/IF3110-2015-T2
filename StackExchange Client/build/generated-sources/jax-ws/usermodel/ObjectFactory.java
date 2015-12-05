@@ -24,7 +24,9 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _RemoveTokenResponse_QNAME = new QName("http://UserModel/", "removeTokenResponse");
     private final static QName _GetIDUserbyToken_QNAME = new QName("http://UserModel/", "getIDUserbyToken");
+    private final static QName _RemoveToken_QNAME = new QName("http://UserModel/", "removeToken");
     private final static QName _GetUserbyIDResponse_QNAME = new QName("http://UserModel/", "getUserbyIDResponse");
     private final static QName _GetUserbyID_QNAME = new QName("http://UserModel/", "getUserbyID");
     private final static QName _GetIDUserbyTokenResponse_QNAME = new QName("http://UserModel/", "getIDUserbyTokenResponse");
@@ -42,6 +44,22 @@ public class ObjectFactory {
      */
     public GetUserbyIDResponse createGetUserbyIDResponse() {
         return new GetUserbyIDResponse();
+    }
+
+    /**
+     * Create an instance of {@link RemoveTokenResponse }
+     * 
+     */
+    public RemoveTokenResponse createRemoveTokenResponse() {
+        return new RemoveTokenResponse();
+    }
+
+    /**
+     * Create an instance of {@link RemoveToken }
+     * 
+     */
+    public RemoveToken createRemoveToken() {
+        return new RemoveToken();
     }
 
     /**
@@ -69,12 +87,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RemoveTokenResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://UserModel/", name = "removeTokenResponse")
+    public JAXBElement<RemoveTokenResponse> createRemoveTokenResponse(RemoveTokenResponse value) {
+        return new JAXBElement<RemoveTokenResponse>(_RemoveTokenResponse_QNAME, RemoveTokenResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetIDUserbyToken }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://UserModel/", name = "getIDUserbyToken")
     public JAXBElement<GetIDUserbyToken> createGetIDUserbyToken(GetIDUserbyToken value) {
         return new JAXBElement<GetIDUserbyToken>(_GetIDUserbyToken_QNAME, GetIDUserbyToken.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RemoveToken }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://UserModel/", name = "removeToken")
+    public JAXBElement<RemoveToken> createRemoveToken(RemoveToken value) {
+        return new JAXBElement<RemoveToken>(_RemoveToken_QNAME, RemoveToken.class, null, value);
     }
 
     /**

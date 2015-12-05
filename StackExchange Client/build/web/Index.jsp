@@ -50,5 +50,6 @@
 		</div>
                 </c:if>
             </c:forEach>
+            <a href="LogOut">logout</a>
     </body>
 </html>

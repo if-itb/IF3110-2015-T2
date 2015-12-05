@@ -5,10 +5,6 @@
  */
 package QuestionModel;
 
-/**
- *
- * @author Scemo
- */
 import javax.xml.bind.annotation.*;
 @XmlRootElement(name="Question")
 public class Question {
@@ -24,13 +20,11 @@ public class Question {
     private String timestamp;
     @XmlElement(name="votes", required=true)
     private int votes;
-    
-    public Question() {
+        public Question() {
         id = 0;
         idUser = 0;
         votes=0;
-    }
-    
+    }    
     public Question(int id, int uid, String topic, String content, String timestamp,int votes) {
         this.id = id;
         idUser = uid;

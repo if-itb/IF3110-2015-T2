@@ -31,7 +31,7 @@ public class ShowQuestionServlet extends HttpServlet {
     private QuestionWS_Service service_2;
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/AnswerWS.wsdl")
     private AnswerWS_Service service_1;
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/UserWS/UserWS.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8081/StackExchange_WS/UserWS.wsdl")
     private UserWS_Service service;
 
     /**
@@ -76,7 +76,7 @@ public class ShowQuestionServlet extends HttpServlet {
             request.setAttribute("answers", count_answer);
             request.setAttribute("askers", asker);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
-            dispatcher.forward( request, response ); 
+            dispatcher.forward( request, response );
         }
     }
 

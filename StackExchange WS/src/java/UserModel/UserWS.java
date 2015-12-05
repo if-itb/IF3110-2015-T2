@@ -5,6 +5,7 @@
  */
 package UserModel;
 
+import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,14 +16,12 @@ import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import javax.ejb.Stateless;
 
 /**
  *
  * @author adek
  */
 @WebService(serviceName = "UserWS")
-@Stateless()
 public class UserWS {
 
     /**
@@ -76,5 +75,22 @@ public class UserWS {
         }
         return userid;
     }
-    
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "removeToken")
+    public boolean removeToken(@WebParam(name = "token") String token) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
+            String sql = "DELETE FROM tokens WHERE token = '"+token+"'";
+            Statement stmt = (com.mysql.jdbc.Statement) conn.createStatement();
+            stmt.executeUpdate(sql);
+            return true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

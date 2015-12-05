@@ -1,7 +1,6 @@
 package com.token.validation;
 
 import java.util.Calendar;
-import java.util.Random;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -55,9 +54,11 @@ public class NewToken extends HttpServlet {
                 username = rs.getString("name");
             }
             //create token
-            Random rn = new Random(); 
-            String elf = "" + rn.nextInt(100);
-            token = username + elf;
+            String agent = request.getHeader("user-agent");
+            String ip_addr = request.getHeader("X-FORWARDED-FOR");
+            if(ip_addr==null)
+                ip_addr = request.getRemoteAddr();
+            token = username + "#"+ agent+ "#"+ ip_addr;
             //create lifetime
             Calendar calobj = Calendar.getInstance();
             long time = calobj.getTimeInMillis()/1000+1200;

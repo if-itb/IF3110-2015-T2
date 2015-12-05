@@ -5,11 +5,11 @@
  */
 package QuestionModel;
 
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +26,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ *
+ * @author adek
+ */
 @WebService(serviceName = "QuestionWS")
 public class QuestionWS {
 
@@ -77,9 +81,9 @@ public class QuestionWS {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
-            Statement stmt = conn.createStatement();
+            Statement stmt = (Statement) conn.createStatement();
             String sql = "SELECT * FROM questions";
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            PreparedStatement dbStatement = (PreparedStatement) conn.prepareStatement(sql);
             ResultSet results = dbStatement.executeQuery();
             /* Get every data returned by SQL query */
             int i = 0;
@@ -111,10 +115,9 @@ public class QuestionWS {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
-          
-            Statement stmt = conn.createStatement();
+            Statement stmt = (Statement) conn.createStatement();
             String sql = "SELECT * FROM questions WHERE id=?";
-            PreparedStatement dbStatement = conn.prepareStatement(sql);
+            PreparedStatement dbStatement = (PreparedStatement) conn.prepareStatement(sql);
             dbStatement.setInt(1,id);
             ResultSet results = dbStatement.executeQuery();
             if(results.next()){
@@ -162,8 +165,16 @@ public class QuestionWS {
                 ret = 1;
             } catch(Exception e) {}   
         }
+        else if(message.equals("false-agent")) {
+                System.out.println("false-agent!!");
+            ret = -2;
+        }
+        else if(message.equals("false-ipaddr")) {
+                System.out.println("false-ipaddr!!");
+            ret = -3;
+        }
         else if(message.equals("expired")) {
-                System.out.println("expred!");
+                System.out.println("expired!");
             ret = 0;
         }
         else if(message.equals("invalid")) {
@@ -178,7 +189,6 @@ public class QuestionWS {
      */
     @WebMethod(operationName = "DeleteQuestion")
     public int DeleteQuestion(@WebParam(name = "qid") int qid, @WebParam(name = "token") String token) throws ParseException {
-        //TODO write your implementation code here:
         Form form = new Form();
         form.param("token",token);
         Client client = ClientBuilder.newClient();
@@ -236,7 +246,7 @@ public class QuestionWS {
                 Class.forName("com.mysql.jdbc.Driver");
                 java.sql.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
                 String sql = "SELECT id FROM voteQuestion WHERE id_user =" + userid + " && id_question = " + qid;
-                PreparedStatement dbs = conn.prepareStatement(sql);
+                PreparedStatement dbs = (PreparedStatement) conn.prepareStatement(sql);
                 ResultSet rs = dbs.executeQuery();
                 int id = 0,unicFlag=0;
                 if(!rs.next()) {
@@ -248,7 +258,7 @@ public class QuestionWS {
                 else {
                     id = rs.getInt("id");
                     sql = "SELECT id FROM voteQuestion WHERE id_user =" + userid + " && id_question = " + qid + "&& status = " + stat;
-                    dbs = conn.prepareStatement(sql);
+                    dbs = (PreparedStatement) conn.prepareStatement(sql);
                     rs = dbs.executeQuery();
                     if(!rs.isBeforeFirst()) {
                         unicFlag=1;
@@ -260,7 +270,7 @@ public class QuestionWS {
                 if(unicFlag==1) {
                     //get current vote value
                     sql = "SELECT vote FROM questions WHERE id =" + qid;
-                    dbs = conn.prepareStatement(sql);
+                    dbs = (PreparedStatement) conn.prepareStatement(sql);
                     rs = dbs.executeQuery();
                     int vote =0;
                     if(rs.next())
@@ -283,7 +293,4 @@ public class QuestionWS {
         }
         return ret; 
     }
-    
-    
-
 }

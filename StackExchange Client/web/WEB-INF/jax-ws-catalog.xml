@@ -8,4 +8,8 @@
     <system systemId="http://localhost:8081/StackExchange_WS/AnswerWS?xsd=1" uri="wsdl/localhost_8081/StackExchange_WS/AnswerWS.xsd_1.xsd"/>
     <system systemId="http://localhost:8081/UserWS/UserWS?wsdl" uri="wsdl/localhost_8081/UserWS/UserWS.wsdl"/>
     <system systemId="http://localhost:8081/UserWS/UserWS?xsd=1" uri="wsdl/localhost_8081/UserWS/UserWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8081/StackExchange_WS/RegistrationWS?wsdl" uri="wsdl/localhost_8081/StackExchange_WS/RegistrationWS.wsdl"/>
+    <system systemId="http://localhost:8081/StackExchange_WS/RegistrationWS?xsd=1" uri="wsdl/localhost_8081/StackExchange_WS/RegistrationWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8081/StackExchange_WS/UserWS?wsdl" uri="wsdl/localhost_8081/StackExchange_WS/UserWS.wsdl"/>
+    <system systemId="http://localhost:8081/StackExchange_WS/UserWS?xsd=1" uri="wsdl/localhost_8081/StackExchange_WS/UserWS.xsd_1.xsd"/>
 </catalog>

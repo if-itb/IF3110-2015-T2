@@ -40,26 +40,37 @@ public class CheckToken extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String token = request.getParameter("token");
-        
-        String tokenFlag = ""; //initiate tokenFlag with invalid
+        String[] datadb = null,data = token.split("#");
+        Long produced = 0l;
+        String tokenFlag = "invalid"; //initiate tokenFlag with invalid
         try (PrintWriter out = response.getWriter()) {
             //create connection
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/dadakanDB","root","");
-            String sql = "SELECT produced FROM tokens WHERE token='" + token + "'";
+            String sql = "SELECT * FROM tokens";
             java.sql.PreparedStatement dbs = conn.prepareStatement(sql);
             ResultSet rs = dbs.executeQuery();
-            if(rs.next()) {
-                //check lifetime
+            //search same token in database
+            while(rs.next() && tokenFlag.equals("invalid")) {
+                //assumption : delete token in token table when logout
+                String tokendb = rs.getString("token");
+                datadb = tokendb.split("#");
+                if(data[0].equals(datadb[0])) {
+                    produced = rs.getLong("produced");
+                    tokenFlag = "valid";
+                }
+            }
+            if(tokenFlag.equals("valid")) {
                 Calendar calobj = Calendar.getInstance();
                 long time = calobj.getTimeInMillis()/1000;
-                if(time>rs.getLong("produced"))
-                    tokenFlag = "expired"; //token expired
-                else 
-                    tokenFlag = "valid"; //token valid
+                //check user-agent, ip_addr, lifetime
+                if(!data[1].equals(datadb[1])) 
+                    tokenFlag = "false-agent"; 
+                else if(!data[2].equals(datadb[2]))
+                    tokenFlag = "false-ipaddr"; 
+                else if(time>produced)
+                    tokenFlag = "expired";
             }
-            else 
-                tokenFlag = "invalid";
             JSONObject jobj = new JSONObject();
             jobj.put("message", tokenFlag);
             out.println(jobj.toString());

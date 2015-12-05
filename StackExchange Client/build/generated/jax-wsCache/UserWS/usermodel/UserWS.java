@@ -54,4 +54,19 @@ public interface UserWS {
         @WebParam(name = "token", targetNamespace = "")
         String token);
 
+    /**
+     * 
+     * @param token
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "removeToken", targetNamespace = "http://UserModel/", className = "usermodel.RemoveToken")
+    @ResponseWrapper(localName = "removeTokenResponse", targetNamespace = "http://UserModel/", className = "usermodel.RemoveTokenResponse")
+    @Action(input = "http://UserModel/UserWS/removeTokenRequest", output = "http://UserModel/UserWS/removeTokenResponse")
+    public boolean removeToken(
+        @WebParam(name = "token", targetNamespace = "")
+        String token);
+
 }

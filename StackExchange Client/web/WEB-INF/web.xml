@@ -5,10 +5,6 @@
         <servlet-class>com.client.login.CheckLogin</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ShowQuestionServlet</servlet-name>
-        <servlet-class>controller.ShowQuestionServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AnswerServlet</servlet-name>
         <servlet-class>controller.AnswerServlet</servlet-class>
     </servlet>
@@ -24,13 +20,17 @@
         <servlet-name>VoteServlet</servlet-name>
         <servlet-class>controller.VoteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowQuestionServlet</servlet-name>
+        <servlet-class>controller.ShowQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogOut</servlet-name>
+        <servlet-class>com.client.login.LogOut</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CheckLogin</servlet-name>
         <url-pattern>/CheckLogin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ShowQuestionServlet</servlet-name>
-        <url-pattern>/ShowQuestionServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AnswerServlet</servlet-name>
@@ -47,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>VoteServlet</servlet-name>
         <url-pattern>/VoteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowQuestionServlet</servlet-name>
+        <url-pattern>/ShowQuestionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogOut</servlet-name>
+        <url-pattern>/LogOut</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

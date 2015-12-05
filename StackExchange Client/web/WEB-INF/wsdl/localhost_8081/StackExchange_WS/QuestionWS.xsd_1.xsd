@@ -51,6 +51,16 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="GetAllQuestion">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="GetAllQuestionResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="DeleteQuestion">
 <xs:sequence>
 <xs:element name="qid" type="xs:int"/>
@@ -70,16 +80,6 @@
 <xs:element name="message" type="xs:string" minOccurs="0"/>
 <xs:element name="position" type="xs:int"/>
 <xs:element name="unexpectedObject" type="xs:anyType" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="GetAllQuestion">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="GetAllQuestionResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:question" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
