@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2015 at 01:46 AM
+-- Generation Time: Dec 05, 2015 at 02:56 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `answers` (
   UNIQUE KEY `AnswerID` (`AnswerID`),
   KEY `QuestionID` (`QuestionID`),
   KEY `AnswerID_2` (`AnswerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `answers`
@@ -53,7 +53,8 @@ INSERT INTO `answers` (`AnswerID`, `QuestionID`, `Votes`, `Answer`, `Name`, `Ema
 (12, 38, 0, '', 'asd', '', '2015-10-10 19:06:28'),
 (13, 39, 3, 'fsfs', 'dsaad', 'sfsdfds@sggsg.asdfdf', '2015-10-10 21:09:42'),
 (14, 37, 2, 'fsfsfsfsfsf', 'Cliff', 'fasdfasfasf@gkajf.sjfds', '2015-10-10 21:26:04'),
-(15, 42, 5, 'YOU''RE FUCKING GAY', 'Cliff', '', '2015-10-15 15:22:29');
+(15, 42, 5, 'YOU''RE FUCKING GAY', 'Cliff', '', '2015-10-15 15:22:29'),
+(16, 43, 1, 'asasadsadsa', 'Yoga', 'yoga@gmail.com', '2015-11-27 10:53:43');
 
 -- --------------------------------------------------------
 
@@ -72,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `Datetime` datetime NOT NULL,
   PRIMARY KEY (`QuestionID`),
   UNIQUE KEY `QuestionID` (`QuestionID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
 
 --
 -- Dumping data for table `questions`
@@ -83,7 +84,8 @@ INSERT INTO `questions` (`QuestionID`, `Votes`, `Answers`, `Topic`, `Question`, 
 (38, 9, 6, 'How to get a gf?', 'im such a loser', 'fdsa', 'cliffsantoso@gmail.com', '2015-10-10 17:08:03'),
 (39, 3, 2, 'asdasd', 'asdsdsd', 'adadasdsad', 'sfsfsf@sgsgsgs.sdf', '2015-10-10 19:03:24'),
 (42, -2, 1, 'ben???''', 'is ben gay?" i''m not!@#%^*()`~', 'Cliff', 'cliffsantoso@gmail.com', '2015-10-15 15:25:49'),
-(43, -1, 0, 'halo', 'haloo', 'Yoga', 'yoga@gmail.com', '2015-11-27 07:32:10');
+(43, -1, 1, 'asdad', 'sadasd', 'Yoga', 'yoga@gmail.com', '2015-11-27 10:53:16'),
+(44, 0, 0, 'asdad', 'sadasd', 'Yoga', 'yoga@gmail.com', '2015-11-27 10:53:16');
 
 -- --------------------------------------------------------
 
@@ -98,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `ExpiredDate` datetime NOT NULL,
   PRIMARY KEY (`SessionID`),
   UNIQUE KEY `SessionID` (`SessionID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `sessions`
@@ -109,7 +111,9 @@ INSERT INTO `sessions` (`SessionID`, `Email`, `AccessToken`, `ExpiredDate`) VALU
 (3, 'tio', '26aa4171-c3d7-4f7e-bc2d-678cfb60b062', '0000-00-00 00:00:00'),
 (4, 'yoga@gmail.com', 'f50c365e-af19-4c64-b7e1-b43a40344ff0', '2015-11-27 07:36:59'),
 (5, 'yoga@gmail.com', '1a5dc46e-4f34-4f27-adc6-01480f071ef4', '2015-11-27 07:42:07'),
-(6, 'yoga@gmail.com', 'bd8354fa-b75a-450b-9423-e8098b2d7909', '2015-11-27 07:50:18');
+(6, 'yoga@gmail.com', 'bd8354fa-b75a-450b-9423-e8098b2d7909', '2015-11-27 07:50:18'),
+(7, 'yoga@gmail.com', 'd6ab7a55-ee2a-496e-9103-7c884d2648cf', '2015-11-27 10:57:16'),
+(8, 'yoga@gmail.com', '17c44935-d893-4fcf-87ac-1ab991208590', '2015-11-27 10:59:39');
 
 -- --------------------------------------------------------
 
@@ -132,7 +136,8 @@ CREATE TABLE IF NOT EXISTS `upanswer` (
 INSERT INTO `upanswer` (`email`, `IDAns`, `totalVote`) VALUES
 ('tio', 6, 0),
 ('yoga@gmail.com', 6, 0),
-('yoga@gmail.com', 7, 1);
+('yoga@gmail.com', 7, 1),
+('yoga@gmail.com', 16, 1);
 
 -- --------------------------------------------------------
 
