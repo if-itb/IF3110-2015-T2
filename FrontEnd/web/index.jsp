@@ -29,7 +29,7 @@
                 /*out.println(ts);
                 out.println(result);*/
 
-                if (ts.after(result)) {
+                if (ts.after(result) || token == null || port.getEmail(token) == null) {
                     String site = "http://localhost:8001/Identity/LoginRSServlet?token="+request.getParameter("token");
                     response.setStatus(response.SC_MOVED_TEMPORARILY);
                     response.setHeader("Location", site);

@@ -27,6 +27,9 @@ public class RegisterWS {
         String sql = "";
         int result = 0;
         try {
+            if (name.equals("") || email.equals("") || password.equals("")) {
+                return 0;
+            } else {
             //TODO write your implementation code here:
             Class.forName("com.mysql.jdbc.Driver");
             conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/stackexchange?zeroDateTimeBehavior=convertToNull", "root", "");
@@ -49,6 +52,7 @@ public class RegisterWS {
             conn.close();
             stmt.close();
             dbStatement.close();
+            }
         } catch (SQLException ex) {
             //Logger.getLogger(RegisterWS.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex);

@@ -16,3 +16,7 @@
 =======
 /FrontEnd/dist/
 >>>>>>> origin/master
+/ServerGomoku/nbproject/private/
+/ClientGomoku/nbproject/private/
+/ServerGomoku/build/
+/ClientGomoku/build/
