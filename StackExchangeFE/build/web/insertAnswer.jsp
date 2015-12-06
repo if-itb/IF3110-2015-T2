@@ -12,7 +12,15 @@
         <title>insertAnswer - TuBes WBD</title>
     </head>
     
-        <% String t = request.getParameter("token");%>
+        <% String t = "";
+            Cookie [] cookieArray = request.getCookies();
+            if(cookieArray != null){
+                    for (int j=0; j<cookieArray.length;j++){
+                        if(cookieArray[j].getName().equals("token")){
+                            t = cookieArray[j].getValue();
+                        }
+                    }
+                   }%>
         <% String id = request.getParameter("id");%>
         
         <%String ans = request.getParameter("answer");%>
@@ -36,7 +44,7 @@
 	int result = port.insertAnswer(accessToken, qid, uid, content, name, email);        
         if (result==1)
         {
-            response.sendRedirect("http://localhost:8080/StackExchangeFE/answerlogin.jsp?id="+id+"&token="+t);
+            response.sendRedirect("http://localhost:8080/StackExchangeFE/answerlogin.jsp?id="+id);
         }
         else
         {

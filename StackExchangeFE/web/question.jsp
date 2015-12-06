@@ -2,7 +2,16 @@
 
 <html>
 
-        <% String t = request.getParameter("token");%>
+        <% String t = "";
+            Cookie [] cookieArray = request.getCookies();
+            if(cookieArray != null){
+                    for (int j=0; j<cookieArray.length;j++){
+                        if(cookieArray[j].getName().equals("token")){
+                            t = cookieArray[j].getValue();
+                        }
+                    }
+                    
+                   }%>
         <% String s = request.getParameter("id");%>
         
 	<head>
@@ -20,7 +29,7 @@
 	
 		<div class="font30 color-blue">
 			<h1>
-                                <a class="no-text-decoration" href="homepagelogin.jsp?token=<%=t%>">
+                                <a class="no-text-decoration" href="homepagelogin.jsp">
                                         StackExchange
                                 </a>
 			</h1>
@@ -34,10 +43,10 @@
 
 		<br>
 
-                
+
 		<% if (s==null || s.isEmpty()) 
                 { %>
-                    <form name="questionForm" action="insertQuestion.jsp?id=<%=s%>&token=<%=t%>" method="post" onsubmit="return validateQue()">
+                    <form name="questionForm" action="insertQuestion.jsp" method="post" onsubmit="return validateQue()">
                              <div class="text-left">
                                 <input class="form-textbox" type="text" name="topic" placeholder="Question Topic"><br><br>
                                 <textarea name="content" placeholder="Content"></textarea><br><br>
@@ -47,7 +56,7 @@
                                 <input class="form-submit" type="submit" name="post" value="Post">
                              </div>
                      </form>
-
+                     
                 <% } 
                 else 
                 { %>
@@ -59,17 +68,19 @@
                 <%
                     try 
                     {
+                        
                         questionmodel.QuestionWS_Service service = new questionmodel.QuestionWS_Service();
                         questionmodel.QuestionWS port = service.getQuestionWSPort();
                         // TODO process result here
                         java.util.List<questionmodel.Question> result = port.getQuestion();
+                        
                         for (int i=0; i<result.size();i++)
                         {
                             if ( result.get(i).getQId() == Integer.valueOf(s))
                             {
-                                out.println("<form name='questionForm' action='updateQuestion.jsp?id="+result.get(i).getQId()+"&token="+t+"' method='post' onsubmit='return validateQue()'>");
+                                out.println("<form name='questionForm' action='updateQuestion.jsp?id="+result.get(i).getQId()+"' method='post' onsubmit='return validateQue()'>");
                                 out.println("<div class='text-left'>");
-                                   out.println("<input class='form-textbox' type='text' name='topic' value="+result.get(i).getQTopic()+"'><br><br>");
+                                   out.println("<input class='form-textbox' type='text' name='topic' value="+result.get(i).getQTopic()+"><br><br>");
                                    out.println("<textarea name='content'>"+result.get(i).getQContent()+"</textarea><br><br>");
                                 out.println("</div>");
                                 out.println("<div class='text-right'>");
@@ -78,6 +89,7 @@
                                 out.println("</form>");
                             }
                         }
+                        
                         
                     }
                     catch (Exception ex) 

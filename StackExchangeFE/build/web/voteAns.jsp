@@ -4,7 +4,15 @@
 <html>
     
     
-        <% String t = request.getParameter("token");%>
+        <%String t = "";
+            Cookie [] cookieArray = request.getCookies();
+            if(cookieArray != null){
+                    for (int j=0; j<cookieArray.length;j++){
+                        if(cookieArray[j].getName().equals("token")){
+                            t = cookieArray[j].getValue();
+                        }
+                    }
+                   }%>
         <% String a = request.getParameter("aid");%>
         <% String q = request.getParameter("qid");%>
         <% String v = request.getParameter("value");%>    
@@ -37,7 +45,7 @@
 	int result = port.voteAnswer(accessToken, aId, val);
         if (result==1)
         {
-            response.sendRedirect("http://localhost:8080/StackExchangeFE/answerlogin.jsp?id="+q+"&token="+t);
+            response.sendRedirect("http://localhost:8080/StackExchangeFE/answerlogin.jsp?id="+q);
         }
         else
         {

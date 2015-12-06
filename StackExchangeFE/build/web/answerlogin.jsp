@@ -1,18 +1,78 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.Timestamp"%>
 <!DOCTYPE html>
 
 <html>
 
-        <% String t = request.getParameter("token");%>
-        <% String s = request.getParameter("id");%>
+        <%  
+            String t = "";
+            Cookie [] cookieArray = request.getCookies();
+            if(cookieArray != null){
+                    for (int j=0; j<cookieArray.length;j++){
+                        if(cookieArray[j].getName().equals("token")){
+                            t = cookieArray[j].getValue();
+                        }
+                    }
+                   }
+        %>
+        <% String s = request.getParameter("id");%> 
         
 	<head>
+                
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" type="text/css" href="css/wbd.css">
+                <script src="angular.js" type="text/javascript"></script>
+                    <script>
+                        
+                        var app = angular.module('comment', []);
+                        app.config(function($httpProvider){
+                            $httpProvider.defaults.useXDomain = true;
+                        });
+                        
+                        app.controller('commentCtrl', function($scope,$http) {
+                            $scope.commentList=[];
+                            $scope.comment="";
+                            var sendTo = "http://localhost:8082/StackExchangeREST/Comment";
+                            $http.get(sendTo+"?qid=<%=s%>").then(function(response) {
+                                $scope.commentList = response.data.commentList;
+                            });
+                            $scope.add = function(token,qid,uid,content,uname) {  
+                                var send = JSON.stringify({qid:qid,uid:uid,content:content,token:token, uname:uname});
+                                $http.post(sendTo,send).then(function(response){
+                                  $scope.commentList.push(response.data);
+                                  console.log(JSON.stringify(response));
+                                });
+                                $scope.content = "";
+                            };
+                        });
+                        
+                    
+                        app.controller('voteCtrl', function($scope, $http){
+                        $scope.voteQue = function(token,qid,aid,uid,vcount,qvote){
+                                var sendTo = "http://localhost:8082/StackExchangeREST/voteQuestion";
+                                var send = JSON.stringify({token:token,qid:qid,aid:aid,uid:uid,vcount:vcount,qvote:qvote});
+                                $http.post(sendTo,send).then(function(response){
+                                    $scope.vote = response.data.vote;
+                                    console.log(JSON.stringify(response));
+                                });
+                        };
+                        $scope.voteAns = function(token,qid,aid,uid,vcount,avote){
+                                var sendTo = "http://localhost:8082/StackExchangeREST/voteAnswer";
+                                var send = JSON.stringify({token:token,qid:qid,aid:aid,uid:uid,vcount:vcount,avote:avote});
+                                $http.post(sendTo,send).then(function(response){
+                                    $scope.vote = response.data.vote;
+                                    console.log(JSON.stringify(response));
+                                });
+                        };
+                    });
+                        
+                    </script>
 		<title>
 			answer - TuBes WBD
 		</title>
 	</head>
 
-	<body>
+	<body ng-app='comment' >
 
                 <div class ="text-right">
                     <a href="homepage.jsp"><h3>Logout</h3></a>
@@ -26,9 +86,9 @@
                                             StackExchange
                                     </a>
                                 <%}
-                                else
+                                else 
                                 {%>
-                                    <a class="no-text-decoration" href="homepagelogin.jsp?token=<%=t%>">
+                                    <a class="no-text-decoration" href="homepagelogin.jsp">
                                             StackExchange
                                     </a>
                                 <%}%>
@@ -46,9 +106,11 @@
                         // TODO process result here
                         java.util.List<questionmodel.Question> result = port.getQuestion();
                         int id = port.getUserID(t);
+                        int qid = Integer.valueOf(s);
+                        String uname = port.getUserName(t);
                         for (int i=0;i<result.size();i++) 
                         {
-                            if ( result.get(i).getQId() == Integer.valueOf(s))
+                            if ( result.get(i).getQId() == qid)
                             {      
                                 int count = port.getAnswerCount(result.get(i).getQId());
                                 out.println("<h1 class='text-left font30'>"+result.get(i).getQTopic()+"</h1>");
@@ -57,9 +119,11 @@
                                 out.println("<table class='table1'>");
                                 out.println("<tr>");
                                 out.println("<td class='tdnumber2 text-center'>");
-                                out.println("<a href='voteQue.jsp?id="+result.get(i).getQId()+"&token="+t+"&value=plus'><img class='image1' src='jpg/arrowup.jpg' alt='VoteUp'></a>");
-                                out.println("<br><br>"+result.get(i).getQVote()+"<br><br>");
-                                out.println("<a href='voteQue.jsp?id="+result.get(i).getQId()+"&token="+t+"&value=minus'><img class='image1' src='jpg/arrowdown.jpg' alt='VoteDown'><br>");
+                                out.println("<div ng-controller='voteCtrl'>");
+                                out.println("<a ng-model='vote' ng-init='vote= "+ result.get(i).getQVote() + ";'><img class='image1' src='jpg/arrowup.jpg' ng-click='voteQue(\""+t+"\", "+qid+", 0, "+id+", 1, "+result.get(i).getQVote()+");'></a>");
+                                out.println("<br><br>{{vote}}<br><br>");
+                                out.println("<a ng-model='vote'><img class='image1' src='jpg/arrowdown.jpg' ng-click='voteQue(\""+t+"\", "+qid+", 0, "+id+", -1, "+result.get(i).getQVote()+");'><br>");
+                                out.println("</div>");
                                 out.println("</td>");
                                 out.println("<td class='tdtopic text-left'>");
                                 out.println(result.get(i).getQContent());
@@ -73,9 +137,9 @@
                                     out.println("Asked by <span class='color-blue'>you</span>");
                                     out.println(" at <span>"+result.get(i).getQDate()+"</span>");
                                     out.println(" | ");
-                                    out.println("<a class'color-yellow' href='question.jsp?id="+result.get(i).getQId()+"&token="+t+"'> edit </a>");
+                                    out.println("<a class'color-yellow' href='question.jsp?id="+result.get(i).getQId()+"'> edit </a>");
                                     out.println(" | ");
-                                    out.println("<a class='color-red' href='deleteQuestion.jsp?id="+result.get(i).getQId()+"&token="+t+"'> delete </a>");
+                                    out.println("<a class='color-red' href='deleteQuestion.jsp?id="+result.get(i).getQId()+"'> delete </a>");
                                 }
                                 else
                                 {
@@ -84,6 +148,28 @@
                                 out.println("</p>");
                                 out.println("<br><hr>");
                                 out.println("</tr>");
+                                out.println("<tr>");
+                                out.println("<td colspan='2'class='text-left'>");
+                                out.println("<div ng-controller='commentCtrl'>");
+                                out.println("<a class='underline font30'>Add Comment</a><br><br>");
+                                out.println("<div class='text-center'>");
+                                out.println("<input class='form-textbox2' type='text' Placeholder='Comment' ng-model='content'>");
+                                out.println("<input ng-click='add(\""+t+"\", "+qid+", "+id+", content, \""+uname+"\");' class='form-submit' type='submit' name='submit' placeholder='Add'><br><br>");
+                                out.println("</div>");
+                                out.println("<div ng-repeat='comment in commentList'>");
+                                out.println("{{comment.c_content}}");
+                                out.println("<br>");
+                                out.println("{{' commented by '}}");
+                                out.println("<a class='color-blue'>");
+                                out.println("{{comment.u_name}}");
+                                out.println("</a>");
+                                out.println("{{' at ' + comment.c_time}}");
+                                out.println("<hr>");
+                                out.println("</div>");
+                                out.println("</div>");
+                                
+                                out.println("</tr>");
+                                out.println("</table>");
                             }
                         }
                     }
@@ -92,6 +178,8 @@
                         // TODO handle custom exceptions here
                     }
                 %> 
+                
+                
                 
             <%-- end web service invocation --%>
                 
@@ -126,9 +214,11 @@
                             {
                                 out.println("<tr>");
                                 out.println("<td class='tdnumber2 text-center'>");
-                                out.println("<a href='voteAns.jsp?aid="+result.get(i).getAId()+"&qid="+s+"&token="+t+"&value=plus'><img class='image1' src='jpg/arrowup.jpg' alt='VoteUp'></a>");
-                                out.println("<br><br>"+result.get(i).getAVote()+"<br><br>");
-                                out.println("<a href='voteAns.jsp?aid="+result.get(i).getAId()+"&qid="+s+"&token="+t+"&value=minus'><img class='image1' src='jpg/arrowdown.jpg' alt='VoteUp'></a>");
+                                out.println("<div ng-controller='voteCtrl'>");
+                                out.println("<a ng-model='vote' ng-init='vote= "+ result.get(i).getAVote() + ";'ng-click='voteAns(\""+t+"\", 0, "+result.get(i).getAId()+", "+id+", 1, "+result.get(i).getAVote()+");'><img class='image1' src='jpg/arrowup.jpg'></a>");
+                                out.println("<br><br>{{vote}}<br><br>");
+                                out.println("<a ng-model='vote' ng-click='voteAns(\""+t+"\", 0, "+result.get(i).getAId()+", "+id+", -1, "+result.get(i).getAVote()+");'><img class='image1' src='jpg/arrowdown.jpg'></a>");
+                                out.println("</div>");
                                 out.println("</td>");
                                 out.println("<td class='tdtopic text-left'>");
                                 out.println(result.get(i).getAContent());
@@ -142,9 +232,9 @@
                                     out.println("Answered by <span class='color-blue'>you</span>");
                                     out.println(" at <span>"+result.get(i).getADate()+"</span>");
                                     out.println(" | ");
-                                    out.println("<a class'color-yellow' href='answerlogin.jsp?id="+result.get(i).getQId()+"&token="+t+"'> edit </a>");
+                                    out.println("<a class'color-yellow' href='answerlogin.jsp?id="+result.get(i).getQId()+"'> edit </a>");
                                     out.println(" | ");
-                                    out.println("<a class='color-red' href='answerlogin.jsp?id="+result.get(i).getQId()+"&token="+t+"'> delete </a>");
+                                    out.println("<a class='color-red' href='answerlogin.jsp?id="+result.get(i).getQId()+"'> delete </a>");
                                 }
                                 else
                                 {
@@ -172,7 +262,7 @@
                 %>
             <%-- end web service invocation --%>
         
-            <form name="questionForm" action="insertAnswer.jsp?id=<%=s%>&token=<%=t%>" method="post" onsubmit="return validateQue()">
+            <form name="questionForm" action="insertAnswer.jsp?id=<%=s%>" method="post" onsubmit="return validateQue()">
                     <div class="text-left">
                         <br><br><br><br>
                         <h1>Do you know the answer of the question ?</h1>

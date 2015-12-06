@@ -8,7 +8,15 @@
 <!DOCTYPE html>
 <html>
     
-    <% String t = request.getParameter("token");%>
+    <% String t = "";
+            Cookie [] cookieArray = request.getCookies();
+            if(cookieArray != null){
+                    for (int j=0; j<cookieArray.length;j++){
+                        if(cookieArray[j].getName().equals("token")){
+                            t = cookieArray[j].getValue();
+                        }
+                    }
+                   }%>
     <% String id = request.getParameter("id");%>
     
     <head>
@@ -30,7 +38,7 @@
 	int result = port.deleteQuestion(accessToken, qid);
         if (result==1)
         {
-            response.sendRedirect("http://localhost:8080/StackExchangeFE/homepagelogin.jsp?token="+t);
+            response.sendRedirect("http://localhost:8080/StackExchangeFE/homepagelogin.jsp");
         }
         else
         {

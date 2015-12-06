@@ -10,7 +10,16 @@
 
 <html>
 
-        <% String t = request.getParameter("token");%> 
+        <% String t = "";
+            Cookie [] cookieArray = request.getCookies();
+            if(cookieArray != null){
+                    for (int j=0; j<cookieArray.length;j++){
+                        if(cookieArray[j].getName().equals("token")){
+                            t = cookieArray[j].getValue();
+                        }
+                    }
+                   }
+        %> 
     
 
 	<head>
@@ -32,14 +41,14 @@
 			</h1>
 		</div>
 		
-		<form action="homepagelogin.jsp?token=<%=t%>" method="GET">
+		<form action="homepagelogin.jsp" method="GET">
 			<input class="form-textbox2" type="text" name="search">
 			<input class="form-submit" type="submit" name="submit" value="Search">
 		</form>
 		
 		<p class="font20">
 			Cannot find what you are looking for ?
-			<a class="no-text-decoration color-red" href="question.jsp?token=<%=t%>">Ask here</a><br><br>
+			<a class="no-text-decoration color-red" href="question.jsp">Ask here</a><br><br>
 		</p>
 			
 		<h2 class="font20 text-left">
@@ -69,7 +78,7 @@
                                 out.println("<br><br>answers");
                                 out.println("</td>");
                                 out.println("<td class='tdtopic no-text-decoration text-left'>");
-                                out.println("<a href='answerlogin.jsp?id="+result.get(i).getQId()+"&token="+t+"'>"+result.get(i).getQTopic()+"<br><br></a>");
+                                out.println("<a href='answerlogin.jsp?id="+result.get(i).getQId()+"'>"+result.get(i).getQTopic()+"<br><br></a>");
                                 out.println("<br>"+result.get(i).getQContent()+"</br>");
                                 out.println("</tr>");
                                 out.println("<tr>");
@@ -79,9 +88,9 @@
                                 {
                                     out.println("Asked by <span class='color-blue'>you</span>");
                                     out.println(" | ");
-                                    out.println("<a class'color-yellow' href='question.jsp?id="+result.get(i).getQId()+"&token="+t+"'> edit </a>");
+                                    out.println("<a class'color-yellow' href='question.jsp?id="+result.get(i).getQId()+"'> edit </a>");
                                     out.println(" | ");
-                                    out.println("<a class='color-red' href='deleteQuestion.jsp?id="+result.get(i).getQId()+"&token="+t+"'> delete </a>");
+                                    out.println("<a class='color-red' href='deleteQuestion.jsp?id="+result.get(i).getQId()+"'> delete </a>");
                                 }
                                 else
                                 {

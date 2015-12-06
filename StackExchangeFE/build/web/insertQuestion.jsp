@@ -7,7 +7,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-        <% String t = request.getParameter("token");%>
+        <% String t = "";
+            Cookie [] cookieArray = request.getCookies();
+            if(cookieArray != null){
+                    for (int j=0; j<cookieArray.length;j++){
+                        if(cookieArray[j].getName().equals("token")){
+                            t = cookieArray[j].getValue();
+                        }
+                    }
+                    
+                   }%>
         
         <%String tit = request.getParameter("topic");%>
         <%String con = request.getParameter("content");%>
@@ -38,7 +47,7 @@
                 int result = port.insertQuestion(accessToken, title, content, id, n, e);
                 if (result==1)
                 {
-                    response.sendRedirect("http://localhost:8080/StackExchangeFE/homepagelogin.jsp?token="+t);
+                    response.sendRedirect("http://localhost:8080/StackExchangeFE/homepagelogin.jsp");
                 }
                 else
                 {
