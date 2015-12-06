@@ -69,7 +69,10 @@ public class testrestservlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
         String encodedUrl = URLEncoder.encode(access_token, "UTF-8");
+=======
+>>>>>>> 4df0728f23fffc49d188659f63c70f6ff0d862ee
         System.out.println("MASUK do GET testrestjava");
         //processRequest(request, response);
         PrintWriter out = response.getWriter();
@@ -97,6 +100,7 @@ public class testrestservlet extends HttpServlet {
             out.println("expired");
             response.sendRedirect("http://localhost:8082/WBD_IS/login.jsp?value=expired");
             }
+<<<<<<< HEAD
             else if (comp == 1){
             out.println("valid");
             query = "UPDATE token SET t_time = now() + INTERVAL 1 MINUTE WHERE t_token = ?";
@@ -105,6 +109,13 @@ public class testrestservlet extends HttpServlet {
             }
             else{
             out.println("kosong");
+=======
+            else{
+            out.println("valid");
+            query = "UPDATE token SET t_time = now() + INTERVAL 1 MINUTE WHERE t_token = ?";
+            preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setString(1, temp_token);
+>>>>>>> 4df0728f23fffc49d188659f63c70f6ff0d862ee
             }
             //execute prepared statement
             preparedStmt.executeUpdate();
@@ -161,6 +172,7 @@ public class testrestservlet extends HttpServlet {
                   // String access_token_full = new BigInteger(130, random).toString(32);
                   // access_token = access_token_full.substring(0, 7);
                    access_token= UUID.randomUUID().toString();
+<<<<<<< HEAD
                    access_ua=request.getHeader("user-agent");
                    access_ip=request.getHeader("X-FORWARDED-FOR");
                     if (access_ip == null || access_ip.length() == 0 || "unknown".equalsIgnoreCase(access_ip)){
@@ -197,12 +209,19 @@ public class testrestservlet extends HttpServlet {
                     }
                    }
                    
+=======
+>>>>>>> 4df0728f23fffc49d188659f63c70f6ff0d862ee
                     HttpSession session = request.getSession();
                     query = "REPLACE into token (u_id,t_token,t_time) VALUES (? , ?, now() + INTERVAL 1 MINUTE) ";
                     preparedStmt = conn.prepareStatement(query);
                     preparedStmt.setString(1,userid);
+<<<<<<< HEAD
                     preparedStmt.setString(2,encodedUrl);
                     response.sendRedirect("http://localhost:8080/StackExchangeFE/homepagelogin.jsp");
+=======
+                    preparedStmt.setString(2,access_token);
+                    response.sendRedirect("http://localhost:8080/StackExchangeFE/homepagelogin.jsp?token="+access_token);
+>>>>>>> 4df0728f23fffc49d188659f63c70f6ff0d862ee
                     
             }
             

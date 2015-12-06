@@ -24,7 +24,11 @@ Diharapkan dengan tugas ini anda dapat mengerti:
 
 ### Link Laporan
 
+<<<<<<< HEAD
 https://www.dropbox.com/s/0dtb3wl2265m5c1/benisnowhere-LaporanTugas3.pdf?dl=0
+=======
+https://www.dropbox.com/s/4k9djl9ibi3v17x/Laporan-benisnowhere.pdf?dl=0
+>>>>>>> 4df0728f23fffc49d188659f63c70f6ff0d862ee
 
 ### Arsitektur Umum Server
 

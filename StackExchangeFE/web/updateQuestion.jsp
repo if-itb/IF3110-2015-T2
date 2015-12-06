@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
     
+<<<<<<< HEAD
         <%String t = "";
             Cookie [] cookieArray = request.getCookies();
             if(cookieArray != null){
@@ -17,6 +18,9 @@
                         }
                     }
                    }%>
+=======
+        <% String t = request.getParameter("token");%>
+>>>>>>> 4df0728f23fffc49d188659f63c70f6ff0d862ee
         <% String s = request.getParameter("id");%>
         
         <%String tit = request.getParameter("topic");%>
@@ -50,7 +54,11 @@
                 int result = port.updateQuestion(accessToken, id, uid, topic, content);
                 if (result==1)
                 {
+<<<<<<< HEAD
                     response.sendRedirect("http://localhost:8080/StackExchangeFE/homepagelogin.jsp");
+=======
+                    response.sendRedirect("http://localhost:8080/StackExchangeFE/homepagelogin.jsp?token="+t);
+>>>>>>> 4df0728f23fffc49d188659f63c70f6ff0d862ee
                 }
                 else
                 {

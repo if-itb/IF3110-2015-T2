@@ -119,11 +119,17 @@
                                 out.println("<table class='table1'>");
                                 out.println("<tr>");
                                 out.println("<td class='tdnumber2 text-center'>");
+<<<<<<< HEAD
                                 out.println("<div ng-controller='voteCtrl'>");
                                 out.println("<a ng-model='vote' ng-init='vote= "+ result.get(i).getQVote() + ";'><img class='image1' src='jpg/arrowup.jpg' ng-click='voteQue(\""+t+"\", "+qid+", 0, "+id+", 1, "+result.get(i).getQVote()+");'></a>");
                                 out.println("<br><br>{{vote}}<br><br>");
                                 out.println("<a ng-model='vote'><img class='image1' src='jpg/arrowdown.jpg' ng-click='voteQue(\""+t+"\", "+qid+", 0, "+id+", -1, "+result.get(i).getQVote()+");'><br>");
                                 out.println("</div>");
+=======
+                                out.println("<a href='voteQue.jsp?id="+result.get(i).getQId()+"&token="+t+"&value=plus'><img class='image1' src='jpg/arrowup.jpg' alt='VoteUp'></a>");
+                                out.println("<br><br>"+result.get(i).getQVote()+"<br><br>");
+                                out.println("<a href='voteQue.jsp?id="+result.get(i).getQId()+"&token="+t+"&value=minus'><img class='image1' src='jpg/arrowdown.jpg' alt='VoteDown'><br>");
+>>>>>>> 4df0728f23fffc49d188659f63c70f6ff0d862ee
                                 out.println("</td>");
                                 out.println("<td class='tdtopic text-left'>");
                                 out.println(result.get(i).getQContent());
@@ -137,9 +143,9 @@
                                     out.println("Asked by <span class='color-blue'>you</span>");
                                     out.println(" at <span>"+result.get(i).getQDate()+"</span>");
                                     out.println(" | ");
-                                    out.println("<a class'color-yellow' href='question.jsp?id="+result.get(i).getQId()+"'> edit </a>");
+                                    out.println("<a class'color-yellow' href='question.jsp?id="+result.get(i).getQId()+"&token="+t+"'> edit </a>");
                                     out.println(" | ");
-                                    out.println("<a class='color-red' href='deleteQuestion.jsp?id="+result.get(i).getQId()+"'> delete </a>");
+                                    out.println("<a class='color-red' href='deleteQuestion.jsp?id="+result.get(i).getQId()+"&token="+t+"'> delete </a>");
                                 }
                                 else
                                 {
@@ -214,11 +220,17 @@
                             {
                                 out.println("<tr>");
                                 out.println("<td class='tdnumber2 text-center'>");
+<<<<<<< HEAD
                                 out.println("<div ng-controller='voteCtrl'>");
                                 out.println("<a ng-model='vote' ng-init='vote= "+ result.get(i).getAVote() + ";'ng-click='voteAns(\""+t+"\", 0, "+result.get(i).getAId()+", "+id+", 1, "+result.get(i).getAVote()+");'><img class='image1' src='jpg/arrowup.jpg'></a>");
                                 out.println("<br><br>{{vote}}<br><br>");
                                 out.println("<a ng-model='vote' ng-click='voteAns(\""+t+"\", 0, "+result.get(i).getAId()+", "+id+", -1, "+result.get(i).getAVote()+");'><img class='image1' src='jpg/arrowdown.jpg'></a>");
                                 out.println("</div>");
+=======
+                                out.println("<a href='voteAns.jsp?aid="+result.get(i).getAId()+"&qid="+s+"&token="+t+"&value=plus'><img class='image1' src='jpg/arrowup.jpg' alt='VoteUp'></a>");
+                                out.println("<br><br>"+result.get(i).getAVote()+"<br><br>");
+                                out.println("<a href='voteAns.jsp?aid="+result.get(i).getAId()+"&qid="+s+"&token="+t+"&value=minus'><img class='image1' src='jpg/arrowdown.jpg' alt='VoteUp'></a>");
+>>>>>>> 4df0728f23fffc49d188659f63c70f6ff0d862ee
                                 out.println("</td>");
                                 out.println("<td class='tdtopic text-left'>");
                                 out.println(result.get(i).getAContent());
@@ -232,9 +244,15 @@
                                     out.println("Answered by <span class='color-blue'>you</span>");
                                     out.println(" at <span>"+result.get(i).getADate()+"</span>");
                                     out.println(" | ");
+<<<<<<< HEAD
                                     out.println("<a class'color-yellow' href='answerlogin.jsp?id="+result.get(i).getQId()+"'> edit </a>");
                                     out.println(" | ");
                                     out.println("<a class='color-red' href='answerlogin.jsp?id="+result.get(i).getQId()+"'> delete </a>");
+=======
+                                    out.println("<a class'color-yellow' href='answerlogin.jsp?id="+result.get(i).getQId()+"&token="+t+"'> edit </a>");
+                                    out.println(" | ");
+                                    out.println("<a class='color-red' href='answerlogin.jsp?id="+result.get(i).getQId()+"&token="+t+"'> delete </a>");
+>>>>>>> 4df0728f23fffc49d188659f63c70f6ff0d862ee
                                 }
                                 else
                                 {
@@ -262,7 +280,11 @@
                 %>
             <%-- end web service invocation --%>
         
+<<<<<<< HEAD
             <form name="questionForm" action="insertAnswer.jsp?id=<%=s%>" method="post" onsubmit="return validateQue()">
+=======
+            <form name="questionForm" action="insertAnswer.jsp?id=<%=s%>&token=<%=t%>" method="post" onsubmit="return validateQue()">
+>>>>>>> 4df0728f23fffc49d188659f63c70f6ff0d862ee
                     <div class="text-left">
                         <br><br><br><br>
                         <h1>Do you know the answer of the question ?</h1>

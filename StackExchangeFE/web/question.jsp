@@ -46,7 +46,11 @@
 
 		<% if (s==null || s.isEmpty()) 
                 { %>
+<<<<<<< HEAD
                     <form name="questionForm" action="insertQuestion.jsp" method="post" onsubmit="return validateQue()">
+=======
+                    <form name="questionForm" action="insertQuestion.jsp?id=<%=s%>&token=<%=t%>" method="post" onsubmit="return validateQue()">
+>>>>>>> 4df0728f23fffc49d188659f63c70f6ff0d862ee
                              <div class="text-left">
                                 <input class="form-textbox" type="text" name="topic" placeholder="Question Topic"><br><br>
                                 <textarea name="content" placeholder="Content"></textarea><br><br>
@@ -78,9 +82,13 @@
                         {
                             if ( result.get(i).getQId() == Integer.valueOf(s))
                             {
-                                out.println("<form name='questionForm' action='updateQuestion.jsp?id="+result.get(i).getQId()+"' method='post' onsubmit='return validateQue()'>");
+                                out.println("<form name='questionForm' action='updateQuestion.jsp?id="+result.get(i).getQId()+"&token="+t+"' method='post' onsubmit='return validateQue()'>");
                                 out.println("<div class='text-left'>");
+<<<<<<< HEAD
                                    out.println("<input class='form-textbox' type='text' name='topic' value="+result.get(i).getQTopic()+"><br><br>");
+=======
+                                   out.println("<input class='form-textbox' type='text' name='topic' value="+result.get(i).getQTopic()+"'><br><br>");
+>>>>>>> 4df0728f23fffc49d188659f63c70f6ff0d862ee
                                    out.println("<textarea name='content'>"+result.get(i).getQContent()+"</textarea><br><br>");
                                 out.println("</div>");
                                 out.println("<div class='text-right'>");
